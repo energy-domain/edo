@@ -3,7 +3,7 @@
 
 ---
 
-## **🌟 Executive Summary (1-Page CEO Brief)**  
+## **🌟 Executive Summary**  
 **Problem**:  
 - *"40% of energy asset delays stem from inconsistent data across design/operation teams (McKinsey, 2023)."*  
 
