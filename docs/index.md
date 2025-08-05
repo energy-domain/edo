@@ -72,8 +72,8 @@ EDO serves as the foundation for generating **Technical Specifications** to ensu
 ---
 
 ## License & Access
-- **Repository**: [GitHub](https://github.com/[your-repo])  
-- **Permanent URI**: [https://w3id.org/energy-domain/edo](https://w3id.org/energy-domain/edo)  
+- **Repository**: [GitHub](https://github.com/energy-domain/ontologies)  
+- **Permanent URI**: [https://w3id.org/energy-domain/core](https://w3id.org/energy-domain/core)  
 - **License**: Open-source (specify license, e.g., MIT).  
 
 ---
