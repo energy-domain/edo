@@ -80,5 +80,5 @@ EDO serves as the foundation for generating **Technical Specifications** to ensu
 
 ## Get Involved
 - **Review**: Access HTML docs via [GitHub Pages](https://energy-domain.github.io/ontologies).  
-- **Contribute**: Submit feedback via [GitHub Issues](https://github.com/energy-domain/ontologies/issues).  
+- **Contribute**: Submit feedback via [GitHub Issues](https://github.com/[your-repo]/issues).  
 - **Contact**: [Your team email/contact form].  
