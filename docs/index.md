@@ -2,7 +2,7 @@
 
 Welcome to the official documentation of the **Energy Domain Ontology (EDO)**. This ontology serves as a semantic framework for the structured representation, exchange, and validation of information across the full lifecycle of assets in the energy sector.
 
-**Namespace:** [`https://w3id.org/energy-domain/edo`](https://w3id.org/energy-domain/edo)  
+**Namespace:** [`https://w3id.org/energy-domain/core`](https://w3id.org/energy-domain/edo)  
 **Prefix:** `edo:`  
 **Stable Releases:** Hosted on GitHub and Zenodo with permanent URLs via [w3id.org](https://w3id.org)
 
@@ -18,7 +18,7 @@ EDO enables:
 - Specification of data delivery requirements in open formats such as IFC.
 - Support for project validation and compliance using SHACL and IDS.
 - Foundation for extensions to the IFC standard for the energy sector.
-- Alignment with global standards such as ISO 15926 and CFIHOS.
+- Roadmap for alignment with global standards such as ISO 15926 and CFIHOS.
 
 EDO is developed openly, with contributions and reviews from specialists across engineering disciplines and energy subdomains. A versioned, peer-reviewed core ontology is maintained, from which stable subontologies are derived for each sector and discipline.
 
@@ -40,14 +40,16 @@ EDO covers information flows across all lifecycle phases:
 
 ### Subdomains Covered
 
-#### 1. Oil & Gas  
+#### Oil & Gas  
 - **Upstream:** Offshore platforms  
 - **Downstream:** Refineries  
 - **Subsea:** Subsea Wet Christmas Trees, Manifolds, Flexible and Rigid Risers and Flowlines, Umbilicals
 
-#### 2. Other Energy Sectors  
-- **Nuclear:** Power generation facilities  
-- **Renewables:** Renewable energy plants
+#### Renewables
+- Solar, Wind and other energy plants
+
+#### Nuclear
+- Power generation facilities
 
 ### Technical Disciplines Included
 
@@ -63,7 +65,7 @@ EDO covers information flows across all lifecycle phases:
 
 ## 🧠 Ontology Modelling Strategy
 
-EDO is modelled incrementally using [Protégé](https://protege.stanford.edu/), following best practices in OWL and Linked Data. It is structured as:
+EDO is modelled incrementally using [Protégé](https://protege.stanford.edu/), following best practices in Semantic Web and Linked Data. It is structured as:
 
 ### Core Ontology
 
