@@ -11,10 +11,11 @@
 - **Technical**: OWL-based framework with lifecycle-aware properties (`asDesigned` → `asOperated`).  
 - **Strategic**: Reduces BIM rework by 30% (pilot data) and accelerates ISO 15926 adoption.  
 
-**Visual**:  
-```mermaid  
-pie  
-    title Data Silos Addressed by EDO  
-    "Design" : 35  
-    "Operations" : 45  
-    "Decommissioning" : 20  
+**Visual**:
+```mermaid
+pie
+    title Data Silos Addressed by EDO
+    "Design": 35
+    "Operations": 45
+    "Decommissioning": 20
+```
