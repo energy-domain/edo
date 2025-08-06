@@ -46,7 +46,7 @@ EDO covers information flows across all lifecycle phases:
 - **Subsea:** Subsea Wet Christmas Trees, Manifolds, Flexible and Rigid Risers and Flowlines, Umbilicals
 
 #### Renewables
-- Solar, Wind and other energy plants
+- Solar, Wind, Hydropower, Biomass and other energy plants
 
 #### Nuclear
 - Power generation facilities
