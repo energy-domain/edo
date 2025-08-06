@@ -111,7 +111,7 @@ They are versioned using semantic versioning and hosted at:
 
 All modelling and publication steps are transparent and open to stakeholder review. A collaborative workflow is implemented through **GitHub Issues**, where experts can:
 
-- Comment on individual ontology entities (classes and properties)
+- Comment on individual ontology entities (Assets, Attributes, Relationships)
 - Suggest modifications
 - Participate in approval workflows
 
