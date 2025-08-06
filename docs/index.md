@@ -18,7 +18,7 @@ EDO enables:
 - Specification of data delivery requirements in open formats such as IFC.
 - Support for project validation and compliance using SHACL and IDS.
 - Foundation for extensions to the IFC standard for the energy sector.
-- Roadmap for alignment with global standards such as ISO 15926 and CFIHOS.
+- Roadmap for interoperability alignment with global standards such as ISO 15926 and CFIHOS.
 
 EDO is developed openly, with contributions and reviews from specialists across engineering disciplines and energy subdomains. A versioned, peer-reviewed core ontology is maintained, from which stable subontologies are derived for each sector and discipline.
 
