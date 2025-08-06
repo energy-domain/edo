@@ -65,7 +65,11 @@ EDO covers information flows across all lifecycle phases:
 
 ## 🧠 Ontology Modelling Strategy
 
-EDO is modelled incrementally using [Protégé](https://protege.stanford.edu/), following best practices in Semantic Web and Linked Data. It is structured as:
+- **Modelling Approach:** The Energy Domain Ontology is developed incrementally using [Protégé](https://protege.stanford.edu/).
+- **Guidelines:** The process follows Semantic Web and Linked Data best practices, along with OWL Design Principles.  
+- **Consistency:** Restriction-based patterns are applied to ensure logical coherence.
+
+It is structured as:
 
 ### Core Ontology
 
