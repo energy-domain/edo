@@ -139,8 +139,8 @@ EDO supports various technical applications, including:
 ### IFC Interoperability
 
 - Rule-based generation of IFC data using ontology-driven specifications
-- Support for translators between IFC and other formats
-- Guidance for extending IFC for energy-specific classes and attributes
+- Potential future support for translators between IFC and other formats
+- Guidance for extending IFC for energy-specific classes and properties
 
 ### Project Validation
 
