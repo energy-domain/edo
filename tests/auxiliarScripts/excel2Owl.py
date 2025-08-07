@@ -1,3 +1,5 @@
+# Created with Google Gemini - first version in 2025/08/07
+
 import pandas as pd
 import requests
 from rdflib import Graph, URIRef, Literal, Namespace
