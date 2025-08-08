@@ -33,10 +33,13 @@ These are the minimal information about any entity, its type and its super class
 ```
 
 ##### 3. Object Attributes associations (Assets attributes)
+### Method 1:
 ```turtle
 :EndFitting :hasAttribute :AbsoluteInsidePressure .
 :EndFitting :hasAttribute :AbsoluteInsideTemperature .
 ```
+### Method 2:
+:EndFitting :hasAttribute :AbsoluteInsidePressure , :AbsoluteInsideTemperature .
 
 _VSCode example_
 ![VSCode example](add_attribute.png)
