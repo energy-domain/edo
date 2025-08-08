@@ -5,8 +5,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix qudt: <http://qudt.org/schema/qudt/> .
-@prefix unit: <http://qudt.org/vocab/unit/> .
 @base <https://w3id.org/energy-domain/edo#> .
 
 <https://w3id.org/energy-domain/edo> rdf:type owl:Ontology ;
@@ -26,6 +24,26 @@ dcterms:description rdf:type owl:AnnotationProperty .
 
 ###  http://purl.org/dc/terms/title
 dcterms:title rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#maxCardinality
+owl:maxCardinality rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#minCardinality
+owl:minCardinality rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#time
+xsd:time rdf:type rdfs:Datatype .
 
 
 #################################################################
@@ -48,160 +66,25 @@ dcterms:title rdf:type owl:AnnotationProperty .
 
 
 #################################################################
-#    Classes
+#    Data properties
 #################################################################
 
-:DomainAuxiliarClass rdf:type owl:Class.
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#value
+rdf:value rdf:type owl:DatatypeProperty .
 
-:singleValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Single Value"@en ;
-    rdfs:comment "Constraint ensuring only one value (not a list)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:maxCardinality 1  # Only one value
-    ] .
 
-:multiValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Multiple Values"@en ;
-    rdfs:comment "Constraint allowing multiple values (RDF list)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:minCardinality 1  # At least one value
-    ] .
-
-### XSD Datatype Constraint Classes ###
-
-## Numeric Types ##
-:floatValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Float Value"@en ;
-    rdfs:comment "Constraint for xsd:float (32-bit floating point)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:float
-    ] .
-
-:doubleValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Double Value"@en ;
-    rdfs:comment "Constraint for xsd:double (64-bit floating point)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:double
-    ] .
-
-:intValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Integer Value"@en ;
-    rdfs:comment "Constraint for xsd:int (32-bit integer)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:int
-    ] .
-
-:longValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Long Value"@en ;
-    rdfs:comment "Constraint for xsd:long (64-bit integer)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:long
-    ] .
-
-:decimalValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Decimal Value"@en ;
-    rdfs:comment "Constraint for xsd:decimal (arbitrary precision numbers)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:decimal
-    ] .
-
-## Text/Boolean Types ##
-:stringValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "String Value"@en ;
-    rdfs:comment "Constraint for xsd:string (character strings)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:string
-    ] .
-
-:booleanValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Boolean Value"@en ;
-    rdfs:comment "Constraint for xsd:boolean (true/false)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:boolean
-    ] .
-
-## Date/Time Types ##
-:dateValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Date Value"@en ;
-    rdfs:comment "Constraint for xsd:date (calendar dates)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:date
-    ] .
-
-:dateTimeValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "DateTime Value"@en ;
-    rdfs:comment "Constraint for xsd:dateTime (timestamps)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:dateTime
-    ] .
-
-:timeValue a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Time Value"@en ;
-    rdfs:comment "Constraint for xsd:time (time of day)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:time
-    ] .
-
-## Specialized Types ##
-:anyURIType a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "URI Value"@en ;
-    rdfs:comment "Constraint for xsd:anyURI (URIs/IRIs)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:anyURI
-    ] .
-
-:base64BinaryType a owl:Class ;
-    rdfs:subClassOf :DomainAuxiliarClass ;
-    rdfs:label "Base64 Binary"@en ;
-    rdfs:comment "Constraint for xsd:base64Binary (binary data)"@en ;
-    owl:equivalentClass [
-        a owl:Restriction ;
-        owl:onProperty rdf:value ;
-        owl:allValuesFrom xsd:base64Binary
-    ] .
+#################################################################
+#    Classes
+#################################################################
 
 ###  https://w3id.org/energy-domain/edo#AbsoluteInsidePressure
 :AbsoluteInsidePressure rdf:type owl:Class ;
                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AbsoluteOutsidePressure
+:AbsoluteOutsidePressure rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Accessory
@@ -234,6 +117,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
                 rdfs:subClassOf :SplitCollar .
 
 
+###  https://w3id.org/energy-domain/edo#AnodeCollarsAxialSpacing
+:AnodeCollarsAxialSpacing rdf:type owl:Class ;
+                          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AnodeCollarsQuantity
+:AnodeCollarsQuantity rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#AnodeSled
 :AnodeSled rdf:type owl:Class ;
            rdfs:subClassOf :Structure .
@@ -259,6 +152,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
              rdfs:subClassOf :WoundLayer .
 
 
+###  https://w3id.org/energy-domain/edo#AssemblyShouldObeyModelPolarity
+:AssemblyShouldObeyModelPolarity rdf:type owl:Class ;
+                                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AssemblyTorque
+:AssemblyTorque rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#Asset
 :Asset rdf:type owl:Class ;
        rdfs:subClassOf :DomainObject .
@@ -269,9 +172,44 @@ dcterms:title rdf:type owl:AnnotationProperty .
                  rdfs:subClassOf :SubseaEquipment .
 
 
+###  https://w3id.org/energy-domain/edo#AxialStiffnessUnderCompressionAtSeaLevel
+:AxialStiffnessUnderCompressionAtSeaLevel rdf:type owl:Class ;
+                                          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AxialStiffnessUnderTensionAtSeaLevel
+:AxialStiffnessUnderTensionAtSeaLevel rdf:type owl:Class ;
+                                      rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#BOP
 :BOP rdf:type owl:Class ;
      rdfs:subClassOf :PressureEquipment .
+
+
+###  https://w3id.org/energy-domain/edo#BasicProjectRevision
+:BasicProjectRevision rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable
+:BendMomentVsShearForceTable rdf:type owl:Class ;
+                             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_BendingMoment
+:BendMomentVsShearForceTable_BendingMoment rdf:type owl:Class ;
+                                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_Condition
+:BendMomentVsShearForceTable_Condition rdf:type owl:Class ;
+                                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_ShearForce
+:BendMomentVsShearForceTable_ShearForce rdf:type owl:Class ;
+                                        rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#BendRestrictor
@@ -284,6 +222,21 @@ dcterms:title rdf:type owl:AnnotationProperty .
                rdfs:subClassOf :LineAncillary .
 
 
+###  https://w3id.org/energy-domain/edo#BendingMomentTable
+:BendingMomentTable rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#BendingMomentTable_BendingMoment
+:BendingMomentTable_BendingMoment rdf:type owl:Class ;
+                                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#BendingMomentTable_Curvature
+:BendingMomentTable_Curvature rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#BlockValve
 :BlockValve rdf:type owl:Class ;
             rdfs:subClassOf :ActuatedValve .
@@ -294,6 +247,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
          rdfs:subClassOf :PhysicalConnection .
 
 
+###  https://w3id.org/energy-domain/edo#BoreDiameter
+:BoreDiameter rdf:type owl:Class ;
+              rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#BuoyancyModule
 :BuoyancyModule rdf:type owl:Class ;
                 rdfs:subClassOf :LineAncillary .
@@ -302,6 +260,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#BuoyancyTank
 :BuoyancyTank rdf:type owl:Class ;
               rdfs:subClassOf :SubseaEquipment .
+
+
+###  https://w3id.org/energy-domain/edo#CO2VolumePercentage
+:CO2VolumePercentage rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CalculatedAbsoluteBurstPressure
+:CalculatedAbsoluteBurstPressure rdf:type owl:Class ;
+                                 rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#CarcassLayer
@@ -337,6 +305,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#ChokeValve
 :ChokeValve rdf:type owl:Class ;
             rdfs:subClassOf :ActuatedValve .
+
+
+###  https://w3id.org/energy-domain/edo#ClampInternalDiameter
+:ClampInternalDiameter rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CollarInternalDiameter
+:CollarInternalDiameter rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#CommissioningActivity
@@ -432,6 +410,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
                  rdfs:subClassOf :Component .
 
 
+###  https://w3id.org/energy-domain/edo#CompositeLayerMaterialType
+:CompositeLayerMaterialType rdf:type owl:Class ;
+                            rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#CompositeMaterial
 :CompositeMaterial rdf:type owl:Class ;
                    rdfs:subClassOf :FlexibleStructureLayerMaterial .
@@ -447,9 +430,34 @@ dcterms:title rdf:type owl:AnnotationProperty .
                   rdfs:subClassOf :LineTerminationModule .
 
 
+###  https://w3id.org/energy-domain/edo#Content
+:Content rdf:type owl:Class ;
+         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#Creator
+:Creator rdf:type owl:Class ;
+         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CreatorId
+:CreatorId rdf:type owl:Class ;
+           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CriticalCurvatureOfSlipping
+:CriticalCurvatureOfSlipping rdf:type owl:Class ;
+                             rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#CrossoverModule
 :CrossoverModule rdf:type owl:Class ;
                  rdfs:subClassOf :FlowControlModule .
+
+
+###  https://w3id.org/energy-domain/edo#DamagingPullInStraightLine
+:DamagingPullInStraightLine rdf:type owl:Class ;
+                            rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#DeadweightCollar
@@ -462,9 +470,44 @@ dcterms:title rdf:type owl:AnnotationProperty .
                      rdfs:subClassOf :Accessory .
 
 
+###  https://w3id.org/energy-domain/edo#DiffusionTable
+:DiffusionTable rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DiffusionTable_DiffusionCoefficient
+:DiffusionTable_DiffusionCoefficient rdf:type owl:Class ;
+                                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DiffusionTable_MoleculeIdentifier
+:DiffusionTable_MoleculeIdentifier rdf:type owl:Class ;
+                                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DiffusionTable_PolymerState
+:DiffusionTable_PolymerState rdf:type owl:Class ;
+                             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DiffusionTable_Temperature
+:DiffusionTable_Temperature rdf:type owl:Class ;
+                            rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DimensioningCriteria
+:DimensioningCriteria rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#DimensionsDrawing
 :DimensionsDrawing rdf:type owl:Class ;
                    rdfs:subClassOf :ReferenceDrawing .
+
+
+###  https://w3id.org/energy-domain/edo#DisplacedVolume
+:DisplacedVolume rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#DistributionConnectionPoint
@@ -481,6 +524,10 @@ dcterms:title rdf:type owl:AnnotationProperty .
 :DomainAttribute rdf:type owl:Class .
 
 
+###  https://w3id.org/energy-domain/edo#DomainAuxiliarClass
+:DomainAuxiliarClass rdf:type owl:Class .
+
+
 ###  https://w3id.org/energy-domain/edo#DomainObject
 :DomainObject rdf:type owl:Class .
 
@@ -490,9 +537,104 @@ dcterms:title rdf:type owl:AnnotationProperty .
             rdfs:subClassOf :Anchor .
 
 
+###  https://w3id.org/energy-domain/edo#DrawingDimensionsTable
+:DrawingDimensionsTable rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionDescription
+:DrawingDimensionsTable_DimensionDescription rdf:type owl:Class ;
+                                             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionName
+:DrawingDimensionsTable_DimensionName rdf:type owl:Class ;
+                                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionUnit
+:DrawingDimensionsTable_DimensionUnit rdf:type owl:Class ;
+                                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionValue
+:DrawingDimensionsTable_DimensionValue rdf:type owl:Class ;
+                                       rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#DynamicUmbilicalSpan
 :DynamicUmbilicalSpan rdf:type owl:Class ;
                       rdfs:subClassOf :UmbilicalSpan .
+
+
+###  https://w3id.org/energy-domain/edo#EModVsTempTable_ElasticityModulus
+:EModVsTempTable_ElasticityModulus rdf:type owl:Class ;
+                                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_Press
+:EarlyLeakMaxPressTable_Press rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressIntValStrat
+:EarlyLeakMaxPressTable_PressIntValStrat rdf:type owl:Class ;
+                                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressValRef
+:EarlyLeakMaxPressTable_PressValRef rdf:type owl:Class ;
+                                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressValRefMult
+:EarlyLeakMaxPressTable_PressValRefMult rdf:type owl:Class ;
+                                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_TensLimit
+:EarlyLeakMaxPressTable_TensLimit rdf:type owl:Class ;
+                                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_TensLimitValRef
+:EarlyLeakMaxPressTable_TensLimitValRef rdf:type owl:Class ;
+                                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_Press
+:EarlyLeakNomPressTable_Press rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressIntValStrat
+:EarlyLeakNomPressTable_PressIntValStrat rdf:type owl:Class ;
+                                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressValRef
+:EarlyLeakNomPressTable_PressValRef rdf:type owl:Class ;
+                                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressValRefMult
+:EarlyLeakNomPressTable_PressValRefMult rdf:type owl:Class ;
+                                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_TensLimit
+:EarlyLeakNomPressTable_TensLimit rdf:type owl:Class ;
+                                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_TensLimitValRef
+:EarlyLeakNomPressTable_TensLimitValRef rdf:type owl:Class ;
+                                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ElasticityModulusAt23Degrees
+:ElasticityModulusAt23Degrees rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#ElectricalCable
@@ -530,6 +672,21 @@ dcterms:title rdf:type owl:AnnotationProperty .
                    rdfs:subClassOf :PointLocation .
 
 
+###  https://w3id.org/energy-domain/edo#ErosionalVelocity
+:ErosionalVelocity rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ExecutiveProjectRevision
+:ExecutiveProjectRevision rdf:type owl:Class ;
+                          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ExternalDiameter
+:ExternalDiameter rdf:type owl:Class ;
+                  rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#FSHRLowerAssembly
 :FSHRLowerAssembly rdf:type owl:Class ;
                    rdfs:subClassOf :FlowControlEquipment .
@@ -545,6 +702,36 @@ dcterms:title rdf:type owl:AnnotationProperty .
             rdfs:subClassOf :TapeLayer .
 
 
+###  https://w3id.org/energy-domain/edo#FatMaxPress
+:FatMaxPress rdf:type owl:Class ;
+             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FatMaxPressValRef
+:FatMaxPressValRef rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FatMaxPressValRefMult
+:FatMaxPressValRefMult rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FatNomPress
+:FatNomPress rdf:type owl:Class ;
+             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FatNomPressValRef
+:FatNomPressValRef rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FatNomPressValRefMult
+:FatNomPressValRefMult rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#FiberOpticJumper
 :FiberOpticJumper rdf:type owl:Class ;
                   rdfs:subClassOf :LinearObject .
@@ -558,6 +745,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#Filler
 :Filler rdf:type owl:Class ;
         rdfs:subClassOf :UmbilicalComponent .
+
+
+###  https://w3id.org/energy-domain/edo#FlangeFaceType
+:FlangeFaceType rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FlangeType
+:FlangeType rdf:type owl:Class ;
+            rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#FlexiblePipeSegment
@@ -578,6 +775,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#FlexibleStructureLayerMaterial
 :FlexibleStructureLayerMaterial rdf:type owl:Class ;
                                 rdfs:subClassOf :DomainObject .
+
+
+###  https://w3id.org/energy-domain/edo#FlexibleStructureServicesList
+:FlexibleStructureServicesList rdf:type owl:Class ;
+                               rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#FloatingProductionUnit
@@ -620,9 +822,59 @@ dcterms:title rdf:type owl:AnnotationProperty .
               rdfs:subClassOf :PipelineSpan .
 
 
+###  https://w3id.org/energy-domain/edo#FractureToughness
+:FractureToughness rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FrictionCoefBetweenPipeAndTensioner
+:FrictionCoefBetweenPipeAndTensioner rdf:type owl:Class ;
+                                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FrictionCoefficientTighteningTable
+:FrictionCoefficientTighteningTable rdf:type owl:Class ;
+                                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FrictionCoefficientTighteningTable_CoefficientOfFriction
+:FrictionCoefficientTighteningTable_CoefficientOfFriction rdf:type owl:Class ;
+                                                          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FrictionCoefficientTighteningTable_TighteningPerTrack
+:FrictionCoefficientTighteningTable_TighteningPerTrack rdf:type owl:Class ;
+                                                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#FullyThreaded
+:FullyThreaded rdf:type owl:Class ;
+               rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#FunctionLine
 :FunctionLine rdf:type owl:Class ;
               rdfs:subClassOf :UmbilicalComponent .
+
+
+###  https://w3id.org/energy-domain/edo#GalvanicMaterial
+:GalvanicMaterial rdf:type owl:Class ;
+                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#GrooveDiameter
+:GrooveDiameter rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#GrooveHeight
+:GrooveHeight rdf:type owl:Class ;
+              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#GrooveMinimumSupportArea
+:GrooveMinimumSupportArea rdf:type owl:Class ;
+                          rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#GroovePoint
@@ -630,14 +882,34 @@ dcterms:title rdf:type owl:AnnotationProperty .
              rdfs:subClassOf :ModelLocationPoint .
 
 
+###  https://w3id.org/energy-domain/edo#GrooveSupportSurfaceDiameter
+:GrooveSupportSurfaceDiameter rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#GrooveSupportSurfaceFilletRadius
+:GrooveSupportSurfaceFilletRadius rdf:type owl:Class ;
+                                  rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#GroutBag
 :GroutBag rdf:type owl:Class ;
           rdfs:subClassOf :PipeSupport .
 
 
+###  https://w3id.org/energy-domain/edo#GrvCntrPntDstnceFrmTermFlange
+:GrvCntrPntDstnceFrmTermFlange rdf:type owl:Class ;
+                               rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#GuideBase
 :GuideBase rdf:type owl:Class ;
            rdfs:subClassOf :Structure .
+
+
+###  https://w3id.org/energy-domain/edo#H2SVolumeConcentration
+:H2SVolumeConcentration rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#HCM
@@ -669,6 +941,26 @@ dcterms:title rdf:type owl:AnnotationProperty .
 :HardwareItem rdf:type owl:Class ;
               rdfs:subClassOf :Component ,
                               :DomainObject .
+
+
+###  https://w3id.org/energy-domain/edo#HasFaceORing
+:HasFaceORing rdf:type owl:Class ;
+              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#HasModaSensor
+:HasModaSensor rdf:type owl:Class ;
+               rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#HasN2InjectionPort
+:HasN2InjectionPort rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#HasThermalInsulation
+:HasThermalInsulation rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#HighStrengthTape
@@ -711,6 +1003,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
                     rdfs:subClassOf :TopsideEquipment .
 
 
+###  https://w3id.org/energy-domain/edo#HydrostaticCollapseAbsPressDry
+:HydrostaticCollapseAbsPressDry rdf:type owl:Class ;
+                                rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#IMUX
 :IMUX rdf:type owl:Class ;
       rdfs:subClassOf :ElectronicDevice .
@@ -719,6 +1016,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#ITube
 :ITube rdf:type owl:Class ;
        rdfs:subClassOf :RiserSupport .
+
+
+###  https://w3id.org/energy-domain/edo#IdInUnifilarDiagram
+:IdInUnifilarDiagram rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#IndividualAnodeMass
+:IndividualAnodeMass rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#InlineT
@@ -739,6 +1046,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#InnerTube
 :InnerTube rdf:type owl:Class ;
            rdfs:subClassOf :SolidLayer .
+
+
+###  https://w3id.org/energy-domain/edo#InsideTemperature
+:InsideTemperature rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#InsulationTape
@@ -772,9 +1084,49 @@ dcterms:title rdf:type owl:AnnotationProperty .
                     rdfs:subClassOf :SolidLayer .
 
 
+###  https://w3id.org/energy-domain/edo#IntermediateValuesStrategy
+:IntermediateValuesStrategy rdf:type owl:Class ;
+                            rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#InternalDiameter
+:InternalDiameter rdf:type owl:Class ;
+                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable
+:InternalIncidentalPressureTable rdf:type owl:Class ;
+                                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_PositionReference
+:InternalIncidentalPressureTable_PositionReference rdf:type owl:Class ;
+                                                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_Pressure
+:InternalIncidentalPressureTable_Pressure rdf:type owl:Class ;
+                                          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_VPosWRTWaterline
+:InternalIncidentalPressureTable_VPosWRTWaterline rdf:type owl:Class ;
+                                                  rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#InternalPressureSheath
 :InternalPressureSheath rdf:type owl:Class ;
                         rdfs:subClassOf :SolidLayer .
+
+
+###  https://w3id.org/energy-domain/edo#InternalVolume
+:InternalVolume rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#IsSpare
+:IsSpare rdf:type owl:Class ;
+         rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Jumper
@@ -785,6 +1137,116 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#LPHousing
 :LPHousing rdf:type owl:Class ;
            rdfs:subClassOf :PressureComponent .
+
+
+###  https://w3id.org/energy-domain/edo#LayerAnnular
+:LayerAnnular rdf:type owl:Class ;
+              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerAnnularType
+:LayerAnnularType rdf:type owl:Class ;
+                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerContinuity
+:LayerContinuity rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerGeometryCrossSection
+:LayerGeometryCrossSection rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerGeometryInertiaX
+:LayerGeometryInertiaX rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerGeometryInertiaY
+:LayerGeometryInertiaY rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerGeometryManufacturer
+:LayerGeometryManufacturer rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerGeometryName
+:LayerGeometryName rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerGeometryProfileThickness
+:LayerGeometryProfileThickness rdf:type owl:Class ;
+                               rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerGeometryProfileWidth
+:LayerGeometryProfileWidth rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerGeometryThickness
+:LayerGeometryThickness rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerThickness
+:LayerThickness rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerWatertight
+:LayerWatertight rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayerWatertightLowerLayerInternalFreeVolume
+:LayerWatertightLowerLayerInternalFreeVolume rdf:type owl:Class ;
+                                             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable
+:LayingMinimumRadiusTable rdf:type owl:Class ;
+                          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_AbsoluteExternalPressure
+:LayingMinimumRadiusTable_AbsoluteExternalPressure rdf:type owl:Class ;
+                                                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_AbsoluteInternalPressure
+:LayingMinimumRadiusTable_AbsoluteInternalPressure rdf:type owl:Class ;
+                                                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_Compression
+:LayingMinimumRadiusTable_Compression rdf:type owl:Class ;
+                                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_MinimumAllowableBendingRadius
+:LayingMinimumRadiusTable_MinimumAllowableBendingRadius rdf:type owl:Class ;
+                                                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_SectionSupportedByRigidSupport
+:LayingMinimumRadiusTable_SectionSupportedByRigidSupport rdf:type owl:Class ;
+                                                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_TensileArmourAnnulusCondition
+:LayingMinimumRadiusTable_TensileArmourAnnulusCondition rdf:type owl:Class ;
+                                                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LimpTorsionalStiffnessAtSeaLevel
+:LimpTorsionalStiffnessAtSeaLevel rdf:type owl:Class ;
+                                  rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#LineAncillary
@@ -812,6 +1274,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
                 rdfs:subClassOf :Location .
 
 
+###  https://w3id.org/energy-domain/edo#LinearMass
+:LinearMass rdf:type owl:Class ;
+            rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#LinearObject
 :LinearObject rdf:type owl:Class ;
               rdfs:subClassOf :Asset ,
@@ -833,9 +1300,29 @@ dcterms:title rdf:type owl:AnnotationProperty .
                    rdfs:subClassOf :Connection .
 
 
+###  https://w3id.org/energy-domain/edo#LongTermFloatDensity
+:LongTermFloatDensity rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LongTermFloatVolume
+:LongTermFloatVolume rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#LowResistanceTape
 :LowResistanceTape rdf:type owl:Class ;
                    rdfs:subClassOf :TapeLayer .
+
+
+###  https://w3id.org/energy-domain/edo#Lubricant
+:Lubricant rdf:type owl:Class ;
+           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LubricantFrictionFactor
+:LubricantFrictionFactor rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Manifold
@@ -843,9 +1330,49 @@ dcterms:title rdf:type owl:AnnotationProperty .
           rdfs:subClassOf :FlowControlEquipment .
 
 
+###  https://w3id.org/energy-domain/edo#ManufacturerDefinedMaterialName
+:ManufacturerDefinedMaterialName rdf:type owl:Class ;
+                                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ManufacturingDate
+:ManufacturingDate rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ManufacturingNonConformities
+:ManufacturingNonConformities rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#Mass
+:Mass rdf:type owl:Class ;
+      rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#MasterControlStation
 :MasterControlStation rdf:type owl:Class ;
                       rdfs:subClassOf :TopsideEquipment .
+
+
+###  https://w3id.org/energy-domain/edo#MaterialComposition
+:MaterialComposition rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaterialRequest
+:MaterialRequest rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaterialRequestRev
+:MaterialRequestRev rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaterialSupplierName
+:MaterialSupplierName rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Mattress
@@ -853,14 +1380,134 @@ dcterms:title rdf:type owl:AnnotationProperty .
           rdfs:subClassOf :PipeSupport .
 
 
+###  https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable
+:MaxDesignAbsIntPresTable rdf:type owl:Class ;
+                          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable_PositionReference
+:MaxDesignAbsIntPresTable_PositionReference rdf:type owl:Class ;
+                                            rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable_Pressure
+:MaxDesignAbsIntPresTable_Pressure rdf:type owl:Class ;
+                                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable_VPosWRTWaterline
+:MaxDesignAbsIntPresTable_VPosWRTWaterline rdf:type owl:Class ;
+                                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxDesignPressure
+:MaxDesignPressure rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxDynamicLoad
+:MaxDynamicLoad rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxLengthTolerance
+:MaxLengthTolerance rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxPermissibleDeformationDynamic
+:MaxPermissibleDeformationDynamic rdf:type owl:Class ;
+                                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxPermissibleDeformationStatic
+:MaxPermissibleDeformationStatic rdf:type owl:Class ;
+                                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAllowableTensileForStraightLine
+:MaximumAllowableTensileForStraightLine rdf:type owl:Class ;
+                                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAllowableTensionTable
+:MaximumAllowableTensionTable rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAllowableTensionTable_MaximumAllowableTensile
+:MaximumAllowableTensionTable_MaximumAllowableTensile rdf:type owl:Class ;
+                                                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAllowableTensionTable_PulleyRadius
+:MaximumAllowableTensionTable_PulleyRadius rdf:type owl:Class ;
+                                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAllowableTensionTable_PulleyVAngle
+:MaximumAllowableTensionTable_PulleyVAngle rdf:type owl:Class ;
+                                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAllowableTighteningTable
+:MaximumAllowableTighteningTable rdf:type owl:Class ;
+                                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAllowableTighteningTable_AxialLoad
+:MaximumAllowableTighteningTable_AxialLoad rdf:type owl:Class ;
+                                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAllowableTighteningTable_TighteningPerTrack
+:MaximumAllowableTighteningTable_TighteningPerTrack rdf:type owl:Class ;
+                                                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumAmbientTemperature
+:MaximumAmbientTemperature rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumTemperature
+:MaximumTemperature rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaximumThermalExchangeCoefficient
+:MaximumThermalExchangeCoefficient rdf:type owl:Class ;
+                                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MetallicLayerMaterialType
+:MetallicLayerMaterialType rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MetallicLayerPitch
+:MetallicLayerPitch rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#MetallicMaterial
 :MetallicMaterial rdf:type owl:Class ;
                   rdfs:subClassOf :FlexibleStructureLayerMaterial .
 
 
+###  https://w3id.org/energy-domain/edo#MetallicStrandLength
+:MetallicStrandLength rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#MetallicStrandSet
 :MetallicStrandSet rdf:type owl:Class ;
                    rdfs:subClassOf :PhysicalConnection .
+
+
+###  https://w3id.org/energy-domain/edo#MetallicStrandSpareQuantity
+:MetallicStrandSpareQuantity rdf:type owl:Class ;
+                             rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#MetallicTubing
@@ -878,14 +1525,94 @@ dcterms:title rdf:type owl:AnnotationProperty .
                rdfs:subClassOf :StudSet .
 
 
+###  https://w3id.org/energy-domain/edo#MinimumBendingRadiusForStorage
+:MinimumBendingRadiusForStorage rdf:type owl:Class ;
+                                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MinimumTemperature
+:MinimumTemperature rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MinimumThermalExchangeCoefficient
+:MinimumThermalExchangeCoefficient rdf:type owl:Class ;
+                                   rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#ModelLocationPoint
 :ModelLocationPoint rdf:type owl:Class ;
                     rdfs:subClassOf :DomainObject .
 
 
+###  https://w3id.org/energy-domain/edo#ModulusOfElasticity
+:ModulusOfElasticity rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#MooringAccessory
 :MooringAccessory rdf:type owl:Class ;
                   rdfs:subClassOf :HardwareItem .
+
+
+###  https://w3id.org/energy-domain/edo#NominalDiameter
+:NominalDiameter rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#NominalFloatDensity
+:NominalFloatDensity rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#NominalFloatVolume
+:NominalFloatVolume rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#NominalLength
+:NominalLength rdf:type owl:Class ;
+               rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#NumberOfChokeValves
+:NumberOfChokeValves rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#NumberOfRemoteProcessIsolationValves
+:NumberOfRemoteProcessIsolationValves rdf:type owl:Class ;
+                                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OffLeakPLevMaxPress
+:OffLeakPLevMaxPress rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OffLeakPLevMaxPressValRef
+:OffLeakPLevMaxPressValRef rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OffLeakPLevMaxPressValRefMult
+:OffLeakPLevMaxPressValRefMult rdf:type owl:Class ;
+                               rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OffLeakPLevNomPress
+:OffLeakPLevNomPress rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OffLeakPLevNomPressValRef
+:OffLeakPLevNomPressValRef rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OffLeakPLevNomPressValRefMult
+:OffLeakPLevNomPressValRefMult rdf:type owl:Class ;
+                               rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#OpenReceptacle
@@ -896,6 +1623,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#OpticalFiberCable
 :OpticalFiberCable rdf:type owl:Class ;
                    rdfs:subClassOf :FunctionLine .
+
+
+###  https://w3id.org/energy-domain/edo#OuterDiameter
+:OuterDiameter rdf:type owl:Class ;
+               rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OutsideTemperature
+:OutsideTemperature rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#OverrideTool
@@ -913,9 +1650,44 @@ dcterms:title rdf:type owl:AnnotationProperty .
       rdfs:subClassOf :FlowControlEquipment .
 
 
+###  https://w3id.org/energy-domain/edo#PartNumber
+:PartNumber rdf:type owl:Class ;
+            rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#PermeabilityTable
+:PermeabilityTable rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#PermeabilityTable_MoleculeIdentifier
+:PermeabilityTable_MoleculeIdentifier rdf:type owl:Class ;
+                                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#PermeabilityTable_PermeabilityCoefficient
+:PermeabilityTable_PermeabilityCoefficient rdf:type owl:Class ;
+                                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#PermeabilityTable_PolymerState
+:PermeabilityTable_PolymerState rdf:type owl:Class ;
+                                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#PermeabilityTable_Temperature
+:PermeabilityTable_Temperature rdf:type owl:Class ;
+                               rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#PhysicalConnection
 :PhysicalConnection rdf:type owl:Class ;
                     rdfs:subClassOf :Connection .
+
+
+###  https://w3id.org/energy-domain/edo#Piggable
+:Piggable rdf:type owl:Class ;
+          rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Pile
@@ -928,9 +1700,19 @@ dcterms:title rdf:type owl:AnnotationProperty .
                        rdfs:subClassOf :PipeSupport .
 
 
+###  https://w3id.org/energy-domain/edo#PipeMountPosition
+:PipeMountPosition rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#PipePullingHead
 :PipePullingHead rdf:type owl:Class ;
                  rdfs:subClassOf :PullingHead .
+
+
+###  https://w3id.org/energy-domain/edo#PipeSectionApplication
+:PipeSectionApplication rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#PipeSegment
@@ -958,6 +1740,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
              rdfs:subClassOf :PressureComponent .
 
 
+###  https://w3id.org/energy-domain/edo#PitchToleranceClass
+:PitchToleranceClass rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#Planned_Start_Timestamp
+:Planned_Start_Timestamp rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#PlasticHose
 :PlasticHose rdf:type owl:Class ;
              rdfs:subClassOf :Tubing .
@@ -968,14 +1760,34 @@ dcterms:title rdf:type owl:AnnotationProperty .
                rdfs:subClassOf :Location .
 
 
+###  https://w3id.org/energy-domain/edo#PoissonRatioAt23Degrees
+:PoissonRatioAt23Degrees rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#PolymericLayerMaterialType
+:PolymericLayerMaterialType rdf:type owl:Class ;
+                            rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#PolymericMaterial
 :PolymericMaterial rdf:type owl:Class ;
                    rdfs:subClassOf :FlexibleStructureLayerMaterial .
 
 
+###  https://w3id.org/energy-domain/edo#PostSlippingBendingStiffness
+:PostSlippingBendingStiffness rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#PowerMachine
 :PowerMachine rdf:type owl:Class ;
               rdfs:subClassOf :PressureComponent .
+
+
+###  https://w3id.org/energy-domain/edo#PreSlippingBendingStiffness
+:PreSlippingBendingStiffness rdf:type owl:Class ;
+                             rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#PressureArmour
@@ -1008,6 +1820,26 @@ dcterms:title rdf:type owl:AnnotationProperty .
          rdfs:subClassOf :DomainObject .
 
 
+###  https://w3id.org/energy-domain/edo#ProjectAcronym
+:ProjectAcronym rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ProjectCode
+:ProjectCode rdf:type owl:Class ;
+             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ProjectDrawingCode
+:ProjectDrawingCode rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ProjectDrawingRevision
+:ProjectDrawingRevision rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#ProtectiveSheath
 :ProtectiveSheath rdf:type owl:Class ;
                   rdfs:subClassOf :SolidLayer .
@@ -1023,6 +1855,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
              rdfs:subClassOf :LineAncillary .
 
 
+###  https://w3id.org/energy-domain/edo#PullingHeadType
+:PullingHeadType rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#Pump
 :Pump rdf:type owl:Class ;
       rdfs:subClassOf :RotatingMachine .
@@ -1031,6 +1868,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#PumpingModule
 :PumpingModule rdf:type owl:Class ;
                rdfs:subClassOf :ProcessingModule .
+
+
+###  https://w3id.org/energy-domain/edo#Quantity
+:Quantity rdf:type owl:Class ;
+          rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#QuickDisconnectionTool
@@ -1063,9 +1905,49 @@ dcterms:title rdf:type owl:AnnotationProperty .
             rdfs:subClassOf :PhysicalConnection .
 
 
+###  https://w3id.org/energy-domain/edo#RingGasketInnerDIameter
+:RingGasketInnerDIameter rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RingGasketMaterial
+:RingGasketMaterial rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RingGasketOuterDiameter
+:RingGasketOuterDiameter rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RingGasketPressureRating
+:RingGasketPressureRating rdf:type owl:Class ;
+                          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RingGasketSpecification
+:RingGasketSpecification rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RingGasketStandard
+:RingGasketStandard rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RingGasketType
+:RingGasketType rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#RiserBalcony
 :RiserBalcony rdf:type owl:Class ;
               rdfs:subClassOf :Location .
+
+
+###  https://w3id.org/energy-domain/edo#RiserConfiguration
+:RiserConfiguration rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#RiserSpan
@@ -1103,6 +1985,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
              rdfs:subClassOf :ActuatedEquipment .
 
 
+###  https://w3id.org/energy-domain/edo#RuptDefAlongFibers
+:RuptDefAlongFibers rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RuptDefPerpendFibers
+:RuptDefPerpendFibers rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#SCM
 :SCM rdf:type owl:Class ;
      rdfs:subClassOf :AuxiliaryModule .
@@ -1133,6 +2025,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
                    rdfs:subClassOf :SolidLayer .
 
 
+###  https://w3id.org/energy-domain/edo#SafeWorkingLoad
+:SafeWorkingLoad rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#SandDetector
 :SandDetector rdf:type owl:Class ;
               rdfs:subClassOf :Sensor .
@@ -1148,14 +2045,54 @@ dcterms:title rdf:type owl:AnnotationProperty .
                  rdfs:subClassOf :Vessel .
 
 
+###  https://w3id.org/energy-domain/edo#SerialNumber
+:SerialNumber rdf:type owl:Class ;
+              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#Service
+:Service rdf:type owl:Class ;
+         rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#Shackle
 :Shackle rdf:type owl:Class ;
          rdfs:subClassOf :MooringAccessory .
 
 
+###  https://w3id.org/energy-domain/edo#ShackleInnerDiameter
+:ShackleInnerDiameter rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ShackleOpeningWidth
+:ShackleOpeningWidth rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ShackleOuterDiameter
+:ShackleOuterDiameter rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ShackleThickness
+:ShackleThickness rdf:type owl:Class ;
+                  rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#ShearableRiserJoint
 :ShearableRiserJoint rdf:type owl:Class ;
                      rdfs:subClassOf :RunningTool .
+
+
+###  https://w3id.org/energy-domain/edo#ShortTermFloatDensity
+:ShortTermFloatDensity rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ShortTermFloatVolume
+:ShortTermFloatVolume rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Socket
@@ -1168,6 +2105,51 @@ dcterms:title rdf:type owl:AnnotationProperty .
             rdfs:subClassOf :FlexibleStructureLayer .
 
 
+###  https://w3id.org/energy-domain/edo#SolubilityTable
+:SolubilityTable rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#SolubilityTable_MoleculeIdentifier
+:SolubilityTable_MoleculeIdentifier rdf:type owl:Class ;
+                                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#SolubilityTable_PolymerState
+:SolubilityTable_PolymerState rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#SolubilityTable_SolubilityCoefficient
+:SolubilityTable_SolubilityCoefficient rdf:type owl:Class ;
+                                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#SolubilityTable_Temperature
+:SolubilityTable_Temperature rdf:type owl:Class ;
+                             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#SpareQuantity
+:SpareQuantity rdf:type owl:Class ;
+               rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#SpecialRequirements
+:SpecialRequirements rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#SpecificHeatCapacity
+:SpecificHeatCapacity rdf:type owl:Class ;
+                      rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#SpecificWeight
+:SpecificWeight rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#SpliceBox
 :SpliceBox rdf:type owl:Class ;
            rdfs:subClassOf :ComponentDevice .
@@ -1178,9 +2160,19 @@ dcterms:title rdf:type owl:AnnotationProperty .
              rdfs:subClassOf :LineAncillary .
 
 
+###  https://w3id.org/energy-domain/edo#SpoolingTension
+:SpoolingTension rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#StaticUmbilicalSpan
 :StaticUmbilicalSpan rdf:type owl:Class ;
                      rdfs:subClassOf :UmbilicalSpan .
+
+
+###  https://w3id.org/energy-domain/edo#StiffTorsionalStiffnessAtSeaLevel
+:StiffTorsionalStiffnessAtSeaLevel rdf:type owl:Class ;
+                                   rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#StopperCollar
@@ -1208,14 +2200,114 @@ dcterms:title rdf:type owl:AnnotationProperty .
               rdfs:subClassOf :StorageAccessory .
 
 
+###  https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPress
+:StrIntOffPLevMaxPress rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPressValRef
+:StrIntOffPLevMaxPressValRef rdf:type owl:Class ;
+                             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPressValRefMult
+:StrIntOffPLevMaxPressValRefMult rdf:type owl:Class ;
+                                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOffPLevNomPress
+:StrIntOffPLevNomPress rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOffPLevNomPressValRef
+:StrIntOffPLevNomPressValRef rdf:type owl:Class ;
+                             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOffPLevNomPressValRefMult
+:StrIntOffPLevNomPressValRefMult rdf:type owl:Class ;
+                                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPress
+:StrIntOnNoTensMaxPress rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPressValRef
+:StrIntOnNoTensMaxPressValRef rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPressValRefMult
+:StrIntOnNoTensMaxPressValRefMult rdf:type owl:Class ;
+                                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOnNoTensNomPress
+:StrIntOnNoTensNomPress rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOnNoTensNomPressValRef
+:StrIntOnNoTensNomPressValRef rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrIntOnNoTensNomPressValRefMult
+:StrIntOnNoTensNomPressValRefMult rdf:type owl:Class ;
+                                  rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrandsTable
+:StrandsTable rdf:type owl:Class ;
+              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrandsTable_SpareQuantity
+:StrandsTable_SpareQuantity rdf:type owl:Class ;
+                            rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrandsTable_StrandsLength
+:StrandsTable_StrandsLength rdf:type owl:Class ;
+                            rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StrandsTable_StrandsQuantity
+:StrandsTable_StrandsQuantity rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StressAtDesignPressure
+:StressAtDesignPressure rdf:type owl:Class ;
+                        rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#Structure
 :Structure rdf:type owl:Class ;
            rdfs:subClassOf :CompactObject .
 
 
+###  https://w3id.org/energy-domain/edo#StructureApplicationsList
+:StructureApplicationsList rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#StructureCode
+:StructureCode rdf:type owl:Class ;
+               rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#StudSet
 :StudSet rdf:type owl:Class ;
          rdfs:subClassOf :PhysicalConnection .
+
+
+###  https://w3id.org/energy-domain/edo#SubProjectId
+:SubProjectId rdf:type owl:Class ;
+              rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaConnectionPoint
@@ -1258,6 +2350,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
              rdfs:subClassOf :Pile .
 
 
+###  https://w3id.org/energy-domain/edo#SupplierProvidedMaterialName
+:SupplierProvidedMaterialName rdf:type owl:Class ;
+                              rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#SurfaceEquipment
 :SurfaceEquipment rdf:type owl:Class ;
                   rdfs:subClassOf :Equipment .
@@ -1273,6 +2370,16 @@ dcterms:title rdf:type owl:AnnotationProperty .
            rdfs:subClassOf :WoundLayer .
 
 
+###  https://w3id.org/energy-domain/edo#TapesQuantity
+:TapesQuantity rdf:type owl:Class ;
+               rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TechnicalNotes
+:TechnicalNotes rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#TemperatureSensor
 :TemperatureSensor rdf:type owl:Class ;
                    rdfs:subClassOf :Sensor .
@@ -1283,14 +2390,94 @@ dcterms:title rdf:type owl:AnnotationProperty .
                rdfs:subClassOf :WireLayer .
 
 
+###  https://w3id.org/energy-domain/edo#TensileArmourAnnulusCondition
+:TensileArmourAnnulusCondition rdf:type owl:Class ;
+                               rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TensileArmourFreeAnnulusVolume
+:TensileArmourFreeAnnulusVolume rdf:type owl:Class ;
+                                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TensileWireLayAngle
+:TensileWireLayAngle rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TensileWiresCount
+:TensileWiresCount rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TensionerPadsMaterial
+:TensionerPadsMaterial rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TensionerPadsOpeningAngle
+:TensionerPadsOpeningAngle rdf:type owl:Class ;
+                           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TensionerPadsShape
+:TensionerPadsShape rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TensionerTracksQuantity
+:TensionerTracksQuantity rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#TestBase
 :TestBase rdf:type owl:Class ;
           rdfs:subClassOf :TestEquipment .
 
 
+###  https://w3id.org/energy-domain/edo#TestConditions
+:TestConditions rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#TestEquipment
 :TestEquipment rdf:type owl:Class ;
                rdfs:subClassOf :SurfaceEquipment .
+
+
+###  https://w3id.org/energy-domain/edo#TestProp
+:TestProp rdf:type owl:Class ;
+          rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#TestProp2
+:TestProp2 rdf:type owl:Class ;
+           rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ThermalConductivityCoefficient
+:ThermalConductivityCoefficient rdf:type owl:Class ;
+                                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ThermalExchangeCoefficientFlooded
+:ThermalExchangeCoefficientFlooded rdf:type owl:Class ;
+                                   rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ThreadPitch
+:ThreadPitch rdf:type owl:Class ;
+             rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ThreadStandard
+:ThreadStandard rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#ThreadsPerInch
+:ThreadsPerInch rdf:type owl:Class ;
+                rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#TieIn
@@ -1301,6 +2488,11 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#TieInEquipment
 :TieInEquipment rdf:type owl:Class ;
                 rdfs:subClassOf :FlowControlModule .
+
+
+###  https://w3id.org/energy-domain/edo#Timestamp
+:Timestamp rdf:type owl:Class ;
+           rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#TopBendStiffener
@@ -1359,6 +2551,13 @@ dcterms:title rdf:type owl:AnnotationProperty .
                          rdfs:subClassOf :RunningTool .
 
 
+###  https://w3id.org/energy-domain/edo#TypedValue
+:TypedValue rdf:type owl:Class ;
+            rdfs:subClassOf :DomainAuxiliarClass ;
+            rdfs:comment "Superclass for values constrained to a specific XSD datatype."@en ;
+            rdfs:label "Typed Value"@en .
+
+
 ###  https://w3id.org/energy-domain/edo#UNSBoltSet
 :UNSBoltSet rdf:type owl:Class ;
             rdfs:subClassOf :BoltSet .
@@ -1377,6 +2576,21 @@ dcterms:title rdf:type owl:AnnotationProperty .
 ###  https://w3id.org/energy-domain/edo#UTM
 :UTM rdf:type owl:Class ;
      rdfs:subClassOf :LineTerminationModule .
+
+
+###  https://w3id.org/energy-domain/edo#UltTensStrAlongFibers
+:UltTensStrAlongFibers rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#UltTensStrPerpendFibers
+:UltTensStrPerpendFibers rdf:type owl:Class ;
+                         rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#UltimateTensileStress
+:UltimateTensileStress rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#UmbilicalComponent
@@ -1399,9 +2613,36 @@ dcterms:title rdf:type owl:AnnotationProperty .
                rdfs:subClassOf :LineSpan .
 
 
+###  https://w3id.org/energy-domain/edo#UnifilarDiagram
+:UnifilarDiagram rdf:type owl:Class ;
+                 rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#UnifilarDiagramRev
+:UnifilarDiagramRev rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#UpperItubeDiameter
+:UpperItubeDiameter rdf:type owl:Class ;
+                    rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#UtilizationFactor
+:UtilizationFactor rdf:type owl:Class ;
+                   rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#VCM
 :VCM rdf:type owl:Class ;
      rdfs:subClassOf :ConnectionModule .
+
+
+###  https://w3id.org/energy-domain/edo#ValueCardinality
+:ValueCardinality rdf:type owl:Class ;
+                  rdfs:subClassOf :DomainAuxiliarClass ;
+                  rdfs:comment "Superclass for constraints on the cardinality of values (single or multiple)."@en ;
+                  rdfs:label "Value Cardinality"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#Valve
@@ -1444,14 +2685,186 @@ dcterms:title rdf:type owl:AnnotationProperty .
            rdfs:subClassOf :ArmourLayer .
 
 
+###  https://w3id.org/energy-domain/edo#WireRopeQuantity
+:WireRopeQuantity rdf:type owl:Class ;
+                  rdfs:subClassOf :DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#WireRopeSegment
 :WireRopeSegment rdf:type owl:Class ;
                  rdfs:subClassOf :RopeSegment .
+
+
+###  https://w3id.org/energy-domain/edo#WireRopeSlingDiameter
+:WireRopeSlingDiameter rdf:type owl:Class ;
+                       rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#WireRopeSlingLength
+:WireRopeSlingLength rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#WorkingLoadLimit
+:WorkingLoadLimit rdf:type owl:Class ;
+                  rdfs:subClassOf :DomainAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#WoundLayer
 :WoundLayer rdf:type owl:Class ;
             rdfs:subClassOf :FlexibleStructureLayer .
 
+
+###  https://w3id.org/energy-domain/edo#anyURIType
+:anyURIType rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                  owl:onProperty rdf:value ;
+                                  owl:allValuesFrom xsd:anyURI
+                                ] ;
+            rdfs:subClassOf :TypedValue ;
+            rdfs:comment "Constraint for xsd:anyURI (URIs/IRIs)"@en ;
+            rdfs:label "URI Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#base64BinaryType
+:base64BinaryType rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty rdf:value ;
+                                        owl:allValuesFrom xsd:base64Binary
+                                      ] ;
+                  rdfs:subClassOf :TypedValue ;
+                  rdfs:comment "Constraint for xsd:base64Binary (binary data)"@en ;
+                  rdfs:label "Base64 Binary"@en .
+
+
+###  https://w3id.org/energy-domain/edo#booleanValue
+:booleanValue rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty rdf:value ;
+                                    owl:allValuesFrom xsd:boolean
+                                  ] ;
+              rdfs:subClassOf :TypedValue ;
+              rdfs:comment "Constraint for xsd:boolean (true/false)"@en ;
+              rdfs:label "Boolean Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#dateTimeValue
+:dateTimeValue rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty rdf:value ;
+                                     owl:allValuesFrom xsd:dateTime
+                                   ] ;
+               rdfs:subClassOf :TypedValue ;
+               rdfs:comment "Constraint for xsd:dateTime (timestamps)"@en ;
+               rdfs:label "DateTime Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#dateValue
+:dateValue rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty rdf:value ;
+                                 owl:allValuesFrom xsd:date
+                               ] ;
+           rdfs:subClassOf :TypedValue ;
+           rdfs:comment "Constraint for xsd:date (calendar dates)"@en ;
+           rdfs:label "Date Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#decimalValue
+:decimalValue rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty rdf:value ;
+                                    owl:allValuesFrom xsd:decimal
+                                  ] ;
+              rdfs:subClassOf :TypedValue ;
+              rdfs:comment "Constraint for xsd:decimal (arbitrary precision numbers)"@en ;
+              rdfs:label "Decimal Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#doubleValue
+:doubleValue rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty rdf:value ;
+                                   owl:allValuesFrom xsd:double
+                                 ] ;
+             rdfs:subClassOf :TypedValue ;
+             rdfs:comment "Constraint for xsd:double (64-bit floating point)"@en ;
+             rdfs:label "Double Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#floatValue
+:floatValue rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                  owl:onProperty rdf:value ;
+                                  owl:allValuesFrom xsd:float
+                                ] ;
+            rdfs:subClassOf :TypedValue ;
+            rdfs:comment "Constraint for xsd:float (32-bit floating point)"@en ;
+            rdfs:label "Float Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#intValue
+:intValue rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty rdf:value ;
+                                owl:allValuesFrom xsd:int
+                              ] ;
+          rdfs:subClassOf :TypedValue ;
+          rdfs:comment "Constraint for xsd:int (32-bit integer)"@en ;
+          rdfs:label "Integer Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#longValue
+:longValue rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty rdf:value ;
+                                 owl:allValuesFrom xsd:long
+                               ] ;
+           rdfs:subClassOf :TypedValue ;
+           rdfs:comment "Constraint for xsd:long (64-bit integer)"@en ;
+           rdfs:label "Long Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#multiValue
+:multiValue rdf:type owl:Class ;
+            rdfs:subClassOf :ValueCardinality ;
+            rdfs:comment "Constraint allowing multiple values (RDF list)"@en ;
+            rdfs:label "Multiple Values"@en .
+
+
+###  https://w3id.org/energy-domain/edo#singleValue
+:singleValue rdf:type owl:Class ;
+             rdfs:subClassOf :ValueCardinality ;
+             rdfs:comment "Constraint ensuring only one value (not a list)"@en ;
+             rdfs:label "Single Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#stringValue
+:stringValue rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty rdf:value ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ;
+             rdfs:subClassOf :TypedValue ;
+             rdfs:comment "Constraint for xsd:string (character strings)"@en ;
+             rdfs:label "String Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#timeValue
+:timeValue rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty rdf:value ;
+                                 owl:allValuesFrom xsd:time
+                               ] ;
+           rdfs:subClassOf :TypedValue ;
+           rdfs:comment "Constraint for xsd:time (time of day)"@en ;
+           rdfs:label "Time Value"@en .
+
+
+[ owl:maxCardinality 1
+] .
+
+[ owl:minCardinality 1
+ ] .
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
