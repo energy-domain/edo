@@ -1,4 +1,4 @@
-## Ontology entities templates:
+# Ontology entities templates:
 
 There are two ways to create entities on the ontology:
 ###### 1. Predicate Lists (Compacted mode)
@@ -15,7 +15,7 @@ In expanded mode, all assertions are created on an individual line:
 :EndFitting rdfs:subClassOf :PipeTermination .
 ```
 
-## Templates
+# Templates
 
 ### Minimal assertions (Type and superclass)
 These are the minimal information about any entity, its type and its super class:
@@ -38,13 +38,11 @@ These are the minimal information about any entity, its type and its super class
 :EndFitting :hasAttribute :AbsoluteInsideTemperature .
 ```
 
-### VSCode example
+_VSCode example_
 ![VSCode example](add_attribute.png)
 
-### Metadata (Annotations) templates
-_show ICD 2 OWL metadata mapping table_
+# Metadata (Annotations) templates
 
-_show ttl metadata (Annotations) templates_
 ##### 1. Domain Objects (Assets, types etc.)
 ```turtle
 :EndFitting dcterms:identifier "EndFitting" ; # ICD name
