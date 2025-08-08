@@ -1,9 +1,13 @@
 ```markdown
 ## Procedimento:
 
+### 1. Código TTL
 ```turtle
-###  https://w3id.org/energy-domain/edo#Accessory
-:AbsoluteInsidePressure rdf:type owl:Class ;
-           rdfs:subClassOf :DomainAttribute .
+@prefix edo: <https://w3id.org/energy-domain/edo#> .
+edo:AbsoluteInsidePressure a owl:Class ;
+    rdfs:subClassOf edo:DomainAttribute .
+```
 
-![Example](add_attribute.png)
+### 2. Diagrama do Atributo
+<!-- ![VSCode example](add_attribute.png) -->
+![VSCode example](https://www.mcneilinstruments.com/wp-content/uploads/2022/08/industrial-valve-500x500-1.png)
