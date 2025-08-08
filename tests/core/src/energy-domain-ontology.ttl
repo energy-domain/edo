@@ -51,6 +51,154 @@ dcterms:title rdf:type owl:AnnotationProperty .
 #    Classes
 #################################################################
 
+:DomainAuxiliarClass rdf:type owl:Class.
+
+:singleValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Single Value"@en ;
+    rdfs:comment "Constraint ensuring only one value (not a list)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:maxCardinality 1
+    ] .
+
+:multiValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Multiple Values"@en ;
+    rdfs:comment "Constraint allowing multiple values (RDF list)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:minCardinality 1  # Pelo menos um valor
+    ] .
+
+### XSD Datatype Constraint Classes ###
+
+## Numeric Types ##
+:floatValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Float Value"@en ;
+    rdfs:comment "Constraint for xsd:float (32-bit floating point)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:float
+    ] .
+
+:doubleValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Double Value"@en ;
+    rdfs:comment "Constraint for xsd:double (64-bit floating point)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:double
+    ] .
+
+:intValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Integer Value"@en ;
+    rdfs:comment "Constraint for xsd:int (32-bit integer)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:int
+    ] .
+
+:longValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Long Value"@en ;
+    rdfs:comment "Constraint for xsd:long (64-bit integer)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:long
+    ] .
+
+:decimalValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Decimal Value"@en ;
+    rdfs:comment "Constraint for xsd:decimal (arbitrary precision numbers)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:decimal
+    ] .
+
+## Text/Boolean Types ##
+:stringValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "String Value"@en ;
+    rdfs:comment "Constraint for xsd:string (character strings)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:string
+    ] .
+
+:booleanValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Boolean Value"@en ;
+    rdfs:comment "Constraint for xsd:boolean (true/false)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:boolean
+    ] .
+
+## Date/Time Types ##
+:dateValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Date Value"@en ;
+    rdfs:comment "Constraint for xsd:date (calendar dates)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:date
+    ] .
+
+:dateTimeValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "DateTime Value"@en ;
+    rdfs:comment "Constraint for xsd:dateTime (timestamps)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:dateTime
+    ] .
+
+:timeValue a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Time Value"@en ;
+    rdfs:comment "Constraint for xsd:time (time of day)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:time
+    ] .
+
+## Specialized Types ##
+:anyURIType a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "URI Value"@en ;
+    rdfs:comment "Constraint for xsd:anyURI (URIs/IRIs)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:anyURI
+    ] .
+
+:base64BinaryType a owl:Class ;
+    rdfs:subClassOf :DomainAuxiliarClass ;
+    rdfs:label "Base64 Binary"@en ;
+    rdfs:comment "Constraint for xsd:base64Binary (binary data)"@en ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty rdf:value ;
+        owl:allValuesFrom xsd:base64Binary
+    ] .
+
 ###  https://w3id.org/energy-domain/edo#AbsoluteInsidePressure
 :AbsoluteInsidePressure rdf:type owl:Class ;
                         rdfs:subClassOf :DomainAttribute .
