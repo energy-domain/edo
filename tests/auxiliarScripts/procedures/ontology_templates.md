@@ -66,26 +66,23 @@ _show ttl metadata (Annotations) templates_
 :AbsoluteInsidePressure dcterms:identifier "AbsoluteInsidePressure" ; # ICD name
 :AbsoluteInsidePressure skos:prefLabel "Absolute Inside Pressure"@en ; # ICD shortDescription
 :AbsoluteInsidePressure skos:prefLabel "Pressão Interna Absoluta"@pt-BR ; # ICD shortDescription br
-
-
-
-single or list
-:AbsoluteInsidePressure :ifc_equivalentClass "IfcPropertySingleValue" ; # ICD type
-or
-owl:qualifiedCardinality 1 or owl:minCardinality 1
-
-valueType
-
-unit
-qudt:applicableUnit unit:PA .
-
-validValues
-
-confidentiality
-
-
+:AbsoluteInsidePressure dcterms:accessRights "public" ; # ICD confidentiality
+:AbsoluteInsidePressure qudt:applicableUnit unit:PA ; # ICD unit (Check qudt units)
+:AbsoluteInsidePressure rdfs:subClassOf :singleValue ; # ICD type (Single)
+:AbsoluteInsidePressure rdfs:subClassOf :multiValue ; # ICD type (List)
+:AbsoluteInsidePressure rdfs:subClassOf :floatValue ; # ICD valueType
+value types:
+floatValue
+intValue
+stringValue
+booleanValue
+dateValue
+dateTimeValue
 
 :AbsoluteInsidePressure skos:definition "Represents the absolute internal pressure exerted within a component or system. This property is crucial for evaluating the structural integrity and performance, ensuring that the system can withstand the specified pressure without failure, particularly in subsea environments where pressure management is critical."@en ; # ICD longDescription
 
 :AbsoluteInsidePressure skos:definition "Representa a pressão interna absoluta exercida dentro de um componente ou sistema. Essa propriedade é crucial para avaliar a integridade estrutural e o desempenho, garantindo que o sistema possa suportar a pressão especificada sem falhas, especialmente em ambientes subaquáticos onde o gerenciamento de pressão é crítico."@pt-BR ; # ICD longDescription br
+
+validValues (under development)
+
 ```
