@@ -39,7 +39,9 @@ These are the minimal information about any entity, its type and its super class
 :EndFitting :hasAttribute :AbsoluteInsideTemperature .
 ```
 ### Method 2:
+```turtle
 :EndFitting :hasAttribute :AbsoluteInsidePressure , :AbsoluteInsideTemperature .
+```
 
 _VSCode example_
 ![VSCode example](add_attribute.png)
