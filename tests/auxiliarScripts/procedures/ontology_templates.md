@@ -70,11 +70,11 @@ _VSCode example_
 :AbsoluteInsidePressure rdfs:subClassOf :floatValue . # ICD valueType
 # value types:
 # floatValue (IfcReal)
-# intValue ...
-# stringValue
-# booleanValue
-# dateValue
-# dateTimeValue
+# intValue (IfcInteger)
+# stringValue (IfcText)
+# booleanValue (IfcBoolean)
+# dateValue (IfcDate)
+# dateTimeValue (IfcDatetime)
 
 :AbsoluteInsidePressure skos:definition "Represents the absolute internal pressure exerted within a component or system. This property is crucial for evaluating the structural integrity and performance, ensuring that the system can withstand the specified pressure without failure, particularly in subsea environments where pressure management is critical."@en . # ICD longDescription
 :AbsoluteInsidePressure skos:definition "Representa a pressão interna absoluta exercida dentro de um componente ou sistema. Essa propriedade é crucial para avaliar a integridade estrutural e o desempenho, garantindo que o sistema possa suportar a pressão especificada sem falhas, especialmente em ambientes subaquáticos onde o gerenciamento de pressão é crítico."@pt-BR . # ICD longDescription br
