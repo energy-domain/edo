@@ -1,4 +1,7 @@
-# Ontology entities templates:
+# Ontology entities templates
+
+_VSCode example_
+![VSCode example](add_attribute.png)
 
 There are two ways to create entities on the ontology:
 ###### 1. Predicate Lists (Compacted mode)
@@ -42,9 +45,6 @@ These are the minimal information about any entity: its type and its super class
 ```turtle
 :EndFitting :hasAttribute :AbsoluteInsidePressure , :AbsoluteInsideTemperature .
 ```
-
-_VSCode example_
-![VSCode example](add_attribute.png)
 
 # Metadata (Annotations) templates
 
