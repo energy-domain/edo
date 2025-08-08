@@ -18,7 +18,7 @@ In expanded mode, all assertions are created on an individual line:
 # Templates
 
 ### Minimal assertions (Type and superclass)
-These are the minimal information about any entity, its type and its super class:
+These are the minimal information about any entity: its type and its super class:
 
 ##### 1. Domain Objects (Assets, types etc.)
 ```turtle
