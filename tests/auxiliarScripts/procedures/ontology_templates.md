@@ -69,10 +69,12 @@ These are the minimal information about any entity: its type and its super class
 :AbsoluteInsidePressure skos:prefLabel "Pressão Interna Absoluta"@pt-BR . # ICD shortDescription br
 :AbsoluteInsidePressure dcterms:accessRights "public" . # ICD confidentiality
 :AbsoluteInsidePressure qudt:applicableUnit unit:PA . # ICD unit (Check qudt units)
-:AbsoluteInsidePressure rdfs:subClassOf :singleValue . # ICD type (IfcPropertySingleValue)
-:AbsoluteInsidePressure rdfs:subClassOf :multiValue . # ICD type (IfcPropertyListValue)
-:AbsoluteInsidePressure :validValues (value1 value2 valueN) #ICD validValues (Separated by space)
-:AbsoluteInsidePressure rdfs:subClassOf :floatValue . # ICD valueType
+:AbsoluteInsidePressure :hasValueCardinality :singleValue . # ICD type (IfcPropertySingleValue)
+:AbsoluteInsidePressure :hasValueCardinality :multiValue . # ICD type (IfcPropertyListValue)
+:AbsoluteInsidePressure :validValues "value1" #ICD validValues
+:AbsoluteInsidePressure :validValues "value2" #ICD validValues
+:AbsoluteInsidePressure :validValues "valueN" #ICD validValues
+:AbsoluteInsidePressure :hasTypedValue :floatValue . # ICD valueType
 # value types:
 # floatValue (IfcReal)
 # intValue (IfcInteger)
