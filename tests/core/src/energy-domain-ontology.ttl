@@ -5053,10 +5053,10 @@ rdf:value rdf:type owl:DatatypeProperty .
 :WorkingLoadLimit rdf:type owl:NamedIndividual .
 
 
-[ owl:maxCardinality 1
+[ owl:minCardinality 1
 ] .
 
-[ owl:minCardinality 1
+[ owl:maxCardinality 1
  ] .
 
 #################################################################
@@ -5072,6 +5072,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                   "Um dispositivo mecânico usado para estabilizar e fixar dutos flexíveis ou risers a estruturas fixas em aplicações submarinas, além de dar suporte aos sistemas umbilicais. Ao se prender às camadas externas do tubo, evita movimentos indesejados durante a instalação e operação, ajudando a manter o alinhamento e a integridade sob tensão ou compressão."@pt-br ;
                   skos:prefLabel "Anchoring Collar"@en ,
                                  "Colar de Ancoragem"@pt-br ;
+                  :hasAttribute :AnodeCollarsAxialSpacing ,
+                                :AnodeCollarsQuantity ,
+                                :ClampInternalDiameter ,
+                                :ExternalDiameter ,
+                                :GalvanicMaterial ,
+                                :IndividualAnodeMass ,
+                                :MetallicStrandLength ,
+                                :MetallicStrandSpareQuantity ,
+                                :SafeWorkingLoad ;
                   :ifc_equivalentClass "IfcPipeFitting" ;
                   :ifc_objectType "AnchoringCollar" ;
                   :ifc_predefinedType "USERDEFINED" .
@@ -5082,6 +5091,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                 "Reinforcement layer in subsea flexible pipes used in oil and gas exploration, designed to protect the pipe from external wear and abrasion caused by contact with the seabed, equipment, or other subsea elements. Its primary role is to provide a durable protective barrier that shields the underlying layers from mechanical damage, extending the lifespan of the flexible pipe. Typically made from wear-resistant polymeric materials, the Anti Wear Sheath ensures the pipe's integrity by reducing the risk of surface damage under harsh operating conditions."@en ;
                 skos:prefLabel "Anti Wear Sheath"@en ,
                                "Capa Anti-Atrito"@pt-br ;
+                :hasAttribute :TapesQuantity ;
                 :ifc_equivalentClass "IfcPipeSegment" ;
                 :ifc_objectType "AntiWearSheath" ;
                 :ifc_predefinedType "USERDEFINED" .
@@ -5090,7 +5100,9 @@ rdf:value rdf:type owl:DatatypeProperty .
 :Asset dcterms:identifier "Asset" ;
        skos:definition "An asset refers to valuable resources such as platforms, equipment, pipelines, and processing facilities crucial for production and transportation. These assets are managed to optimize performance, ensure safety, and maximize operational efficiency throughout their lifecycle."@en ;
        skos:prefLabel "Asset"@en ,
-                      "Ativo"@pt-br .
+                      "Ativo"@pt-br ;
+       :hasAttribute :IsSpare ,
+                     :SerialNumber .
 
 
 :BendRestrictor dcterms:identifier "BendRestrictor" ;
@@ -5101,6 +5113,10 @@ rdf:value rdf:type owl:DatatypeProperty .
                                 "Dispositivo usado em dutos flexíveis para limitar o raio de curvatura e evitar curvaturas excessivas que poderiam danificar o duto. Normalmente instalado perto de áreas críticas, como conectores ou acessórios finais, onde curvaturas excessivas poderiam comprometer a integridade estrutural do duto. O Restritor de Curvatura consiste em múltiplos segmentos interligados que permitem flexibilidade até um certo raio, além do qual os segmentos se bloqueiam para impedir mais curvaturas, protegendo o duto contra deformações ou falhas em ambientes submarinos adversos."@pt-br ;
                 skos:prefLabel "Bend Restrictor"@en ,
                                "Restritor de Curvatura"@pt-br ;
+                :hasAttribute :BendMomentVsShearForceTable ,
+                              :BendMomentVsShearForceTable_BendingMoment ,
+                              :BendMomentVsShearForceTable_Condition ,
+                              :BendMomentVsShearForceTable_ShearForce ;
                 :ifc_equivalentClass "IfcPipeFitting" ;
                 :ifc_objectType "BendRestrictor" .
 
@@ -5108,7 +5124,14 @@ rdf:value rdf:type owl:DatatypeProperty .
 :BoltSet dcterms:identifier "BoltSet" ;
          skos:definition "A collection of bolts and nuts, and washers designed for fastening components in subsea systems. Bolt sets are critical for ensuring structural integrity and are selected based on size, material, and application requirements."@en ;
          skos:prefLabel "Bolt Set"@en ,
-                        "Conjunto de Parafusos"@pt-br .
+                        "Conjunto de Parafusos"@pt-br ;
+         :hasAttribute :AssemblyTorque ,
+                       :FullyThreaded ,
+                       :Lubricant ,
+                       :LubricantFrictionFactor ,
+                       :NominalLength ,
+                       :Quantity ,
+                       :SpareQuantity .
 
 
 :BuoyancyModule dcterms:identifier "BuoyancyModule" ;
@@ -5120,6 +5143,13 @@ rdf:value rdf:type owl:DatatypeProperty .
                                 "Dispositivo utilizado em sistemas submarinos para fornecer flutuabilidade controlada a dutos flexíveis, risers ou umbilicais, reduzindo a carga na estrutura e gerenciando a configuração da linha na coluna d'água. O Módulo de Flutuação é tipicamente composto por espuma sintática ou outros materiais de baixa densidade, projetados para suportar altas pressões externas enquanto mantêm suas propriedades de flutuabilidade ao longo do tempo. Ele desempenha um papel fundamental na otimização do desempenho e do posicionamento das linhas subsea, garantindo que mantenham a forma e a profundidade necessárias em condições oceânicas dinâmicas."@pt-br ;
                 skos:prefLabel "Buoyancy Module"@en ,
                                "Módulo de Flutuação"@pt-br ;
+                :hasAttribute :LongTermFloatDensity ,
+                              :LongTermFloatVolume ,
+                              :NominalFloatDensity ,
+                              :NominalFloatVolume ,
+                              :PipeMountPosition ,
+                              :ShortTermFloatDensity ,
+                              :ShortTermFloatVolume ;
                 :ifc_equivalentClass "IfcPipeFitting" ;
                 :ifc_objectType "BuoyancyModule" ;
                 :ifc_predefinedType "USERDEFINED" .
@@ -5128,12 +5158,15 @@ rdf:value rdf:type owl:DatatypeProperty .
 :CarcassLayer dcterms:identifier "CarcassLayer" ;
               skos:definition "A reinforcement layer in subsea flexible pipes that provides structural strength and stability. It helps maintain the shape and integrity of the pipe under operational pressure, ensuring the flexibility of the pipe while protecting the internal components. Typically made from metal or polymer materials, it acts as a foundation for the other protective layers."@en ;
               skos:prefLabel "Camada de Carcaça"@pt-br ,
-                             "Carcass Layer"@en .
+                             "Carcass Layer"@en ;
+              :hasAttribute :MetallicLayerPitch ,
+                            :StressAtDesignPressure .
 
 
 :CommissioningActivity dcterms:identifier "CommissioningActivity" ;
                        skos:prefLabel "Atividade de Comissionamento"@pt-br ,
                                       "Commissioning Activity"@en ;
+                       :hasAttribute :Planned_Start_Timestamp ;
                        :ifc_equivalentClass "IfcTask" ;
                        :ifc_objectType "Activity" ;
                        :ifc_predefinedType "USERDEFINED" .
@@ -5142,6 +5175,10 @@ rdf:value rdf:type owl:DatatypeProperty .
 :CommissioningTask dcterms:identifier "CommissioningTask" ;
                    skos:prefLabel "Commissioning Task"@en ,
                                   "Tarefa de Comissionamento"@pt-br ;
+                   :hasAttribute :Content ,
+                                 :Creator ,
+                                 :CreatorId ,
+                                 :Timestamp ;
                    :ifc_equivalentClass "IfcTask" ;
                    :ifc_objectType "Task" ;
                    :ifc_predefinedType "USERDEFINED" .
@@ -5152,6 +5189,11 @@ rdf:value rdf:type owl:DatatypeProperty .
                                    "Material made from two or more distinct components, typically reinforcing fibers and a matrix, used in the construction of layers in flexible pipes for subsea applications. The Composite Material offers a combination of high strength, corrosion resistance, and flexibility, making it suitable for withstanding the harsh conditions of deepwater environments. Its use in flexible pipe layers enhances the pipe's structural integrity, resistance to external pressure, and durability under cyclical loading, while also reducing weight compared to traditional metallic materials."@en ;
                    skos:prefLabel "Composite Material"@en ,
                                   "Material Compósito"@pt-br ;
+                   :hasAttribute :CompositeLayerMaterialType ,
+                                 :RuptDefAlongFibers ,
+                                 :RuptDefPerpendFibers ,
+                                 :UltTensStrAlongFibers ,
+                                 :UltTensStrPerpendFibers ;
                    :ifc_equivalentClass "IfcMaterial" ;
                    :ifc_objectType "CompositeMaterial" .
 
@@ -5165,6 +5207,18 @@ rdf:value rdf:type owl:DatatypeProperty .
                             "Componente utilizado em dutos flexíveis para fornecer uma transição segura entre o duto flexível e estruturas rígidas, como equipamentos submersos ou instalações no topo, bem como para conectar duas seções de duto flexível. O Terminador garante a integridade estrutural e o vedamento do duto, permitindo a conexão da linha flexível a outros equipamentos ou seções, resistindo a pressões internas e forças ambientais. É uma interface crítica que acomoda as cargas mecânicas, hidráulicas e térmicas do duto, garantindo desempenho confiável a longo prazo em condições submarinas adversas."@pt-br ;
             skos:prefLabel "Conector de Extremidade"@pt-br ,
                            "End fitting"@en ;
+            :hasAttribute :BoreDiameter ,
+                          :FlangeFaceType ,
+                          :FlangeType ,
+                          :HasFaceORing ,
+                          :HasModaSensor ,
+                          :HasN2InjectionPort ,
+                          :RingGasketInnerDIameter ,
+                          :RingGasketOuterDiameter ,
+                          :RingGasketPressureRating ,
+                          :RingGasketSpecification ,
+                          :RingGasketStandard ,
+                          :RingGasketType ;
             :ifc_equivalentClass "IfcPipeFitting" ;
             :ifc_objectType "EndFitting" ;
             :ifc_predefinedType "USERDEFINED" .
@@ -5179,6 +5233,50 @@ rdf:value rdf:type owl:DatatypeProperty .
                                      "Um segmento de duto flexível que faz parte do sistema de pipeline geral. O Tramo Flexível é projetado para transportar fluidos ou gases por distâncias e condições variadas no fundo do mar. Cada seção é projetada para atender a requisitos ambientais e operacionais específicos, contribuindo para a flexibilidade, durabilidade e desempenho do sistema de dutos submarinos."@pt-br ;
                      skos:prefLabel "Flexible Pipe Segment"@en ,
                                     "Tramo de Duto Flexível"@pt-br ;
+                     :hasAttribute :AssemblyShouldObeyModelPolarity ,
+                                   :EarlyLeakMaxPressTable_Press ,
+                                   :EarlyLeakMaxPressTable_PressIntValStrat ,
+                                   :EarlyLeakMaxPressTable_PressValRef ,
+                                   :EarlyLeakMaxPressTable_PressValRefMult ,
+                                   :EarlyLeakMaxPressTable_TensLimit ,
+                                   :EarlyLeakMaxPressTable_TensLimitValRef ,
+                                   :EarlyLeakNomPressTable_Press ,
+                                   :EarlyLeakNomPressTable_PressIntValStrat ,
+                                   :EarlyLeakNomPressTable_PressValRef ,
+                                   :EarlyLeakNomPressTable_PressValRefMult ,
+                                   :EarlyLeakNomPressTable_TensLimit ,
+                                   :EarlyLeakNomPressTable_TensLimitValRef ,
+                                   :FatMaxPress ,
+                                   :FatMaxPressValRef ,
+                                   :FatMaxPressValRefMult ,
+                                   :FatNomPress ,
+                                   :FatNomPressValRef ,
+                                   :FatNomPressValRefMult ,
+                                   :IdInUnifilarDiagram ,
+                                   :ManufacturingDate ,
+                                   :ManufacturingNonConformities ,
+                                   :MaxLengthTolerance ,
+                                   :NominalLength ,
+                                   :OffLeakPLevMaxPress ,
+                                   :OffLeakPLevMaxPressValRef ,
+                                   :OffLeakPLevMaxPressValRefMult ,
+                                   :OffLeakPLevNomPress ,
+                                   :OffLeakPLevNomPressValRef ,
+                                   :OffLeakPLevNomPressValRefMult ,
+                                   :PipeSectionApplication ,
+                                   :SpecialRequirements ,
+                                   :StrIntOffPLevMaxPress ,
+                                   :StrIntOffPLevMaxPressValRef ,
+                                   :StrIntOffPLevMaxPressValRefMult ,
+                                   :StrIntOffPLevNomPress ,
+                                   :StrIntOffPLevNomPressValRef ,
+                                   :StrIntOffPLevNomPressValRefMult ,
+                                   :StrIntOnNoTensMaxPress ,
+                                   :StrIntOnNoTensMaxPressValRef ,
+                                   :StrIntOnNoTensMaxPressValRefMult ,
+                                   :StrIntOnNoTensNomPress ,
+                                   :StrIntOnNoTensNomPressValRef ,
+                                   :StrIntOnNoTensNomPressValRefMult ;
                      :ifc_equivalentClass "IfcPipeSegment" ;
                      :ifc_objectType "FlexiblePipeSegment" ;
                      :ifc_predefinedType "USERDEFINED" .
@@ -5192,6 +5290,64 @@ rdf:value rdf:type owl:DatatypeProperty .
                                        "The Flexible Pipe Structure is the layered configuration of a flexible pipe, designed to provide flexibility and strength in subsea environments. It consists of multiple layers, each serving a specific function, such as pressure containment, protection, or reinforcement. This structure is engineered to handle the demands of deepwater conditions, including high pressure and dynamic movements, ensuring the pipe's integrity and performance."@en ;
                        skos:prefLabel "Estrutura de Duto Flexível"@pt-br ,
                                       "Flexible Pipe Structure"@en ;
+                       :hasAttribute :AbsoluteInsidePressure ,
+                                     :AbsoluteOutsidePressure ,
+                                     :AxialStiffnessUnderCompressionAtSeaLevel ,
+                                     :AxialStiffnessUnderTensionAtSeaLevel ,
+                                     :BendingMomentTable ,
+                                     :BendingMomentTable_BendingMoment ,
+                                     :BendingMomentTable_Curvature ,
+                                     :CalculatedAbsoluteBurstPressure ,
+                                     :CriticalCurvatureOfSlipping ,
+                                     :DamagingPullInStraightLine ,
+                                     :DimensioningCriteria ,
+                                     :ErosionalVelocity ,
+                                     :FlexibleStructureServicesList ,
+                                     :FrictionCoefBetweenPipeAndTensioner ,
+                                     :FrictionCoefficientTighteningTable ,
+                                     :FrictionCoefficientTighteningTable_CoefficientOfFriction ,
+                                     :FrictionCoefficientTighteningTable_TighteningPerTrack ,
+                                     :HydrostaticCollapseAbsPressDry ,
+                                     :InsideTemperature ,
+                                     :IntermediateValuesStrategy ,
+                                     :InternalDiameter ,
+                                     :LayingMinimumRadiusTable ,
+                                     :LayingMinimumRadiusTable_AbsoluteExternalPressure ,
+                                     :LayingMinimumRadiusTable_AbsoluteInternalPressure ,
+                                     :LayingMinimumRadiusTable_Compression ,
+                                     :LayingMinimumRadiusTable_MinimumAllowableBendingRadius ,
+                                     :LayingMinimumRadiusTable_SectionSupportedByRigidSupport ,
+                                     :LayingMinimumRadiusTable_TensileArmourAnnulusCondition ,
+                                     :LimpTorsionalStiffnessAtSeaLevel ,
+                                     :LinearMass ,
+                                     :MaxDesignPressure ,
+                                     :MaximumAllowableTensileForStraightLine ,
+                                     :MaximumAllowableTensionTable ,
+                                     :MaximumAllowableTensionTable_MaximumAllowableTensile ,
+                                     :MaximumAllowableTensionTable_PulleyRadius ,
+                                     :MaximumAllowableTensionTable_PulleyVAngle ,
+                                     :MaximumAllowableTighteningTable ,
+                                     :MaximumAllowableTighteningTable_AxialLoad ,
+                                     :MaximumAllowableTighteningTable_TighteningPerTrack ,
+                                     :MaximumAmbientTemperature ,
+                                     :MinimumBendingRadiusForStorage ,
+                                     :OuterDiameter ,
+                                     :OutsideTemperature ,
+                                     :PostSlippingBendingStiffness ,
+                                     :PreSlippingBendingStiffness ,
+                                     :SpoolingTension ,
+                                     :StiffTorsionalStiffnessAtSeaLevel ,
+                                     :StructureApplicationsList ,
+                                     :StructureCode ,
+                                     :TensileArmourAnnulusCondition ,
+                                     :TensileArmourFreeAnnulusVolume ,
+                                     :TensionerPadsMaterial ,
+                                     :TensionerPadsOpeningAngle ,
+                                     :TensionerPadsShape ,
+                                     :TensionerTracksQuantity ,
+                                     :TestConditions ,
+                                     :ThermalExchangeCoefficientFlooded ,
+                                     :UtilizationFactor ;
                        :ifc_equivalentClass "IfcPipeSegmentType" ;
                        :ifc_objectType "FlexiblePipeStructure" ;
                        :ifc_predefinedType "USERDEFINED" .
@@ -5200,16 +5356,43 @@ rdf:value rdf:type owl:DatatypeProperty .
 :FlexibleStructureLayer dcterms:identifier "FlexibleStructureLayer" ;
                         skos:definition "A specific layer within the structure of a subsea flexible pipe, each designed to fulfill a distinct function. These layers work together to provide essential properties such as pressure containment, reinforcement, and environmental protection. Engineered to withstand harsh underwater conditions, each layer contributes to the overall flexibility, durability, and performance of the subsea flexible pipe system."@en ;
                         skos:prefLabel "Camadas de Estruturas Flexíveis"@pt-br ,
-                                       "Flexible Structure Layer"@en .
+                                       "Flexible Structure Layer"@en ;
+                        :hasAttribute :InternalDiameter ,
+                                      :LayerAnnular ,
+                                      :LayerAnnularType ,
+                                      :LayerContinuity ,
+                                      :LayerGeometryCrossSection ,
+                                      :LayerGeometryInertiaX ,
+                                      :LayerGeometryInertiaY ,
+                                      :LayerGeometryManufacturer ,
+                                      :LayerGeometryName ,
+                                      :LayerGeometryProfileThickness ,
+                                      :LayerGeometryProfileWidth ,
+                                      :LayerGeometryThickness ,
+                                      :LayerThickness ,
+                                      :LayerWatertight ,
+                                      :LayerWatertightLowerLayerInternalFreeVolume ,
+                                      :LinearMass .
 
 
 :FlexibleStructureLayerMaterial dcterms:identifier "FlexibleStructureLayerMaterial" ;
                                 skos:definition "Material used to fabricate the individual layers of a subsea flexible structure, each layer serving a distinct function such as pressure containment, tensile reinforcement, or external protection. The Flexible Structure Layer Material is selected based on its specific properties, such as strength, flexibility, corrosion resistance, or thermal insulation, to ensure the overall performance and durability of the flexible pipe in harsh subsea conditions. These materials may include polymers, metals, composites, or other high-performance substances tailored to the pipe's operational demands."@en ;
                                 skos:prefLabel "Flexible Structure Layer Material"@en ,
-                                               "Materiais de Camadas de Estruturas Flexíveis Submarinas"@pt-br .
+                                               "Materiais de Camadas de Estruturas Flexíveis Submarinas"@pt-br ;
+                                :hasAttribute :ElasticityModulusAt23Degrees ,
+                                              :MaterialComposition ,
+                                              :PoissonRatioAt23Degrees ,
+                                              :SpecificHeatCapacity ,
+                                              :SpecificWeight ,
+                                              :TechnicalNotes ,
+                                              :ThermalConductivityCoefficient .
 
 
-:FlowControlEquipment dcterms:identifier "FlowControlEquipment" .
+:FlowControlEquipment dcterms:identifier "FlowControlEquipment" ;
+                      :hasAttribute :HasThermalInsulation ,
+                                    :NumberOfChokeValves ,
+                                    :NumberOfRemoteProcessIsolationValves ,
+                                    :Piggable .
 
 
 :GroovePoint dcterms:identifier "GroovePoint" ;
@@ -5217,6 +5400,16 @@ rdf:value rdf:type owl:DatatypeProperty .
                              "The Groove Point is a designated point on the center line of the End Fitting, used to indicate the exact position of a groove. The groove itself is a recessed area designed specifically to lock the End Fitting during onboard installation, ensuring that it remains securely in place during the process. The Groove Support Point provides a reference for locating the groove, facilitating the precise alignment and positioning required for a smooth installation."@en ;
              skos:prefLabel "Groove Point"@en ,
                             "Ponto de Groove"@pt-br ;
+             :hasAttribute :GrooveDiameter ,
+                           :GrooveHeight ,
+                           :GrooveMinimumSupportArea ,
+                           :GrooveSupportSurfaceDiameter ,
+                           :GrooveSupportSurfaceFilletRadius ,
+                           :GrvCntrPntDstnceFrmTermFlange ,
+                           :SafeWorkingLoad ,
+                           :TechnicalNotes ,
+                           :TestProp ,
+                           :TestProp2 ;
              :ifc_equivalentClass "IfcDistributionPort" ;
              :ifc_objectType "GroovePoint" ;
              :ifc_predefinedType "USERDEFINED" .
@@ -5230,6 +5423,11 @@ rdf:value rdf:type owl:DatatypeProperty .
                skos:definition "Device used to secure and support flexible pipes or risers during installation, particularly when they are suspended from a platform or vessel. It provides a stable attachment point, distributing the load and preventing excessive movement or strain on the pipe. The Hang Off Collar is crucial for maintaining the integrity of the pipe while it is held in place before final connection or during temporary suspension in subsea operations."@en ;
                skos:prefLabel "Hang Off Collar"@en ,
                               "Sistema de Suspensão"@pt-br ;
+               :hasAttribute :CollarInternalDiameter ,
+                             :FlangeType ,
+                             :MaxDynamicLoad ,
+                             :SafeWorkingLoad ,
+                             :UpperItubeDiameter ;
                :ifc_equivalentClass "IfcPipeFitting" ;
                :ifc_objectType "HangOffCollar" ;
                :ifc_predefinedType "USERDEFINED" .
@@ -5239,6 +5437,9 @@ rdf:value rdf:type owl:DatatypeProperty .
                 skos:definition "Reinforcement layer used in subsea flexible pipes to secure and hold internal components in place during manufacturing and operation. The Holding Bandage helps maintain the alignment and stability of the various layers of the pipe, preventing displacement or movement under dynamic conditions. Typically made from high-strength, flexible materials, it contributes to the overall durability and structural integrity of the pipe, ensuring reliable performance in harsh subsea environments."@en ;
                 skos:prefLabel "Bandagem de Reforço"@pt-br ,
                                "Holding Bandage"@en ;
+                :hasAttribute :ModulusOfElasticity ,
+                              :StressAtDesignPressure ,
+                              :TapesQuantity ;
                 :ifc_equivalentClass "IfcPipeSegment" ;
                 :ifc_objectType "HoldingBandage" ;
                 :ifc_predefinedType "USERDEFINED" .
@@ -5248,6 +5449,9 @@ rdf:value rdf:type owl:DatatypeProperty .
                   skos:definition "Material used in the fabrication of metallic layers in subsea flexible pipes, chosen for its strength, durability, and resistance to harsh environmental conditions. The Metallic Material provides structural reinforcement, enhances pressure resistance, and supports the pipe's overall integrity. Commonly used materials include stainless steel, carbon steel, or other corrosion-resistant alloys, which are selected based on their ability to withstand the operational demands of deepwater environments, such as high pressure, tension, and dynamic loading."@en ;
                   skos:prefLabel "Material Metálico"@pt-br ,
                                  "Metallic Material"@en ;
+                  :hasAttribute :FractureToughness ,
+                                :MetallicLayerMaterialType ,
+                                :UltimateTensileStress ;
                   :ifc_equivalentClass "IfcMaterial" ;
                   :ifc_objectType "MetallicMaterial" .
 
@@ -5256,6 +5460,10 @@ rdf:value rdf:type owl:DatatypeProperty .
                    skos:definition "Galvanic connection cables set providing reliable electrical link between anodes and metal infrastructure for effective corrosion mitigation."@en ;
                    skos:prefLabel "Conjunto de Cordoalhas de Continuidade"@pt-br ,
                                   "Metallic Strand Set"@en ;
+                   :hasAttribute :StrandsTable ,
+                                 :StrandsTable_SpareQuantity ,
+                                 :StrandsTable_StrandsLength ,
+                                 :StrandsTable_StrandsQuantity ;
                    :ifc_equivalentClass "IfcCableSegment" ;
                    :ifc_objectType "MetallicStrandSet" ;
                    :ifc_predefinedType "USERDEFINED" .
@@ -5265,6 +5473,10 @@ rdf:value rdf:type owl:DatatypeProperty .
                skos:definition "A set of bolts and accompanying hardware sized using the metric measurement system, commonly used in subsea applications for international compatibility and standardization."@en ;
                skos:prefLabel "Conjunto de Parafusos Métrico"@pt-br ,
                               "Metric Bolt Set"@en ;
+               :hasAttribute :NominalDiameter ,
+                             :PitchToleranceClass ,
+                             :ThreadPitch ,
+                             :ThreadStandard ;
                :ifc_equivalentClass "IfcMechanicalFastener" ;
                :ifc_objectType "MetricBoltSet" ;
                :ifc_predefinedType "USERDEFINED" .
@@ -5276,6 +5488,9 @@ rdf:value rdf:type owl:DatatypeProperty .
                skos:definition "Metric studs are crucial fastening components for subsea oil and gas components, designed specifically to secure equipment parts. Each set includes bolts, nuts, and washers in metric sizing, made from high-strength, corrosion-resistant materials to withstand the demanding subsea environment. These components offer dependable fastening, ensuring structural integrity and leak prevention in end fittings. Metric stud sets are engineered to endure high pressure and extreme temperatures, making them essential for the safety and durability of subsea interconnections."@en ;
                skos:prefLabel "Conjunto de Estojos Métrico"@pt-br ,
                               "Metric Stud Set"@en ;
+               :hasAttribute :PitchToleranceClass ,
+                             :ThreadPitch ,
+                             :ThreadStandard ;
                :ifc_equivalentClass "IfcMechanicalFastener" ;
                :ifc_objectType "MetricStudSet" ;
                :ifc_predefinedType "USERDEFINED" .
@@ -5290,6 +5505,16 @@ rdf:value rdf:type owl:DatatypeProperty .
                  skos:definition "A component used in subsea flexible pipe installations to provide a secure attachment point for pulling the pipe into position during installation or retrieval operations. The Pulling Head is fitted to the end of the flexible pipe, allowing connection to pulling equipment such as winches or cranes. It is designed to withstand high loads, ensuring that the pipe can be pulled safely without causing damage. The Pulling Head is essential for handling, testing, and securing the pipe in place during subsea installation."@en ;
                  skos:prefLabel "Cabeça de Tração do Duto"@pt-br ,
                                 "Pipe Pulling Head"@en ;
+                 :hasAttribute :FlangeType ,
+                               :PullingHeadType ,
+                               :RingGasketInnerDIameter ,
+                               :RingGasketMaterial ,
+                               :RingGasketOuterDiameter ,
+                               :RingGasketPressureRating ,
+                               :RingGasketSpecification ,
+                               :RingGasketStandard ,
+                               :RingGasketType ,
+                               :SafeWorkingLoad ;
                  :ifc_equivalentClass "IfcPipeFitting" ;
                  :ifc_objectType "PipePullingHead" ;
                  :ifc_predefinedType "USERDEFINED" .
@@ -5299,6 +5524,26 @@ rdf:value rdf:type owl:DatatypeProperty .
                    skos:definition "Material made from polymers, used to fabricate flexible layers in subsea flexible pipes. Polymeric Material is selected for its properties such as flexibility, chemical resistance, and durability, making it suitable for withstanding the harsh conditions of subsea environments. These materials are commonly used in layers that provide insulation, protection, or pressure containment, ensuring the overall performance and integrity of the flexible pipe under dynamic loads and extreme underwater conditions."@en ;
                    skos:prefLabel "Material Polimérico"@pt-br ,
                                   "Polymeric Material"@en ;
+                   :hasAttribute :DiffusionTable ,
+                                 :DiffusionTable_DiffusionCoefficient ,
+                                 :DiffusionTable_MoleculeIdentifier ,
+                                 :DiffusionTable_PolymerState ,
+                                 :DiffusionTable_Temperature ,
+                                 :EModVsTempTable_ElasticityModulus ,
+                                 :MaxPermissibleDeformationDynamic ,
+                                 :MaxPermissibleDeformationStatic ,
+                                 :MinimumTemperature ,
+                                 :PermeabilityTable ,
+                                 :PermeabilityTable_MoleculeIdentifier ,
+                                 :PermeabilityTable_PermeabilityCoefficient ,
+                                 :PermeabilityTable_PolymerState ,
+                                 :PermeabilityTable_Temperature ,
+                                 :PolymericLayerMaterialType ,
+                                 :SolubilityTable ,
+                                 :SolubilityTable_MoleculeIdentifier ,
+                                 :SolubilityTable_PolymerState ,
+                                 :SolubilityTable_SolubilityCoefficient ,
+                                 :SolubilityTable_Temperature ;
                    :ifc_equivalentClass "IfcMaterial" ;
                    :ifc_objectType "PolymericMaterial" .
 
@@ -5311,6 +5556,9 @@ rdf:value rdf:type owl:DatatypeProperty .
               skos:definition "A device used in subsea operations to assist in the installation of flexible pipes or risers by providing a secure attachment point for pulling the pipe into position. The Pull In Collar is typically installed around the pipe and serves as a handling point for pulling equipment during installation. It ensures a controlled and secure method of pulling the pipe into place, preventing damage to the pipe while facilitating smooth and efficient installation in subsea environments."@en ;
               skos:prefLabel "Colar de Pull In"@pt-br ,
                              "Pull In Collar"@en ;
+              :hasAttribute :WireRopeQuantity ,
+                            :WireRopeSlingDiameter ,
+                            :WireRopeSlingLength ;
               :ifc_equivalentClass "IfcPipeFitting" ;
               :ifc_objectType "PullInCollar" ;
               :ifc_predefinedType "USERDEFINED" .
@@ -5326,6 +5574,13 @@ rdf:value rdf:type owl:DatatypeProperty .
             skos:definition "The seal ring is a crucial component used in subsea oil and gas interconnection end fittings to ensure a secure and leak-proof connection between pipes or equipment. Typically made from high-performance materials such as elastomers or metals, the seal ring is designed to withstand extreme pressure, temperature, and environmental conditions found in subsea operations. It is installed within the end fitting to create a reliable seal that prevents fluid leakage and maintains the integrity of the interconnection. The seal ring’s precise design and material selection are essential for ensuring long-term durability and performance in harsh subsea environments."@en ;
             skos:prefLabel "Junta de Conexão"@pt-br ,
                            "Ring Gasket"@en ;
+            :hasAttribute :RingGasketInnerDIameter ,
+                          :RingGasketMaterial ,
+                          :RingGasketOuterDiameter ,
+                          :RingGasketPressureRating ,
+                          :RingGasketSpecification ,
+                          :RingGasketStandard ,
+                          :RingGasketType ;
             :ifc_equivalentClass "IfcMechanicalFastener" ;
             :ifc_objectType "RingGasket" ;
             :ifc_predefinedType "USERDEFINED" .
@@ -5340,6 +5595,11 @@ rdf:value rdf:type owl:DatatypeProperty .
          skos:definition "A device used to connect and secure components in subsea systems, particularly during lifting, handling, or mooring operations. The Shackle typically consists of a U-shaped metal piece with a removable pin or bolt, allowing it to link components such as chains, slings, or cables. It provides a strong and reliable connection point, ensuring that loads can be safely transferred or lifted without risk of detachment or failure. Shackles are essential for securing flexible lines and other equipment during installation and maintenance in subsea environments."@en ;
          skos:prefLabel "Manilha"@pt-br ,
                         "Shackle"@en ;
+         :hasAttribute :ShackleInnerDiameter ,
+                       :ShackleOpeningWidth ,
+                       :ShackleOuterDiameter ,
+                       :ShackleThickness ,
+                       :WorkingLoadLimit ;
          :ifc_equivalentClass "IfcMechanicalFastener" ;
          :ifc_objectType "Shackle" ;
          :ifc_predefinedType "USERDEFINED" .
@@ -5348,7 +5608,8 @@ rdf:value rdf:type owl:DatatypeProperty .
 :SplitCollar dcterms:identifier "SplitCollar" ;
              skos:definition "A component used to encircle and secure parts of subsea systems, such as flexible pipes, risers, or accessories. The Split Collar is designed with a split or gap, allowing it to be clamped around the pipe or component and then fastened together. This design facilitates easy installation and removal, making it useful for applications where adjustments or maintenance are required. The Split Collar provides structural support, alignment, and stability, ensuring that the connected components remain securely in place."@en ;
              skos:prefLabel "Colar Bipartido"@pt-br ,
-                            "Split Collar"@en .
+                            "Split Collar"@en ;
+             :hasAttribute :PipeMountPosition .
 
 
 :StudSet dcterms:identifier "StudSet" ;
@@ -5356,13 +5617,46 @@ rdf:value rdf:type owl:DatatypeProperty .
                        "Threaded Rod"@en ;
          skos:definition "Stud sets are essential fastening components used in subsea oil and gas interconnection end fittings to securely assemble and connect various parts of the equipment. Each set typically includes bolts, nuts, and washers, all made from high-strength, corrosion-resistant materials to endure the harsh subsea environment. These components are designed to provide reliable mechanical fastening, ensuring the structural integrity and leak-proof performance of the end fittings. The stud sets are carefully engineered to withstand high pressure and extreme temperatures, making them critical for maintaining the operational safety and longevity of subsea interconnections."@en ;
          skos:prefLabel "Estojos"@pt-br ,
-                        "Stud Set"@en .
+                        "Stud Set"@en ;
+         :hasAttribute :AssemblyTorque ,
+                       :FullyThreaded ,
+                       :Lubricant ,
+                       :LubricantFrictionFactor ,
+                       :NominalDiameter ,
+                       :Quantity ,
+                       :SpareQuantity .
 
 
 :SubseaPipeline dcterms:identifier "SubseaPipeline" ;
                 skos:definition "A Subsea Pipeline is a conduit installed on the seafloor designed to transport oil, gas, or other fluids from underwater production facilities to processing or storage locations on the surface or shore. Engineered to withstand harsh underwater conditions, including high pressures, corrosive environments, and dynamic movements, the Subsea Pipeline is constructed with durable materials and advanced technologies to ensure reliable and efficient fluid transfer."@en ;
                 skos:prefLabel "Linha Submarina"@pt-br ,
                                "Subsea Pipeline"@en ;
+                :hasAttribute :BasicProjectRevision ,
+                              :CO2VolumePercentage ,
+                              :ExecutiveProjectRevision ,
+                              :H2SVolumeConcentration ,
+                              :InternalDiameter ,
+                              :InternalIncidentalPressureTable ,
+                              :InternalIncidentalPressureTable_PositionReference ,
+                              :InternalIncidentalPressureTable_Pressure ,
+                              :InternalIncidentalPressureTable_VPosWRTWaterline ,
+                              :MaterialRequest ,
+                              :MaterialRequestRev ,
+                              :MaxDesignAbsIntPresTable ,
+                              :MaxDesignAbsIntPresTable_PositionReference ,
+                              :MaxDesignAbsIntPresTable_Pressure ,
+                              :MaxDesignAbsIntPresTable_VPosWRTWaterline ,
+                              :MaximumTemperature ,
+                              :MaximumThermalExchangeCoefficient ,
+                              :MinimumThermalExchangeCoefficient ,
+                              :NominalLength ,
+                              :ProjectAcronym ,
+                              :ProjectCode ,
+                              :RiserConfiguration ,
+                              :Service ,
+                              :SubProjectId ,
+                              :UnifilarDiagram ,
+                              :UnifilarDiagramRev ;
                 :ifc_equivalentClass "IfcBuilding" ;
                 :ifc_objectType "SubseaPipeline" ;
                 :ifc_predefinedType "USERDEFINED" .
@@ -5372,6 +5666,8 @@ rdf:value rdf:type owl:DatatypeProperty .
                skos:definition "Protective layer designed to withstand high tensile stresses and mechanical loads, Tensile Armour is composed of high-strength steel wires or reinforced materials arranged in a helical configuration around the riser. It provides essential resistance to tension and shields the inner layers from mechanical damage and wear, ensuring the riser's integrity and durability during installation and operation in extreme underwater conditions."@en ;
                skos:prefLabel "Armadura de Tração"@pt-br ,
                               "Tensile Armour"@en ;
+               :hasAttribute :TensileWireLayAngle ,
+                             :TensileWiresCount ;
                :ifc_equivalentClass "IfcPipeSegment" ;
                :ifc_objectType "TensileArmour" ;
                :ifc_predefinedType "USERDEFINED" .
@@ -5381,6 +5677,10 @@ rdf:value rdf:type owl:DatatypeProperty .
             skos:definition "A set of bolts conforming to the Unified Numbering System (UNS) standard, ensuring material consistency and reliability in subsea applications."@en ;
             skos:prefLabel "Conjunto de Parafusos UNS"@pt-br ,
                            "UNS Bolt Set"@en ;
+            :hasAttribute :NominalDiameter ,
+                          :PitchToleranceClass ,
+                          :ThreadStandard ,
+                          :ThreadsPerInch ;
             :ifc_equivalentClass "IfcMechanicalFastener" ;
             :ifc_objectType "UNSBoltSet" ;
             :ifc_predefinedType "USERDEFINED" .
@@ -5390,6 +5690,9 @@ rdf:value rdf:type owl:DatatypeProperty .
             skos:definition "UNS stud sets are essential fastening components for subsea oil and gas components, tailored to securely join equipment parts. Each set comprises bolts, nuts, and washers, all in UNS sizing and crafted from high-strength, corrosion-resistant materials to endure the challenging subsea environment. These components provide robust fastening, ensuring structural integrity and leak prevention in end fittings. UNS stud sets are engineered to withstand high pressure and extreme temperatures, playing a vital role in the safety and longevity of subsea interconnections."@en ;
             skos:prefLabel "Conjunto de Estojos UNS"@pt-br ,
                            "UNS Stud Set"@en ;
+            :hasAttribute :PitchToleranceClass ,
+                          :ThreadStandard ,
+                          :ThreadsPerInch ;
             :ifc_equivalentClass "IfcMechanicalFastener" ;
             :ifc_objectType "UNSStudSet" ;
             :ifc_predefinedType "USERDEFINED" .
