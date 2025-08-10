@@ -169,7 +169,7 @@ A complete documentation portal is provided, including:
 
 ### Technical Section
 
-- Modelling conventions and methodology
+- [Modelling conventions and methodology](./ontology_templates.md)
 - Procedures for creating, editing, and maintaining the core ontology
 - Guidelines for subontology extraction
 - SPARQL and SHACL usage examples
