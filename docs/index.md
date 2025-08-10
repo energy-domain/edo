@@ -2,7 +2,7 @@
 
 Welcome to the official documentation of the **Energy Domain Ontology (EDO)**. This ontology serves as a semantic framework for the structured representation, exchange, and validation of information across the full lifecycle of assets in the energy sector.
 
-**Namespace:** [`https://w3id.org/energy-domain/edo`](https://w3id.org/energy-domain/core)  
+**Namespace:** [`https://w3id.org/energy-domain/edo`](https://w3id.org/energy-domain/edo)  
 **Prefix:** `edo:`  
 **Stable Releases:** Hosted on GitHub and Zenodo with permanent URLs via [w3id.org](https://w3id.org)
 
