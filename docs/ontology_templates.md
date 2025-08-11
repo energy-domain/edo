@@ -64,7 +64,7 @@ These are the minimal information about any entity: its type and its super class
 :AbsoluteInsidePressure dcterms:identifier "AbsoluteInsidePressure" . # ICD name
 :AbsoluteInsidePressure skos:prefLabel "Absolute Inside Pressure"@en . # ICD shortDescription
 :AbsoluteInsidePressure skos:prefLabel "Pressão Interna Absoluta"@pt-BR . # ICD shortDescription br
-:AbsoluteInsidePressure dcterms:accessRights "public" . # ICD confidentiality
+:AbsoluteInsidePressure dcterms:accessRights "PUBLIC" . # ICD confidentiality
 :AbsoluteInsidePressure qudt:applicableUnit unit:PA . # ICD unit (Check qudt units)
 :AbsoluteInsidePressure :hasValueCardinality :singleValue . # ICD type (IfcPropertySingleValue)
 :AbsoluteInsidePressure :hasValueCardinality :multiValue . # ICD type (IfcPropertyListValue)
