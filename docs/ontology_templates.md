@@ -1,51 +1,31 @@
 # Ontology entities templates
 
-There are two ways to create entities on the ontology:
-###### 1. Predicate Lists (Compacted mode)
-In compact mode, all assertions about the same subject are grouped:
-```turtle
-:EndFitting rdf:type owl:Class ;
-            rdfs:subClassOf :PipeTermination .
-```
-
-###### 2. Complete triples (Expanded mode)
-In expanded mode, all assertions are created on an individual line:
-```turtle
-:EndFitting rdf:type owl:Class .
-:EndFitting rdfs:subClassOf :PipeTermination .
-```
-
-# Templates
-
 ### Minimal assertions (Type and superclass)
 These are the minimal information about any entity: its type and its super class:
 
-##### 1. Domain Objects (Assets, types etc.)
+##### 1. Domain Elements (Assets, types etc.)
+The highest superclass of this taxonomy is DomainElement
 ```turtle
-:EndFitting rdf:type owl:Class .
-:EndFitting rdfs:subClassOf :PipeTermination .
+:EndFitting rdf:type owl:Class . # Entity creation
+:EndFitting rdfs:subClassOf :PipeTermination . # Entity superclass on the taxonomy
 ```
 
 ##### 2. Domain Attributes (Pressure, Temperature etc.)
+The only superclass of this taxonomy is DomainAttribute
 ```turtle
-:AbsoluteInsidePressure rdf:type owl:Class .
-:AbsoluteInsidePressure rdfs:subClassOf :DomainAttribute .
+:AbsoluteInsidePressure rdf:type owl:Class . # Entity creation
+:AbsoluteInsidePressure rdfs:subClassOf :DomainAttribute . # Attribute fixed superclass (The same for all attributes)
 ```
 
 ##### 3. Object Attributes associations (Assets attributes)
-### Method 1:
 ```turtle
 :EndFitting :hasAttribute :AbsoluteInsidePressure .
 :EndFitting :hasAttribute :AbsoluteInsideTemperature .
 ```
-### Method 2:
-```turtle
-:EndFitting :hasAttribute :AbsoluteInsidePressure , :AbsoluteInsideTemperature .
-```
 
 # Metadata (Annotations) templates
 
-##### 1. Domain Objects (Assets, types etc.)
+##### 1. Domain Elements (Assets, types etc.)
 ```turtle
 :EndFitting dcterms:identifier "EndFitting" . # ICD name
 :EndFitting skos:prefLabel "End Fitting"@en . # ICD shortDescription
@@ -106,3 +86,11 @@ FlangeFaceType default valid values:
     :validValues "value3" ;
 ] .
 ```
+
+# Domain elements classification
+
+Domain and aubdomain
+Discipline
+
+# Domain attributes classification
+LifecyclePhase
