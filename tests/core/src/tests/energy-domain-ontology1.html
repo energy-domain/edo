@@ -1,0 +1,2960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Domain Ontology Browser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* Tree styling */
+        ul, #tree {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .caret {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        
+        .caret-down::before {
+            transform: rotate(90deg);
+        }
+        
+        .nested {
+            display: none;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: black;
+        }
+        
+        .attribute-list {
+            margin-top: 10px;
+        }
+        
+        .attribute-item {
+            margin-bottom: 5px;
+            padding: 5px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Energy Domain Ontology Browser</h1>
+    
+    <h2>Class Taxonomy</h2>
+    <ul id="tree">
+        <li>
+  <span class="caret" onclick="selectClass('Asset', 'https://w3id.org/energy-domain/edo#Asset')">Asset</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('CompactObject', 'https://w3id.org/energy-domain/edo#CompactObject')">CompactObject</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('Accessory', 'https://w3id.org/energy-domain/edo#Accessory')">Accessory</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('DeploymentAccessory', 'https://w3id.org/energy-domain/edo#DeploymentAccessory')">DeploymentAccessory</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('HubProtectionCap', 'https://w3id.org/energy-domain/edo#HubProtectionCap')">HubProtectionCap</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('ROVTool', 'https://w3id.org/energy-domain/edo#ROVTool')">ROVTool</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('OverrideTool', 'https://w3id.org/energy-domain/edo#OverrideTool')">OverrideTool</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('StorageAccessory', 'https://w3id.org/energy-domain/edo#StorageAccessory')">StorageAccessory</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('StorageBox', 'https://w3id.org/energy-domain/edo#StorageBox')">StorageBox</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('StorageSkid', 'https://w3id.org/energy-domain/edo#StorageSkid')">StorageSkid</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('StorageSpool', 'https://w3id.org/energy-domain/edo#StorageSpool')">StorageSpool</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('WearBushing', 'https://w3id.org/energy-domain/edo#WearBushing')">WearBushing</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('Component', 'https://w3id.org/energy-domain/edo#Component')">Component</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('ComponentDevice', 'https://w3id.org/energy-domain/edo#ComponentDevice')">ComponentDevice</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('ElectronicDevice', 'https://w3id.org/energy-domain/edo#ElectronicDevice')">ElectronicDevice</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('IMUX', 'https://w3id.org/energy-domain/edo#IMUX')">IMUX</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('SEM', 'https://w3id.org/energy-domain/edo#SEM')">SEM</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('Sensor', 'https://w3id.org/energy-domain/edo#Sensor')">Sensor</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('PressureSensor', 'https://w3id.org/energy-domain/edo#PressureSensor')">PressureSensor</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('SandDetector', 'https://w3id.org/energy-domain/edo#SandDetector')">SandDetector</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('TPT', 'https://w3id.org/energy-domain/edo#TPT')">TPT</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('TemperatureSensor', 'https://w3id.org/energy-domain/edo#TemperatureSensor')">TemperatureSensor</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('PressureComponent', 'https://w3id.org/energy-domain/edo#PressureComponent')">PressureComponent</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('CasingHanger', 'https://w3id.org/energy-domain/edo#CasingHanger')">CasingHanger</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('FlowConnector', 'https://w3id.org/energy-domain/edo#FlowConnector')">FlowConnector</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('HPHousing', 'https://w3id.org/energy-domain/edo#HPHousing')">HPHousing</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('Hub', 'https://w3id.org/energy-domain/edo#Hub')">Hub</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('LPHousing', 'https://w3id.org/energy-domain/edo#LPHousing')">LPHousing</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('PipingSpool', 'https://w3id.org/energy-domain/edo#PipingSpool')">PipingSpool</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('PowerMachine', 'https://w3id.org/energy-domain/edo#PowerMachine')">PowerMachine</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('RotatingMachine', 'https://w3id.org/energy-domain/edo#RotatingMachine')">RotatingMachine</span>
+                          <ul class="nested">
+                            <li>
+                              <span class="caret" onclick="selectClass('Pump', 'https://w3id.org/energy-domain/edo#Pump')">Pump</span>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TieIn', 'https://w3id.org/energy-domain/edo#TieIn')">TieIn</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TubingHanger', 'https://w3id.org/energy-domain/edo#TubingHanger')">TubingHanger</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('Valve', 'https://w3id.org/energy-domain/edo#Valve')">Valve</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('ActuatedValve', 'https://w3id.org/energy-domain/edo#ActuatedValve')">ActuatedValve</span>
+                          <ul class="nested">
+                            <li>
+                              <span class="caret" onclick="selectClass('BlockValve', 'https://w3id.org/energy-domain/edo#BlockValve')">BlockValve</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('ChokeValve', 'https://w3id.org/energy-domain/edo#ChokeValve')">ChokeValve</span>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('CheckValve', 'https://w3id.org/energy-domain/edo#CheckValve')">CheckValve</span>
+                          <ul class="nested">
+                            <li>
+                              <span class="caret" onclick="selectClass('ReliefValve', 'https://w3id.org/energy-domain/edo#ReliefValve')">ReliefValve</span>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('Vessel', 'https://w3id.org/energy-domain/edo#Vessel')">Vessel</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('SeparatorVessel', 'https://w3id.org/energy-domain/edo#SeparatorVessel')">SeparatorVessel</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('SpliceBox', 'https://w3id.org/energy-domain/edo#SpliceBox')">SpliceBox</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('HardwareItem', 'https://w3id.org/energy-domain/edo#HardwareItem')">HardwareItem</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('LineAncillary', 'https://w3id.org/energy-domain/edo#LineAncillary')">LineAncillary</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('BendRestrictor', 'https://w3id.org/energy-domain/edo#BendRestrictor')">BendRestrictor</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('BendStiffener', 'https://w3id.org/energy-domain/edo#BendStiffener')">BendStiffener</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('IntermediateBendStiffener', 'https://w3id.org/energy-domain/edo#IntermediateBendStiffener')">IntermediateBendStiffener</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('TopBendStiffener', 'https://w3id.org/energy-domain/edo#TopBendStiffener')">TopBendStiffener</span>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('BuoyancyModule', 'https://w3id.org/energy-domain/edo#BuoyancyModule')">BuoyancyModule</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('HangOffCollar', 'https://w3id.org/energy-domain/edo#HangOffCollar')">HangOffCollar</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('PullingHead', 'https://w3id.org/energy-domain/edo#PullingHead')">PullingHead</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('PipePullingHead', 'https://w3id.org/energy-domain/edo#PipePullingHead')">PipePullingHead</span>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('SplitCollar', 'https://w3id.org/energy-domain/edo#SplitCollar')">SplitCollar</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('AnchoringCollar', 'https://w3id.org/energy-domain/edo#AnchoringCollar')">AnchoringCollar</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('AnodeCollarSet', 'https://w3id.org/energy-domain/edo#AnodeCollarSet')">AnodeCollarSet</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('DeadweightCollar', 'https://w3id.org/energy-domain/edo#DeadweightCollar')">DeadweightCollar</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('HandlingCollar', 'https://w3id.org/energy-domain/edo#HandlingCollar')">HandlingCollar</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('PullInCollar', 'https://w3id.org/energy-domain/edo#PullInCollar')">PullInCollar</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('StopperCollar', 'https://w3id.org/energy-domain/edo#StopperCollar')">StopperCollar</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('LineTermination', 'https://w3id.org/energy-domain/edo#LineTermination')">LineTermination</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('ArmorPot', 'https://w3id.org/energy-domain/edo#ArmorPot')">ArmorPot</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('PipeTermination', 'https://w3id.org/energy-domain/edo#PipeTermination')">PipeTermination</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('EndFitting', 'https://w3id.org/energy-domain/edo#EndFitting')">EndFitting</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('MooringAccessory', 'https://w3id.org/energy-domain/edo#MooringAccessory')">MooringAccessory</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('Hook', 'https://w3id.org/energy-domain/edo#Hook')">Hook</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('Shackle', 'https://w3id.org/energy-domain/edo#Shackle')">Shackle</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('Socket', 'https://w3id.org/energy-domain/edo#Socket')">Socket</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TrianglePlate', 'https://w3id.org/energy-domain/edo#TrianglePlate')">TrianglePlate</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('RiserSupport', 'https://w3id.org/energy-domain/edo#RiserSupport')">RiserSupport</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('ITube', 'https://w3id.org/energy-domain/edo#ITube')">ITube</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('OpenReceptacle', 'https://w3id.org/energy-domain/edo#OpenReceptacle')">OpenReceptacle</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('Equipment', 'https://w3id.org/energy-domain/edo#Equipment')">Equipment</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('SubseaEquipment', 'https://w3id.org/energy-domain/edo#SubseaEquipment')">SubseaEquipment</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('ActuatedEquipment', 'https://w3id.org/energy-domain/edo#ActuatedEquipment')">ActuatedEquipment</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('PressureEquipment', 'https://w3id.org/energy-domain/edo#PressureEquipment')">PressureEquipment</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('BOP', 'https://w3id.org/energy-domain/edo#BOP')">BOP</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('FlowControlEquipment', 'https://w3id.org/energy-domain/edo#FlowControlEquipment')">FlowControlEquipment</span>
+                          <ul class="nested">
+                            <li>
+                              <span class="caret" onclick="selectClass('FSHRLowerAssembly', 'https://w3id.org/energy-domain/edo#FSHRLowerAssembly')">FSHRLowerAssembly</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('FSHRUpperAssembly', 'https://w3id.org/energy-domain/edo#FSHRUpperAssembly')">FSHRUpperAssembly</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('FlowBase', 'https://w3id.org/energy-domain/edo#FlowBase')">FlowBase</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('FlowControlModule', 'https://w3id.org/energy-domain/edo#FlowControlModule')">FlowControlModule</span>
+                              <ul class="nested">
+                                <li>
+                                  <span class="caret" onclick="selectClass('ChokeModule', 'https://w3id.org/energy-domain/edo#ChokeModule')">ChokeModule</span>
+                                </li>
+                                <li>
+                                  <span class="caret" onclick="selectClass('CrossoverModule', 'https://w3id.org/energy-domain/edo#CrossoverModule')">CrossoverModule</span>
+                                </li>
+                                <li>
+                                  <span class="caret" onclick="selectClass('HubBlockCap', 'https://w3id.org/energy-domain/edo#HubBlockCap')">HubBlockCap</span>
+                                </li>
+                                <li>
+                                  <span class="caret" onclick="selectClass('ProcessingModule', 'https://w3id.org/energy-domain/edo#ProcessingModule')">ProcessingModule</span>
+                                  <ul class="nested">
+                                    <li>
+                                      <span class="caret" onclick="selectClass('PumpingModule', 'https://w3id.org/energy-domain/edo#PumpingModule')">PumpingModule</span>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <span class="caret" onclick="selectClass('TieInEquipment', 'https://w3id.org/energy-domain/edo#TieInEquipment')">TieInEquipment</span>
+                                  <ul class="nested">
+                                    <li>
+                                      <span class="caret" onclick="selectClass('FlowLineMandrel', 'https://w3id.org/energy-domain/edo#FlowLineMandrel')">FlowLineMandrel</span>
+                                    </li>
+                                    <li>
+                                      <span class="caret" onclick="selectClass('LineTerminationModule', 'https://w3id.org/energy-domain/edo#LineTerminationModule')">LineTerminationModule</span>
+                                      <ul class="nested">
+                                        <li>
+                                          <span class="caret" onclick="selectClass('ConnectionModule', 'https://w3id.org/energy-domain/edo#ConnectionModule')">ConnectionModule</span>
+                                          <ul class="nested">
+                                            <li>
+                                              <span class="caret" onclick="selectClass('HCM', 'https://w3id.org/energy-domain/edo#HCM')">HCM</span>
+                                            </li>
+                                            <li>
+                                              <span class="caret" onclick="selectClass('VCM', 'https://w3id.org/energy-domain/edo#VCM')">VCM</span>
+                                            </li>
+                                          </ul>
+                                        </li>
+                                        <li>
+                                          <span class="caret" onclick="selectClass('UTM', 'https://w3id.org/energy-domain/edo#UTM')">UTM</span>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li>
+                                      <span class="caret" onclick="selectClass('RigidJumper', 'https://w3id.org/energy-domain/edo#RigidJumper')">RigidJumper</span>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <span class="caret" onclick="selectClass('TreeCap', 'https://w3id.org/energy-domain/edo#TreeCap')">TreeCap</span>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('InlineT', 'https://w3id.org/energy-domain/edo#InlineT')">InlineT</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('InlineValve', 'https://w3id.org/energy-domain/edo#InlineValve')">InlineValve</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('InlineY', 'https://w3id.org/energy-domain/edo#InlineY')">InlineY</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('Manifold', 'https://w3id.org/energy-domain/edo#Manifold')">Manifold</span>
+                              <ul class="nested">
+                                <li>
+                                  <span class="caret" onclick="selectClass('PLEM', 'https://w3id.org/energy-domain/edo#PLEM')">PLEM</span>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('PLET', 'https://w3id.org/energy-domain/edo#PLET')">PLET</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('WetChristmasTree', 'https://w3id.org/energy-domain/edo#WetChristmasTree')">WetChristmasTree</span>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('RunningTool', 'https://w3id.org/energy-domain/edo#RunningTool')">RunningTool</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('FlowbaseRunningTool', 'https://w3id.org/energy-domain/edo#FlowbaseRunningTool')">FlowbaseRunningTool</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('QuickDisconnectionTool', 'https://w3id.org/energy-domain/edo#QuickDisconnectionTool')">QuickDisconnectionTool</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('SCMRunningTool', 'https://w3id.org/energy-domain/edo#SCMRunningTool')">SCMRunningTool</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('ShearableRiserJoint', 'https://w3id.org/energy-domain/edo#ShearableRiserJoint')">ShearableRiserJoint</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('TreeRunningTool', 'https://w3id.org/energy-domain/edo#TreeRunningTool')">TreeRunningTool</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('TubingHangerRunningTool', 'https://w3id.org/energy-domain/edo#TubingHangerRunningTool')">TubingHangerRunningTool</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('WearBushingRunningTool', 'https://w3id.org/energy-domain/edo#WearBushingRunningTool')">WearBushingRunningTool</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('AuxiliaryModule', 'https://w3id.org/energy-domain/edo#AuxiliaryModule')">AuxiliaryModule</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('DistributionModule', 'https://w3id.org/energy-domain/edo#DistributionModule')">DistributionModule</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('LogicCap', 'https://w3id.org/energy-domain/edo#LogicCap')">LogicCap</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('RoboticActuator', 'https://w3id.org/energy-domain/edo#RoboticActuator')">RoboticActuator</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('SCM', 'https://w3id.org/energy-domain/edo#SCM')">SCM</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('SCMMB', 'https://w3id.org/energy-domain/edo#SCMMB')">SCMMB</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('BuoyancyTank', 'https://w3id.org/energy-domain/edo#BuoyancyTank')">BuoyancyTank</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('RiserSupportBuoy', 'https://w3id.org/energy-domain/edo#RiserSupportBuoy')">RiserSupportBuoy</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('SDU', 'https://w3id.org/energy-domain/edo#SDU')">SDU</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('UTA', 'https://w3id.org/energy-domain/edo#UTA')">UTA</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('WaterIntake', 'https://w3id.org/energy-domain/edo#WaterIntake')">WaterIntake</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('SurfaceEquipment', 'https://w3id.org/energy-domain/edo#SurfaceEquipment')">SurfaceEquipment</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('TestEquipment', 'https://w3id.org/energy-domain/edo#TestEquipment')">TestEquipment</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('TestBase', 'https://w3id.org/energy-domain/edo#TestBase')">TestBase</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('TopsideEquipment', 'https://w3id.org/energy-domain/edo#TopsideEquipment')">TopsideEquipment</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('ChemicalInjectionUnit', 'https://w3id.org/energy-domain/edo#ChemicalInjectionUnit')">ChemicalInjectionUnit</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('HydraulicPowerUnit', 'https://w3id.org/energy-domain/edo#HydraulicPowerUnit')">HydraulicPowerUnit</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('MasterControlStation', 'https://w3id.org/energy-domain/edo#MasterControlStation')">MasterControlStation</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('Structure', 'https://w3id.org/energy-domain/edo#Structure')">Structure</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('Anchor', 'https://w3id.org/energy-domain/edo#Anchor')">Anchor</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('DragAnchor', 'https://w3id.org/energy-domain/edo#DragAnchor')">DragAnchor</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('Pile', 'https://w3id.org/energy-domain/edo#Pile')">Pile</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('SuctionPile', 'https://w3id.org/energy-domain/edo#SuctionPile')">SuctionPile</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TorpedoPile', 'https://w3id.org/energy-domain/edo#TorpedoPile')">TorpedoPile</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('AnodeSled', 'https://w3id.org/energy-domain/edo#AnodeSled')">AnodeSled</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('GuideBase', 'https://w3id.org/energy-domain/edo#GuideBase')">GuideBase</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PipeSupport', 'https://w3id.org/energy-domain/edo#PipeSupport')">PipeSupport</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('GroutBag', 'https://w3id.org/energy-domain/edo#GroutBag')">GroutBag</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('Mattress', 'https://w3id.org/energy-domain/edo#Mattress')">Mattress</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('PipeMechanicalSupport', 'https://w3id.org/energy-domain/edo#PipeMechanicalSupport')">PipeMechanicalSupport</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Wellhead', 'https://w3id.org/energy-domain/edo#Wellhead')">Wellhead</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('LinearObject', 'https://w3id.org/energy-domain/edo#LinearObject')">LinearObject</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('ChainSegment', 'https://w3id.org/energy-domain/edo#ChainSegment')">ChainSegment</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('FiberOpticJumper', 'https://w3id.org/energy-domain/edo#FiberOpticJumper')">FiberOpticJumper</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('Jumper', 'https://w3id.org/energy-domain/edo#Jumper')">Jumper</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('ElectricalJumper', 'https://w3id.org/energy-domain/edo#ElectricalJumper')">ElectricalJumper</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('ElectricalPowerJumper', 'https://w3id.org/energy-domain/edo#ElectricalPowerJumper')">ElectricalPowerJumper</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('HydraulicJumper', 'https://w3id.org/energy-domain/edo#HydraulicJumper')">HydraulicJumper</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('RopeSegment', 'https://w3id.org/energy-domain/edo#RopeSegment')">RopeSegment</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('FiberRopeSegment', 'https://w3id.org/energy-domain/edo#FiberRopeSegment')">FiberRopeSegment</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('WireRopeSegment', 'https://w3id.org/energy-domain/edo#WireRopeSegment')">WireRopeSegment</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('TransportLineSegment', 'https://w3id.org/energy-domain/edo#TransportLineSegment')">TransportLineSegment</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('PipeSegment', 'https://w3id.org/energy-domain/edo#PipeSegment')">PipeSegment</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('FlexiblePipeSegment', 'https://w3id.org/energy-domain/edo#FlexiblePipeSegment')">FlexiblePipeSegment</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('UmbilicalSegment', 'https://w3id.org/energy-domain/edo#UmbilicalSegment')">UmbilicalSegment</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('CommissioningObject', 'https://w3id.org/energy-domain/edo#CommissioningObject')">CommissioningObject</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningActivity', 'https://w3id.org/energy-domain/edo#CommissioningActivity')">CommissioningActivity</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningContract', 'https://w3id.org/energy-domain/edo#CommissioningContract')">CommissioningContract</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningDigitalProcessStep', 'https://w3id.org/energy-domain/edo#CommissioningDigitalProcessStep')">CommissioningDigitalProcessStep</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningEvidence', 'https://w3id.org/energy-domain/edo#CommissioningEvidence')">CommissioningEvidence</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningIssue', 'https://w3id.org/energy-domain/edo#CommissioningIssue')">CommissioningIssue</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningItemCheck', 'https://w3id.org/energy-domain/edo#CommissioningItemCheck')">CommissioningItemCheck</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningLoopCheck', 'https://w3id.org/energy-domain/edo#CommissioningLoopCheck')">CommissioningLoopCheck</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningPerson', 'https://w3id.org/energy-domain/edo#CommissioningPerson')">CommissioningPerson</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningPreservationOrder', 'https://w3id.org/energy-domain/edo#CommissioningPreservationOrder')">CommissioningPreservationOrder</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningProgram', 'https://w3id.org/energy-domain/edo#CommissioningProgram')">CommissioningProgram</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningProject', 'https://w3id.org/energy-domain/edo#CommissioningProject')">CommissioningProject</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningResponsibleActor', 'https://w3id.org/energy-domain/edo#CommissioningResponsibleActor')">CommissioningResponsibleActor</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningResponsibleGroup', 'https://w3id.org/energy-domain/edo#CommissioningResponsibleGroup')">CommissioningResponsibleGroup</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('CommissioningTask', 'https://w3id.org/energy-domain/edo#CommissioningTask')">CommissioningTask</span>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('CompactObject', 'https://w3id.org/energy-domain/edo#CompactObject')">CompactObject</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('Accessory', 'https://w3id.org/energy-domain/edo#Accessory')">Accessory</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('DeploymentAccessory', 'https://w3id.org/energy-domain/edo#DeploymentAccessory')">DeploymentAccessory</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('HubProtectionCap', 'https://w3id.org/energy-domain/edo#HubProtectionCap')">HubProtectionCap</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('ROVTool', 'https://w3id.org/energy-domain/edo#ROVTool')">ROVTool</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('OverrideTool', 'https://w3id.org/energy-domain/edo#OverrideTool')">OverrideTool</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('StorageAccessory', 'https://w3id.org/energy-domain/edo#StorageAccessory')">StorageAccessory</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('StorageBox', 'https://w3id.org/energy-domain/edo#StorageBox')">StorageBox</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('StorageSkid', 'https://w3id.org/energy-domain/edo#StorageSkid')">StorageSkid</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('StorageSpool', 'https://w3id.org/energy-domain/edo#StorageSpool')">StorageSpool</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('WearBushing', 'https://w3id.org/energy-domain/edo#WearBushing')">WearBushing</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('Component', 'https://w3id.org/energy-domain/edo#Component')">Component</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('ComponentDevice', 'https://w3id.org/energy-domain/edo#ComponentDevice')">ComponentDevice</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('ElectronicDevice', 'https://w3id.org/energy-domain/edo#ElectronicDevice')">ElectronicDevice</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('IMUX', 'https://w3id.org/energy-domain/edo#IMUX')">IMUX</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('SEM', 'https://w3id.org/energy-domain/edo#SEM')">SEM</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('Sensor', 'https://w3id.org/energy-domain/edo#Sensor')">Sensor</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('PressureSensor', 'https://w3id.org/energy-domain/edo#PressureSensor')">PressureSensor</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('SandDetector', 'https://w3id.org/energy-domain/edo#SandDetector')">SandDetector</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TPT', 'https://w3id.org/energy-domain/edo#TPT')">TPT</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TemperatureSensor', 'https://w3id.org/energy-domain/edo#TemperatureSensor')">TemperatureSensor</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PressureComponent', 'https://w3id.org/energy-domain/edo#PressureComponent')">PressureComponent</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('CasingHanger', 'https://w3id.org/energy-domain/edo#CasingHanger')">CasingHanger</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('FlowConnector', 'https://w3id.org/energy-domain/edo#FlowConnector')">FlowConnector</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('HPHousing', 'https://w3id.org/energy-domain/edo#HPHousing')">HPHousing</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('Hub', 'https://w3id.org/energy-domain/edo#Hub')">Hub</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('LPHousing', 'https://w3id.org/energy-domain/edo#LPHousing')">LPHousing</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('PipingSpool', 'https://w3id.org/energy-domain/edo#PipingSpool')">PipingSpool</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('PowerMachine', 'https://w3id.org/energy-domain/edo#PowerMachine')">PowerMachine</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('RotatingMachine', 'https://w3id.org/energy-domain/edo#RotatingMachine')">RotatingMachine</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('Pump', 'https://w3id.org/energy-domain/edo#Pump')">Pump</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('TieIn', 'https://w3id.org/energy-domain/edo#TieIn')">TieIn</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('TubingHanger', 'https://w3id.org/energy-domain/edo#TubingHanger')">TubingHanger</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('Valve', 'https://w3id.org/energy-domain/edo#Valve')">Valve</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('ActuatedValve', 'https://w3id.org/energy-domain/edo#ActuatedValve')">ActuatedValve</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('BlockValve', 'https://w3id.org/energy-domain/edo#BlockValve')">BlockValve</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('ChokeValve', 'https://w3id.org/energy-domain/edo#ChokeValve')">ChokeValve</span>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('CheckValve', 'https://w3id.org/energy-domain/edo#CheckValve')">CheckValve</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('ReliefValve', 'https://w3id.org/energy-domain/edo#ReliefValve')">ReliefValve</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('Vessel', 'https://w3id.org/energy-domain/edo#Vessel')">Vessel</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('SeparatorVessel', 'https://w3id.org/energy-domain/edo#SeparatorVessel')">SeparatorVessel</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('SpliceBox', 'https://w3id.org/energy-domain/edo#SpliceBox')">SpliceBox</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('HardwareItem', 'https://w3id.org/energy-domain/edo#HardwareItem')">HardwareItem</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('LineAncillary', 'https://w3id.org/energy-domain/edo#LineAncillary')">LineAncillary</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('BendRestrictor', 'https://w3id.org/energy-domain/edo#BendRestrictor')">BendRestrictor</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('BendStiffener', 'https://w3id.org/energy-domain/edo#BendStiffener')">BendStiffener</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('IntermediateBendStiffener', 'https://w3id.org/energy-domain/edo#IntermediateBendStiffener')">IntermediateBendStiffener</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TopBendStiffener', 'https://w3id.org/energy-domain/edo#TopBendStiffener')">TopBendStiffener</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('BuoyancyModule', 'https://w3id.org/energy-domain/edo#BuoyancyModule')">BuoyancyModule</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('HangOffCollar', 'https://w3id.org/energy-domain/edo#HangOffCollar')">HangOffCollar</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('PullingHead', 'https://w3id.org/energy-domain/edo#PullingHead')">PullingHead</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('PipePullingHead', 'https://w3id.org/energy-domain/edo#PipePullingHead')">PipePullingHead</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('SplitCollar', 'https://w3id.org/energy-domain/edo#SplitCollar')">SplitCollar</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('AnchoringCollar', 'https://w3id.org/energy-domain/edo#AnchoringCollar')">AnchoringCollar</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('AnodeCollarSet', 'https://w3id.org/energy-domain/edo#AnodeCollarSet')">AnodeCollarSet</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('DeadweightCollar', 'https://w3id.org/energy-domain/edo#DeadweightCollar')">DeadweightCollar</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('HandlingCollar', 'https://w3id.org/energy-domain/edo#HandlingCollar')">HandlingCollar</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('PullInCollar', 'https://w3id.org/energy-domain/edo#PullInCollar')">PullInCollar</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('StopperCollar', 'https://w3id.org/energy-domain/edo#StopperCollar')">StopperCollar</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('LineTermination', 'https://w3id.org/energy-domain/edo#LineTermination')">LineTermination</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('ArmorPot', 'https://w3id.org/energy-domain/edo#ArmorPot')">ArmorPot</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('PipeTermination', 'https://w3id.org/energy-domain/edo#PipeTermination')">PipeTermination</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('EndFitting', 'https://w3id.org/energy-domain/edo#EndFitting')">EndFitting</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('MooringAccessory', 'https://w3id.org/energy-domain/edo#MooringAccessory')">MooringAccessory</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('Hook', 'https://w3id.org/energy-domain/edo#Hook')">Hook</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('Shackle', 'https://w3id.org/energy-domain/edo#Shackle')">Shackle</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('Socket', 'https://w3id.org/energy-domain/edo#Socket')">Socket</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('TrianglePlate', 'https://w3id.org/energy-domain/edo#TrianglePlate')">TrianglePlate</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('RiserSupport', 'https://w3id.org/energy-domain/edo#RiserSupport')">RiserSupport</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('ITube', 'https://w3id.org/energy-domain/edo#ITube')">ITube</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('OpenReceptacle', 'https://w3id.org/energy-domain/edo#OpenReceptacle')">OpenReceptacle</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('Equipment', 'https://w3id.org/energy-domain/edo#Equipment')">Equipment</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('SubseaEquipment', 'https://w3id.org/energy-domain/edo#SubseaEquipment')">SubseaEquipment</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('ActuatedEquipment', 'https://w3id.org/energy-domain/edo#ActuatedEquipment')">ActuatedEquipment</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('PressureEquipment', 'https://w3id.org/energy-domain/edo#PressureEquipment')">PressureEquipment</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('BOP', 'https://w3id.org/energy-domain/edo#BOP')">BOP</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('FlowControlEquipment', 'https://w3id.org/energy-domain/edo#FlowControlEquipment')">FlowControlEquipment</span>
+                      <ul class="nested">
+                        <li>
+                          <span class="caret" onclick="selectClass('FSHRLowerAssembly', 'https://w3id.org/energy-domain/edo#FSHRLowerAssembly')">FSHRLowerAssembly</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('FSHRUpperAssembly', 'https://w3id.org/energy-domain/edo#FSHRUpperAssembly')">FSHRUpperAssembly</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('FlowBase', 'https://w3id.org/energy-domain/edo#FlowBase')">FlowBase</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('FlowControlModule', 'https://w3id.org/energy-domain/edo#FlowControlModule')">FlowControlModule</span>
+                          <ul class="nested">
+                            <li>
+                              <span class="caret" onclick="selectClass('ChokeModule', 'https://w3id.org/energy-domain/edo#ChokeModule')">ChokeModule</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('CrossoverModule', 'https://w3id.org/energy-domain/edo#CrossoverModule')">CrossoverModule</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('HubBlockCap', 'https://w3id.org/energy-domain/edo#HubBlockCap')">HubBlockCap</span>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('ProcessingModule', 'https://w3id.org/energy-domain/edo#ProcessingModule')">ProcessingModule</span>
+                              <ul class="nested">
+                                <li>
+                                  <span class="caret" onclick="selectClass('PumpingModule', 'https://w3id.org/energy-domain/edo#PumpingModule')">PumpingModule</span>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('TieInEquipment', 'https://w3id.org/energy-domain/edo#TieInEquipment')">TieInEquipment</span>
+                              <ul class="nested">
+                                <li>
+                                  <span class="caret" onclick="selectClass('FlowLineMandrel', 'https://w3id.org/energy-domain/edo#FlowLineMandrel')">FlowLineMandrel</span>
+                                </li>
+                                <li>
+                                  <span class="caret" onclick="selectClass('LineTerminationModule', 'https://w3id.org/energy-domain/edo#LineTerminationModule')">LineTerminationModule</span>
+                                  <ul class="nested">
+                                    <li>
+                                      <span class="caret" onclick="selectClass('ConnectionModule', 'https://w3id.org/energy-domain/edo#ConnectionModule')">ConnectionModule</span>
+                                      <ul class="nested">
+                                        <li>
+                                          <span class="caret" onclick="selectClass('HCM', 'https://w3id.org/energy-domain/edo#HCM')">HCM</span>
+                                        </li>
+                                        <li>
+                                          <span class="caret" onclick="selectClass('VCM', 'https://w3id.org/energy-domain/edo#VCM')">VCM</span>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li>
+                                      <span class="caret" onclick="selectClass('UTM', 'https://w3id.org/energy-domain/edo#UTM')">UTM</span>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <span class="caret" onclick="selectClass('RigidJumper', 'https://w3id.org/energy-domain/edo#RigidJumper')">RigidJumper</span>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <span class="caret" onclick="selectClass('TreeCap', 'https://w3id.org/energy-domain/edo#TreeCap')">TreeCap</span>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('InlineT', 'https://w3id.org/energy-domain/edo#InlineT')">InlineT</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('InlineValve', 'https://w3id.org/energy-domain/edo#InlineValve')">InlineValve</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('InlineY', 'https://w3id.org/energy-domain/edo#InlineY')">InlineY</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('Manifold', 'https://w3id.org/energy-domain/edo#Manifold')">Manifold</span>
+                          <ul class="nested">
+                            <li>
+                              <span class="caret" onclick="selectClass('PLEM', 'https://w3id.org/energy-domain/edo#PLEM')">PLEM</span>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('PLET', 'https://w3id.org/energy-domain/edo#PLET')">PLET</span>
+                        </li>
+                        <li>
+                          <span class="caret" onclick="selectClass('WetChristmasTree', 'https://w3id.org/energy-domain/edo#WetChristmasTree')">WetChristmasTree</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('RunningTool', 'https://w3id.org/energy-domain/edo#RunningTool')">RunningTool</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('FlowbaseRunningTool', 'https://w3id.org/energy-domain/edo#FlowbaseRunningTool')">FlowbaseRunningTool</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('QuickDisconnectionTool', 'https://w3id.org/energy-domain/edo#QuickDisconnectionTool')">QuickDisconnectionTool</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('SCMRunningTool', 'https://w3id.org/energy-domain/edo#SCMRunningTool')">SCMRunningTool</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('ShearableRiserJoint', 'https://w3id.org/energy-domain/edo#ShearableRiserJoint')">ShearableRiserJoint</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TreeRunningTool', 'https://w3id.org/energy-domain/edo#TreeRunningTool')">TreeRunningTool</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('TubingHangerRunningTool', 'https://w3id.org/energy-domain/edo#TubingHangerRunningTool')">TubingHangerRunningTool</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('WearBushingRunningTool', 'https://w3id.org/energy-domain/edo#WearBushingRunningTool')">WearBushingRunningTool</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('AuxiliaryModule', 'https://w3id.org/energy-domain/edo#AuxiliaryModule')">AuxiliaryModule</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('DistributionModule', 'https://w3id.org/energy-domain/edo#DistributionModule')">DistributionModule</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('LogicCap', 'https://w3id.org/energy-domain/edo#LogicCap')">LogicCap</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('RoboticActuator', 'https://w3id.org/energy-domain/edo#RoboticActuator')">RoboticActuator</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('SCM', 'https://w3id.org/energy-domain/edo#SCM')">SCM</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('SCMMB', 'https://w3id.org/energy-domain/edo#SCMMB')">SCMMB</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('BuoyancyTank', 'https://w3id.org/energy-domain/edo#BuoyancyTank')">BuoyancyTank</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('RiserSupportBuoy', 'https://w3id.org/energy-domain/edo#RiserSupportBuoy')">RiserSupportBuoy</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('SDU', 'https://w3id.org/energy-domain/edo#SDU')">SDU</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('UTA', 'https://w3id.org/energy-domain/edo#UTA')">UTA</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('WaterIntake', 'https://w3id.org/energy-domain/edo#WaterIntake')">WaterIntake</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('SurfaceEquipment', 'https://w3id.org/energy-domain/edo#SurfaceEquipment')">SurfaceEquipment</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('TestEquipment', 'https://w3id.org/energy-domain/edo#TestEquipment')">TestEquipment</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('TestBase', 'https://w3id.org/energy-domain/edo#TestBase')">TestBase</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('TopsideEquipment', 'https://w3id.org/energy-domain/edo#TopsideEquipment')">TopsideEquipment</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('ChemicalInjectionUnit', 'https://w3id.org/energy-domain/edo#ChemicalInjectionUnit')">ChemicalInjectionUnit</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('HydraulicPowerUnit', 'https://w3id.org/energy-domain/edo#HydraulicPowerUnit')">HydraulicPowerUnit</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('MasterControlStation', 'https://w3id.org/energy-domain/edo#MasterControlStation')">MasterControlStation</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('Structure', 'https://w3id.org/energy-domain/edo#Structure')">Structure</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('Anchor', 'https://w3id.org/energy-domain/edo#Anchor')">Anchor</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('DragAnchor', 'https://w3id.org/energy-domain/edo#DragAnchor')">DragAnchor</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Pile', 'https://w3id.org/energy-domain/edo#Pile')">Pile</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('SuctionPile', 'https://w3id.org/energy-domain/edo#SuctionPile')">SuctionPile</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('TorpedoPile', 'https://w3id.org/energy-domain/edo#TorpedoPile')">TorpedoPile</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('AnodeSled', 'https://w3id.org/energy-domain/edo#AnodeSled')">AnodeSled</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('GuideBase', 'https://w3id.org/energy-domain/edo#GuideBase')">GuideBase</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('PipeSupport', 'https://w3id.org/energy-domain/edo#PipeSupport')">PipeSupport</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('GroutBag', 'https://w3id.org/energy-domain/edo#GroutBag')">GroutBag</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Mattress', 'https://w3id.org/energy-domain/edo#Mattress')">Mattress</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PipeMechanicalSupport', 'https://w3id.org/energy-domain/edo#PipeMechanicalSupport')">PipeMechanicalSupport</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('Wellhead', 'https://w3id.org/energy-domain/edo#Wellhead')">Wellhead</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('Component', 'https://w3id.org/energy-domain/edo#Component')">Component</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('ComponentDevice', 'https://w3id.org/energy-domain/edo#ComponentDevice')">ComponentDevice</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('ElectronicDevice', 'https://w3id.org/energy-domain/edo#ElectronicDevice')">ElectronicDevice</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('IMUX', 'https://w3id.org/energy-domain/edo#IMUX')">IMUX</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('SEM', 'https://w3id.org/energy-domain/edo#SEM')">SEM</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Sensor', 'https://w3id.org/energy-domain/edo#Sensor')">Sensor</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('PressureSensor', 'https://w3id.org/energy-domain/edo#PressureSensor')">PressureSensor</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('SandDetector', 'https://w3id.org/energy-domain/edo#SandDetector')">SandDetector</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('TPT', 'https://w3id.org/energy-domain/edo#TPT')">TPT</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('TemperatureSensor', 'https://w3id.org/energy-domain/edo#TemperatureSensor')">TemperatureSensor</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('PressureComponent', 'https://w3id.org/energy-domain/edo#PressureComponent')">PressureComponent</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('CasingHanger', 'https://w3id.org/energy-domain/edo#CasingHanger')">CasingHanger</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('FlowConnector', 'https://w3id.org/energy-domain/edo#FlowConnector')">FlowConnector</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('HPHousing', 'https://w3id.org/energy-domain/edo#HPHousing')">HPHousing</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Hub', 'https://w3id.org/energy-domain/edo#Hub')">Hub</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('LPHousing', 'https://w3id.org/energy-domain/edo#LPHousing')">LPHousing</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PipingSpool', 'https://w3id.org/energy-domain/edo#PipingSpool')">PipingSpool</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PowerMachine', 'https://w3id.org/energy-domain/edo#PowerMachine')">PowerMachine</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('RotatingMachine', 'https://w3id.org/energy-domain/edo#RotatingMachine')">RotatingMachine</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('Pump', 'https://w3id.org/energy-domain/edo#Pump')">Pump</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('TieIn', 'https://w3id.org/energy-domain/edo#TieIn')">TieIn</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('TubingHanger', 'https://w3id.org/energy-domain/edo#TubingHanger')">TubingHanger</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Valve', 'https://w3id.org/energy-domain/edo#Valve')">Valve</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('ActuatedValve', 'https://w3id.org/energy-domain/edo#ActuatedValve')">ActuatedValve</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('BlockValve', 'https://w3id.org/energy-domain/edo#BlockValve')">BlockValve</span>
+                    </li>
+                    <li>
+                      <span class="caret" onclick="selectClass('ChokeValve', 'https://w3id.org/energy-domain/edo#ChokeValve')">ChokeValve</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('CheckValve', 'https://w3id.org/energy-domain/edo#CheckValve')">CheckValve</span>
+                  <ul class="nested">
+                    <li>
+                      <span class="caret" onclick="selectClass('ReliefValve', 'https://w3id.org/energy-domain/edo#ReliefValve')">ReliefValve</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Vessel', 'https://w3id.org/energy-domain/edo#Vessel')">Vessel</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('SeparatorVessel', 'https://w3id.org/energy-domain/edo#SeparatorVessel')">SeparatorVessel</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('SpliceBox', 'https://w3id.org/energy-domain/edo#SpliceBox')">SpliceBox</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('HardwareItem', 'https://w3id.org/energy-domain/edo#HardwareItem')">HardwareItem</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('LineAncillary', 'https://w3id.org/energy-domain/edo#LineAncillary')">LineAncillary</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('BendRestrictor', 'https://w3id.org/energy-domain/edo#BendRestrictor')">BendRestrictor</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('BendStiffener', 'https://w3id.org/energy-domain/edo#BendStiffener')">BendStiffener</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('IntermediateBendStiffener', 'https://w3id.org/energy-domain/edo#IntermediateBendStiffener')">IntermediateBendStiffener</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('TopBendStiffener', 'https://w3id.org/energy-domain/edo#TopBendStiffener')">TopBendStiffener</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('BuoyancyModule', 'https://w3id.org/energy-domain/edo#BuoyancyModule')">BuoyancyModule</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('HangOffCollar', 'https://w3id.org/energy-domain/edo#HangOffCollar')">HangOffCollar</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PullingHead', 'https://w3id.org/energy-domain/edo#PullingHead')">PullingHead</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('PipePullingHead', 'https://w3id.org/energy-domain/edo#PipePullingHead')">PipePullingHead</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('SplitCollar', 'https://w3id.org/energy-domain/edo#SplitCollar')">SplitCollar</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('AnchoringCollar', 'https://w3id.org/energy-domain/edo#AnchoringCollar')">AnchoringCollar</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('AnodeCollarSet', 'https://w3id.org/energy-domain/edo#AnodeCollarSet')">AnodeCollarSet</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('DeadweightCollar', 'https://w3id.org/energy-domain/edo#DeadweightCollar')">DeadweightCollar</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('HandlingCollar', 'https://w3id.org/energy-domain/edo#HandlingCollar')">HandlingCollar</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('PullInCollar', 'https://w3id.org/energy-domain/edo#PullInCollar')">PullInCollar</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('StopperCollar', 'https://w3id.org/energy-domain/edo#StopperCollar')">StopperCollar</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('LineTermination', 'https://w3id.org/energy-domain/edo#LineTermination')">LineTermination</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('ArmorPot', 'https://w3id.org/energy-domain/edo#ArmorPot')">ArmorPot</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PipeTermination', 'https://w3id.org/energy-domain/edo#PipeTermination')">PipeTermination</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('EndFitting', 'https://w3id.org/energy-domain/edo#EndFitting')">EndFitting</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('MooringAccessory', 'https://w3id.org/energy-domain/edo#MooringAccessory')">MooringAccessory</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('Hook', 'https://w3id.org/energy-domain/edo#Hook')">Hook</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Shackle', 'https://w3id.org/energy-domain/edo#Shackle')">Shackle</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('Socket', 'https://w3id.org/energy-domain/edo#Socket')">Socket</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('TrianglePlate', 'https://w3id.org/energy-domain/edo#TrianglePlate')">TrianglePlate</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('RiserSupport', 'https://w3id.org/energy-domain/edo#RiserSupport')">RiserSupport</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('ITube', 'https://w3id.org/energy-domain/edo#ITube')">ITube</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('OpenReceptacle', 'https://w3id.org/energy-domain/edo#OpenReceptacle')">OpenReceptacle</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('Connection', 'https://w3id.org/energy-domain/edo#Connection')">Connection</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('LogicalConnection', 'https://w3id.org/energy-domain/edo#LogicalConnection')">LogicalConnection</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('DistributionConnectionPoint', 'https://w3id.org/energy-domain/edo#DistributionConnectionPoint')">DistributionConnectionPoint</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('SubseaConnectionPoint', 'https://w3id.org/energy-domain/edo#SubseaConnectionPoint')">SubseaConnectionPoint</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('TopsideConnectionPoint', 'https://w3id.org/energy-domain/edo#TopsideConnectionPoint')">TopsideConnectionPoint</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('PhysicalConnection', 'https://w3id.org/energy-domain/edo#PhysicalConnection')">PhysicalConnection</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('BoltSet', 'https://w3id.org/energy-domain/edo#BoltSet')">BoltSet</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('MetricBoltSet', 'https://w3id.org/energy-domain/edo#MetricBoltSet')">MetricBoltSet</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('UNSBoltSet', 'https://w3id.org/energy-domain/edo#UNSBoltSet')">UNSBoltSet</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('MetallicStrandSet', 'https://w3id.org/energy-domain/edo#MetallicStrandSet')">MetallicStrandSet</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('RingGasket', 'https://w3id.org/energy-domain/edo#RingGasket')">RingGasket</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('StudSet', 'https://w3id.org/energy-domain/edo#StudSet')">StudSet</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('MetricStudSet', 'https://w3id.org/energy-domain/edo#MetricStudSet')">MetricStudSet</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('UNSStudSet', 'https://w3id.org/energy-domain/edo#UNSStudSet')">UNSStudSet</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('FlexiblePipeStructure', 'https://w3id.org/energy-domain/edo#FlexiblePipeStructure')">FlexiblePipeStructure</span>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('FlexibleStructureLayer', 'https://w3id.org/energy-domain/edo#FlexibleStructureLayer')">FlexibleStructureLayer</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('SolidLayer', 'https://w3id.org/energy-domain/edo#SolidLayer')">SolidLayer</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('AntiCollapseSheath', 'https://w3id.org/energy-domain/edo#AntiCollapseSheath')">AntiCollapseSheath</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('AntiWearSheath', 'https://w3id.org/energy-domain/edo#AntiWearSheath')">AntiWearSheath</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('InnerTube', 'https://w3id.org/energy-domain/edo#InnerTube')">InnerTube</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('IntermediateSheath', 'https://w3id.org/energy-domain/edo#IntermediateSheath')">IntermediateSheath</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('InternalPressureSheath', 'https://w3id.org/energy-domain/edo#InternalPressureSheath')">InternalPressureSheath</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('ProtectiveSheath', 'https://w3id.org/energy-domain/edo#ProtectiveSheath')">ProtectiveSheath</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('SacrificialSheath', 'https://w3id.org/energy-domain/edo#SacrificialSheath')">SacrificialSheath</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('WoundLayer', 'https://w3id.org/energy-domain/edo#WoundLayer')">WoundLayer</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('ArmourLayer', 'https://w3id.org/energy-domain/edo#ArmourLayer')">ArmourLayer</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('CarcassLayer', 'https://w3id.org/energy-domain/edo#CarcassLayer')">CarcassLayer</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('InterlockedCarcass', 'https://w3id.org/energy-domain/edo#InterlockedCarcass')">InterlockedCarcass</span>
+                </li>
+                <li>
+                  <span class="caret" onclick="selectClass('PressureArmour', 'https://w3id.org/energy-domain/edo#PressureArmour')">PressureArmour</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('WireLayer', 'https://w3id.org/energy-domain/edo#WireLayer')">WireLayer</span>
+              <ul class="nested">
+                <li>
+                  <span class="caret" onclick="selectClass('TensileArmour', 'https://w3id.org/energy-domain/edo#TensileArmour')">TensileArmour</span>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('TapeLayer', 'https://w3id.org/energy-domain/edo#TapeLayer')">TapeLayer</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('FabricTape', 'https://w3id.org/energy-domain/edo#FabricTape')">FabricTape</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('HighStrengthTape', 'https://w3id.org/energy-domain/edo#HighStrengthTape')">HighStrengthTape</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('HoldingBandage', 'https://w3id.org/energy-domain/edo#HoldingBandage')">HoldingBandage</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('InsulationTape', 'https://w3id.org/energy-domain/edo#InsulationTape')">InsulationTape</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('LowResistanceTape', 'https://w3id.org/energy-domain/edo#LowResistanceTape')">LowResistanceTape</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('FlexibleStructureLayerMaterial', 'https://w3id.org/energy-domain/edo#FlexibleStructureLayerMaterial')">FlexibleStructureLayerMaterial</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('CompositeMaterial', 'https://w3id.org/energy-domain/edo#CompositeMaterial')">CompositeMaterial</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('MetallicMaterial', 'https://w3id.org/energy-domain/edo#MetallicMaterial')">MetallicMaterial</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('PolymericMaterial', 'https://w3id.org/energy-domain/edo#PolymericMaterial')">PolymericMaterial</span>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('HardwareItem', 'https://w3id.org/energy-domain/edo#HardwareItem')">HardwareItem</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('LineAncillary', 'https://w3id.org/energy-domain/edo#LineAncillary')">LineAncillary</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('BendRestrictor', 'https://w3id.org/energy-domain/edo#BendRestrictor')">BendRestrictor</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('BendStiffener', 'https://w3id.org/energy-domain/edo#BendStiffener')">BendStiffener</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('IntermediateBendStiffener', 'https://w3id.org/energy-domain/edo#IntermediateBendStiffener')">IntermediateBendStiffener</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('TopBendStiffener', 'https://w3id.org/energy-domain/edo#TopBendStiffener')">TopBendStiffener</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('BuoyancyModule', 'https://w3id.org/energy-domain/edo#BuoyancyModule')">BuoyancyModule</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('HangOffCollar', 'https://w3id.org/energy-domain/edo#HangOffCollar')">HangOffCollar</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('PullingHead', 'https://w3id.org/energy-domain/edo#PullingHead')">PullingHead</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('PipePullingHead', 'https://w3id.org/energy-domain/edo#PipePullingHead')">PipePullingHead</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('SplitCollar', 'https://w3id.org/energy-domain/edo#SplitCollar')">SplitCollar</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('AnchoringCollar', 'https://w3id.org/energy-domain/edo#AnchoringCollar')">AnchoringCollar</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('AnodeCollarSet', 'https://w3id.org/energy-domain/edo#AnodeCollarSet')">AnodeCollarSet</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('DeadweightCollar', 'https://w3id.org/energy-domain/edo#DeadweightCollar')">DeadweightCollar</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('HandlingCollar', 'https://w3id.org/energy-domain/edo#HandlingCollar')">HandlingCollar</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PullInCollar', 'https://w3id.org/energy-domain/edo#PullInCollar')">PullInCollar</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('StopperCollar', 'https://w3id.org/energy-domain/edo#StopperCollar')">StopperCollar</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('LineTermination', 'https://w3id.org/energy-domain/edo#LineTermination')">LineTermination</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('ArmorPot', 'https://w3id.org/energy-domain/edo#ArmorPot')">ArmorPot</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('PipeTermination', 'https://w3id.org/energy-domain/edo#PipeTermination')">PipeTermination</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('EndFitting', 'https://w3id.org/energy-domain/edo#EndFitting')">EndFitting</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('MooringAccessory', 'https://w3id.org/energy-domain/edo#MooringAccessory')">MooringAccessory</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('Hook', 'https://w3id.org/energy-domain/edo#Hook')">Hook</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('Shackle', 'https://w3id.org/energy-domain/edo#Shackle')">Shackle</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('Socket', 'https://w3id.org/energy-domain/edo#Socket')">Socket</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('TrianglePlate', 'https://w3id.org/energy-domain/edo#TrianglePlate')">TrianglePlate</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('Interconnection', 'https://w3id.org/energy-domain/edo#Interconnection')">Interconnection</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('SubseaPipeline', 'https://w3id.org/energy-domain/edo#SubseaPipeline')">SubseaPipeline</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('UmbilicalLocation', 'https://w3id.org/energy-domain/edo#UmbilicalLocation')">UmbilicalLocation</span>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('LinearObject', 'https://w3id.org/energy-domain/edo#LinearObject')">LinearObject</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('ChainSegment', 'https://w3id.org/energy-domain/edo#ChainSegment')">ChainSegment</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('FiberOpticJumper', 'https://w3id.org/energy-domain/edo#FiberOpticJumper')">FiberOpticJumper</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('Jumper', 'https://w3id.org/energy-domain/edo#Jumper')">Jumper</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('ElectricalJumper', 'https://w3id.org/energy-domain/edo#ElectricalJumper')">ElectricalJumper</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('ElectricalPowerJumper', 'https://w3id.org/energy-domain/edo#ElectricalPowerJumper')">ElectricalPowerJumper</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('HydraulicJumper', 'https://w3id.org/energy-domain/edo#HydraulicJumper')">HydraulicJumper</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('RopeSegment', 'https://w3id.org/energy-domain/edo#RopeSegment')">RopeSegment</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('FiberRopeSegment', 'https://w3id.org/energy-domain/edo#FiberRopeSegment')">FiberRopeSegment</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('WireRopeSegment', 'https://w3id.org/energy-domain/edo#WireRopeSegment')">WireRopeSegment</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('TransportLineSegment', 'https://w3id.org/energy-domain/edo#TransportLineSegment')">TransportLineSegment</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('PipeSegment', 'https://w3id.org/energy-domain/edo#PipeSegment')">PipeSegment</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('FlexiblePipeSegment', 'https://w3id.org/energy-domain/edo#FlexiblePipeSegment')">FlexiblePipeSegment</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('UmbilicalSegment', 'https://w3id.org/energy-domain/edo#UmbilicalSegment')">UmbilicalSegment</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('Location', 'https://w3id.org/energy-domain/edo#Location')">Location</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('FloatingProductionUnit', 'https://w3id.org/energy-domain/edo#FloatingProductionUnit')">FloatingProductionUnit</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('LineSpan', 'https://w3id.org/energy-domain/edo#LineSpan')">LineSpan</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('PipelineSpan', 'https://w3id.org/energy-domain/edo#PipelineSpan')">PipelineSpan</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('FlowlineSpan', 'https://w3id.org/energy-domain/edo#FlowlineSpan')">FlowlineSpan</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('RiserSpan', 'https://w3id.org/energy-domain/edo#RiserSpan')">RiserSpan</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('UmbilicalSpan', 'https://w3id.org/energy-domain/edo#UmbilicalSpan')">UmbilicalSpan</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('DynamicUmbilicalSpan', 'https://w3id.org/energy-domain/edo#DynamicUmbilicalSpan')">DynamicUmbilicalSpan</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('StaticUmbilicalSpan', 'https://w3id.org/energy-domain/edo#StaticUmbilicalSpan')">StaticUmbilicalSpan</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('LinearLocation', 'https://w3id.org/energy-domain/edo#LinearLocation')">LinearLocation</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('Interconnection', 'https://w3id.org/energy-domain/edo#Interconnection')">Interconnection</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('SubseaPipeline', 'https://w3id.org/energy-domain/edo#SubseaPipeline')">SubseaPipeline</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('UmbilicalLocation', 'https://w3id.org/energy-domain/edo#UmbilicalLocation')">UmbilicalLocation</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('PointLocation', 'https://w3id.org/energy-domain/edo#PointLocation')">PointLocation</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('EquipmentLocation', 'https://w3id.org/energy-domain/edo#EquipmentLocation')">EquipmentLocation</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('SubseaWell', 'https://w3id.org/energy-domain/edo#SubseaWell')">SubseaWell</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('RiserBalcony', 'https://w3id.org/energy-domain/edo#RiserBalcony')">RiserBalcony</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('SubseaLayout', 'https://w3id.org/energy-domain/edo#SubseaLayout')">SubseaLayout</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('SubseaOilField', 'https://w3id.org/energy-domain/edo#SubseaOilField')">SubseaOilField</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('ModelLocationPoint', 'https://w3id.org/energy-domain/edo#ModelLocationPoint')">ModelLocationPoint</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('GroovePoint', 'https://w3id.org/energy-domain/edo#GroovePoint')">GroovePoint</span>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('Project', 'https://w3id.org/energy-domain/edo#Project')">Project</span>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('ReferenceDrawing', 'https://w3id.org/energy-domain/edo#ReferenceDrawing')">ReferenceDrawing</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('DimensionsDrawing', 'https://w3id.org/energy-domain/edo#DimensionsDrawing')">DimensionsDrawing</span>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('SubseaFlexiblePipesBsddDictionary', 'https://w3id.org/energy-domain/edo#SubseaFlexiblePipesBsddDictionary')">SubseaFlexiblePipesBsddDictionary</span>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('TransportLineSegment', 'https://w3id.org/energy-domain/edo#TransportLineSegment')">TransportLineSegment</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('PipeSegment', 'https://w3id.org/energy-domain/edo#PipeSegment')">PipeSegment</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('FlexiblePipeSegment', 'https://w3id.org/energy-domain/edo#FlexiblePipeSegment')">FlexiblePipeSegment</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('UmbilicalSegment', 'https://w3id.org/energy-domain/edo#UmbilicalSegment')">UmbilicalSegment</span>
+    </li>
+  </ul>
+</li>
+<li>
+  <span class="caret" onclick="selectClass('UmbilicalComponent', 'https://w3id.org/energy-domain/edo#UmbilicalComponent')">UmbilicalComponent</span>
+  <ul class="nested">
+    <li>
+      <span class="caret" onclick="selectClass('Filler', 'https://w3id.org/energy-domain/edo#Filler')">Filler</span>
+    </li>
+    <li>
+      <span class="caret" onclick="selectClass('FunctionLine', 'https://w3id.org/energy-domain/edo#FunctionLine')">FunctionLine</span>
+      <ul class="nested">
+        <li>
+          <span class="caret" onclick="selectClass('ElectricalCable', 'https://w3id.org/energy-domain/edo#ElectricalCable')">ElectricalCable</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('OpticalFiberCable', 'https://w3id.org/energy-domain/edo#OpticalFiberCable')">OpticalFiberCable</span>
+        </li>
+        <li>
+          <span class="caret" onclick="selectClass('Tubing', 'https://w3id.org/energy-domain/edo#Tubing')">Tubing</span>
+          <ul class="nested">
+            <li>
+              <span class="caret" onclick="selectClass('HCRHose', 'https://w3id.org/energy-domain/edo#HCRHose')">HCRHose</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('IntegratedPipe', 'https://w3id.org/energy-domain/edo#IntegratedPipe')">IntegratedPipe</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('MetallicTubing', 'https://w3id.org/energy-domain/edo#MetallicTubing')">MetallicTubing</span>
+            </li>
+            <li>
+              <span class="caret" onclick="selectClass('PlasticHose', 'https://w3id.org/energy-domain/edo#PlasticHose')">PlasticHose</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+    </ul>
+    
+    <!-- The Modal -->
+    <div id="classModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Class Attributes</h2>
+            <div id="attributesContainer" class="attribute-list"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Dados das classes e atributos
+        const classesData = {
+            "https://w3id.org/energy-domain/edo#Asset": {
+    "name": "Asset",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#CompactObject": {
+    "name": "CompactObject",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Accessory": {
+    "name": "Accessory",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#DeploymentAccessory": {
+    "name": "DeploymentAccessory",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#HubProtectionCap": {
+    "name": "HubProtectionCap",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ROVTool": {
+    "name": "ROVTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#OverrideTool": {
+    "name": "OverrideTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#StorageAccessory": {
+    "name": "StorageAccessory",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#StorageBox": {
+    "name": "StorageBox",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#StorageSkid": {
+    "name": "StorageSkid",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#StorageSpool": {
+    "name": "StorageSpool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#WearBushing": {
+    "name": "WearBushing",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Component": {
+    "name": "Component",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ComponentDevice": {
+    "name": "ComponentDevice",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ElectronicDevice": {
+    "name": "ElectronicDevice",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#IMUX": {
+    "name": "IMUX",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SEM": {
+    "name": "SEM",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Sensor": {
+    "name": "Sensor",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PressureSensor": {
+    "name": "PressureSensor",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SandDetector": {
+    "name": "SandDetector",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TPT": {
+    "name": "TPT",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TemperatureSensor": {
+    "name": "TemperatureSensor",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PressureComponent": {
+    "name": "PressureComponent",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#CasingHanger": {
+    "name": "CasingHanger",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FlowConnector": {
+    "name": "FlowConnector",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#HPHousing": {
+    "name": "HPHousing",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Hub": {
+    "name": "Hub",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#LPHousing": {
+    "name": "LPHousing",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PipingSpool": {
+    "name": "PipingSpool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PowerMachine": {
+    "name": "PowerMachine",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#RotatingMachine": {
+    "name": "RotatingMachine",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Pump": {
+    "name": "Pump",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TieIn": {
+    "name": "TieIn",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TubingHanger": {
+    "name": "TubingHanger",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Valve": {
+    "name": "Valve",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ActuatedValve": {
+    "name": "ActuatedValve",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#BlockValve": {
+    "name": "BlockValve",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ChokeValve": {
+    "name": "ChokeValve",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#CheckValve": {
+    "name": "CheckValve",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ReliefValve": {
+    "name": "ReliefValve",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Vessel": {
+    "name": "Vessel",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SeparatorVessel": {
+    "name": "SeparatorVessel",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SpliceBox": {
+    "name": "SpliceBox",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#HardwareItem": {
+    "name": "HardwareItem",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#LineAncillary": {
+    "name": "LineAncillary",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#BendRestrictor": {
+    "name": "BendRestrictor",
+    "attributes": ['BendMomentVsShearForceTable', 'BendMomentVsShearForceTable_BendingMoment', 'BendMomentVsShearForceTable_Condition', 'BendMomentVsShearForceTable_ShearForce', 'IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#BendStiffener": {
+    "name": "BendStiffener",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#IntermediateBendStiffener": {
+    "name": "IntermediateBendStiffener",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TopBendStiffener": {
+    "name": "TopBendStiffener",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#BuoyancyModule": {
+    "name": "BuoyancyModule",
+    "attributes": ['IsSpare', 'LongTermFloatDensity', 'LongTermFloatVolume', 'NominalFloatDensity', 'NominalFloatVolume', 'PipeMountPosition', 'SerialNumber', 'ShortTermFloatDensity', 'ShortTermFloatVolume']
+},
+"https://w3id.org/energy-domain/edo#HangOffCollar": {
+    "name": "HangOffCollar",
+    "attributes": ['CollarInternalDiameter', 'FlangeType', 'IsSpare', 'MaxDynamicLoad', 'SafeWorkingLoad', 'SerialNumber', 'UpperItubeDiameter']
+},
+"https://w3id.org/energy-domain/edo#PullingHead": {
+    "name": "PullingHead",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PipePullingHead": {
+    "name": "PipePullingHead",
+    "attributes": ['FlangeType', 'IsSpare', 'PullingHeadType', 'RingGasketInnerDIameter', 'RingGasketMaterial', 'RingGasketOuterDiameter', 'RingGasketPressureRating', 'RingGasketSpecification', 'RingGasketStandard', 'RingGasketType', 'SafeWorkingLoad', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SplitCollar": {
+    "name": "SplitCollar",
+    "attributes": ['IsSpare', 'PipeMountPosition', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#AnchoringCollar": {
+    "name": "AnchoringCollar",
+    "attributes": ['AnodeCollarsAxialSpacing', 'AnodeCollarsQuantity', 'ClampInternalDiameter', 'ExternalDiameter', 'GalvanicMaterial', 'IndividualAnodeMass', 'IsSpare', 'MetallicStrandLength', 'MetallicStrandSpareQuantity', 'PipeMountPosition', 'SafeWorkingLoad', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#AnodeCollarSet": {
+    "name": "AnodeCollarSet",
+    "attributes": ['IsSpare', 'PipeMountPosition', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#DeadweightCollar": {
+    "name": "DeadweightCollar",
+    "attributes": ['IsSpare', 'PipeMountPosition', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#HandlingCollar": {
+    "name": "HandlingCollar",
+    "attributes": ['IsSpare', 'PipeMountPosition', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PullInCollar": {
+    "name": "PullInCollar",
+    "attributes": ['IsSpare', 'PipeMountPosition', 'SerialNumber', 'WireRopeQuantity', 'WireRopeSlingDiameter', 'WireRopeSlingLength']
+},
+"https://w3id.org/energy-domain/edo#StopperCollar": {
+    "name": "StopperCollar",
+    "attributes": ['IsSpare', 'PipeMountPosition', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#LineTermination": {
+    "name": "LineTermination",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ArmorPot": {
+    "name": "ArmorPot",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PipeTermination": {
+    "name": "PipeTermination",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#EndFitting": {
+    "name": "EndFitting",
+    "attributes": ['BoreDiameter', 'FlangeFaceType', 'FlangeType', 'HasFaceORing', 'HasModaSensor', 'HasN2InjectionPort', 'IsSpare', 'RingGasketInnerDIameter', 'RingGasketOuterDiameter', 'RingGasketPressureRating', 'RingGasketSpecification', 'RingGasketStandard', 'RingGasketType', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#MooringAccessory": {
+    "name": "MooringAccessory",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Hook": {
+    "name": "Hook",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Shackle": {
+    "name": "Shackle",
+    "attributes": ['IsSpare', 'SerialNumber', 'ShackleInnerDiameter', 'ShackleOpeningWidth', 'ShackleOuterDiameter', 'ShackleThickness', 'WorkingLoadLimit']
+},
+"https://w3id.org/energy-domain/edo#Socket": {
+    "name": "Socket",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TrianglePlate": {
+    "name": "TrianglePlate",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#RiserSupport": {
+    "name": "RiserSupport",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ITube": {
+    "name": "ITube",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#OpenReceptacle": {
+    "name": "OpenReceptacle",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Equipment": {
+    "name": "Equipment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SubseaEquipment": {
+    "name": "SubseaEquipment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ActuatedEquipment": {
+    "name": "ActuatedEquipment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PressureEquipment": {
+    "name": "PressureEquipment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#BOP": {
+    "name": "BOP",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FlowControlEquipment": {
+    "name": "FlowControlEquipment",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FSHRLowerAssembly": {
+    "name": "FSHRLowerAssembly",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FSHRUpperAssembly": {
+    "name": "FSHRUpperAssembly",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FlowBase": {
+    "name": "FlowBase",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FlowControlModule": {
+    "name": "FlowControlModule",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ChokeModule": {
+    "name": "ChokeModule",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#CrossoverModule": {
+    "name": "CrossoverModule",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#HubBlockCap": {
+    "name": "HubBlockCap",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ProcessingModule": {
+    "name": "ProcessingModule",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PumpingModule": {
+    "name": "PumpingModule",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TieInEquipment": {
+    "name": "TieInEquipment",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FlowLineMandrel": {
+    "name": "FlowLineMandrel",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#LineTerminationModule": {
+    "name": "LineTerminationModule",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ConnectionModule": {
+    "name": "ConnectionModule",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#HCM": {
+    "name": "HCM",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#VCM": {
+    "name": "VCM",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#UTM": {
+    "name": "UTM",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#RigidJumper": {
+    "name": "RigidJumper",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TreeCap": {
+    "name": "TreeCap",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#InlineT": {
+    "name": "InlineT",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#InlineValve": {
+    "name": "InlineValve",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#InlineY": {
+    "name": "InlineY",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Manifold": {
+    "name": "Manifold",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PLEM": {
+    "name": "PLEM",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PLET": {
+    "name": "PLET",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#WetChristmasTree": {
+    "name": "WetChristmasTree",
+    "attributes": ['HasThermalInsulation', 'IsSpare', 'NumberOfChokeValves', 'NumberOfRemoteProcessIsolationValves', 'Piggable', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#RunningTool": {
+    "name": "RunningTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FlowbaseRunningTool": {
+    "name": "FlowbaseRunningTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#QuickDisconnectionTool": {
+    "name": "QuickDisconnectionTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SCMRunningTool": {
+    "name": "SCMRunningTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ShearableRiserJoint": {
+    "name": "ShearableRiserJoint",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TreeRunningTool": {
+    "name": "TreeRunningTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TubingHangerRunningTool": {
+    "name": "TubingHangerRunningTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#WearBushingRunningTool": {
+    "name": "WearBushingRunningTool",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#AuxiliaryModule": {
+    "name": "AuxiliaryModule",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#DistributionModule": {
+    "name": "DistributionModule",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#LogicCap": {
+    "name": "LogicCap",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#RoboticActuator": {
+    "name": "RoboticActuator",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SCM": {
+    "name": "SCM",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SCMMB": {
+    "name": "SCMMB",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#BuoyancyTank": {
+    "name": "BuoyancyTank",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#RiserSupportBuoy": {
+    "name": "RiserSupportBuoy",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SDU": {
+    "name": "SDU",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#UTA": {
+    "name": "UTA",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#WaterIntake": {
+    "name": "WaterIntake",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SurfaceEquipment": {
+    "name": "SurfaceEquipment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TestEquipment": {
+    "name": "TestEquipment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TestBase": {
+    "name": "TestBase",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TopsideEquipment": {
+    "name": "TopsideEquipment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ChemicalInjectionUnit": {
+    "name": "ChemicalInjectionUnit",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#HydraulicPowerUnit": {
+    "name": "HydraulicPowerUnit",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#MasterControlStation": {
+    "name": "MasterControlStation",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Structure": {
+    "name": "Structure",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Anchor": {
+    "name": "Anchor",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#DragAnchor": {
+    "name": "DragAnchor",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Pile": {
+    "name": "Pile",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#SuctionPile": {
+    "name": "SuctionPile",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TorpedoPile": {
+    "name": "TorpedoPile",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#AnodeSled": {
+    "name": "AnodeSled",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#GuideBase": {
+    "name": "GuideBase",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PipeSupport": {
+    "name": "PipeSupport",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#GroutBag": {
+    "name": "GroutBag",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Mattress": {
+    "name": "Mattress",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PipeMechanicalSupport": {
+    "name": "PipeMechanicalSupport",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Wellhead": {
+    "name": "Wellhead",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#LinearObject": {
+    "name": "LinearObject",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ChainSegment": {
+    "name": "ChainSegment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FiberOpticJumper": {
+    "name": "FiberOpticJumper",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#Jumper": {
+    "name": "Jumper",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ElectricalJumper": {
+    "name": "ElectricalJumper",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#ElectricalPowerJumper": {
+    "name": "ElectricalPowerJumper",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#HydraulicJumper": {
+    "name": "HydraulicJumper",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#RopeSegment": {
+    "name": "RopeSegment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FiberRopeSegment": {
+    "name": "FiberRopeSegment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#WireRopeSegment": {
+    "name": "WireRopeSegment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#TransportLineSegment": {
+    "name": "TransportLineSegment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#PipeSegment": {
+    "name": "PipeSegment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#FlexiblePipeSegment": {
+    "name": "FlexiblePipeSegment",
+    "attributes": ['AssemblyShouldObeyModelPolarity', 'EarlyLeakMaxPressTable_Press', 'EarlyLeakMaxPressTable_PressIntValStrat', 'EarlyLeakMaxPressTable_PressValRef', 'EarlyLeakMaxPressTable_PressValRefMult', 'EarlyLeakMaxPressTable_TensLimit', 'EarlyLeakMaxPressTable_TensLimitValRef', 'EarlyLeakNomPressTable_Press', 'EarlyLeakNomPressTable_PressIntValStrat', 'EarlyLeakNomPressTable_PressValRef', 'EarlyLeakNomPressTable_PressValRefMult', 'EarlyLeakNomPressTable_TensLimit', 'EarlyLeakNomPressTable_TensLimitValRef', 'FatMaxPress', 'FatMaxPressValRef', 'FatMaxPressValRefMult', 'FatNomPress', 'FatNomPressValRef', 'FatNomPressValRefMult', 'IdInUnifilarDiagram', 'IsSpare', 'ManufacturingDate', 'ManufacturingNonConformities', 'MaxLengthTolerance', 'NominalLength', 'OffLeakPLevMaxPress', 'OffLeakPLevMaxPressValRef', 'OffLeakPLevMaxPressValRefMult', 'OffLeakPLevNomPress', 'OffLeakPLevNomPressValRef', 'OffLeakPLevNomPressValRefMult', 'PipeSectionApplication', 'SerialNumber', 'SpecialRequirements', 'StrIntOffPLevMaxPress', 'StrIntOffPLevMaxPressValRef', 'StrIntOffPLevMaxPressValRefMult', 'StrIntOffPLevNomPress', 'StrIntOffPLevNomPressValRef', 'StrIntOffPLevNomPressValRefMult', 'StrIntOnNoTensMaxPress', 'StrIntOnNoTensMaxPressValRef', 'StrIntOnNoTensMaxPressValRefMult', 'StrIntOnNoTensNomPress', 'StrIntOnNoTensNomPressValRef', 'StrIntOnNoTensNomPressValRefMult']
+},
+"https://w3id.org/energy-domain/edo#UmbilicalSegment": {
+    "name": "UmbilicalSegment",
+    "attributes": ['IsSpare', 'SerialNumber']
+},
+"https://w3id.org/energy-domain/edo#CommissioningObject": {
+    "name": "CommissioningObject",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningActivity": {
+    "name": "CommissioningActivity",
+    "attributes": ['Planned_Start_Timestamp']
+},
+"https://w3id.org/energy-domain/edo#CommissioningContract": {
+    "name": "CommissioningContract",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningDigitalProcessStep": {
+    "name": "CommissioningDigitalProcessStep",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningEvidence": {
+    "name": "CommissioningEvidence",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningIssue": {
+    "name": "CommissioningIssue",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningItemCheck": {
+    "name": "CommissioningItemCheck",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningLoopCheck": {
+    "name": "CommissioningLoopCheck",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningPerson": {
+    "name": "CommissioningPerson",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningPreservationOrder": {
+    "name": "CommissioningPreservationOrder",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningProgram": {
+    "name": "CommissioningProgram",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningProject": {
+    "name": "CommissioningProject",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningResponsibleActor": {
+    "name": "CommissioningResponsibleActor",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningResponsibleGroup": {
+    "name": "CommissioningResponsibleGroup",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#CommissioningTask": {
+    "name": "CommissioningTask",
+    "attributes": ['Content', 'Creator', 'CreatorId', 'Timestamp']
+},
+"https://w3id.org/energy-domain/edo#Connection": {
+    "name": "Connection",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#LogicalConnection": {
+    "name": "LogicalConnection",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#DistributionConnectionPoint": {
+    "name": "DistributionConnectionPoint",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#SubseaConnectionPoint": {
+    "name": "SubseaConnectionPoint",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#TopsideConnectionPoint": {
+    "name": "TopsideConnectionPoint",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#PhysicalConnection": {
+    "name": "PhysicalConnection",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#BoltSet": {
+    "name": "BoltSet",
+    "attributes": ['AssemblyTorque', 'FullyThreaded', 'Lubricant', 'LubricantFrictionFactor', 'NominalLength', 'Quantity', 'SpareQuantity']
+},
+"https://w3id.org/energy-domain/edo#MetricBoltSet": {
+    "name": "MetricBoltSet",
+    "attributes": ['AssemblyTorque', 'FullyThreaded', 'Lubricant', 'LubricantFrictionFactor', 'NominalDiameter', 'NominalLength', 'PitchToleranceClass', 'Quantity', 'SpareQuantity', 'ThreadPitch', 'ThreadStandard']
+},
+"https://w3id.org/energy-domain/edo#UNSBoltSet": {
+    "name": "UNSBoltSet",
+    "attributes": ['AssemblyTorque', 'FullyThreaded', 'Lubricant', 'LubricantFrictionFactor', 'NominalDiameter', 'NominalLength', 'PitchToleranceClass', 'Quantity', 'SpareQuantity', 'ThreadStandard', 'ThreadsPerInch']
+},
+"https://w3id.org/energy-domain/edo#MetallicStrandSet": {
+    "name": "MetallicStrandSet",
+    "attributes": ['StrandsTable', 'StrandsTable_SpareQuantity', 'StrandsTable_StrandsLength', 'StrandsTable_StrandsQuantity']
+},
+"https://w3id.org/energy-domain/edo#RingGasket": {
+    "name": "RingGasket",
+    "attributes": ['RingGasketInnerDIameter', 'RingGasketMaterial', 'RingGasketOuterDiameter', 'RingGasketPressureRating', 'RingGasketSpecification', 'RingGasketStandard', 'RingGasketType']
+},
+"https://w3id.org/energy-domain/edo#StudSet": {
+    "name": "StudSet",
+    "attributes": ['AssemblyTorque', 'FullyThreaded', 'Lubricant', 'LubricantFrictionFactor', 'NominalDiameter', 'Quantity', 'SpareQuantity']
+},
+"https://w3id.org/energy-domain/edo#MetricStudSet": {
+    "name": "MetricStudSet",
+    "attributes": ['AssemblyTorque', 'FullyThreaded', 'Lubricant', 'LubricantFrictionFactor', 'NominalDiameter', 'PitchToleranceClass', 'Quantity', 'SpareQuantity', 'ThreadPitch', 'ThreadStandard']
+},
+"https://w3id.org/energy-domain/edo#UNSStudSet": {
+    "name": "UNSStudSet",
+    "attributes": ['AssemblyTorque', 'FullyThreaded', 'Lubricant', 'LubricantFrictionFactor', 'NominalDiameter', 'PitchToleranceClass', 'Quantity', 'SpareQuantity', 'ThreadStandard', 'ThreadsPerInch']
+},
+"https://w3id.org/energy-domain/edo#FlexiblePipeStructure": {
+    "name": "FlexiblePipeStructure",
+    "attributes": ['AbsoluteInsidePressure', 'AbsoluteOutsidePressure', 'AxialStiffnessUnderCompressionAtSeaLevel', 'AxialStiffnessUnderTensionAtSeaLevel', 'BendingMomentTable', 'BendingMomentTable_BendingMoment', 'BendingMomentTable_Curvature', 'CalculatedAbsoluteBurstPressure', 'CriticalCurvatureOfSlipping', 'DamagingPullInStraightLine', 'DimensioningCriteria', 'ErosionalVelocity', 'FlexibleStructureServicesList', 'FrictionCoefBetweenPipeAndTensioner', 'FrictionCoefficientTighteningTable', 'FrictionCoefficientTighteningTable_CoefficientOfFriction', 'FrictionCoefficientTighteningTable_TighteningPerTrack', 'HydrostaticCollapseAbsPressDry', 'InsideTemperature', 'IntermediateValuesStrategy', 'InternalDiameter', 'LayingMinimumRadiusTable', 'LayingMinimumRadiusTable_AbsoluteExternalPressure', 'LayingMinimumRadiusTable_AbsoluteInternalPressure', 'LayingMinimumRadiusTable_Compression', 'LayingMinimumRadiusTable_MinimumAllowableBendingRadius', 'LayingMinimumRadiusTable_SectionSupportedByRigidSupport', 'LayingMinimumRadiusTable_TensileArmourAnnulusCondition', 'LimpTorsionalStiffnessAtSeaLevel', 'LinearMass', 'MaxDesignPressure', 'MaximumAllowableTensileForStraightLine', 'MaximumAllowableTensionTable', 'MaximumAllowableTensionTable_MaximumAllowableTensile', 'MaximumAllowableTensionTable_PulleyRadius', 'MaximumAllowableTensionTable_PulleyVAngle', 'MaximumAllowableTighteningTable', 'MaximumAllowableTighteningTable_AxialLoad', 'MaximumAllowableTighteningTable_TighteningPerTrack', 'MaximumAmbientTemperature', 'MinimumBendingRadiusForStorage', 'OuterDiameter', 'OutsideTemperature', 'PostSlippingBendingStiffness', 'PreSlippingBendingStiffness', 'SpoolingTension', 'StiffTorsionalStiffnessAtSeaLevel', 'StructureApplicationsList', 'StructureCode', 'TensileArmourAnnulusCondition', 'TensileArmourFreeAnnulusVolume', 'TensionerPadsMaterial', 'TensionerPadsOpeningAngle', 'TensionerPadsShape', 'TensionerTracksQuantity', 'TestConditions', 'ThermalExchangeCoefficientFlooded', 'UtilizationFactor']
+},
+"https://w3id.org/energy-domain/edo#FlexibleStructureLayer": {
+    "name": "FlexibleStructureLayer",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#SolidLayer": {
+    "name": "SolidLayer",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#AntiCollapseSheath": {
+    "name": "AntiCollapseSheath",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#AntiWearSheath": {
+    "name": "AntiWearSheath",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass', 'TapesQuantity']
+},
+"https://w3id.org/energy-domain/edo#InnerTube": {
+    "name": "InnerTube",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#IntermediateSheath": {
+    "name": "IntermediateSheath",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#InternalPressureSheath": {
+    "name": "InternalPressureSheath",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#ProtectiveSheath": {
+    "name": "ProtectiveSheath",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#SacrificialSheath": {
+    "name": "SacrificialSheath",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#WoundLayer": {
+    "name": "WoundLayer",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#ArmourLayer": {
+    "name": "ArmourLayer",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#CarcassLayer": {
+    "name": "CarcassLayer",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass', 'MetallicLayerPitch', 'StressAtDesignPressure']
+},
+"https://w3id.org/energy-domain/edo#InterlockedCarcass": {
+    "name": "InterlockedCarcass",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass', 'MetallicLayerPitch', 'StressAtDesignPressure']
+},
+"https://w3id.org/energy-domain/edo#PressureArmour": {
+    "name": "PressureArmour",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass', 'MetallicLayerPitch', 'StressAtDesignPressure']
+},
+"https://w3id.org/energy-domain/edo#WireLayer": {
+    "name": "WireLayer",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#TensileArmour": {
+    "name": "TensileArmour",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass', 'TensileWireLayAngle', 'TensileWiresCount']
+},
+"https://w3id.org/energy-domain/edo#TapeLayer": {
+    "name": "TapeLayer",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#FabricTape": {
+    "name": "FabricTape",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#HighStrengthTape": {
+    "name": "HighStrengthTape",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#HoldingBandage": {
+    "name": "HoldingBandage",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass', 'ModulusOfElasticity', 'StressAtDesignPressure', 'TapesQuantity']
+},
+"https://w3id.org/energy-domain/edo#InsulationTape": {
+    "name": "InsulationTape",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#LowResistanceTape": {
+    "name": "LowResistanceTape",
+    "attributes": ['InternalDiameter', 'LayerAnnular', 'LayerAnnularType', 'LayerContinuity', 'LayerGeometryCrossSection', 'LayerGeometryInertiaX', 'LayerGeometryInertiaY', 'LayerGeometryManufacturer', 'LayerGeometryName', 'LayerGeometryProfileThickness', 'LayerGeometryProfileWidth', 'LayerGeometryThickness', 'LayerThickness', 'LayerWatertight', 'LayerWatertightLowerLayerInternalFreeVolume', 'LinearMass']
+},
+"https://w3id.org/energy-domain/edo#FlexibleStructureLayerMaterial": {
+    "name": "FlexibleStructureLayerMaterial",
+    "attributes": ['ElasticityModulusAt23Degrees', 'MaterialComposition', 'PoissonRatioAt23Degrees', 'SpecificHeatCapacity', 'SpecificWeight', 'TechnicalNotes', 'ThermalConductivityCoefficient']
+},
+"https://w3id.org/energy-domain/edo#CompositeMaterial": {
+    "name": "CompositeMaterial",
+    "attributes": ['CompositeLayerMaterialType', 'ElasticityModulusAt23Degrees', 'MaterialComposition', 'PoissonRatioAt23Degrees', 'RuptDefAlongFibers', 'RuptDefPerpendFibers', 'SpecificHeatCapacity', 'SpecificWeight', 'TechnicalNotes', 'ThermalConductivityCoefficient', 'UltTensStrAlongFibers', 'UltTensStrPerpendFibers']
+},
+"https://w3id.org/energy-domain/edo#MetallicMaterial": {
+    "name": "MetallicMaterial",
+    "attributes": ['ElasticityModulusAt23Degrees', 'FractureToughness', 'MaterialComposition', 'MetallicLayerMaterialType', 'PoissonRatioAt23Degrees', 'SpecificHeatCapacity', 'SpecificWeight', 'TechnicalNotes', 'ThermalConductivityCoefficient', 'UltimateTensileStress']
+},
+"https://w3id.org/energy-domain/edo#PolymericMaterial": {
+    "name": "PolymericMaterial",
+    "attributes": ['DiffusionTable', 'DiffusionTable_DiffusionCoefficient', 'DiffusionTable_MoleculeIdentifier', 'DiffusionTable_PolymerState', 'DiffusionTable_Temperature', 'EModVsTempTable_ElasticityModulus', 'ElasticityModulusAt23Degrees', 'MaterialComposition', 'MaxPermissibleDeformationDynamic', 'MaxPermissibleDeformationStatic', 'MinimumTemperature', 'PermeabilityTable', 'PermeabilityTable_MoleculeIdentifier', 'PermeabilityTable_PermeabilityCoefficient', 'PermeabilityTable_PolymerState', 'PermeabilityTable_Temperature', 'PoissonRatioAt23Degrees', 'PolymericLayerMaterialType', 'SolubilityTable', 'SolubilityTable_MoleculeIdentifier', 'SolubilityTable_PolymerState', 'SolubilityTable_SolubilityCoefficient', 'SolubilityTable_Temperature', 'SpecificHeatCapacity', 'SpecificWeight', 'TechnicalNotes', 'ThermalConductivityCoefficient']
+},
+"https://w3id.org/energy-domain/edo#Interconnection": {
+    "name": "Interconnection",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#SubseaPipeline": {
+    "name": "SubseaPipeline",
+    "attributes": ['BasicProjectRevision', 'CO2VolumePercentage', 'ExecutiveProjectRevision', 'H2SVolumeConcentration', 'InternalDiameter', 'InternalIncidentalPressureTable', 'InternalIncidentalPressureTable_PositionReference', 'InternalIncidentalPressureTable_Pressure', 'InternalIncidentalPressureTable_VPosWRTWaterline', 'MaterialRequest', 'MaterialRequestRev', 'MaxDesignAbsIntPresTable', 'MaxDesignAbsIntPresTable_PositionReference', 'MaxDesignAbsIntPresTable_Pressure', 'MaxDesignAbsIntPresTable_VPosWRTWaterline', 'MaximumTemperature', 'MaximumThermalExchangeCoefficient', 'MinimumThermalExchangeCoefficient', 'NominalLength', 'ProjectAcronym', 'ProjectCode', 'RiserConfiguration', 'Service', 'SubProjectId', 'UnifilarDiagram', 'UnifilarDiagramRev']
+},
+"https://w3id.org/energy-domain/edo#UmbilicalLocation": {
+    "name": "UmbilicalLocation",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#Location": {
+    "name": "Location",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#FloatingProductionUnit": {
+    "name": "FloatingProductionUnit",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#LineSpan": {
+    "name": "LineSpan",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#PipelineSpan": {
+    "name": "PipelineSpan",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#FlowlineSpan": {
+    "name": "FlowlineSpan",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#RiserSpan": {
+    "name": "RiserSpan",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#UmbilicalSpan": {
+    "name": "UmbilicalSpan",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#DynamicUmbilicalSpan": {
+    "name": "DynamicUmbilicalSpan",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#StaticUmbilicalSpan": {
+    "name": "StaticUmbilicalSpan",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#LinearLocation": {
+    "name": "LinearLocation",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#PointLocation": {
+    "name": "PointLocation",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#EquipmentLocation": {
+    "name": "EquipmentLocation",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#SubseaWell": {
+    "name": "SubseaWell",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#RiserBalcony": {
+    "name": "RiserBalcony",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#SubseaLayout": {
+    "name": "SubseaLayout",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#SubseaOilField": {
+    "name": "SubseaOilField",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#ModelLocationPoint": {
+    "name": "ModelLocationPoint",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#GroovePoint": {
+    "name": "GroovePoint",
+    "attributes": ['GrooveDiameter', 'GrooveHeight', 'GrooveMinimumSupportArea', 'GrooveSupportSurfaceDiameter', 'GrooveSupportSurfaceFilletRadius', 'GrvCntrPntDstnceFrmTermFlange', 'SafeWorkingLoad', 'TechnicalNotes', 'TestProp', 'TestProp2']
+},
+"https://w3id.org/energy-domain/edo#Project": {
+    "name": "Project",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#ReferenceDrawing": {
+    "name": "ReferenceDrawing",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#DimensionsDrawing": {
+    "name": "DimensionsDrawing",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#SubseaFlexiblePipesBsddDictionary": {
+    "name": "SubseaFlexiblePipesBsddDictionary",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#UmbilicalComponent": {
+    "name": "UmbilicalComponent",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#Filler": {
+    "name": "Filler",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#FunctionLine": {
+    "name": "FunctionLine",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#ElectricalCable": {
+    "name": "ElectricalCable",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#OpticalFiberCable": {
+    "name": "OpticalFiberCable",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#Tubing": {
+    "name": "Tubing",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#HCRHose": {
+    "name": "HCRHose",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#IntegratedPipe": {
+    "name": "IntegratedPipe",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#MetallicTubing": {
+    "name": "MetallicTubing",
+    "attributes": []
+},
+"https://w3id.org/energy-domain/edo#PlasticHose": {
+    "name": "PlasticHose",
+    "attributes": []
+}
+        };
+        
+        // Tree collapsible functionality
+        var toggler = document.getElementsByClassName("caret");
+        for (var i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function() {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+            });
+        }
+        
+        // Modal functionality
+        var modal = document.getElementById("classModal");
+        var span = document.getElementsByClassName("close")[0];
+        
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        // Function to handle class selection
+        function selectClass(className, classUri) {
+            // Get class data
+            const classData = classesData[classUri];
+            
+            // Update modal title
+            document.getElementById("modalTitle").innerText = "Attributes for: " + className;
+            
+            // Clear previous attributes
+            const container = document.getElementById("attributesContainer");
+            container.innerHTML = "";
+            
+            // Add attributes to the modal
+            if (classData.attributes.length > 0) {
+                classData.attributes.forEach(attr => {
+                    const div = document.createElement("div");
+                    div.className = "attribute-item";
+                    div.textContent = attr;
+                    container.appendChild(div);
+                });
+            } else {
+                const div = document.createElement("div");
+                div.textContent = "No attributes found for this class.";
+                container.appendChild(div);
+            }
+            
+            // Show the modal
+            modal.style.display = "block";
+        }
+    </script>
+</body>
+</html>
