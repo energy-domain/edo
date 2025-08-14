@@ -58,8 +58,9 @@
         
         .tree-node-name:before {
             content: "📄";
-            margin-right: 8px;
-            font-size: 0.9em;
+            margin-right: 12px;
+            font-size: 1em;
+            min-width: 24px;
         }
         
         .tree-node.expanded > .tree-node-name:before {
@@ -75,11 +76,33 @@
             display: block;
         }
         
+        /* Botões de expandir maiores */
         .expand-button {
-            margin-left: 5px;
-            font-size: 0.8em;
-            color: #6b7280;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            color: #4a5568;
+            font-size: 14px;
             cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #cbd5e0;
+            user-select: none;
+        }
+        
+        .expand-button:hover {
+            background-color: #cbd5e0;
+        }
+        
+        /* Espaçador para itens sem filhos */
+        .tree-spacer {
+            width: 24px;
+            margin-right: 8px;
+            display: inline-block;
         }
         
         /* Estilo da área de detalhes */
@@ -189,7 +212,7 @@
                 nodeName.textContent = item.label;
                 nodeName.onclick = () => showElementDetails(item);
                 
-                // Botão de expandir/recolher
+                // Botão de expandir/recolher (grande e acessível)
                 if (item.subclasses && item.subclasses.length > 0) {
                     const expandButton = document.createElement('span');
                     expandButton.className = 'expand-button';
@@ -199,6 +222,11 @@
                         toggleNode(node);
                     };
                     nodeName.prepend(expandButton);
+                } else {
+                    // Espaçador para itens sem filhos (mantém alinhamento)
+                    const spacer = document.createElement('span');
+                    spacer.className = 'tree-spacer';
+                    nodeName.prepend(spacer);
                 }
                 
                 node.appendChild(nodeName);
@@ -220,7 +248,7 @@
             const children = node.querySelector('.tree-children');
             const button = node.querySelector('.expand-button');
             
-            if (children.style.display === 'none') {
+            if (children.style.display === 'none' || !children.style.display) {
                 children.style.display = 'block';
                 button.textContent = '▲';
                 node.classList.add('expanded');
@@ -291,7 +319,7 @@
             `;
         }
         
-        // Expandir todos os nós (opcional)
+        // Funções opcionais para expandir/recolher tudo
         function expandAll() {
             document.querySelectorAll('.tree-children').forEach(el => {
                 el.style.display = 'block';
@@ -304,7 +332,6 @@
             });
         }
         
-        // Recolher todos os nós (opcional)
         function collapseAll() {
             document.querySelectorAll('.tree-children').forEach(el => {
                 el.style.display = 'none';
