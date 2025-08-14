@@ -3,21 +3,21 @@
 ### Minimal assertions (Type and superclass)
 These are the minimal information about any entity: its type and its super class:
 
-##### 1. Domain Elements (Assets, types etc.)
+##### 1. Domain Elements (ICD Classes: Assets, types etc.)
 The highest superclass of this taxonomy is DomainElement
 ```turtle
 :EndFitting rdf:type owl:Class . # Entity creation
 :EndFitting rdfs:subClassOf :PipeTermination . # Entity superclass on the taxonomy
 ```
 
-##### 2. Domain Attributes (Pressure, Temperature etc.)
+##### 2. Domain Attributes (ICD Properties: Pressure, Temperature etc.)
 The only superclass of this taxonomy is DomainAttribute
 ```turtle
 :AbsoluteInsidePressure rdf:type owl:Class . # Entity creation
 :AbsoluteInsidePressure rdfs:subClassOf :DomainAttribute . # Attribute fixed superclass (The same for all attributes)
 ```
 
-##### 3. Object Attributes associations (Assets attributes)
+##### 3. Object Attributes associations (ICD Classes to ICD Properties: Assets attributes)
 ```turtle
 :EndFitting :hasAttribute :AbsoluteInsidePressure .
 :EndFitting :hasAttribute :AbsoluteInsideTemperature .
@@ -25,7 +25,7 @@ The only superclass of this taxonomy is DomainAttribute
 
 # Metadata (Annotations) templates
 
-##### 1. Domain Elements (Assets, types etc.)
+##### 1. Domain Elements (ICD Classes Assets, types etc.)
 ```turtle
 :EndFitting dcterms:identifier "EndFitting" . # ICD name
 :EndFitting skos:prefLabel "End Fitting"@en . # ICD shortDescription
@@ -39,7 +39,7 @@ The only superclass of this taxonomy is DomainAttribute
 :EndFitting skos:definition "Componente utilizado em dutos flexíveis para fornecer uma transição segura entre o duto flexível e estruturas rígidas, como equipamentos submersos ou instalações no topo, bem como para conectar duas seções de duto flexível. O Terminador garante a integridade estrutural e o vedamento do duto, permitindo a conexão da linha flexível a outros equipamentos ou seções, resistindo a pressões internas e forças ambientais. É uma interface crítica que acomoda as cargas mecânicas, hidráulicas e térmicas do duto, garantindo desempenho confiável a longo prazo em condições submarinas adversas."@pt-BR . # ICD longDescription br
 ```
 
-##### 2. Domain Attributes (Temperature, Pressure etc.)
+##### 2. Domain Attributes (ICD Properties: Temperature, Pressure etc.)
 ```turtle
 :AbsoluteInsidePressure dcterms:identifier "AbsoluteInsidePressure" . # ICD name
 :AbsoluteInsidePressure skos:prefLabel "Absolute Inside Pressure"@en . # ICD shortDescription
