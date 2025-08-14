@@ -6,9 +6,8 @@ Welcome to the official documentation of the **Energy Domain Ontology (EDO)**. T
 **Prefix:** `edo:`  
 **Stable Releases:** Hosted on GitHub and Zenodo with permanent URLs via [w3id.org](https://w3id.org)
 
-[`User Friendly view`](../tests/core/src/energy-domain-ontology.html)  
-
-
+<!-- [`User Friendly view`](../tests/core/src/energy-domain-ontology.html) -->
+[`User Friendly view`](./energy-domain-ontology.html)
 
 ---
 
