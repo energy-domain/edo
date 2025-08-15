@@ -1,5 +1,6 @@
 import json
 from rdflib import Graph, URIRef, RDF, RDFS, OWL
+from pathlib import Path
 
 def process_ontology(ttl_file):
     g = Graph()
@@ -106,8 +107,26 @@ def get_annotations(g, uri):
             annotations[key] = str(o)
     return annotations
 
-# Processar e gerar JSON
-taxonomy = process_ontology("energy-domain-ontology.ttl")
-with open("taxonomy.json", "w", encoding="utf-8") as f:
+# # Processar e gerar JSON
+# taxonomy = process_ontology(".\.\core\edo\energy-domain-ontology.ttl")
+# with open("taxonomy.json", "w", encoding="utf-8") as f:
+#     json.dump(taxonomy, f, indent=2, ensure_ascii=False)
+# print("JSON gerado com sucesso!")
+
+# Caminho para o arquivo TTL
+script_dir = Path(__file__).parent.resolve()
+input_ttl = script_dir.parent.parent / "core" / "edo" / "energy-domain-ontology.ttl"
+
+# Pasta de saída (2 diretórios acima, depois output/)
+output_dir = script_dir.parent
+output_json = output_dir / "taxonomy.json"
+
+# 2. Criar a pasta de saída se não existir
+output_dir.mkdir(parents=True, exist_ok=True)
+
+# 3. Processar e salvar
+taxonomy = process_ontology(str(input_ttl))
+with open(output_json, "w", encoding="utf-8") as f:
     json.dump(taxonomy, f, indent=2, ensure_ascii=False)
-print("JSON gerado com sucesso!")
+
+print(f"JSON gerado com sucesso em: {output_json}")
