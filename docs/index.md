@@ -107,6 +107,11 @@ They are versioned using semantic versioning and hosted at:
 - Zenodo (DOI for each release)
 - Persistent URL via: [`https://w3id.org/energy-domain`](https://w3id.org/energy-domain)
 
+### Experimental / Test Releases  
+For early-access or experimental versions of the ontology (not yet stable), visit:  
+[Subsea Flexible Pipes - Detailed Design phase - Experimental ttl](../tests/core/subontologies/FlexiblePipesDetailedDesign.ttl).  
+⚠️ *Not for production use*.
+
 ---
 
 ## 🌐 Community Participation
