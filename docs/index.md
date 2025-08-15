@@ -109,7 +109,7 @@ They are versioned using semantic versioning and hosted at:
 
 ### Experimental / Test Releases  
 For early-access or experimental versions of the ontology (not yet stable), visit:  
-[Subsea Flexible Pipes - Detailed Design phase - Experimental ttl](../tests/core/subontologies/FlexiblePipesDetailedDesign.ttl).  
+[Subsea Flexible Pipes - Detailed Design phase - Experimental ttl](https://raw.githubusercontent.com/energy-domain/ontologies/main/tests/core/subontologies/FlexiblePipesDetailedDesign.ttl).
 ⚠️ *Not for production use*.
 
 ---
