@@ -71,8 +71,10 @@ skos:prefLabel rdf:type owl:AnnotationProperty .
 :DomainAuxiliarAnnotation rdf:type owl:AnnotationProperty ;
                           rdfs:subPropertyOf :DomainAnnotation .
 
+
+###  https://w3id.org/energy-domain/edo#DomainEngineeringAnnotation
 :DomainEngineeringAnnotation rdf:type owl:AnnotationProperty ;
-                          rdfs:subPropertyOf :DomainAnnotation .
+                             rdfs:subPropertyOf :DomainAnnotation .
 
 
 ###  https://w3id.org/energy-domain/edo#DomainRelationship
@@ -124,19 +126,24 @@ skos:prefLabel rdf:type owl:AnnotationProperty .
                            "Belongs to one or more domains"@en ;
            rdfs:subPropertyOf :DomainEngineeringAnnotation .
 
-:hasSubDomain rdf:type owl:AnnotationProperty ;
-           rdfs:label "Has SubDomain"@en ,
-                      "Pertence a um subdomínio"@pt-br ;
-           skos:definition "Associa a entidade a um ou mais subdomínios"@pt-br ,
-                           "Belongs to one or more subdomains"@en ;
-           rdfs:subPropertyOf :DomainEngineeringAnnotation .
 
+###  https://w3id.org/energy-domain/edo#hasLocationType
 :hasLocationType rdf:type owl:AnnotationProperty ;
-           rdfs:label "Has Location Type"@en ,
-                      "Pertence a um tipo de locação"@pt-br ;
-           skos:definition "Associa a entidade a um tipo de locação"@pt-br ,
-                           "Belongs to one or more Location Types"@en ;
-           rdfs:subPropertyOf :DomainEngineeringAnnotation .
+                 rdfs:label "Has Location Type"@en ,
+                            "Pertence a um tipo de locação"@pt-br ;
+                 skos:definition "Associa a entidade a um tipo de locação"@pt-br ,
+                                 "Belongs to one or more Location Types"@en ;
+                 rdfs:subPropertyOf :DomainEngineeringAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#hasSubDomain
+:hasSubDomain rdf:type owl:AnnotationProperty ;
+              rdfs:label "Has SubDomain"@en ,
+                         "Pertence a um subdomínio"@pt-br ;
+              skos:definition "Associa a entidade a um ou mais subdomínios"@pt-br ,
+                              "Belongs to one or more subdomains"@en ;
+              rdfs:subPropertyOf :DomainEngineeringAnnotation .
+
 
 ###  https://w3id.org/energy-domain/edo#hasTypedValue
 :hasTypedValue rdf:type owl:AnnotationProperty ;
@@ -222,375 +229,6 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 #################################################################
 #    Classes
-#################################################################
-
-#################################################################
-### Technical Disciplines Superclass
-#################################################################
-:TechnicalDiscipline rdf:type owl:Class ;
-    rdfs:subClassOf :DomainClassification ;
-    rdfs:label "Technical Discipline"@en, "Disciplina Técnica"@pt-br;
-    skos:definition "A specialized field of engineering or technical expertise within industrial projects."@en,
-                   "Um campo especializado de engenharia ou expertise técnica dentro de projetos industriais."@pt-br;
-    rdfs:comment "Superclass for all technical engineering disciplines."@en .
-
-### 1. Equipment
-:EquipmentEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Equipment Engineering"@en, "Engenharia de Equipamentos"@pt-br;
-    skos:definition "Engineering discipline focused on the design and specification of industrial equipment."@en,
-                   "Disciplina de engenharia focada no projeto e especificação de equipamentos industriais."@pt-br.
-
-:StaticEquipmentEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :EquipmentEngineering ;
-    rdfs:label "Static Equipment Engineering"@en, "Engenharia de Equipamentos Estáticos"@pt-br;
-    skos:definition "Engineering of non-moving industrial equipment such as pressure vessels, tanks, and heat exchangers."@en,
-                   "Engenharia de equipamentos industriais sem partes móveis como vasos de pressão, tanques e trocadores de calor."@pt-br.
-
-:RotatingEquipmentEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :EquipmentEngineering ;
-    rdfs:label "Rotating Equipment Engineering"@en, "Engenharia de Equipamentos Rotativos"@pt-br;
-    skos:definition "Engineering of mechanical equipment with rotating components such as pumps, compressors, and turbines."@en,
-                   "Engenharia de equipamentos mecânicos com componentes rotativos como bombas, compressores e turbinas."@pt-br.
-
-:PackageEquipmentEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :EquipmentEngineering ;
-    rdfs:label "Package Equipment Engineering"@en, "Engenharia de Equipamentos Modulares"@pt-br;
-    skos:definition "Engineering of skid-mounted or modular equipment systems."@en,
-                   "Engenharia de sistemas de equipamentos modulares ou montados em skids."@pt-br.
-
-### 2. Piping
-:ProcessPipingEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Process Piping Engineering"@en, "Engenharia de Tubulação de Processo"@pt-br;
-    skos:definition "Engineering discipline focused on the design of piping systems for process fluids."@en,
-                   "Disciplina de engenharia focada no projeto de sistemas de tubulação para fluidos de processo."@pt-br.
-
-:UtilityPipingEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Utility Piping Engineering"@en, "Engenharia de Tubulação de Utilidades"@pt-br;
-    skos:definition "Engineering discipline focused on the design of piping systems for utility services."@en,
-                   "Disciplina de engenharia focada no projeto de sistemas de tubulação para serviços de utilidades."@pt-br.
-
-### 3. Subsea
-:SubseaEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Subsea Engineering"@en, "Engenharia Submarina"@pt-br;
-    skos:definition "Engineering discipline focused on underwater systems and equipment for offshore operations."@en,
-                   "Disciplina de engenharia focada em sistemas e equipamentos subaquáticos para operações offshore."@pt-br.
-
-:SubseaFlexiblePipesEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :SubseaEngineering ;
-    rdfs:label "Subsea Flexible Pipes Engineering"@en, "Engenharia de Tubos Flexíveis Submarinos"@pt-br;
-    skos:definition "Engineering of flexible pipe systems used in subsea applications."@en,
-                   "Engenharia de sistemas de tubos flexíveis utilizados em aplicações submarinas."@pt-br.
-
-:SubseaRigidPipesEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :SubseaEngineering ;
-    rdfs:label "Subsea Rigid Pipes Engineering"@en, "Engenharia de Tubos Rígidos Submarinos"@pt-br;
-    skos:definition "Engineering of rigid pipeline systems used in subsea applications."@en,
-                   "Engenharia de sistemas de tubulações rígidas utilizadas em aplicações submarinas."@pt-br.
-
-:SubseaUmbilicalsEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :SubseaEngineering ;
-    rdfs:label "Subsea Umbilicals Engineering"@en, "Engenharia de Umbilicais Submarinos"@pt-br;
-    skos:definition "Engineering of subsea umbilical systems providing control, power and chemical injection."@en,
-                   "Engenharia de sistemas de umbilicais submarinos fornecendo controle, energia e injeção química."@pt-br.
-
-:SubseaStructuresEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :SubseaEngineering ;
-    rdfs:label "Subsea Structures Engineering"@en, "Engenharia de Estruturas Submarinas"@pt-br;
-    skos:definition "Engineering of subsea manifolds, christmas trees, and other structural components."@en,
-                   "Engenharia de manifolds submarinos, árvores de natal e outros componentes estruturais."@pt-br.
-
-### 4. Electric e Instrumentation
-:ElectricalEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Electrical Engineering"@en, "Engenharia Elétrica"@pt-br;
-    skos:definition "Engineering discipline focused on electrical systems, power distribution and generation."@en,
-                   "Disciplina de engenharia focada em sistemas elétricos, distribuição e geração de energia."@pt-br.
-
-:InstrumentationEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Instrumentation Engineering"@en, "Engenharia de Instrumentação"@pt-br;
-    skos:definition "Engineering discipline focused on measurement and control instrumentation systems."@en,
-                   "Disciplina de engenharia focada em sistemas de instrumentação de medição e controle."@pt-br.
-
-:AutomationControlEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Automation & Control Engineering"@en, "Engenharia de Automação e Controle"@pt-br;
-    skos:definition "Engineering discipline focused on automated control systems and process automation."@en,
-                   "Disciplina de engenharia focada em sistemas de controle automatizado e automação de processos."@pt-br.
-
-### 5. AEC
-:CivilEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Civil Engineering"@en, "Engenharia Civil"@pt-br;
-    skos:definition "Engineering discipline focused on the design and construction of infrastructure."@en,
-                   "Disciplina de engenharia focada no projeto e construção de infraestrutura."@pt-br.
-
-:StructuralEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :CivilEngineering ;
-    rdfs:label "Structural Engineering"@en, "Engenharia Estrutural"@pt-br;
-    skos:definition "Engineering discipline focused on the structural integrity and design of buildings and infrastructure."@en,
-                   "Disciplina de engenharia focada na integridade estrutural e projeto de edifícios e infraestrutura."@pt-br.
-
-:ArchitecturalEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Architectural Engineering"@en, "Engenharia Arquitetônica"@pt-br;
-    skos:definition "Engineering discipline focused on building design, construction and systems integration."@en,
-                   "Disciplina de engenharia focada no projeto de edifícios, construção e integração de sistemas."@pt-br.
-
-### 6. Other
-:HVACEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "HVAC Engineering"@en, "Engenharia de HVAC"@pt-br;
-    skos:definition "Engineering discipline focused on heating, ventilation and air conditioning systems."@en,
-                   "Disciplina de engenharia focada em sistemas de aquecimento, ventilação e ar condicionado."@pt-br.
-
-:SafetyLossPreventionEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Safety & Loss Prevention Engineering"@en, "Engenharia de Segurança e Prevenção de Perdas"@pt-br;
-    skos:definition "Engineering discipline focused on risk assessment, safety systems and loss prevention."@en,
-                   "Disciplina de engenharia focada em avaliação de riscos, sistemas de segurança e prevenção de perdas."@pt-br.
-
-:ProcessEngineering rdf:type owl:Class ;
-    rdfs:subClassOf :TechnicalDiscipline ;
-    rdfs:label "Process Engineering"@en, "Engenharia de Processos"@pt-br;
-    skos:definition "Engineering discipline focused on the design and optimization of industrial processes."@en,
-                   "Disciplina de engenharia focada no projeto e otimização de processos industriais."@pt-br.
-
-#################################################################
-### Superclass for all industrial domains
-#################################################################
-:Domain rdf:type owl:Class ;
-    rdfs:subClassOf :DomainClassification ;
-    rdfs:label "Industrial Domain"@en, "Domínio Industrial"@pt-br;
-    skos:definition "A high-level industrial sector or application area."@en,
-                   "Um setor industrial ou área de aplicação de alto nível."@pt-br;
-    rdfs:comment "Represents a high-level industrial domain, such as Oil & Gas, Nuclear, or Renewable Energy."@en .
-
-### 1. Oil & Gas
-:OilAndGas rdf:type owl:Class ;
-    rdfs:subClassOf :Domain ;
-    rdfs:label "Oil & Gas"@en, "Petróleo & Gás"@pt-br;
-    skos:definition "Industrial domain covering all activities related to the exploration, production, refining, and distribution of oil and gas."@en,
-                   "Domínio industrial que abrange todas as atividades relacionadas à exploração, produção, refino e distribuição de petróleo e gás."@pt-br.
-
-### Oil & Gas subdomains (functional / industrial)
-:Upstream rdf:type owl:Class ;
-    rdfs:subClassOf :OilAndGas ;
-    rdfs:label "Upstream"@en, "Upstream"@pt-br;
-    skos:definition "Oil & Gas sector covering exploration, drilling, and production of hydrocarbon resources."@en,
-                   "Setor de Petróleo & Gás que abrange exploração, perfuração e produção de recursos de hidrocarbonetos."@pt-br.
-
-:Midstream rdf:type owl:Class ;
-    rdfs:subClassOf :OilAndGas ;
-    rdfs:label "Midstream"@en, "Midstream"@pt-br;
-    skos:definition "Oil & Gas sector covering transportation, storage, and wholesale marketing of crude or refined petroleum products."@en,
-                   "Setor de Petróleo & Gás que abrange transporte, armazenamento e comercialização atacadista de produtos petrolíferos brutos ou refinados."@pt-br.
-
-:Downstream rdf:type owl:Class ;
-    rdfs:subClassOf :OilAndGas ;
-    rdfs:label "Downstream"@en, "Downstream"@pt-br;
-    skos:definition "Oil & Gas sector covering refining, processing, distribution, and retail of petroleum products."@en,
-                   "Setor de Petróleo & Gás que abrange refino, processamento, distribuição e varejo de produtos petrolíferos."@pt-br.
-
-### 2. Nuclear Energy
-:Nuclear rdf:type owl:Class ;
-    rdfs:subClassOf :Domain ;
-    rdfs:label "Nuclear Energy"@en, "Energia Nuclear"@pt-br;
-    skos:definition "Industrial domain covering the generation of energy from nuclear reactions, including fission and fusion."@en,
-                   "Domínio industrial que abrange a geração de energia a partir de reações nucleares, incluindo fissão e fusão."@pt-br.
-
-:NuclearPowerGeneration rdf:type owl:Class ;
-    rdfs:subClassOf :Nuclear ;
-    rdfs:label "Nuclear Power Generation"@en, "Geração de Energia Nuclear"@pt-br;
-    skos:definition "Operation and maintenance of nuclear power plants for electricity production."@en,
-                   "Operação e manutenção de usinas nucleares para produção de eletricidade."@pt-br.
-
-:NuclearFuelCycle rdf:type owl:Class ;
-    rdfs:subClassOf :Nuclear ;
-    rdfs:label "Nuclear Fuel Cycle"@en, "Ciclo do Combustível Nuclear"@pt-br;
-    skos:definition "Processes involved in mining, processing, enrichment, and disposal of nuclear fuel."@en,
-                   "Processos envolvidos na mineração, processamento, enriquecimento e descarte de combustível nuclear."@pt-br.
-
-### 3. Renewable Energy
-:Renewable rdf:type owl:Class ;
-    rdfs:subClassOf :Domain ;
-    rdfs:label "Renewable Energy"@en, "Energia Renovável"@pt-br;
-    skos:definition "Industrial domain covering energy sources that are naturally replenished, such as solar, wind, and hydropower."@en,
-                   "Domínio industrial que abrange fontes de energia que são naturalmente reabastecidas, como solar, eólica e hidrelétrica."@pt-br.
-
-:Solar rdf:type owl:Class ;
-    rdfs:subClassOf :Renewable ;
-    rdfs:label "Solar Energy"@en, "Energia Solar"@pt-br;
-    skos:definition "Energy harnessed from sunlight, including photovoltaic and thermal systems."@en,
-                   "Energia obtida da luz solar, incluindo sistemas fotovoltaicos e térmicos."@pt-br.
-
-:Wind rdf:type owl:Class ;
-    rdfs:subClassOf :Renewable ;
-    rdfs:label "Wind Energy"@en, "Energia Eólica"@pt-br;
-    skos:definition "Energy generated from wind using turbines and related technologies."@en,
-                   "Energia gerada a partir do vento usando turbinas e tecnologias relacionadas."@pt-br.
-
-:Hydropower rdf:type owl:Class ;
-    rdfs:subClassOf :Renewable ;
-    rdfs:label "Hydropower"@en, "Energia Hidrelétrica"@pt-br;
-    skos:definition "Energy generated from moving water, including dams and tidal power."@en,
-                   "Energia gerada a partir da água em movimento, incluindo barragens e energia das marés."@pt-br.
-
-:Geothermal rdf:type owl:Class ;
-    rdfs:subClassOf :Renewable ;
-    rdfs:label "Geothermal Energy"@en, "Energia Geotérmica"@pt-br;
-    skos:definition "Energy derived from heat stored beneath the Earth's surface."@en,
-                   "Energia derivada do calor armazenado abaixo da superfície da Terra."@pt-br.
-
-:Biomass rdf:type owl:Class ;
-    rdfs:subClassOf :Renewable ;
-    rdfs:label "Biomass Energy"@en, "Energia de Biomassa"@pt-br;
-    skos:definition "Energy produced from organic materials such as wood, agricultural residues, or waste."@en,
-                   "Energia produzida a partir de materiais orgânicos como madeira, resíduos agrícolas ou lixo."@pt-br.
-
-### 4. Other Energy Domains
-:ThermalPower rdf:type owl:Class ;
-    rdfs:subClassOf :Domain ;
-    rdfs:label "Thermal Power"@en, "Energia Térmica"@pt-br;
-    skos:definition "Energy production from fossil fuels (coal, natural gas) through thermal conversion."@en,
-                   "Produção de energia a partir de combustíveis fósseis (carvão, gás natural) através de conversão térmica."@pt-br.
-
-:HydrogenEnergy rdf:type owl:Class ;
-    rdfs:subClassOf :Domain ;
-    rdfs:label "Hydrogen Energy"@en, "Energia de Hidrogênio"@pt-br;
-    skos:definition "Production, storage, and utilization of hydrogen as an energy carrier."@en,
-                   "Produção, armazenamento e utilização de hidrogênio como vetor energético."@pt-br.
-
-:EnergyStorage rdf:type owl:Class ;
-    rdfs:subClassOf :Domain ;
-    rdfs:label "Energy Storage"@en, "Armazenamento de Energia"@pt-br;
-    skos:definition "Technologies for storing energy, such as batteries, pumped hydro, or compressed air."@en,
-                   "Tecnologias para armazenamento de energia, como baterias, hidroelétricas reversíveis ou ar comprimido."@pt-br.
-
-#################################################################
-### Location classification (applies to multiple domains)
-#################################################################
-:LocationType rdf:type owl:Class ;
-    rdfs:subClassOf :DomainClassification ;
-    rdfs:label "Location Type"@en, "Tipo de Localização"@pt-br;
-    skos:definition "Classification of industrial activities based on their geographical location."@en,
-                   "Classificação de atividades industriais baseada em sua localização geográfica."@pt-br.
-
-:Offshore rdf:type owl:Class ;
-    rdfs:subClassOf :LocationType ;
-    rdfs:label "Offshore"@en, "Offshore"@pt-br;
-    skos:definition "Industrial activities conducted at sea, typically for oil & gas or wind energy production."@en,
-                   "Atividades industriais realizadas no mar, tipicamente para produção de petróleo & gás ou energia eólica."@pt-br.
-
-:Onshore rdf:type owl:Class ;
-    rdfs:subClassOf :LocationType ;
-    rdfs:label "Onshore"@en, "Onshore"@pt-br;
-    skos:definition "Industrial activities conducted on land."@en,
-                   "Atividades industriais realizadas em terra."@pt-br.
-
-#################################################################
-### Lifecycle Phases
-#################################################################
-:LifecyclePhase rdf:type owl:Class ;
-    rdfs:subClassOf :DomainClassification ;
-    rdfs:label "Lifecycle Phase"@en, "Fase do Ciclo de Vida"@pt-br;
-    skos:definition "A stage in the lifecycle of an industrial asset, from conception to decommissioning."@en,
-                   "Uma etapa no ciclo de vida de um ativo industrial, desde a concepção até a desativação."@pt-br;
-    rdfs:comment "Represents a stage in the lifecycle of an industrial asset."@en .
-
-### 1. Engineering & Design Phases
-:ConceptualDesign rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Conceptual Design"@en, "Projeto Conceitual"@pt-br;
-    skos:definition "Initial design phase focused on feasibility, scope definition, and technology selection."@en,
-                   "Fase inicial de projeto focada em viabilidade, definição de escopo e seleção de tecnologia."@pt-br.
-
-:FEED rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "FEED (Front-End Engineering Design)"@en, "FEED (Projeto Básico de Engenharia)"@pt-br;
-    skos:definition "Intermediate phase between conceptual and detailed design, refining technical and cost details."@en,
-                   "Fase intermediária entre o projeto conceitual e detalhado, refinando detalhes técnicos e de custo."@pt-br.
-
-:BasicDesign rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Basic Design"@en, "Projeto Básico"@pt-br;
-    skos:definition "Phase where general engineering specifications, layouts, and main equipment lists are developed."@en,
-                   "Fase onde são desenvolvidas especificações gerais de engenharia, layouts e listas de equipamentos principais."@pt-br.
-
-:DetailedDesign rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Detailed Design"@en, "Projeto Detalhado"@pt-br;
-    skos:definition "Comprehensive engineering phase producing detailed drawings, material specifications, and construction plans."@en,
-                   "Fase abrangente de engenharia que produz desenhos detalhados, especificações de materiais e planos de construção."@pt-br.
-
-### 2. Procurement & Fabrication Phases
-:Procurement rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Procurement"@en, "Aquisição"@pt-br;
-    skos:definition "Acquisition of materials, equipment, and services required for project execution."@en,
-                   "Aquisição de materiais, equipamentos e serviços necessários para execução do projeto."@pt-br.
-
-:Fabrication rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Fabrication"@en, "Fabricação"@pt-br;
-    skos:definition "Manufacturing and assembly of components, modules, or structures in workshops or yards."@en,
-                   "Fabricação e montagem de componentes, módulos ou estruturas em oficinas ou estaleiros."@pt-br.
-
-### 3. Construction & Installation Phases
-:Transportation rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Transportation"@en, "Transporte"@pt-br;
-    skos:definition "Logistics and transport of materials and equipment to the construction or installation site."@en,
-                   "Logística e transporte de materiais e equipamentos para o local de construção ou instalação."@pt-br.
-
-:Installation rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Installation"@en, "Instalação"@pt-br;
-    skos:definition "Placement and integration of equipment, piping, and structures at the site."@en,
-                   "Posicionamento e integração de equipamentos, tubulações e estruturas no local."@pt-br.
-
-### 4. Pre-Operation & Testing
-:PreCommissioning rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Pre-Commissioning"@en, "Pré-Comissionamento"@pt-br;
-    skos:definition "Verification and functional testing before introducing operational fluids or energy."@en,
-                   "Verificação e testes funcionais antes da introdução de fluidos ou energia operacionais."@pt-br.
-
-:Commissioning rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Commissioning"@en, "Comissionamento"@pt-br;
-    skos:definition "Final testing and handover of the system into operational status."@en,
-                   "Testes finais e entrega do sistema para status operacional."@pt-br.
-
-### 5. Operation & Maintenance
-:Operation rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Operation"@en, "Operação"@pt-br;
-    skos:definition "Normal use of the asset for its intended purpose, including monitoring and control."@en,
-                   "Uso normal do ativo para seu propósito pretendido, incluindo monitoramento e controle."@pt-br.
-
-:Maintenance rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Maintenance"@en, "Manutenção"@pt-br;
-    skos:definition "Planned or corrective interventions to preserve asset functionality and safety."@en,
-                   "Intervenções planejadas ou corretivas para preservar a funcionalidade e segurança do ativo."@pt-br.
-
-### 6. End-of-Life
-:Decommissioning rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Decommissioning"@en, "Descomissionamento"@pt-br;
-    skos:definition "Permanent removal of the asset from service, including dismantling and disposal."@en,
-                   "Remoção permanente do ativo do serviço, incluindo desmontagem e descarte."@pt-br.
-
-:Recycling rdf:type owl:Class ;
-    rdfs:subClassOf :LifecyclePhase ;
-    rdfs:label "Recycling"@en, "Reciclagem"@pt-br;
-    skos:definition "Processing and reusing materials recovered during decommissioning."@en,
-                   "Processamento e reutilização de materiais recuperados durante o descomissionamento."@pt-br.
 #################################################################
 
 ###  https://w3id.org/energy-domain/edo#AbsoluteInsidePressure
@@ -740,6 +378,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                 :ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#ArchitecturalEngineering
+:ArchitecturalEngineering rdf:type owl:Class ;
+                          rdfs:subClassOf :TechnicalDiscipline ;
+                          rdfs:label "Architectural Engineering"@en ,
+                                     "Engenharia Arquitetônica"@pt-br ;
+                          skos:definition "Disciplina de engenharia focada no projeto de edifícios, construção e integração de sistemas."@pt-br ,
+                                          "Engineering discipline focused on building design, construction and systems integration."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#ArmorPot
 :ArmorPot rdf:type owl:Class ;
           rdfs:subClassOf :LineTermination ;
@@ -793,6 +440,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                      :SerialNumber .
 
 
+###  https://w3id.org/energy-domain/edo#AutomationControlEngineering
+:AutomationControlEngineering rdf:type owl:Class ;
+                              rdfs:subClassOf :TechnicalDiscipline ;
+                              rdfs:label "Automation & Control Engineering"@en ,
+                                         "Engenharia de Automação e Controle"@pt-br ;
+                              skos:definition "Disciplina de engenharia focada em sistemas de controle automatizado e automação de processos."@pt-br ,
+                                              "Engineering discipline focused on automated control systems and process automation."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#AuxiliaryModule
 :AuxiliaryModule rdf:type owl:Class ;
                  rdfs:subClassOf :SubseaEquipment ;
@@ -829,6 +485,15 @@ rdf:value rdf:type owl:DatatypeProperty .
 :BOP rdf:type owl:Class ;
      rdfs:subClassOf :PressureEquipment ;
      dcterms:identifier "BOP" .
+
+
+###  https://w3id.org/energy-domain/edo#BasicDesign
+:BasicDesign rdf:type owl:Class ;
+             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:label "Basic Design"@en ,
+                        "Projeto Básico"@pt-br ;
+             skos:definition "Fase onde são desenvolvidas especificações gerais de engenharia, layouts e listas de equipamentos principais."@pt-br ,
+                             "Phase where general engineering specifications, layouts, and main equipment lists are developed."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#BasicProjectRevision
@@ -951,6 +616,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                              "Curvature"@en ;
                               :hasTypedValue :floatValue ;
                               :hasValueCardinality :multiValue .
+
+
+###  https://w3id.org/energy-domain/edo#Biomass
+:Biomass rdf:type owl:Class ;
+         rdfs:subClassOf :Renewable ;
+         rdfs:label "Biomass Energy"@en ,
+                    "Energia de Biomassa"@pt-br ;
+         skos:definition "Energia produzida a partir de materiais orgânicos como madeira, resíduos agrícolas ou lixo."@pt-br ,
+                         "Energy produced from organic materials such as wood, agricultural residues, or waste."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#BlockValve
@@ -1088,6 +762,15 @@ rdf:value rdf:type owl:DatatypeProperty .
             dcterms:identifier "ChokeValve" .
 
 
+###  https://w3id.org/energy-domain/edo#CivilEngineering
+:CivilEngineering rdf:type owl:Class ;
+                  rdfs:subClassOf :TechnicalDiscipline ;
+                  rdfs:label "Civil Engineering"@en ,
+                             "Engenharia Civil"@pt-br ;
+                  skos:definition "Disciplina de engenharia focada no projeto e construção de infraestrutura."@pt-br ,
+                                  "Engineering discipline focused on the design and construction of infrastructure."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#ClampInternalDiameter
 :ClampInternalDiameter rdf:type owl:Class ;
                        rdfs:subClassOf :DomainAttribute ;
@@ -1110,6 +793,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                        "Diâmetro Interno do Colar"@pt-br ;
                         :hasTypedValue :floatValue ;
                         :hasValueCardinality :singleValue .
+
+
+###  https://w3id.org/energy-domain/edo#Commissioning
+:Commissioning rdf:type owl:Class ;
+               rdfs:subClassOf :LifecyclePhase ;
+               rdfs:label "Comissionamento"@pt-br ,
+                          "Commissioning"@en ;
+               skos:definition "Final testing and handover of the system into operational status."@en ,
+                               "Testes finais e entrega do sistema para status operacional."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#CommissioningActivity
@@ -1330,6 +1022,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                    :ifc_objectType "CompositeMaterial" .
 
 
+###  https://w3id.org/energy-domain/edo#ConceptualDesign
+:ConceptualDesign rdf:type owl:Class ;
+                  rdfs:subClassOf :LifecyclePhase ;
+                  rdfs:label "Conceptual Design"@en ,
+                             "Projeto Conceitual"@pt-br ;
+                  skos:definition "Fase inicial de projeto focada em viabilidade, definição de escopo e seleção de tecnologia."@pt-br ,
+                                  "Initial design phase focused on feasibility, scope definition, and technology selection."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#Connection
 :Connection rdf:type owl:Class ;
             rdfs:subClassOf :DomainElement ;
@@ -1423,10 +1124,28 @@ rdf:value rdf:type owl:DatatypeProperty .
                   :ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#Decommissioning
+:Decommissioning rdf:type owl:Class ;
+                 rdfs:subClassOf :LifecyclePhase ;
+                 rdfs:label "Decommissioning"@en ,
+                            "Descomissionamento"@pt-br ;
+                 skos:definition "Permanent removal of the asset from service, including dismantling and disposal."@en ,
+                                 "Remoção permanente do ativo do serviço, incluindo desmontagem e descarte."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#DeploymentAccessory
 :DeploymentAccessory rdf:type owl:Class ;
                      rdfs:subClassOf :Accessory ;
                      dcterms:identifier "DeploymentAccessory" .
+
+
+###  https://w3id.org/energy-domain/edo#DetailedDesign
+:DetailedDesign rdf:type owl:Class ;
+                rdfs:subClassOf :LifecyclePhase ;
+                rdfs:label "Detailed Design"@en ,
+                           "Projeto Detalhado"@pt-br ;
+                skos:definition "Comprehensive engineering phase producing detailed drawings, material specifications, and construction plans."@en ,
+                                "Fase abrangente de engenharia que produz desenhos detalhados, especificações de materiais e planos de construção."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#DiffusionTable
@@ -1546,6 +1265,16 @@ rdf:value rdf:type owl:DatatypeProperty .
                     dcterms:identifier "DistributionModule" .
 
 
+###  https://w3id.org/energy-domain/edo#Domain
+:Domain rdf:type owl:Class ;
+        rdfs:subClassOf :DomainClassification ;
+        rdfs:comment "Represents a high-level industrial domain, such as Oil & Gas, Nuclear, or Renewable Energy."@en ;
+        rdfs:label "Domínio Industrial"@pt-br ,
+                   "Industrial Domain"@en ;
+        skos:definition "A high-level industrial sector or application area."@en ,
+                        "Um setor industrial ou área de aplicação de alto nível."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#DomainAttribute
 :DomainAttribute rdf:type owl:Class .
 
@@ -1554,8 +1283,21 @@ rdf:value rdf:type owl:DatatypeProperty .
 :DomainAuxiliarClass rdf:type owl:Class .
 
 
+###  https://w3id.org/energy-domain/edo#DomainClassification
+:DomainClassification rdf:type owl:Class .
+
+
 ###  https://w3id.org/energy-domain/edo#DomainElement
 :DomainElement rdf:type owl:Class .
+
+
+###  https://w3id.org/energy-domain/edo#Downstream
+:Downstream rdf:type owl:Class ;
+            rdfs:subClassOf :OilAndGas ;
+            rdfs:label "Downstream"@en ,
+                       "Downstream"@pt-br ;
+            skos:definition "Oil & Gas sector covering refining, processing, distribution, and retail of petroleum products."@en ,
+                            "Setor de Petróleo & Gás que abrange refino, processamento, distribuição e varejo de produtos petrolíferos."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#DragAnchor
@@ -1818,6 +1560,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                  :ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#ElectricalEngineering
+:ElectricalEngineering rdf:type owl:Class ;
+                       rdfs:subClassOf :TechnicalDiscipline ;
+                       rdfs:label "Electrical Engineering"@en ,
+                                  "Engenharia Elétrica"@pt-br ;
+                       skos:definition "Disciplina de engenharia focada em sistemas elétricos, distribuição e geração de energia."@pt-br ,
+                                       "Engineering discipline focused on electrical systems, power distribution and generation."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#ElectricalJumper
 :ElectricalJumper rdf:type owl:Class ;
                   rdfs:subClassOf :Jumper ;
@@ -1865,10 +1616,28 @@ rdf:value rdf:type owl:DatatypeProperty .
             :ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#EnergyStorage
+:EnergyStorage rdf:type owl:Class ;
+               rdfs:subClassOf :Domain ;
+               rdfs:label "Armazenamento de Energia"@pt-br ,
+                          "Energy Storage"@en ;
+               skos:definition "Technologies for storing energy, such as batteries, pumped hydro, or compressed air."@en ,
+                               "Tecnologias para armazenamento de energia, como baterias, hidroelétricas reversíveis ou ar comprimido."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#Equipment
 :Equipment rdf:type owl:Class ;
            rdfs:subClassOf :CompactObject ;
            dcterms:identifier "Equipment" .
+
+
+###  https://w3id.org/energy-domain/edo#EquipmentEngineering
+:EquipmentEngineering rdf:type owl:Class ;
+                      rdfs:subClassOf :TechnicalDiscipline ;
+                      rdfs:label "Engenharia de Equipamentos"@pt-br ,
+                                 "Equipment Engineering"@en ;
+                      skos:definition "Disciplina de engenharia focada no projeto e especificação de equipamentos industriais."@pt-br ,
+                                      "Engineering discipline focused on the design and specification of industrial equipment."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#EquipmentLocation
@@ -1917,6 +1686,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                   :hasValueCardinality :singleValue .
 
 
+###  https://w3id.org/energy-domain/edo#FEED
+:FEED rdf:type owl:Class ;
+      rdfs:subClassOf :LifecyclePhase ;
+      rdfs:label "FEED (Front-End Engineering Design)"@en ,
+                 "FEED (Projeto Básico de Engenharia)"@pt-br ;
+      skos:definition "Fase intermediária entre o projeto conceitual e detalhado, refinando detalhes técnicos e de custo."@pt-br ,
+                      "Intermediate phase between conceptual and detailed design, refining technical and cost details."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#FSHRLowerAssembly
 :FSHRLowerAssembly rdf:type owl:Class ;
                    rdfs:subClassOf :FlowControlEquipment ;
@@ -1940,6 +1718,15 @@ rdf:value rdf:type owl:DatatypeProperty .
             :ifc_equivalentClass "IfcPipeSegment" ;
             :ifc_objectType "FabricTape" ;
             :ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#Fabrication
+:Fabrication rdf:type owl:Class ;
+             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:label "Fabrication"@en ,
+                        "Fabricação"@pt-br ;
+             skos:definition "Fabricação e montagem de componentes, módulos ou estruturas em oficinas ou estaleiros."@pt-br ,
+                             "Manufacturing and assembly of components, modules, or structures in workshops or yards."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#FatMaxPress
@@ -2403,6 +2190,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                   :hasValueCardinality :singleValue .
 
 
+###  https://w3id.org/energy-domain/edo#Geothermal
+:Geothermal rdf:type owl:Class ;
+            rdfs:subClassOf :Renewable ;
+            rdfs:label "Energia Geotérmica"@pt-br ,
+                       "Geothermal Energy"@en ;
+            skos:definition "Energia derivada do calor armazenado abaixo da superfície da Terra."@pt-br ,
+                            "Energy derived from heat stored beneath the Earth's surface."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#GrooveDiameter
 :GrooveDiameter rdf:type owl:Class ;
                 rdfs:subClassOf :DomainAttribute ;
@@ -2441,7 +2237,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#GroovePoint
 :GroovePoint rdf:type owl:Class ;
-             rdfs:subClassOf :ModelLocationPoint ;
+             rdfs:subClassOf :SupportRegion ;
              dcterms:identifier "GroovePoint" ;
              skos:definition "Ponto na linha de centro do End Fitting para indicar a posição do Groove"@pt-br ,
                              "The Groove Point is a designated point on the center line of the End Fitting, used to indicate the exact position of a groove. The groove itself is a recessed area designed specifically to lock the End Fitting during onboard installation, ensuring that it remains securely in place during the process. The Groove Support Point provides a reference for locating the groove, facilitating the precise alignment and positioning required for a smooth installation."@en ;
@@ -2547,6 +2343,15 @@ rdf:value rdf:type owl:DatatypeProperty .
            dcterms:identifier "HPHousing" .
 
 
+###  https://w3id.org/energy-domain/edo#HVACEngineering
+:HVACEngineering rdf:type owl:Class ;
+                 rdfs:subClassOf :TechnicalDiscipline ;
+                 rdfs:label "Engenharia de HVAC"@pt-br ,
+                            "HVAC Engineering"@en ;
+                 skos:definition "Disciplina de engenharia focada em sistemas de aquecimento, ventilação e ar condicionado."@pt-br ,
+                                 "Engineering discipline focused on heating, ventilation and air conditioning systems."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#HandlingCollar
 :HandlingCollar rdf:type owl:Class ;
                 rdfs:subClassOf :SplitCollar ;
@@ -2591,21 +2396,21 @@ rdf:value rdf:type owl:DatatypeProperty .
               skos:definition "Simple mechanical items such as pipe components, etc."@en ;
               skos:prefLabel "Hardware Item"@en ,
                              "Item de Hardware"@pt-br ;
-               :hasAttribute :DisplacedVolume ,
-                             :DrawingDimensionsTable ,
-                             :DrawingDimensionsTable_DimensionDescription ,
-                             :DrawingDimensionsTable_DimensionName ,
-                             :DrawingDimensionsTable_DimensionUnit ,
-                             :DrawingDimensionsTable_DimensionValue ,
-                             :IdInUnifilarDiagram ,
-                             :InternalVolume ,
-                             :ManufacturerDefinedMaterialName ,
-                             :Mass ,
-                             :MaterialSupplierName ,
-                             :PartNumber ,
-                             :ProjectDrawingCode ,
-                             :ProjectDrawingRevision ,
-                             :SupplierProvidedMaterialName .
+              :hasAttribute :DisplacedVolume ,
+                            :DrawingDimensionsTable ,
+                            :DrawingDimensionsTable_DimensionDescription ,
+                            :DrawingDimensionsTable_DimensionName ,
+                            :DrawingDimensionsTable_DimensionUnit ,
+                            :DrawingDimensionsTable_DimensionValue ,
+                            :IdInUnifilarDiagram ,
+                            :InternalVolume ,
+                            :ManufacturerDefinedMaterialName ,
+                            :Mass ,
+                            :MaterialSupplierName ,
+                            :PartNumber ,
+                            :ProjectDrawingCode ,
+                            :ProjectDrawingRevision ,
+                            :SupplierProvidedMaterialName .
 
 
 ###  https://w3id.org/energy-domain/edo#HasFaceORing
@@ -2718,6 +2523,24 @@ rdf:value rdf:type owl:DatatypeProperty .
                     dcterms:identifier "HydraulicPowerUnit" .
 
 
+###  https://w3id.org/energy-domain/edo#HydrogenEnergy
+:HydrogenEnergy rdf:type owl:Class ;
+                rdfs:subClassOf :Domain ;
+                rdfs:label "Energia de Hidrogênio"@pt-br ,
+                           "Hydrogen Energy"@en ;
+                skos:definition "Production, storage, and utilization of hydrogen as an energy carrier."@en ,
+                                "Produção, armazenamento e utilização de hidrogênio como vetor energético."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#Hydropower
+:Hydropower rdf:type owl:Class ;
+            rdfs:subClassOf :Renewable ;
+            rdfs:label "Energia Hidrelétrica"@pt-br ,
+                       "Hydropower"@en ;
+            skos:definition "Energia gerada a partir da água em movimento, incluindo barragens e energia das marés."@pt-br ,
+                            "Energy generated from moving water, including dams and tidal power."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#HydrostaticCollapseAbsPressDry
 :HydrostaticCollapseAbsPressDry rdf:type owl:Class ;
                                 rdfs:subClassOf :DomainAttribute ;
@@ -2808,6 +2631,24 @@ rdf:value rdf:type owl:DatatypeProperty .
                                   "Temperatura Interna"@pt-br ;
                    :hasTypedValue :floatValue ;
                    :hasValueCardinality :singleValue .
+
+
+###  https://w3id.org/energy-domain/edo#Installation
+:Installation rdf:type owl:Class ;
+              rdfs:subClassOf :LifecyclePhase ;
+              rdfs:label "Instalação"@pt-br ,
+                         "Installation"@en ;
+              skos:definition "Placement and integration of equipment, piping, and structures at the site."@en ,
+                              "Posicionamento e integração de equipamentos, tubulações e estruturas no local."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#InstrumentationEngineering
+:InstrumentationEngineering rdf:type owl:Class ;
+                            rdfs:subClassOf :TechnicalDiscipline ;
+                            rdfs:label "Engenharia de Instrumentação"@pt-br ,
+                                       "Instrumentation Engineering"@en ;
+                            skos:definition "Disciplina de engenharia focada em sistemas de instrumentação de medição e controle."@pt-br ,
+                                            "Engineering discipline focused on measurement and control instrumentation systems."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#InsulationTape
@@ -3255,6 +3096,16 @@ rdf:value rdf:type owl:DatatypeProperty .
                                                         :hasValueCardinality :multiValue .
 
 
+###  https://w3id.org/energy-domain/edo#LifecyclePhase
+:LifecyclePhase rdf:type owl:Class ;
+                rdfs:subClassOf :DomainClassification ;
+                rdfs:comment "Represents a stage in the lifecycle of an industrial asset."@en ;
+                rdfs:label "Fase do Ciclo de Vida"@pt-br ,
+                           "Lifecycle Phase"@en ;
+                skos:definition "A stage in the lifecycle of an industrial asset, from conception to decommissioning."@en ,
+                                "Uma etapa no ciclo de vida de um ativo industrial, desde a concepção até a desativação."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#LimpTorsionalStiffnessAtSeaLevel
 :LimpTorsionalStiffnessAtSeaLevel rdf:type owl:Class ;
                                   rdfs:subClassOf :DomainAttribute ;
@@ -3337,6 +3188,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                          "Location"@en .
 
 
+###  https://w3id.org/energy-domain/edo#LocationType
+:LocationType rdf:type owl:Class ;
+              rdfs:subClassOf :DomainClassification ;
+              rdfs:label "Location Type"@en ,
+                         "Tipo de Localização"@pt-br ;
+              skos:definition "Classification of industrial activities based on their geographical location."@en ,
+                              "Classificação de atividades industriais baseada em sua localização geográfica."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#LogicCap
 :LogicCap rdf:type owl:Class ;
           rdfs:subClassOf :AuxiliaryModule ;
@@ -3412,6 +3272,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                         "Lubricant Friction Factor"@en ;
                          :hasTypedValue :floatValue ;
                          :hasValueCardinality :singleValue .
+
+
+###  https://w3id.org/energy-domain/edo#Maintenance
+:Maintenance rdf:type owl:Class ;
+             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:label "Maintenance"@en ,
+                        "Manutenção"@pt-br ;
+             skos:definition "Intervenções planejadas ou corretivas para preservar a funcionalidade e segurança do ativo."@pt-br ,
+                             "Planned or corrective interventions to preserve asset functionality and safety."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#Manifold
@@ -3888,6 +3757,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                :ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#Midstream
+:Midstream rdf:type owl:Class ;
+           rdfs:subClassOf :OilAndGas ;
+           rdfs:label "Midstream"@en ,
+                      "Midstream"@pt-br ;
+           skos:definition "Oil & Gas sector covering transportation, storage, and wholesale marketing of crude or refined petroleum products."@en ,
+                           "Setor de Petróleo & Gás que abrange transporte, armazenamento e comercialização atacadista de produtos petrolíferos brutos ou refinados."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#MinimumBendingRadiusForStorage
 :MinimumBendingRadiusForStorage rdf:type owl:Class ;
                                 rdfs:subClassOf :DomainAttribute ;
@@ -4004,6 +3882,33 @@ rdf:value rdf:type owl:DatatypeProperty .
                :hasValueCardinality :singleValue .
 
 
+###  https://w3id.org/energy-domain/edo#Nuclear
+:Nuclear rdf:type owl:Class ;
+         rdfs:subClassOf :Domain ;
+         rdfs:label "Energia Nuclear"@pt-br ,
+                    "Nuclear Energy"@en ;
+         skos:definition "Domínio industrial que abrange a geração de energia a partir de reações nucleares, incluindo fissão e fusão."@pt-br ,
+                         "Industrial domain covering the generation of energy from nuclear reactions, including fission and fusion."@en .
+
+
+###  https://w3id.org/energy-domain/edo#NuclearFuelCycle
+:NuclearFuelCycle rdf:type owl:Class ;
+                  rdfs:subClassOf :Nuclear ;
+                  rdfs:label "Ciclo do Combustível Nuclear"@pt-br ,
+                             "Nuclear Fuel Cycle"@en ;
+                  skos:definition "Processes involved in mining, processing, enrichment, and disposal of nuclear fuel."@en ,
+                                  "Processos envolvidos na mineração, processamento, enriquecimento e descarte de combustível nuclear."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#NuclearPowerGeneration
+:NuclearPowerGeneration rdf:type owl:Class ;
+                        rdfs:subClassOf :Nuclear ;
+                        rdfs:label "Geração de Energia Nuclear"@pt-br ,
+                                   "Nuclear Power Generation"@en ;
+                        skos:definition "Operation and maintenance of nuclear power plants for electricity production."@en ,
+                                        "Operação e manutenção de usinas nucleares para produção de eletricidade."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#NumberOfChokeValves
 :NumberOfChokeValves rdf:type owl:Class ;
                      rdfs:subClassOf :DomainAttribute ;
@@ -4106,10 +4011,46 @@ rdf:value rdf:type owl:DatatypeProperty .
                                :hasValueCardinality :singleValue .
 
 
+###  https://w3id.org/energy-domain/edo#Offshore
+:Offshore rdf:type owl:Class ;
+          rdfs:subClassOf :LocationType ;
+          rdfs:label "Offshore"@en ,
+                     "Offshore"@pt-br ;
+          skos:definition "Atividades industriais realizadas no mar, tipicamente para produção de petróleo & gás ou energia eólica."@pt-br ,
+                          "Industrial activities conducted at sea, typically for oil & gas or wind energy production."@en .
+
+
+###  https://w3id.org/energy-domain/edo#OilAndGas
+:OilAndGas rdf:type owl:Class ;
+           rdfs:subClassOf :Domain ;
+           rdfs:label "Oil & Gas"@en ,
+                      "Petróleo & Gás"@pt-br ;
+           skos:definition "Domínio industrial que abrange todas as atividades relacionadas à exploração, produção, refino e distribuição de petróleo e gás."@pt-br ,
+                           "Industrial domain covering all activities related to the exploration, production, refining, and distribution of oil and gas."@en .
+
+
+###  https://w3id.org/energy-domain/edo#Onshore
+:Onshore rdf:type owl:Class ;
+         rdfs:subClassOf :LocationType ;
+         rdfs:label "Onshore"@en ,
+                    "Onshore"@pt-br ;
+         skos:definition "Atividades industriais realizadas em terra."@pt-br ,
+                         "Industrial activities conducted on land."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#OpenReceptacle
 :OpenReceptacle rdf:type owl:Class ;
                 rdfs:subClassOf :RiserSupport ;
                 dcterms:identifier "OpenReceptacle" .
+
+
+###  https://w3id.org/energy-domain/edo#Operation
+:Operation rdf:type owl:Class ;
+           rdfs:subClassOf :LifecyclePhase ;
+           rdfs:label "Operation"@en ,
+                      "Operação"@pt-br ;
+           skos:definition "Normal use of the asset for its intended purpose, including monitoring and control."@en ,
+                           "Uso normal do ativo para seu propósito pretendido, incluindo monitoramento e controle."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#OpticalFiberCable
@@ -4161,6 +4102,15 @@ rdf:value rdf:type owl:DatatypeProperty .
 :PLET rdf:type owl:Class ;
       rdfs:subClassOf :FlowControlEquipment ;
       dcterms:identifier "PLET" .
+
+
+###  https://w3id.org/energy-domain/edo#PackageEquipmentEngineering
+:PackageEquipmentEngineering rdf:type owl:Class ;
+                             rdfs:subClassOf :EquipmentEngineering ;
+                             rdfs:label "Engenharia de Equipamentos Modulares"@pt-br ,
+                                        "Package Equipment Engineering"@en ;
+                             skos:definition "Engenharia de sistemas de equipamentos modulares ou montados em skids."@pt-br ,
+                                             "Engineering of skid-mounted or modular equipment systems."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#PartNumber
@@ -4475,6 +4425,15 @@ rdf:value rdf:type owl:DatatypeProperty .
               dcterms:identifier "PowerMachine" .
 
 
+###  https://w3id.org/energy-domain/edo#PreCommissioning
+:PreCommissioning rdf:type owl:Class ;
+                  rdfs:subClassOf :LifecyclePhase ;
+                  rdfs:label "Pre-Commissioning"@en ,
+                             "Pré-Comissionamento"@pt-br ;
+                  skos:definition "Verification and functional testing before introducing operational fluids or energy."@en ,
+                                  "Verificação e testes funcionais antes da introdução de fluidos ou energia operacionais."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#PreSlippingBendingStiffness
 :PreSlippingBendingStiffness rdf:type owl:Class ;
                              rdfs:subClassOf :DomainAttribute ;
@@ -4517,10 +4476,37 @@ rdf:value rdf:type owl:DatatypeProperty .
                 dcterms:identifier "PressureSensor" .
 
 
+###  https://w3id.org/energy-domain/edo#ProcessEngineering
+:ProcessEngineering rdf:type owl:Class ;
+                    rdfs:subClassOf :TechnicalDiscipline ;
+                    rdfs:label "Engenharia de Processos"@pt-br ,
+                               "Process Engineering"@en ;
+                    skos:definition "Disciplina de engenharia focada no projeto e otimização de processos industriais."@pt-br ,
+                                    "Engineering discipline focused on the design and optimization of industrial processes."@en .
+
+
+###  https://w3id.org/energy-domain/edo#ProcessPipingEngineering
+:ProcessPipingEngineering rdf:type owl:Class ;
+                          rdfs:subClassOf :TechnicalDiscipline ;
+                          rdfs:label "Engenharia de Tubulação de Processo"@pt-br ,
+                                     "Process Piping Engineering"@en ;
+                          skos:definition "Disciplina de engenharia focada no projeto de sistemas de tubulação para fluidos de processo."@pt-br ,
+                                          "Engineering discipline focused on the design of piping systems for process fluids."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#ProcessingModule
 :ProcessingModule rdf:type owl:Class ;
                   rdfs:subClassOf :FlowControlModule ;
                   dcterms:identifier "ProcessingModule" .
+
+
+###  https://w3id.org/energy-domain/edo#Procurement
+:Procurement rdf:type owl:Class ;
+             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:label "Aquisição"@pt-br ,
+                        "Procurement"@en ;
+             skos:definition "Acquisition of materials, equipment, and services required for project execution."@en ,
+                             "Aquisição de materiais, equipamentos e serviços necessários para execução do projeto."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Project
@@ -4675,6 +4661,29 @@ rdf:value rdf:type owl:DatatypeProperty .
          dcterms:identifier "ROVTool" .
 
 
+###  https://w3id.org/energy-domain/edo#RearPoint
+:RearPoint rdf:type owl:Class ;
+           rdfs:subClassOf :SupportRegion ;
+           dcterms:identifier "RearPoint" ;
+             skos:definition "Ponto na linha de centro do End Fitting para indicar a posição de suporte traseiro"@pt-br ,
+                             "The rear part of the component can be used to lock the End Fitting during onboard installation, ensuring that it remains securely in place during the process. The Rear Point provides a reference point on the rear part along the center line of the End Fitting, facilitating the precise alignment and positioning required for a smooth installation."@en ;
+             skos:prefLabel "Rear Point"@en ,
+                            "Ponto de Traseiro"@pt-br ;
+             :ifc_equivalentClass "IfcDistributionPort" ;
+             :ifc_objectType "RearPoint" ;
+             :ifc_predefinedType "USERDEFINED" .      
+     
+
+
+###  https://w3id.org/energy-domain/edo#Recycling
+:Recycling rdf:type owl:Class ;
+           rdfs:subClassOf :LifecyclePhase ;
+           rdfs:label "Reciclagem"@pt-br ,
+                      "Recycling"@en ;
+           skos:definition "Processamento e reutilização de materiais recuperados durante o descomissionamento."@pt-br ,
+                           "Processing and reusing materials recovered during decommissioning."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#ReferenceDrawing
 :ReferenceDrawing rdf:type owl:Class ;
                   rdfs:subClassOf :DomainElement ;
@@ -4688,6 +4697,15 @@ rdf:value rdf:type owl:DatatypeProperty .
 :ReliefValve rdf:type owl:Class ;
              rdfs:subClassOf :CheckValve ;
              dcterms:identifier "ReliefValve" .
+
+
+###  https://w3id.org/energy-domain/edo#Renewable
+:Renewable rdf:type owl:Class ;
+           rdfs:subClassOf :Domain ;
+           rdfs:label "Energia Renovável"@pt-br ,
+                      "Renewable Energy"@en ;
+           skos:definition "Domínio industrial que abrange fontes de energia que são naturalmente reabastecidas, como solar, eólica e hidrelétrica."@pt-br ,
+                           "Industrial domain covering energy sources that are naturally replenished, such as solar, wind, and hydropower."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#RigidJumper
@@ -4856,6 +4874,15 @@ rdf:value rdf:type owl:DatatypeProperty .
              dcterms:identifier "RopeSegment" .
 
 
+###  https://w3id.org/energy-domain/edo#RotatingEquipmentEngineering
+:RotatingEquipmentEngineering rdf:type owl:Class ;
+                              rdfs:subClassOf :EquipmentEngineering ;
+                              rdfs:label "Engenharia de Equipamentos Rotativos"@pt-br ,
+                                         "Rotating Equipment Engineering"@en ;
+                              skos:definition "Engenharia de equipamentos mecânicos com componentes rotativos como bombas, compressores e turbinas."@pt-br ,
+                                              "Engineering of mechanical equipment with rotating components such as pumps, compressors, and turbines."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#RotatingMachine
 :RotatingMachine rdf:type owl:Class ;
                  rdfs:subClassOf :PowerMachine ;
@@ -4944,6 +4971,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                 "Safe Working Load"@en ;
                  :hasTypedValue :floatValue ;
                  :hasValueCardinality :singleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SafetyLossPreventionEngineering
+:SafetyLossPreventionEngineering rdf:type owl:Class ;
+                                 rdfs:subClassOf :TechnicalDiscipline ;
+                                 rdfs:label "Engenharia de Segurança e Prevenção de Perdas"@pt-br ,
+                                            "Safety & Loss Prevention Engineering"@en ;
+                                 skos:definition "Disciplina de engenharia focada em avaliação de riscos, sistemas de segurança e prevenção de perdas."@pt-br ,
+                                                 "Engineering discipline focused on risk assessment, safety systems and loss prevention."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SandDetector
@@ -5097,6 +5133,15 @@ rdf:value rdf:type owl:DatatypeProperty .
         dcterms:identifier "Socket" .
 
 
+###  https://w3id.org/energy-domain/edo#Solar
+:Solar rdf:type owl:Class ;
+       rdfs:subClassOf :Renewable ;
+       rdfs:label "Energia Solar"@pt-br ,
+                  "Solar Energy"@en ;
+       skos:definition "Energia obtida da luz solar, incluindo sistemas fotovoltaicos e térmicos."@pt-br ,
+                       "Energy harnessed from sunlight, including photovoltaic and thermal systems."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#SolidLayer
 :SolidLayer rdf:type owl:Class ;
             rdfs:subClassOf :FlexibleStructureLayer ;
@@ -5243,6 +5288,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                 "Tração de Desenrolamento"@pt-br ;
                  :hasTypedValue :floatValue ;
                  :hasValueCardinality :singleValue .
+
+
+###  https://w3id.org/energy-domain/edo#StaticEquipmentEngineering
+:StaticEquipmentEngineering rdf:type owl:Class ;
+                            rdfs:subClassOf :EquipmentEngineering ;
+                            rdfs:label "Engenharia de Equipamentos Estáticos"@pt-br ,
+                                       "Static Equipment Engineering"@en ;
+                            skos:definition "Engenharia de equipamentos industriais sem partes móveis como vasos de pressão, tanques e trocadores de calor."@pt-br ,
+                                            "Engineering of non-moving industrial equipment such as pressure vessels, tanks, and heat exchangers."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#StaticUmbilicalSpan
@@ -5514,6 +5568,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                         :hasValueCardinality :singleValue .
 
 
+###  https://w3id.org/energy-domain/edo#StructuralEngineering
+:StructuralEngineering rdf:type owl:Class ;
+                       rdfs:subClassOf :CivilEngineering ;
+                       rdfs:label "Engenharia Estrutural"@pt-br ,
+                                  "Structural Engineering"@en ;
+                       skos:definition "Disciplina de engenharia focada na integridade estrutural e projeto de edifícios e infraestrutura."@pt-br ,
+                                       "Engineering discipline focused on the structural integrity and design of buildings and infrastructure."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#Structure
 :Structure rdf:type owl:Class ;
            rdfs:subClassOf :CompactObject ;
@@ -5587,6 +5650,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                        :ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#SubseaEngineering
+:SubseaEngineering rdf:type owl:Class ;
+                   rdfs:subClassOf :TechnicalDiscipline ;
+                   rdfs:label "Engenharia Submarina"@pt-br ,
+                              "Subsea Engineering"@en ;
+                   skos:definition "Disciplina de engenharia focada em sistemas e equipamentos subaquáticos para operações offshore."@pt-br ,
+                                   "Engineering discipline focused on underwater systems and equipment for offshore operations."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#SubseaEquipment
 :SubseaEquipment rdf:type owl:Class ;
                  rdfs:subClassOf :Equipment ;
@@ -5603,6 +5675,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                    :ifc_equivalentClass "IfcClassification" ;
                                    :ifc_objectType "SubseaFlexiblePipesBsddDictionary" ;
                                    :ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#SubseaFlexiblePipesEngineering
+:SubseaFlexiblePipesEngineering rdf:type owl:Class ;
+                                rdfs:subClassOf :SubseaEngineering ;
+                                rdfs:label "Engenharia de Tubos Flexíveis Submarinos"@pt-br ,
+                                           "Subsea Flexible Pipes Engineering"@en ;
+                                skos:definition "Engenharia de sistemas de tubos flexíveis utilizados em aplicações submarinas."@pt-br ,
+                                                "Engineering of flexible pipe systems used in subsea applications."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaLayout
@@ -5667,6 +5748,33 @@ rdf:value rdf:type owl:DatatypeProperty .
                 :ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#SubseaRigidPipesEngineering
+:SubseaRigidPipesEngineering rdf:type owl:Class ;
+                             rdfs:subClassOf :SubseaEngineering ;
+                             rdfs:label "Engenharia de Tubos Rígidos Submarinos"@pt-br ,
+                                        "Subsea Rigid Pipes Engineering"@en ;
+                             skos:definition "Engenharia de sistemas de tubulações rígidas utilizadas em aplicações submarinas."@pt-br ,
+                                             "Engineering of rigid pipeline systems used in subsea applications."@en .
+
+
+###  https://w3id.org/energy-domain/edo#SubseaStructuresEngineering
+:SubseaStructuresEngineering rdf:type owl:Class ;
+                             rdfs:subClassOf :SubseaEngineering ;
+                             rdfs:label "Engenharia de Estruturas Submarinas"@pt-br ,
+                                        "Subsea Structures Engineering"@en ;
+                             skos:definition "Engenharia de manifolds submarinos, árvores de natal e outros componentes estruturais."@pt-br ,
+                                             "Engineering of subsea manifolds, christmas trees, and other structural components."@en .
+
+
+###  https://w3id.org/energy-domain/edo#SubseaUmbilicalsEngineering
+:SubseaUmbilicalsEngineering rdf:type owl:Class ;
+                             rdfs:subClassOf :SubseaEngineering ;
+                             rdfs:label "Engenharia de Umbilicais Submarinos"@pt-br ,
+                                        "Subsea Umbilicals Engineering"@en ;
+                             skos:definition "Engenharia de sistemas de umbilicais submarinos fornecendo controle, energia e injeção química."@pt-br ,
+                                             "Engineering of subsea umbilical systems providing control, power and chemical injection."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#SubseaWell
 :SubseaWell rdf:type owl:Class ;
             rdfs:subClassOf :EquipmentLocation ;
@@ -5695,6 +5803,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                              "Supplier Provided Material Name"@en ;
                               :hasTypedValue :stringValue ;
                               :hasValueCardinality :singleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SupportRegion
+:SupportRegion rdf:type owl:Class ;
+               rdfs:subClassOf :ModelLocationPoint ;
+               dcterms:identifier "SupportRegion" ;
+               skos:definition "A specific region used to define the support location of the components within a 3D model."@en ;
+               skos:prefLabel "Support Region"@en ,
+                              "Região de suporte no Modelo"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#SurfaceEquipment
@@ -5728,6 +5845,16 @@ rdf:value rdf:type owl:DatatypeProperty .
                               "Tapes Quantity"@en ;
                :hasTypedValue :intValue ;
                :hasValueCardinality :singleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TechnicalDiscipline
+:TechnicalDiscipline rdf:type owl:Class ;
+                     rdfs:subClassOf :DomainClassification ;
+                     rdfs:comment "Superclass for all technical engineering disciplines."@en ;
+                     rdfs:label "Disciplina Técnica"@pt-br ,
+                                "Technical Discipline"@en ;
+                     skos:definition "A specialized field of engineering or technical expertise within industrial projects."@en ,
+                                     "Um campo especializado de engenharia ou expertise técnica dentro de projetos industriais."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#TechnicalNotes
@@ -5939,6 +6066,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                                    :hasValueCardinality :singleValue .
 
 
+###  https://w3id.org/energy-domain/edo#ThermalPower
+:ThermalPower rdf:type owl:Class ;
+              rdfs:subClassOf :Domain ;
+              rdfs:label "Energia Térmica"@pt-br ,
+                         "Thermal Power"@en ;
+              skos:definition "Energy production from fossil fuels (coal, natural gas) through thermal conversion."@en ,
+                              "Produção de energia a partir de combustíveis fósseis (carvão, gás natural) através de conversão térmica."@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#ThreadPitch
 :ThreadPitch rdf:type owl:Class ;
              rdfs:subClassOf :DomainAttribute ;
@@ -6043,6 +6179,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                       skos:definition "Line for conducting some type of flow."@en ;
                       skos:prefLabel "Segmento de Linha de Transporte"@pt-br ,
                                      "Transport Line Segment"@en .
+
+
+###  https://w3id.org/energy-domain/edo#Transportation
+:Transportation rdf:type owl:Class ;
+                rdfs:subClassOf :LifecyclePhase ;
+                rdfs:label "Transportation"@en ,
+                           "Transporte"@pt-br ;
+                skos:definition "Logistics and transport of materials and equipment to the construction or installation site."@en ,
+                                "Logística e transporte de materiais e equipamentos para o local de construção ou instalação."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#TreeCap
@@ -6231,6 +6376,24 @@ rdf:value rdf:type owl:DatatypeProperty .
                     :hasValueCardinality :singleValue .
 
 
+###  https://w3id.org/energy-domain/edo#Upstream
+:Upstream rdf:type owl:Class ;
+          rdfs:subClassOf :OilAndGas ;
+          rdfs:label "Upstream"@en ,
+                     "Upstream"@pt-br ;
+          skos:definition "Oil & Gas sector covering exploration, drilling, and production of hydrocarbon resources."@en ,
+                          "Setor de Petróleo & Gás que abrange exploração, perfuração e produção de recursos de hidrocarbonetos."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#UtilityPipingEngineering
+:UtilityPipingEngineering rdf:type owl:Class ;
+                          rdfs:subClassOf :TechnicalDiscipline ;
+                          rdfs:label "Engenharia de Tubulação de Utilidades"@pt-br ,
+                                     "Utility Piping Engineering"@en ;
+                          skos:definition "Disciplina de engenharia focada no projeto de sistemas de tubulação para serviços de utilidades."@pt-br ,
+                                          "Engineering discipline focused on the design of piping systems for utility services."@en .
+
+
 ###  https://w3id.org/energy-domain/edo#UtilizationFactor
 :UtilizationFactor rdf:type owl:Class ;
                    rdfs:subClassOf :DomainAttribute ;
@@ -6298,6 +6461,15 @@ rdf:value rdf:type owl:DatatypeProperty .
                   dcterms:identifier "WetChristmasTree" ;
                   :ifc_objectType "WetChristmasTree" ;
                   :ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#Wind
+:Wind rdf:type owl:Class ;
+      rdfs:subClassOf :Renewable ;
+      rdfs:label "Energia Eólica"@pt-br ,
+                 "Wind Energy"@en ;
+      skos:definition "Energia gerada a partir do vento usando turbinas e tecnologias relacionadas."@pt-br ,
+                      "Energy generated from wind using turbines and related technologies."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#WireLayer
