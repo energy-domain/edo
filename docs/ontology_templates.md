@@ -80,10 +80,9 @@ FlangeFaceType default valid values:
 :EndFitting :hasAttribute :FlangeFaceType . # Normal association between EndFitting (a Domain Object) and FlangeFaceType (a Domain Attribute)
 
 # Restriction, with a OWL Blank Node, with specific values to FlangeFaceType when it's associated with EndFitting
-:EndFitting :restriction [
-    a owl:Annotation ;
-    :appliesTo :FlangeFaceType ;
-    :validValues "value3" ;
+:EndFitting :attributeRestriction [
+    :onAttribute :FlangeFaceType ;
+    :specificValidValues "value3" ;
 ] .
 ```
 
