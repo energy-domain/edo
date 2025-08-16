@@ -67,9 +67,10 @@ Each Domain Attribute may have a list of default valid values.
 This is the template to define these values:
 
 ```turtle
-:FlangeFaceType :validValues "value1" . #ICD validValues
-:FlangeFaceType :validValues "value2" . #ICD validValues
-:FlangeFaceType :validValues "valueN" . #ICD validValues
+#ICD validValues
+:FlangeFaceType :validValues "value1" .
+:FlangeFaceType :validValues "value2" .
+:FlangeFaceType :validValues "valueN" .
 ```
 
 But when a Domain Attribute is associated with a Domain Object, it may have a specific list of valid values, that overrides the default list.
