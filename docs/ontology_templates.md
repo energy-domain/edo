@@ -79,7 +79,7 @@ FlangeFaceType default valid values:
 ```turtle
 :EndFitting :hasAttribute :FlangeFaceType . # Normal association between EndFitting (a Domain Object) and FlangeFaceType (a Domain Attribute)
 
-# Restriction, with a OWL Blank Node, with specific values to FlangeFaceType when it's associated with EndFitting
+# Restriction, with an OWL Blank Node, with specific values to FlangeFaceType when it's associated with EndFitting
 :EndFitting :attributeRestriction [:onAttribute :FlangeFaceType ; :specificValidValues "value3" ] .
 :EndFitting :attributeRestriction [:onAttribute :FlangeFaceType ; :specificValidValues "value4" ] .
 ```
