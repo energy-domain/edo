@@ -67,9 +67,10 @@ Each Domain Attribute may have a list of default valid values.
 This is the template to define these values:
 
 ```turtle
-:FlangeFaceType :validValues "value1" . #ICD validValues
-:FlangeFaceType :validValues "value2" . #ICD validValues
-:FlangeFaceType :validValues "valueN" . #ICD validValues
+#ICD validValues
+:FlangeFaceType :validValues "value1" .
+:FlangeFaceType :validValues "value2" .
+:FlangeFaceType :validValues "valueN" .
 ```
 
 But when a Domain Attribute is associated with a Domain Object, it may have a specific list of valid values, that overrides the default list.
@@ -79,12 +80,9 @@ FlangeFaceType default valid values:
 ```turtle
 :EndFitting :hasAttribute :FlangeFaceType . # Normal association between EndFitting (a Domain Object) and FlangeFaceType (a Domain Attribute)
 
-# Restriction, with a OWL Blank Node, with specific values to FlangeFaceType when it's associated with EndFitting
-:EndFitting :restriction [
-    a owl:Annotation ;
-    :appliesTo :FlangeFaceType ;
-    :validValues "value3" ;
-] .
+# Restriction, with an OWL Blank Node, with specific values to FlangeFaceType when it's associated with EndFitting
+:EndFitting :attributeRestriction [:onAttribute :FlangeFaceType ; :specificValidValues "value3" ] .
+:EndFitting :attributeRestriction [:onAttribute :FlangeFaceType ; :specificValidValues "value4" ] .
 ```
 
 # Domain elements classification
