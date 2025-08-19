@@ -1,3 +1,4 @@
+```mermaid
 flowchart TB
     %% Estilização
     classDef masculino fill:#cce5ff,stroke:#0066cc,stroke-width:2px,color:#000
@@ -43,3 +44,4 @@ flowchart TB
         FilhoM
         FilhaF
     end
+```
