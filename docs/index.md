@@ -190,7 +190,7 @@ We welcome collaboration from engineers, ontology experts, software developers, 
 
 To contribute or get in touch:
 
-- Visit: [`https://github.com/your-org`](https://github.com/your-org)
+- Visit: [`https://github.com/orgs/energy-domain`](https://github.com/orgs/energy-domain)
 - Submit Issues or Pull Requests
 - Join the discussion via GitHub Discussions
 
