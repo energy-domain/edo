@@ -330,6 +330,11 @@ rdf:value rdf:type owl:DatatypeProperty .
                dcterms:identifier "ActuatedValve" .
 
 
+###  https://w3id.org/energy-domain/edo#AdministrativeAttribute
+:AdministrativeAttribute rdf:type owl:Class ;
+                         rdfs:subClassOf :AttributeNature .
+
+
 ###  https://w3id.org/energy-domain/edo#Anchor
 :Anchor rdf:type owl:Class ;
         rdfs:subClassOf :Structure ;
@@ -445,7 +450,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                   owl:onProperty rdf:value ;
                                   owl:allValuesFrom xsd:anyURI
                                 ] ;
-            rdfs:subClassOf :AttributeTypedValue ;
+            rdfs:subClassOf :DataType ;
             rdfs:comment "Constraint for xsd:anyURI (URIs/IRIs)"@en ;
             rdfs:label "URI Value"@en .
 
@@ -515,11 +520,6 @@ rdf:value rdf:type owl:DatatypeProperty .
                      :SerialNumber .
 
 
-###  https://w3id.org/energy-domain/edo#AttributeAuxiliarClass
-:AttributeAuxiliarClass rdf:type owl:Class ;
-                        rdfs:subClassOf :AttributeClassification .
-
-
 ###  https://w3id.org/energy-domain/edo#AttributeClassification
 :AttributeClassification rdf:type owl:Class ;
                          rdfs:subClassOf :DomainClassification .
@@ -527,7 +527,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#AttributeDomainCategory
 :AttributeDomainCategory rdf:type owl:Class ;
-                         rdfs:subClassOf :AttributeClassification ;
+                         rdfs:subClassOf :AttributeNature ;
                          rdfs:comment "Classifies the nature or domain of the attribute's content."@en ;
                          rdfs:label "Attribute Domain Category"@en ,
                                     "Categoria de Domínio do Atributo"@pt-br ;
@@ -535,9 +535,14 @@ rdf:value rdf:type owl:DatatypeProperty .
                                          "Classifies the nature or domain of the attribute's content"@en .
 
 
+###  https://w3id.org/energy-domain/edo#AttributeNature
+:AttributeNature rdf:type owl:Class ;
+                 rdfs:subClassOf :AttributeClassification .
+
+
 ###  https://w3id.org/energy-domain/edo#AttributeScope
 :AttributeScope rdf:type owl:Class ;
-                rdfs:subClassOf :AttributeClassification ;
+                rdfs:subClassOf :AttributeNature ;
                 rdfs:comment "Defines whether the attribute applies to all instances of a type or to a specific instance."@en ;
                 rdfs:label "Attribute Scope"@en ,
                            "Escopo do Atributo"@pt-br ;
@@ -545,18 +550,16 @@ rdf:value rdf:type owl:DatatypeProperty .
                                 "Defines whether the attribute applies to all instances of a type or to a specific instance"@en .
 
 
-###  https://w3id.org/energy-domain/edo#AttributeTypedValue
-:AttributeTypedValue rdf:type owl:Class ;
-                     rdfs:subClassOf :AttributeAuxiliarClass ;
-                     rdfs:comment "Superclass for values constrained to a specific XSD datatype."@en ;
-                     rdfs:label "Typed Value"@en .
-
-
 ###  https://w3id.org/energy-domain/edo#AttributeValueCardinality
 :AttributeValueCardinality rdf:type owl:Class ;
-                           rdfs:subClassOf :AttributeAuxiliarClass ;
+                           rdfs:subClassOf :ValueNature ;
                            rdfs:comment "Superclass for constraints on the cardinality of values (single or multiple)."@en ;
                            rdfs:label "Value Cardinality"@en .
+
+
+###  https://w3id.org/energy-domain/edo#AttributesGroup
+:AttributesGroup rdf:type owl:Class ;
+                 rdfs:subClassOf :ValueNature .
 
 
 ###  https://w3id.org/energy-domain/edo#AutomationControlEngineering
@@ -614,7 +617,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                         owl:onProperty rdf:value ;
                                         owl:allValuesFrom xsd:base64Binary
                                       ] ;
-                  rdfs:subClassOf :AttributeTypedValue ;
+                  rdfs:subClassOf :DataType ;
                   rdfs:comment "Constraint for xsd:base64Binary (binary data)"@en ;
                   rdfs:label "Base64 Binary"@en .
 
@@ -800,7 +803,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                     owl:onProperty rdf:value ;
                                     owl:allValuesFrom xsd:boolean
                                   ] ;
-              rdfs:subClassOf :AttributeTypedValue ;
+              rdfs:subClassOf :DataType ;
               rdfs:comment "Constraint for xsd:boolean (true/false)"@en ;
               rdfs:label "Boolean Value"@en .
 
@@ -1226,9 +1229,9 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Content
 :Content rdf:type owl:Class ;
-         rdfs:subClassOf :JustificationAttribute ,
-                         :Registry_GUIDAttribute ,
-                         :StatusAttribute ;
+         rdfs:subClassOf :ContentManagementAttribute ,
+                         :JustificationAttribute ,
+                         :Registry_GUIDAttribute ;
          dcterms:accessRights "PUBLIC" ;
          dcterms:identifier "Content" ;
          skos:definition "Text field for capturing observations, notes, or details related to the work. It allows for unstructured information to be recorded."@en ;
@@ -1238,11 +1241,16 @@ rdf:value rdf:type owl:DatatypeProperty .
          :hasValueCardinality :SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#ContentManagementAttribute
+:ContentManagementAttribute rdf:type owl:Class ;
+                            rdfs:subClassOf :AdministrativeAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#Creator
 :Creator rdf:type owl:Class ;
          rdfs:subClassOf :JustificationAttribute ,
-                         :Registry_GUIDAttribute ,
-                         :StatusAttribute ;
+                         :ProvenanceAttribute ,
+                         :Registry_GUIDAttribute ;
          dcterms:accessRights "PUBLIC" ;
          dcterms:identifier "Creator" ;
          skos:prefLabel "Creator"@en ;
@@ -1254,8 +1262,8 @@ rdf:value rdf:type owl:DatatypeProperty .
 ###  https://w3id.org/energy-domain/edo#CreatorId
 :CreatorId rdf:type owl:Class ;
            rdfs:subClassOf :JustificationAttribute ,
-                           :Registry_GUIDAttribute ,
-                           :StatusAttribute ;
+                           :ProvenanceAttribute ,
+                           :Registry_GUIDAttribute ;
            dcterms:accessRights "PUBLIC" ;
            dcterms:identifier "CreatorId" ;
            skos:prefLabel "Creator Id"@en ;
@@ -1326,13 +1334,20 @@ rdf:value rdf:type owl:DatatypeProperty .
                             :hasValueCardinality :SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#DataType
+:DataType rdf:type owl:Class ;
+          rdfs:subClassOf :ValueNature ;
+          rdfs:comment "Superclass for values constrained to a specific XSD datatype."@en ;
+          rdfs:label "Typed Value"@en .
+
+
 ###  https://w3id.org/energy-domain/edo#DateTimeValue
 :DateTimeValue rdf:type owl:Class ;
                owl:equivalentClass [ rdf:type owl:Restriction ;
                                      owl:onProperty rdf:value ;
                                      owl:allValuesFrom xsd:dateTime
                                    ] ;
-               rdfs:subClassOf :AttributeTypedValue ;
+               rdfs:subClassOf :DataType ;
                rdfs:comment "Constraint for xsd:dateTime (timestamps)"@en ;
                rdfs:label "DateTime Value"@en .
 
@@ -1343,7 +1358,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                  owl:onProperty rdf:value ;
                                  owl:allValuesFrom xsd:date
                                ] ;
-           rdfs:subClassOf :AttributeTypedValue ;
+           rdfs:subClassOf :DataType ;
            rdfs:comment "Constraint for xsd:date (calendar dates)"@en ;
            rdfs:label "Date Value"@en .
 
@@ -1372,7 +1387,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                     owl:onProperty rdf:value ;
                                     owl:allValuesFrom xsd:decimal
                                   ] ;
-              rdfs:subClassOf :AttributeTypedValue ;
+              rdfs:subClassOf :DataType ;
               rdfs:comment "Constraint for xsd:decimal (arbitrary precision numbers)"@en ;
               rdfs:label "Decimal Value"@en .
 
@@ -1578,7 +1593,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                    owl:onProperty rdf:value ;
                                    owl:allValuesFrom xsd:double
                                  ] ;
-             rdfs:subClassOf :AttributeTypedValue ;
+             rdfs:subClassOf :DataType ;
              rdfs:comment "Constraint for xsd:double (64-bit floating point)"@en ;
              rdfs:label "Double Value"@en .
 
@@ -2396,7 +2411,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                   owl:onProperty rdf:value ;
                                   owl:allValuesFrom xsd:float
                                 ] ;
-            rdfs:subClassOf :AttributeTypedValue ;
+            rdfs:subClassOf :DataType ;
             rdfs:comment "Constraint for xsd:float (32-bit floating point)"@en ;
             rdfs:label "Float Value"@en .
 
@@ -3100,7 +3115,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                 owl:onProperty rdf:value ;
                                 owl:allValuesFrom xsd:int
                               ] ;
-          rdfs:subClassOf :AttributeTypedValue ;
+          rdfs:subClassOf :DataType ;
           rdfs:comment "Constraint for xsd:int (32-bit integer)"@en ;
           rdfs:label "Integer Value"@en .
 
@@ -3583,7 +3598,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#LifecyclePhase
 :LifecyclePhase rdf:type owl:Class ;
-                rdfs:subClassOf :AttributeClassification ;
+                rdfs:subClassOf :AttributeNature ;
                 rdfs:comment "Represents a stage in the lifecycle of an industrial asset."@en ;
                 rdfs:label "Fase do Ciclo de Vida"@pt-br ,
                            "Lifecycle Phase"@en ;
@@ -3734,7 +3749,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                  owl:onProperty rdf:value ;
                                  owl:allValuesFrom xsd:long
                                ] ;
-           rdfs:subClassOf :AttributeTypedValue ;
+           rdfs:subClassOf :DataType ;
            rdfs:comment "Constraint for xsd:long (64-bit integer)"@en ;
            rdfs:label "Long Value"@en .
 
@@ -5202,6 +5217,11 @@ rdf:value rdf:type owl:DatatypeProperty .
                   :ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#ProvenanceAttribute
+:ProvenanceAttribute rdf:type owl:Class ;
+                     rdfs:subClassOf :AdministrativeAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#PullInCollar
 :PullInCollar rdf:type owl:Class ;
               rdfs:subClassOf :SplitCollar ;
@@ -5985,15 +6005,9 @@ rdf:value rdf:type owl:DatatypeProperty .
                      dcterms:identifier "StaticUmbilicalSpan" .
 
 
-###  https://w3id.org/energy-domain/edo#StatusAttribute
-:StatusAttribute rdf:type owl:Class ;
-                 rdfs:subClassOf :AttributeDomainCategory ,
-                                 :DomainAttribute ;
-                 rdfs:comment "Represents operational state, availability, or maintenance condition."@en ;
-                 rdfs:label "Atributo de Status"@pt-br ,
-                            "Status Attribute"@en ;
-                 skos:definition "Representa estado operacional, disponibilidade ou condição de manutenção"@pt-br ,
-                                 "Represents operational state, availability, or maintenance condition"@en .
+###  https://w3id.org/energy-domain/edo#Status
+:Status rdf:type owl:Class ;
+        rdfs:subClassOf :ContentManagementAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#StiffTorsionalStiffnessAtSeaLevel
@@ -6284,7 +6298,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                    owl:onProperty rdf:value ;
                                    owl:allValuesFrom xsd:string
                                  ] ;
-             rdfs:subClassOf :AttributeTypedValue ;
+             rdfs:subClassOf :DataType ;
              rdfs:comment "Constraint for xsd:string (character strings)"@en ;
              rdfs:label "String Value"@en .
 
@@ -6570,7 +6584,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Table
 :Table rdf:type owl:Class ;
-       rdfs:subClassOf :AttributeAuxiliarClass ;
+       rdfs:subClassOf :ValueNature ;
        rdfs:comment "A table composed by columns (lists of values)"@en ,
                     "Uma tabela composta por colunas (listas de valores)"@en ;
        rdfs:label "Tabela"@pt-br ,
@@ -6579,7 +6593,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#TableColumn
 :TableColumn rdf:type owl:Class ;
-             rdfs:subClassOf :AttributeAuxiliarClass ;
+             rdfs:subClassOf :ValueNature ;
              rdfs:comment "A column of a table"@en ,
                           "Uma coluna de uma tabela"@pt-br ;
              rdfs:label "Coluna de tabela"@pt-br ,
@@ -6888,7 +6902,7 @@ rdf:value rdf:type owl:DatatypeProperty .
                                  owl:onProperty rdf:value ;
                                  owl:allValuesFrom xsd:time
                                ] ;
-           rdfs:subClassOf :AttributeTypedValue ;
+           rdfs:subClassOf :DataType ;
            rdfs:comment "Constraint for xsd:time (time of day)"@en ;
            rdfs:label "Time Value"@en .
 
@@ -6896,8 +6910,8 @@ rdf:value rdf:type owl:DatatypeProperty .
 ###  https://w3id.org/energy-domain/edo#Timestamp
 :Timestamp rdf:type owl:Class ;
            rdfs:subClassOf :JustificationAttribute ,
-                           :Registry_GUIDAttribute ,
-                           :StatusAttribute ;
+                           :ProvenanceAttribute ,
+                           :Registry_GUIDAttribute ;
            dcterms:accessRights "PUBLIC" ;
            dcterms:identifier "Timestamp" ;
            skos:definition "Exact date and time, providing a precise reference for tracking when an event or action occurred within the system."@en ;
@@ -7198,9 +7212,14 @@ rdf:value rdf:type owl:DatatypeProperty .
      dcterms:identifier "VCM" .
 
 
+###  https://w3id.org/energy-domain/edo#ValueNature
+:ValueNature rdf:type owl:Class ;
+             rdfs:subClassOf :AttributeClassification .
+
+
 ###  https://w3id.org/energy-domain/edo#ValueOrigin
 :ValueOrigin rdf:type owl:Class ;
-             rdfs:subClassOf :AttributeClassification ;
+             rdfs:subClassOf :AttributeNature ;
              rdfs:comment "Indicates how the value is obtained."@en ;
              rdfs:label "Origem do Valor"@pt-br ,
                         "Value Origin"@en ;
@@ -7212,6 +7231,11 @@ rdf:value rdf:type owl:DatatypeProperty .
 :Valve rdf:type owl:Class ;
        rdfs:subClassOf :PressureComponent ;
        dcterms:identifier "Valve" .
+
+
+###  https://w3id.org/energy-domain/edo#Version
+:Version rdf:type owl:Class ;
+         rdfs:subClassOf :ContentManagementAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Vessel
