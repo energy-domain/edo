@@ -17,7 +17,7 @@
                                       dcterms:description "An ontology designed to represent the energy domain with semantic richness, supporting interoperability across engineering systems and standards (e.g., IFC, CFIHOS, ISO15926)." ;
                                       dcterms:title "EDO - Energy Domain Ontology" ;
                                       rdfs:label "Energy Domain Ontology" ;
-                                      owl:versionInfo "v0.0.2" .
+                                      owl:versionInfo "v0.0.3" .
 
 #################################################################
 #    Annotation properties
@@ -89,15 +89,6 @@ skos:prefLabel rdf:type owl:AnnotationProperty .
            skos:definition "Indica que o sujeito se aplica ao predicado"@pt-br ,
                            "Indicates that the subject applies to the object"@en ;
            rdfs:subPropertyOf :DomainAuxiliarAnnotation .
-
-
-###  https://w3id.org/energy-domain/edo#createdAtLifecyclePhase
-:createdAtLifecyclePhase rdf:type owl:AnnotationProperty ;
-                         rdfs:label "Created at lifecycle phase"@en ,
-                                    "Criado na fase do ciclo de vida"@pt-br ;
-                         skos:definition "Em que fase do ciclo de vida a informação foi criada"@pt-br ,
-                                         "In which lifecycle phase the information was created"@en ;
-                         rdfs:subPropertyOf :DomainEngineeringAnnotation .
 
 
 ###  https://w3id.org/energy-domain/edo#defaultValidValues
@@ -642,7 +633,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#BasicDesign
 :BasicDesign rdf:type owl:Class ;
-             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:subClassOf :DesignPhase ;
              rdfs:label "Basic Design"@en ,
                         "Projeto Básico"@pt-br ;
              skos:definition "Fase onde são desenvolvidas especificações gerais de engenharia, layouts e listas de equipamentos principais."@pt-br ,
@@ -1006,7 +997,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Commissioning
 :Commissioning rdf:type owl:Class ;
-               rdfs:subClassOf :LifecyclePhase ;
+               rdfs:subClassOf :ConstructionPhase ;
                rdfs:label "Comissionamento"@pt-br ,
                           "Commissioning"@en ;
                skos:definition "Final testing and handover of the system into operational status."@en ,
@@ -1235,7 +1226,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#ConceptualDesign
 :ConceptualDesign rdf:type owl:Class ;
-                  rdfs:subClassOf :LifecyclePhase ;
+                  rdfs:subClassOf :DesignPhase ;
                   rdfs:label "Conceptual Design"@en ,
                              "Projeto Conceitual"@pt-br ;
                   skos:definition "Fase inicial de projeto focada em viabilidade, definição de escopo e seleção de tecnologia."@pt-br ,
@@ -1255,6 +1246,13 @@ rdf:value rdf:type owl:DatatypeProperty .
 :ConnectionModule rdf:type owl:Class ;
                   rdfs:subClassOf :LineTerminationModule ;
                   dcterms:identifier "ConnectionModule" .
+
+
+###  https://w3id.org/energy-domain/edo#ConstructionPhase
+:ConstructionPhase rdf:type owl:Class ;
+                   rdfs:subClassOf :LifecyclePhase ;
+                   rdfs:label "Construction Phase"@en ,
+                              "Fase de Construção"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Content
@@ -1431,11 +1429,18 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Decommissioning
 :Decommissioning rdf:type owl:Class ;
-                 rdfs:subClassOf :LifecyclePhase ;
+                 rdfs:subClassOf :DecommissioningPhase ;
                  rdfs:label "Decommissioning"@en ,
                             "Descomissionamento"@pt-br ;
                  skos:definition "Permanent removal of the asset from service, including dismantling and disposal."@en ,
                                  "Remoção permanente do ativo do serviço, incluindo desmontagem e descarte."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#DecommissioningPhase
+:DecommissioningPhase rdf:type owl:Class ;
+                      rdfs:subClassOf :LifecyclePhase ;
+                      rdfs:label "Decommissioning Phase"@en ,
+                                 "Fase de Descomissionamento"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#DeploymentAccessory
@@ -1444,9 +1449,16 @@ rdf:value rdf:type owl:DatatypeProperty .
                      dcterms:identifier "DeploymentAccessory" .
 
 
+###  https://w3id.org/energy-domain/edo#DesignPhase
+:DesignPhase rdf:type owl:Class ;
+             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:label "Design Phase"@en ,
+                        "Fase de Projeto"@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#DetailedDesign
 :DetailedDesign rdf:type owl:Class ;
-                rdfs:subClassOf :LifecyclePhase ;
+                rdfs:subClassOf :DesignPhase ;
                 rdfs:label "Detailed Design"@en ,
                            "Projeto Detalhado"@pt-br ;
                 skos:definition "Comprehensive engineering phase producing detailed drawings, material specifications, and construction plans."@en ,
@@ -2122,7 +2134,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#FEED
 :FEED rdf:type owl:Class ;
-      rdfs:subClassOf :LifecyclePhase ;
+      rdfs:subClassOf :DesignPhase ;
       rdfs:label "FEED (Front-End Engineering Design)"@en ,
                  "FEED (Projeto Básico de Engenharia)"@pt-br ;
       skos:definition "Fase intermediária entre o projeto conceitual e detalhado, refinando detalhes técnicos e de custo."@pt-br ,
@@ -2156,7 +2168,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Fabrication
 :Fabrication rdf:type owl:Class ;
-             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:subClassOf :ConstructionPhase ;
              rdfs:label "Fabrication"@en ,
                         "Fabricação"@pt-br ;
              skos:definition "Fabricação e montagem de componentes, módulos ou estruturas em oficinas ou estaleiros."@pt-br ,
@@ -3186,7 +3198,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Installation
 :Installation rdf:type owl:Class ;
-              rdfs:subClassOf :LifecyclePhase ;
+              rdfs:subClassOf :ConstructionPhase ;
               rdfs:label "Instalação"@pt-br ,
                          "Installation"@en ;
               skos:definition "Placement and integration of equipment, piping, and structures at the site."@en ,
@@ -3946,7 +3958,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Maintenance
 :Maintenance rdf:type owl:Class ;
-             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:subClassOf :OperationPhase ;
              rdfs:label "Maintenance"@en ,
                         "Manutenção"@pt-br ;
              skos:definition "Intervenções planejadas ou corretivas para preservar a funcionalidade e segurança do ativo."@pt-br ,
@@ -4845,11 +4857,18 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Operation
 :Operation rdf:type owl:Class ;
-           rdfs:subClassOf :LifecyclePhase ;
+           rdfs:subClassOf :OperationPhase ;
            rdfs:label "Operation"@en ,
                       "Operação"@pt-br ;
            skos:definition "Normal use of the asset for its intended purpose, including monitoring and control."@en ,
                            "Uso normal do ativo para seu propósito pretendido, incluindo monitoramento e controle."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#OperationPhase
+:OperationPhase rdf:type owl:Class ;
+                rdfs:subClassOf :LifecyclePhase ;
+                rdfs:label "Fase de Operação"@pt-br ,
+                           "Operation Phase"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#OpticalFiberCable
@@ -5284,7 +5303,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#PreCommissioning
 :PreCommissioning rdf:type owl:Class ;
-                  rdfs:subClassOf :LifecyclePhase ;
+                  rdfs:subClassOf :ConstructionPhase ;
                   rdfs:label "Pre-Commissioning"@en ,
                              "Pré-Comissionamento"@pt-br ;
                   skos:definition "Verification and functional testing before introducing operational fluids or energy."@en ,
@@ -5361,7 +5380,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Procurement
 :Procurement rdf:type owl:Class ;
-             rdfs:subClassOf :LifecyclePhase ;
+             rdfs:subClassOf :ConstructionPhase ;
              rdfs:label "Aquisição"@pt-br ,
                         "Procurement"@en ;
              skos:definition "Acquisition of materials, equipment, and services required for project execution."@en ,
@@ -5553,7 +5572,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Recycling
 :Recycling rdf:type owl:Class ;
-           rdfs:subClassOf :LifecyclePhase ;
+           rdfs:subClassOf :DecommissioningPhase ;
            rdfs:label "Reciclagem"@pt-br ,
                       "Recycling"@en ;
            skos:definition "Processamento e reutilização de materiais recuperados durante o descomissionamento."@pt-br ,
@@ -6174,6 +6193,17 @@ rdf:value rdf:type owl:DatatypeProperty .
                :hasLifecycleCreationPhase :DetailedDesign ;
                :hasTypedValue :IntValue ;
                :hasValueCardinality :SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SpatialAttribute
+:SpatialAttribute rdf:type owl:Class ;
+                  rdfs:subClassOf :AttributeDomainCategory ;
+                  rdfs:comment """Exemplos:
+Location (geográfica, coordenada, planta, offshore, subsea, etc.)
+Orientation (posição angular, direção)
+Position (posição relativa dentro de um sistema)
+Georeference (lat/long, UTM)
+Installation site (onshore, offshore, módulo de planta)"""@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#SpecialRequirements
@@ -7274,7 +7304,7 @@ rdf:value rdf:type owl:DatatypeProperty .
 
 ###  https://w3id.org/energy-domain/edo#Transportation
 :Transportation rdf:type owl:Class ;
-                rdfs:subClassOf :LifecyclePhase ;
+                rdfs:subClassOf :ConstructionPhase ;
                 rdfs:label "Transportation"@en ,
                            "Transporte"@pt-br ;
                 skos:definition "Logistics and transport of materials and equipment to the construction or installation site."@en ,
@@ -7674,8 +7704,6 @@ rdf:value rdf:type owl:DatatypeProperty .
             skos:definition "Basis for all layers constructed by helical winding of one or more elements."@en ;
             skos:prefLabel "Camada Espiralada"@pt-br ,
                            "Wound Layer"@en .
-
-
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
