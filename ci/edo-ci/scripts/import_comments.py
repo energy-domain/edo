@@ -1,19 +1,24 @@
 """Import new comments from Excel workbook into edo-ci.ttl.
 Requirements: rdflib, pandas, openpyxl
-Usage: python import_comments.py --input edo-ci.ttl --workbook edited.xlsx --output edo-ci-updated.ttl"""
-import argparse
+Usage: python import_comments.py
+"""
 from rdflib import Graph, Namespace, BNode, Literal, URIRef
 import pandas as pd
 import rdflib
-import re
 
-CI = Namespace('https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#')
+# Correct namespace for EDO-CI
+EDOCI = Namespace('https://w3id.org/energy-domain/edo-ci#')
 
-def import_comments(input_ttl, workbook, out_ttl):
+# Default filenames
+INPUT_TTL = '../edo-ci.ttl'
+WORKBOOK_XLSX = 'edited.xlsx'
+OUTPUT_TTL = 'edo-ci-updated.ttl'
+
+def import_comments():
     g = Graph()
-    g.parse(input_ttl, format='turtle')
+    g.parse(INPUT_TTL, format='turtle')
 
-    xls = pd.ExcelFile(workbook)
+    xls = pd.ExcelFile(WORKBOOK_XLSX)
     for sheet in xls.sheet_names:
         if sheet == 'Entities':
             continue
@@ -26,27 +31,22 @@ def import_comments(input_ttl, workbook, out_ttl):
             if pd.isna(body) or pd.isna(created_by):
                 continue
             b = BNode()
-            g.add((URIRef(thread_iri), CI.hasComment, b))
-            g.add((b, rdflib.RDF.type, CI.Comment))
-            g.add((b, CI.commentBody, Literal(str(body))))
-            g.add((b, CI.createdBy, Literal(str(created_by))))
+            g.add((URIRef(thread_iri), EDOCI.hasComment, b))
+            g.add((b, rdflib.RDF.type, EDOCI.Comment))
+            g.add((b, EDOCI.commentBody, Literal(str(body))))
+            g.add((b, EDOCI.createdBy, Literal(str(created_by))))
             try:
-                g.add((b, CI.createdAt, Literal(pd.to_datetime(created_at).isoformat())))
+                g.add((b, EDOCI.createdAt, Literal(pd.to_datetime(created_at).isoformat())))
             except Exception:
-                g.add((b, CI.createdAt, Literal(str(created_at))))
+                g.add((b, EDOCI.createdAt, Literal(str(created_at))))
             status = row.get('status')
             if not pd.isna(status):
-                for s in g.subjects(predicate=CI.statusLabel, object=Literal(str(status))):
-                    g.add((b, CI.hasStatus, s))
+                for s in g.subjects(predicate=EDOCI.statusLabel, object=Literal(str(status))):
+                    g.add((b, EDOCI.hasStatus, s))
                     break
 
-    g.serialize(destination=out_ttl, format='turtle')
-    print(f'Wrote updated TTL to {out_ttl}')
+    g.serialize(destination=OUTPUT_TTL, format='turtle')
+    print(f'Wrote updated TTL to {OUTPUT_TTL}')
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input', required=True)
-    parser.add_argument('--workbook', required=True)
-    parser.add_argument('--output', required=True)
-    args = parser.parse_args()
-    import_comments(args.input, args.workbook, args.output)
+    import_comments()

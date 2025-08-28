@@ -6,7 +6,8 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix edoci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#> .
+# @prefix edoci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#> .
+@prefix edoci: <https://w3id.org/energy-domain/edoci#> .
 
 <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/edo-ci.ttl> a owl:Ontology ;
   rdfs:label "EDO Continuous Improvement (EDO-CI)"@en ;
@@ -42,30 +43,45 @@ edoci:InReview a edoci:Status ; edoci:statusLabel "in-review"@en .
 edoci:Resolved a edoci:Status ; edoci:statusLabel "resolved"@en .
 edoci:Rejected a edoci:Status ; edoci:statusLabel "rejected"@en .
 
-# Stored SPARQL queries (as instances of edoci:SPARQLQuery)
+# SPARQL queries stored as resources
 edoci:ExportEntitiesWithComments a edoci:SPARQLQuery ;
-  edoci:queryId "ExportEntitiesWithComments" ;
-  edoci:hasSPARQLQuery """PREFIX edoci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#>
+    edoci:queryId "ExportEntitiesWithComments" ;
+    edoci:hasSPARQLQuery """
+PREFIX edoci: <https://w3id.org/energy-domain/edoci#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX edo: <https://w3id.org/energy-domain/edo#>
-
-SELECT ?entity ?label (GROUP_CONCAT(CONCAT(str(?commentId), '||', str(?createdAt), '||', ?createdBy, '||', ?body); separator='\n---\n') AS ?commentsSummary)
+SELECT ?entity ?label (GROUP_CONCAT(CONCAT(str(?commentId), '||', str(?createdAt), '||', ?createdBy, '||', ?body); SEPARATOR=\"\\n---\\n\") AS ?commentsSummary)
 WHERE {
-  ?thread a edoci:Thread ; edoci:aboutEntity ?entity ; edoci:hasComment ?c .
-  ?entity rdfs:label ?label .
-  ?c a edoci:Comment ; rdf:subject ?commentId ; edoci:createdAt ?createdAt ; edoci:createdBy ?createdBy ; edoci:commentBody ?body .
+  ?thread a edoci:Thread ;
+          edoci:aboutEntity ?entity ;
+          edoci:hasComment ?c .
+  OPTIONAL { ?entity rdfs:label ?label }
+  ?c a edoci:Comment ;
+     rdf:subject ?commentId ;
+     edoci:createdAt ?createdAt ;
+     edoci:createdBy ?createdBy ;
+     edoci:commentBody ?body .
 }
 GROUP BY ?entity ?label
 """ .
 
 edoci:ExportThreadByEntity a edoci:SPARQLQuery ;
-  edoci:queryId "ExportThreadByEntity" ;
-  edoci:hasSPARQLQuery """PREFIX edoci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#>
+    edoci:queryId "ExportThreadByEntity" ;
+    edoci:hasSPARQLQuery """
+PREFIX edoci: <https://w3id.org/energy-domain/edoci#>
 SELECT ?thread ?commentId ?parent ?body ?createdBy ?createdAt ?status ?resolution
 WHERE {
-  ?thread a edoci:Thread ; edoci:aboutEntity <{ENTITY_IRI}> ; edoci:hasComment ?c .
-  ?c rdf:subject ?commentId ; edoci:inReplyTo ?parent ; edoci:commentBody ?body ; edoci:createdBy ?createdBy ; edoci:createdAt ?createdAt ; edoci:hasStatus ?status .
-  OPTIONAL { ?c edoci:hasResolution ?res . ?res edoci:resolutionText ?resolution }
+  ?thread a edoci:Thread ;
+          edoci:aboutEntity <{ENTITY_IRI}> ;
+          edoci:hasComment ?c .
+  ?c a edoci:Comment ;
+     rdf:subject ?commentId ;
+     OPTIONAL { ?c edoci:parent ?parent }
+     edoci:commentBody ?body ;
+     edoci:createdBy ?createdBy ;
+     edoci:createdAt ?createdAt ;
+     OPTIONAL { ?c edoci:hasStatus ?status }
+     OPTIONAL { ?c edoci:hasResolution ?resolution }
 }
 ORDER BY DESC(?createdAt)
 """ .
@@ -85,24 +101,26 @@ INSERT DATA {
 """ .
 
 # Minimal example: threads for some EDO entities
-_:t1 a edoci:Thread ;
-  edoci:aboutEntity edo:EndFitting ;
-  edoci:hasComment _:c1 .
+edoci:Comment_EndFitting_1 a edoci:Comment ;
+    edoci:commentId "C1" ;
+    edoci:commentBody "Please review the definition of EndFitting: include usage in subsea connectors." ;
+    edoci:createdBy "alice@example.org" ;
+    edoci:createdAt "2025-08-20T10:15:00"^^xsd:dateTime ;
+    edoci:hasStatus edoci:Open ;
+    edoci:exampleSnippet "Review definition; mention subsea usage" .
 
-_:c1 a edoci:Comment ;
-  edoci:commentBody "Please review the definition of EndFitting: include usage in subsea connectors." ;
-  edoci:createdBy "alice@example.org" ;
-  edoci:createdAt "2025-08-20T10:15:00"^^xsd:dateTime ;
-  edoci:hasStatus edoci:Open ;
-  edoci:exampleSnippet "Review definition; mention subsea usage" .
+edoci:Thread_EndFitting a edoci:Thread ;
+    edoci:aboutEntity edo:EndFitting ;
+    edoci:hasComment edoci:Comment_EndFitting_1 .
 
-_:t2 a edoci:Thread ;
-  edoci:aboutEntity edo:AbsoluteInsidePressure ;
-  edoci:hasComment _:c2 .
+edoci:Comment_AbsoluteInsidePressure_1 a edoci:Comment ;
+    edoci:commentId "C2" ;
+    edoci:commentBody "Attribute units unclear: is it Pa or bar?" ;
+    edoci:createdBy "bob@example.org" ;
+    edoci:createdAt "2025-08-21T11:30:00"^^xsd:dateTime ;
+    edoci:hasStatus edoci:InReview ;
+    edoci:exampleSnippet "Clarify units for AbsoluteInsidePressure" .
 
-_:c2 a edoci:Comment ;
-  edoci:commentBody "Attribute units unclear: is it Pa or bar?" ;
-  edoci:createdBy "bob@example.org" ;
-  edoci:createdAt "2025-08-21T11:30:00"^^xsd:dateTime ;
-  edoci:hasStatus edoci:InReview ;
-  edoci:exampleSnippet "Clarify units for AbsoluteInsidePressure" .
+edoci:Thread_AbsoluteInsidePressure a edoci:Thread ;
+    edoci:aboutEntity edo:AbsoluteInsidePressure ;
+    edoci:hasComment edoci:Comment_AbsoluteInsidePressure_1 .

@@ -1,74 +1,68 @@
-"""Export comments from edo-ci.ttl into an Excel workbook.
-Requirements: rdflib, pandas, openpyxl
-Usage: python export_comments.py --input edo-ci.ttl --output export.xlsx"""
-import argparse
-from rdflib import Graph, Namespace
+from rdflib import Graph, Namespace, URIRef
 import pandas as pd
 import re
 
-CI = Namespace('https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#')
+EDOCI = Namespace("https://w3id.org/energy-domain/edoci#")
+INPUT_TTL = "../edo-ci.ttl"
+OUTPUT_XLSX = "export.xlsx"
 
-def extract_queries(g):
-    qs = {}
-    for s in g.subjects(predicate=None, object=None):
-        if (s, None, None) in g:
-            continue
-    for s in g.subjects(predicate=None):
-        pass
-    for s in g.subjects(predicate=None, object=None):
-        pass
-    for s in g.subjects(predicate=None, object=None):
-        pass
-    for s in g.subjects(predicate=CI.hasSPARQLQuery, object=None):
-        qid = g.value(s, CI.queryId)
-        qstr = g.value(s, CI.hasSPARQLQuery)
-        if qid and qstr:
-            qs[str(qid)] = str(qstr)
-    return qs
+g = Graph()
+g.parse(INPUT_TTL, format="turtle")
 
-def export(input_ttl, output_xlsx):
-    g = Graph()
-    g.parse(input_ttl, format='turtle')
-    queries = extract_queries(g)
-    q = queries.get('ExportEntitiesWithComments')
-    if not q:
-        raise RuntimeError('ExportEntitiesWithComments not found')
-    res = g.query(q)
+# 1️⃣ Pegar todas as entidades
+query_entities = """
+PREFIX edoci: <https://w3id.org/energy-domain/edoci#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?entity ?label
+WHERE {
+  ?thread a edoci:Thread .
+  ?thread edoci:aboutEntity ?entity .
+  OPTIONAL { ?entity rdfs:label ?label }
+}
+"""
+res_entities = g.query(query_entities)
+rows_entities = [{"EntityIRI": str(r["entity"]), "Label": str(r.get("label",""))} for r in res_entities]
+df_entities = pd.DataFrame(rows_entities)
 
-    rows = []
-    for row in res:
-        rows.append({'EntityIRI': str(row['entity']), 'Label': str(row.get('label', '')), 'CommentsSummary': str(row.get('commentsSummary', ''))})
+print(f"Found {len(df_entities)} entities.")
 
-    df_entities = pd.DataFrame(rows)
-    writer = pd.ExcelWriter(output_xlsx, engine='openpyxl')
-    df_entities.to_excel(writer, sheet_name='Entities', index=False)
+with pd.ExcelWriter(OUTPUT_XLSX, engine="openpyxl") as writer:
+    df_entities.to_excel(writer, sheet_name="Entities", index=False)
 
-    for entity_iri in df_entities['EntityIRI']:
-        qthread = queries.get('ExportThreadByEntity')
-        if qthread:
-            qthread_inst = qthread.replace('{ENTITY_IRI}', entity_iri)
-            r = g.query(qthread_inst)
-            thr_rows = []
-            for rr in r:
-                thr_rows.append({
-                    'thread': str(rr.get('thread','')),
-                    'commentId': str(rr.get('commentId','')),
-                    'parent': str(rr.get('parent','')),
-                    'body': str(rr.get('body','')),
-                    'createdBy': str(rr.get('createdBy','')),
-                    'createdAt': str(rr.get('createdAt','')),
-                    'status': str(rr.get('status','')),
-                    'resolution': str(rr.get('resolution',''))
-                })
-            sheet_name = re.sub(r'[^0-9A-Za-z_]', '_', entity_iri)[:31]
-            pd.DataFrame(thr_rows).to_excel(writer, sheet_name=sheet_name, index=False)
+    # 2️⃣ Para cada entidade, pegar comentários
+    for entity_iri in df_entities["EntityIRI"]:
+        entity_uri = URIRef(entity_iri)
+        query_thread = """
+PREFIX edoci: <https://w3id.org/energy-domain/edoci#>
+SELECT ?thread ?comment ?commentId ?body ?createdBy ?createdAt ?status ?resolution
+WHERE {
+  ?thread a edoci:Thread .
+  ?thread edoci:aboutEntity <%s> .
+  ?thread edoci:hasComment ?comment .
+  ?comment a edoci:Comment .
+  ?comment edoci:commentId ?commentId .
+  ?comment edoci:commentBody ?body .
+  ?comment edoci:createdBy ?createdBy .
+  ?comment edoci:createdAt ?createdAt .
+  OPTIONAL { ?comment edoci:hasStatus ?status }
+  OPTIONAL { ?comment edoci:hasResolution ?resolution }
+}
+ORDER BY DESC(?createdAt)
+""" % entity_uri
 
-    writer.save()
-    print(f'Exported to {output_xlsx}')
+        res_thread = g.query(query_thread)
+        thread_rows = []
+        for r in res_thread:
+            thread_rows.append({
+                "thread": str(r["thread"]),
+                "commentId": str(r["commentId"]),
+                "body": str(r["body"]),
+                "createdBy": str(r["createdBy"]),
+                "createdAt": str(r["createdAt"]),
+                "status": str(r.get("status","")),
+                "resolution": str(r.get("resolution",""))
+            })
+        sheet_name = re.sub(r'[^0-9A-Za-z_]', "_", entity_iri)[:31]
+        pd.DataFrame(thread_rows).to_excel(writer, sheet_name=sheet_name, index=False)
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input', required=True)
-    parser.add_argument('--output', required=True)
-    args = parser.parse_args()
-    export(args.input, args.output)
+print(f"Exported to {OUTPUT_XLSX}")
