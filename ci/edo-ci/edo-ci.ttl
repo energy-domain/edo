@@ -1,0 +1,108 @@
+@prefix : <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/> .
+@prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix edoci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#> .
+
+<https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/edo-ci.ttl> a owl:Ontology ;
+  rdfs:label "EDO Continuous Improvement (EDO-CI)"@en ;
+  rdfs:seeAlso <https://w3id.org/energy-domain/edo> ;
+  owl:imports <https://w3id.org/energy-domain/edo> .
+
+# Core EDO-CI classes
+edoci:Thread a owl:Class ; rdfs:label "Thread"@en ; skos:definition "A discussion thread associated with an EDO entity."@en .
+edoci:Comment a owl:Class ; rdfs:label "Comment"@en ; skos:definition "A single comment made by a domain expert."@en .
+edoci:Response a owl:Class ; rdfs:label "Response"@en ; skos:definition "A response to a comment (also a Comment but can be typed as Response)."@en .
+edoci:Status a owl:Class ; rdfs:label "Status"@en ; skos:definition "Status for a comment or thread (e.g. open, in-review, closed)."@en .
+edoci:Resolution a owl:Class ; rdfs:label "Resolution"@en ; skos:definition "A resolution describing how the request was handled."@en .
+edoci:SPARQLQuery a owl:Class ; rdfs:label "SPARQL Query"@en ; skos:definition "A stored SPARQL query string used by the export/import scripts."@en .
+
+# Properties
+edoci:aboutEntity a rdf:Property ; rdfs:label "about entity"@en ; rdfs:domain edoci:Thread ; rdfs:range rdfs:Resource ; skos:definition "Links a thread to an entity from EDO (class/property/individual)."@en .
+edoci:hasComment a rdf:Property ; rdfs:label "has comment"@en ; rdfs:domain edoci:Thread ; rdfs:range edoci:Comment ; skos:definition "Thread members (ordered by createdAt if needed)."@en .
+edoci:commentBody a rdf:Property ; rdfs:label "comment body"@en ; rdfs:domain edoci:Comment ; rdfs:range rdfs:Literal ; skos:definition "The textual content of a comment."@en .
+edoci:createdBy a rdf:Property ; rdfs:label "created by"@en ; rdfs:domain edoci:Comment ; rdfs:range rdfs:Literal ; skos:definition "Name or identifier of the commenter (could be ORCID/email)."@en .
+edoci:createdAt a rdf:Property ; rdfs:label "created at"@en ; rdfs:domain edoci:Comment ; rdfs:range xsd:dateTime ; skos:definition "Timestamp for when the comment was created."@en .
+edoci:inReplyTo a rdf:Property ; rdfs:label "in reply to"@en ; rdfs:domain edoci:Comment ; rdfs:range edoci:Comment ; skos:definition "Link to parent comment (for threaded replies)."@en .
+edoci:hasStatus a rdf:Property ; rdfs:label "has status"@en ; rdfs:domain edoci:Comment ; rdfs:range edoci:Status ; skos:definition "Status of a comment or thread."@en .
+edoci:statusLabel a rdf:Property ; rdfs:label "status label"@en ; rdfs:domain edoci:Status ; rdfs:range rdfs:Literal ; skos:definition "Human label for a status (open, resolved...)."@en .
+edoci:hasResolution a rdf:Property ; rdfs:label "has resolution"@en ; rdfs:domain edoci:Comment ; rdfs:range edoci:Resolution ; skos:definition "Resolution description when a comment is closed."@en .
+edoci:resolutionText a rdf:Property ; rdfs:label "resolution text"@en ; rdfs:domain edoci:Resolution ; rdfs:range rdfs:Literal ; skos:definition "Text describing the resolution."@en .
+edoci:hasSPARQLQuery a rdf:Property ; rdfs:label "has SPARQL query"@en ; rdfs:domain edoci:SPARQLQuery ; rdfs:range rdfs:Literal ; skos:definition "The SPARQL string stored for export/import or human reuse."@en .
+edoci:queryId a rdf:Property ; rdfs:label "query id"@en ; rdfs:domain edoci:SPARQLQuery ; rdfs:range rdfs:Literal ; skos:definition "Identifier for the stored query (e.g. ExportEntitiesWithComments)."@en .
+edoci:exampleSnippet a rdf:Property ; rdfs:label "example snippet"@en ; rdfs:domain edoci:Comment ; rdfs:range rdfs:Literal ; skos:definition "Short snippet used in summary cells in spreadsheets."@en .
+
+# Predefined statuses
+edoci:Open a edoci:Status ; edoci:statusLabel "open"@en .
+edoci:InReview a edoci:Status ; edoci:statusLabel "in-review"@en .
+edoci:Resolved a edoci:Status ; edoci:statusLabel "resolved"@en .
+edoci:Rejected a edoci:Status ; edoci:statusLabel "rejected"@en .
+
+# Stored SPARQL queries (as instances of edoci:SPARQLQuery)
+edoci:ExportEntitiesWithComments a edoci:SPARQLQuery ;
+  edoci:queryId "ExportEntitiesWithComments" ;
+  edoci:hasSPARQLQuery """PREFIX edoci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+
+SELECT ?entity ?label (GROUP_CONCAT(CONCAT(str(?commentId), '||', str(?createdAt), '||', ?createdBy, '||', ?body); separator='\n---\n') AS ?commentsSummary)
+WHERE {
+  ?thread a edoci:Thread ; edoci:aboutEntity ?entity ; edoci:hasComment ?c .
+  ?entity rdfs:label ?label .
+  ?c a edoci:Comment ; rdf:subject ?commentId ; edoci:createdAt ?createdAt ; edoci:createdBy ?createdBy ; edoci:commentBody ?body .
+}
+GROUP BY ?entity ?label
+""" .
+
+edoci:ExportThreadByEntity a edoci:SPARQLQuery ;
+  edoci:queryId "ExportThreadByEntity" ;
+  edoci:hasSPARQLQuery """PREFIX edoci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#>
+SELECT ?thread ?commentId ?parent ?body ?createdBy ?createdAt ?status ?resolution
+WHERE {
+  ?thread a edoci:Thread ; edoci:aboutEntity <{ENTITY_IRI}> ; edoci:hasComment ?c .
+  ?c rdf:subject ?commentId ; edoci:inReplyTo ?parent ; edoci:commentBody ?body ; edoci:createdBy ?createdBy ; edoci:createdAt ?createdAt ; edoci:hasStatus ?status .
+  OPTIONAL { ?c edoci:hasResolution ?res . ?res edoci:resolutionText ?resolution }
+}
+ORDER BY DESC(?createdAt)
+""" .
+
+edoci:InsertComment a edoci:SPARQLQuery ;
+  edoci:queryId "InsertComment" ;
+  edoci:hasSPARQLQuery """PREFIX edoci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#>
+INSERT DATA {
+  <{THREAD_IRI}> edoci:hasComment _:c{COMMENT_ID} .
+  _:c{COMMENT_ID} a edoci:Comment ;
+     edoci:commentBody "{BODY}" ;
+     edoci:createdBy "{CREATED_BY}" ;
+     edoci:createdAt "{CREATED_AT}"^^xsd:dateTime ;
+     edoci:inReplyTo <{PARENT_IRI}> ;
+     edoci:hasStatus edoci:Open .
+}
+""" .
+
+# Minimal example: threads for some EDO entities
+_:t1 a edoci:Thread ;
+  edoci:aboutEntity edo:EndFitting ;
+  edoci:hasComment _:c1 .
+
+_:c1 a edoci:Comment ;
+  edoci:commentBody "Please review the definition of EndFitting: include usage in subsea connectors." ;
+  edoci:createdBy "alice@example.org" ;
+  edoci:createdAt "2025-08-20T10:15:00"^^xsd:dateTime ;
+  edoci:hasStatus edoci:Open ;
+  edoci:exampleSnippet "Review definition; mention subsea usage" .
+
+_:t2 a edoci:Thread ;
+  edoci:aboutEntity edo:AbsoluteInsidePressure ;
+  edoci:hasComment _:c2 .
+
+_:c2 a edoci:Comment ;
+  edoci:commentBody "Attribute units unclear: is it Pa or bar?" ;
+  edoci:createdBy "bob@example.org" ;
+  edoci:createdAt "2025-08-21T11:30:00"^^xsd:dateTime ;
+  edoci:hasStatus edoci:InReview ;
+  edoci:exampleSnippet "Clarify units for AbsoluteInsidePressure" .

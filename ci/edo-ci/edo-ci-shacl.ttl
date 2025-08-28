@@ -1,0 +1,21 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ci: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Shape for Comment
+:CommentShape a sh:NodeShape ;
+  sh:targetClass ci:Comment ;
+  sh:property [
+    sh:path ci:commentBody ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [ sh:path ci:createdBy ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path ci:createdAt ; sh:datatype xsd:dateTime ; sh:minCount 1 ] ;
+  sh:property [ sh:path ci:hasStatus ; sh:minCount 1 ] .
+
+# Shape for Thread
+:ThreadShape a sh:NodeShape ;
+  sh:targetClass ci:Thread ;
+  sh:property [ sh:path ci:aboutEntity ; sh:minCount 1 ] ;
+  sh:property [ sh:path ci:hasComment ; sh:minCount 1 ] .
