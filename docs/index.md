@@ -103,7 +103,7 @@ Each stable release of the core and subontologies is published in the following 
 
 They are versioned using semantic versioning and hosted at:
 
-- GitHub: [`github.com/your-org`](https://github.com/your-org)
+- GitHub: [`github.com/energy-domain `](https://github.com/energy-domain)
 - Zenodo (DOI for each release)
 - Persistent URL via: [`https://w3id.org/energy-domain`](https://w3id.org/energy-domain)
 
