@@ -146,6 +146,7 @@ EDO supports various technical applications, including:
 ### IFC Interoperability
 
 - Rule-based generation of IFC data using ontology-driven specifications
+- Generation of IFC data dictionary in [`bSDD`](https://www.buildingsmart.org/users/services/buildingsmart-data-dictionary/) dictionary 
 - Potential future support for translators between IFC and other formats
 - Guidance for extending IFC for energy-specific classes and properties
 
