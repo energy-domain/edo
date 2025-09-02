@@ -1,0 +1,95 @@
+@prefix edogovmnt: <https://w3id.org/energy-domain/edogov-maint#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix edo:  <https://w3id.org/energy-domain/edo#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://w3id.org/energy-domain/edogov-maint>
+    a owl:Ontology ;
+    owl:imports <https://w3id.org/energy-domain/edo> ;
+    rdfs:label "EDO Maintenance Ontology"@en ;
+    rdfs:comment "Holds maintenance/meta artefacts (checks, templates) for EDO."@en .
+
+### — Maintenance meta —
+edogovmnt:MaintenanceClass a owl:Class ;
+    rdfs:label "Maintenance class"@en ;
+    rdfs:comment "Generic superclass for maintenance/meta resources."@en .
+
+edogovmnt:MaintenanceQuery a owl:Class ;
+    rdfs:subClassOf edogovmnt:MaintenanceClass ;
+    rdfs:label "Maintenance query"@en ;
+    rdfs:comment "Represents a SPARQL-based integrity/quality check."@en .
+
+edogovmnt:hasMaintenanceQuery a owl:ObjectProperty ;
+    rdfs:label "has maintenance query"@en ;
+    rdfs:comment "Links a target class to a maintenance query that evaluates it (or its hierarchy)."@en .
+
+edogovmnt:sparqlTemplate a owl:DatatypeProperty ;
+    rdfs:label "SPARQL template"@en ;
+    rdfs:comment "SPARQL text with {{TARGET}} placeholder for the class this check applies to."@en .
+
+### — Query: all subclasses of TARGET must carry TARGET's annotations (no hardcode of annotations)
+edogovmnt:CheckAllSubClassAnnotations a edogovmnt:MaintenanceQuery ;
+    rdfs:label "All subclasses of Target Element must carry its annotations"@en ;
+    rdfs:comment "For every subclass of {{TARGET}}, list annotations present on {{TARGET}} that are missing on the subclass."@en ;
+    edogovmnt:sparqlTemplate """
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?SubClass ?MissingAnnotation
+WHERE {
+  # subclasses of the target
+  ?SubClass rdfs:subClassOf+ {{TARGET}} .
+  # annotations declared on the target itself
+  {{TARGET}} ?Annotation ?val .
+  FILTER (?Annotation != rdf:type)
+
+  # If literal, get the language, if URI, leave empty
+  BIND(IF(isLiteral(?val), lang(?val), "") AS ?Lang)
+
+  FILTER NOT EXISTS {
+    ?SubClass ?Annotation ?v .
+    FILTER( (!isLiteral(?v) && !isLiteral(?val)) || lang(?v) = ?Lang )
+  }
+
+  # Concat IRI + @lang if exists
+  BIND(CONCAT(STR(?Annotation), IF(?Lang != "", CONCAT("@", ?Lang), "")) AS ?MissingAnnotation)
+}
+""" .
+
+### — Query: only leaf subclasses of TARGET must carry TARGET's annotations
+edogovmnt:CheckLeafSubClassAnnotations a edogovmnt:MaintenanceQuery ;
+    rdfs:label "Leaf subclasses of Target Element must carry its annotations"@en ;
+    rdfs:comment "For every LEAF subclass of {{TARGET}}, list annotations present on {{TARGET}} that are missing on the leaf subclass."@en ;
+    edogovmnt:sparqlTemplate """
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?SubClass ?MissingAnnotation
+WHERE {
+  # subclasses of the target
+  ?SubClass rdfs:subClassOf+ {{TARGET}} .
+  # annotations declared on the target itself
+  {{TARGET}} ?Annotation ?val .
+  FILTER (?Annotation != rdf:type)
+  # leaf classes only
+  FILTER NOT EXISTS { ?child rdfs:subClassOf ?SubClass . }
+
+  # If literal, get the language, if URI, leave empty
+  BIND(IF(isLiteral(?val), lang(?val), "") AS ?Lang)
+
+  FILTER NOT EXISTS {
+    ?SubClass ?Annotation ?v .
+    FILTER( (!isLiteral(?v) && !isLiteral(?val)) || lang(?v) = ?Lang )
+  }
+
+  # Concat IRI + @lang if exists
+  BIND(CONCAT(STR(?Annotation), IF(?Lang != "", CONCAT("@", ?Lang), "")) AS ?MissingAnnotation)
+}
+""" .
+
+# Maintenance link: associates edo elements with maintenance queries
+edo:DomainElement edogovmnt:hasMaintenanceQuery edogovmnt:CheckAllSubClassAnnotations .
+edo:DomainElement edogovmnt:hasMaintenanceQuery edogovmnt:CheckLeafSubClassAnnotations .
