@@ -103,7 +103,7 @@ Each stable release of the core and subontologies is published in the following 
 
 They are versioned using semantic versioning and hosted at:
 
-- GitHub: [`github.com/your-org`](https://github.com/your-org)
+- GitHub: [`github.com/energy-domain `](https://github.com/energy-domain)
 - Zenodo (DOI for each release)
 - Persistent URL via: [`https://w3id.org/energy-domain`](https://w3id.org/energy-domain)
 
@@ -146,6 +146,7 @@ EDO supports various technical applications, including:
 ### IFC Interoperability
 
 - Rule-based generation of IFC data using ontology-driven specifications
+- Generation of IFC data dictionary in [`bSDD`](https://www.buildingsmart.org/users/services/buildingsmart-data-dictionary/) dictionary 
 - Potential future support for translators between IFC and other formats
 - Guidance for extending IFC for energy-specific classes and properties
 
