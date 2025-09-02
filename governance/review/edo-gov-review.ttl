@@ -45,7 +45,7 @@ edogovrev:Rejected a edogovrev:Status ; edogovrev:statusLabel "rejected"@en .
 edogovrev:ExportEntitiesWithComments a edogovrev:SPARQLQuery ;
     edogovrev:queryId "ExportEntitiesWithComments" ;
     edogovrev:hasSPARQLQuery """
-PREFIX edogovrev: <https://w3id.org/energy-domain/edoci#>
+PREFIX edogovrev: <https://w3id.org/energy-domain/edogov-review#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX edo: <https://w3id.org/energy-domain/edo#>
 SELECT ?entity ?label (GROUP_CONCAT(CONCAT(str(?commentId), '||', str(?createdAt), '||', ?createdBy, '||', ?body); SEPARATOR=\"\\n---\\n\") AS ?commentsSummary)
@@ -66,7 +66,7 @@ GROUP BY ?entity ?label
 edogovrev:ExportThreadByEntity a edogovrev:SPARQLQuery ;
     edogovrev:queryId "ExportThreadByEntity" ;
     edogovrev:hasSPARQLQuery """
-PREFIX edogovrev: <https://w3id.org/energy-domain/edoci#>
+PREFIX edogovrev: <https://w3id.org/energy-domain/edogov-review#>
 SELECT ?thread ?commentId ?parent ?body ?createdBy ?createdAt ?status ?resolution
 WHERE {
   ?thread a edogovrev:Thread ;
@@ -86,7 +86,7 @@ ORDER BY DESC(?createdAt)
 
 edogovrev:InsertComment a edogovrev:SPARQLQuery ;
   edogovrev:queryId "InsertComment" ;
-  edogovrev:hasSPARQLQuery """PREFIX edogovrev: <https://raw.githubusercontent.com/energy-domain/ontologies/main/ci/edo-ci/ns#>
+  edogovrev:hasSPARQLQuery """PREFIX edogovrev: <https://w3id.org/energy-domain/edogov-review#>
 INSERT DATA {
   <{THREAD_IRI}> edogovrev:hasComment _:c{COMMENT_ID} .
   _:c{COMMENT_ID} a edogovrev:Comment ;
