@@ -1,847 +1,1001 @@
-@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <https://w3id.org/energy-domain/edo-sandbox#> .
+@prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl:  <http://www.w3.org/2002/07/owl#> .
-@prefix edo:  <https://w3id.org/energy-domain/edo#> .
-@prefix sandbox:  <https://w3id.org/energy-domain/edo-sandbox#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sandbox: <https://w3id.org/energy-domain/edo-sandbox#> .
+@base <https://w3id.org/energy-domain/edo-sandbox> .
 
-<https://w3id.org/energy-domain/edo-new-assets> a owl:Ontology ;
-    rdfs:comment "Sandbox ontology for new asset classes across Renewables, Nuclear, Upstream topside, Midstream, and Downstream, excluding subsea." ;
-    owl:imports <https://w3id.org/energy-domain/edo> .
+<https://w3id.org/energy-domain/edo-sandbox> rdf:type owl:Ontology ;
+                                              owl:imports <https://w3id.org/energy-domain/edo> ;
+                                              rdfs:comment "Sandbox ontology for new asset classes across Renewables, Nuclear, Upstream topside, Midstream, and Downstream, excluding subsea." .
 
-##################################################
-# Renewables
-##################################################
+#################################################################
+#    Classes
+#################################################################
 
-### Solar
-sandbox:SolarPanel rdf:type owl:Class ;
-    edo:hasDiscipline edo:ElectricalEngineering , edo:EquipmentEngineering , edo:CivilEngineering ;
-    edo:hasDomain edo:Photovoltaic ;
-    skos:prefLabel "Solar Panel"@en , "Painel Solar"@pt-br ;
-    skos:definition "A Solar Panel converts sunlight directly into electricity using photovoltaic cells. It is critical in solar power plants, enabling the capture and use of solar energy."@en ,
-                    "Um Painel Solar converte a luz solar diretamente em eletricidade usando células fotovoltaicas. É fundamental em usinas solares, permitindo a captura e uso da energia solar."@pt-br ;
-    dcterms:identifier "SolarPanel" .
-
-sandbox:SolarInverter rdf:type owl:Class ;
-    edo:hasDiscipline edo:ElectricalEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:Photovoltaic ;
-    skos:prefLabel "Solar Inverter"@en , "Inversor Solar"@pt-br ;
-    skos:definition "Converts DC electricity from solar panels into AC electricity for grid or local use."@en ,
-                    "Converte eletricidade CC dos painéis solares em eletricidade CA para uso na rede ou local."@pt-br ;
-    dcterms:identifier "SolarInverter" .
-
-sandbox:SolarTracker rdf:type owl:Class ;
-    edo:hasDiscipline edo:AutomationControlEngineering , edo:CivilEngineering ;
-    edo:hasDomain edo:Photovoltaic ;
-    skos:prefLabel "Solar Tracker"@en , "Seguidor Solar"@pt-br ;
-    skos:definition "Mechanism that adjusts the position of solar panels to follow the sun for maximum energy capture."@en ,
-                    "Mecanismo que ajusta a posição dos painéis solares para seguir o sol e maximizar a captação de energia."@pt-br ;
-    dcterms:identifier "SolarTracker" .
-
-sandbox:SolarRack rdf:type owl:Class ;
-    edo:hasDiscipline edo:CivilEngineering ;
-    edo:hasDomain edo:Photovoltaic ;
-    skos:prefLabel "Solar Rack"@en , "Estrutura de Suporte Solar"@pt-br ;
-    skos:definition "Structural frame supporting and positioning solar panels for optimal sun exposure."@en ,
-                    "Estrutura que suporta e posiciona painéis solares para exposição ideal ao sol."@pt-br ;
-    dcterms:identifier "SolarRack" .
-
-### Wind
-sandbox:WindTurbine rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ElectricalEngineering , edo:CivilEngineering ;
-    edo:hasDomain edo:OnshoreWind ;
-    skos:prefLabel "Wind Turbine"@en , "Turbina Eólica"@pt-br ;
-    skos:definition "Converts wind energy into mechanical energy and electricity. Essential for wind farms."@en ,
-                    "Converte energia do vento em energia mecânica e eletricidade. Essencial para parques eólicos."@pt-br ;
-    dcterms:identifier "WindTurbine" .
-
-sandbox:WindTower rdf:type owl:Class ;
-    edo:hasDiscipline edo:CivilEngineering ;
-    edo:hasDomain edo:OnshoreWind ;
-    skos:prefLabel "Wind Tower"@en , "Torre Eólica"@pt-br ;
-    skos:definition "Supports wind turbine and elevates blades for better wind capture."@en ,
-                    "Suporta a turbina e eleva as pás para melhor captura do vento."@pt-br ;
-    dcterms:identifier "WindTower" .
-
-sandbox:WindFoundation rdf:type owl:Class ;
-    edo:hasDiscipline edo:CivilEngineering ;
-    edo:hasDomain edo:OffshoreWind ;
-    skos:prefLabel "Wind Foundation"@en , "Fundação Eólica"@pt-br ;
-    skos:definition "Anchors the turbine to ground or seabed, ensuring stability under wind loads."@en ,
-                    "Ancoragem da turbina ao solo ou leito marinho, garantindo estabilidade sob cargas de vento."@pt-br ;
-    dcterms:identifier "WindFoundation" .
-
-sandbox:WindGearbox rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering ;
-    edo:hasDomain edo:OnshoreWind ;
-    skos:prefLabel "Wind Gearbox"@en , "Caixa de Engrenagens Eólica"@pt-br ;
-    skos:definition "Transfers rotational energy from turbine blades to the generator at the proper speed."@en ,
-                    "Transfere energia rotacional das pás da turbina para o gerador na velocidade correta."@pt-br ;
-    dcterms:identifier "WindGearbox" .
-
-sandbox:WindGenerator rdf:type owl:Class ;
-    edo:hasDiscipline edo:ElectricalEngineering ;
-    edo:hasDomain edo:OffshoreWind ;
-    skos:prefLabel "Wind Generator"@en , "Gerador Eólico"@pt-br ;
-    skos:definition "Generates electricity from mechanical energy delivered by wind turbine blades."@en ,
-                    "Gera eletricidade a partir da energia mecânica fornecida pelas pás da turbina eólica."@pt-br ;
-    dcterms:identifier "WindGenerator" .
-
-### Hydro
-sandbox:HydroTurbine rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:LargeHydropower ;
-    skos:prefLabel "Hydro Turbine"@en , "Turbina Hidrelétrica"@pt-br ;
-    skos:definition "Converts water flow into mechanical energy driving generators."@en ,
-                    "Converte fluxo de água em energia mecânica que aciona geradores."@pt-br ;
-    dcterms:identifier "HydroTurbine" .
-
-sandbox:HydroGenerator rdf:type owl:Class ;
-    edo:hasDiscipline edo:ElectricalEngineering ;
-    edo:hasDomain edo:PumpedStorage ;
-    skos:prefLabel "Hydro Generator"@en , "Gerador Hidrelétrico"@pt-br ;
-    skos:definition "Converts turbine mechanical energy into electricity for distribution."@en ,
-                    "Converte energia mecânica da turbina em eletricidade para distribuição."@pt-br ;
-    dcterms:identifier "HydroGenerator" .
-
-sandbox:HydroValve rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessPipingEngineering , edo:AutomationControlEngineering ;
-    edo:hasDomain edo:RunOfRiver ;
-    skos:prefLabel "Hydro Valve"@en , "Válvula Hidrelétrica"@pt-br ;
-    skos:definition "Regulates water flow for safety and efficiency."@en ,
-                    "Regula o fluxo de água para segurança e eficiência."@pt-br ;
-    dcterms:identifier "HydroValve" .
-
-sandbox:DamStructure rdf:type owl:Class ;
-    edo:hasDiscipline edo:CivilEngineering ;
-    edo:hasDomain edo:LargeHydropower ;
-    skos:prefLabel "Dam Structure"@en , "Estrutura de Barragem"@pt-br ;
-    skos:definition "Provides water containment, flood control, and hydro infrastructure support."@en ,
-                    "Fornece contenção de água, controle de enchentes e suporte à infraestrutura hidrelétrica."@pt-br ;
-    dcterms:identifier "DamStructure" .
-
-sandbox:Penstock rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessPipingEngineering ;
-    edo:hasDomain edo:SmallHydropower ;
-    skos:prefLabel "Penstock"@en , "Conduto de Pressão"@pt-br ;
-    skos:definition "Directs water flow to turbines, controlling pressure and flow rate."@en ,
-                    "Direciona fluxo de água para turbinas, controlando pressão e vazão."@pt-br ;
-    dcterms:identifier "Penstock" .
-
-##################################################
-# Renewables - Biomass
-##################################################
-
-sandbox:BiomassBoiler rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:Biomass ;
-    skos:prefLabel "Biomass Boiler"@en , "Caldeira de Biomassa"@pt-br ;
-    skos:definition "Burns biomass fuel to generate heat for power generation or industrial processes."@en ,
-                    "Queima combustível de biomassa para gerar calor para geração de energia ou processos industriais."@pt-br ;
-    dcterms:identifier "BiomassBoiler" .
-
-sandbox:BiomassTurbine rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:Biomass ;
-    skos:prefLabel "Biomass Turbine"@en , "Turbina de Biomassa"@pt-br ;
-    skos:definition "Converts steam produced by biomass boilers into mechanical energy driving generators."@en ,
-                    "Converte vapor produzido pelas caldeiras de biomassa em energia mecânica para acionamento de geradores."@pt-br ;
-    dcterms:identifier "BiomassTurbine" .
-
-sandbox:BiomassConveyor rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessPipingEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:Biomass ;
-    skos:prefLabel "Biomass Conveyor"@en , "Transportador de Biomassa"@pt-br ;
-    skos:definition "Transports biomass fuel from storage to boiler safely and efficiently."@en ,
-                    "Transporte de combustível de biomassa do armazenamento até a caldeira de forma segura e eficiente."@pt-br ;
-    dcterms:identifier "BiomassConveyor" .
-
-##################################################
-# Renewables - Geothermal
-##################################################
-
-sandbox:GeothermalWell rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:CivilEngineering ;
-    edo:hasDomain edo:GeothermalDirectUse ;
-    skos:prefLabel "Geothermal Well"@en , "Poço Geotérmico"@pt-br ;
-    skos:definition "Extracts geothermal fluids from underground reservoirs for power generation or heating."@en ,
-                    "Extrai fluidos geotérmicos de reservatórios subterrâneos para geração de energia ou aquecimento."@pt-br ;
-    dcterms:identifier "GeothermalWell" .
-
-sandbox:GeothermalPump rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:GeothermalElectricity ;
-    skos:prefLabel "Geothermal Pump"@en , "Bomba Geotérmica"@pt-br ;
-    skos:definition "Circulates geothermal fluids through heat exchangers or turbines."@en ,
-                    "Circula fluidos geotérmicos através de trocadores de calor ou turbinas."@pt-br ;
-    dcterms:identifier "GeothermalPump" .
-
-##################################################
-# Nuclear
-##################################################
-
-sandbox:NuclearReactor rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering , edo:SafetyLossPreventionEngineering ;
-    edo:hasDomain edo:NuclearPowerGeneration ;
-    skos:prefLabel "Nuclear Reactor"@en , "Reator Nuclear"@pt-br ;
-    skos:definition "Generates heat through controlled nuclear fission for power production."@en ,
-                    "Gera calor através da fissão nuclear controlada para produção de energia."@pt-br ;
-    dcterms:identifier "NuclearReactor" .
-
-sandbox:SteamGeneratorNuclear rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:NuclearPowerGeneration ;
-    skos:prefLabel "Nuclear Steam Generator"@en , "Gerador de Vapor Nuclear"@pt-br ;
-    skos:definition "Transfers heat from reactor coolant to produce steam for turbines."@en ,
-                    "Transfere calor do refrigerante do reator para produzir vapor para turbinas."@pt-br ;
-    dcterms:identifier "SteamGeneratorNuclear" .
-
-sandbox:Pressurizer rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering , edo:SafetyLossPreventionEngineering ;
-    edo:hasDomain edo:NuclearPowerGeneration ;
-    skos:prefLabel "Pressurizer"@en , "Pressurizador"@pt-br ;
-    skos:definition "Maintains reactor coolant system pressure within safe limits."@en ,
-                    "Mantém a pressão do sistema de refrigeração do reator dentro de limites seguros."@pt-br ;
-    dcterms:identifier "Pressurizer" .
-
-sandbox:NuclearPump rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:NuclearPowerGeneration ;
-    skos:prefLabel "Nuclear Pump"@en , "Bomba Nuclear"@pt-br ;
-    skos:definition "Circulates coolant in the reactor and heat transport loops."@en ,
-                    "Circula o refrigerante no reator e nos circuitos de transporte de calor."@pt-br ;
-    dcterms:identifier "NuclearPump" .
-
-##################################################
-# Upstream Topside
-##################################################
-
-sandbox:TopsidePump rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:Upstream ;
-    skos:prefLabel "Topside Pump"@en , "Bomba Topside"@pt-br ;
-    skos:definition "Transfers fluids between process units on topside facilities."@en ,
-                    "Transfere fluidos entre unidades de processo nas instalações topside."@pt-br ;
-    dcterms:identifier "TopsidePump" .
-
-sandbox:TopsideValve rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessPipingEngineering , edo:AutomationControlEngineering ;
-    edo:hasDomain edo:Upstream ;
-    skos:prefLabel "Topside Valve"@en , "Válvula Topside"@pt-br ;
-    skos:definition "Controls flow of oil, gas, or water in topside processing systems."@en ,
-                    "Controla o fluxo de óleo, gás ou água nos sistemas de processamento topside."@pt-br ;
-    dcterms:identifier "TopsideValve" .
-
-##################################################
-# Midstream
-##################################################
-
-sandbox:MidstreamPump rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:Midstream ;
-    skos:prefLabel "Midstream Pump"@en , "Bomba Midstream"@pt-br ;
-    skos:definition "Transfers hydrocarbons in pipelines between upstream and downstream facilities."@en ,
-                    "Transfere hidrocarbonetos em oleodutos entre instalações upstream e downstream."@pt-br ;
-    dcterms:identifier "MidstreamPump" .
-
-sandbox:MidstreamCompressor rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:Midstream ;
-    skos:prefLabel "Midstream Compressor"@en , "Compressor Midstream"@pt-br ;
-    skos:definition "Pressurizes gas in pipelines for transport efficiency."@en ,
-                    "Pressuriza o gás nos oleodutos para eficiência no transporte."@pt-br ;
-    dcterms:identifier "MidstreamCompressor" .
-
-sandbox:MidstreamValve rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessPipingEngineering , edo:AutomationControlEngineering ;
-    edo:hasDomain edo:Midstream ;
-    skos:prefLabel "Midstream Valve"@en , "Válvula Midstream"@pt-br ;
-    skos:definition "Controls flow in midstream pipeline networks for hydrocarbons."@en ,
-                    "Controla o fluxo em redes de oleodutos midstream para hidrocarbonetos."@pt-br ;
-    dcterms:identifier "MidstreamValve" .
-
-##################################################
-# Downstream Refining
-##################################################
-
-sandbox:DistillationColumn rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:ProcessPipingEngineering ;
-    edo:hasDomain edo:Downstream ;
-    skos:prefLabel "Distillation Column"@en , "Coluna de Destilação"@pt-br ;
-    skos:definition "Separates crude oil into fractions based on boiling points for refining."@en ,
-                    "Separa o petróleo cru em frações com base nos pontos de ebulição para refino."@pt-br ;
-    dcterms:identifier "DistillationColumn" .
-
-sandbox:RefineryPump rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:Downstream ;
-    skos:prefLabel "Refinery Pump"@en , "Bomba de Refinaria"@pt-br ;
-    skos:definition "Transfers fluids between processing units in a refinery."@en ,
-                    "Transfere fluidos entre unidades de processamento em uma refinaria."@pt-br ;
-    dcterms:identifier "RefineryPump" .
-
-sandbox:HeatExchanger rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:Downstream ;
-    skos:prefLabel "Heat Exchanger"@en , "Trocador de Calor"@pt-br ;
-    skos:definition "Transfers heat between process streams for energy efficiency and safety."@en ,
-                    "Transfere calor entre correntes de processo para eficiência energética e segurança."@pt-br ;
-    dcterms:identifier "HeatExchanger" .
-
-sandbox:RefineryValve rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessPipingEngineering , edo:AutomationControlEngineering ;
-    edo:hasDomain edo:Downstream ;
-    skos:prefLabel "Refinery Valve"@en , "Válvula de Refinaria"@pt-br ;
-    skos:definition "Controls flow of hydrocarbons and utilities in refining processes."@en ,
-                    "Controla o fluxo de hidrocarbonetos e utilidades nos processos de refino."@pt-br ;
-    dcterms:identifier "RefineryValve" .
-
-##################################################
-# Energy Storage
-##################################################
-
+###  https://w3id.org/energy-domain/edo-sandbox#BatteryEnergyStorage
 sandbox:BatteryEnergyStorage rdf:type owl:Class ;
-    edo:hasDiscipline edo:ElectricalEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:EnergyStorage ;
-    skos:prefLabel "Battery Energy Storage"@en , "Armazenamento de Energia em Bateria"@pt-br ;
-    skos:definition "System that stores electrical energy in chemical form for later use, providing grid balancing and backup power."@en ,
-                    "Sistema que armazena energia elétrica em forma química para uso posterior, fornecendo equilíbrio da rede e energia de backup."@pt-br ;
-    dcterms:identifier "BatteryEnergyStorage" .
+                             rdfs:subClassOf sandbox:EnergyStorageEquipment ;
+                             dcterms:identifier "BatteryEnergyStorage" ;
+                             skos:definition "Sistema que armazena energia elétrica em forma química para uso posterior, fornecendo equilíbrio da rede e energia de backup."@pt-br ,
+                                             "System that stores electrical energy in chemical form for later use, providing grid balancing and backup power."@en ;
+                             skos:prefLabel "Armazenamento de Energia em Bateria"@pt-br ,
+                                            "Battery Energy Storage"@en ;
+                             edo:hasDiscipline edo:ElectricalEngineering ,
+                                               edo:EquipmentEngineering ;
+                             edo:hasDomain edo:EnergyStorage .
 
-sandbox:PumpedHydroStorage rdf:type owl:Class ;
-    edo:hasDiscipline edo:CivilEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:EnergyStorage ;
-    skos:prefLabel "Pumped Hydro Storage"@en , "Armazenamento Hidrelétrico Reversível"@pt-br ;
-    skos:definition "Reservoir system that stores energy by pumping water to higher elevation and releasing it to generate electricity when needed."@en ,
-                    "Sistema de reservatório que armazena energia bombeando água para elevação maior e liberando-a para gerar eletricidade quando necessário."@pt-br ;
-    dcterms:identifier "PumpedHydroStorage" .
 
-sandbox:ThermalStorage rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:EnergyStorage ;
-    skos:prefLabel "Thermal Storage"@en , "Armazenamento Térmico"@pt-br ;
-    skos:definition "Stores heat or cold for later use, improving energy efficiency and peak load management."@en ,
-                    "Armazena calor ou frio para uso posterior, melhorando eficiência energética e gestão de carga de pico."@pt-br ;
-    dcterms:identifier "ThermalStorage" .
+###  https://w3id.org/energy-domain/edo-sandbox#BiofuelPlant
+sandbox:BiofuelPlant rdf:type owl:Class ;
+                     rdfs:subClassOf sandbox:BiomassGeneratorEquipment ;
+                     dcterms:identifier "BiofuelPlant" ;
+                     skos:definition "A facility where biomass is processed to produce liquid biofuels such as ethanol, biodiesel, or HVO, for use in transportation or energy generation."@en ,
+                                     "Uma instalação onde a biomassa é processada para produzir biocombustíveis líquidos como etanol, biodiesel ou HVO, para uso em transporte ou geração de energia."@pt-br ;
+                     skos:prefLabel "Biofuel Plant"@en ,
+                                    "Planta de Biocombustível"@pt-br ;
+                     edo:hasDomain edo:Biofuels .
 
-sandbox:CompressedAirStorage rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:EnergyStorage ;
-    skos:prefLabel "Compressed Air Storage"@en , "Armazenamento de Ar Comprimido"@pt-br ;
-    skos:definition "Stores energy by compressing air in large vessels and releases it to drive turbines for electricity generation."@en ,
-                    "Armazena energia comprimindo ar em grandes vasos e o libera para acionar turbinas para geração de eletricidade."@pt-br ;
-    dcterms:identifier "CompressedAirStorage" .
 
-##################################################
-# Carbon Management
-##################################################
+###  https://w3id.org/energy-domain/edo-sandbox#BiogasDigester
+sandbox:BiogasDigester rdf:type owl:Class ;
+                       rdfs:subClassOf sandbox:BiomassGeneratorEquipment ;
+                       dcterms:identifier "BiogasDigester" ;
+                       skos:definition "A system that processes organic waste or biomass anaerobically to produce biogas, primarily composed of methane and carbon dioxide, for energy generation or heating applications."@en ,
+                                       "Um sistema que processa resíduos orgânicos ou biomassa anaerobicamente para produzir biogás, composto principalmente por metano e dióxido de carbono, para geração de energia ou aplicações de aquecimento."@pt-br ;
+                       skos:prefLabel "Biogas Digester"@en ,
+                                      "Digestor de Biogás"@pt-br ;
+                       edo:hasDomain edo:Biogas .
 
+
+###  https://w3id.org/energy-domain/edo-sandbox#BiomassAuxiliaryEquipment
+sandbox:BiomassAuxiliaryEquipment rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:Equipment ;
+                                  dcterms:identifier "BiomassAuxiliary" ;
+                                  skos:definition "Auxiliary equipment supporting the operation of biomass power systems."@en ,
+                                                  "Equipamento auxiliar que suporta a operação de sistemas de energia de biomassa."@pt-br ;
+                                  skos:prefLabel "Biomass Auxiliary Equipment"@en ,
+                                                 "Equipamento Auxiliar de Biomassa"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#BiomassBoiler
+sandbox:BiomassBoiler rdf:type owl:Class ;
+                      rdfs:subClassOf sandbox:BiomassAuxiliaryEquipment ;
+                      dcterms:identifier "BiomassBoiler" ;
+                      skos:definition "Burns biomass fuel to generate heat for power generation or industrial processes."@en ,
+                                      "Queima combustível de biomassa para gerar calor para geração de energia ou processos industriais."@pt-br ;
+                      skos:prefLabel "Biomass Boiler"@en ,
+                                     "Caldeira de Biomassa"@pt-br ;
+                      edo:hasDiscipline edo:EquipmentEngineering ,
+                                        edo:ProcessEngineering ;
+                      edo:hasDomain edo:Biomass .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#BiomassConveyor
+sandbox:BiomassConveyor rdf:type owl:Class ;
+                        rdfs:subClassOf sandbox:BiomassAuxiliaryEquipment ;
+                        dcterms:identifier "BiomassConveyor" ;
+                        skos:definition "Transporte de combustível de biomassa do armazenamento até a caldeira de forma segura e eficiente."@pt-br ,
+                                        "Transports biomass fuel from storage to boiler safely and efficiently."@en ;
+                        skos:prefLabel "Biomass Conveyor"@en ,
+                                       "Transportador de Biomassa"@pt-br ;
+                        edo:hasDiscipline edo:EquipmentEngineering ,
+                                          edo:ProcessPipingEngineering ;
+                        edo:hasDomain edo:Biomass .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#BiomassGeneratorEquipment
+sandbox:BiomassGeneratorEquipment rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:Equipment ;
+                                  dcterms:identifier "BiomassGeneratorEquipment" ;
+                                  skos:definition "Equipamento que gera eletricidade a partir de biomassa."@pt-br ,
+                                                  "Equipment that generates electricity from biomass."@en ;
+                                  skos:prefLabel "Biomass Generator Equipment"@en ,
+                                                 "Equipamento Gerador de Biomassa"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#BiomassTurbine
+sandbox:BiomassTurbine rdf:type owl:Class ;
+                       rdfs:subClassOf sandbox:BiomassGeneratorEquipment ;
+                       dcterms:identifier "BiomassTurbine" ;
+                       skos:definition "Converte vapor produzido pelas caldeiras de biomassa em energia mecânica para acionamento de geradores."@pt-br ,
+                                       "Converts steam produced by biomass boilers into mechanical energy driving generators."@en ;
+                       skos:prefLabel "Biomass Turbine"@en ,
+                                      "Turbina de Biomassa"@pt-br ;
+                       edo:hasDiscipline edo:ProcessEngineering ,
+                                         edo:RotatingEquipmentEngineering ;
+                       edo:hasDomain edo:Biomass .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#CO2CaptureUnit
 sandbox:CO2CaptureUnit rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:AutomationControlEngineering ;
-    edo:hasDomain edo:CarbonManagement ;
-    skos:prefLabel "CO2 Capture Unit"@en , "Unidade de Captura de CO2"@pt-br ;
-    skos:definition "Captures carbon dioxide from flue gases or industrial processes for storage or reuse."@en ,
-                    "Captura dióxido de carbono de gases de exaustão ou processos industriais para armazenamento ou reutilização."@pt-br ;
-    dcterms:identifier "CO2CaptureUnit" .
+                       rdfs:subClassOf sandbox:CarbonAuxiliaryEquipment ;
+                       dcterms:identifier "CO2CaptureUnit" ;
+                       skos:definition "Captura dióxido de carbono de gases de exaustão ou processos industriais para armazenamento ou reutilização."@pt-br ,
+                                       "Captures carbon dioxide from flue gases or industrial processes for storage or reuse."@en ;
+                       skos:prefLabel "CO2 Capture Unit"@en ,
+                                      "Unidade de Captura de CO2"@pt-br ;
+                       edo:hasDiscipline edo:AutomationControlEngineering ,
+                                         edo:ProcessEngineering ;
+                       edo:hasDomain edo:CarbonManagement .
 
-sandbox:CarbonStorageTank rdf:type owl:Class ;
-    edo:hasDiscipline edo:EquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:CarbonManagement ;
-    skos:prefLabel "Carbon Storage Tank"@en , "Tanque de Armazenamento de Carbono"@pt-br ;
-    skos:definition "Tank designed to safely store captured CO2 for later sequestration or utilization."@en ,
-                    "Tanque projetado para armazenar CO2 capturado de forma segura para posterior sequestro ou utilização."@pt-br ;
-    dcterms:identifier "CarbonStorageTank" .
 
-sandbox:CarbonPipeline rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessPipingEngineering , edo:CivilEngineering ;
-    edo:hasDomain edo:CarbonManagement ;
-    skos:prefLabel "Carbon Pipeline"@en , "Duto de Carbono"@pt-br ;
-    skos:definition "Transports captured CO2 from point of capture to storage or utilization sites."@en ,
-                    "Transporte CO2 capturado do ponto de captura até locais de armazenamento ou utilização."@pt-br ;
-    dcterms:identifier "CarbonPipeline" .
+###  https://w3id.org/energy-domain/edo-sandbox#CSPCollector
+sandbox:CSPCollector rdf:type owl:Class ;
+                     rdfs:subClassOf sandbox:SolarAuxiliaryEquipment ;
+                     dcterms:identifier "CSPCollector" ;
+                     skos:definition "A Concentrated Solar Power (CSP) collector designed to concentrate sunlight onto a receiver to generate heat for electricity production."@en ,
+                                     "Um coletor de Energia Solar Concentrada (CSP) projetado para concentrar a luz solar em um receptor para gerar calor para produção de eletricidade."@pt-br ;
+                     skos:prefLabel "CSP Collector"@en ,
+                                    "Coletor CSP"@pt-br ;
+                     edo:hasDomain edo:SolarThermal .
 
+
+###  https://w3id.org/energy-domain/edo-sandbox#CarbonAuxiliaryEquipment
+sandbox:CarbonAuxiliaryEquipment rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:Equipment ;
+                                 dcterms:identifier "CarbonAuxiliary" ;
+                                 skos:definition "Auxiliary equipment used in carbon capture, storage, and pipeline systems."@en ,
+                                                 "Equipamento auxiliar utilizado em sistemas de captura, armazenamento e transporte de carbono."@pt-br ;
+                                 skos:prefLabel "Carbon Capture Auxiliary Equipment"@en ,
+                                                "Equipamento Auxiliar de Captura de Carbono"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#CarbonMonitoringSensor
 sandbox:CarbonMonitoringSensor rdf:type owl:Class ;
-    edo:hasDiscipline edo:InstrumentationEngineering , edo:AutomationControlEngineering ;
-    edo:hasDomain edo:CarbonManagement ;
-    skos:prefLabel "Carbon Monitoring Sensor"@en , "Sensor de Monitoramento de Carbono"@pt-br ;
-    skos:definition "Measures CO2 levels and emissions in industrial or energy systems for safety and reporting."@en ,
-                    "Mede níveis e emissões de CO2 em sistemas industriais ou energéticos para segurança e relatórios."@pt-br ;
-    dcterms:identifier "CarbonMonitoringSensor" .
+                               rdfs:subClassOf edo:Sensor ;
+                               dcterms:identifier "CarbonMonitoringSensor" ;
+                               skos:definition "Measures CO2 levels and emissions in industrial or energy systems for safety and reporting."@en ,
+                                               "Mede níveis e emissões de CO2 em sistemas industriais ou energéticos para segurança e relatórios."@pt-br ;
+                               skos:prefLabel "Carbon Monitoring Sensor"@en ,
+                                              "Sensor de Monitoramento de Carbono"@pt-br ;
+                               edo:hasDiscipline edo:AutomationControlEngineering ,
+                                                 edo:InstrumentationEngineering ;
+                               edo:hasDomain edo:CarbonManagement .
 
-##################################################
-# Hydrogen Energy
-##################################################
 
-sandbox:Electrolyzer rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:ElectricalEngineering ;
-    edo:hasDomain edo:HydrogenEnergy ;
-    skos:prefLabel "Electrolyzer"@en , "Eletrólise"@pt-br ;
-    skos:definition "Splits water into hydrogen and oxygen using electricity, enabling hydrogen fuel production."@en ,
-                    "Divide a água em hidrogênio e oxigênio usando eletricidade, permitindo a produção de combustível de hidrogênio."@pt-br ;
-    dcterms:identifier "Electrolyzer" .
+###  https://w3id.org/energy-domain/edo-sandbox#CarbonPipeline
+sandbox:CarbonPipeline rdf:type owl:Class ;
+                       rdfs:subClassOf edo:TransportLineSegment ;
+                       dcterms:identifier "CarbonPipeline" ;
+                       skos:definition "Transporte CO2 capturado do ponto de captura até locais de armazenamento ou utilização."@pt-br ,
+                                       "Transports captured CO2 from point of capture to storage or utilization sites."@en ;
+                       skos:prefLabel "Carbon Pipeline"@en ,
+                                      "Duto de Carbono"@pt-br ;
+                       edo:hasDiscipline edo:CivilEngineering ,
+                                         edo:ProcessPipingEngineering ;
+                       edo:hasDomain edo:CarbonManagement .
 
-sandbox:HydrogenCompressor rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:HydrogenEnergy ;
-    skos:prefLabel "Hydrogen Compressor"@en , "Compressor de Hidrogênio"@pt-br ;
-    skos:definition "Pressurizes hydrogen for storage or pipeline transport."@en ,
-                    "Pressuriza hidrogênio para armazenamento ou transporte em dutos."@pt-br ;
-    dcterms:identifier "HydrogenCompressor" .
 
-sandbox:HydrogenStorageTank rdf:type owl:Class ;
-    edo:hasDiscipline edo:EquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:HydrogenEnergy ;
-    skos:prefLabel "Hydrogen Storage Tank"@en , "Tanque de Armazenamento de Hidrogênio"@pt-br ;
-    skos:definition "Stores hydrogen safely for later use in power generation or fuel cells."@en ,
-                    "Armazena hidrogênio de forma segura para uso posterior em geração de energia ou células a combustível."@pt-br ;
-    dcterms:identifier "HydrogenStorageTank" .
+###  https://w3id.org/energy-domain/edo-sandbox#CarbonStorageTank
+sandbox:CarbonStorageTank rdf:type owl:Class ;
+                          rdfs:subClassOf sandbox:CarbonAuxiliaryEquipment ;
+                          dcterms:identifier "CarbonStorageTank" ;
+                          skos:definition "Tank designed to safely store captured CO2 for later sequestration or utilization."@en ,
+                                          "Tanque projetado para armazenar CO2 capturado de forma segura para posterior sequestro ou utilização."@pt-br ;
+                          skos:prefLabel "Carbon Storage Tank"@en ,
+                                         "Tanque de Armazenamento de Carbono"@pt-br ;
+                          edo:hasDiscipline edo:EquipmentEngineering ,
+                                            edo:ProcessEngineering ;
+                          edo:hasDomain edo:CarbonManagement .
 
-sandbox:FuelCellGenerator rdf:type owl:Class ;
-    edo:hasDiscipline edo:ElectricalEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:HydrogenEnergy ;
-    skos:prefLabel "Fuel Cell Generator"@en , "Gerador de Célula a Combustível"@pt-br ;
-    skos:definition "Generates electricity by converting hydrogen and oxygen into water in a fuel cell."@en ,
-                    "Gera eletricidade convertendo hidrogênio e oxigênio em água em uma célula a combustível."@pt-br ;
-    dcterms:identifier "FuelCellGenerator" .
 
-##################################################
-# Thermal Power
-##################################################
+###  https://w3id.org/energy-domain/edo-sandbox#CompressedAirStorage
+sandbox:CompressedAirStorage rdf:type owl:Class ;
+                             rdfs:subClassOf sandbox:EnergyStorageEquipment ;
+                             dcterms:identifier "CompressedAirStorage" ;
+                             skos:definition "Armazena energia comprimindo ar em grandes vasos e o libera para acionar turbinas para geração de eletricidade."@pt-br ,
+                                             "Stores energy by compressing air in large vessels and releases it to drive turbines for electricity generation."@en ;
+                             skos:prefLabel "Armazenamento de Ar Comprimido"@pt-br ,
+                                            "Compressed Air Storage"@en ;
+                             edo:hasDiscipline edo:EquipmentEngineering ,
+                                               edo:ProcessEngineering ;
+                             edo:hasDomain edo:EnergyStorage .
 
-sandbox:ThermalBoiler rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:ThermalPower ;
-    skos:prefLabel "Thermal Boiler"@en , "Caldeira Térmica"@pt-br ;
-    skos:definition "Produces steam by burning fossil fuels to drive turbines for electricity generation."@en ,
-                    "Produz vapor queimando combustíveis fósseis para acionar turbinas e gerar eletricidade."@pt-br ;
-    dcterms:identifier "ThermalBoiler" .
 
-sandbox:ThermalTurbine rdf:type owl:Class ;
-    edo:hasDiscipline edo:RotatingEquipmentEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:ThermalPower ;
-    skos:prefLabel "Thermal Turbine"@en , "Turbina Térmica"@pt-br ;
-    skos:definition "Converts high-pressure steam into mechanical energy to drive generators."@en ,
-                    "Converte vapor de alta pressão em energia mecânica para acionar geradores."@pt-br ;
-    dcterms:identifier "ThermalTurbine" .
-
-sandbox:CoolingTower rdf:type owl:Class ;
-    edo:hasDiscipline edo:CivilEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:ThermalPower ;
-    skos:prefLabel "Cooling Tower"@en , "Torre de Resfriamento"@pt-br ;
-    skos:definition "Removes heat from water used in thermal power plants before recirculation or discharge."@en ,
-                    "Remove calor da água usada em usinas térmicas antes da recirculação ou descarte."@pt-br ;
-    dcterms:identifier "CoolingTower" .
-
+###  https://w3id.org/energy-domain/edo-sandbox#Condenser
 sandbox:Condenser rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:EquipmentEngineering ;
-    edo:hasDomain edo:ThermalPower ;
-    skos:prefLabel "Condenser"@en , "Condensador"@pt-br ;
-    skos:definition "Condenses steam from turbines back into water for reuse in boilers."@en ,
-                    "Condensa vapor das turbinas de volta em água para reutilização nas caldeiras."@pt-br ;
-    dcterms:identifier "Condenser" .
+                  rdfs:subClassOf sandbox:NuclearAuxiliaryEquipment ;
+                  dcterms:identifier "Condenser" ;
+                  skos:definition "Condensa vapor das turbinas de volta em água para reutilização nas caldeiras."@pt-br ,
+                                  "Condenses steam from turbines back into water for reuse in boilers."@en ;
+                  skos:prefLabel "Condensador"@pt-br ,
+                                 "Condenser"@en ;
+                  edo:hasDiscipline edo:EquipmentEngineering ,
+                                    edo:ProcessEngineering ;
+                  edo:hasDomain edo:ThermalPower .
 
-##################################################
-# Emerging / Future Tech
-##################################################
 
-sandbox:OTEC rdf:type owl:Class ;
-    edo:hasDiscipline edo:ProcessEngineering , edo:MechanicalEngineering ;
-    edo:hasDomain edo:OceanThermal ;
-    skos:prefLabel "Ocean Thermal Energy Converter"@en , "Conversor de Energia Térmica Oceânica"@pt-br ;
-    skos:definition "Generates electricity by exploiting the temperature difference between warm surface and cold deep ocean water."@en ,
-                    "Gera eletricidade explorando a diferença de temperatura entre a superfície quente e a água profunda fria do oceano."@pt-br ;
-    dcterms:identifier "OTEC" .
+###  https://w3id.org/energy-domain/edo-sandbox#CoolingTower
+sandbox:CoolingTower rdf:type owl:Class ;
+                     rdfs:subClassOf sandbox:NuclearAuxiliaryEquipment ;
+                     dcterms:identifier "CoolingTower" ;
+                     skos:definition "Remove calor da água usada em usinas térmicas antes da recirculação ou descarte."@pt-br ,
+                                     "Removes heat from water used in thermal power plants before recirculation or discharge."@en ;
+                     skos:prefLabel "Cooling Tower"@en ,
+                                    "Torre de Resfriamento"@pt-br ;
+                     edo:hasDiscipline edo:CivilEngineering ,
+                                       edo:ProcessEngineering ;
+                     edo:hasDomain edo:ThermalPower .
 
-sandbox:WaveEnergyConverter rdf:type owl:Class ;
-    edo:hasDiscipline edo:MechanicalEngineering , edo:ProcessEngineering ;
-    edo:hasDomain edo:Wave ;
-    skos:prefLabel "Wave Energy Converter"@en , "Conversor de Energia das Ondas"@pt-br ;
-    skos:definition "Converts kinetic energy from ocean waves into electricity."@en ,
-                    "Converte energia cinética das ondas do oceano em eletricidade."@pt-br ;
-    dcterms:identifier "WaveEnergyConverter" .
 
+###  https://w3id.org/energy-domain/edo-sandbox#DamStructure
+sandbox:DamStructure rdf:type owl:Class ;
+                     rdfs:subClassOf edo:Structure ;
+                     dcterms:identifier "DamStructure" ;
+                     skos:definition "Fornece contenção de água, controle de enchentes e suporte à infraestrutura hidrelétrica."@pt-br ,
+                                     "Provides water containment, flood control, and hydro infrastructure support."@en ;
+                     skos:prefLabel "Dam Structure"@en ,
+                                    "Estrutura de Barragem"@pt-br ;
+                     edo:hasDiscipline edo:CivilEngineering ;
+                     edo:hasDomain edo:LargeHydropower .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#DistillationColumn
+sandbox:DistillationColumn rdf:type owl:Class ;
+                           rdfs:subClassOf sandbox:RefineryAuxiliary ;
+                           dcterms:identifier "DistillationColumn" ;
+                           skos:definition "Separa o petróleo cru em frações com base nos pontos de ebulição para refino."@pt-br ,
+                                           "Separates crude oil into fractions based on boiling points for refining."@en ;
+                           skos:prefLabel "Coluna de Destilação"@pt-br ,
+                                          "Distillation Column"@en ;
+                           edo:hasDiscipline edo:ProcessEngineering ,
+                                             edo:ProcessPipingEngineering ;
+                           edo:hasDomain edo:Downstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#Electrolyzer
+sandbox:Electrolyzer rdf:type owl:Class ;
+                     rdfs:subClassOf sandbox:HydrogenAuxiliaryEquipment ;
+                     dcterms:identifier "Electrolyzer" ;
+                     skos:definition "Divide a água em hidrogênio e oxigênio usando eletricidade, permitindo a produção de combustível de hidrogênio."@pt-br ,
+                                     "Splits water into hydrogen and oxygen using electricity, enabling hydrogen fuel production."@en ;
+                     skos:prefLabel "Electrolyzer"@en ,
+                                    "Eletrólise"@pt-br ;
+                     edo:hasDiscipline edo:ElectricalEngineering ,
+                                       edo:ProcessEngineering ;
+                     edo:hasDomain edo:HydrogenEnergy .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#EnergyStorageEquipment
+sandbox:EnergyStorageEquipment rdf:type owl:Class ;
+                               rdfs:subClassOf edo:Equipment ;
+                               dcterms:identifier "EnergyStorage" ;
+                               skos:definition "Equipamento projetado para armazenar energia para uso posterior, incluindo baterias, térmico, hidroelétrico bombeado ou sistemas de ar comprimido."@pt-br ,
+                                               "Equipment designed to store energy for later use, including batteries, thermal, pumped hydro, or compressed air systems."@en ;
+                               skos:prefLabel "Energy Storage Equipment"@en ,
+                                              "Equipamento de Armazenamento de Energia"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#FloatingSolarArray
 sandbox:FloatingSolarArray rdf:type owl:Class ;
-    edo:hasDiscipline edo:ElectricalEngineering , edo:CivilEngineering ;
-    edo:hasDomain edo:Photovoltaic ;
-    skos:prefLabel "Floating Solar Array"@en , "Arranjo Solar Flutuante"@pt-br ;
-    skos:definition "Solar panels mounted on floating platforms to generate electricity over water surfaces."@en ,
-                    "Painéis solares montados em plataformas flutuantes para gerar eletricidade sobre superfícies de água."@pt-br ;
-    dcterms:identifier "FloatingSolarArray" .
-
-
-
-
-
-
-
-
-
-# ============================================================
-# === Solar ===
-# ============================================================
-
-sandbox:SolarGeneratorEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Solar Generator Equipment"@en ;
-    skos:prefLabel "Equipmento Gerador Solar"@pt-br ;
-    skos:definition "Equipment that generates electricity directly from solar energy."@en ;
-    skos:definition "Equipamento que gera eletricidade diretamente a partir da energia solar."@pt-br ;
-    dcterms:identifier "SolarGenerator" .
-
-sandbox:SolarAuxiliaryEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Solar Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar Solar"@pt-br ;
-    skos:definition "Auxiliary equipment supporting the operation of solar power systems."@en ;
-    skos:definition "Equipamento auxiliar que suporta a operação de sistemas de energia solar."@pt-br ;
-    dcterms:identifier "SolarAuxiliary" .
-
-# ============================================================
-# === Htdro ===
-# ============================================================
-
-sandbox:HydroGeneratorEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Hydro Generator Equipment"@en ;
-    skos:prefLabel "Equipamento Gerador Hidráulico"@pt-br ;
-    skos:definition "Equipment that generates electricity from water flow, including turbines and associated generator systems."@en ;
-    skos:definition "Equipamento que gera eletricidade a partir do fluxo de água, incluindo turbinas e sistemas de geradores associados."@pt-br ;
-    dcterms:identifier "HydroGeneratorEquipment" .
-
-# ============================================================
-# === Eólica ===
-# ============================================================
-
-sandbox:WindGeneratorEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Wind Generator Equipment"@en ;
-    skos:prefLabel "Equipamento Gerador Eólico"@pt-br ;
-    skos:definition "Equipment that generates electricity directly from wind energy."@en ;
-    skos:definition "Equipamento que gera eletricidade diretamente a partir da energia eólica."@pt-br ;
-    dcterms:identifier "WindGeneratorEquipment" .
-
-sandbox:WindAuxiliaryEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Wind Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar Eólico"@pt-br ;
-    skos:definition "Auxiliary equipment supporting the operation of wind power systems."@en ;
-    skos:definition "Equipamento auxiliar que suporta a operação de sistemas de energia eólica."@pt-br ;
-    dcterms:identifier "WindAuxiliary" .
-
-# ============================================================
-# === Biomassa ===
-# ============================================================
-
-sandbox:BiomassGeneratorEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Biomass Generator Equipment"@en ;
-    skos:prefLabel "Equipamento Gerador de Biomassa"@pt-br ;
-    skos:definition "Equipment that generates electricity from biomass."@en ;
-    skos:definition "Equipamento que gera eletricidade a partir de biomassa."@pt-br ;
-    dcterms:identifier "BiomassGeneratorEquipment" .
-
-sandbox:BiomassAuxiliaryEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Biomass Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar de Biomassa"@pt-br ;
-    skos:definition "Auxiliary equipment supporting the operation of biomass power systems."@en ;
-    skos:definition "Equipamento auxiliar que suporta a operação de sistemas de energia de biomassa."@pt-br ;
-    dcterms:identifier "BiomassAuxiliary" .
-
-# ============================================================
-# === Geotérmica ===
-# ============================================================
-
-sandbox:GeothermalAuxiliaryEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Geothermal Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar Geotérmico"@pt-br ;
-    skos:definition "Auxiliary equipment supporting the operation of geothermal power systems."@en ;
-    skos:definition "Equipamento auxiliar que suporta a operação de sistemas de energia geotérmica."@pt-br ;
-    dcterms:identifier "GeothermalAuxiliary" .
-
-# ============================================================
-# === Energia Oceânica ===
-# ============================================================
-
-sandbox:OceanGeneratorEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Ocean Generator Equipment"@en ;
-    skos:prefLabel "Equipamento Gerador Oceânico"@pt-br ;
-    skos:definition "Equipment that generates electricity from ocean energy sources."@en ;
-    skos:definition "Equipamento que gera eletricidade a partir de fontes de energia oceânica."@pt-br ;
-    dcterms:identifier "OceanGeneratorEquipment" .
-
-# ============================================================
-# === Carbono / Captura ===
-# ============================================================
-
-sandbox:CarbonAuxiliaryEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Carbon Capture Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar de Captura de Carbono"@pt-br ;
-    skos:definition "Auxiliary equipment used in carbon capture, storage, and pipeline systems."@en ;
-    skos:definition "Equipamento auxiliar utilizado em sistemas de captura, armazenamento e transporte de carbono."@pt-br ;
-    dcterms:identifier "CarbonAuxiliary" .
-
-# ============================================================
-# === Hidrogênio e química ===
-# ============================================================
-# sandbox:SolarGeneratorEquipment
-sandbox:HydrogenGeneratorEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Hydrogen Generator Equipment"@en ;
-    skos:prefLabel "Equipamento Gerador a Hidrogênio"@pt-br ;
-    skos:definition "Generator that produces electricity from hydrogen fuel cells."@en ;
-    skos:definition "Gerador que produz eletricidade a partir de células de hidrogênio combustível."@pt-br ;
-    dcterms:identifier "FuelCellGenerator" .
-
-sandbox:HydrogenAuxiliaryEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Hydrogen Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar de Hidrogênio"@pt-br ;
-    skos:definition "Auxiliary equipment used in hydrogen production, storage, or compression systems."@en ;
-    skos:definition "Equipamento auxiliar utilizado em sistemas de produção, armazenamento ou compressão de hidrogênio."@pt-br ;
-    dcterms:identifier "HydrogenAuxiliary" .
-
-# ============================================================
-# === Armazenamento de energia ===
-# ============================================================
-
-sandbox:EnergyStorageEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Energy Storage Equipment"@en ;
-    skos:prefLabel "Equipamento de Armazenamento de Energia"@pt-br ;
-    skos:definition "Equipment designed to store energy for later use, including batteries, thermal, pumped hydro, or compressed air systems."@en ;
-    skos:definition "Equipamento projetado para armazenar energia para uso posterior, incluindo baterias, térmico, hidroelétrico bombeado ou sistemas de ar comprimido."@pt-br ;
-    dcterms:identifier "EnergyStorage" .
-
-# ============================================================
-# === Nuclear ===
-# ============================================================
-
-sandbox:NuclearGeneratorEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Nuclear Generator Equipment"@en ;
-    skos:prefLabel "Equipmento Gerador Nuclear"@pt-br ;
-    skos:definition "Equipment that generates electricity from nuclear reactions."@en ;
-    skos:definition "Equipamento que gera eletricidade a partir de reações nucleares."@pt-br ;
-    dcterms:identifier "NuclearGenerator" .
-
-sandbox:NuclearAuxiliaryEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Nuclear Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar Nuclear"@pt-br ;
-    skos:definition "Auxiliary equipment supporting the operation of nuclear power systems."@en ;
-    skos:definition "Equipamento auxiliar que suporta a operação de sistemas de energia nuclear."@pt-br ;
-    dcterms:identifier "NuclearAuxiliary" .
-
-# ============================================================
-# === Energia térmica convencional ===
-# ============================================================
-
-sandbox:ThermalAuxiliaryEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Thermal Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar Térmico"@pt-br ;
-    skos:definition "Auxiliary equipment supporting the operation of thermal power systems."@en ;
-    skos:definition "Equipamento auxiliar que suporta a operação de sistemas de energia térmica."@pt-br ;
-    dcterms:identifier "ThermalAuxiliary" .
-
-# ============================================================
-# === Refinaria / Midstream / Topside ===
-# ============================================================
-
-sandbox:RefineryAuxiliary a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Refinery Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar de Refinaria"@pt-br ;
-    skos:definition "Auxiliary equipment supporting refining operations."@en ;
-    skos:definition "Equipamento auxiliar que suporta operações de refinaria."@pt-br ;
-    dcterms:identifier "RefineryAuxiliary" .
-
-sandbox:MidstreamAuxiliary a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Midstream Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar de Midstream"@pt-br ;
-    skos:definition "Auxiliary equipment supporting midstream oil and gas operations."@en ;
-    skos:definition "Equipamento auxiliar que suporta operações de óleo e gás midstream."@pt-br ;
-    dcterms:identifier "MidstreamAuxiliary" .
-
-sandbox:TopsideAuxiliary a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Topside Auxiliary Equipment"@en ;
-    skos:prefLabel "Equipamento Auxiliar Topside"@pt-br ;
-    skos:definition "Auxiliary equipment supporting topside oil and gas operations."@en ;
-    skos:definition "Equipamento auxiliar que suporta operações topside de óleo e gás."@pt-br ;
-    dcterms:identifier "TopsideAuxiliary" .
-
-
-
-sandbox:SolarPanel rdfs:subClassOf sandbox:SolarGeneratorEquipment .
-sandbox:FloatingSolarArray rdfs:subClassOf sandbox:SolarGeneratorEquipment .
-sandbox:SolarTracker rdfs:subClassOf sandbox:SolarAuxiliaryEquipment .
-sandbox:SolarRack rdfs:subClassOf sandbox:SolarAuxiliaryEquipment .
-sandbox:SolarInverter rdfs:subClassOf sandbox:SolarAuxiliaryEquipment .
-
-sandbox:WindGenerator rdfs:subClassOf sandbox:WindGeneratorEquipment .
-sandbox:WindTurbine rdfs:subClassOf sandbox:WindGeneratorEquipment .
-sandbox:WindGearbox rdfs:subClassOf sandbox:WindAuxiliaryEquipment .
-sandbox:WindTower rdfs:subClassOf sandbox:WindAuxiliaryEquipment .
-sandbox:WindFoundation rdfs:subClassOf edo:Structure .
-
-sandbox:HydroGenerator rdfs:subClassOf sandbox:HydroGeneratorEquipment .
-sandbox:HydroTurbine rdfs:subClassOf sandbox:HydroGeneratorEquipment .
-sandbox:HydroValve rdfs:subClassOf edo:Valve .
-sandbox:DamStructure rdfs:subClassOf edo:Structure .
-sandbox:Penstock rdfs:subClassOf edo:PipeSegment .
-
-sandbox:BiomassTurbine rdfs:subClassOf sandbox:BiomassGeneratorEquipment .
-sandbox:BiomassBoiler rdfs:subClassOf sandbox:BiomassAuxiliaryEquipment .
-sandbox:BiomassConveyor rdfs:subClassOf sandbox:BiomassAuxiliaryEquipment .
-
-sandbox:GeothermalPump rdfs:subClassOf edo:PowerMachine .
-sandbox:GeothermalWell rdfs:subClassOf sandbox:GeothermalAuxiliaryEquipment .
-
-sandbox:OTEC rdfs:subClassOf sandbox:OceanGeneratorEquipment .
-sandbox:WaveEnergyConverter rdfs:subClassOf sandbox:OceanGeneratorEquipment .
-
-sandbox:CarbonMonitoringSensor rdfs:subClassOf edo:Sensor .
-sandbox:CarbonStorageTank rdfs:subClassOf sandbox:CarbonAuxiliaryEquipment .
-sandbox:CarbonPipeline rdfs:subClassOf edo:TransportLineSegment .
-sandbox:CO2CaptureUnit rdfs:subClassOf sandbox:CarbonAuxiliaryEquipment .
-
-sandbox:FuelCellGenerator rdfs:subClassOf sandbox:HydrogenGeneratorEquipment .
-sandbox:HydrogenCompressor rdfs:subClassOf sandbox:HydrogenAuxiliaryEquipment .
-sandbox:HydrogenStorageTank rdfs:subClassOf sandbox:HydrogenAuxiliaryEquipment .
-sandbox:Electrolyzer rdfs:subClassOf sandbox:HydrogenAuxiliaryEquipment .
-
-sandbox:CompressedAirStorage rdfs:subClassOf sandbox:EnergyStorageEquipment .
-sandbox:PumpedHydroStorage rdfs:subClassOf sandbox:EnergyStorageEquipment .
-sandbox:BatteryEnergyStorage rdfs:subClassOf sandbox:EnergyStorageEquipment .
-sandbox:ThermalStorage rdfs:subClassOf sandbox:EnergyStorageEquipment .
-
-sandbox:SteamGeneratorNuclear rdfs:subClassOf sandbox:NuclearGeneratorEquipment .
-sandbox:NuclearPump rdfs:subClassOf edo:PowerMachine .
-sandbox:NuclearReactor rdfs:subClassOf sandbox:NuclearGeneratorEquipment .
-sandbox:Pressurizer rdfs:subClassOf sandbox:NuclearAuxiliaryEquipment .
-sandbox:CoolingTower rdfs:subClassOf sandbox:NuclearAuxiliaryEquipment .
-sandbox:Condenser rdfs:subClassOf sandbox:NuclearAuxiliaryEquipment .
-
-sandbox:ThermalBoiler rdfs:subClassOf sandbox:ThermalAuxiliaryEquipment .
-sandbox:ThermalTurbine rdfs:subClassOf edo:PowerMachine .
-
-sandbox:RefineryPump rdfs:subClassOf sandbox:RefineryAuxiliary .
-sandbox:HeatExchanger rdfs:subClassOf sandbox:RefineryAuxiliary .
-sandbox:DistillationColumn rdfs:subClassOf sandbox:RefineryAuxiliary .
-sandbox:RefineryValve rdfs:subClassOf edo:Valve .
-sandbox:MidstreamCompressor rdfs:subClassOf sandbox:MidstreamAuxiliary .
-sandbox:MidstreamValve rdfs:subClassOf edo:Valve .
-sandbox:MidstreamPump rdfs:subClassOf sandbox:MidstreamAuxiliary .
-sandbox:TopsideValve rdfs:subClassOf edo:Valve .
-sandbox:TopsidePump rdfs:subClassOf sandbox:TopsideAuxiliary .
-
-
-
-
-
-
-
-
-
-
-sandbox:BiofuelPlant a sandbox:BiofuelPlant ;
-    rdfs:subClassOf sandbox:BiomassGeneratorEquipment ;
-    skos:prefLabel "Biofuel Plant"@en , "Planta de Biocombustível"@pt ;
-    skos:definition "A facility where biomass is processed to produce liquid biofuels such as ethanol, biodiesel, or HVO, for use in transportation or energy generation."@en ;
-    skos:definition "Uma instalação onde a biomassa é processada para produzir biocombustíveis líquidos como etanol, biodiesel ou HVO, para uso em transporte ou geração de energia."@pt ;
-    dcterms:identifier "BiofuelPlant" ;
-    edo:hasDomain edo:Biofuels .
-
-sandbox:BiogasDigester a sandbox:BiogasDigester ;
-    rdfs:subClassOf sandbox:BiomassGeneratorEquipment ;
-    skos:prefLabel "Biogas Digester"@en , "Digestor de Biogás"@pt ;
-    skos:definition "A system that processes organic waste or biomass anaerobically to produce biogas, primarily composed of methane and carbon dioxide, for energy generation or heating applications."@en ;
-    skos:definition "Um sistema que processa resíduos orgânicos ou biomassa anaerobicamente para produzir biogás, composto principalmente por metano e dióxido de carbono, para geração de energia ou aplicações de aquecimento."@pt ;
-    dcterms:identifier "BiogasDigester" ;
-    edo:hasDomain edo:Biogas .
-
-sandbox:WasteToEnergyPlant a sandbox:WasteToEnergyPlant ;
-    rdfs:subClassOf sandbox:BiomassGeneratorEquipment ;
-    skos:prefLabel "Waste to Energy Plant"@en , "Planta de Resíduos para Energia"@pt ;
-    skos:definition "A facility that converts municipal or industrial organic waste into usable energy, typically through combustion, gasification, or anaerobic digestion, producing electricity or heat."@en ;
-    skos:definition "Uma instalação que converte resíduos orgânicos municipais ou industriais em energia utilizável, normalmente por combustão, gaseificação ou digestão anaeróbica, produzindo eletricidade ou calor."@pt ;
-    dcterms:identifier "WasteToEnergyPlant" ;
-    edo:hasDomain edo:WasteToEnergy .
-
-sandbox:GeothermalInjector a sandbox:GeothermalInjector ;
-    rdfs:subClassOf sandbox:GeothermalAuxiliaryEquipment ;
-    skos:prefLabel "Geothermal Injector"@en , "Injetor Geotérmico"@pt ;
-    skos:definition "Equipment used in enhanced geothermal systems to inject fluids into geothermal reservoirs, improving heat extraction efficiency for electricity generation or direct heating."@en ;
-    skos:definition "Equipamento utilizado em sistemas geotérmicos aprimorados para injetar fluidos em reservatórios geotérmicos, melhorando a eficiência de extração de calor para geração de eletricidade ou aquecimento direto."@pt ;
-    dcterms:identifier "GeothermalInjector" ;
-    edo:hasDomain edo:EnhancedGeothermalSystems .
-
-sandbox:SolarWindHybridArray a sandbox:SolarWindHybridArray ;
-    rdfs:subClassOf sandbox:HybridGeneratorEquipment ;
-    skos:prefLabel "Solar Wind Hybrid Array"@en , "Arranjo Híbrido Solar e Eólico"@pt ;
-    skos:definition "A combined renewable energy installation integrating solar panels and wind turbines in a single site to maximize energy generation and optimize resource use."@en ;
-    skos:definition "Uma instalação de energia renovável combinada que integra painéis solares e turbinas eólicas em um único local para maximizar a geração de energia e otimizar o uso de recursos."@pt ;
-    dcterms:identifier "SolarWindHybridArray" ;
-    edo:hasDomain edo:HybridRenewables .
-
-sandbox:CSPCollector a sandbox:CSPCollector ;
-    rdfs:subClassOf sandbox:SolarAuxiliaryEquipment ;
-    skos:prefLabel "CSP Collector"@en , "Coletor CSP"@pt ;
-    skos:definition "A Concentrated Solar Power (CSP) collector designed to concentrate sunlight onto a receiver to generate heat for electricity production."@en ;
-    skos:definition "Um coletor de Energia Solar Concentrada (CSP) projetado para concentrar a luz solar em um receptor para gerar calor para produção de eletricidade."@pt ;
-    dcterms:identifier "CSPCollector" ;
-    edo:hasDomain edo:SolarThermal .
-
-sandbox:SolarWaterHeater a sandbox:SolarWaterHeater ;
-    rdfs:subClassOf sandbox:SolarAuxiliaryEquipment ;
-    skos:prefLabel "Solar Water Heater"@en , "Aquecedor Solar de Água"@pt ;
-    skos:definition "A system that captures solar energy to heat water for residential, commercial, or industrial use, representing low-temperature solar thermal applications."@en ;
-    skos:definition "Um sistema que captura a energia solar para aquecer água para uso residencial, comercial ou industrial, representando aplicações solares térmicas de baixa temperatura."@pt ;
-    dcterms:identifier "SolarWaterHeater" ;
-    edo:hasDomain edo:SolarHeatingCooling .
-
-sandbox:MicroWindTurbine a sandbox:MicroWindTurbine ;
-    rdfs:subClassOf sandbox:WindGeneratorEquipment ;
-    skos:prefLabel "Micro Wind Turbine"@en , "Microturbina Eólica"@pt ;
-    skos:definition "A small-scale wind turbine designed for decentralized electricity generation, typically for residential or small commercial installations."@en ;
-    skos:definition "Uma turbina eólica de pequena escala projetada para geração descentralizada de eletricidade, normalmente para instalações residenciais ou comerciais pequenas."@pt ;
-    dcterms:identifier "MicroWindTurbine" ;
-    edo:hasDomain edo:SmallWind .
-
-sandbox:OceanCurrentTurbine a sandbox:OceanCurrentTurbine ;
-    rdfs:subClassOf sandbox:OceanGeneratorEquipment ;
-    skos:prefLabel "Ocean Current Turbine"@en , "Turbina de Correntes Oceânicas"@pt ;
-    skos:definition "A turbine installed in ocean currents to convert kinetic energy of moving seawater into electricity, representing ocean current energy extraction."@en ;
-    skos:definition "Uma turbina instalada em correntes oceânicas para converter a energia cinética da água do mar em movimento em eletricidade, representando a extração de energia de correntes oceânicas."@pt ;
-    dcterms:identifier "OceanCurrentTurbine" ;
-    edo:hasDomain edo:OceanCurrents .
-
-sandbox:SalinityGradientPlant a sandbox:SalinityGradientPlant ;
-    rdfs:subClassOf sandbox:OceanGeneratorEquipment ;
-    skos:prefLabel "Salinity Gradient Plant"@en , "Planta de Gradiente de Salinidade"@pt ;
-    skos:definition "A facility that generates electricity by exploiting the osmotic pressure difference between freshwater and seawater, known as salinity gradient energy."@en ;
-    skos:definition "Uma instalação que gera eletricidade explorando a diferença de pressão osmótica entre água doce e água do mar, conhecida como energia de gradiente de salinidade."@pt ;
-    dcterms:identifier "SalinityGradientPlant" ;
-    edo:hasDomain edo:SalinityGradient .
-
-sandbox:TidalTurbine a sandbox:TidalTurbine ;
-    rdfs:subClassOf sandbox:OceanGeneratorEquipment ;
-    skos:prefLabel "Tidal Turbine"@en , "Turbina de Marés"@pt ;
-    skos:definition "A turbine designed to convert the kinetic energy of tidal currents into electricity, typically installed in estuaries or coastal areas."@en ;
-    skos:definition "Uma turbina projetada para converter a energia cinética das correntes de maré em eletricidade, normalmente instalada em estuários ou áreas costeiras."@pt ;
-    dcterms:identifier "TidalTurbine" ;
-    edo:hasDomain edo:Tidal .
-
-sandbox:HybridGeneratorEquipment a rdfs:Class ;
-    rdfs:subClassOf edo:Equipment ;
-    skos:prefLabel "Hybrid Generator Equipment"@en , "Equipamento Gerador Híbrido"@pt ;
-    skos:definition "A class of equipment representing generation systems that combine multiple renewable energy sources, such as solar and wind, in a single installation to optimize energy output and resource utilization."@en ;
-    skos:definition "Uma classe de equipamentos que representa sistemas de geração que combinam múltiplas fontes de energia renovável, como solar e eólica, em uma única instalação para otimizar a produção de energia e o uso de recursos."@pt ;
-    dcterms:identifier "HybridGeneratorEquipment" .
+                           rdfs:subClassOf sandbox:SolarGeneratorEquipment ;
+                           dcterms:identifier "FloatingSolarArray" ;
+                           skos:definition "Painéis solares montados em plataformas flutuantes para gerar eletricidade sobre superfícies de água."@pt-br ,
+                                           "Solar panels mounted on floating platforms to generate electricity over water surfaces."@en ;
+                           skos:prefLabel "Arranjo Solar Flutuante"@pt-br ,
+                                          "Floating Solar Array"@en ;
+                           edo:hasDiscipline edo:CivilEngineering ,
+                                             edo:ElectricalEngineering ;
+                           edo:hasDomain edo:Photovoltaic .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#FuelCellGenerator
+sandbox:FuelCellGenerator rdf:type owl:Class ;
+                          rdfs:subClassOf sandbox:HydrogenGeneratorEquipment ;
+                          dcterms:identifier "FuelCellGenerator" ;
+                          skos:definition "Generates electricity by converting hydrogen and oxygen into water in a fuel cell."@en ,
+                                          "Gera eletricidade convertendo hidrogênio e oxigênio em água em uma célula a combustível."@pt-br ;
+                          skos:prefLabel "Fuel Cell Generator"@en ,
+                                         "Gerador de Célula a Combustível"@pt-br ;
+                          edo:hasDiscipline edo:ElectricalEngineering ,
+                                            edo:ProcessEngineering ;
+                          edo:hasDomain edo:HydrogenEnergy .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#GeothermalAuxiliaryEquipment
+sandbox:GeothermalAuxiliaryEquipment rdf:type owl:Class ;
+                                     rdfs:subClassOf edo:Equipment ;
+                                     dcterms:identifier "GeothermalAuxiliary" ;
+                                     skos:definition "Auxiliary equipment supporting the operation of geothermal power systems."@en ,
+                                                     "Equipamento auxiliar que suporta a operação de sistemas de energia geotérmica."@pt-br ;
+                                     skos:prefLabel "Equipamento Auxiliar Geotérmico"@pt-br ,
+                                                    "Geothermal Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#GeothermalInjector
+sandbox:GeothermalInjector rdf:type owl:Class ;
+                           rdfs:subClassOf sandbox:GeothermalAuxiliaryEquipment ;
+                           dcterms:identifier "GeothermalInjector" ;
+                           skos:definition "Equipamento utilizado em sistemas geotérmicos aprimorados para injetar fluidos em reservatórios geotérmicos, melhorando a eficiência de extração de calor para geração de eletricidade ou aquecimento direto."@pt-br ,
+                                           "Equipment used in enhanced geothermal systems to inject fluids into geothermal reservoirs, improving heat extraction efficiency for electricity generation or direct heating."@en ;
+                           skos:prefLabel "Geothermal Injector"@en ,
+                                          "Injetor Geotérmico"@pt-br ;
+                           edo:hasDomain edo:EnhancedGeothermalSystems .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#GeothermalPump
+sandbox:GeothermalPump rdf:type owl:Class ;
+                       rdfs:subClassOf edo:PowerMachine ;
+                       dcterms:identifier "GeothermalPump" ;
+                       skos:definition "Circula fluidos geotérmicos através de trocadores de calor ou turbinas."@pt-br ,
+                                       "Circulates geothermal fluids through heat exchangers or turbines."@en ;
+                       skos:prefLabel "Bomba Geotérmica"@pt-br ,
+                                      "Geothermal Pump"@en ;
+                       edo:hasDiscipline edo:ProcessEngineering ,
+                                         edo:RotatingEquipmentEngineering ;
+                       edo:hasDomain edo:GeothermalElectricity .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#GeothermalWell
+sandbox:GeothermalWell rdf:type owl:Class ;
+                       rdfs:subClassOf sandbox:GeothermalAuxiliaryEquipment ;
+                       dcterms:identifier "GeothermalWell" ;
+                       skos:definition "Extracts geothermal fluids from underground reservoirs for power generation or heating."@en ,
+                                       "Extrai fluidos geotérmicos de reservatórios subterrâneos para geração de energia ou aquecimento."@pt-br ;
+                       skos:prefLabel "Geothermal Well"@en ,
+                                      "Poço Geotérmico"@pt-br ;
+                       edo:hasDiscipline edo:CivilEngineering ,
+                                         edo:ProcessEngineering ;
+                       edo:hasDomain edo:GeothermalDirectUse .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HeatExchanger
+sandbox:HeatExchanger rdf:type owl:Class ;
+                      rdfs:subClassOf sandbox:RefineryAuxiliary ;
+                      dcterms:identifier "HeatExchanger" ;
+                      skos:definition "Transfere calor entre correntes de processo para eficiência energética e segurança."@pt-br ,
+                                      "Transfers heat between process streams for energy efficiency and safety."@en ;
+                      skos:prefLabel "Heat Exchanger"@en ,
+                                     "Trocador de Calor"@pt-br ;
+                      edo:hasDiscipline edo:EquipmentEngineering ,
+                                        edo:ProcessEngineering ;
+                      edo:hasDomain edo:Downstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HybridGeneratorEquipment
+sandbox:HybridGeneratorEquipment rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:Equipment ;
+                                 dcterms:identifier "HybridGeneratorEquipment" ;
+                                 skos:definition "A class of equipment representing generation systems that combine multiple renewable energy sources, such as solar and wind, in a single installation to optimize energy output and resource utilization."@en ,
+                                                 "Uma classe de equipamentos que representa sistemas de geração que combinam múltiplas fontes de energia renovável, como solar e eólica, em uma única instalação para otimizar a produção de energia e o uso de recursos."@pt-br ;
+                                 skos:prefLabel "Equipamento Gerador Híbrido"@pt-br ,
+                                                "Hybrid Generator Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HydroGenerator
+sandbox:HydroGenerator rdf:type owl:Class ;
+                       rdfs:subClassOf sandbox:HydroGeneratorEquipment ;
+                       dcterms:identifier "HydroGenerator" ;
+                       skos:definition "Converte energia mecânica da turbina em eletricidade para distribuição."@pt-br ,
+                                       "Converts turbine mechanical energy into electricity for distribution."@en ;
+                       skos:prefLabel "Gerador Hidrelétrico"@pt-br ,
+                                      "Hydro Generator"@en ;
+                       edo:hasDiscipline edo:ElectricalEngineering ;
+                       edo:hasDomain edo:PumpedStorage .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HydroGeneratorEquipment
+sandbox:HydroGeneratorEquipment rdf:type owl:Class ;
+                                rdfs:subClassOf edo:Equipment ;
+                                dcterms:identifier "HydroGeneratorEquipment" ;
+                                skos:definition "Equipamento que gera eletricidade a partir do fluxo de água, incluindo turbinas e sistemas de geradores associados."@pt-br ,
+                                                "Equipment that generates electricity from water flow, including turbines and associated generator systems."@en ;
+                                skos:prefLabel "Equipamento Gerador Hidráulico"@pt-br ,
+                                               "Hydro Generator Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HydroTurbine
+sandbox:HydroTurbine rdf:type owl:Class ;
+                     rdfs:subClassOf sandbox:HydroGeneratorEquipment ;
+                     dcterms:identifier "HydroTurbine" ;
+                     skos:definition "Converte fluxo de água em energia mecânica que aciona geradores."@pt-br ,
+                                     "Converts water flow into mechanical energy driving generators."@en ;
+                     skos:prefLabel "Hydro Turbine"@en ,
+                                    "Turbina Hidrelétrica"@pt-br ;
+                     edo:hasDiscipline edo:ProcessEngineering ,
+                                       edo:RotatingEquipmentEngineering ;
+                     edo:hasDomain edo:LargeHydropower .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HydroValve
+sandbox:HydroValve rdf:type owl:Class ;
+                   rdfs:subClassOf edo:Valve ;
+                   dcterms:identifier "HydroValve" ;
+                   skos:definition "Regula o fluxo de água para segurança e eficiência."@pt-br ,
+                                   "Regulates water flow for safety and efficiency."@en ;
+                   skos:prefLabel "Hydro Valve"@en ,
+                                  "Válvula Hidrelétrica"@pt-br ;
+                   edo:hasDiscipline edo:AutomationControlEngineering ,
+                                     edo:ProcessPipingEngineering ;
+                   edo:hasDomain edo:RunOfRiver .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HydrogenAuxiliaryEquipment
+sandbox:HydrogenAuxiliaryEquipment rdf:type owl:Class ;
+                                   rdfs:subClassOf edo:Equipment ;
+                                   dcterms:identifier "HydrogenAuxiliary" ;
+                                   skos:definition "Auxiliary equipment used in hydrogen production, storage, or compression systems."@en ,
+                                                   "Equipamento auxiliar utilizado em sistemas de produção, armazenamento ou compressão de hidrogênio."@pt-br ;
+                                   skos:prefLabel "Equipamento Auxiliar de Hidrogênio"@pt-br ,
+                                                  "Hydrogen Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HydrogenCompressor
+sandbox:HydrogenCompressor rdf:type owl:Class ;
+                           rdfs:subClassOf sandbox:HydrogenAuxiliaryEquipment ;
+                           dcterms:identifier "HydrogenCompressor" ;
+                           skos:definition "Pressuriza hidrogênio para armazenamento ou transporte em dutos."@pt-br ,
+                                           "Pressurizes hydrogen for storage or pipeline transport."@en ;
+                           skos:prefLabel "Compressor de Hidrogênio"@pt-br ,
+                                          "Hydrogen Compressor"@en ;
+                           edo:hasDiscipline edo:ProcessEngineering ,
+                                             edo:RotatingEquipmentEngineering ;
+                           edo:hasDomain edo:HydrogenEnergy .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HydrogenGeneratorEquipment
+sandbox:HydrogenGeneratorEquipment rdf:type owl:Class ;
+                                   rdfs:subClassOf edo:Equipment ;
+                                   dcterms:identifier "FuelCellGenerator" ;
+                                   skos:definition "Generator that produces electricity from hydrogen fuel cells."@en ,
+                                                   "Gerador que produz eletricidade a partir de células de hidrogênio combustível."@pt-br ;
+                                   skos:prefLabel "Equipamento Gerador a Hidrogênio"@pt-br ,
+                                                  "Hydrogen Generator Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#HydrogenStorageTank
+sandbox:HydrogenStorageTank rdf:type owl:Class ;
+                            rdfs:subClassOf sandbox:HydrogenAuxiliaryEquipment ;
+                            dcterms:identifier "HydrogenStorageTank" ;
+                            skos:definition "Armazena hidrogênio de forma segura para uso posterior em geração de energia ou células a combustível."@pt-br ,
+                                            "Stores hydrogen safely for later use in power generation or fuel cells."@en ;
+                            skos:prefLabel "Hydrogen Storage Tank"@en ,
+                                           "Tanque de Armazenamento de Hidrogênio"@pt-br ;
+                            edo:hasDiscipline edo:EquipmentEngineering ,
+                                              edo:ProcessEngineering ;
+                            edo:hasDomain edo:HydrogenEnergy .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#MicroWindTurbine
+sandbox:MicroWindTurbine rdf:type owl:Class ;
+                         rdfs:subClassOf sandbox:WindGeneratorEquipment ;
+                         dcterms:identifier "MicroWindTurbine" ;
+                         skos:definition "A small-scale wind turbine designed for decentralized electricity generation, typically for residential or small commercial installations."@en ,
+                                         "Uma turbina eólica de pequena escala projetada para geração descentralizada de eletricidade, normalmente para instalações residenciais ou comerciais pequenas."@pt-br ;
+                         skos:prefLabel "Micro Wind Turbine"@en ,
+                                        "Microturbina Eólica"@pt-br ;
+                         edo:hasDomain edo:SmallWind .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#MidstreamAuxiliary
+sandbox:MidstreamAuxiliary rdf:type owl:Class ;
+                           rdfs:subClassOf edo:Equipment ;
+                           dcterms:identifier "MidstreamAuxiliary" ;
+                           skos:definition "Auxiliary equipment supporting midstream oil and gas operations."@en ,
+                                           "Equipamento auxiliar que suporta operações de óleo e gás midstream."@pt-br ;
+                           skos:prefLabel "Equipamento Auxiliar de Midstream"@pt-br ,
+                                          "Midstream Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#MidstreamCompressor
+sandbox:MidstreamCompressor rdf:type owl:Class ;
+                            rdfs:subClassOf sandbox:MidstreamAuxiliary ;
+                            dcterms:identifier "MidstreamCompressor" ;
+                            skos:definition "Pressuriza o gás nos oleodutos para eficiência no transporte."@pt-br ,
+                                            "Pressurizes gas in pipelines for transport efficiency."@en ;
+                            skos:prefLabel "Compressor Midstream"@pt-br ,
+                                           "Midstream Compressor"@en ;
+                            edo:hasDiscipline edo:ProcessEngineering ,
+                                              edo:RotatingEquipmentEngineering ;
+                            edo:hasDomain edo:Midstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#MidstreamPump
+sandbox:MidstreamPump rdf:type owl:Class ;
+                      rdfs:subClassOf sandbox:MidstreamAuxiliary ;
+                      dcterms:identifier "MidstreamPump" ;
+                      skos:definition "Transfere hidrocarbonetos em oleodutos entre instalações upstream e downstream."@pt-br ,
+                                      "Transfers hydrocarbons in pipelines between upstream and downstream facilities."@en ;
+                      skos:prefLabel "Bomba Midstream"@pt-br ,
+                                     "Midstream Pump"@en ;
+                      edo:hasDiscipline edo:ProcessEngineering ,
+                                        edo:RotatingEquipmentEngineering ;
+                      edo:hasDomain edo:Midstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#MidstreamValve
+sandbox:MidstreamValve rdf:type owl:Class ;
+                       rdfs:subClassOf edo:Valve ;
+                       dcterms:identifier "MidstreamValve" ;
+                       skos:definition "Controla o fluxo em redes de oleodutos midstream para hidrocarbonetos."@pt-br ,
+                                       "Controls flow in midstream pipeline networks for hydrocarbons."@en ;
+                       skos:prefLabel "Midstream Valve"@en ,
+                                      "Válvula Midstream"@pt-br ;
+                       edo:hasDiscipline edo:AutomationControlEngineering ,
+                                         edo:ProcessPipingEngineering ;
+                       edo:hasDomain edo:Midstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#NuclearAuxiliaryEquipment
+sandbox:NuclearAuxiliaryEquipment rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:Equipment ;
+                                  dcterms:identifier "NuclearAuxiliary" ;
+                                  skos:definition "Auxiliary equipment supporting the operation of nuclear power systems."@en ,
+                                                  "Equipamento auxiliar que suporta a operação de sistemas de energia nuclear."@pt-br ;
+                                  skos:prefLabel "Equipamento Auxiliar Nuclear"@pt-br ,
+                                                 "Nuclear Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#NuclearGeneratorEquipment
+sandbox:NuclearGeneratorEquipment rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:Equipment ;
+                                  dcterms:identifier "NuclearGenerator" ;
+                                  skos:definition "Equipamento que gera eletricidade a partir de reações nucleares."@pt-br ,
+                                                  "Equipment that generates electricity from nuclear reactions."@en ;
+                                  skos:prefLabel "Equipmento Gerador Nuclear"@pt-br ,
+                                                 "Nuclear Generator Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#NuclearPump
+sandbox:NuclearPump rdf:type owl:Class ;
+                    rdfs:subClassOf edo:PowerMachine ;
+                    dcterms:identifier "NuclearPump" ;
+                    skos:definition "Circula o refrigerante no reator e nos circuitos de transporte de calor."@pt-br ,
+                                    "Circulates coolant in the reactor and heat transport loops."@en ;
+                    skos:prefLabel "Bomba Nuclear"@pt-br ,
+                                   "Nuclear Pump"@en ;
+                    edo:hasDiscipline edo:ProcessEngineering ,
+                                      edo:RotatingEquipmentEngineering ;
+                    edo:hasDomain edo:NuclearPowerGeneration .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#NuclearReactor
+sandbox:NuclearReactor rdf:type owl:Class ;
+                       rdfs:subClassOf sandbox:NuclearGeneratorEquipment ;
+                       dcterms:identifier "NuclearReactor" ;
+                       skos:definition "Generates heat through controlled nuclear fission for power production."@en ,
+                                       "Gera calor através da fissão nuclear controlada para produção de energia."@pt-br ;
+                       skos:prefLabel "Nuclear Reactor"@en ,
+                                      "Reator Nuclear"@pt-br ;
+                       edo:hasDiscipline edo:EquipmentEngineering ,
+                                         edo:ProcessEngineering ,
+                                         edo:SafetyLossPreventionEngineering ;
+                       edo:hasDomain edo:NuclearPowerGeneration .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#OTEC
+sandbox:OTEC rdf:type owl:Class ;
+             rdfs:subClassOf sandbox:OceanGeneratorEquipment ;
+             dcterms:identifier "OTEC" ;
+             skos:definition "Generates electricity by exploiting the temperature difference between warm surface and cold deep ocean water."@en ,
+                             "Gera eletricidade explorando a diferença de temperatura entre a superfície quente e a água profunda fria do oceano."@pt-br ;
+             skos:prefLabel "Conversor de Energia Térmica Oceânica"@pt-br ,
+                            "Ocean Thermal Energy Converter"@en ;
+             edo:hasDiscipline edo:MechanicalEngineering ,
+                               edo:ProcessEngineering ;
+             edo:hasDomain edo:OceanThermal .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#OceanCurrentTurbine
+sandbox:OceanCurrentTurbine rdf:type owl:Class ;
+                            rdfs:subClassOf sandbox:OceanGeneratorEquipment ;
+                            dcterms:identifier "OceanCurrentTurbine" ;
+                            skos:definition "A turbine installed in ocean currents to convert kinetic energy of moving seawater into electricity, representing ocean current energy extraction."@en ,
+                                            "Uma turbina instalada em correntes oceânicas para converter a energia cinética da água do mar em movimento em eletricidade, representando a extração de energia de correntes oceânicas."@pt-br ;
+                            skos:prefLabel "Ocean Current Turbine"@en ,
+                                           "Turbina de Correntes Oceânicas"@pt-br ;
+                            edo:hasDomain edo:OceanCurrents .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#OceanGeneratorEquipment
+sandbox:OceanGeneratorEquipment rdf:type owl:Class ;
+                                rdfs:subClassOf edo:Equipment ;
+                                dcterms:identifier "OceanGeneratorEquipment" ;
+                                skos:definition "Equipamento que gera eletricidade a partir de fontes de energia oceânica."@pt-br ,
+                                                "Equipment that generates electricity from ocean energy sources."@en ;
+                                skos:prefLabel "Equipamento Gerador Oceânico"@pt-br ,
+                                               "Ocean Generator Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#Penstock
+sandbox:Penstock rdf:type owl:Class ;
+                 rdfs:subClassOf edo:PipeSegment ;
+                 dcterms:identifier "Penstock" ;
+                 skos:definition "Direciona fluxo de água para turbinas, controlando pressão e vazão."@pt-br ,
+                                 "Directs water flow to turbines, controlling pressure and flow rate."@en ;
+                 skos:prefLabel "Conduto de Pressão"@pt-br ,
+                                "Penstock"@en ;
+                 edo:hasDiscipline edo:ProcessPipingEngineering ;
+                 edo:hasDomain edo:SmallHydropower .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#Pressurizer
+sandbox:Pressurizer rdf:type owl:Class ;
+                    rdfs:subClassOf sandbox:NuclearAuxiliaryEquipment ;
+                    dcterms:identifier "Pressurizer" ;
+                    skos:definition "Maintains reactor coolant system pressure within safe limits."@en ,
+                                    "Mantém a pressão do sistema de refrigeração do reator dentro de limites seguros."@pt-br ;
+                    skos:prefLabel "Pressurizador"@pt-br ,
+                                   "Pressurizer"@en ;
+                    edo:hasDiscipline edo:EquipmentEngineering ,
+                                      edo:ProcessEngineering ,
+                                      edo:SafetyLossPreventionEngineering ;
+                    edo:hasDomain edo:NuclearPowerGeneration .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#PumpedHydroStorage
+sandbox:PumpedHydroStorage rdf:type owl:Class ;
+                           rdfs:subClassOf sandbox:EnergyStorageEquipment ;
+                           dcterms:identifier "PumpedHydroStorage" ;
+                           skos:definition "Reservoir system that stores energy by pumping water to higher elevation and releasing it to generate electricity when needed."@en ,
+                                           "Sistema de reservatório que armazena energia bombeando água para elevação maior e liberando-a para gerar eletricidade quando necessário."@pt-br ;
+                           skos:prefLabel "Armazenamento Hidrelétrico Reversível"@pt-br ,
+                                          "Pumped Hydro Storage"@en ;
+                           edo:hasDiscipline edo:CivilEngineering ,
+                                             edo:ProcessEngineering ;
+                           edo:hasDomain edo:EnergyStorage .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#RefineryAuxiliary
+sandbox:RefineryAuxiliary rdf:type owl:Class ;
+                          rdfs:subClassOf edo:Equipment ;
+                          dcterms:identifier "RefineryAuxiliary" ;
+                          skos:definition "Auxiliary equipment supporting refining operations."@en ,
+                                          "Equipamento auxiliar que suporta operações de refinaria."@pt-br ;
+                          skos:prefLabel "Equipamento Auxiliar de Refinaria"@pt-br ,
+                                         "Refinery Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#RefineryPump
+sandbox:RefineryPump rdf:type owl:Class ;
+                     rdfs:subClassOf sandbox:RefineryAuxiliary ;
+                     dcterms:identifier "RefineryPump" ;
+                     skos:definition "Transfere fluidos entre unidades de processamento em uma refinaria."@pt-br ,
+                                     "Transfers fluids between processing units in a refinery."@en ;
+                     skos:prefLabel "Bomba de Refinaria"@pt-br ,
+                                    "Refinery Pump"@en ;
+                     edo:hasDiscipline edo:ProcessEngineering ,
+                                       edo:RotatingEquipmentEngineering ;
+                     edo:hasDomain edo:Downstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#RefineryValve
+sandbox:RefineryValve rdf:type owl:Class ;
+                      rdfs:subClassOf edo:Valve ;
+                      dcterms:identifier "RefineryValve" ;
+                      skos:definition "Controla o fluxo de hidrocarbonetos e utilidades nos processos de refino."@pt-br ,
+                                      "Controls flow of hydrocarbons and utilities in refining processes."@en ;
+                      skos:prefLabel "Refinery Valve"@en ,
+                                     "Válvula de Refinaria"@pt-br ;
+                      edo:hasDiscipline edo:AutomationControlEngineering ,
+                                        edo:ProcessPipingEngineering ;
+                      edo:hasDomain edo:Downstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SalinityGradientPlant
+sandbox:SalinityGradientPlant rdf:type owl:Class ;
+                              rdfs:subClassOf sandbox:OceanGeneratorEquipment ;
+                              dcterms:identifier "SalinityGradientPlant" ;
+                              skos:definition "A facility that generates electricity by exploiting the osmotic pressure difference between freshwater and seawater, known as salinity gradient energy."@en ,
+                                              "Uma instalação que gera eletricidade explorando a diferença de pressão osmótica entre água doce e água do mar, conhecida como energia de gradiente de salinidade."@pt-br ;
+                              skos:prefLabel "Planta de Gradiente de Salinidade"@pt-br ,
+                                             "Salinity Gradient Plant"@en ;
+                              edo:hasDomain edo:SalinityGradient .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SolarAuxiliaryEquipment
+sandbox:SolarAuxiliaryEquipment rdf:type owl:Class ;
+                                rdfs:subClassOf edo:Equipment ;
+                                dcterms:identifier "SolarAuxiliary" ;
+                                skos:definition "Auxiliary equipment supporting the operation of solar power systems."@en ,
+                                                "Equipamento auxiliar que suporta a operação de sistemas de energia solar."@pt-br ;
+                                skos:prefLabel "Equipamento Auxiliar Solar"@pt-br ,
+                                               "Solar Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SolarGeneratorEquipment
+sandbox:SolarGeneratorEquipment rdf:type owl:Class ;
+                                rdfs:subClassOf edo:Equipment ;
+                                dcterms:identifier "SolarGenerator" ;
+                                skos:definition "Equipamento que gera eletricidade diretamente a partir da energia solar."@pt-br ,
+                                                "Equipment that generates electricity directly from solar energy."@en ;
+                                skos:prefLabel "Equipmento Gerador Solar"@pt-br ,
+                                               "Solar Generator Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SolarInverter
+sandbox:SolarInverter rdf:type owl:Class ;
+                      rdfs:subClassOf sandbox:SolarAuxiliaryEquipment ;
+                      dcterms:identifier "SolarInverter" ;
+                      skos:definition "Converte eletricidade CC dos painéis solares em eletricidade CA para uso na rede ou local."@pt-br ,
+                                      "Converts DC electricity from solar panels into AC electricity for grid or local use."@en ;
+                      skos:prefLabel "Inversor Solar"@pt-br ,
+                                     "Solar Inverter"@en ;
+                      edo:hasDiscipline edo:ElectricalEngineering ,
+                                        edo:EquipmentEngineering ;
+                      edo:hasDomain edo:Photovoltaic .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SolarPanel
+sandbox:SolarPanel rdf:type owl:Class ;
+                   rdfs:subClassOf sandbox:SolarGeneratorEquipment ;
+                   dcterms:identifier "SolarPanel" ;
+                   skos:definition "A Solar Panel converts sunlight directly into electricity using photovoltaic cells. It is critical in solar power plants, enabling the capture and use of solar energy."@en ,
+                                   "Um Painel Solar converte a luz solar diretamente em eletricidade usando células fotovoltaicas. É fundamental em usinas solares, permitindo a captura e uso da energia solar."@pt-br ;
+                   skos:prefLabel "Painel Solar"@pt-br ,
+                                  "Solar Panel"@en ;
+                   edo:hasDiscipline edo:CivilEngineering ,
+                                     edo:ElectricalEngineering ,
+                                     edo:EquipmentEngineering ;
+                   edo:hasDomain edo:Photovoltaic .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SolarRack
+sandbox:SolarRack rdf:type owl:Class ;
+                  rdfs:subClassOf sandbox:SolarAuxiliaryEquipment ;
+                  dcterms:identifier "SolarRack" ;
+                  skos:definition "Estrutura que suporta e posiciona painéis solares para exposição ideal ao sol."@pt-br ,
+                                  "Structural frame supporting and positioning solar panels for optimal sun exposure."@en ;
+                  skos:prefLabel "Estrutura de Suporte Solar"@pt-br ,
+                                 "Solar Rack"@en ;
+                  edo:hasDiscipline edo:CivilEngineering ;
+                  edo:hasDomain edo:Photovoltaic .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SolarTracker
+sandbox:SolarTracker rdf:type owl:Class ;
+                     rdfs:subClassOf sandbox:SolarAuxiliaryEquipment ;
+                     dcterms:identifier "SolarTracker" ;
+                     skos:definition "Mecanismo que ajusta a posição dos painéis solares para seguir o sol e maximizar a captação de energia."@pt-br ,
+                                     "Mechanism that adjusts the position of solar panels to follow the sun for maximum energy capture."@en ;
+                     skos:prefLabel "Seguidor Solar"@pt-br ,
+                                    "Solar Tracker"@en ;
+                     edo:hasDiscipline edo:AutomationControlEngineering ,
+                                       edo:CivilEngineering ;
+                     edo:hasDomain edo:Photovoltaic .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SolarWaterHeater
+sandbox:SolarWaterHeater rdf:type owl:Class ;
+                         rdfs:subClassOf sandbox:SolarAuxiliaryEquipment ;
+                         dcterms:identifier "SolarWaterHeater" ;
+                         skos:definition "A system that captures solar energy to heat water for residential, commercial, or industrial use, representing low-temperature solar thermal applications."@en ,
+                                         "Um sistema que captura a energia solar para aquecer água para uso residencial, comercial ou industrial, representando aplicações solares térmicas de baixa temperatura."@pt-br ;
+                         skos:prefLabel "Aquecedor Solar de Água"@pt-br ,
+                                        "Solar Water Heater"@en ;
+                         edo:hasDomain edo:SolarHeatingCooling .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SolarWindHybridArray
+sandbox:SolarWindHybridArray rdf:type owl:Class ;
+                             rdfs:subClassOf sandbox:HybridGeneratorEquipment ;
+                             dcterms:identifier "SolarWindHybridArray" ;
+                             skos:definition "A combined renewable energy installation integrating solar panels and wind turbines in a single site to maximize energy generation and optimize resource use."@en ,
+                                             "Uma instalação de energia renovável combinada que integra painéis solares e turbinas eólicas em um único local para maximizar a geração de energia e otimizar o uso de recursos."@pt-br ;
+                             skos:prefLabel "Arranjo Híbrido Solar e Eólico"@pt-br ,
+                                            "Solar Wind Hybrid Array"@en ;
+                             edo:hasDomain edo:HybridRenewables .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#SteamGeneratorNuclear
+sandbox:SteamGeneratorNuclear rdf:type owl:Class ;
+                              rdfs:subClassOf sandbox:NuclearGeneratorEquipment ;
+                              dcterms:identifier "SteamGeneratorNuclear" ;
+                              skos:definition "Transfere calor do refrigerante do reator para produzir vapor para turbinas."@pt-br ,
+                                              "Transfers heat from reactor coolant to produce steam for turbines."@en ;
+                              skos:prefLabel "Gerador de Vapor Nuclear"@pt-br ,
+                                             "Nuclear Steam Generator"@en ;
+                              edo:hasDiscipline edo:EquipmentEngineering ,
+                                                edo:ProcessEngineering ;
+                              edo:hasDomain edo:NuclearPowerGeneration .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#ThermalAuxiliaryEquipment
+sandbox:ThermalAuxiliaryEquipment rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:Equipment ;
+                                  dcterms:identifier "ThermalAuxiliary" ;
+                                  skos:definition "Auxiliary equipment supporting the operation of thermal power systems."@en ,
+                                                  "Equipamento auxiliar que suporta a operação de sistemas de energia térmica."@pt-br ;
+                                  skos:prefLabel "Equipamento Auxiliar Térmico"@pt-br ,
+                                                 "Thermal Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#ThermalBoiler
+sandbox:ThermalBoiler rdf:type owl:Class ;
+                      rdfs:subClassOf sandbox:ThermalAuxiliaryEquipment ;
+                      dcterms:identifier "ThermalBoiler" ;
+                      skos:definition "Produces steam by burning fossil fuels to drive turbines for electricity generation."@en ,
+                                      "Produz vapor queimando combustíveis fósseis para acionar turbinas e gerar eletricidade."@pt-br ;
+                      skos:prefLabel "Caldeira Térmica"@pt-br ,
+                                     "Thermal Boiler"@en ;
+                      edo:hasDiscipline edo:EquipmentEngineering ,
+                                        edo:ProcessEngineering ;
+                      edo:hasDomain edo:ThermalPower .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#ThermalStorage
+sandbox:ThermalStorage rdf:type owl:Class ;
+                       rdfs:subClassOf sandbox:EnergyStorageEquipment ;
+                       dcterms:identifier "ThermalStorage" ;
+                       skos:definition "Armazena calor ou frio para uso posterior, melhorando eficiência energética e gestão de carga de pico."@pt-br ,
+                                       "Stores heat or cold for later use, improving energy efficiency and peak load management."@en ;
+                       skos:prefLabel "Armazenamento Térmico"@pt-br ,
+                                      "Thermal Storage"@en ;
+                       edo:hasDiscipline edo:EquipmentEngineering ,
+                                         edo:ProcessEngineering ;
+                       edo:hasDomain edo:EnergyStorage .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#ThermalTurbine
+sandbox:ThermalTurbine rdf:type owl:Class ;
+                       rdfs:subClassOf edo:PowerMachine ;
+                       dcterms:identifier "ThermalTurbine" ;
+                       skos:definition "Converte vapor de alta pressão em energia mecânica para acionar geradores."@pt-br ,
+                                       "Converts high-pressure steam into mechanical energy to drive generators."@en ;
+                       skos:prefLabel "Thermal Turbine"@en ,
+                                      "Turbina Térmica"@pt-br ;
+                       edo:hasDiscipline edo:ProcessEngineering ,
+                                         edo:RotatingEquipmentEngineering ;
+                       edo:hasDomain edo:ThermalPower .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#TidalTurbine
+sandbox:TidalTurbine rdf:type owl:Class ;
+                     rdfs:subClassOf sandbox:OceanGeneratorEquipment ;
+                     dcterms:identifier "TidalTurbine" ;
+                     skos:definition "A turbine designed to convert the kinetic energy of tidal currents into electricity, typically installed in estuaries or coastal areas."@en ,
+                                     "Uma turbina projetada para converter a energia cinética das correntes de maré em eletricidade, normalmente instalada em estuários ou áreas costeiras."@pt-br ;
+                     skos:prefLabel "Tidal Turbine"@en ,
+                                    "Turbina de Marés"@pt-br ;
+                     edo:hasDomain edo:Tidal .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#TopsideAuxiliary
+sandbox:TopsideAuxiliary rdf:type owl:Class ;
+                         rdfs:subClassOf edo:Equipment ;
+                         dcterms:identifier "TopsideAuxiliary" ;
+                         skos:definition "Auxiliary equipment supporting topside oil and gas operations."@en ,
+                                         "Equipamento auxiliar que suporta operações topside de óleo e gás."@pt-br ;
+                         skos:prefLabel "Equipamento Auxiliar Topside"@pt-br ,
+                                        "Topside Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#TopsidePump
+sandbox:TopsidePump rdf:type owl:Class ;
+                    rdfs:subClassOf sandbox:TopsideAuxiliary ;
+                    dcterms:identifier "TopsidePump" ;
+                    skos:definition "Transfere fluidos entre unidades de processo nas instalações topside."@pt-br ,
+                                    "Transfers fluids between process units on topside facilities."@en ;
+                    skos:prefLabel "Bomba Topside"@pt-br ,
+                                   "Topside Pump"@en ;
+                    edo:hasDiscipline edo:ProcessEngineering ,
+                                      edo:RotatingEquipmentEngineering ;
+                    edo:hasDomain edo:Upstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#TopsideValve
+sandbox:TopsideValve rdf:type owl:Class ;
+                     rdfs:subClassOf edo:Valve ;
+                     dcterms:identifier "TopsideValve" ;
+                     skos:definition "Controla o fluxo de óleo, gás ou água nos sistemas de processamento topside."@pt-br ,
+                                     "Controls flow of oil, gas, or water in topside processing systems."@en ;
+                     skos:prefLabel "Topside Valve"@en ,
+                                    "Válvula Topside"@pt-br ;
+                     edo:hasDiscipline edo:AutomationControlEngineering ,
+                                       edo:ProcessPipingEngineering ;
+                     edo:hasDomain edo:Upstream .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WasteToEnergyPlant
+sandbox:WasteToEnergyPlant rdf:type owl:Class ;
+                           rdfs:subClassOf sandbox:BiomassGeneratorEquipment ;
+                           dcterms:identifier "WasteToEnergyPlant" ;
+                           skos:definition "A facility that converts municipal or industrial organic waste into usable energy, typically through combustion, gasification, or anaerobic digestion, producing electricity or heat."@en ,
+                                           "Uma instalação que converte resíduos orgânicos municipais ou industriais em energia utilizável, normalmente por combustão, gaseificação ou digestão anaeróbica, produzindo eletricidade ou calor."@pt-br ;
+                           skos:prefLabel "Planta de Resíduos para Energia"@pt-br ,
+                                          "Waste to Energy Plant"@en ;
+                           edo:hasDomain edo:WasteToEnergy .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WaveEnergyConverter
+sandbox:WaveEnergyConverter rdf:type owl:Class ;
+                            rdfs:subClassOf sandbox:OceanGeneratorEquipment ;
+                            dcterms:identifier "WaveEnergyConverter" ;
+                            skos:definition "Converte energia cinética das ondas do oceano em eletricidade."@pt-br ,
+                                            "Converts kinetic energy from ocean waves into electricity."@en ;
+                            skos:prefLabel "Conversor de Energia das Ondas"@pt-br ,
+                                           "Wave Energy Converter"@en ;
+                            edo:hasDiscipline edo:MechanicalEngineering ,
+                                              edo:ProcessEngineering ;
+                            edo:hasDomain edo:Wave .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WindAuxiliaryEquipment
+sandbox:WindAuxiliaryEquipment rdf:type owl:Class ;
+                               rdfs:subClassOf edo:Equipment ;
+                               dcterms:identifier "WindAuxiliary" ;
+                               skos:definition "Auxiliary equipment supporting the operation of wind power systems."@en ,
+                                               "Equipamento auxiliar que suporta a operação de sistemas de energia eólica."@pt-br ;
+                               skos:prefLabel "Equipamento Auxiliar Eólico"@pt-br ,
+                                              "Wind Auxiliary Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WindFoundation
+sandbox:WindFoundation rdf:type owl:Class ;
+                       rdfs:subClassOf edo:Structure ;
+                       dcterms:identifier "WindFoundation" ;
+                       skos:definition "Anchors the turbine to ground or seabed, ensuring stability under wind loads."@en ,
+                                       "Ancoragem da turbina ao solo ou leito marinho, garantindo estabilidade sob cargas de vento."@pt-br ;
+                       skos:prefLabel "Fundação Eólica"@pt-br ,
+                                      "Wind Foundation"@en ;
+                       edo:hasDiscipline edo:CivilEngineering ;
+                       edo:hasDomain edo:OffshoreWind .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WindGearbox
+sandbox:WindGearbox rdf:type owl:Class ;
+                    rdfs:subClassOf sandbox:WindAuxiliaryEquipment ;
+                    dcterms:identifier "WindGearbox" ;
+                    skos:definition "Transfere energia rotacional das pás da turbina para o gerador na velocidade correta."@pt-br ,
+                                    "Transfers rotational energy from turbine blades to the generator at the proper speed."@en ;
+                    skos:prefLabel "Caixa de Engrenagens Eólica"@pt-br ,
+                                   "Wind Gearbox"@en ;
+                    edo:hasDiscipline edo:RotatingEquipmentEngineering ;
+                    edo:hasDomain edo:OnshoreWind .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WindGenerator
+sandbox:WindGenerator rdf:type owl:Class ;
+                      rdfs:subClassOf sandbox:WindGeneratorEquipment ;
+                      dcterms:identifier "WindGenerator" ;
+                      skos:definition "Generates electricity from mechanical energy delivered by wind turbine blades."@en ,
+                                      "Gera eletricidade a partir da energia mecânica fornecida pelas pás da turbina eólica."@pt-br ;
+                      skos:prefLabel "Gerador Eólico"@pt-br ,
+                                     "Wind Generator"@en ;
+                      edo:hasDiscipline edo:ElectricalEngineering ;
+                      edo:hasDomain edo:OffshoreWind .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WindGeneratorEquipment
+sandbox:WindGeneratorEquipment rdf:type owl:Class ;
+                               rdfs:subClassOf edo:Equipment ;
+                               dcterms:identifier "WindGeneratorEquipment" ;
+                               skos:definition "Equipamento que gera eletricidade diretamente a partir da energia eólica."@pt-br ,
+                                               "Equipment that generates electricity directly from wind energy."@en ;
+                               skos:prefLabel "Equipamento Gerador Eólico"@pt-br ,
+                                              "Wind Generator Equipment"@en .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WindTower
+sandbox:WindTower rdf:type owl:Class ;
+                  rdfs:subClassOf sandbox:WindAuxiliaryEquipment ;
+                  dcterms:identifier "WindTower" ;
+                  skos:definition "Suporta a turbina e eleva as pás para melhor captura do vento."@pt-br ,
+                                  "Supports wind turbine and elevates blades for better wind capture."@en ;
+                  skos:prefLabel "Torre Eólica"@pt-br ,
+                                 "Wind Tower"@en ;
+                  edo:hasDiscipline edo:CivilEngineering ;
+                  edo:hasDomain edo:OnshoreWind .
+
+
+###  https://w3id.org/energy-domain/edo-sandbox#WindTurbine
+sandbox:WindTurbine rdf:type owl:Class ;
+                    rdfs:subClassOf sandbox:WindGeneratorEquipment ;
+                    dcterms:identifier "WindTurbine" ;
+                    skos:definition "Converte energia do vento em energia mecânica e eletricidade. Essencial para parques eólicos."@pt-br ,
+                                    "Converts wind energy into mechanical energy and electricity. Essential for wind farms."@en ;
+                    skos:prefLabel "Turbina Eólica"@pt-br ,
+                                   "Wind Turbine"@en ;
+                    edo:hasDiscipline edo:CivilEngineering ,
+                                      edo:ElectricalEngineering ,
+                                      edo:RotatingEquipmentEngineering ;
+                    edo:hasDomain edo:OnshoreWind .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
