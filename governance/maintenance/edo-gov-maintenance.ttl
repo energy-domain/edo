@@ -1,3 +1,4 @@
+@prefix : <https://w3id.org/energy-domain/edogov-maint#> .
 @prefix edogovmnt: <https://w3id.org/energy-domain/edogov-maint#> .
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -30,6 +31,9 @@ edogovmnt:sparqlTemplate a owl:DatatypeProperty ;
     rdfs:label "SPARQL template"@en ;
     rdfs:comment "SPARQL text with {{TARGET}} placeholder for the class this check applies to."@en .
 
+  # filter to check leaf classes only - use when needed
+  # FILTER NOT EXISTS { ?child rdfs:subClassOf ?SubClass . }
+
 ### — Query: all subclasses of TARGET must carry TARGET's annotations (no hardcode of annotations)
 edogovmnt:CheckAllSubClassAnnotations a edogovmnt:MaintenanceQuery ;
     rdfs:label "All subclasses of Target Element must carry its annotations"@en ;
@@ -37,25 +41,26 @@ edogovmnt:CheckAllSubClassAnnotations a edogovmnt:MaintenanceQuery ;
     edogovmnt:sparqlTemplate """
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <https://w3id.org/energy-domain/edogov-maint#>
 
-SELECT ?SubClass ?MissingAnnotation
+SELECT ?SubClass ?Annotation ?Lang
 WHERE {
   # subclasses of the target
   ?SubClass rdfs:subClassOf+ {{TARGET}} .
+
   # annotations declared on the target itself
   {{TARGET}} ?Annotation ?val .
   FILTER (?Annotation != rdf:type)
+  FILTER (?Annotation != :hasMaintenanceQuery)  # ignore this property
 
-  # If literal, get the language, if URI, leave empty
+  # Determine language tag if literal
   BIND(IF(isLiteral(?val), lang(?val), "") AS ?Lang)
 
+  # Check if subclass is missing the same annotation (same language)
   FILTER NOT EXISTS {
     ?SubClass ?Annotation ?v .
     FILTER( (!isLiteral(?v) && !isLiteral(?val)) || lang(?v) = ?Lang )
   }
-
-  # Concat IRI + @lang if exists
-  BIND(CONCAT(STR(?Annotation), IF(?Lang != "", CONCAT("@", ?Lang), "")) AS ?MissingAnnotation)
 }
 """ .
 
@@ -66,30 +71,32 @@ edogovmnt:CheckLeafSubClassAnnotations a edogovmnt:MaintenanceQuery ;
     edogovmnt:sparqlTemplate """
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <https://w3id.org/energy-domain/edogov-maint#>
 
-SELECT ?SubClass ?MissingAnnotation
+SELECT ?SubClass ?Annotation ?Lang
 WHERE {
   # subclasses of the target
   ?SubClass rdfs:subClassOf+ {{TARGET}} .
+
   # annotations declared on the target itself
   {{TARGET}} ?Annotation ?val .
   FILTER (?Annotation != rdf:type)
+  FILTER (?Annotation != :hasMaintenanceQuery)  # ignore this property
   # leaf classes only
   FILTER NOT EXISTS { ?child rdfs:subClassOf ?SubClass . }
 
-  # If literal, get the language, if URI, leave empty
+  # Determine language tag if literal
   BIND(IF(isLiteral(?val), lang(?val), "") AS ?Lang)
 
+  # Check if subclass is missing the same annotation (same language)
   FILTER NOT EXISTS {
     ?SubClass ?Annotation ?v .
     FILTER( (!isLiteral(?v) && !isLiteral(?val)) || lang(?v) = ?Lang )
   }
-
-  # Concat IRI + @lang if exists
-  BIND(CONCAT(STR(?Annotation), IF(?Lang != "", CONCAT("@", ?Lang), "")) AS ?MissingAnnotation)
 }
 """ .
 
 # Maintenance link: associates edo elements with maintenance queries
 edo:DomainElement edogovmnt:hasMaintenanceQuery edogovmnt:CheckAllSubClassAnnotations .
-edo:DomainElement edogovmnt:hasMaintenanceQuery edogovmnt:CheckLeafSubClassAnnotations .
+# edo:DomainElement edogovmnt:hasMaintenanceQuery edogovmnt:CheckLeafSubClassAnnotations .
+edo:InstanciableElement edogovmnt:hasMaintenanceQuery edogovmnt:CheckAllSubClassAnnotations .
