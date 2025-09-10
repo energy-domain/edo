@@ -1430,7 +1430,7 @@ edo:ConnectionPoint rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Connector
 edo:Connector rdf:type owl:Class ;
-              rdfs:subClassOf edo:ComponentElement ;
+              rdfs:subClassOf edo:ComponentDevice ;
               skos:definition "Representa um componente físico usado para unir, ligar ou interligar dois ou mais elementos, permitindo conexão mecânica, elétrica ou de fluido."@pt-br ,
                               "Represents a physical component used to join, link, or interface two or more elements, enabling mechanical, electrical, or fluid connection."@en ;
               skos:prefLabel "Conector"@pt-br ,
@@ -1486,6 +1486,16 @@ edo:ControlLoop rdf:type owl:Class ;
                                 "Represents a control loop implementing automated control logic, including feedback and regulation mechanisms."@en ;
                 skos:prefLabel "Control Loop"@en ,
                                "Loop de Controle"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#Coupling
+edo:Coupling rdf:type owl:Class ;
+             rdfs:subClassOf edo:HardwareItem ;
+             dcterms:identifier "Coupling" ;
+             skos:definition "Base class for termination components of cables, hoses, etc., enabling connection to other components or systems."@en ,
+                             "Classe-base para componentes de terminação de cabos, mangueiras, etc., permitindo conexão a outros componentes ou sistemas."@pt-br ;
+             skos:prefLabel "Acoplamento"@pt-br ,
+                            "Coupling"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#Creator
@@ -4031,7 +4041,8 @@ edo:InternalPressureSheath rdf:type owl:Class ;
                            skos:definition "A layer within a subsea flexible pipe designed to contain the internal fluid and withstand the internal pressure exerted by the transported medium, such as oil, gas, or water. The Internal Pressure Sheath plays a crucial role in preventing fluid leakage and maintaining pressure integrity within the pipe. Typically made from high-performance polymeric materials, it ensures the safe transport of fluids under high-pressure conditions, contributing to the pipe's overall structural stability and long-term reliability in harsh subsea environments."@en ;
                            skos:prefLabel "Barreira Interna de Pressão"@pt-br ,
                                           "Internal Pressure Sheath"@en ;
-                           edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+                           edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                             edo:SubseaUmbilicalsEngineering ;
                            edo:ifc_equivalentClass "IfcPipeSegment" ;
                            edo:ifc_objectType "InternalPressureSheath" ;
                            edo:ifc_predefinedType "USERDEFINED" .
@@ -6376,7 +6387,8 @@ edo:ProtectiveSheath rdf:type owl:Class ;
                      skos:definition "A layer in subsea flexible pipes designed to shield internal components from external environmental factors such as abrasion, mechanical damage, or chemical exposure. The Protective Sheath serves as the outermost barrier, providing defense against harsh subsea conditions while preserving the integrity of the underlying layers. Typically made from durable polymeric materials, it plays a critical role in extending the lifespan of the flexible pipe by protecting it from physical and chemical wear."@en ;
                      skos:prefLabel "Capa de Proteção"@pt-br ,
                                     "Protective Sheath"@en ;
-                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                       edo:SubseaUmbilicalsEngineering ;
                      edo:ifc_equivalentClass "IfcPipeSegment" ;
                      edo:ifc_objectType "ProtectiveSheath" ;
                      edo:ifc_predefinedType "USERDEFINED" .
@@ -6478,6 +6490,19 @@ edo:Quantity rdf:type owl:Class ;
              edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#QuickConnectCoupling
+edo:QuickConnectCoupling rdf:type owl:Class ;
+                         rdfs:subClassOf edo:TubingCoupling ;
+                         dcterms:identifier "QuickConnectCoupling" ;
+                         skos:definition "Acoplamento de engate rápido utilizado para conectar ou desconectar linhas de fluido ou gás de forma prática e segura, garantindo vedação e minimizando vazamentos durante a operação."@pt-br ,
+                                         "Quick connect coupling used to connect or disconnect fluid or gas lines in a practical and safe way, ensuring sealing and minimising leakage during operation."@en ;
+                         skos:prefLabel "Engate Rápido"@pt-br ,
+                                        "Quick Connect Coupling"@en ;
+                         edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                         edo:ifc_equivalentClass "IfcPipeFitting" ;
+                         edo:ifc_objectType "QuickConnectCoupling" .
+
+
 ###  https://w3id.org/energy-domain/edo#QuickDisconnectionTool
 edo:QuickDisconnectionTool rdf:type owl:Class ;
                            rdfs:subClassOf edo:RunningTool ;
@@ -6547,6 +6572,19 @@ edo:Renewable rdf:type owl:Class ;
                          "Renewable Energy"@en ;
               skos:definition "Domínio industrial que abrange fontes de energia que são naturalmente reabastecidas, como solar, eólica e hidrelétrica."@pt-br ,
                               "Industrial domain covering energy sources that are naturally replenished, such as solar, wind, and hydropower."@en .
+
+
+###  https://w3id.org/energy-domain/edo#RigidJoint
+edo:RigidJoint rdf:type owl:Class ;
+               rdfs:subClassOf edo:LineAncillary ;
+               dcterms:identifier "RigidJoint" ;
+               skos:definition "Acessório de uso temporário para conexão entre armor pot e enrijecedor abaixo dele, a fim de prevenir curvatura excessiva da linha durante operações de manuseio."@pt-br ,
+                               "Temporary accessory for connection between the armour pot and the bend stiffener below it, in order to prevent excessive line bending during handling operations."@en ;
+               skos:prefLabel "Junta Rígida"@pt-br ,
+                              "Rigid Joint"@en ;
+               edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+               edo:ifc_equivalentClass "IfcPipeFitting" ;
+               edo:ifc_objectType "RigidJoint" .
 
 
 ###  https://w3id.org/energy-domain/edo#RigidJumper
@@ -7422,11 +7460,13 @@ edo:StopperCollar rdf:type owl:Class ;
                   skos:altLabel "Locking Collar"@en ,
                                 "Positioning Collar"@en ,
                                 "Retention Collar"@en ,
-                                "Stopper Clamp"@en ;
+                                "Stopper Clamp"@en ,
+                                "Stopping Collar"@en ;
                   skos:definition "A component used to prevent the movement or displacement of other parts in subsea systems. The Stopper Collar is installed around the pipe or component and acts as a physical barrier to stop or limit movement, ensuring components stay in their intended positions. It is crucial for maintaining alignment and stability during installation, operation, or maintenance, providing secure positioning and preventing unwanted shifts or displacements."@en ;
                   skos:prefLabel "Colar Batente"@pt-br ,
                                  "Stopper Collar"@en ;
-                  edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+                  edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                    edo:SubseaUmbilicalsEngineering ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
                   edo:ifc_objectType "StopperCollar" ;
                   edo:ifc_predefinedType "USERDEFINED" .
@@ -8540,6 +8580,16 @@ edo:Tubing rdf:type owl:Class ;
                           "Tubulação"@pt-br .
 
 
+###  https://w3id.org/energy-domain/edo#TubingCoupling
+edo:TubingCoupling rdf:type owl:Class ;
+                   rdfs:subClassOf edo:Coupling ;
+                   dcterms:identifier "TubingCoupling" ;
+                   skos:definition "Acoplamentos para linhas de condução de fluidos (i.e. hidráulicos ou pneumáticos)."@pt-br ,
+                                   "Couplings for fluid conveyance lines (i.e. hydraulic or pneumatic)."@en ;
+                   skos:prefLabel "Acoplamento de Tubulação"@pt-br ,
+                                  "Tubing Coupling"@en .
+
+
 ###  https://w3id.org/energy-domain/edo#TubingHanger
 edo:TubingHanger rdf:type owl:Class ;
                  rdfs:subClassOf edo:PressureComponent ;
@@ -8688,6 +8738,20 @@ edo:UmbilicalLocation rdf:type owl:Class ;
                       skos:prefLabel "Local de umbilical"@pt-br ,
                                      "Umbilical location"@en ;
                       edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
+
+
+###  https://w3id.org/energy-domain/edo#UmbilicalPullingHead
+edo:UmbilicalPullingHead rdf:type owl:Class ;
+                         rdfs:subClassOf edo:PullingHead ;
+                         dcterms:identifier "UmbilicalPullingHead" ;
+                         skos:altLabel "Cabeça de Manuseio para Umbilical"@pt-br ;
+                         skos:definition "Cabeça de tração tubular (com espaço para pigtails), usada para umbilicais."@pt-br ,
+                                         "Tubular pulling head (with space for pigtails), used for umbilicals."@en ;
+                         skos:prefLabel "Cabeça de Tração para Umbilical"@pt-br ,
+                                        "Umbilical Pulling Head"@en ;
+                         edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                         edo:ifc_equivalentClass "IfcPipeFitting" ;
+                         edo:ifc_objectType "UmbilicalPullingHead" .
 
 
 ###  https://w3id.org/energy-domain/edo#UmbilicalSegment
