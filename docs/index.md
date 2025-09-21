@@ -199,4 +199,4 @@ To contribute or get in touch:
 
 ---
 
-© Energy Domain under [Creative Commons CC0 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/)
+© Energy Domain, under [Creative Commons CC0 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/)
