@@ -2,6 +2,7 @@
 @prefix edo: <https://w3id.org/energy-domain/edo#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sou: <http://qudt.org/vocab/sou/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
@@ -12,7 +13,6 @@
 @prefix dimension: <http://qudt.org/schema/dimension/> .
 @prefix quantitykind: <http://qudt.org/vocab/quantitykind/> .
 @base <https://w3id.org/energy-domain/edo#> .
-@prefix sou: <http://qudt.org/vocab/sou/> .
 
 <https://w3id.org/energy-domain/edo> rdf:type owl:Ontology ;
                                       owl:versionIRI <https://w3id.org/energy-domain/edo/v0.0.2> ;
@@ -37,8 +37,44 @@ dcterms:description rdf:type owl:AnnotationProperty .
 dcterms:identifier rdf:type owl:AnnotationProperty .
 
 
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
 ###  http://purl.org/dc/terms/title
 dcterms:title rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/conversionMultiplier
+qudt:conversionMultiplier rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/definedUnitOfSystem
+qudt:definedUnitOfSystem rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/exponent
+qudt:exponent rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/hasFactorUnit
+qudt:hasFactorUnit rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/hasQuantityKind
+qudt:hasQuantityKind rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/hasUnit
+qudt:hasUnit rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/symbol
+qudt:symbol rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/ucumCode
+qudt:ucumCode rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/2000/01/rdf-schema#subClassOf
@@ -197,6 +233,15 @@ edo:hasTypedValue rdf:type owl:AnnotationProperty ;
                   rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
 
 
+###  https://w3id.org/energy-domain/edo#hasUnit
+edo:hasUnit rdf:type owl:AnnotationProperty ;
+            rdfs:comment "Property for linking a DomainAttribute to its measurement unit."@en ;
+            rdfs:label "has Unit"@en ;
+            rdfs:subPropertyOf edo:DomainEngineeringAnnotation ;
+            rdfs:range edo:DomainUnit ;
+            rdfs:domain edo:DomainAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#hasValueCardinality
 edo:hasValueCardinality rdf:type owl:AnnotationProperty ;
                         rdfs:label "Has Value Cardinality"@en ,
@@ -279,6 +324,10 @@ rdf:value rdf:type owl:DatatypeProperty .
 #    Classes
 #################################################################
 
+###  http://qudt.org/schema/qudt/Unit
+qudt:Unit rdf:type owl:Class .
+
+
 ###  https://w3id.org/energy-domain/edo#AbandonmentCap
 edo:AbandonmentCap rdf:type owl:Class ;
                    rdfs:subClassOf edo:HardwareItem ;
@@ -290,9 +339,7 @@ edo:AbandonmentCap rdf:type owl:Class ;
                                   "Capa de Abandono"@pt-br ;
                    edo:hasAttribute edo:MaximumHousedDiameter ,
                                     edo:MinimumHousedDiameter ,
-                                    edo:VoltageRating_MaximumLineVoltage ,
-                                    edo:VoltageRating_MaximumPhaseVoltage ,
-                                    edo:VoltageRating_MaximumSystemVoltage ;
+                                    edo:VoltageRatingTableColumn ;
                    edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                    edo:ifc_equivalentClass "IfcCableFitting" ;
                    edo:ifc_objectType "AbandonmentCap" .
@@ -325,6 +372,7 @@ edo:AbsoluteInsidePressure rdf:type owl:Class ;
                            edo:hasAttributeScope edo:TypeLevelAttribute ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:PA ;
                            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -340,6 +388,7 @@ edo:AbsoluteOutsidePressure rdf:type owl:Class ;
                             edo:hasAttributeScope edo:TypeLevelAttribute ;
                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                             edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:PA ;
                             edo:hasValueCardinality edo:SingleValue .
 
 
@@ -447,6 +496,7 @@ edo:AnodeCollarsAxialSpacing rdf:type owl:Class ;
                              edo:hasAttributeScope edo:TypeLevelAttribute ;
                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                              edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:MilliM ;
                              edo:hasValueCardinality edo:SingleValue .
 
 
@@ -525,6 +575,7 @@ edo:ArcAngle rdf:type owl:Class ;
              edo:hasAttributeScope edo:TypeLevelAttribute ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:DEG ;
              edo:hasValueCardinality edo:SingleValue .
 
 
@@ -586,6 +637,7 @@ edo:AssemblyTorque rdf:type owl:Class ;
                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:N-M ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -635,7 +687,8 @@ edo:AttenuationCoefficient rdf:type owl:Class ;
                            dcterms:accessRights "PUBLIC" ;
                            dcterms:identifier "AttenuationCoefficient" ;
                            skos:definition "Nominal optical attentuation coefficient presented by fibers, in the wavelength range of interest"@en ;
-                           skos:prefLabel "Attenuation coefficient"@en .
+                           skos:prefLabel "Attenuation coefficient"@en ;
+                           edo:hasUnit unit:DB-PER-KM .
 
 
 ###  https://w3id.org/energy-domain/edo#AttributeClassification
@@ -718,6 +771,7 @@ edo:AxialStiffness rdf:type owl:Class ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:KiloN ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -733,6 +787,7 @@ edo:AxialStiffnessUnderCompressionAtSeaLevel rdf:type owl:Class ;
                                              edo:hasAttributeScope edo:TypeLevelAttribute ;
                                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                              edo:hasTypedValue edo:FloatValue ;
+                                             edo:hasUnit unit:N ;
                                              edo:hasValueCardinality edo:SingleValue .
 
 
@@ -748,6 +803,7 @@ edo:AxialStiffnessUnderTensionAtSeaLevel rdf:type owl:Class ;
                                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                          edo:hasTypedValue edo:FloatValue ;
+                                         edo:hasUnit unit:N ;
                                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -847,6 +903,7 @@ edo:BendMomentVsShearForceTable_BendingMoment rdf:type owl:Class ;
                                               edo:hasAttributeScope edo:TypeLevelAttribute ;
                                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                               edo:hasTypedValue edo:FloatValue ;
+                                              edo:hasUnit unit:N-M ;
                                               edo:hasValueCardinality edo:MultiValue .
 
 
@@ -876,6 +933,7 @@ edo:BendMomentVsShearForceTable_ShearForce rdf:type owl:Class ;
                                            edo:hasAttributeScope edo:TypeLevelAttribute ;
                                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                            edo:hasTypedValue edo:FloatValue ;
+                                           edo:hasUnit unit:N ;
                                            edo:hasValueCardinality edo:MultiValue .
 
 
@@ -892,10 +950,7 @@ edo:BendRestrictor rdf:type owl:Class ;
                    skos:prefLabel "Bend Restrictor"@en ,
                                   "Restritor de Curvatura"@pt-br ;
                    edo:hasAttribute edo:ArcAngle ,
-                                    edo:BendMomentVsShearForceTable ,
-                                    edo:BendMomentVsShearForceTable_BendingMoment ,
-                                    edo:BendMomentVsShearForceTable_Condition ,
-                                    edo:BendMomentVsShearForceTable_ShearForce ,
+                                    edo:BendMomentVsShearForceCurveAttribute ,
                                     edo:LockedLength ,
                                     edo:MaximumBendingMoment ,
                                     edo:MaximumBendingMomentLongTerm ,
@@ -934,6 +989,7 @@ edo:BendingMomentTable_BendingMoment rdf:type owl:Class ;
                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                      edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:N-M ;
                                      edo:hasValueCardinality edo:MultiValue .
 
 
@@ -948,6 +1004,7 @@ edo:BendingMomentTable_Curvature rdf:type owl:Class ;
                                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                  edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:PER-M ;
                                  edo:hasValueCardinality edo:MultiValue .
 
 
@@ -969,6 +1026,7 @@ edo:BendingStiffnessStorage rdf:type owl:Class ;
                             edo:hasAttributeScope edo:TypeLevelAttribute ;
                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                             edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:KiloN-M2 ;
                             edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1054,6 +1112,7 @@ edo:BoreDiameter rdf:type owl:Class ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:MilliM ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1068,6 +1127,7 @@ edo:BreakingTension rdf:type owl:Class ;
                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:KiloN ;
                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1130,6 +1190,7 @@ edo:BurstPressure rdf:type owl:Class ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:MPa ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1144,6 +1205,7 @@ edo:CO2VolumePercentage rdf:type owl:Class ;
                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:BasicDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:PERCENT ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1158,6 +1220,7 @@ edo:CalculatedAbsoluteBurstPressure rdf:type owl:Class ;
                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                     edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:PA ;
                                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1265,7 +1328,8 @@ edo:CladdingDiameter rdf:type owl:Class ;
                      dcterms:accessRights "PUBLIC" ;
                      dcterms:identifier "CladdingDiameter" ;
                      skos:definition "Cladding diameter"@en ;
-                     skos:prefLabel "Cladding diameter"@en .
+                     skos:prefLabel "Cladding diameter"@en ;
+                     edo:hasUnit unit:MicroM .
 
 
 ###  https://w3id.org/energy-domain/edo#ClampInternalDiameter
@@ -1279,7 +1343,24 @@ edo:ClampInternalDiameter rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:M ;
                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#CntrPntDstnceFrmTermFlange
+edo:CntrPntDstnceFrmTermFlange rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "CntrPntDstnceFrmTermFlange" ;
+                               skos:definition "Distance between the center of the support region and a defined reference flange (e.g., termination flange). This measurement provides spatial positioning for accurate identification and alignment of the support region within the assembly."@en ,
+                                               "Distância entre o centro da região de apoio e um flange de referência definido (por exemplo, o flange de terminação). Essa medição fornece a posição espacial para identificação e alinhamento precisos da região de apoio dentro do conjunto."@pt-br ;
+                               skos:prefLabel "Center Point Distance from Reference Flange"@en ,
+                                              "Distância do Ponto Central ao Flange de Referência"@pt-br ;
+                               edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:MilliM ;
+                               edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#CollapsePressure
@@ -1293,6 +1374,7 @@ edo:CollapsePressure rdf:type owl:Class ;
                      edo:hasAttributeScope edo:TypeLevelAttribute ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:MPa ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1307,6 +1389,7 @@ edo:CollarInternalDiameter rdf:type owl:Class ;
                            edo:hasAttributeScope edo:TypeLevelAttribute ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:MilliM ;
                            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1497,10 +1580,7 @@ edo:CompactObject rdf:type owl:Class ;
                                   "Objeto físico móvel, geralmente fabricado de maneira padronizada."@pt-br ;
                   skos:prefLabel "Compact Object"@en ,
                                  "Objeto Compacto"@pt-br ;
-                  edo:hasAttribute edo:DrawingDimensionsTable_DimensionDescription ,
-                                   edo:DrawingDimensionsTable_DimensionName ,
-                                   edo:DrawingDimensionsTable_DimensionUnit ,
-                                   edo:DrawingDimensionsTable_DimensionValue ,
+                  edo:hasAttribute edo:DimensionsTableColumn ,
                                    edo:Mass .
 
 
@@ -1523,8 +1603,7 @@ edo:ComponentDevice rdf:type owl:Class ;
                     skos:prefLabel "Component Device"@en ,
                                    "Dispositivo Componente"@pt-br ;
                     edo:hasAttribute edo:MaxDepth ,
-                                     edo:TemperatureRange_MaxTemperature ,
-                                     edo:TemperatureRange_MinTemperature .
+                                     edo:TemperatureRangeTableColumn .
 
 
 ###  https://w3id.org/energy-domain/edo#ComponentElement
@@ -1599,6 +1678,7 @@ edo:ConductorCrossSection rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:MM2 ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1691,7 +1771,8 @@ edo:CoreDiameter rdf:type owl:Class ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "CoreDiameter" ;
                  skos:definition "Core diameter"@en ;
-                 skos:prefLabel "Core diameter"@en .
+                 skos:prefLabel "Core diameter"@en ;
+                 edo:hasUnit unit:MicroM .
 
 
 ###  https://w3id.org/energy-domain/edo#Coupling
@@ -1702,8 +1783,7 @@ edo:Coupling rdf:type owl:Class ;
                              "Classe-base para componentes de terminação de cabos, mangueiras, etc., permitindo conexão a outros componentes ou sistemas."@pt-br ;
              skos:prefLabel "Acoplamento"@pt-br ,
                             "Coupling"@en ;
-             edo:hasAttribute edo:TemperatureRange_MaxTemperature ,
-                              edo:TemperatureRange_MinTemperature .
+             edo:hasAttribute edo:TemperatureRangeTableColumn .
 
 
 ###  https://w3id.org/energy-domain/edo#Creator
@@ -1740,6 +1820,7 @@ edo:CriticalCurvatureOfSlipping rdf:type owl:Class ;
                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                 edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:PER-M ;
                                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1781,6 +1862,7 @@ edo:CrushingLoad rdf:type owl:Class ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:KiloN-PER-M ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1815,6 +1897,7 @@ edo:DamagingPullInStraightLine rdf:type owl:Class ;
                                edo:hasAttributeScope edo:TypeLevelAttribute ;
                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:N ;
                                edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1825,7 +1908,8 @@ edo:DamagingTension rdf:type owl:Class ;
                     dcterms:identifier "DamagingTension" ;
                     skos:definition "Damaging tension, straight"@en ;
                     skos:prefLabel "Damaging tension, straight"@en ,
-                                   "Tensão de dano, reto"@pt-br .
+                                   "Tensão de dano, reto"@pt-br ;
+                    edo:hasUnit unit:KiloN .
 
 
 ###  https://w3id.org/energy-domain/edo#DataDictionary
@@ -1972,6 +2056,7 @@ edo:DesignLifeSpan rdf:type owl:Class ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:YR_Common ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -1992,6 +2077,7 @@ edo:DestinationPigtailLength rdf:type owl:Class ;
                              edo:hasAttributeScope edo:TypeLevelAttribute ;
                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                              edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:MilliM ;
                              edo:hasValueCardinality edo:SingleValue .
 
 
@@ -2032,6 +2118,7 @@ edo:DiffusionTable_DiffusionCoefficient rdf:type owl:Class ;
                                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                         edo:hasTypedValue edo:FloatValue ;
+                                        edo:hasUnit unit:M2-PER-SEC ;
                                         edo:hasValueCardinality edo:MultiValue .
 
 
@@ -2076,6 +2163,7 @@ edo:DiffusionTable_Temperature rdf:type owl:Class ;
                                edo:hasAttributeScope edo:TypeLevelAttribute ;
                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:K ;
                                edo:hasValueCardinality edo:MultiValue .
 
 
@@ -2134,6 +2222,8 @@ edo:DisplacedVolume rdf:type owl:Class ;
                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:M3 ,
+                                edo:M3 ;
                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -2181,6 +2271,13 @@ edo:DomainElement rdf:type owl:Class ;
                                   "Represents a fundamental building block of a project or system, encompassing physical, logical, or informational entities that can be modeled, specified, or referenced."@en ;
                   skos:prefLabel "Domain Element"@en ,
                                  "Elemento de Domínio"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#DomainUnit
+edo:DomainUnit rdf:type owl:Class ;
+               rdfs:subClassOf qudt:Unit ;
+               rdfs:comment "Represents a measurement unit used within the EDO domain. Subclass of QUDT Unit, allowing extension with domain-specific units."@en ;
+               rdfs:label "Domain Unit"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#DoubleValue
@@ -2309,6 +2406,7 @@ edo:EModVsTempTable_ElasticityModulus rdf:type owl:Class ;
                                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                       edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:PA ;
                                       edo:hasValueCardinality edo:MultiValue .
 
 
@@ -2347,6 +2445,7 @@ edo:EarlyLeakMaxPressTable_Press rdf:type owl:Class ;
                                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                  edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:PA ;
                                  edo:hasValueCardinality edo:MultiValue .
 
 
@@ -2392,6 +2491,7 @@ edo:EarlyLeakMaxPressTable_PressValRefMult rdf:type owl:Class ;
                                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                            edo:hasTypedValue edo:FloatValue ;
+                                           edo:hasUnit unit:PA ;
                                            edo:hasValueCardinality edo:MultiValue .
 
 
@@ -2407,6 +2507,7 @@ edo:EarlyLeakMaxPressTable_TensLimit rdf:type owl:Class ;
                                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                      edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:N ;
                                      edo:hasValueCardinality edo:MultiValue .
 
 
@@ -2446,6 +2547,7 @@ edo:EarlyLeakNomPressTable_Press rdf:type owl:Class ;
                                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                  edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:PA ;
                                  edo:hasValueCardinality edo:MultiValue .
 
 
@@ -2505,6 +2607,7 @@ edo:EarlyLeakNomPressTable_TensLimit rdf:type owl:Class ;
                                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                      edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:N ;
                                      edo:hasValueCardinality edo:MultiValue .
 
 
@@ -2534,6 +2637,7 @@ edo:ElasticityModulusAt23Degrees rdf:type owl:Class ;
                                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                  edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:PA ;
                                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -2563,9 +2667,7 @@ edo:ElectricalCable rdf:type owl:Class ;
                                      edo:NumGroupConductors ,
                                      edo:NumGroups ,
                                      edo:OverallShieldingType ,
-                                     edo:VoltageRating_MaximumLineVoltage ,
-                                     edo:VoltageRating_MaximumPhaseVoltage ,
-                                     edo:VoltageRating_MaximumSystemVoltage ;
+                                     edo:VoltageRatingTableColumn ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:ifc_equivalentClass "IfcCableSegment" ;
                     edo:ifc_objectType "ElectricalCable" ;
@@ -2628,9 +2730,7 @@ edo:ElectricalPowerJumperConnector rdf:type owl:Class ;
                                                     edo:NumPhases ,
                                                     edo:PowerRating ,
                                                     edo:TemperatureClass ,
-                                                    edo:VoltageRating_MaximumLineVoltage ,
-                                                    edo:VoltageRating_MaximumPhaseVoltage ,
-                                                    edo:VoltageRating_MaximumSystemVoltage ;
+                                                    edo:VoltageRatingTableColumn ;
                                    edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                                    edo:ifc_equivalentClass "IfcCableFitting" ;
                                    edo:ifc_objectType "ElectricalPowerJumperConnector" .
@@ -2707,8 +2807,7 @@ edo:Equipment rdf:type owl:Class ;
                               "Objetos de grande porte e complexidade, para uso permanente ou temporário"@pt-br ;
               skos:prefLabel "Equipamento"@pt-br ,
                              "Equipment"@en ;
-              edo:hasAttribute edo:TemperatureRange_MaxTemperature ,
-                               edo:TemperatureRange_MinTemperature .
+              edo:hasAttribute edo:TemperatureRangeTableColumn .
 
 
 ###  https://w3id.org/energy-domain/edo#EquipmentEngineering
@@ -2770,6 +2869,7 @@ edo:ExternalDiameter rdf:type owl:Class ;
                      edo:hasAttributeScope edo:TypeLevelAttribute ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:M ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -2853,6 +2953,7 @@ edo:FatMaxPress rdf:type owl:Class ;
                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                 edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:PA ;
                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -2897,6 +2998,7 @@ edo:FatNomPress rdf:type owl:Class ;
                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                 edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:PA ;
                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -3169,38 +3271,9 @@ edo:FlexibleStructure rdf:type owl:Class ;
                                       "The Flexible Structure is the layered configuration, the specification, of a flexible system designed to provide strength, protection, and adaptability in demanding environments. It consists of multiple layers or components, each performing a specific function such as reinforcement, pressure containment, insulation, or communication. Engineered to accommodate movement, pressure variations, and mechanical loads, the flexible structure ensures reliability, durability, and performance across different applications, including subsea pipelines and umbilicals."@en ;
                       skos:prefLabel "Estrutura Flexível"@pt-br ,
                                      "FlexibleStructure"@en ;
-                      edo:hasAttribute edo:AbsoluteInsidePressure ,
-                                       edo:AbsoluteOutsidePressure ,
-                                       edo:BendingMomentTable_BendingMoment ,
-                                       edo:BendingMomentTable_Curvature ,
-                                       edo:CriticalCurvatureOfSlipping ,
-                                       edo:DimensioningCriteria ,
-                                       edo:FrictionCoefficientTighteningTable_CoefficientOfFriction ,
-                                       edo:FrictionCoefficientTighteningTable_TighteningPerTrack ,
-                                       edo:InsideTemperature ,
-                                       edo:IntermediateValuesStrategy ,
-                                       edo:LayingMinimumRadiusTable_AbsoluteExternalPressure ,
-                                       edo:LayingMinimumRadiusTable_AbsoluteInternalPressure ,
-                                       edo:LayingMinimumRadiusTable_Compression ,
-                                       edo:LayingMinimumRadiusTable_MinimumAllowableBendingRadius ,
-                                       edo:LayingMinimumRadiusTable_SectionSupportedByRigidSupport ,
-                                       edo:LayingMinimumRadiusTable_TensileArmourAnnulusCondition ,
-                                       edo:MaximumAllowableTensionTable_MaximumAllowableTensile ,
-                                       edo:MaximumAllowableTensionTable_PulleyRadius ,
-                                       edo:MaximumAllowableTensionTable_PulleyVAngle ,
-                                       edo:MaximumAllowableTighteningTable_AxialLoad ,
-                                       edo:MaximumAllowableTighteningTable_TighteningPerTrack ,
-                                       edo:MaximumAmbientTemperature ,
-                                       edo:OutsideTemperature ,
-                                       edo:PostSlippingBendingStiffness ,
-                                       edo:PreSlippingBendingStiffness ,
-                                       edo:TensileArmourAnnulusCondition ,
-                                       edo:TensionerPadsMaterial ,
-                                       edo:TensionerPadsOpeningAngle ,
-                                       edo:TensionerPadsShape ,
-                                       edo:TensionerTracksQuantity ,
-                                       edo:TestConditions ,
-                                       edo:UtilizationFactor .
+                      edo:hasAttribute edo:BendingStiffnessCurveAttribute ,
+                                       edo:CrushingCurveAttribute ,
+                                       edo:LayingMinimumRadiusCurveAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#FlexibleStructureLayer
@@ -3214,14 +3287,7 @@ edo:FlexibleStructureLayer rdf:type owl:Class ;
                                             edo:LayerAnnular ,
                                             edo:LayerAnnularType ,
                                             edo:LayerContinuity ,
-                                            edo:LayerGeometryCrossSection ,
-                                            edo:LayerGeometryInertiaX ,
-                                            edo:LayerGeometryInertiaY ,
-                                            edo:LayerGeometryManufacturer ,
-                                            edo:LayerGeometryName ,
-                                            edo:LayerGeometryProfileThickness ,
-                                            edo:LayerGeometryProfileWidth ,
-                                            edo:LayerGeometryThickness ,
+                                            edo:LayerGeometryAttribute ,
                                             edo:LayerThickness ,
                                             edo:LayerWatertight ,
                                             edo:LayerWatertightLowerLayerInternalFreeVolume ,
@@ -3383,6 +3449,8 @@ edo:FractureToughness rdf:type owl:Class ;
                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:PA ,
+                                  unit:PA-M0dot5 ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -3456,6 +3524,7 @@ edo:FrictionCoefficientTighteningTable_TighteningPerTrack rdf:type owl:Class ;
                                                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                                                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                                           edo:hasTypedValue edo:FloatValue ;
+                                                          edo:hasUnit unit:N-PER-M ;
                                                           edo:hasValueCardinality edo:MultiValue .
 
 
@@ -3554,20 +3623,6 @@ edo:GeothermalElectricity rdf:type owl:Class ;
                                          "Geração Elétrica Geotérmica"@pt-br .
 
 
-###  https://w3id.org/energy-domain/edo#GrooveDiameter
-edo:GrooveDiameter rdf:type owl:Class ;
-                   rdfs:subClassOf edo:DomainAttribute ;
-                   dcterms:accessRights "PUBLIC" ;
-                   dcterms:identifier "GrooveDiameter" ;
-                   skos:definition "Specifies the diameter of the end fitting at the location where the groove is machined. This measurement is crucial for ensuring that the groove correctly accommodates the end fitting during installation on a vessel. The part diameter at the groove location ensures proper alignment and secure attachment of the end fitting to the installation equipment or support system."@en ;
-                   skos:prefLabel "Diâmetro do Groove"@pt-br ,
-                                  "Groove Diameter"@en ;
-                   edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                   edo:hasTypedValue edo:FloatValue ;
-                   edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#GrooveHeight
 edo:GrooveHeight rdf:type owl:Class ;
                  rdfs:subClassOf edo:DomainAttribute ;
@@ -3579,21 +3634,8 @@ edo:GrooveHeight rdf:type owl:Class ;
                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:M ;
                  edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#GrooveMinimumSupportArea
-edo:GrooveMinimumSupportArea rdf:type owl:Class ;
-                             rdfs:subClassOf edo:DomainAttribute ;
-                             dcterms:accessRights "PUBLIC" ;
-                             dcterms:identifier "GrooveMinimumSupportArea" ;
-                             skos:definition "Specifies the minimum required area of the support surface within the groove. This measurement is crucial for ensuring that the groove provides adequate support and stability for the components or fittings it interfaces with. A sufficient support area helps prevent misalignment and ensures that the components are securely held in place during operation and installation."@en ;
-                             skos:prefLabel "Groove Minimum Support Area"@en ,
-                                            "Área Mínima de Apoio no Groove"@pt-br ;
-                             edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                             edo:hasTypedValue edo:FloatValue ;
-                             edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#GroovePoint
@@ -3611,35 +3653,6 @@ edo:GroovePoint rdf:type owl:Class ;
                 edo:ifc_equivalentClass "IfcDistributionPort" ;
                 edo:ifc_objectType "GroovePoint" ;
                 edo:ifc_predefinedType "USERDEFINED" .
-
-
-###  https://w3id.org/energy-domain/edo#GrooveSupportSurfaceDiameter
-edo:GrooveSupportSurfaceDiameter rdf:type owl:Class ;
-                                 rdfs:subClassOf edo:DomainAttribute ;
-                                 dcterms:accessRights "PUBLIC" ;
-                                 dcterms:identifier "GrooveSupportSurfaceDiameter" ;
-                                 skos:definition "Indicates the diameter of the support surface within the groove. This measurement is critical for ensuring that the groove provides sufficient contact area for the components it interfaces with, contributing to a stable and secure fit."@en ;
-                                 skos:prefLabel "Diâmetro da superfície de apoio do acessório"@pt-br ,
-                                                "Groove Support Surface Diameter"@en ;
-                                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                                 edo:hasTypedValue edo:FloatValue ;
-                                 edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#GrooveSupportSurfaceFilletRadius
-edo:GrooveSupportSurfaceFilletRadius rdf:type owl:Class ;
-                                     rdfs:subClassOf edo:DomainAttribute ;
-                                     dcterms:accessRights "PUBLIC" ;
-                                     dcterms:identifier "GrooveSupportSurfaceFilletRadius" ;
-                                     skos:definition "Adoçamento (Superfície de apoio) do acessório"@pt-br ,
-                                                     "Indicates the radius of the fillet on the support surface of the end fitting. This fillet is a rounded corner or edge designed to reduce stress concentrations and enhance the structural integrity of the connection. The radius measurement is crucial for ensuring that the end fitting aligns properly with other components and provides a smooth, stable interface."@en ;
-                                     skos:prefLabel "Groove Support Surface Fillet Radius"@en ,
-                                                    "Raio de Chanframento (Superfície de Apoio) do Acessório"@pt-br ;
-                                     edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                                     edo:hasTypedValue edo:FloatValue ;
-                                     edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#GroupShieldingType
@@ -3665,21 +3678,6 @@ edo:GroutBag rdf:type owl:Class ;
                             "Grout bag"@pt-br .
 
 
-###  https://w3id.org/energy-domain/edo#GrvCntrPntDstnceFrmTermFlange
-edo:GrvCntrPntDstnceFrmTermFlange rdf:type owl:Class ;
-                                  rdfs:subClassOf edo:DomainAttribute ;
-                                  dcterms:accessRights "PUBLIC" ;
-                                  dcterms:identifier "GrvCntrPntDstnceFrmTermFlange" ;
-                                  skos:definition "Distance from the center of the groove to the outer edge of the termination flange, the flange where the other end fitting is connected. This measurement provides the position of the groove relative to the termination flange for precise identification of a specific groove within the end fitting"@en ,
-                                                  "Distância do centro do groove até a borda externa do flange de terminação, o flange onde o outro end fitting é conectado. Esta medição fornece a posição do groove em relação ao flange para a identificação precisa de um groove específico dentro do end fitting."@pt-br ;
-                                  skos:prefLabel "Distância do Ponto Central do Groove até o Flange de Terminação"@pt-br ,
-                                                 "Groove Center Point Distance From Termination Flange"@en ;
-                                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                                  edo:hasTypedValue edo:FloatValue ;
-                                  edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#GuideBase
 edo:GuideBase rdf:type owl:Class ;
               rdfs:subClassOf edo:Structure ;
@@ -3699,6 +3697,7 @@ edo:H2SVolumeConcentration rdf:type owl:Class ;
                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
                            edo:hasLifecycleCreationPhase edo:BasicDesign ;
                            edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:MicroM3-PER-M3 ;
                            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4047,6 +4046,7 @@ edo:HydrostaticCollapseAbsPressDry rdf:type owl:Class ;
                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                    edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasUnit unit:PA ;
                                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4131,6 +4131,7 @@ edo:IndividualAnodeMass rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:KiloGM ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4189,6 +4190,7 @@ edo:InnerDiameter rdf:type owl:Class ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:MilliM ;
                   edo:hasValueCardinality edo:MultiValue .
 
 
@@ -4218,6 +4220,7 @@ edo:InsideTemperature rdf:type owl:Class ;
                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:K ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4383,11 +4386,11 @@ edo:InternalDiameter rdf:type owl:Class ;
                      skos:definition "Distance measured across the innermost points, passing through the center."@en ;
                      skos:prefLabel "Diâmetro interno"@pt-br ,
                                     "Internal Diameter"@en ;
-                     edo:hasAttributeScope 
-                                           edo:TypeLevelAttribute ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                      edo:hasLifecycleCreationPhase edo:BasicDesign ,
                                                    edo:DetailedDesign ;
                      edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:M ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4435,6 +4438,7 @@ edo:InternalIncidentalPressureTable_Pressure rdf:type owl:Class ;
                                              edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                              edo:hasLifecycleCreationPhase edo:BasicDesign ;
                                              edo:hasTypedValue edo:FloatValue ;
+                                             edo:hasUnit unit:PA ;
                                              edo:hasValueCardinality edo:MultiValue .
 
 
@@ -4450,6 +4454,7 @@ edo:InternalIncidentalPressureTable_VPosWRTWaterline rdf:type owl:Class ;
                                                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                                      edo:hasLifecycleCreationPhase edo:BasicDesign ;
                                                      edo:hasTypedValue edo:IntValue ;
+                                                     edo:hasUnit unit:M ;
                                                      edo:hasValueCardinality edo:MultiValue .
 
 
@@ -4495,6 +4500,7 @@ edo:InternalVolume rdf:type owl:Class ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:M3 ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4602,6 +4608,7 @@ edo:LayAngle rdf:type owl:Class ;
              edo:hasAttributeScope edo:TypeLevelAttribute ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:DEG ;
              edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4680,6 +4687,7 @@ edo:LayerGeometryCrossSection rdf:type owl:Class ;
                               edo:hasAttributeScope edo:InstanceLevelAttribute ;
                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                               edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:M2 ;
                               edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4694,6 +4702,7 @@ edo:LayerGeometryInertiaX rdf:type owl:Class ;
                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:M4 ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4708,6 +4717,7 @@ edo:LayerGeometryInertiaY rdf:type owl:Class ;
                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:M4 ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4750,6 +4760,7 @@ edo:LayerGeometryProfileThickness rdf:type owl:Class ;
                                   edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                   edo:hasTypedValue edo:FloatValue ;
+                                  edo:hasUnit unit:M ;
                                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4764,6 +4775,7 @@ edo:LayerGeometryProfileWidth rdf:type owl:Class ;
                               edo:hasAttributeScope edo:InstanceLevelAttribute ;
                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                               edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:M ;
                               edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4778,6 +4790,7 @@ edo:LayerGeometryThickness rdf:type owl:Class ;
                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:M ;
                            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4792,6 +4805,7 @@ edo:LayerThickness rdf:type owl:Class ;
                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:M ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4821,6 +4835,8 @@ edo:LayerWatertightLowerLayerInternalFreeVolume rdf:type owl:Class ;
                                                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                                 edo:hasTypedValue edo:FloatValue ;
+                                                edo:hasUnit unit:M3-PER-M ,
+                                                            edo:M3-PER-M ;
                                                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4845,6 +4861,7 @@ edo:LayingMinimumRadiusTable_AbsoluteExternalPressure rdf:type owl:Class ;
                                                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                                                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                                       edo:hasTypedValue edo:FloatValue ;
+                                                      edo:hasUnit unit:PA ;
                                                       edo:hasValueCardinality edo:MultiValue .
 
 
@@ -4859,6 +4876,7 @@ edo:LayingMinimumRadiusTable_AbsoluteInternalPressure rdf:type owl:Class ;
                                                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                                                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                                       edo:hasTypedValue edo:FloatValue ;
+                                                      edo:hasUnit unit:PA ;
                                                       edo:hasValueCardinality edo:MultiValue .
 
 
@@ -4874,6 +4892,7 @@ edo:LayingMinimumRadiusTable_Compression rdf:type owl:Class ;
                                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                          edo:hasTypedValue edo:FloatValue ;
+                                         edo:hasUnit unit:N ;
                                          edo:hasValueCardinality edo:MultiValue .
 
 
@@ -4931,6 +4950,8 @@ edo:Length rdf:type owl:Class ;
            edo:hasAttributeScope edo:TypeLevelAttribute ;
            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
            edo:hasTypedValue edo:FloatValue ;
+           edo:hasUnit unit:M ,
+                       unit:MilliM ;
            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -4966,6 +4987,8 @@ edo:LimpTorsionalStiffnessAtSeaLevel rdf:type owl:Class ;
                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                      edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:N-M2-PER-RAD ,
+                                                 edo:N-M2-PER-RAD ;
                                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5029,6 +5052,7 @@ edo:LinearMass rdf:type owl:Class ;
                edo:hasAttributeScope edo:TypeLevelAttribute ;
                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                edo:hasTypedValue edo:FloatValue ;
+               edo:hasUnit unit:KiloGM-PER-M ;
                edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5053,6 +5077,7 @@ edo:LinearWeight rdf:type owl:Class ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:KiloGM_F-PER-M ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5067,6 +5092,7 @@ edo:LinearWeightEmptySubmerged rdf:type owl:Class ;
                                edo:hasAttributeScope edo:TypeLevelAttribute ;
                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:KiloGM_F-PER-M ;
                                edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5082,6 +5108,7 @@ edo:LinearWeightFilled rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:KiloGM_F-PER-M ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5096,6 +5123,7 @@ edo:LinearWeightFilledAir rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:KiloGM_F-PER-M ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5111,6 +5139,7 @@ edo:LinearWeightFilledSubmerged rdf:type owl:Class ;
                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                 edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:KiloGM_F-PER-M ;
                                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5126,6 +5155,7 @@ edo:LinearWeightFilledSubmergedFlooded rdf:type owl:Class ;
                                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                        edo:hasTypedValue edo:FloatValue ;
+                                       edo:hasUnit unit:KiloGM_F-PER-M ;
                                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5141,6 +5171,7 @@ edo:LinearWeightSubmerged rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:KiloGM_F-PER-M ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5175,6 +5206,7 @@ edo:LockedLength rdf:type owl:Class ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:M ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5210,6 +5242,7 @@ edo:LongTermFloatDensity rdf:type owl:Class ;
                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:KiloGM-PER-M3 ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5225,6 +5258,7 @@ edo:LongTermFloatVolume rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:M3 ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5417,6 +5451,8 @@ edo:Mass rdf:type owl:Class ;
          edo:hasAttributeScope edo:TypeLevelAttribute ;
          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
          edo:hasTypedValue edo:FloatValue ;
+         edo:hasUnit unit:KiloGM ,
+                     edo:KiloGM ;
          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5552,6 +5588,7 @@ edo:MaxDepth rdf:type owl:Class ;
              edo:hasAttributeScope edo:TypeLevelAttribute ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:M ;
              edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5599,6 +5636,7 @@ edo:MaxDesignAbsIntPresTable_Pressure rdf:type owl:Class ;
                                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                       edo:hasLifecycleCreationPhase edo:BasicDesign ;
                                       edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:PA ;
                                       edo:hasValueCardinality edo:MultiValue .
 
 
@@ -5614,6 +5652,7 @@ edo:MaxDesignAbsIntPresTable_VPosWRTWaterline rdf:type owl:Class ;
                                               edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                               edo:hasLifecycleCreationPhase edo:BasicDesign ;
                                               edo:hasTypedValue edo:IntValue ;
+                                              edo:hasUnit unit:M ;
                                               edo:hasValueCardinality edo:MultiValue .
 
 
@@ -5628,6 +5667,7 @@ edo:MaxDesignPressure rdf:type owl:Class ;
                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:PA ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5656,6 +5696,7 @@ edo:MaxDynamicLoad rdf:type owl:Class ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:N ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5670,6 +5711,7 @@ edo:MaxLengthTolerance rdf:type owl:Class ;
                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:M ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5685,6 +5727,7 @@ edo:MaxPermissibleDeformationDynamic rdf:type owl:Class ;
                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                      edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:PERCENT ;
                                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5700,6 +5743,7 @@ edo:MaxPermissibleDeformationStatic rdf:type owl:Class ;
                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                     edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:PERCENT ;
                                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5715,6 +5759,7 @@ edo:MaxPressure rdf:type owl:Class ;
                 edo:hasAttributeScope edo:TypeLevelAttribute ;
                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                 edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:PSI ;
                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5729,6 +5774,7 @@ edo:MaximumAllowableTensileForStraightLine rdf:type owl:Class ;
                                            edo:hasAttributeScope edo:TypeLevelAttribute ;
                                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                            edo:hasTypedValue edo:FloatValue ;
+                                           edo:hasUnit unit:N ;
                                            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5743,6 +5789,7 @@ edo:MaximumAllowableTensionTable_MaximumAllowableTensile rdf:type owl:Class ;
                                                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                                                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                                          edo:hasTypedValue edo:FloatValue ;
+                                                         edo:hasUnit unit:N ;
                                                          edo:hasValueCardinality edo:MultiValue .
 
 
@@ -5757,6 +5804,7 @@ edo:MaximumAllowableTensionTable_PulleyRadius rdf:type owl:Class ;
                                               edo:hasAttributeScope edo:TypeLevelAttribute ;
                                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                               edo:hasTypedValue edo:FloatValue ;
+                                              edo:hasUnit unit:M ;
                                               edo:hasValueCardinality edo:MultiValue .
 
 
@@ -5771,6 +5819,7 @@ edo:MaximumAllowableTensionTable_PulleyVAngle rdf:type owl:Class ;
                                               edo:hasAttributeScope edo:TypeLevelAttribute ;
                                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                               edo:hasTypedValue edo:FloatValue ;
+                                              edo:hasUnit unit:DEG ;
                                               edo:hasValueCardinality edo:MultiValue .
 
 
@@ -5785,6 +5834,7 @@ edo:MaximumAllowableTighteningTable_AxialLoad rdf:type owl:Class ;
                                               edo:hasAttributeScope edo:TypeLevelAttribute ;
                                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                               edo:hasTypedValue edo:FloatValue ;
+                                              edo:hasUnit unit:N ;
                                               edo:hasValueCardinality edo:MultiValue .
 
 
@@ -5799,6 +5849,7 @@ edo:MaximumAllowableTighteningTable_TighteningPerTrack rdf:type owl:Class ;
                                                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                                                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                                        edo:hasTypedValue edo:FloatValue ;
+                                                       edo:hasUnit unit:N-PER-M ;
                                                        edo:hasValueCardinality edo:MultiValue .
 
 
@@ -5815,6 +5866,7 @@ edo:MaximumAmbientTemperature rdf:type owl:Class ;
                               edo:hasAttributeScope edo:TypeLevelAttribute ;
                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                               edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:K ;
                               edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5830,6 +5882,7 @@ edo:MaximumBendingMoment rdf:type owl:Class ;
                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:KiloN-M ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5845,6 +5898,7 @@ edo:MaximumBendingMomentLongTerm rdf:type owl:Class ;
                                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                  edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:KiloN-M ;
                                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5860,6 +5914,7 @@ edo:MaximumHousedDiameter rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:MilliM ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5875,6 +5930,7 @@ edo:MaximumLength rdf:type owl:Class ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:M ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5890,6 +5946,7 @@ edo:MaximumShearForce rdf:type owl:Class ;
                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:KiloN ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5905,6 +5962,7 @@ edo:MaximumShearForceLongTerm rdf:type owl:Class ;
                               edo:hasAttributeScope edo:TypeLevelAttribute ;
                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                               edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:KiloN ;
                               edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5919,6 +5977,7 @@ edo:MaximumTemperature rdf:type owl:Class ;
                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:BasicDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:K ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5933,6 +5992,7 @@ edo:MaximumThermalExchangeCoefficient rdf:type owl:Class ;
                                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                       edo:hasLifecycleCreationPhase edo:BasicDesign ;
                                       edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:W-PER-M-K ;
                                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5947,6 +6007,7 @@ edo:MbrDynamicOperation rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:M ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5961,6 +6022,7 @@ edo:MbrStaticOperation rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:M ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6013,6 +6075,7 @@ edo:MetallicLayerPitch rdf:type owl:Class ;
                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:M ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6044,6 +6107,7 @@ edo:MetallicStrandLength rdf:type owl:Class ;
                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:MilliM ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6055,9 +6119,7 @@ edo:MetallicStrandSet rdf:type owl:Class ;
                       skos:definition "Galvanic connection cables set providing reliable electrical link between anodes and metal infrastructure for effective corrosion mitigation."@en ;
                       skos:prefLabel "Conjunto de Cordoalhas de Continuidade"@pt-br ,
                                      "Metallic Strand Set"@en ;
-                      edo:hasAttribute edo:StrandsTable_SpareQuantity ,
-                                       edo:StrandsTable_StrandsLength ,
-                                       edo:StrandsTable_StrandsQuantity ;
+                      edo:hasAttribute edo:StrandsTableAttribute ;
                       edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                         edo:SubseaUmbilicalsEngineering ;
                       edo:ifc_equivalentClass "IfcCableSegment" ;
@@ -6170,6 +6232,7 @@ edo:MinimumBendingRadius rdf:type owl:Class ;
                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:M ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6184,6 +6247,7 @@ edo:MinimumBendingRadiusForStorage rdf:type owl:Class ;
                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                    edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasUnit unit:M ;
                                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6199,6 +6263,7 @@ edo:MinimumHousedDiameter rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:MilliM ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6213,6 +6278,7 @@ edo:MinimumLength rdf:type owl:Class ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:M ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6227,6 +6293,7 @@ edo:MinimumTemperature rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:K ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6241,6 +6308,7 @@ edo:MinimumThermalExchangeCoefficient rdf:type owl:Class ;
                                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                       edo:hasLifecycleCreationPhase edo:BasicDesign ;
                                       edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:W-PER-M-K ;
                                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6255,6 +6323,7 @@ edo:ModulusOfElasticity rdf:type owl:Class ;
                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:PA ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6287,6 +6356,7 @@ edo:NominalDiameter rdf:type owl:Class ;
                     edo:hasAttributeScope edo:InstanceLevelAttribute ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:StringValue ;
+                    edo:hasUnit unit:MilliM ;
                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6302,6 +6372,7 @@ edo:NominalFloatDensity rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:KiloGM-PER-M3 ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6317,6 +6388,8 @@ edo:NominalFloatVolume rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:M3 ,
+                                   unit:m3 ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6332,6 +6405,7 @@ edo:NominalLength rdf:type owl:Class ;
                   edo:hasLifecycleCreationPhase edo:BasicDesign ,
                                                 edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:M ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6511,6 +6585,7 @@ edo:OffLeakPLevMaxPress rdf:type owl:Class ;
                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:PA ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6555,6 +6630,7 @@ edo:OffLeakPLevNomPress rdf:type owl:Class ;
                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:PA ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6742,6 +6818,7 @@ edo:OuterArea rdf:type owl:Class ;
               edo:hasAttributeScope edo:TypeLevelAttribute ;
               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
               edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:L-PER-M ;
               edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6756,6 +6833,8 @@ edo:OuterDiameter rdf:type owl:Class ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:M ,
+                              unit:MilliM ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6771,6 +6850,7 @@ edo:OutsideTemperature rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:K ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -6926,6 +7006,7 @@ edo:PermeabilityTable_PermeabilityCoefficient rdf:type owl:Class ;
                                               edo:hasAttributeScope edo:TypeLevelAttribute ;
                                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                               edo:hasTypedValue edo:FloatValue ;
+                                              edo:hasUnit edo:MOL-PER-M-SEC-PA ;
                                               edo:hasValueCardinality edo:MultiValue .
 
 
@@ -6955,6 +7036,7 @@ edo:PermeabilityTable_Temperature rdf:type owl:Class ;
                                   edo:hasAttributeScope edo:TypeLevelAttribute ;
                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                   edo:hasTypedValue edo:FloatValue ;
+                                  edo:hasUnit unit:K ;
                                   edo:hasValueCardinality edo:MultiValue .
 
 
@@ -7029,6 +7111,7 @@ edo:PipeMountPosition rdf:type owl:Class ;
                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:M ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7210,27 +7293,14 @@ edo:PolymericMaterial rdf:type owl:Class ;
                       skos:definition "Material made from polymers, used to fabricate flexible layers in subsea flexible pipes. Polymeric Material is selected for its properties such as flexibility, chemical resistance, and durability, making it suitable for withstanding the harsh conditions of subsea environments. These materials are commonly used in layers that provide insulation, protection, or pressure containment, ensuring the overall performance and integrity of the flexible pipe under dynamic loads and extreme underwater conditions."@en ;
                       skos:prefLabel "Material Polimérico"@pt-br ,
                                      "Polymeric Material"@en ;
-                      edo:hasAttribute edo:DiffusionTable ,
-                                       edo:DiffusionTable_DiffusionCoefficient ,
-                                       edo:DiffusionTable_MoleculeIdentifier ,
-                                       edo:DiffusionTable_PolymerState ,
-                                       edo:DiffusionTable_Temperature ,
-                                       edo:EModVsTempTable_ElasticityModulus ,
-                                       edo:EModVsTempTable_Temperature ,
+                      edo:hasAttribute edo:DiffusionCurveAttribute ,
+                                       edo:EModVsTempCurveAttribute ,
                                        edo:MaxPermissibleDeformationDynamic ,
                                        edo:MaxPermissibleDeformationStatic ,
                                        edo:MinimumTemperature ,
-                                       edo:PermeabilityTable ,
-                                       edo:PermeabilityTable_MoleculeIdentifier ,
-                                       edo:PermeabilityTable_PermeabilityCoefficient ,
-                                       edo:PermeabilityTable_PolymerState ,
-                                       edo:PermeabilityTable_Temperature ,
+                                       edo:PermeabilityTableColumn ,
                                        edo:PolymericLayerMaterialType ,
-                                       edo:SolubilityTable ,
-                                       edo:SolubilityTable_MoleculeIdentifier ,
-                                       edo:SolubilityTable_PolymerState ,
-                                       edo:SolubilityTable_SolubilityCoefficient ,
-                                       edo:SolubilityTable_Temperature ;
+                                       edo:SolubilityTableColumn ;
                       edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                         edo:SubseaUmbilicalsEngineering ;
                       edo:ifc_equivalentClass "IfcMaterial" ;
@@ -7257,6 +7327,7 @@ edo:PostSlippingBendingStiffness rdf:type owl:Class ;
                                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                  edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:N-M2 ;
                                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7303,6 +7374,7 @@ edo:PreSlippingBendingStiffness rdf:type owl:Class ;
                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                 edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:N-M2 ;
                                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7584,9 +7656,8 @@ edo:QuickConnectCoupling rdf:type owl:Class ;
                                          "Quick connect coupling used to connect or disconnect fluid or gas lines in a practical and safe way, ensuring sealing and minimising leakage during operation."@en ;
                          skos:prefLabel "Engate Rápido"@pt-br ,
                                         "Quick Connect Coupling"@en ;
-                         edo:hasAttribute edo:Gender ,
-                                          edo:StandardType ,
-                                          edo:ThreadType ;
+                         edo:hasAttribute edo:HoseFittingSpecTableAttribute ,
+                                          edo:StandardType ;
                          edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                          edo:ifc_equivalentClass "IfcPipeFitting" ;
                          edo:ifc_objectType "QuickConnectCoupling" .
@@ -7656,6 +7727,7 @@ edo:ReinforcementLength rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:MilliM ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7671,6 +7743,7 @@ edo:ReinforcementOuterDiameter rdf:type owl:Class ;
                                edo:hasAttributeScope edo:TypeLevelAttribute ;
                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:MilliM ;
                                edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7776,6 +7849,7 @@ edo:RingGasketInnerDIameter rdf:type owl:Class ;
                             edo:hasAttributeScope edo:TypeLevelAttribute ;
                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                             edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:MilliM ;
                             edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7804,6 +7878,7 @@ edo:RingGasketOuterDiameter rdf:type owl:Class ;
                             edo:hasAttributeScope edo:TypeLevelAttribute ;
                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                             edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:MilliM ;
                             edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7818,6 +7893,7 @@ edo:RingGasketPressureRating rdf:type owl:Class ;
                              edo:hasAttributeScope edo:TypeLevelAttribute ;
                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                              edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:PA ;
                              edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7983,6 +8059,7 @@ edo:RuptDefAlongFibers rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:PERCENT ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7997,6 +8074,7 @@ edo:RuptDefPerpendFibers rdf:type owl:Class ;
                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:PERCENT ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8071,6 +8149,8 @@ edo:SafeWorkingLoad rdf:type owl:Class ;
                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:KiloGM_F ,
+                                unit:TONNE_F ;
                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8182,6 +8262,7 @@ edo:ShackleInnerDiameter rdf:type owl:Class ;
                          edo:hasAttributeScope edo:InstanceLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:M ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8196,6 +8277,7 @@ edo:ShackleOpeningWidth rdf:type owl:Class ;
                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:M ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8210,6 +8292,7 @@ edo:ShackleOuterDiameter rdf:type owl:Class ;
                          edo:hasAttributeScope edo:InstanceLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:M ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8224,6 +8307,7 @@ edo:ShackleThickness rdf:type owl:Class ;
                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:M ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8247,6 +8331,7 @@ edo:ShortTermFloatDensity rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:KiloGM-PER-M3 ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8262,6 +8347,8 @@ edo:ShortTermFloatVolume rdf:type owl:Class ;
                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:M3 ,
+                                     unit:m3 ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8409,6 +8496,7 @@ edo:SolubilityTable_SolubilityCoefficient rdf:type owl:Class ;
                                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                           edo:hasTypedValue edo:FloatValue ;
+                                          edo:hasUnit unit:MOL-PER-M3-PA ;
                                           edo:hasValueCardinality edo:MultiValue .
 
 
@@ -8423,6 +8511,7 @@ edo:SolubilityTable_Temperature rdf:type owl:Class ;
                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                 edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:K ;
                                 edo:hasValueCardinality edo:MultiValue .
 
 
@@ -8436,6 +8525,7 @@ edo:SourcePigtailLength rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:MilliM ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8491,6 +8581,7 @@ edo:SpecificHeatCapacity rdf:type owl:Class ;
                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:J-PER-KiloGM-K ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8506,6 +8597,7 @@ edo:SpecificMass rdf:type owl:Class ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:KiloGM-PER-M3 ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8521,6 +8613,7 @@ edo:SpecificWeight rdf:type owl:Class ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:N-PER-M3 ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8563,6 +8656,8 @@ edo:SpoolingTension rdf:type owl:Class ;
                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:KiloN ,
+                                unit:N ;
                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8633,6 +8728,8 @@ edo:StiffTorsionalStiffnessAtSeaLevel rdf:type owl:Class ;
                                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                       edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:N-M2-PER-RAD ,
+                                                  edo:N-M2-PER-RAD ;
                                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8704,6 +8801,7 @@ edo:StrIntOffPLevMaxPress rdf:type owl:Class ;
                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:PA ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8748,6 +8846,7 @@ edo:StrIntOffPLevNomPress rdf:type owl:Class ;
                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:PA ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8792,6 +8891,7 @@ edo:StrIntOnNoTensMaxPress rdf:type owl:Class ;
                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:PA ;
                            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8836,6 +8936,7 @@ edo:StrIntOnNoTensNomPress rdf:type owl:Class ;
                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:PA ;
                            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8909,6 +9010,7 @@ edo:StrandsTable_StrandsLength rdf:type owl:Class ;
                                edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:MilliM ;
                                edo:hasValueCardinality edo:MultiValue .
 
 
@@ -8937,6 +9039,7 @@ edo:StressAtDesignPressure rdf:type owl:Class ;
                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:PA ;
                            edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9148,10 +9251,7 @@ edo:SubseaPipeline rdf:type owl:Class ;
                                     edo:ExecutiveProjectRevision ,
                                     edo:H2SVolumeConcentration ,
                                     edo:InternalDiameter ,
-                                    edo:InternalIncidentalPressureTable ,
-                                    edo:InternalIncidentalPressureTable_PositionReference ,
-                                    edo:InternalIncidentalPressureTable_Pressure ,
-                                    edo:InternalIncidentalPressureTable_VPosWRTWaterline ,
+                                    edo:InternalIncidentalPressureCurveAttribute ,
                                     edo:MaterialRequest ,
                                     edo:MaterialRequestRev ,
                                     edo:MaxDesignAbsIntPresTable ,
@@ -9215,10 +9315,7 @@ edo:SubseaUmbilical rdf:type owl:Class ;
                                      edo:ExecutiveProjectRevision ,
                                      edo:H2SVolumeConcentration ,
                                      edo:InternalDiameter ,
-                                     edo:InternalIncidentalPressureTable ,
-                                     edo:InternalIncidentalPressureTable_PositionReference ,
-                                     edo:InternalIncidentalPressureTable_Pressure ,
-                                     edo:InternalIncidentalPressureTable_VPosWRTWaterline ,
+                                     edo:InternalIncidentalPressureCurveAttribute ,
                                      edo:MaterialRequest ,
                                      edo:MaterialRequestRev ,
                                      edo:MaxDesignAbsIntPresTable ,
@@ -9319,13 +9416,77 @@ edo:SupportRegion rdf:type owl:Class ;
                                   "Uma região específica usada para definir a localização de suporte dos componentes dentro de um modelo 3D."@pt-br ;
                   skos:prefLabel "Região de suporte no Modelo"@pt-br ,
                                  "Support Region"@en ;
-                  edo:hasAttribute edo:GrooveDiameter ,
-                                   edo:GrooveMinimumSupportArea ,
-                                   edo:GrooveSupportSurfaceDiameter ,
-                                   edo:GrooveSupportSurfaceFilletRadius ,
-                                   edo:GrvCntrPntDstnceFrmTermFlange ,
+                  edo:hasAttribute edo:CntrPntDstnceFrmTermFlange ,
                                    edo:SafeWorkingLoad ,
+                                   edo:SupportRegionDiameter ,
+                                   edo:SupportRegionMinimumArea ,
+                                   edo:SupportSurfaceDiameter ,
+                                   edo:SupportSurfaceFilletRadius ,
                                    edo:TechnicalNotes .
+
+
+###  https://w3id.org/energy-domain/edo#SupportRegionDiameter
+edo:SupportRegionDiameter rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "SupportRegionDiameter" ;
+                          skos:definition "Especifica o diâmetro do componente na região onde o apoio é definido. Essa medição é essencial para garantir o alinhamento e o encaixe corretos entre a região de apoio e o componente ou equipamento de instalação associado"@pt-br ,
+                                          "Specifies the diameter of the component at the location where the support region is defined. This measurement is crucial to ensure proper alignment and fit between the support region and the interfacing component or installation equipment"@en ;
+                          skos:prefLabel "Diâmetro da Região de Apoio"@pt-br ,
+                                         "Support Region Diameter"@en ;
+                          edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:M ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SupportRegionMinimumArea
+edo:SupportRegionMinimumArea rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "SupportRegionMinimumArea" ;
+                             skos:definition "Define a área mínima necessária da superfície de apoio para garantir estabilidade e adequada distribuição de carga. Assegura que a região de apoio suporte os esforços operacionais e evite desalinhamento ou deslizamento."@pt-br ,
+                                             "Defines the minimum required area of the support surface necessary to provide adequate stability and load distribution. Ensures that the support region can sustain operational stresses and prevent misalignment or slippage."@en ;
+                             skos:prefLabel "Minimum Support Area"@en ,
+                                            "Área Mínima de Apoio"@pt-br ;
+                             edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:M2 ;
+                             edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SupportSurfaceDiameter
+edo:SupportSurfaceDiameter rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "SupportSurfaceDiameter" ;
+                           skos:definition "Indica o diâmetro da superfície de contato dentro da região de apoio. Essa medição garante que a interface proporcione área de contato suficiente para transferência de carga e conexão estável entre componentes adjacentes."@pt-br ,
+                                           "Indicates the diameter of the contact surface within the support region. This measurement ensures that the interface provides sufficient contact area for load transfer and a stable connection between adjacent components."@en ;
+                           skos:prefLabel "Diâmetro da superfície de apoio"@pt-br ,
+                                          "Support Surface Diameter"@en ;
+                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:M ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SupportSurfaceFilletRadius
+edo:SupportSurfaceFilletRadius rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "SupportSurfaceFilletRadius" ;
+                               skos:definition "Representa o raio do chanfro ou transição arredondada na borda da superfície de apoio. Um raio adequado reduz a concentração de tensões, melhorando a integridade estrutural e a resistência à fadiga do componente."@pt-br ,
+                                               "Represents the radius of the fillet or rounded transition at the edge of the support surface. A proper fillet radius reduces stress concentration, improving the structural integrity and fatigue resistance of the component."@en ;
+                               skos:prefLabel "Raio de Chanframento da Superfície de Apoio"@pt-br ,
+                                              "Support Surface Fillet Radius"@en ;
+                               edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:M ;
+                               edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#SurfaceEquipment
@@ -9446,6 +9607,7 @@ edo:TemperatureRange_MaxTemperature rdf:type owl:Class ;
                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                     edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:DEG_C ;
                                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9461,6 +9623,7 @@ edo:TemperatureRange_MinTemperature rdf:type owl:Class ;
                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                     edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:DEG_C ;
                                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9516,6 +9679,8 @@ edo:TensileArmourFreeAnnulusVolume rdf:type owl:Class ;
                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                    edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasUnit unit:M3-PER-M ,
+                                               edo:M3-PER-M ;
                                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9530,6 +9695,7 @@ edo:TensileWireLayAngle rdf:type owl:Class ;
                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:DEG ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9575,6 +9741,7 @@ edo:TensionerPadsOpeningAngle rdf:type owl:Class ;
                               edo:hasAttributeScope edo:TypeLevelAttribute ;
                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                               edo:hasTypedValue edo:IntValue ;
+                              edo:hasUnit unit:DEG ;
                               edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9655,6 +9822,7 @@ edo:TestPressure rdf:type owl:Class ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:MPa ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9670,6 +9838,7 @@ edo:ThermalConductivityCoefficient rdf:type owl:Class ;
                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                    edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasUnit unit:W-PER-M-K ;
                                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9685,6 +9854,7 @@ edo:ThermalExchangeCoefficientFlooded rdf:type owl:Class ;
                                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                       edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:W-PER-M-K ;
                                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9708,6 +9878,7 @@ edo:ThreadPitch rdf:type owl:Class ;
                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                 edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:MilliM ;
                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9746,8 +9917,7 @@ edo:ThreadedFitting rdf:type owl:Class ;
                                     "Um Engate Rosqueado é um conector usado para unir linhas de fluido ou gás por meio de roscas, garantindo uma conexão segura e vedada que pode ser facilmente montada ou desmontada durante a instalação ou manutenção."@pt-br ;
                     skos:prefLabel "Engate Rosqueado"@pt-br ,
                                    "Threaded Fitting"@en ;
-                    edo:hasAttribute edo:Gender ,
-                                     edo:ThreadType ;
+                    edo:hasAttribute edo:HoseFittingSpecTableAttribute ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "ThreadedFitting" .
@@ -9889,6 +10059,7 @@ edo:TorsionalStiffnessHigherStorage rdf:type owl:Class ;
                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                     edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:N-M2-PER-RAD ;
                                     edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9904,6 +10075,7 @@ edo:TorsionalStiffnessLowerStorage rdf:type owl:Class ;
                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                    edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasUnit unit:N-M2-PER-RAD ;
                                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -9929,8 +10101,7 @@ edo:TransportLineSegment rdf:type owl:Class ;
                          edo:hasAttribute edo:MaxDepth ,
                                           edo:OuterDiameter ,
                                           edo:Reused ,
-                                          edo:TemperatureRange_MaxTemperature ,
-                                          edo:TemperatureRange_MinTemperature .
+                                          edo:TemperatureRangeTableColumn .
 
 
 ###  https://w3id.org/energy-domain/edo#TransportSupportPoint
@@ -10101,6 +10272,7 @@ edo:UltTensStrAlongFibers rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:PA ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10115,6 +10287,7 @@ edo:UltTensStrPerpendFibers rdf:type owl:Class ;
                             edo:hasAttributeScope edo:TypeLevelAttribute ;
                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                             edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:PA ;
                             edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10130,6 +10303,7 @@ edo:UltimateTensileStress rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:PA ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10303,6 +10477,7 @@ edo:UpperItubeDiameter rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:M ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10408,6 +10583,7 @@ edo:VoltageRating_MaximumLineVoltage rdf:type owl:Class ;
                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                      edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:KiloV ;
                                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10423,6 +10599,7 @@ edo:VoltageRating_MaximumPhaseVoltage rdf:type owl:Class ;
                                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                       edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:KiloV ;
                                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10438,6 +10615,7 @@ edo:VoltageRating_MaximumSystemVoltage rdf:type owl:Class ;
                                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                        edo:hasTypedValue edo:FloatValue ;
+                                       edo:hasUnit unit:KiloV ;
                                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10499,6 +10677,7 @@ edo:WeightInWater rdf:type owl:Class ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:KiloGM_F ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10593,6 +10772,7 @@ edo:WireRopeSlingDiameter rdf:type owl:Class ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:M ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10607,6 +10787,7 @@ edo:WireRopeSlingLength rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:M ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10621,6 +10802,7 @@ edo:WorkingLoadLimit rdf:type owl:Class ;
                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:KiloGM ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -10631,7 +10813,8 @@ edo:WorkingTension rdf:type owl:Class ;
                    dcterms:identifier "WorkingTension" ;
                    skos:definition "Working tension"@en ;
                    skos:prefLabel "Tensão de trabalho"@pt-br ,
-                                  "Working tension"@en .
+                                  "Working tension"@en ;
+                   edo:hasUnit unit:KiloN .
 
 
 ###  https://w3id.org/energy-domain/edo#WoundLayer
@@ -10644,1040 +10827,991 @@ edo:WoundLayer rdf:type owl:Class ;
                               "Wound Layer"@en .
 
 
-##################################################
-# Annotation properties for unit association
-##################################################
-
-# Generic property (superproperty)
-edo:hasUnit a owl:AnnotationProperty ;
-  rdfs:subPropertyOf edo:DomainEngineeringAnnotation ;
-    rdfs:label "has Unit"@en ;
-    rdfs:comment "Property for linking a DomainAttribute to its measurement unit."@en ;
-    rdfs:domain edo:DomainAttribute ;
-    rdfs:range edo:DomainUnit .
-
-##################################################
-# Class DomainUnit (subclass of QUDT Unit)
-##################################################
-
-edo:DomainUnit a owl:Class ;
-    rdfs:subClassOf qudt:Unit ;
-    rdfs:label "Domain Unit"@en ;
-    rdfs:comment "Represents a measurement unit used within the EDO domain. Subclass of QUDT Unit, allowing extension with domain-specific units."@en .
-
-# EDO instances only for units that do not exist in QUDT
-
-### Volume per length
-edo:M3-PER-M a edo:DomainUnit ;
-    rdfs:label "Cubic meter per meter"@en ;
-    rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
-    qudt:symbol "m³/m" ;
-    qudt:hasQuantityKind qudt:VolumePerLength ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:hasFactorUnit [ qudt:exponent 3 ; qudt:hasUnit unit:M ],
-                       [ qudt:exponent -1 ; qudt:hasUnit unit:M ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "M3.M-1" ;
-    rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> .
-
-### Stress per angular measurement
-edo:N-M2-PER-RAD a edo:DomainUnit ;
-    rdfs:label "Newton per square meter per radian"@en ;
-    rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
-    qudt:symbol "N/m²·rad" ;
-    qudt:hasQuantityKind qudt:StressPerAngle ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:hasFactorUnit [ qudt:exponent 1 ; qudt:hasUnit unit:N ],
-                       [ qudt:exponent -2 ; qudt:hasUnit unit:M ],
-                       [ qudt:exponent -1 ; qudt:hasUnit unit:RAD ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "N.M-2.RAD-1" ;
-    rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> .
-
-### Molar flux per pressure
-edo:MOL-PER-M-SEC-PA a edo:DomainUnit ;
-    rdfs:label "Mole per meter per second per Pascal"@en ;
-    rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
-    qudt:symbol "mol/(m·s·Pa)" ;
-    qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:hasFactorUnit [ qudt:exponent 1 ; qudt:hasUnit unit:MOL ],
-                       [ qudt:exponent -1 ; qudt:hasUnit unit:M ],
-                       [ qudt:exponent -1 ; qudt:hasUnit unit:S ],
-                       [ qudt:exponent -1 ; qudt:hasUnit unit:PA ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "MOL.M-1.S-1.PA-1" ;
-    rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> .
-
-# Other customized units could be added here
-
-
-##################################################
-# Traceability metadata (QUDT Units)
-##################################################
-
-### Pascal
-unit:PA a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Pascal"@en ;
-    rdfs:comment "Unit of pressure. The SI unit of pressure, equal to one newton per square meter."@en ;
-    qudt:symbol "Pa" ;
-    qudt:hasQuantityKind qudt:Pressure ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:hasFactorUnit [ qudt:exponent 1 ; qudt:hasUnit unit:N ],
-                       [ qudt:exponent -2 ; qudt:hasUnit unit:M ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "PA" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/PA> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Millimeter
-unit:MilliM a qudt:Unit, edo:DomainUnit ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/MilliM> ;
-    dcterms:source "QUDT Units Vocabulary"@en ;
-    rdfs:label "Millimeter"@en ;
-    rdfs:comment "Unit of length equal to one thousandth of a meter"@en ;
-    qudt:symbol "mm" ;
-    qudt:hasQuantityKind qudt:Length ;
-    qudt:conversionMultiplier 0.001 ;
-    qudt:hasFactorUnit [ qudt:exponent 1 ; qudt:hasUnit unit:M ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "MM" .
-
-### Newton meter
-unit:N-M a qudt:Unit, edo:DomainUnit ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/N-M> ;
-    dcterms:source "QUDT Units Vocabulary"@en ;
-    rdfs:label "Newton meter"@en ;
-    rdfs:comment "Unit of torque or moment, equal to one newton acting at a perpendicular distance of one meter"@en ;
-    qudt:symbol "N·m" ;
-    qudt:hasQuantityKind qudt:Torque ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:hasFactorUnit [ qudt:exponent 1 ; qudt:hasUnit unit:N ],
-                       [ qudt:exponent 1 ; qudt:hasUnit unit:M ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "N.M" .
-
-### Newton
-unit:N a qudt:Unit, edo:DomainUnit ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/N> ;
-    dcterms:source "QUDT Units Vocabulary"@en ;
-    rdfs:label "Newton"@en ;
-    rdfs:comment "Unit of force, equal to the force required to accelerate one kilogram of mass at one meter per second squared"@en ;
-    qudt:symbol "N" ;
-    qudt:hasQuantityKind qudt:Force ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:hasFactorUnit [ qudt:exponent 1 ; qudt:hasUnit unit:KG ],
-                       [ qudt:exponent 1 ; qudt:hasUnit unit:M ],
-                       [ qudt:exponent -2 ; qudt:hasUnit unit:S ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "N" .
-
-### Per meter
-unit:PER-M a qudt:Unit, edo:DomainUnit ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/PER-M> ;
-    dcterms:source "QUDT Units Vocabulary"@en ;
-    rdfs:label "Per meter"@en ;
-    rdfs:comment "Reciprocal of meter, used for quantities per unit length"@en ;
-    qudt:symbol "1/m" ;
-    qudt:hasQuantityKind qudt:ReciprocalLength ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:hasFactorUnit [ qudt:exponent -1 ; qudt:hasUnit unit:M ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "1/M" .
-
-### Meter
-unit:M a qudt:Unit, edo:DomainUnit ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/M> ;
-    dcterms:source "QUDT Units Vocabulary"@en ;
-    rdfs:label "Meter"@en ;
-    rdfs:comment "Unit of length in the metric system"@en ;
-    qudt:symbol "m" ;
-    qudt:hasQuantityKind qudt:Length ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "M" .
-
-### Percent
-unit:PERCENT a qudt:Unit, edo:DomainUnit ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/PERCENT> ;
-    dcterms:source "QUDT Units Vocabulary"@en ;
-    rdfs:label "Percent"@en ;
-    rdfs:comment "Unit representing a fraction of 100"@en ;
-    qudt:symbol "%" ;
-    qudt:hasQuantityKind qudt:Dimensionless ;
-    qudt:conversionMultiplier 0.01 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "%" .
-
-### Square meter per second
-unit:M2-PER-SEC a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Square meter per second"@en ;
-    rdfs:comment "Unit of area flux or similar rates per unit time"@en ;
-    qudt:symbol "m²/s" ;
-    qudt:hasQuantityKind qudt:AreaFlux ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:hasFactorUnit [ qudt:exponent 2 ; qudt:hasUnit unit:M ],
-                       [ qudt:exponent -1 ; qudt:hasUnit unit:S ] ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "M2.S-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/M2-PER-SEC> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kelvin
-unit:K a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kelvin"@en ;
-    rdfs:comment "Unit of thermodynamic temperature"@en ;
-    qudt:symbol "K" ;
-    qudt:hasQuantityKind qudt:ThermodynamicTemperature ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "K" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/K> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Cubic meter
-unit:M3 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Cubic meter"@en ;
-    rdfs:comment "Unit of volume in the metric system"@en ;
-    qudt:symbol "m³" ;
-    qudt:hasQuantityKind qudt:Volume ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "M3" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/M3> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Ampere
-unit:A a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Ampere"@en ;
-    rdfs:comment "Unit of electric current"@en ;
-    qudt:symbol "A" ;
-    qudt:hasQuantityKind qudt:ElectricCurrent ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "A" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/A> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Newton per meter
-unit:N-PER-M a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Newton per meter"@en ;
-    rdfs:comment "Unit of force per unit length"@en ;
-    qudt:symbol "N/m" ;
-    qudt:hasQuantityKind qudt:ForcePerLength ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "N.M-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/N-PER-M> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Square meter
-unit:M2 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Square meter"@en ;
-    rdfs:comment "Unit of area in the metric system"@en ;
-    qudt:symbol "m²" ;
-    qudt:hasQuantityKind qudt:Area ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "M2" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/M2> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Micrometre cubic per cubic meter
-unit:MicroM3-PER-M3 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Micrometre cubic per cubic meter"@en ;
-    rdfs:comment "Custom unit representing volume fraction"@en ;
-    qudt:symbol "µm³/m³" ;
-    qudt:hasQuantityKind qudt:Dimensionless ;
-    qudt:conversionMultiplier 1.0E-18 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "UM3.M-3" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/MICRO-M3-PER-M3> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilogram
-unit:KiloGM a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilogram"@en ;
-    rdfs:comment "Unit of mass in the metric system"@en ;
-    qudt:symbol "kg" ;
-    qudt:hasQuantityKind qudt:Mass ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "KG" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KG> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Meter to the fourth power
-unit:M4 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Meter to the fourth power"@en ;
-    rdfs:comment "Derived unit for moments of area (e.g., beam bending calculations)"@en ;
-    qudt:symbol "m⁴" ;
-    qudt:hasQuantityKind qudt:AreaMoment ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "M4" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/M4> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilogram per meter
-unit:KiloGM-PER-M a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilogram per meter"@en ;
-    rdfs:comment "Unit of linear mass density"@en ;
-    qudt:symbol "kg/m" ;
-    qudt:hasQuantityKind qudt:LinearMassDensity ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "KG.M-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KG-PER-M> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilogram per cubic meter
-unit:KiloGM-PER-M3 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilogram per cubic meter"@en ;
-    rdfs:comment "Unit of mass density"@en ;
-    qudt:symbol "kg/m³" ;
-    qudt:hasQuantityKind qudt:MassDensity ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "KG.M-3" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KG-PER-M3> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Degree
-unit:DEG a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Degree"@en ;
-    rdfs:comment "Unit of plane angle measurement"@en ;
-    qudt:symbol "°" ;
-    qudt:hasQuantityKind qudt:PlaneAngle ;
-    qudt:conversionMultiplier 0.017453292519943295 ;  # rad per degree
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "DEG" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/DEG> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Watt per meter kelvin
-unit:W-PER-M-K a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Watt per meter kelvin"@en ;
-    rdfs:comment "Unit of thermal conductivity"@en ;
-    qudt:symbol "W/(m·K)" ;
-    qudt:hasQuantityKind qudt:ThermalConductivity ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "W.M-1.K-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/W-PER-M-K> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Newton per square meter
-unit:N-M2 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Newton per square meter"@en ;
-    rdfs:comment "Unit of pressure or stress"@en ;
-    qudt:symbol "N/m²" ;
-    qudt:hasQuantityKind qudt:Pressure ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "N.M-2" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/N-M2> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Pound mass
-unit:KiloGM_F a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Pound mass"@en ;
-    rdfs:comment "Unit of mass in the imperial system"@en ;
-    qudt:symbol "lbm" ;
-    qudt:hasQuantityKind qudt:Mass ;
-    qudt:conversionMultiplier 0.45359237 ;
-    qudt:definedUnitOfSystem sou:Imperial ;
-    qudt:ucumCode "LB" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/POUND-MASS> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Mole per cubic meter per Pascal
-unit:MOL-PER-M3-PA a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Mole per cubic meter per Pascal"@en ;
-    rdfs:comment "Represents the amount of substance (in moles) per cubic meter per Pascal of pressure."@en ;
-    qudt:symbol "mol/(m³·Pa)" ;
-    qudt:hasQuantityKind qudt:MolarDensityPerPressure ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "MOL.M-3.PA-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/MOL-PER-M3-PA> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Joule per kilogram-Kelvin
-unit:J-PER-KiloGM-K a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Joule per Kilogram-Kelvin"@en ;
-    rdfs:comment "Represents energy (in joules) per unit mass (kilogram) per unit temperature (Kelvin)."@en ;
-    qudt:symbol "J/(kg·K)" ;
-    qudt:hasQuantityKind qudt:SpecificHeatCapacity ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "J.KG-1.K-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/J-PER-KG-K> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Newton per cubic meter
-unit:N-PER-M3 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Newton per Cubic Meter"@en ;
-    rdfs:comment "Newton per cubic meter (N/m³) is a unit used to express the amount of force applied within a given volume."@en ;
-    qudt:symbol "N/m³" ;
-    qudt:hasQuantityKind qudt:ForcePerVolume ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "N.M-3" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/N-PER-M3> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-
-edo:AbsoluteInsidePressure edo:hasUnit unit:PA.
-edo:AbsoluteOutsidePressure edo:hasUnit unit:PA.
-edo:AnodeCollarsAxialSpacing edo:hasUnit unit:MilliM.
-edo:AssemblyTorque edo:hasUnit unit:N-M.
-edo:AssemblyTorque edo:hasUnit unit:N-M.
-edo:AxialStiffnessUnderCompressionAtSeaLevel edo:hasUnit unit:N.
-edo:AxialStiffnessUnderTensionAtSeaLevel edo:hasUnit unit:N.
-edo:BendingMomentTable_BendingMoment edo:hasUnit unit:N-M.
-edo:BendingMomentTable_Curvature edo:hasUnit unit:PER-M.
-edo:BendMomentVsShearForceTable_BendingMoment edo:hasUnit unit:N-M.
-edo:BendMomentVsShearForceTable_ShearForce edo:hasUnit unit:N.
-edo:BoreDiameter edo:hasUnit unit:MilliM.
-edo:CalculatedAbsoluteBurstPressure edo:hasUnit unit:PA.
-edo:ClampInternalDiameter edo:hasUnit unit:M.
-edo:CO2VolumePercentage edo:hasUnit unit:PERCENT.
-edo:CollarInternalDiameter edo:hasUnit unit:MilliM.
-edo:CriticalCurvatureOfSlipping edo:hasUnit unit:PER-M.
-edo:DamagingPullInStraightLine edo:hasUnit unit:N.
-edo:DiffusionTable_DiffusionCoefficient edo:hasUnit unit:M2-PER-SEC.
-edo:DiffusionTable_Temperature edo:hasUnit unit:K.
-edo:DisplacedVolume edo:hasUnit unit:M3.
-edo:EarlyLeakMaxPressTable_Press edo:hasUnit unit:PA.
-edo:EarlyLeakMaxPressTable_PressValRefMult edo:hasUnit unit:PA.
-edo:EarlyLeakMaxPressTable_TensLimit edo:hasUnit unit:N.
-edo:EarlyLeakNomPressTable_Press edo:hasUnit unit:PA.
-edo:EarlyLeakNomPressTable_TensLimit edo:hasUnit unit:N.
-edo:ElasticityModulusAt23Degrees edo:hasUnit unit:PA.
-edo:EModVsTempTable_ElasticityModulus edo:hasUnit unit:PA.
-edo:ExternalDiameter edo:hasUnit unit:M.
-edo:FatMaxPress edo:hasUnit unit:PA.
-edo:FatNomPress edo:hasUnit unit:PA.
-edo:FractureToughness edo:hasUnit unit:PA.
-edo:FrictionCoefficientTighteningTable_TighteningPerTrack edo:hasUnit unit:N-PER-M.
-edo:GrooveDiameter edo:hasUnit unit:M.
-edo:GrooveHeight edo:hasUnit unit:M.
-edo:GrooveMinimumSupportArea edo:hasUnit unit:M2.
-edo:GrooveSupportSurfaceDiameter edo:hasUnit unit:M.
-edo:GrooveSupportSurfaceFilletRadius edo:hasUnit unit:M.
-edo:GrvCntrPntDstnceFrmTermFlange edo:hasUnit unit:MilliM.
-edo:H2SVolumeConcentration edo:hasUnit unit:MicroM3-PER-M3.
-edo:HydrostaticCollapseAbsPressDry edo:hasUnit unit:PA.
-edo:IndividualAnodeMass edo:hasUnit unit:KiloGM.
-edo:InsideTemperature edo:hasUnit unit:K.
-edo:InternalDiameter edo:hasUnit unit:M.
-edo:InternalDiameter edo:hasUnit unit:M.
-edo:InternalDiameter edo:hasUnit unit:M.
-edo:InternalIncidentalPressureTable_Pressure edo:hasUnit unit:PA.
-edo:InternalIncidentalPressureTable_VPosWRTWaterline edo:hasUnit unit:M.
-edo:InternalVolume edo:hasUnit unit:M3.
-edo:LayerGeometryCrossSection edo:hasUnit unit:M2.
-edo:LayerGeometryInertiaX edo:hasUnit unit:M4.
-edo:LayerGeometryInertiaY edo:hasUnit unit:M4.
-edo:LayerGeometryProfileThickness edo:hasUnit unit:M.
-edo:LayerGeometryProfileWidth edo:hasUnit unit:M.
-edo:LayerGeometryThickness edo:hasUnit unit:M.
-edo:LayerThickness edo:hasUnit unit:M.
-edo:LayerWatertightLowerLayerInternalFreeVolume edo:hasUnit edo:M3-PER-M.
-edo:LayingMinimumRadiusTable_AbsoluteExternalPressure edo:hasUnit unit:PA.
-edo:LayingMinimumRadiusTable_AbsoluteInternalPressure edo:hasUnit unit:PA.
-edo:LayingMinimumRadiusTable_Compression edo:hasUnit unit:N.
-edo:LimpTorsionalStiffnessAtSeaLevel edo:hasUnit edo:N-M2-PER-RAD.
-edo:LinearMass edo:hasUnit unit:KiloGM-PER-M.
-edo:LinearMass edo:hasUnit unit:KiloGM-PER-M.
-edo:LongTermFloatDensity edo:hasUnit unit:KiloGM-PER-M3.
-edo:LongTermFloatVolume edo:hasUnit unit:M3.
-edo:Mass edo:hasUnit unit:KiloGM.
-edo:MaxDesignAbsIntPresTable_Pressure edo:hasUnit unit:PA.
-edo:MaxDesignAbsIntPresTable_VPosWRTWaterline edo:hasUnit unit:M.
-edo:MaxDesignPressure edo:hasUnit unit:PA.
-edo:MaxDynamicLoad edo:hasUnit unit:N.
-edo:MaximumAllowableTensileForStraightLine edo:hasUnit unit:N.
-edo:MaximumAllowableTensionTable_MaximumAllowableTensile edo:hasUnit unit:N.
-edo:MaximumAllowableTensionTable_PulleyRadius edo:hasUnit unit:M.
-edo:MaximumAllowableTensionTable_PulleyVAngle edo:hasUnit unit:DEG.
-edo:MaximumAllowableTighteningTable_AxialLoad edo:hasUnit unit:N.
-edo:MaximumAllowableTighteningTable_TighteningPerTrack edo:hasUnit unit:N-PER-M.
-edo:MaximumAmbientTemperature edo:hasUnit unit:K.
-edo:MaximumAmbientTemperature edo:hasUnit unit:K.
-edo:MaximumAmbientTemperature edo:hasUnit unit:K.
-edo:MaximumTemperature edo:hasUnit unit:K.
-edo:MaximumThermalExchangeCoefficient edo:hasUnit unit:W-PER-M-K.
-edo:MaxLengthTolerance edo:hasUnit unit:M.
-edo:MaxPermissibleDeformationDynamic edo:hasUnit unit:PERCENT.
-edo:MaxPermissibleDeformationStatic edo:hasUnit unit:PERCENT.
-edo:MetallicLayerPitch edo:hasUnit unit:M.
-edo:MetallicStrandLength edo:hasUnit unit:MilliM.
-edo:MinimumBendingRadiusForStorage edo:hasUnit unit:M.
-edo:MinimumTemperature edo:hasUnit unit:K.
-edo:MinimumThermalExchangeCoefficient edo:hasUnit unit:W-PER-M-K.
-edo:ModulusOfElasticity edo:hasUnit unit:PA.
-edo:NominalDiameter edo:hasUnit unit:MilliM.
-edo:NominalDiameter edo:hasUnit unit:MilliM.
-edo:NominalDiameter edo:hasUnit unit:MilliM.
-edo:NominalDiameter edo:hasUnit unit:MilliM.
-edo:NominalFloatDensity edo:hasUnit unit:KiloGM-PER-M3.
-edo:NominalFloatVolume edo:hasUnit unit:m3.
-edo:NominalLength edo:hasUnit unit:M.
-edo:NominalLength edo:hasUnit unit:M.
-edo:NominalLength edo:hasUnit unit:M.
-edo:OffLeakPLevMaxPress edo:hasUnit unit:PA.
-edo:OffLeakPLevNomPress edo:hasUnit unit:PA.
-edo:OuterDiameter edo:hasUnit unit:M.
-edo:OutsideTemperature edo:hasUnit unit:K.
-edo:PermeabilityTable_PermeabilityCoefficient edo:hasUnit edo:MOL-PER-M-SEC-PA.
-edo:PermeabilityTable_Temperature edo:hasUnit unit:K.
-edo:PipeMountPosition edo:hasUnit unit:M.
-edo:PipeMountPosition edo:hasUnit unit:M.
-edo:PostSlippingBendingStiffness edo:hasUnit unit:N-M2.
-edo:PreSlippingBendingStiffness edo:hasUnit unit:N-M2.
-edo:RingGasketInnerDIameter edo:hasUnit unit:MilliM.
-edo:RingGasketInnerDIameter edo:hasUnit unit:MilliM.
-edo:RingGasketInnerDIameter edo:hasUnit unit:MilliM.
-edo:RingGasketOuterDiameter edo:hasUnit unit:MilliM.
-edo:RingGasketOuterDiameter edo:hasUnit unit:MilliM.
-edo:RingGasketOuterDiameter edo:hasUnit unit:MilliM.
-edo:RingGasketPressureRating edo:hasUnit unit:PA.
-edo:RingGasketPressureRating edo:hasUnit unit:PA.
-edo:RingGasketPressureRating edo:hasUnit unit:PA.
-edo:RuptDefAlongFibers edo:hasUnit unit:PERCENT.
-edo:RuptDefPerpendFibers edo:hasUnit unit:PERCENT.
-edo:SafeWorkingLoad edo:hasUnit unit:KiloGM_F.
-edo:SafeWorkingLoad edo:hasUnit unit:KiloGM_F.
-edo:SafeWorkingLoad edo:hasUnit unit:KiloGM_F.
-edo:SafeWorkingLoad edo:hasUnit unit:KiloGM_F.
-edo:ShackleInnerDiameter edo:hasUnit unit:M.
-edo:ShackleOpeningWidth edo:hasUnit unit:M.
-edo:ShackleOuterDiameter edo:hasUnit unit:M.
-edo:ShackleThickness edo:hasUnit unit:M.
-edo:ShortTermFloatDensity edo:hasUnit unit:KiloGM-PER-M3.
-edo:ShortTermFloatVolume edo:hasUnit unit:m3.
-edo:SolubilityTable_SolubilityCoefficient edo:hasUnit unit:MOL-PER-M3-PA.
-edo:SolubilityTable_Temperature edo:hasUnit unit:K.
-edo:SpecificHeatCapacity edo:hasUnit unit:J-PER-KiloGM-K.
-edo:SpecificWeight edo:hasUnit unit:N-PER-M3.
-edo:SpoolingTension edo:hasUnit unit:N.
-edo:StiffTorsionalStiffnessAtSeaLevel edo:hasUnit edo:N-M2-PER-RAD.
-edo:StrandsTable_StrandsLength edo:hasUnit unit:MilliM.
-edo:StressAtDesignPressure edo:hasUnit unit:PA.
-edo:StressAtDesignPressure edo:hasUnit unit:PA.
-edo:StrIntOffPLevMaxPress edo:hasUnit unit:PA.
-edo:StrIntOffPLevNomPress edo:hasUnit unit:PA.
-edo:StrIntOnNoTensMaxPress edo:hasUnit unit:PA.
-edo:StrIntOnNoTensNomPress edo:hasUnit unit:PA.
-edo:TensileArmourFreeAnnulusVolume edo:hasUnit edo:M3-PER-M.
-edo:TensileWireLayAngle edo:hasUnit unit:DEG.
-edo:TensionerPadsOpeningAngle edo:hasUnit unit:DEG.
-edo:ThermalConductivityCoefficient edo:hasUnit unit:W-PER-M-K.
-edo:ThermalExchangeCoefficientFlooded edo:hasUnit unit:W-PER-M-K.
-edo:ThreadPitch edo:hasUnit unit:MilliM.
-edo:ThreadPitch edo:hasUnit unit:MilliM.
-edo:UltimateTensileStress edo:hasUnit unit:PA.
-edo:UltTensStrAlongFibers edo:hasUnit unit:PA.
-edo:UltTensStrPerpendFibers edo:hasUnit unit:PA.
-edo:UpperItubeDiameter edo:hasUnit unit:M.
-edo:WireRopeSlingDiameter edo:hasUnit unit:M.
-edo:WireRopeSlingLength edo:hasUnit unit:M.
-edo:WorkingLoadLimit edo:hasUnit unit:KiloGM.
-
-####################################################################################################################################
-
-
-### Year
-unit:YR_Common a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Year"@en ;
-    rdfs:comment "Unit of time equal to 365 or 366 days."@en ;
-    qudt:symbol "yr" ;
-    qudt:hasQuantityKind qudt:Time ;
-    qudt:conversionMultiplier 31536000.0 ;  # seconds per year
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "a" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/YR> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Degree Celsius
-unit:DEG_C a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Degree Celsius"@en ;
-    rdfs:comment "Unit of temperature equal to one kelvin difference but offset by 273.15 from absolute zero."@en ;
-    qudt:symbol "°C" ;
-    qudt:hasQuantityKind qudt:ThermodynamicTemperature ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "degC" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/DEG-C> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilogram-force per Meter
-unit:KiloGM_F-PER-M a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilogram-force per Meter"@en ;
-    rdfs:comment "Unit of linear force density, representing one kilogram-force per meter length."@en ;
-    qudt:symbol "kgf/m" ;
-    qudt:hasQuantityKind qudt:LinearForceDensity ;
-    qudt:conversionMultiplier 9.80665 ;  # N/m
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "KGF.M-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KGF-PER-M> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilonewton
-unit:KiloN a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilonewton"@en ;
-    rdfs:comment "Unit of force equal to 1,000 newtons."@en ;
-    qudt:symbol "kN" ;
-    qudt:hasQuantityKind qudt:Force ;
-    qudt:conversionMultiplier 1000.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "kN" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KiloN> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilonewton Square Meter
-unit:KiloN-M2 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilonewton Square Meter"@en ;
-    rdfs:comment "Derived unit representing kilonewton times square meter, used in moment of inertia or flexural stiffness."@en ;
-    qudt:symbol "kN·m²" ;
-    qudt:hasQuantityKind qudt:MomentOfArea ;
-    qudt:conversionMultiplier 1000.0 ;  # kN*m²
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "kN.M2" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KiloN-M2> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilonewton per Meter
-unit:KiloN-PER-M a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilonewton per Meter"@en ;
-    rdfs:comment "Unit of linear load or distributed force equal to 1,000 newtons per meter."@en ;
-    qudt:symbol "kN/m" ;
-    qudt:hasQuantityKind qudt:LinearForceDensity ;
-    qudt:conversionMultiplier 1000.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "kN.M-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KiloN-PER-M> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Square Millimeter
-unit:MM2 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Square Millimeter"@en ;
-    rdfs:comment "Unit of area equal to one millionth of a square meter."@en ;
-    qudt:symbol "mm²" ;
-    qudt:hasQuantityKind qudt:Area ;
-    qudt:conversionMultiplier 1.0E-6 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "MM2" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/MM2> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilovolt
-unit:KiloV a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilovolt"@en ;
-    rdfs:comment "Unit of electric potential equal to one thousand volts."@en ;
-    qudt:symbol "kV" ;
-    qudt:hasQuantityKind qudt:ElectricPotential ;
-    qudt:conversionMultiplier 1000.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "kV" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KiloV> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Megapascal
-unit:MPa a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Megapascal"@en ;
-    rdfs:comment "Unit of pressure equal to one million pascals."@en ;
-    qudt:symbol "MPa" ;
-    qudt:hasQuantityKind qudt:Pressure ;
-    qudt:conversionMultiplier 1.0E6 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "MPa" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/MPa> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Pound-force per Square Inch
-unit:PSI a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Pound-force per Square Inch"@en ;
-    rdfs:comment "Imperial unit of pressure equal to one pound-force per square inch."@en ;
-    qudt:symbol "psi" ;
-    qudt:hasQuantityKind qudt:Pressure ;
-    qudt:conversionMultiplier 6894.75729 ;  # Pa
-    qudt:definedUnitOfSystem sou:Imperial ;
-    qudt:ucumCode "psi" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/PSI> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Bar
-unit:BAR a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Bar"@en ;
-    rdfs:comment "Non-SI unit of pressure equal to 100,000 pascals."@en ;
-    qudt:symbol "bar" ;
-    qudt:hasQuantityKind qudt:Pressure ;
-    qudt:conversionMultiplier 1.0E5 ;
-    qudt:definedUnitOfSystem sou:NonSI ;
-    qudt:ucumCode "bar" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/BAR> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Decibel per Kilometer
-unit:DB-PER-KM a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Decibel per Kilometer"@en ;
-    rdfs:comment "Unit of signal attenuation per distance, commonly used in telecommunications."@en ;
-    qudt:symbol "dB/km" ;
-    qudt:hasQuantityKind qudt:LogarithmicRatioPerLength ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "dB.KM-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/DB-PER-KM> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Micrometer
-unit:MicroM a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Micrometer"@en ;
-    rdfs:comment "Unit of length equal to one millionth of a meter."@en ;
-    qudt:symbol "µm" ;
-    qudt:hasQuantityKind qudt:Length ;
-    qudt:conversionMultiplier 1.0E-6 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "UM" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/MicroM> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Tonne-force
-unit:TONNE_F a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Tonne-force"@en ;
-    rdfs:comment "Unit of force equal to the weight of one metric tonne under standard gravity."@en ;
-    qudt:symbol "tf" ;
-    qudt:hasQuantityKind qudt:Force ;
-    qudt:conversionMultiplier 9806.65 ;  # N
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "TF" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/TONNE_F> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Square Decimeter
-unit:DM2 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Square Decimeter"@en ;
-    rdfs:comment "Unit of area equal to 0.01 square meters."@en ;
-    qudt:symbol "dm²" ;
-    qudt:hasQuantityKind qudt:Area ;
-    qudt:conversionMultiplier 0.01 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "DM2" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/DM2> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Kilonewton Meter
-unit:KiloN-M a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Kilonewton Meter"@en ;
-    rdfs:comment "Unit of moment or torque equal to one kilonewton multiplied by one meter."@en ;
-    qudt:symbol "kN·m" ;
-    qudt:hasQuantityKind qudt:Torque ;
-    qudt:conversionMultiplier 1000.0 ;  # N·m
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "kN.M" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/KiloN-M> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Volt
-unit:V a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Volt"@en ;
-    rdfs:comment "SI unit of electric potential or electromotive force."@en ;
-    qudt:symbol "V" ;
-    qudt:hasQuantityKind qudt:ElectricPotential ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "V" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/V> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Inch
-unit:IN a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Inch"@en ;
-    rdfs:comment "Imperial unit of length equal to 1/12 of a foot."@en ;
-    qudt:symbol "in" ;
-    qudt:hasQuantityKind qudt:Length ;
-    qudt:conversionMultiplier 0.0254 ;  # meters
-    qudt:definedUnitOfSystem sou:Imperial ;
-    qudt:ucumCode "IN" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/IN> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Pascal times Square Root Meter
-unit:PA-M0dot5 a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Pascal times Square Root Meter"@en ;
-    rdfs:comment "Unit used in fracture mechanics to express stress intensity factor (Pa√m)."@en ;
-    qudt:symbol "Pa·m⁰·⁵" ;
-    qudt:hasQuantityKind qudt:StressIntensityFactor ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "PA.M0.5" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/PA-M0dot5> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-### Newton per Meter
-unit:N-PER-M a qudt:Unit, edo:DomainUnit ;
-    rdfs:label "Newton per Meter"@en ;
-    rdfs:comment "SI unit of linear force density or stiffness, representing one newton per meter."@en ;
-    qudt:symbol "N/m" ;
-    qudt:hasQuantityKind qudt:LinearForceDensity ;
-    qudt:conversionMultiplier 1.0 ;
-    qudt:definedUnitOfSystem sou:SI ;
-    qudt:ucumCode "N.M-1" ;
-    rdfs:isDefinedBy <http://qudt.org/vocab/unit/N-PER-M> ;
-    dcterms:source "QUDT Units Vocabulary"@en .
-
-
-edo:AbandonmentLife edo:hasUnit unit:YR_Common.
-edo:AbsoluteInsidePressure edo:hasUnit unit:PA.
-edo:AbsoluteOutsidePressure edo:hasUnit unit:PA.
-edo:AllowableBendingMoment  edo:hasUnit unit:N-M.
-edo:Angle edo:hasUnit unit:DEG.
-edo:AngleLayingYarnAramid edo:hasUnit unit:DEG.
-edo:AngleLayingYarnAramid edo:hasUnit unit:W-PER-M-K.
-edo:AnodeCollarsAxialSpacing edo:hasUnit unit:MilliM.
-edo:ArcAngle edo:hasUnit unit:DEG.
-edo:AssemblyTorque edo:hasUnit unit:N-M.
-edo:AssyTorquesDry edo:hasUnit unit:N-M.
-edo:AttenuationCoefficient edo:hasUnit unit:DB-PER-KM.
-edo:AxialStiffness edo:hasUnit unit:KiloN.
-edo:AxialStiffnessUnderCompressionAtSeaLevel edo:hasUnit unit:N.
-edo:AxialStiffnessUnderTensionAtSeaLevel edo:hasUnit unit:N.
-
-edo:BendingStiffnessStorage edo:hasUnit unit:KiloN-M2.
-
-edo:BendRestrictorForMaxUmbilical edo:hasUnit unit:MilliM.
-edo:BodyDiameter edo:hasUnit unit:MilliM.
-edo:BreakingTension edo:hasUnit unit:KiloN.
-edo:BrStraightLengthCompressed edo:hasUnit unit:M.
-edo:BrStraightLengthExtended edo:hasUnit unit:M.
-edo:BurstPressure edo:hasUnit unit:MPa.
-edo:CalculatedAbsoluteBurstPressure edo:hasUnit unit:PA.
-edo:CladdingDiameter edo:hasUnit unit:MicroM.
-edo:ClampInternalDiameter edo:hasUnit unit:M.
-edo:CollapsePressure edo:hasUnit unit:MPa.
-edo:CollarInternalDiameter edo:hasUnit unit:MilliM.
-edo:ConductorCrossSection edo:hasUnit unit:MM2.
-edo:CoreDiameter edo:hasUnit unit:MicroM.
-edo:CriticalCurvatureOfSlipping edo:hasUnit unit:PER-M.
-
-edo:CrushingLoad edo:hasUnit unit:KiloN-PER-M.
-edo:DamagingPullInStraightLine edo:hasUnit unit:N.
-edo:DamagingTension edo:hasUnit unit:KiloN.
-
-edo:DesignLifeSpan edo:hasUnit unit:YR_Common.
-edo:DesignPressure edo:hasUnit unit:PSI.
-edo:DestinationPigtailLength edo:hasUnit unit:MilliM.
-
-edo:DisplacedVolume edo:hasUnit unit:M3.
-edo:DisplacedVolume edo:hasUnit edo:M3.
-edo:ElasticityModulusAt23Degrees edo:hasUnit unit:PA.
-
-
-edo:EquivalentMBR edo:hasUnit unit:M.
-edo:ExternalDiameter edo:hasUnit unit:M.
-edo:FilletRadius edo:hasUnit unit:MilliM.
-
-edo:Flange1_BoreDiameter edo:hasUnit unit:IN.
-edo:Flange2_BoreDiameter edo:hasUnit unit:IN.
-edo:FractureToughness edo:hasUnit unit:PA-M0dot5.
-
-edo:GrooveDiameter edo:hasUnit unit:M.
-edo:GrooveHeight edo:hasUnit unit:M.
-edo:GrooveMinimumSupportArea edo:hasUnit unit:M2.
-edo:GrooveSupportSurfaceDiameter edo:hasUnit unit:M.
-edo:GrooveSupportSurfaceFilletRadius edo:hasUnit unit:M.
-edo:GrvCntrPntDstnceFrmTermFlange edo:hasUnit unit:MilliM.
-edo:H2SVolumeConcentration edo:hasUnit unit:MicroM3-PER-M3.
-edo:Height edo:hasUnit unit:MilliM.
-edo:HosePressure edo:hasUnit unit:PSI.
-edo:HydrostaticCollapseAbsPressDry edo:hasUnit unit:PA.
-edo:IndividualAnodeMass edo:hasUnit unit:KiloGM.
-
-edo:InnerDiameter edo:hasUnit unit:MilliM.
-edo:InsideTemperature edo:hasUnit unit:K.
-edo:InternalDiameter edo:hasUnit unit:M.
-
-edo:InternalVolume edo:hasUnit unit:M3.
-edo:LayAngle edo:hasUnit unit:DEG.
-edo:LayerGeometryCrossSection edo:hasUnit unit:M2.
-edo:LayerGeometryInertiaX edo:hasUnit unit:M4.
-edo:LayerGeometryInertiaY edo:hasUnit unit:M4.
-edo:LayerGeometryProfileThickness edo:hasUnit unit:M.
-edo:LayerGeometryProfileWidth edo:hasUnit unit:M.
-edo:LayerGeometryThickness edo:hasUnit unit:M.
-edo:LayerThickness edo:hasUnit unit:M.
-edo:LayerWatertightLowerLayerInternalFreeVolume edo:hasUnit unit:M3-PER-M.
-
-edo:Length edo:hasUnit unit:M.
-edo:Length edo:hasUnit unit:MilliM.
-edo:LifeSpan edo:hasUnit unit:YR_Common.
-edo:LimpTorsionalStiffnessAtSeaLevel edo:hasUnit unit:N-M2-PER-RAD.
-edo:LinearMass edo:hasUnit unit:KiloGM-PER-M.
-edo:LinearWeight edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightDryEmptyAir edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightDryEmptySubmerged edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightDryFullAir edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightDryFullSubmerged edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightEmptySubmerged edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightFilled edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightFilledAir edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightFilledSubmerged edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightFilledSubmergedFlooded edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightFloodedEmptyAir edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightFloodedEmptySubmerged edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightFloodedFullAir edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightFloodedFullSubmerged edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightSeawater edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LinearWeightSubmerged edo:hasUnit unit:KiloGM_F-PER-M.
-edo:LockedLength edo:hasUnit unit:M.
-edo:LongTermFloatDensity edo:hasUnit unit:KiloGM-PER-M3.
-edo:LongTermFloatVolume edo:hasUnit unit:M3.
-edo:LowestLength edo:hasUnit unit:M.
-edo:Mass edo:hasUnit unit:KiloGM.
-edo:Mass edo:hasUnit edo:KiloGM.
-edo:MaxChangeLengthUnderWp edo:hasUnit unit:PERCENT.
-edo:MaxDepth edo:hasUnit unit:M.
-
-edo:MaxDesignPressure edo:hasUnit unit:PA.
-edo:MaxDynamicLoad edo:hasUnit unit:N.
-
-edo:MaximumAllowableTensileForStraightLine edo:hasUnit unit:N.
-
-edo:MaximumAmbientTemperature edo:hasUnit unit:K.
-edo:MaximumBendingMoment edo:hasUnit unit:KiloN-M.
-edo:MaximumBendingMomentLongTerm edo:hasUnit unit:KiloN-M.
-edo:MaximumHousedDiameter edo:hasUnit unit:MilliM.
-edo:MaximumLength edo:hasUnit unit:M.
-edo:MaximumShearForce edo:hasUnit unit:KiloN.
-edo:MaximumShearForceLongTerm edo:hasUnit unit:KiloN.
-edo:MaximumTemperature edo:hasUnit unit:K.
-edo:MaximumThermalExchangeCoefficient edo:hasUnit unit:W-PER-M-K.
-edo:MaximumVolumetricExpansion edo:hasUnit unit:BAR.
-edo:MaxInnerTemperature edo:hasUnit unit:DEG_C.
-edo:MaxLengthTolerance edo:hasUnit unit:M.
-edo:MaxPermissibleDeformationDynamic edo:hasUnit unit:PERCENT.
-edo:MaxPermissibleDeformationStatic edo:hasUnit unit:PERCENT.
-edo:MaxPressure edo:hasUnit unit:PSI.
-edo:MaxWaterDepth edo:hasUnit unit:M.
-edo:MaxWorkingPressure edo:hasUnit unit:BAR.
-edo:MbrDynamicOperation edo:hasUnit unit:M.
-edo:MbrStaticOperation edo:hasUnit unit:M.
-edo:MbrStorage edo:hasUnit unit:M.
-edo:MetallicStrandLength edo:hasUnit unit:MilliM.
-edo:MinBendingRadiusOperation edo:hasUnit unit:MilliM.
-edo:MinBendingRadiusStorage edo:hasUnit unit:MilliM.
-edo:MinBurstPressureLiner edo:hasUnit unit:BAR.
-edo:MinCollapsePressureInMbr edo:hasUnit unit:BAR.
-edo:MinCollapsePressureInStraight edo:hasUnit unit:BAR.
-edo:MinimumBendingRadius edo:hasUnit unit:M.
-edo:MinimumBendingRadiusForStorage edo:hasUnit unit:M.
-edo:MinimumHousedDiameter edo:hasUnit unit:MilliM.
-edo:MinimumLength edo:hasUnit unit:M.
-edo:MinimumSupportArea edo:hasUnit unit:DM2.
-edo:MinimumTemperature edo:hasUnit unit:K.
-edo:MinimumThermalExchangeCoefficient edo:hasUnit unit:W-PER-M-K.
-edo:MinInnerTemperature edo:hasUnit unit:DEG_C.
-edo:MinWaterTemp edo:hasUnit unit:DEG.
-edo:NominalDiameter edo:hasUnit unit:MilliM.
-edo:NominalFloatDensity edo:hasUnit unit:KiloGM-PER-M3.
-edo:NominalFloatVolume edo:hasUnit unit:M3.
-edo:NominalLength edo:hasUnit unit:M.
-edo:NominalWeightInAir edo:hasUnit unit:KiloGM_F-PER-M.
-edo:OuterArea edo:hasUnit unit:L-PER-M.
-edo:OuterDiameter edo:hasUnit unit:MilliM.
-edo:OuterDiameter edo:hasUnit unit:M.
-edo:OutsideTemperature edo:hasUnit unit:K.
-
-edo:PipeMountPosition edo:hasUnit unit:M.
-edo:PostSlippingBendingStiffness edo:hasUnit unit:N-M2.
-edo:PreSlippingBendingStiffness edo:hasUnit unit:N-M2.
-edo:RatioWeightODWaterSubmergedUnflooded edo:hasUnit unit:KiloGM_F-PER-M.
-edo:RecommendedTorques edo:hasUnit unit:N-PER-M.
-edo:ReinforcementLength edo:hasUnit unit:MilliM.
-edo:ReinforcementOuterDiameter edo:hasUnit unit:MilliM.
-edo:RingGasketInnerDIameter edo:hasUnit unit:MilliM.
-edo:RingGasketOuterDiameter edo:hasUnit unit:MilliM.
-edo:RingGasketPressureRating edo:hasUnit unit:PA.
-edo:RuptDefAlongFibers edo:hasUnit unit:PERCENT.
-edo:RuptDefPerpendFibers edo:hasUnit unit:PERCENT.
-edo:SafeWorkingLoad edo:hasUnit unit:TONNE_F.
-edo:SafeWorkingLoad edo:hasUnit unit:KiloGM_F.
-edo:SeaWaterDensity edo:hasUnit unit:KiloGM-PER-M3.
-edo:SecuringStrapLength edo:hasUnit unit:MilliM.
-edo:ServiceLife edo:hasUnit unit:YR_Common.
-
-edo:ShortTermFloatDensity edo:hasUnit unit:KiloGM-PER-M3.
-edo:ShortTermFloatVolume edo:hasUnit unit:M3.
-edo:SleeveExternalDiameterConnection edo:hasUnit unit:MilliM.
-edo:SleeveInnerDiameterConnection edo:hasUnit unit:MilliM.
-edo:SleeveInstalationLength edo:hasUnit unit:M.
-
-edo:SourcePigtailLength edo:hasUnit unit:MilliM.
-edo:SpecificHeatCapacity edo:hasUnit unit:J-PER-KiloGM-K.
-edo:SpecificMass edo:hasUnit unit:KiloGM-PER-M3.
-edo:SpecificWeight edo:hasUnit unit:N-PER-M3.
-edo:SpoolingTension edo:hasUnit unit:N.
-edo:SpoolingTension edo:hasUnit unit:KiloN.
-edo:StiffTorsionalStiffnessAtSeaLevel edo:hasUnit unit:N-M2-PER-RAD.
-edo:StorageMinBendingRadius edo:hasUnit unit:MilliM.
-
-edo:StructuralCapacityUnderAxialLoad edo:hasUnit unit:TONNE_F.
-edo:TemperatureRange_MaxTemperature edo:hasUnit unit:DEG_C.
-edo:TemperatureRange_MinTemperature edo:hasUnit unit:DEG_C.
-edo:TensileArmourFreeAnnulusVolume edo:hasUnit unit:M3-PER-M.
-edo:Tension edo:hasUnit unit:KiloN-M.
-edo:TensionerPadsOpeningAngle edo:hasUnit unit:DEG.
-edo:TestPressure edo:hasUnit unit:MPa.
-edo:ThermalConductivityCoefficient edo:hasUnit unit:W-PER-M-K.
-edo:ThermalExchangeCoefficientAt20C edo:hasUnit unit:W-PER-M-K.
-edo:ThermalExchangeCoefficientFlooded edo:hasUnit unit:W-PER-M-K.
-edo:ThreadPitch edo:hasUnit unit:MilliM.
-edo:TorsionalStiffnessHigherStorage edo:hasUnit unit:N-M2-PER-RAD.
-edo:TorsionalStiffnessLowerStorage edo:hasUnit unit:N-M2-PER-RAD.
-edo:TotalAnodeMass edo:hasUnit unit:KiloGM.
-edo:UltimateTensileStress edo:hasUnit unit:PA.
-edo:UltTensStrAlongFibers edo:hasUnit unit:PA.
-edo:UltTensStrPerpendFibers edo:hasUnit unit:PA.
-edo:UmbilicalCableMBRInstallation edo:hasUnit unit:MilliM.
-edo:UmbilicalCableMBROperation edo:hasUnit unit:MilliM.
-edo:UmbilicalCableOuterDiameter edo:hasUnit unit:MilliM.
-edo:UmbilicalPressure  edo:hasUnit unit:BAR.
-edo:UpperItubeDiameter edo:hasUnit unit:M.
-edo:UtilizationFactorSuperDuplexTube edo:hasUnit unit:PERCENT.
-edo:VoltageRating_MaximumLineVoltage edo:hasUnit unit:KiloV.
-edo:VoltageRating_MaximumPhaseVoltage edo:hasUnit unit:KiloV.
-edo:VoltageRating_MaximumSystemVoltage edo:hasUnit unit:KiloV.
-edo:VolumetricExpansion edo:hasUnit unit:BAR.
-
-
-edo:Weight edo:hasUnit unit:KiloGM.
-edo:WeightInWater edo:hasUnit unit:KiloGM_F.
-
-edo:WireRopeSlingDiameter edo:hasUnit unit:M.
-edo:WireRopeSlingLength edo:hasUnit unit:M.
-edo:WorkingTension edo:hasUnit unit:KiloN.
-
-
-#####################################################
-# Treated Attributes names
-####################################################
-
-
-edo:Design_Ulor edo:hasUnit unit:M. 
-edo:EOFWeight_BuoyancyModule edo:hasUnit unit:V. 
-edo:FinalBuoyancy_EOF edo:hasUnit unit:KiloGM_F.
-edo:WeightWithoutEndTerminationIn_Air edo:hasUnit unit:KiloGM.
-edo:SOLWeight_BuoyancyModule edo:hasUnit unit:KiloGM.
-edo:WaterDepth edo:hasUnit unit:M.
-edo:Maximum_Water_Depth edo:hasUnit unit:M.
-edo:InitialBuoyancy_SOL edo:hasUnit unit:KiloGM_F.
-
-#####################################################
-# Table
-####################################################
-
-edo:CrossSectionTable_OuterDiameter edo:hasUnit unit:M.
-edo:CrossSectionTable_WeightComponent edo:hasUnit unit:KiloGM.
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://qudt.org/vocab/unit/A
+unit:A rdf:type owl:NamedIndividual ,
+                qudt:Unit ,
+                edo:DomainUnit ;
+       dcterms:source "QUDT Units Vocabulary"@en ;
+       qudt:conversionMultiplier 1.0 ;
+       qudt:definedUnitOfSystem sou:SI ;
+       qudt:hasQuantityKind qudt:ElectricCurrent ;
+       qudt:symbol "A" ;
+       qudt:ucumCode "A" ;
+       rdfs:comment "Unit of electric current"@en ;
+       rdfs:isDefinedBy unit:A ;
+       rdfs:label "Ampere"@en .
+
+
+###  http://qudt.org/vocab/unit/BAR
+unit:BAR rdf:type owl:NamedIndividual ,
+                  qudt:Unit ,
+                  edo:DomainUnit ;
+         dcterms:source "QUDT Units Vocabulary"@en ;
+         qudt:conversionMultiplier "100000.0"^^xsd:double ;
+         qudt:definedUnitOfSystem sou:NonSI ;
+         qudt:hasQuantityKind qudt:Pressure ;
+         qudt:symbol "bar" ;
+         qudt:ucumCode "bar" ;
+         rdfs:comment "Non-SI unit of pressure equal to 100,000 pascals."@en ;
+         rdfs:isDefinedBy unit:BAR ;
+         rdfs:label "Bar"@en .
+
+
+###  http://qudt.org/vocab/unit/DB-PER-KM
+unit:DB-PER-KM rdf:type owl:NamedIndividual ,
+                        qudt:Unit ,
+                        edo:DomainUnit ;
+               dcterms:source "QUDT Units Vocabulary"@en ;
+               qudt:conversionMultiplier 1.0 ;
+               qudt:definedUnitOfSystem sou:SI ;
+               qudt:hasQuantityKind qudt:LogarithmicRatioPerLength ;
+               qudt:symbol "dB/km" ;
+               qudt:ucumCode "dB.KM-1" ;
+               rdfs:comment "Unit of signal attenuation per distance, commonly used in telecommunications."@en ;
+               rdfs:isDefinedBy unit:DB-PER-KM ;
+               rdfs:label "Decibel per Kilometer"@en .
+
+
+###  http://qudt.org/vocab/unit/DEG
+unit:DEG rdf:type owl:NamedIndividual ,
+                  qudt:Unit ,
+                  edo:DomainUnit ;
+         dcterms:source "QUDT Units Vocabulary"@en ;
+         qudt:conversionMultiplier 0.017453292519943295 ;
+         qudt:definedUnitOfSystem sou:SI ;
+         qudt:hasQuantityKind qudt:PlaneAngle ;
+         qudt:symbol "°" ;
+         qudt:ucumCode "DEG" ;
+         rdfs:comment "Unit of plane angle measurement"@en ;
+         rdfs:isDefinedBy unit:DEG ;
+         rdfs:label "Degree"@en .
+
+
+###  http://qudt.org/vocab/unit/DEG_C
+unit:DEG_C rdf:type owl:NamedIndividual ,
+                    qudt:Unit ,
+                    edo:DomainUnit ;
+           dcterms:source "QUDT Units Vocabulary"@en ;
+           qudt:conversionMultiplier 1.0 ;
+           qudt:definedUnitOfSystem sou:SI ;
+           qudt:hasQuantityKind qudt:ThermodynamicTemperature ;
+           qudt:symbol "°C" ;
+           qudt:ucumCode "degC" ;
+           rdfs:comment "Unit of temperature equal to one kelvin difference but offset by 273.15 from absolute zero."@en ;
+           rdfs:isDefinedBy unit:DEG-C ;
+           rdfs:label "Degree Celsius"@en .
+
+
+###  http://qudt.org/vocab/unit/DM2
+unit:DM2 rdf:type owl:NamedIndividual ,
+                  qudt:Unit ,
+                  edo:DomainUnit ;
+         dcterms:source "QUDT Units Vocabulary"@en ;
+         qudt:conversionMultiplier 0.01 ;
+         qudt:definedUnitOfSystem sou:SI ;
+         qudt:hasQuantityKind qudt:Area ;
+         qudt:symbol "dm²" ;
+         qudt:ucumCode "DM2" ;
+         rdfs:comment "Unit of area equal to 0.01 square meters."@en ;
+         rdfs:isDefinedBy unit:DM2 ;
+         rdfs:label "Square Decimeter"@en .
+
+
+###  http://qudt.org/vocab/unit/IN
+unit:IN rdf:type owl:NamedIndividual ,
+                 qudt:Unit ,
+                 edo:DomainUnit ;
+        dcterms:source "QUDT Units Vocabulary"@en ;
+        qudt:conversionMultiplier 0.0254 ;
+        qudt:definedUnitOfSystem sou:Imperial ;
+        qudt:hasQuantityKind qudt:Length ;
+        qudt:symbol "in" ;
+        qudt:ucumCode "IN" ;
+        rdfs:comment "Imperial unit of length equal to 1/12 of a foot."@en ;
+        rdfs:isDefinedBy unit:IN ;
+        rdfs:label "Inch"@en .
+
+
+###  http://qudt.org/vocab/unit/J-PER-KiloGM-K
+unit:J-PER-KiloGM-K rdf:type owl:NamedIndividual ,
+                             qudt:Unit ,
+                             edo:DomainUnit ;
+                    dcterms:source "QUDT Units Vocabulary"@en ;
+                    qudt:conversionMultiplier 1.0 ;
+                    qudt:definedUnitOfSystem sou:SI ;
+                    qudt:hasQuantityKind qudt:SpecificHeatCapacity ;
+                    qudt:symbol "J/(kg·K)" ;
+                    qudt:ucumCode "J.KG-1.K-1" ;
+                    rdfs:comment "Represents energy (in joules) per unit mass (kilogram) per unit temperature (Kelvin)."@en ;
+                    rdfs:isDefinedBy unit:J-PER-KG-K ;
+                    rdfs:label "Joule per Kilogram-Kelvin"@en .
+
+
+###  http://qudt.org/vocab/unit/K
+unit:K rdf:type owl:NamedIndividual ,
+                qudt:Unit ,
+                edo:DomainUnit ;
+       dcterms:source "QUDT Units Vocabulary"@en ;
+       qudt:conversionMultiplier 1.0 ;
+       qudt:definedUnitOfSystem sou:SI ;
+       qudt:hasQuantityKind qudt:ThermodynamicTemperature ;
+       qudt:symbol "K" ;
+       qudt:ucumCode "K" ;
+       rdfs:comment "Unit of thermodynamic temperature"@en ;
+       rdfs:isDefinedBy unit:K ;
+       rdfs:label "Kelvin"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloGM
+unit:KiloGM rdf:type owl:NamedIndividual ,
+                     qudt:Unit ,
+                     edo:DomainUnit ;
+            dcterms:source "QUDT Units Vocabulary"@en ;
+            qudt:conversionMultiplier 1.0 ;
+            qudt:definedUnitOfSystem sou:SI ;
+            qudt:hasQuantityKind qudt:Mass ;
+            qudt:symbol "kg" ;
+            qudt:ucumCode "KG" ;
+            rdfs:comment "Unit of mass in the metric system"@en ;
+            rdfs:isDefinedBy unit:KG ;
+            rdfs:label "Kilogram"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloGM-PER-M
+unit:KiloGM-PER-M rdf:type owl:NamedIndividual ,
+                           qudt:Unit ,
+                           edo:DomainUnit ;
+                  dcterms:source "QUDT Units Vocabulary"@en ;
+                  qudt:conversionMultiplier 1.0 ;
+                  qudt:definedUnitOfSystem sou:SI ;
+                  qudt:hasQuantityKind qudt:LinearMassDensity ;
+                  qudt:symbol "kg/m" ;
+                  qudt:ucumCode "KG.M-1" ;
+                  rdfs:comment "Unit of linear mass density"@en ;
+                  rdfs:isDefinedBy unit:KG-PER-M ;
+                  rdfs:label "Kilogram per meter"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloGM-PER-M3
+unit:KiloGM-PER-M3 rdf:type owl:NamedIndividual ,
+                            qudt:Unit ,
+                            edo:DomainUnit ;
+                   dcterms:source "QUDT Units Vocabulary"@en ;
+                   qudt:conversionMultiplier 1.0 ;
+                   qudt:definedUnitOfSystem sou:SI ;
+                   qudt:hasQuantityKind qudt:MassDensity ;
+                   qudt:symbol "kg/m³" ;
+                   qudt:ucumCode "KG.M-3" ;
+                   rdfs:comment "Unit of mass density"@en ;
+                   rdfs:isDefinedBy unit:KG-PER-M3 ;
+                   rdfs:label "Kilogram per cubic meter"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloGM_F
+unit:KiloGM_F rdf:type owl:NamedIndividual ,
+                       qudt:Unit ,
+                       edo:DomainUnit ;
+              dcterms:source "QUDT Units Vocabulary"@en ;
+              qudt:conversionMultiplier 9.80665 ;
+              qudt:definedUnitOfSystem sou:SI ;
+              qudt:hasQuantityKind qudt:Force ;
+              qudt:symbol "kgf" ;
+              qudt:ucumCode "KGM" ;
+              rdfs:comment "Unit of force equal to the force exerted by one kilogram of mass under standard gravity (9.80665 m/s²)."@en ;
+              rdfs:isDefinedBy unit:KGF ;
+              rdfs:label "Kilogram-force"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloGM_F-PER-M
+unit:KiloGM_F-PER-M rdf:type owl:NamedIndividual ,
+                             qudt:Unit ,
+                             edo:DomainUnit ;
+                    dcterms:source "QUDT Units Vocabulary"@en ;
+                    qudt:conversionMultiplier 9.80665 ;
+                    qudt:definedUnitOfSystem sou:SI ;
+                    qudt:hasQuantityKind qudt:LinearForceDensity ;
+                    qudt:symbol "kgf/m" ;
+                    qudt:ucumCode "KGF.M-1" ;
+                    rdfs:comment "Unit of linear force density, representing one kilogram-force per meter length."@en ;
+                    rdfs:isDefinedBy unit:KGF-PER-M ;
+                    rdfs:label "Kilogram-force per Meter"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloN
+unit:KiloN rdf:type owl:NamedIndividual ,
+                    qudt:Unit ,
+                    edo:DomainUnit ;
+           dcterms:source "QUDT Units Vocabulary"@en ;
+           qudt:conversionMultiplier 1000.0 ;
+           qudt:definedUnitOfSystem sou:SI ;
+           qudt:hasQuantityKind qudt:Force ;
+           qudt:symbol "kN" ;
+           qudt:ucumCode "kN" ;
+           rdfs:comment "Unit of force equal to 1,000 newtons."@en ;
+           rdfs:isDefinedBy unit:KiloN ;
+           rdfs:label "Kilonewton"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloN-M
+unit:KiloN-M rdf:type owl:NamedIndividual ,
+                      qudt:Unit ,
+                      edo:DomainUnit ;
+             dcterms:source "QUDT Units Vocabulary"@en ;
+             qudt:conversionMultiplier 1000.0 ;
+             qudt:definedUnitOfSystem sou:SI ;
+             qudt:hasQuantityKind qudt:Torque ;
+             qudt:symbol "kN·m" ;
+             qudt:ucumCode "kN.M" ;
+             rdfs:comment "Unit of moment or torque equal to one kilonewton multiplied by one meter."@en ;
+             rdfs:isDefinedBy unit:KiloN-M ;
+             rdfs:label "Kilonewton Meter"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloN-M2
+unit:KiloN-M2 rdf:type owl:NamedIndividual ,
+                       qudt:Unit ,
+                       edo:DomainUnit ;
+              dcterms:source "QUDT Units Vocabulary"@en ;
+              qudt:conversionMultiplier 1000.0 ;
+              qudt:definedUnitOfSystem sou:SI ;
+              qudt:hasQuantityKind qudt:MomentOfArea ;
+              qudt:symbol "kN·m²" ;
+              qudt:ucumCode "kN.M2" ;
+              rdfs:comment "Derived unit representing kilonewton times square meter, used in moment of inertia or flexural stiffness."@en ;
+              rdfs:isDefinedBy unit:KiloN-M2 ;
+              rdfs:label "Kilonewton Square Meter"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloN-PER-M
+unit:KiloN-PER-M rdf:type owl:NamedIndividual ,
+                          qudt:Unit ,
+                          edo:DomainUnit ;
+                 dcterms:source "QUDT Units Vocabulary"@en ;
+                 qudt:conversionMultiplier 1000.0 ;
+                 qudt:definedUnitOfSystem sou:SI ;
+                 qudt:hasQuantityKind qudt:LinearForceDensity ;
+                 qudt:symbol "kN/m" ;
+                 qudt:ucumCode "kN.M-1" ;
+                 rdfs:comment "Unit of linear load or distributed force equal to 1,000 newtons per meter."@en ;
+                 rdfs:isDefinedBy unit:KiloN-PER-M ;
+                 rdfs:label "Kilonewton per Meter"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloV
+unit:KiloV rdf:type owl:NamedIndividual ,
+                    qudt:Unit ,
+                    edo:DomainUnit ;
+           dcterms:source "QUDT Units Vocabulary"@en ;
+           qudt:conversionMultiplier 1000.0 ;
+           qudt:definedUnitOfSystem sou:SI ;
+           qudt:hasQuantityKind qudt:ElectricPotential ;
+           qudt:symbol "kV" ;
+           qudt:ucumCode "kV" ;
+           rdfs:comment "Unit of electric potential equal to one thousand volts."@en ;
+           rdfs:isDefinedBy unit:KiloV ;
+           rdfs:label "Kilovolt"@en .
+
+
+###  http://qudt.org/vocab/unit/M
+unit:M rdf:type owl:NamedIndividual ,
+                qudt:Unit ,
+                edo:DomainUnit ;
+       dcterms:source "QUDT Units Vocabulary"@en ;
+       qudt:conversionMultiplier 1.0 ;
+       qudt:definedUnitOfSystem sou:SI ;
+       qudt:hasQuantityKind qudt:Length ;
+       qudt:symbol "m" ;
+       qudt:ucumCode "M" ;
+       rdfs:comment "Unit of length in the metric system"@en ;
+       rdfs:isDefinedBy unit:M ;
+       rdfs:label "Meter"@en .
+
+
+###  http://qudt.org/vocab/unit/M2
+unit:M2 rdf:type owl:NamedIndividual ,
+                 qudt:Unit ,
+                 edo:DomainUnit ;
+        dcterms:source "QUDT Units Vocabulary"@en ;
+        qudt:conversionMultiplier 1.0 ;
+        qudt:definedUnitOfSystem sou:SI ;
+        qudt:hasQuantityKind qudt:Area ;
+        qudt:symbol "m²" ;
+        qudt:ucumCode "M2" ;
+        rdfs:comment "Unit of area in the metric system"@en ;
+        rdfs:isDefinedBy unit:M2 ;
+        rdfs:label "Square meter"@en .
+
+
+###  http://qudt.org/vocab/unit/M2-PER-SEC
+unit:M2-PER-SEC rdf:type owl:NamedIndividual ,
+                         qudt:Unit ,
+                         edo:DomainUnit ;
+                dcterms:source "QUDT Units Vocabulary"@en ;
+                qudt:conversionMultiplier 1.0 ;
+                qudt:definedUnitOfSystem sou:SI ;
+                qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                     qudt:hasUnit unit:S
+                                   ] ,
+                                   [ qudt:exponent 2 ;
+                                     qudt:hasUnit unit:M
+                                   ] ;
+                qudt:hasQuantityKind qudt:AreaFlux ;
+                qudt:symbol "m²/s" ;
+                qudt:ucumCode "M2.S-1" ;
+                rdfs:comment "Unit of area flux or similar rates per unit time"@en ;
+                rdfs:isDefinedBy unit:M2-PER-SEC ;
+                rdfs:label "Square meter per second"@en .
+
+
+###  http://qudt.org/vocab/unit/M3
+unit:M3 rdf:type owl:NamedIndividual ,
+                 qudt:Unit ,
+                 edo:DomainUnit ;
+        dcterms:source "QUDT Units Vocabulary"@en ;
+        qudt:conversionMultiplier 1.0 ;
+        qudt:definedUnitOfSystem sou:SI ;
+        qudt:hasQuantityKind qudt:Volume ;
+        qudt:symbol "m³" ;
+        qudt:ucumCode "M3" ;
+        rdfs:comment "Unit of volume in the metric system"@en ;
+        rdfs:isDefinedBy unit:M3 ;
+        rdfs:label "Cubic meter"@en .
+
+
+###  http://qudt.org/vocab/unit/M4
+unit:M4 rdf:type owl:NamedIndividual ,
+                 qudt:Unit ,
+                 edo:DomainUnit ;
+        dcterms:source "QUDT Units Vocabulary"@en ;
+        qudt:conversionMultiplier 1.0 ;
+        qudt:definedUnitOfSystem sou:SI ;
+        qudt:hasQuantityKind qudt:AreaMoment ;
+        qudt:symbol "m⁴" ;
+        qudt:ucumCode "M4" ;
+        rdfs:comment "Derived unit for moments of area (e.g., beam bending calculations)"@en ;
+        rdfs:isDefinedBy unit:M4 ;
+        rdfs:label "Meter to the fourth power"@en .
+
+
+###  http://qudt.org/vocab/unit/MM2
+unit:MM2 rdf:type owl:NamedIndividual ,
+                  qudt:Unit ,
+                  edo:DomainUnit ;
+         dcterms:source "QUDT Units Vocabulary"@en ;
+         qudt:conversionMultiplier "1.0E-6"^^xsd:double ;
+         qudt:definedUnitOfSystem sou:SI ;
+         qudt:hasQuantityKind qudt:Area ;
+         qudt:symbol "mm²" ;
+         qudt:ucumCode "MM2" ;
+         rdfs:comment "Unit of area equal to one millionth of a square meter."@en ;
+         rdfs:isDefinedBy unit:MM2 ;
+         rdfs:label "Square Millimeter"@en .
+
+
+###  http://qudt.org/vocab/unit/MOL-PER-M3-PA
+unit:MOL-PER-M3-PA rdf:type owl:NamedIndividual ,
+                            qudt:Unit ,
+                            edo:DomainUnit ;
+                   dcterms:source "QUDT Units Vocabulary"@en ;
+                   qudt:conversionMultiplier 1.0 ;
+                   qudt:definedUnitOfSystem sou:SI ;
+                   qudt:hasQuantityKind qudt:MolarDensityPerPressure ;
+                   qudt:symbol "mol/(m³·Pa)" ;
+                   qudt:ucumCode "MOL.M-3.PA-1" ;
+                   rdfs:comment "Represents the amount of substance (in moles) per cubic meter per Pascal of pressure."@en ;
+                   rdfs:isDefinedBy unit:MOL-PER-M3-PA ;
+                   rdfs:label "Mole per cubic meter per Pascal"@en .
+
+
+###  http://qudt.org/vocab/unit/MPa
+unit:MPa rdf:type owl:NamedIndividual ,
+                  qudt:Unit ,
+                  edo:DomainUnit ;
+         dcterms:source "QUDT Units Vocabulary"@en ;
+         qudt:conversionMultiplier "1000000.0"^^xsd:double ;
+         qudt:definedUnitOfSystem sou:SI ;
+         qudt:hasQuantityKind qudt:Pressure ;
+         qudt:symbol "MPa" ;
+         qudt:ucumCode "MPa" ;
+         rdfs:comment "Unit of pressure equal to one million pascals."@en ;
+         rdfs:isDefinedBy unit:MPa ;
+         rdfs:label "Megapascal"@en .
+
+
+###  http://qudt.org/vocab/unit/MicroM
+unit:MicroM rdf:type owl:NamedIndividual ,
+                     qudt:Unit ,
+                     edo:DomainUnit ;
+            dcterms:source "QUDT Units Vocabulary"@en ;
+            qudt:conversionMultiplier "1.0E-6"^^xsd:double ;
+            qudt:definedUnitOfSystem sou:SI ;
+            qudt:hasQuantityKind qudt:Length ;
+            qudt:symbol "µm" ;
+            qudt:ucumCode "UM" ;
+            rdfs:comment "Unit of length equal to one millionth of a meter."@en ;
+            rdfs:isDefinedBy unit:MicroM ;
+            rdfs:label "Micrometer"@en .
+
+
+###  http://qudt.org/vocab/unit/MicroM3-PER-M3
+unit:MicroM3-PER-M3 rdf:type owl:NamedIndividual ,
+                             qudt:Unit ,
+                             edo:DomainUnit ;
+                    dcterms:source "QUDT Units Vocabulary"@en ;
+                    qudt:conversionMultiplier "1.0E-18"^^xsd:double ;
+                    qudt:definedUnitOfSystem sou:SI ;
+                    qudt:hasQuantityKind qudt:Dimensionless ;
+                    qudt:symbol "µm³/m³" ;
+                    qudt:ucumCode "UM3.M-3" ;
+                    rdfs:comment "Custom unit representing volume fraction"@en ;
+                    rdfs:isDefinedBy unit:MICRO-M3-PER-M3 ;
+                    rdfs:label "Micrometre cubic per cubic meter"@en .
+
+
+###  http://qudt.org/vocab/unit/MilliM
+unit:MilliM rdf:type owl:NamedIndividual ,
+                     qudt:Unit ,
+                     edo:DomainUnit ;
+            dcterms:source "QUDT Units Vocabulary"@en ;
+            qudt:conversionMultiplier 0.001 ;
+            qudt:definedUnitOfSystem sou:SI ;
+            qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                 qudt:hasUnit unit:M
+                               ] ;
+            qudt:hasQuantityKind qudt:Length ;
+            qudt:symbol "mm" ;
+            qudt:ucumCode "MM" ;
+            rdfs:comment "Unit of length equal to one thousandth of a meter"@en ;
+            rdfs:isDefinedBy unit:MilliM ;
+            rdfs:label "Millimeter"@en .
+
+
+###  http://qudt.org/vocab/unit/N
+unit:N rdf:type owl:NamedIndividual ,
+                qudt:Unit ,
+                edo:DomainUnit ;
+       dcterms:source "QUDT Units Vocabulary"@en ;
+       qudt:conversionMultiplier 1.0 ;
+       qudt:definedUnitOfSystem sou:SI ;
+       qudt:hasFactorUnit [ qudt:exponent -2 ;
+                            qudt:hasUnit unit:S
+                          ] ,
+                          [ qudt:exponent 1 ;
+                            qudt:hasUnit unit:M
+                          ] ,
+                          [ qudt:exponent 1 ;
+                            qudt:hasUnit unit:KG
+                          ] ;
+       qudt:hasQuantityKind qudt:Force ;
+       qudt:symbol "N" ;
+       qudt:ucumCode "N" ;
+       rdfs:comment "Unit of force, equal to the force required to accelerate one kilogram of mass at one meter per second squared"@en ;
+       rdfs:isDefinedBy unit:N ;
+       rdfs:label "Newton"@en .
+
+
+###  http://qudt.org/vocab/unit/N-M
+unit:N-M rdf:type owl:NamedIndividual ,
+                  qudt:Unit ,
+                  edo:DomainUnit ;
+         dcterms:source "QUDT Units Vocabulary"@en ;
+         qudt:conversionMultiplier 1.0 ;
+         qudt:definedUnitOfSystem sou:SI ;
+         qudt:hasFactorUnit [ qudt:exponent 1 ;
+                              qudt:hasUnit unit:M
+                            ] ,
+                            [ qudt:exponent 1 ;
+                              qudt:hasUnit unit:N
+                            ] ;
+         qudt:hasQuantityKind qudt:Torque ;
+         qudt:symbol "N·m" ;
+         qudt:ucumCode "N.M" ;
+         rdfs:comment "Unit of torque or moment, equal to one newton acting at a perpendicular distance of one meter"@en ;
+         rdfs:isDefinedBy unit:N-M ;
+         rdfs:label "Newton meter"@en .
+
+
+###  http://qudt.org/vocab/unit/N-M2
+unit:N-M2 rdf:type owl:NamedIndividual ,
+                   qudt:Unit ,
+                   edo:DomainUnit ;
+          dcterms:source "QUDT Units Vocabulary"@en ;
+          qudt:conversionMultiplier 1.0 ;
+          qudt:definedUnitOfSystem sou:SI ;
+          qudt:hasQuantityKind qudt:Pressure ;
+          qudt:symbol "N/m²" ;
+          qudt:ucumCode "N.M-2" ;
+          rdfs:comment "Unit of pressure or stress"@en ;
+          rdfs:isDefinedBy unit:N-M2 ;
+          rdfs:label "Newton per square meter"@en .
+
+
+###  http://qudt.org/vocab/unit/N-PER-M
+unit:N-PER-M rdf:type owl:NamedIndividual ,
+                      qudt:Unit ,
+                      edo:DomainUnit ;
+             dcterms:source "QUDT Units Vocabulary"@en ;
+             qudt:conversionMultiplier 1.0 ;
+             qudt:definedUnitOfSystem sou:SI ;
+             qudt:hasQuantityKind qudt:ForcePerLength ,
+                                  qudt:LinearForceDensity ;
+             qudt:symbol "N/m" ;
+             qudt:ucumCode "N.M-1" ;
+             rdfs:comment "SI unit of linear force density or stiffness, representing one newton per meter."@en ,
+                          "Unit of force per unit length"@en ;
+             rdfs:isDefinedBy unit:N-PER-M ;
+             rdfs:label "Newton per Meter"@en ,
+                        "Newton per meter"@en .
+
+
+###  http://qudt.org/vocab/unit/N-PER-M3
+unit:N-PER-M3 rdf:type owl:NamedIndividual ,
+                       qudt:Unit ,
+                       edo:DomainUnit ;
+              dcterms:source "QUDT Units Vocabulary"@en ;
+              qudt:conversionMultiplier 1.0 ;
+              qudt:definedUnitOfSystem sou:SI ;
+              qudt:hasQuantityKind qudt:ForcePerVolume ;
+              qudt:symbol "N/m³" ;
+              qudt:ucumCode "N.M-3" ;
+              rdfs:comment "Newton per cubic meter (N/m³) is a unit used to express the amount of force applied within a given volume."@en ;
+              rdfs:isDefinedBy unit:N-PER-M3 ;
+              rdfs:label "Newton per Cubic Meter"@en .
+
+
+###  http://qudt.org/vocab/unit/PA
+unit:PA rdf:type owl:NamedIndividual ,
+                 qudt:Unit ,
+                 edo:DomainUnit ;
+        dcterms:source "QUDT Units Vocabulary"@en ;
+        qudt:conversionMultiplier 1.0 ;
+        qudt:definedUnitOfSystem sou:SI ;
+        qudt:hasFactorUnit [ qudt:exponent -2 ;
+                             qudt:hasUnit unit:M
+                           ] ,
+                           [ qudt:exponent 1 ;
+                             qudt:hasUnit unit:N
+                           ] ;
+        qudt:hasQuantityKind qudt:Pressure ;
+        qudt:symbol "Pa" ;
+        qudt:ucumCode "PA" ;
+        rdfs:comment "Unit of pressure. The SI unit of pressure, equal to one newton per square meter."@en ;
+        rdfs:isDefinedBy unit:PA ;
+        rdfs:label "Pascal"@en .
+
+
+###  http://qudt.org/vocab/unit/PA-M0dot5
+unit:PA-M0dot5 rdf:type owl:NamedIndividual ,
+                        qudt:Unit ,
+                        edo:DomainUnit ;
+               dcterms:source "QUDT Units Vocabulary"@en ;
+               qudt:conversionMultiplier 1.0 ;
+               qudt:definedUnitOfSystem sou:SI ;
+               qudt:hasQuantityKind qudt:StressIntensityFactor ;
+               qudt:symbol "Pa·m⁰·⁵" ;
+               qudt:ucumCode "PA.M0.5" ;
+               rdfs:comment "Unit used in fracture mechanics to express stress intensity factor (Pa√m)."@en ;
+               rdfs:isDefinedBy unit:PA-M0dot5 ;
+               rdfs:label "Pascal times Square Root Meter"@en .
+
+
+###  http://qudt.org/vocab/unit/PER-M
+unit:PER-M rdf:type owl:NamedIndividual ,
+                    qudt:Unit ,
+                    edo:DomainUnit ;
+           dcterms:source "QUDT Units Vocabulary"@en ;
+           qudt:conversionMultiplier 1.0 ;
+           qudt:definedUnitOfSystem sou:SI ;
+           qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                qudt:hasUnit unit:M
+                              ] ;
+           qudt:hasQuantityKind qudt:ReciprocalLength ;
+           qudt:symbol "1/m" ;
+           qudt:ucumCode "1/M" ;
+           rdfs:comment "Reciprocal of meter, used for quantities per unit length"@en ;
+           rdfs:isDefinedBy unit:PER-M ;
+           rdfs:label "Per meter"@en .
+
+
+###  http://qudt.org/vocab/unit/PERCENT
+unit:PERCENT rdf:type owl:NamedIndividual ,
+                      qudt:Unit ,
+                      edo:DomainUnit ;
+             dcterms:source "QUDT Units Vocabulary"@en ;
+             qudt:conversionMultiplier 0.01 ;
+             qudt:definedUnitOfSystem sou:SI ;
+             qudt:hasQuantityKind qudt:Dimensionless ;
+             qudt:symbol "%" ;
+             qudt:ucumCode "%" ;
+             rdfs:comment "Unit representing a fraction of 100"@en ;
+             rdfs:isDefinedBy unit:PERCENT ;
+             rdfs:label "Percent"@en .
+
+
+###  http://qudt.org/vocab/unit/PSI
+unit:PSI rdf:type owl:NamedIndividual ,
+                  qudt:Unit ,
+                  edo:DomainUnit ;
+         dcterms:source "QUDT Units Vocabulary"@en ;
+         qudt:conversionMultiplier 6894.75729 ;
+         qudt:definedUnitOfSystem sou:Imperial ;
+         qudt:hasQuantityKind qudt:Pressure ;
+         qudt:symbol "psi" ;
+         qudt:ucumCode "psi" ;
+         rdfs:comment "Imperial unit of pressure equal to one pound-force per square inch."@en ;
+         rdfs:isDefinedBy unit:PSI ;
+         rdfs:label "Pound-force per Square Inch"@en .
+
+
+###  http://qudt.org/vocab/unit/TONNE_F
+unit:TONNE_F rdf:type owl:NamedIndividual ,
+                      qudt:Unit ,
+                      edo:DomainUnit ;
+             dcterms:source "QUDT Units Vocabulary"@en ;
+             qudt:conversionMultiplier 9806.65 ;
+             qudt:definedUnitOfSystem sou:SI ;
+             qudt:hasQuantityKind qudt:Force ;
+             qudt:symbol "tf" ;
+             qudt:ucumCode "TF" ;
+             rdfs:comment "Unit of force equal to the weight of one metric tonne under standard gravity."@en ;
+             rdfs:isDefinedBy unit:TONNE_F ;
+             rdfs:label "Tonne-force"@en .
+
+
+###  http://qudt.org/vocab/unit/V
+unit:V rdf:type owl:NamedIndividual ,
+                qudt:Unit ,
+                edo:DomainUnit ;
+       dcterms:source "QUDT Units Vocabulary"@en ;
+       qudt:conversionMultiplier 1.0 ;
+       qudt:definedUnitOfSystem sou:SI ;
+       qudt:hasQuantityKind qudt:ElectricPotential ;
+       qudt:symbol "V" ;
+       qudt:ucumCode "V" ;
+       rdfs:comment "SI unit of electric potential or electromotive force."@en ;
+       rdfs:isDefinedBy unit:V ;
+       rdfs:label "Volt"@en .
+
+
+###  http://qudt.org/vocab/unit/W-PER-M-K
+unit:W-PER-M-K rdf:type owl:NamedIndividual ,
+                        qudt:Unit ,
+                        edo:DomainUnit ;
+               dcterms:source "QUDT Units Vocabulary"@en ;
+               qudt:conversionMultiplier 1.0 ;
+               qudt:definedUnitOfSystem sou:SI ;
+               qudt:hasQuantityKind qudt:ThermalConductivity ;
+               qudt:symbol "W/(m·K)" ;
+               qudt:ucumCode "W.M-1.K-1" ;
+               rdfs:comment "Unit of thermal conductivity"@en ;
+               rdfs:isDefinedBy unit:W-PER-M-K ;
+               rdfs:label "Watt per meter kelvin"@en .
+
+
+###  http://qudt.org/vocab/unit/YR_Common
+unit:YR_Common rdf:type owl:NamedIndividual ,
+                        qudt:Unit ,
+                        edo:DomainUnit ;
+               dcterms:source "QUDT Units Vocabulary"@en ;
+               qudt:conversionMultiplier 31536000.0 ;
+               qudt:definedUnitOfSystem sou:SI ;
+               qudt:hasQuantityKind qudt:Time ;
+               qudt:symbol "yr" ;
+               qudt:ucumCode "a" ;
+               rdfs:comment "Unit of time equal to 365 or 366 days."@en ;
+               rdfs:isDefinedBy unit:YR ;
+               rdfs:label "Year"@en .
+
+
+###  https://w3id.org/energy-domain/edo#M3-PER-M
+edo:M3-PER-M rdf:type owl:NamedIndividual ,
+                      edo:DomainUnit ;
+             qudt:conversionMultiplier 1.0 ;
+             qudt:definedUnitOfSystem sou:SI ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                  qudt:hasUnit unit:M
+                                ] ,
+                                [ qudt:exponent 3 ;
+                                  qudt:hasUnit unit:M
+                                ] ;
+             qudt:hasQuantityKind qudt:VolumePerLength ;
+             qudt:symbol "m³/m" ;
+             qudt:ucumCode "M3.M-1" ;
+             rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
+             rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
+             rdfs:label "Cubic meter per meter"@en .
+
+
+###  https://w3id.org/energy-domain/edo#MOL-PER-M-SEC-PA
+edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
+                              edo:DomainUnit ;
+                     qudt:conversionMultiplier 1.0 ;
+                     qudt:definedUnitOfSystem sou:SI ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:S
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ;
+                     qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
+                     qudt:symbol "mol/(m·s·Pa)" ;
+                     qudt:ucumCode "MOL.M-1.S-1.PA-1" ;
+                     rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
+                     rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
+                     rdfs:label "Mole per meter per second per Pascal"@en .
+
+
+###  https://w3id.org/energy-domain/edo#N-M2-PER-RAD
+edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
+                          edo:DomainUnit ;
+                 qudt:conversionMultiplier 1.0 ;
+                 qudt:definedUnitOfSystem sou:SI ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ;
+                 qudt:hasQuantityKind qudt:StressPerAngle ;
+                 qudt:symbol "N/m²·rad" ;
+                 qudt:ucumCode "N.M-2.RAD-1" ;
+                 rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
+                 rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
+                 rdfs:label "Newton per square meter per radian"@en .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+edo:AbandonmentLife edo:hasUnit unit:YR_Common .
+
+
+edo:AllowableBendingMoment edo:hasUnit unit:N-M .
+
+
+edo:Angle edo:hasUnit unit:DEG .
+
+
+edo:AngleLayingYarnAramid edo:hasUnit unit:DEG ,
+                                      unit:W-PER-M-K .
+
+
+edo:AssyTorquesDry edo:hasUnit unit:N-M .
+
+
+edo:BendRestrictorForMaxUmbilical edo:hasUnit unit:MilliM .
+
+
+edo:BodyDiameter edo:hasUnit unit:MilliM .
+
+
+edo:BrStraightLengthCompressed edo:hasUnit unit:M .
+
+
+edo:BrStraightLengthExtended edo:hasUnit unit:M .
+
+
+edo:CrossSectionTable_OuterDiameter edo:hasUnit unit:M .
+
+
+edo:CrossSectionTable_WeightComponent edo:hasUnit unit:KiloGM .
+
+
+edo:DesignPressure edo:hasUnit unit:PSI .
+
+
+edo:Design_Ulor edo:hasUnit unit:M .
+
+
+edo:EOFWeight_BuoyancyModule edo:hasUnit unit:V .
+
+
+edo:EquivalentMBR edo:hasUnit unit:M .
+
+
+edo:FilletRadius edo:hasUnit unit:MilliM .
+
+
+edo:FinalBuoyancy_EOF edo:hasUnit unit:KiloGM_F .
+
+
+edo:Flange1_BoreDiameter edo:hasUnit unit:IN .
+
+
+edo:Flange2_BoreDiameter edo:hasUnit unit:IN .
+
+
+edo:Height edo:hasUnit unit:MilliM .
+
+
+edo:HosePressure edo:hasUnit unit:PSI .
+
+
+edo:InitialBuoyancy_SOL edo:hasUnit unit:KiloGM_F .
+
+
+edo:LifeSpan edo:hasUnit unit:YR_Common .
+
+
+edo:LinearWeightDryEmptyAir edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LinearWeightDryEmptySubmerged edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LinearWeightDryFullAir edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LinearWeightDryFullSubmerged edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LinearWeightFloodedEmptyAir edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LinearWeightFloodedEmptySubmerged edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LinearWeightFloodedFullAir edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LinearWeightFloodedFullSubmerged edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LinearWeightSeawater edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:LowestLength edo:hasUnit unit:M .
+
+
+edo:MaxChangeLengthUnderWp edo:hasUnit unit:PERCENT .
+
+
+edo:MaxInnerTemperature edo:hasUnit unit:DEG_C .
+
+
+edo:MaxWaterDepth edo:hasUnit unit:M .
+
+
+edo:MaxWorkingPressure edo:hasUnit unit:BAR .
+
+
+edo:MaximumVolumetricExpansion edo:hasUnit unit:BAR .
+
+
+edo:Maximum_Water_Depth edo:hasUnit unit:M .
+
+
+edo:MbrStorage edo:hasUnit unit:M .
+
+
+edo:MinBendingRadiusOperation edo:hasUnit unit:MilliM .
+
+
+edo:MinBendingRadiusStorage edo:hasUnit unit:MilliM .
+
+
+edo:MinBurstPressureLiner edo:hasUnit unit:BAR .
+
+
+edo:MinCollapsePressureInMbr edo:hasUnit unit:BAR .
+
+
+edo:MinCollapsePressureInStraight edo:hasUnit unit:BAR .
+
+
+edo:MinInnerTemperature edo:hasUnit unit:DEG_C .
+
+
+edo:MinWaterTemp edo:hasUnit unit:DEG .
+
+
+edo:MinimumSupportArea edo:hasUnit unit:DM2 .
+
+
+edo:NominalWeightInAir edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:RatioWeightODWaterSubmergedUnflooded edo:hasUnit unit:KiloGM_F-PER-M .
+
+
+edo:RecommendedTorques edo:hasUnit unit:N-PER-M .
+
+
+edo:SOLWeight_BuoyancyModule edo:hasUnit unit:KiloGM .
+
+
+edo:SeaWaterDensity edo:hasUnit unit:KiloGM-PER-M3 .
+
+
+edo:SecuringStrapLength edo:hasUnit unit:MilliM .
+
+
+edo:ServiceLife edo:hasUnit unit:YR_Common .
+
+
+edo:SleeveExternalDiameterConnection edo:hasUnit unit:MilliM .
+
+
+edo:SleeveInnerDiameterConnection edo:hasUnit unit:MilliM .
+
+
+edo:SleeveInstalationLength edo:hasUnit unit:M .
+
+
+edo:StorageMinBendingRadius edo:hasUnit unit:MilliM .
+
+
+edo:StructuralCapacityUnderAxialLoad edo:hasUnit unit:TONNE_F .
+
+
+edo:Tension edo:hasUnit unit:KiloN-M .
+
+
+edo:ThermalExchangeCoefficientAt20C edo:hasUnit unit:W-PER-M-K .
+
+
+edo:TotalAnodeMass edo:hasUnit unit:KiloGM .
+
+
+edo:UmbilicalCableMBRInstallation edo:hasUnit unit:MilliM .
+
+
+edo:UmbilicalCableMBROperation edo:hasUnit unit:MilliM .
+
+
+edo:UmbilicalCableOuterDiameter edo:hasUnit unit:MilliM .
+
+
+edo:UmbilicalPressure edo:hasUnit unit:BAR .
+
+
+edo:UtilizationFactorSuperDuplexTube edo:hasUnit unit:PERCENT .
+
+
+edo:VolumetricExpansion edo:hasUnit unit:BAR .
+
+
+edo:WaterDepth edo:hasUnit unit:M .
+
+
+edo:Weight edo:hasUnit unit:KiloGM .
+
+
+edo:WeightWithoutEndTerminationIn_Air edo:hasUnit unit:KiloGM .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
