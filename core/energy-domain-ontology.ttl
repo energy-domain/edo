@@ -950,7 +950,7 @@ edo:BendRestrictor rdf:type owl:Class ;
                    skos:prefLabel "Bend Restrictor"@en ,
                                   "Restritor de Curvatura"@pt-br ;
                    edo:hasAttribute edo:ArcAngle ,
-                                    edo:BendMomentVsShearForceCurveAttribute ,
+                                    edo:BendMomentVsShearForceTableColumn ,
                                     edo:LockedLength ,
                                     edo:MaximumBendingMoment ,
                                     edo:MaximumBendingMomentLongTerm ,
@@ -1139,6 +1139,19 @@ edo:BsddDataDictionary rdf:type owl:Class ;
                                        "Represents a specialized type of data dictionary following the BuildingSMART Data Dictionary (BSDD) standard, providing detailed definitions, standardized attributes, and classification for building or system elements, supporting consistent modeling, interoperability, and semantic integration."@en ;
                        skos:prefLabel "BSDD Data Dictionary"@en ,
                                       "Dicionário de Dados BSDD"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#BundleDiameter
+edo:BundleDiameter rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "BundleDiameter" ;
+                   skos:prefLabel "Bundle diameter"@en ,
+                                  "Diâmetro do feixe"@pt-br ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#BuoyancyModule
@@ -2024,20 +2037,6 @@ edo:DeploymentAccessory rdf:type owl:Class ;
                         dcterms:identifier "DeploymentAccessory" ;
                         skos:prefLabel "Acessório de lançamento"@pt-br ,
                                        "Deployment accessory"@en .
-
-
-###  https://w3id.org/energy-domain/edo#Description
-edo:Description rdf:type owl:Class ;
-                rdfs:subClassOf edo:DomainAttribute ;
-                dcterms:accessRights "PUBLIC" ;
-                dcterms:identifier "Description" ;
-                skos:definition "Description"@en ;
-                skos:prefLabel "Description"@en ,
-                               "Descrição"@pt-br ;
-                edo:hasAttributeScope edo:TypeLevelAttribute ;
-                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                edo:hasTypedValue edo:StringValue ;
-                edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#DesignConditionAttribute
@@ -3080,8 +3079,10 @@ edo:FinalBuoyancy rdf:type owl:Class ;
                   dcterms:accessRights "PUBLIC" ;
                   dcterms:identifier "FinalBuoyancy (EOF)" ;
                   rdfs:comment "Empuxo nominal fornecido pelo flutuador no final da vida útil"@pt-br ;
-                  skos:definition "Nominal upthrust supplied by buoyancy module late in its lifespan"@en ;
-                  skos:prefLabel "Final buoyancy"@en ;
+                  skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no final de sua vida útil"@pt-br ,
+                                  "Nominal upthrust supplied by buoyancy module late in its lifespan"@en ;
+                  skos:prefLabel "Final buoyancy"@en ,
+                                 "Flutuabilidade final"@pt-br ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
@@ -3111,7 +3112,8 @@ edo:FlangeAdapter rdf:type owl:Class ;
                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                     edo:SubseaUmbilicalsEngineering ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
-                  edo:ifc_objectType "FlangeAdapter" .
+                  edo:ifc_objectType "FlangeAdapter" ;
+                  edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#FlangeAttribute
@@ -3262,6 +3264,21 @@ edo:FlexiblePipeStructure rdf:type owl:Class ;
                           edo:ifc_equivalentClass "IfcPipeSegmentType" ;
                           edo:ifc_objectType "FlexiblePipeStructure" ;
                           edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#FlexibleSegmentStatus
+edo:FlexibleSegmentStatus rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "FlexibleSegmentStatus" ;
+                          skos:definition "Status do tramo individual"@pt-br ,
+                                          "Status of individual line segment"@en ;
+                          skos:prefLabel "Status"@en ,
+                                         "Status"@pt-br ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:StringValue ;
+                          edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#FlexibleStructure
@@ -3992,6 +4009,9 @@ edo:HydraulicJumper rdf:type owl:Class ;
                     dcterms:identifier "HydraulicJumper" ;
                     skos:prefLabel "Hydraulic jumper"@en ,
                                    "Jumper hidráulico"@pt-br ;
+                    edo:hasAttribute edo:BundleDiameter ,
+                                     edo:MinimumBendingRadius ,
+                                     edo:WeightInWater ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
 
 
@@ -4141,8 +4161,10 @@ edo:InitialBuoyancy rdf:type owl:Class ;
                     dcterms:accessRights "PUBLIC" ;
                     dcterms:identifier "InitialBuoyancy (SOL)" ;
                     rdfs:comment "Empuxo nominal fornecido pelo flutuador no começo da vida útil"@pt-br ;
-                    skos:definition "Nominal upthrust supplied by buoyancy module early in its lifespan"@en ;
-                    skos:prefLabel "Initial buoyancy"@en ;
+                    skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no início de sua vida útil"@pt-br ,
+                                    "Nominal upthrust supplied by buoyancy module early in its lifespan"@en ;
+                    skos:prefLabel "Flutuabilidade inicial"@pt-br ,
+                                   "Initial buoyancy"@en ;
                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:FloatValue ;
@@ -4604,7 +4626,7 @@ edo:LayAngle rdf:type owl:Class ;
              dcterms:identifier "LayAngle" ;
              skos:definition "Lay angle"@en ;
              skos:prefLabel "Lay angle"@en ,
-                            "Ângulo de inclinação"@pt-br ;
+                            "Ângulo de enrolamento"@pt-br ;
              edo:hasAttributeScope edo:TypeLevelAttribute ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
@@ -4618,7 +4640,7 @@ edo:LayDirection rdf:type owl:Class ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "LayDirection" ;
                  skos:definition "Lay direction"@en ;
-                 skos:prefLabel "Direção de inclinação"@pt-br ,
+                 skos:prefLabel "Direção de enrolamento"@pt-br ,
                                 "Lay direction"@en ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
@@ -5073,7 +5095,8 @@ edo:LinearWeight rdf:type owl:Class ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "LinearWeight" ;
                  skos:definition "Basic linear weight"@en ;
-                 skos:prefLabel "Basic linear weight"@en ;
+                 skos:prefLabel "Basic linear weight"@en ,
+                                "Peso linear básico"@pt-br ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
@@ -6509,20 +6532,6 @@ edo:NumWays rdf:type owl:Class ;
             edo:hasTypedValue edo:IfcInteger .
 
 
-###  https://w3id.org/energy-domain/edo#NumberComponents
-edo:NumberComponents rdf:type owl:Class ;
-                     rdfs:subClassOf edo:DomainAttribute ;
-                     dcterms:accessRights "PUBLIC" ;
-                     dcterms:identifier "NumberComponents" ;
-                     skos:definition "Number of components"@en ;
-                     skos:prefLabel "Number of components"@en ,
-                                    "Número de componentes"@pt-br ;
-                     edo:hasAttributeScope edo:TypeLevelAttribute ;
-                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                     edo:hasTypedValue edo:FloatValue ;
-                     edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#NumberOfChokeValves
 edo:NumberOfChokeValves rdf:type owl:Class ;
                         rdfs:subClassOf edo:DomainAttribute ;
@@ -7293,8 +7302,8 @@ edo:PolymericMaterial rdf:type owl:Class ;
                       skos:definition "Material made from polymers, used to fabricate flexible layers in subsea flexible pipes. Polymeric Material is selected for its properties such as flexibility, chemical resistance, and durability, making it suitable for withstanding the harsh conditions of subsea environments. These materials are commonly used in layers that provide insulation, protection, or pressure containment, ensuring the overall performance and integrity of the flexible pipe under dynamic loads and extreme underwater conditions."@en ;
                       skos:prefLabel "Material Polimérico"@pt-br ,
                                      "Polymeric Material"@en ;
-                      edo:hasAttribute edo:DiffusionCurveAttribute ,
-                                       edo:EModVsTempCurveAttribute ,
+                      edo:hasAttribute edo:DiffusionTableColumn ,
+                                       edo:EModVsTempTableColumn ,
                                        edo:MaxPermissibleDeformationDynamic ,
                                        edo:MaxPermissibleDeformationStatic ,
                                        edo:MinimumTemperature ,
@@ -7656,7 +7665,7 @@ edo:QuickConnectCoupling rdf:type owl:Class ;
                                          "Quick connect coupling used to connect or disconnect fluid or gas lines in a practical and safe way, ensuring sealing and minimising leakage during operation."@en ;
                          skos:prefLabel "Engate Rápido"@pt-br ,
                                         "Quick Connect Coupling"@en ;
-                         edo:hasAttribute edo:HoseFittingSpecTableAttribute ,
+                         edo:hasAttribute edo:HoseFittingSpecTableColumn ,
                                           edo:StandardType ;
                          edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                          edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -9315,13 +9324,10 @@ edo:SubseaUmbilical rdf:type owl:Class ;
                                      edo:ExecutiveProjectRevision ,
                                      edo:H2SVolumeConcentration ,
                                      edo:InternalDiameter ,
-                                     edo:InternalIncidentalPressureCurveAttribute ,
+                                     edo:InternalIncidentalPressureTableColumn ,
                                      edo:MaterialRequest ,
                                      edo:MaterialRequestRev ,
-                                     edo:MaxDesignAbsIntPresTable ,
-                                     edo:MaxDesignAbsIntPresTable_PositionReference ,
-                                     edo:MaxDesignAbsIntPresTable_Pressure ,
-                                     edo:MaxDesignAbsIntPresTable_VPosWRTWaterline ,
+                                     edo:MaxDesignAbsIntPresTableColumn ,
                                      edo:MaximumTemperature ,
                                      edo:MaximumThermalExchangeCoefficient ,
                                      edo:MinimumThermalExchangeCoefficient ,
@@ -9917,7 +9923,7 @@ edo:ThreadedFitting rdf:type owl:Class ;
                                     "Um Engate Rosqueado é um conector usado para unir linhas de fluido ou gás por meio de roscas, garantindo uma conexão segura e vedada que pode ser facilmente montada ou desmontada durante a instalação ou manutenção."@pt-br ;
                     skos:prefLabel "Engate Rosqueado"@pt-br ,
                                    "Threaded Fitting"@en ;
-                    edo:hasAttribute edo:HoseFittingSpecTableAttribute ;
+                    edo:hasAttribute edo:HoseFittingSpecTableColumn ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "ThreadedFitting" .
@@ -10316,10 +10322,8 @@ edo:UmbilicalBundle rdf:type owl:Class ;
                                     "The Umbilical Bundle is the integrated assembly of functional elements within a subsea umbilical, designed to transmit hydraulic power, electrical energy, and data signals between surface and subsea systems. It typically consists of multiple tubes, cables, and fibers bundled together and protected by external sheathing and armoring. Engineered to ensure reliability and efficiency under deepwater conditions, the umbilical bundle provides essential control and communication pathways that enable the safe and continuous operation of subsea production equipment."@en ;
                     skos:prefLabel "Conjunto de Umbilical"@pt-br ,
                                    "Umbilical Bundle"@en ;
-                    edo:hasAttribute edo:Description ,
-                                     edo:LayAngle ,
+                    edo:hasAttribute edo:LayAngle ,
                                      edo:LayDirection ,
-                                     edo:NumberComponents ,
                                      edo:OuterDiameter ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:ifc_equivalentClass "IfcPipeSegmentType" ;
@@ -10767,7 +10771,7 @@ edo:WireRopeSlingDiameter rdf:type owl:Class ;
                           dcterms:identifier "WireRopeSlingDiameter" ;
                           skos:definition "Diâmetro do Estrobo de Corda de Aço"@pt-br ,
                                           "Specifies the diameter of the wire rope sling. This property provides the measurement of the thickness of the wire rope, which is important for determining its strength and load-bearing capacity."@en ;
-                          skos:prefLabel "Diâmetro do Estrobo de Corda de Aço"@pt-br ,
+                          skos:prefLabel "Diâmetro da eslinga da corda de aço"@pt-br ,
                                          "Wire Rope Sling Diameter"@en ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
@@ -10782,7 +10786,7 @@ edo:WireRopeSlingLength rdf:type owl:Class ;
                         dcterms:accessRights "PUBLIC" ;
                         dcterms:identifier "WireRopeSlingLength" ;
                         skos:definition "Specifies the length of the wire rope sling used in the installation or operation. This property provides the measurement of the sling’s length, which is essential for ensuring proper fit and functionality during use."@en ;
-                        skos:prefLabel "Comprimento do Estrobo da Corda de Aço"@pt-br ,
+                        skos:prefLabel "Comprimento da eslinga da corda de aço"@pt-br ,
                                        "Wire Rope Sling Length"@en ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
@@ -11301,10 +11305,10 @@ unit:N rdf:type owl:NamedIndividual ,
                             qudt:hasUnit unit:S
                           ] ,
                           [ qudt:exponent 1 ;
-                            qudt:hasUnit unit:M
+                            qudt:hasUnit unit:KG
                           ] ,
                           [ qudt:exponent 1 ;
-                            qudt:hasUnit unit:KG
+                            qudt:hasUnit unit:M
                           ] ;
        qudt:hasQuantityKind qudt:Force ;
        qudt:symbol "N" ;
@@ -11322,10 +11326,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -11532,10 +11536,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent -1 ;
+             qudt:hasFactorUnit [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent 3 ;
+                                [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -11551,17 +11555,17 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:S
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -11576,11 +11580,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent -2 ;
+                 qudt:hasFactorUnit [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
