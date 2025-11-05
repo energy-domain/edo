@@ -960,7 +960,7 @@ edo:BendRestrictor rdf:type owl:Class ;
                                     edo:MaximumLength ,
                                     edo:MaximumShearForce ,
                                     edo:MaximumShearForceLongTerm ,
-                                    edo:MinimumBendingRadius ,
+                                    edo:MinBendingRadius ,
                                     edo:MinimumLength ,
                                     edo:WeightInWater ;
                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
@@ -3338,7 +3338,7 @@ edo:FlexiblePipeStructure rdf:type owl:Class ;
                                            edo:LinearMass ,
                                            edo:MaxDesignPressure ,
                                            edo:MaximumAllowableTensileForStraightLine ,
-                                           edo:MinimumBendingRadiusForStorage ,
+                                           edo:MinBendingRadiusForStorage ,
                                            edo:OuterDiameter ,
                                            edo:SpoolingTension ,
                                            edo:StiffTorsionalStiffnessAtSeaLevel ,
@@ -3361,7 +3361,7 @@ edo:FlexibleSegmentStatus rdf:type owl:Class ;
                                           "Status of individual line segment"@en ;
                           skos:prefLabel "Status"@en ,
                                          "Status"@pt-br ;
-                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasAttributeScope edo:InstanceLevelAttribute ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:StringValue ;
                           edo:hasValueCardinality edo:SingleValue .
@@ -3656,7 +3656,7 @@ edo:FunctionLine rdf:type owl:Class ;
                                 "Linha Funcional"@pt-br ,
                                 "Linha de função"@pt-br ;
                  edo:hasAttribute edo:DestinationPigtailLength ,
-                                  edo:MinimumBendingRadius ,
+                                  edo:MinBendingRadius ,
                                   edo:SourcePigtailLength .
 
 
@@ -4097,7 +4097,7 @@ edo:HydraulicJumper rdf:type owl:Class ;
                     skos:prefLabel "Hydraulic jumper"@en ,
                                    "Jumper hidráulico"@pt-br ;
                     edo:hasAttribute edo:BundleDiameter ,
-                                     edo:MinimumBendingRadius ,
+                                     edo:MinBendingRadius ,
                                      edo:WeightInWater ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:ifc_objectType "HydraulicJumper" ;
@@ -4421,8 +4421,7 @@ edo:Interconnection rdf:type owl:Class ;
                     skos:definition "Local que contém toda a extensão de uma interligação, com seus diversos trechos, terminações, equipamentos inline, etc."@pt-br ,
                                     "Location that contains the entire length of an interconnection, with its various sections, terminations, inline equipment, etc."@en ;
                     skos:prefLabel "Interconnection"@en ,
-                                   "Interligação"@pt-br ;
-                    edo:hasAttribute edo:InterconnectionStatus .
+                                   "Interligação"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#InterconnectionStatus
@@ -5093,7 +5092,7 @@ edo:Length rdf:type owl:Class ;
                            "Length"@en ;
            skos:prefLabel "Comprimento"@pt-br ,
                           "Length"@en ;
-           edo:hasAttributeScope edo:TypeLevelAttribute ;
+           edo:hasAttributeScope edo:InstanceLevelAttribute ;
            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
            edo:hasTypedValue edo:FloatValue ;
            edo:hasUnit unit:M ,
@@ -5193,8 +5192,7 @@ edo:LinearLocation rdf:type owl:Class ;
                    skos:definition "Base for locations that extend along a geographically significant route."@en ,
                                    "Base para locais que se estendem ao longo de um percurso geograficamente significativo"@pt-br ;
                    skos:prefLabel "Linear Location"@en ,
-                                  "Localização Linear"@pt-br ;
-                   edo:hasAttribute edo:Length .
+                                  "Localização Linear"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#LinearMass
@@ -5228,9 +5226,10 @@ edo:LinearWeight rdf:type owl:Class ;
                  rdfs:subClassOf edo:DomainAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "LinearWeight" ;
-                 skos:definition "Basic linear weight"@en ;
-                 skos:prefLabel "Basic linear weight"@en ,
-                                "Peso linear básico"@pt-br ;
+                 skos:definition "Basic linear weight of the structure, without liquid filling and not submerged."@en ,
+                                 "Peso linear básico da estrutura, sem preenchimento com líquidos e não submersa"@pt-br ;
+                 skos:prefLabel "Linear weight, empty, in air"@en ,
+                                "Peso linear, vazio, no ar"@pt-br ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
@@ -6160,36 +6159,6 @@ edo:MaximumThermalExchangeCoefficient rdf:type owl:Class ;
                                       edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#MbrDynamicOperation
-edo:MbrDynamicOperation rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ;
-                        dcterms:accessRights "PUBLIC" ;
-                        dcterms:identifier "MbrDynamicOperation" ;
-                        skos:definition "Minimum bending radius, operation, dynamic"@en ;
-                        skos:prefLabel "Minimum bending radius, operation, dynamic"@en ,
-                                       "Raio de curvatura mínimo, operação, dinâmico"@pt-br ;
-                        edo:hasAttributeScope edo:TypeLevelAttribute ;
-                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                        edo:hasTypedValue edo:FloatValue ;
-                        edo:hasUnit unit:M ;
-                        edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#MbrStaticOperation
-edo:MbrStaticOperation rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ;
-                       dcterms:accessRights "PUBLIC" ;
-                       dcterms:identifier "MbrStaticOperation" ;
-                       skos:definition "Minimum bending radius, operation, static"@en ;
-                       skos:prefLabel "Minimum bending radius, operation, static"@en ,
-                                      "Raio de curvatura mínimo, operação, estático"@pt-br ;
-                       edo:hasAttributeScope edo:TypeLevelAttribute ;
-                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                       edo:hasTypedValue edo:FloatValue ;
-                       edo:hasUnit unit:M ;
-                       edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#MeasuredValue
 edo:MeasuredValue rdf:type owl:Class ;
                   rdfs:subClassOf edo:ValueOrigin ;
@@ -6370,6 +6339,82 @@ edo:Midstream rdf:type owl:Class ;
                               "Setor de Petróleo & Gás que abrange transporte, armazenamento e comercialização atacadista de produtos petrolíferos brutos ou refinados."@pt-br .
 
 
+###  https://w3id.org/energy-domain/edo#MinBendingRadius
+edo:MinBendingRadius rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "MinBendingRadius" ;
+                     rdfs:comment "MBR mínimo de cobertura"@pt-br ;
+                     skos:definition "Raio de curvatura mínimo imposto pelo restritor"@en ;
+                     skos:prefLabel "Minimum bending radius"@en ,
+                                    "Raio de curvatura mínimo"@pt-br ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:M ;
+                     edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinBendingRadiusDynamicOperation
+edo:MinBendingRadiusDynamicOperation rdf:type owl:Class ;
+                                     rdfs:subClassOf edo:DomainAttribute ;
+                                     dcterms:accessRights "PUBLIC" ;
+                                     dcterms:identifier "MinBendingRadiusDynamicOperation" ;
+                                     skos:definition "Minimum bending radius, operation, dynamic"@en ;
+                                     skos:prefLabel "Minimum bending radius, operation, dynamic"@en ,
+                                                    "Raio de curvatura mínimo, operação, dinâmico"@pt-br ;
+                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                     edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:M ;
+                                     edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinBendingRadiusForInstallation
+edo:MinBendingRadiusForInstallation rdf:type owl:Class ;
+                                    rdfs:subClassOf edo:DomainAttribute ;
+                                    dcterms:accessRights "PUBLIC" ;
+                                    dcterms:identifier "MinBendingRadiusForInstallation" ;
+                                    skos:definition "Represents the smallest radius to which a component can be bent installation storage without causing damage or affecting its performance. This property is important for ensuring that the component maintains its integrity while in storage, preventing deformation or weakening."@en ;
+                                    skos:prefLabel "Minimum Bending Radius For Installation"@en ,
+                                                   "Raio Mínimo de Curvatura para instalação"@pt-br ;
+                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                    edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:M ;
+                                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinBendingRadiusForStorage
+edo:MinBendingRadiusForStorage rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "MinBendingRadiusForStorage" ;
+                               skos:definition "Represents the smallest radius to which a component can be bent during storage without causing damage or affecting its performance. This property is important for ensuring that the component maintains its integrity while in storage, preventing deformation or weakening."@en ;
+                               skos:prefLabel "Minimum Bending Radius For Storage"@en ,
+                                              "Raio Mínimo de Curvatura para Armazenamento"@pt-br ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:M ;
+                               edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinBendingRadiusStaticOperation
+edo:MinBendingRadiusStaticOperation rdf:type owl:Class ;
+                                    rdfs:subClassOf edo:DomainAttribute ;
+                                    dcterms:accessRights "PUBLIC" ;
+                                    dcterms:identifier "MinBendingRadiusStaticOperation" ;
+                                    skos:definition "Minimum bending radius, operation, static"@en ;
+                                    skos:prefLabel "Minimum bending radius, operation, static"@en ,
+                                                   "Raio de curvatura mínimo, operação, estático"@pt-br ;
+                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                    edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:M ;
+                                    edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MinDragoeff
 edo:MinDragoeff rdf:type owl:Class ;
                 rdfs:subClassOf edo:DomainAttribute ;
@@ -6382,37 +6427,6 @@ edo:MinDragoeff rdf:type owl:Class ;
                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                 edo:hasTypedValue edo:FloatValue ;
                 edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#MinimumBendingRadius
-edo:MinimumBendingRadius rdf:type owl:Class ;
-                         rdfs:subClassOf edo:DomainAttribute ;
-                         dcterms:accessRights "PUBLIC" ;
-                         dcterms:identifier "MinimumBendingRadius" ;
-                         rdfs:comment "MBR mínimo de cobertura"@pt-br ;
-                         skos:definition "Raio de curvatura mínimo imposto pelo restritor"@en ;
-                         skos:prefLabel "Minimum bending radius"@en ,
-                                        "Raio de curvatura mínimo"@pt-br ;
-                         edo:hasAttributeScope edo:TypeLevelAttribute ;
-                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                         edo:hasTypedValue edo:FloatValue ;
-                         edo:hasUnit unit:M ;
-                         edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#MinimumBendingRadiusForStorage
-edo:MinimumBendingRadiusForStorage rdf:type owl:Class ;
-                                   rdfs:subClassOf edo:DomainAttribute ;
-                                   dcterms:accessRights "PUBLIC" ;
-                                   dcterms:identifier "MinimumBendingRadiusForStorage" ;
-                                   skos:definition "Represents the smallest radius to which a component can be bent during storage without causing damage or affecting its performance. This property is important for ensuring that the component maintains its integrity while in storage, preventing deformation or weakening."@en ;
-                                   skos:prefLabel "Minimum Bending Radius For Storage"@en ,
-                                                  "Raio Mínimo de Curvatura para Armazenamento"@pt-br ;
-                                   edo:hasAttributeScope edo:TypeLevelAttribute ;
-                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                                   edo:hasTypedValue edo:FloatValue ;
-                                   edo:hasUnit unit:M ;
-                                   edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#MinimumHousedDiameter
@@ -7850,6 +7864,22 @@ edo:ROVTool rdf:type owl:Class ;
                            "ROV tool"@en .
 
 
+###  https://w3id.org/energy-domain/edo#RatioWeightODFilledSubmerged
+edo:RatioWeightODFilledSubmerged rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:DomainAttribute ;
+                                 dcterms:accessRights "PUBLIC" ;
+                                 dcterms:identifier "RatioWeightODFilledSubmerged" ;
+                                 skos:definition "Relação peso por diâmetro externo - submersa na água do mar, preenchida com fluido hidráulico e interstícios vazio"@pt-br ,
+                                                 "Weight to outer diameter ratio - submerged in seawater, filled with hydraulic fluid and empty."@en ;
+                                 skos:prefLabel "Ratio Weight OD Water Submerged Unflooded"@en ,
+                                                "Relação peso por diâmetro externo - submersa e interstícios vazio"@pt-br ;
+                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                 edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:KiloGM_F-PER-M ;
+                                 edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#RearPoint
 edo:RearPoint rdf:type owl:Class ;
               rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -7945,7 +7975,7 @@ edo:Reused rdf:type owl:Class ;
                            "Specifies whether this segment/segment has already been used previously in another location"@en ;
            skos:prefLabel "Reused"@en ,
                           "Reutilizado"@pt-br ;
-           edo:hasAttributeScope edo:TypeLevelAttribute ;
+           edo:hasAttributeScope edo:InstanceLevelAttribute ;
            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
            edo:hasTypedValue edo:IfcBoolean ;
            edo:hasValueCardinality edo:SingleValue .
@@ -9485,13 +9515,8 @@ edo:SubseaUmbilical rdf:type owl:Class ;
                                    "Umbilical Submarino"@pt-br ;
                     edo:hasAttribute edo:BasicProjectRevision ,
                                      edo:ExecutiveProjectRevision ,
-                                     edo:InternalIncidentalPressureTableColumn ,
                                      edo:MaterialRequest ,
                                      edo:MaterialRequestRev ,
-                                     edo:MaxDesignAbsIntPresTableColumn ,
-                                     edo:MaximumTemperature ,
-                                     edo:MaximumThermalExchangeCoefficient ,
-                                     edo:MinimumThermalExchangeCoefficient ,
                                      edo:ProjectAcronym ,
                                      edo:ProjectCode ,
                                      edo:RiserConfiguration ,
@@ -10597,12 +10622,13 @@ edo:UmbilicalStructure rdf:type owl:Class ;
                                         edo:LinearWeightFilledSubmergedFlooded ,
                                         edo:LinearWeightSubmerged ,
                                         edo:MaxDragCoeff ,
-                                        edo:MbrDynamicOperation ,
-                                        edo:MbrStaticOperation ,
+                                        edo:MinBendingRadiusDynamicOperation ,
+                                        edo:MinBendingRadiusForInstallation ,
+                                        edo:MinBendingRadiusForStorage ,
+                                        edo:MinBendingRadiusStaticOperation ,
                                         edo:MinDragoeff ,
-                                        edo:MinimumBendingRadius ,
-                                        edo:MinimumBendingRadiusForStorage ,
                                         edo:OuterArea ,
+                                        edo:RatioWeightODFilledSubmerged ,
                                         edo:SpecificMass ,
                                         edo:SpoolingTension ,
                                         edo:TorsionalStiffnessHigherStorage ,
@@ -10990,6 +11016,7 @@ edo:WorkingTension rdf:type owl:Class ;
                    skos:definition "Working tension"@en ;
                    skos:prefLabel "Tensão de trabalho"@pt-br ,
                                   "Working tension"@en ;
+                   edo:hasTypedValue edo:FloatValue ;
                    edo:hasUnit unit:KiloN .
 
 
@@ -11329,11 +11356,11 @@ unit:M2-PER-SEC rdf:type owl:NamedIndividual ,
                 dcterms:source "QUDT Units Vocabulary"@en ;
                 qudt:conversionMultiplier 1.0 ;
                 qudt:definedUnitOfSystem sou:SI ;
-                qudt:hasFactorUnit [ qudt:exponent 2 ;
-                                     qudt:hasUnit unit:M
-                                   ] ,
-                                   [ qudt:exponent -1 ;
+                qudt:hasFactorUnit [ qudt:exponent -1 ;
                                      qudt:hasUnit unit:S
+                                   ] ,
+                                   [ qudt:exponent 2 ;
+                                     qudt:hasUnit unit:M
                                    ] ;
                 qudt:hasQuantityKind qudt:AreaFlux ;
                 qudt:symbol "m²/s" ;
@@ -11474,10 +11501,10 @@ unit:N rdf:type owl:NamedIndividual ,
        qudt:conversionMultiplier 1.0 ;
        qudt:definedUnitOfSystem sou:SI ;
        qudt:hasFactorUnit [ qudt:exponent 1 ;
-                            qudt:hasUnit unit:M
+                            qudt:hasUnit unit:KG
                           ] ,
                           [ qudt:exponent 1 ;
-                            qudt:hasUnit unit:KG
+                            qudt:hasUnit unit:M
                           ] ,
                           [ qudt:exponent -2 ;
                             qudt:hasUnit unit:S
@@ -11498,10 +11525,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -11566,11 +11593,11 @@ unit:PA rdf:type owl:NamedIndividual ,
         dcterms:source "QUDT Units Vocabulary"@en ;
         qudt:conversionMultiplier 1.0 ;
         qudt:definedUnitOfSystem sou:SI ;
-        qudt:hasFactorUnit [ qudt:exponent 1 ;
-                             qudt:hasUnit unit:N
-                           ] ,
-                           [ qudt:exponent -2 ;
+        qudt:hasFactorUnit [ qudt:exponent -2 ;
                              qudt:hasUnit unit:M
+                           ] ,
+                           [ qudt:exponent 1 ;
+                             qudt:hasUnit unit:N
                            ] ;
         qudt:hasQuantityKind qudt:Pressure ;
         qudt:symbol "Pa" ;
@@ -11727,14 +11754,14 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:S
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
@@ -11752,14 +11779,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
