@@ -2738,7 +2738,8 @@ edo:ElectricalCable rdf:type owl:Class ;
                                      edo:NumGroups ,
                                      edo:OverallShieldingType ,
                                      edo:VoltageRatingTableColumn ,
-                                     edo:nominalOperatingFrequencyPower ;
+                                     edo:nominalOperatingFrequencyPower ,
+                                     edo:nominalOperatingFrequencySignal ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:ifc_equivalentClass "IfcCableSegment" ;
                     edo:ifc_objectType "ElectricalCable" ;
@@ -11159,6 +11160,22 @@ edo:nominalOperatingFrequencyPower rdf:type owl:Class ;
                                    edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#nominalOperatingFrequencySignal
+edo:nominalOperatingFrequencySignal rdf:type owl:Class ;
+                                    rdfs:subClassOf edo:DomainAttribute ;
+                                    dcterms:accessRights "PUBLIC" ;
+                                    dcterms:identifier "nominalOperatingFrequencySignal" ;
+                                    skos:definition "A faixa de frequência nominal em que o cabo elétrico é projetado para operar para transmissão de sinal, em kilohertz"@pt-br ,
+                                                    "The nominal frequency range at which the electrical cable is designed to operate for signal transmission, in kilohertz"@en ;
+                                    skos:prefLabel "Frequência nominal de operação para transmissão de sinal"@en ,
+                                                   "Nominal operating frequency for signal transmission"@pt-br ;
+                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                    edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:KiloV ;
+                                    edo:hasValueCardinality edo:SingleValue .
+
+
 #################################################################
 #    Individuals
 #################################################################
@@ -11722,11 +11739,11 @@ unit:PA rdf:type owl:NamedIndividual ,
         dcterms:source "QUDT Units Vocabulary"@en ;
         qudt:conversionMultiplier 1.0 ;
         qudt:definedUnitOfSystem sou:SI ;
-        qudt:hasFactorUnit [ qudt:exponent 1 ;
-                             qudt:hasUnit unit:N
-                           ] ,
-                           [ qudt:exponent -2 ;
+        qudt:hasFactorUnit [ qudt:exponent -2 ;
                              qudt:hasUnit unit:M
+                           ] ,
+                           [ qudt:exponent 1 ;
+                             qudt:hasUnit unit:N
                            ] ;
         qudt:hasQuantityKind qudt:Pressure ;
         qudt:symbol "Pa" ;
@@ -11908,14 +11925,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
