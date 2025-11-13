@@ -2737,7 +2737,8 @@ edo:ElectricalCable rdf:type owl:Class ;
                                      edo:NumGroupConductors ,
                                      edo:NumGroups ,
                                      edo:OverallShieldingType ,
-                                     edo:VoltageRatingTableColumn ;
+                                     edo:VoltageRatingTableColumn ,
+                                     edo:nominalOperatingFrequencyPower ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:ifc_equivalentClass "IfcCableSegment" ;
                     edo:ifc_objectType "ElectricalCable" ;
@@ -11142,6 +11143,22 @@ edo:WoundLayer rdf:type owl:Class ;
                               "Wound Layer"@en .
 
 
+###  https://w3id.org/energy-domain/edo#nominalOperatingFrequencyPower
+edo:nominalOperatingFrequencyPower rdf:type owl:Class ;
+                                   rdfs:subClassOf edo:DomainAttribute ;
+                                   dcterms:accessRights "PUBLIC" ;
+                                   dcterms:identifier "nominalOperatingFrequencyPower" ;
+                                   skos:definition "A frequência nominal em que o cabo elétrico é projetado para operar para transmissão de energia, em Hertz"@pt-br ,
+                                                   "The nominal frequency at which the electrical cable is designed to operate for power transmission, in Hertz"@en ;
+                                   skos:prefLabel "Frequência nominal de operação para transmissão de energia"@en ,
+                                                  "Nominal operating frequency for power transmission"@pt-br ;
+                                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                   edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasUnit unit:KiloV ;
+                                   edo:hasValueCardinality edo:SingleValue .
+
+
 #################################################################
 #    Individuals
 #################################################################
@@ -11468,11 +11485,11 @@ unit:M2-PER-SEC rdf:type owl:NamedIndividual ,
                 dcterms:source "QUDT Units Vocabulary"@en ;
                 qudt:conversionMultiplier 1.0 ;
                 qudt:definedUnitOfSystem sou:SI ;
-                qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                     qudt:hasUnit unit:S
-                                   ] ,
-                                   [ qudt:exponent 2 ;
+                qudt:hasFactorUnit [ qudt:exponent 2 ;
                                      qudt:hasUnit unit:M
+                                   ] ,
+                                   [ qudt:exponent -1 ;
+                                     qudt:hasUnit unit:S
                                    ] ;
                 qudt:hasQuantityKind qudt:AreaFlux ;
                 qudt:symbol "m²/s" ;
@@ -11613,13 +11630,13 @@ unit:N rdf:type owl:NamedIndividual ,
        qudt:conversionMultiplier 1.0 ;
        qudt:definedUnitOfSystem sou:SI ;
        qudt:hasFactorUnit [ qudt:exponent 1 ;
-                            qudt:hasUnit unit:KG
+                            qudt:hasUnit unit:M
                           ] ,
                           [ qudt:exponent -2 ;
                             qudt:hasUnit unit:S
                           ] ,
                           [ qudt:exponent 1 ;
-                            qudt:hasUnit unit:M
+                            qudt:hasUnit unit:KG
                           ] ;
        qudt:hasQuantityKind qudt:Force ;
        qudt:symbol "N" ;
@@ -11637,10 +11654,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -11705,11 +11722,11 @@ unit:PA rdf:type owl:NamedIndividual ,
         dcterms:source "QUDT Units Vocabulary"@en ;
         qudt:conversionMultiplier 1.0 ;
         qudt:definedUnitOfSystem sou:SI ;
-        qudt:hasFactorUnit [ qudt:exponent -2 ;
-                             qudt:hasUnit unit:M
-                           ] ,
-                           [ qudt:exponent 1 ;
+        qudt:hasFactorUnit [ qudt:exponent 1 ;
                              qudt:hasUnit unit:N
+                           ] ,
+                           [ qudt:exponent -2 ;
+                             qudt:hasUnit unit:M
                            ] ;
         qudt:hasQuantityKind qudt:Pressure ;
         qudt:symbol "Pa" ;
@@ -11847,10 +11864,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent -1 ;
+             qudt:hasFactorUnit [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent 3 ;
+                                [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -11866,17 +11883,17 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:S
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -11891,14 +11908,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
+                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
                                     ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
