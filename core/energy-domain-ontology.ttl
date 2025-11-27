@@ -134,6 +134,14 @@ edo:defaultValidValues rdf:type owl:AnnotationProperty ;
                        rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
 
 
+###  https://w3id.org/energy-domain/edo#entityStatus
+edo:entityStatus rdf:type owl:AnnotationProperty ;
+                 rdfs:label "Entity Status"@en ;
+                 skos:definition "Anotação para identificar o status da entidade que pode ser: NOVO, ANALISANDO e APROVADO"@pt ,
+                                 "Note to identify the entity's status, which can be: NEW, REVIEW, and APPROVED"@en ;
+                 rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
+
+
 ###  https://w3id.org/energy-domain/edo#hasAttribute
 edo:hasAttribute rdf:type owl:AnnotationProperty ;
                  rdfs:label "Has attribute"@en ,
@@ -186,6 +194,14 @@ edo:hasDomain rdf:type owl:AnnotationProperty ;
               skos:definition "Associa a entidade a um ou mais domínios"@pt-br ,
                               "Belongs to one or more domains"@en ;
               rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#hasExternalRef
+edo:hasExternalRef rdf:type owl:AnnotationProperty ;
+                   rdfs:label "Has External Reference"@en ;
+                   skos:definition "Annotation property used to indicate the reference or equivalent name of this entity in an external data dictionary or standard."@en ,
+                                   "Propriedade de anotação usada para indicar a referência ou o nome equivalente desta entidade em um dicionário de dados ou norma externa."@pt ;
+                   rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
 
 
 ###  https://w3id.org/energy-domain/edo#hasLifecycleCreationPhase
@@ -414,16 +430,6 @@ edo:ActuatedEquipment rdf:type owl:Class ;
                                       "Equipment with locally- or remotely-actuatable functions"@en ;
                       skos:prefLabel "Actuated Equipment"@en ,
                                      "Equipamento Atuável"@pt-br .
-
-
-###  https://w3id.org/energy-domain/edo#ActuatedValve
-edo:ActuatedValve rdf:type owl:Class ;
-                  rdfs:subClassOf edo:Valve ;
-                  dcterms:identifier "ActuatedValve" ;
-                  skos:definition "Base para todas as válvulas atuadas externamente, ou seja, que necessitam de ação externa para abrir/fechar"@pt-br ,
-                                  "Externally-actuated valve. Base for all valves that require external action for opening/closing"@en ;
-                  skos:prefLabel "Externally-actuated valve"@en ,
-                                 "Válvula atuada externamente"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#AdministrativeAttribute
@@ -1077,16 +1083,6 @@ edo:Biomass rdf:type owl:Class ;
                             "Energy produced from organic materials such as wood, agricultural residues, or waste."@en .
 
 
-###  https://w3id.org/energy-domain/edo#BlockValve
-edo:BlockValve rdf:type owl:Class ;
-               rdfs:subClassOf edo:ActuatedValve ;
-               dcterms:identifier "BlockValve" ;
-               skos:definition "An on-off valve, i.e. one which is designed to be either fully open or fully closed"@en ,
-                               "Válvula projetada para operar totalmente aberta ou totalmente fechada"@pt-br ;
-               skos:prefLabel "Block valve"@en ,
-                              "Válvula de bloqueio"@pt-br .
-
-
 ###  https://w3id.org/energy-domain/edo#BoltSet
 edo:BoltSet rdf:type owl:Class ;
             rdfs:subClassOf edo:PhysicalConnection ;
@@ -1314,16 +1310,6 @@ edo:ChainSegment rdf:type owl:Class ;
                                 "Tramo de corrente"@pt-br .
 
 
-###  https://w3id.org/energy-domain/edo#CheckValve
-edo:CheckValve rdf:type owl:Class ;
-               rdfs:subClassOf edo:Valve ;
-               dcterms:identifier "CheckValve" ;
-               skos:definition "Self-actuated valve designed to allow fluid passage in only one direction"@en ,
-                               "Válvula auto-atuada projetada para permitir passagem de fluidos em apenas uma direção"@pt-br ;
-               skos:prefLabel "Check Valve"@en ,
-                              "Válvula de Retenção"@pt-br .
-
-
 ###  https://w3id.org/energy-domain/edo#ChemicalInjectionUnit
 edo:ChemicalInjectionUnit rdf:type owl:Class ;
                           rdfs:subClassOf edo:TopsideEquipment ;
@@ -1343,16 +1329,6 @@ edo:ChokeModule rdf:type owl:Class ;
                 skos:prefLabel "Choke module"@en ,
                                "Módulo de choke"@pt-br ;
                 edo:hasDiscipline edo:WetChristmasTreesEngineering .
-
-
-###  https://w3id.org/energy-domain/edo#ChokeValve
-edo:ChokeValve rdf:type owl:Class ;
-               rdfs:subClassOf edo:ActuatedValve ;
-               dcterms:identifier "ChokeValve" ;
-               skos:definition "Valve designed to gradually restrict fluid flow, adjusted either manually or automatically by an autonomous control system/loop"@en ,
-                               "Válvula projetada para restringir gradualmente a passagem de fluidos, ajustada manualmente ou automaticamente por um sistema/malha de controle autônoma"@pt-br ;
-               skos:prefLabel "Choke Valve"@en ,
-                              "Válvula de Restrição"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#CivilEngineering
@@ -8043,16 +8019,6 @@ edo:ReinforcementOuterDiameter rdf:type owl:Class ;
                                edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#ReliefValve
-edo:ReliefValve rdf:type owl:Class ;
-                rdfs:subClassOf edo:CheckValve ;
-                dcterms:identifier "ReliefValve" ;
-                skos:definition "Automatic pressure relief valve"@en ,
-                                "Válvula automática de alívio de pressão"@pt-br ;
-                skos:prefLabel "Relief valve"@en ,
-                               "Válvula de alívio"@pt-br .
-
-
 ###  https://w3id.org/energy-domain/edo#Renewable
 edo:Renewable rdf:type owl:Class ;
               rdfs:subClassOf edo:Domain ;
@@ -11501,11 +11467,11 @@ unit:M2-PER-SEC rdf:type owl:NamedIndividual ,
                 dcterms:source "QUDT Units Vocabulary"@en ;
                 qudt:conversionMultiplier 1.0 ;
                 qudt:definedUnitOfSystem sou:SI ;
-                qudt:hasFactorUnit [ qudt:exponent 2 ;
-                                     qudt:hasUnit unit:M
-                                   ] ,
-                                   [ qudt:exponent -1 ;
+                qudt:hasFactorUnit [ qudt:exponent -1 ;
                                      qudt:hasUnit unit:S
+                                   ] ,
+                                   [ qudt:exponent 2 ;
+                                     qudt:hasUnit unit:M
                                    ] ;
                 qudt:hasQuantityKind qudt:AreaFlux ;
                 qudt:symbol "m²/s" ;
@@ -11646,13 +11612,13 @@ unit:N rdf:type owl:NamedIndividual ,
        qudt:conversionMultiplier 1.0 ;
        qudt:definedUnitOfSystem sou:SI ;
        qudt:hasFactorUnit [ qudt:exponent 1 ;
+                            qudt:hasUnit unit:KG
+                          ] ,
+                          [ qudt:exponent 1 ;
                             qudt:hasUnit unit:M
                           ] ,
                           [ qudt:exponent -2 ;
                             qudt:hasUnit unit:S
-                          ] ,
-                          [ qudt:exponent 1 ;
-                            qudt:hasUnit unit:KG
                           ] ;
        qudt:hasQuantityKind qudt:Force ;
        qudt:symbol "N" ;
@@ -11903,13 +11869,13 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:S
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:S
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
