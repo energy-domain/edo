@@ -196,8 +196,6 @@ edo:hasDomain rdf:type owl:AnnotationProperty ;
               rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
 
 
-
-
 ###  https://w3id.org/energy-domain/edo#hasExternalRef
 edo:hasExternalRef rdf:type owl:AnnotationProperty ;
                    rdfs:label "Has External Reference"@en ;
@@ -439,33 +437,29 @@ edo:ActuatedEquipment rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ActuatedInstrumentationValve
 edo:ActuatedInstrumentationValve rdf:type owl:Class ;
-                                 rdfs:subClassOf edo:IfcInstanciableElement ,
-                                                 edo:InstrumentationValve ;
+                                 rdfs:subClassOf edo:InstrumentationValve ;
                                  dcterms:identifier "ActuatedInstrumentationValve" ;
                                  skos:definition "Base for all smaller valves operated by external action"@en ,
                                                  "Base para todas as válvulas de menor porte operadas por ação externa"@pt-br ;
                                  skos:prefLabel "Externally-actuated instrumentation valve"@en ,
                                                 "Válvula de instrumentação atuada externamente"@pt-br ;
-                                 edo:hasDiscipline edo:CONTROL_INSTRUMENTATION ,
-                                                   edo:VALVES ;
-                                 edo:hasExternalRef "MDA:ActuatedInstrumentationValve" ;
-                                 edo:ifc_objectType "ActuatedInstrumentationValve" ;
-                                 edo:ifc_predefinedType "USERDEFINED" .
+                                 edo:entityStatus "NEW" ;
+                                 edo:hasDiscipline edo:InstrumentationEngineering ,
+                                                   edo:ValveEngineering ;
+                                 edo:hasExternalRef "MDA:ActuatedInstrumentationValve" .
 
 
 ###  https://w3id.org/energy-domain/edo#ActuatedProcessValve
 edo:ActuatedProcessValve rdf:type owl:Class ;
-                         rdfs:subClassOf edo:IfcInstanciableElement ,
-                                         edo:ProcessValve ;
+                         rdfs:subClassOf edo:ProcessValve ;
                          dcterms:identifier "ActuatedProcessValve" ;
                          skos:definition "Base for all process (large-bore) valves operated by external action"@en ,
                                          "Base para todas as válvulas de processo (grande porte) operadas por ação externa"@pt-br ;
                          skos:prefLabel "Externally-actuated process valve"@en ,
                                         "Válvula de processo atuada externamente"@pt-br ;
-                         edo:hasDiscipline edo:VALVES ;
-                         edo:hasExternalRef "MDA:ActuatedProcessValve" ;
-                         edo:ifc_objectType "ActuatedProcessValve" ;
-                         edo:ifc_predefinedType "USERDEFINED" .
+                         edo:entityStatus "NEW" ;
+                         edo:hasDiscipline edo:ValveEngineering ;
+                         edo:hasExternalRef "MDA:ActuatedProcessValve" .
 
 
 ###  https://w3id.org/energy-domain/edo#AdministrativeAttribute
@@ -521,17 +515,13 @@ edo:AnchoringCollar rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#AngleChokeValve
 edo:AngleChokeValve rdf:type owl:Class ;
-                    rdfs:subClassOf edo:ChokeValve ,
-                                    edo:IfcInstanciableElement ;
+                    rdfs:subClassOf edo:ChokeValve ;
                     dcterms:identifier "AngleChokeValve" ;
-                    skos:definition ""@en ,
-                                    ""@pt-br ;
                     skos:prefLabel "Angle choke valve"@en ,
                                    "Válvula de restrição angular"@pt-br ;
-                    edo:hasDiscipline edo:VALVES ;
-                    edo:hasExternalRef "MDA:AngleChokeValve" ;
-                    edo:ifc_objectType "AngleChokeValve" ;
-                    edo:ifc_predefinedType "USERDEFINED" .
+                    edo:entityStatus "NEW" ;
+                    edo:hasDiscipline edo:ValveEngineering ;
+                    edo:hasExternalRef "MDA:AngleChokeValve" .
 
 
 ###  https://w3id.org/energy-domain/edo#AnodeCollarSet
@@ -686,7 +676,8 @@ edo:ArmourLayer rdf:type owl:Class ;
                 dcterms:identifier "ArmourLayer" ;
                 skos:definition "A reinforcement layer in subsea flexible pipes used in oil and gas exploration, designed to provide mechanical strength and protection against external forces, such as pressure and movement. It ensures structural integrity by preventing deformation and failure during operation. Typically made from high-strength metal wires, like carbon steel or stainless steel, the Armor Layer enhances the pipe's durability in harsh underwater conditions."@en ;
                 skos:prefLabel "Armour Layer"@en ,
-                               "Camada de Armadura"@pt-br .
+                               "Camada de Armadura"@pt-br ;
+                edo:hasExternalRef "MDA:ArmorLayer" .
 
 
 ###  https://w3id.org/energy-domain/edo#AssemblyShouldObeyModelPolarity
@@ -843,14 +834,16 @@ edo:AuxiliaryModule rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#AxialChokeValve
 edo:AxialChokeValve rdf:type owl:Class ;
-                    rdfs:subClassOf edo:ChokeValve ;
+                    rdfs:subClassOf edo:ChokeValve ,
+                                    edo:IfcInstanciableElement ;
                     dcterms:identifier "AxialChokeValve" ;
-                    skos:definition ""@en ,
-                                    ""@pt-br ;
                     skos:prefLabel "Axial choke valve"@en ,
                                    "Válvula de restrição axial"@pt-br ;
-                    edo:hasDiscipline edo:VALVES ;
-                    edo:hasExternalRef "MDA:AxialChokeValve" .
+                    edo:entityStatus "NEW" ;
+                    edo:hasDiscipline edo:ValveEngineering ;
+                    edo:hasExternalRef "MDA:AxialChokeValve" ;
+                    edo:ifc_objectType "AxialChokeValve" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#AxialStiffness
@@ -1414,17 +1407,15 @@ edo:ChokeModule rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ChokeValve
 edo:ChokeValve rdf:type owl:Class ;
-               rdfs:subClassOf edo:ActuatedProcessValve ,
-                               edo:IfcInstanciableElement ;
+               rdfs:subClassOf edo:ActuatedProcessValve ;
                dcterms:identifier "ChokeValve" ;
                skos:definition "Process (large-bore) valve designed to gradually restrict fluid flow"@en ,
                                "Válvula de processo (grande porte) projetada para restringir gradualmente a passagem de fluidos"@pt-br ;
                skos:prefLabel "Choke valve"@en ,
                               "Válvula de restrição"@pt-br ;
-               edo:hasDiscipline edo:VALVES ;
-               edo:hasExternalRef "MDA:ChokeValve" ;
-               edo:ifc_objectType "ChokeValve" ;
-               edo:ifc_predefinedType "USERDEFINED" .
+               edo:entityStatus "NEW" ;
+               edo:hasDiscipline edo:ValveEngineering ;
+               edo:hasExternalRef "MDA:ChokeValve" .
 
 
 ###  https://w3id.org/energy-domain/edo#CivilEngineering
@@ -1884,15 +1875,19 @@ edo:ControlLoop rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ControlValve
 edo:ControlValve rdf:type owl:Class ;
-                 rdfs:subClassOf edo:ActuatedInstrumentationValve ;
+                 rdfs:subClassOf edo:ActuatedInstrumentationValve ,
+                                 edo:IfcInstanciableElement ;
                  dcterms:identifier "ControlValve" ;
                  skos:definition "Smaller valve designed to gradually restrict fluid flow, adjusted either manually or automatically by an autonomous control system/loop"@en ,
                                  "Válvula de menor porte projetada para restringir gradualmente a passagem de fluidos, ajustada manualmente ou automaticamente por um sistema/malha de controle autônoma"@pt-br ;
                  skos:prefLabel "Control valve"@en ,
                                 "Válvula de controle"@pt-br ;
-                 edo:hasDiscipline edo:CONTROL_INSTRUMENTATION ,
-                                   edo:VALVES ;
-                 edo:hasExternalRef "MDA:ControlValve" .
+                 edo:entityStatus "NEW" ;
+                 edo:hasDiscipline edo:InstrumentationEngineering ,
+                                   edo:ValveEngineering ;
+                 edo:hasExternalRef "MDA:ControlValve" ;
+                 edo:ifc_objectType "ControlValve" ;
+                 edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#CoreDiameter
@@ -2193,6 +2188,23 @@ edo:DeploymentAccessory rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#DesignConditionAttribute
 edo:DesignConditionAttribute rdf:type owl:Class ;
                              rdfs:subClassOf edo:FunctionalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignFluid
+edo:DesignFluid rdf:type owl:Class ;
+                rdfs:subClassOf edo:DomainAttribute ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "DesignFluid" ;
+                skos:definition "Especifica o tipo de fluido mais severo considerado para projeto"@pt-br ,
+                                "Specifies most severe fluid type considered for design"@en ;
+                skos:prefLabel "Design fluid"@en ,
+                               "Fluido de projeto"@pt-br ;
+                edo:entityStatus "NEW" ;
+                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasExternalRef "MDA:design_fluid" ;
+                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                edo:hasTypedValue edo:StringValue ;
+                edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#DesignLifeSpan
@@ -4471,14 +4483,18 @@ edo:InlineT rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InlineValve
 edo:InlineValve rdf:type owl:Class ;
-                rdfs:subClassOf edo:FlowControlEquipment ;
+                rdfs:subClassOf edo:FlowControlEquipment ,
+                                edo:IfcInstanciableElement ;
                 dcterms:identifier "InlineValve" ;
                 skos:definition "Equipamento inline que contém uma válvula como seu principal elemento, e ainda acessórios, sistemas de atuação etc."@pt-br ,
                                 "Inline equipment containing a valve as main element plus accessories, actuation systems etc."@en ;
                 skos:prefLabel "Inline valve"@en ,
                                "Válvula inline"@pt-br ;
+                edo:entityStatus "NEW" ;
                 edo:hasDiscipline edo:SUBSEA_EQUIPMENT ;
-                edo:hasExternalRef "MDA:InlineValve" .
+                edo:hasExternalRef "MDA:InlineValve" ;
+                edo:ifc_objectType "InlineValve" ;
+                edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#InlineY
@@ -4500,6 +4516,7 @@ edo:InnerDiameter rdf:type owl:Class ;
                   skos:prefLabel "Diâmetro Interno"@pt-br ,
                                  "Inner diameter"@en ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                  edo:hasExternalRef "MDA:inner_diameter" ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
                   edo:hasUnit unit:MilliM ;
@@ -4567,41 +4584,53 @@ edo:InstanciableElement rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InstrumentationBlockValve
 edo:InstrumentationBlockValve rdf:type owl:Class ;
-                              rdfs:subClassOf edo:ActuatedInstrumentationValve ;
+                              rdfs:subClassOf edo:ActuatedInstrumentationValve ,
+                                              edo:IfcInstanciableElement ;
                               dcterms:identifier "InstrumentationBlockValve" ;
                               skos:definition "Smaller valve designed to operate either fully open or fully closed (i.e. on-off)"@en ,
                                               "Válvula de menor porte projetada para operar totalmente aberta ou totalmente fechada (on-off)"@pt-br ;
                               skos:prefLabel "Instrumentation block valve"@en ,
                                              "Válvula de bloqueio de instrumentação"@pt-br ;
-                              edo:hasDiscipline edo:CONTROL_INSTRUMENTATION ,
-                                                edo:VALVES ;
-                              edo:hasExternalRef "MDA:InstrumentationBlockValve" .
+                              edo:entityStatus "NEW" ;
+                              edo:hasDiscipline edo:InstrumentationEngineering ,
+                                                edo:ValveEngineering ;
+                              edo:hasExternalRef "MDA:InstrumentationBlockValve" ;
+                              edo:ifc_objectType "InstrumentationBlockValve" ;
+                              edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#InstrumentationCheckValve
 edo:InstrumentationCheckValve rdf:type owl:Class ;
-                              rdfs:subClassOf edo:InstrumentationValve ;
+                              rdfs:subClassOf edo:IfcInstanciableElement ,
+                                              edo:InstrumentationValve ;
                               dcterms:identifier "InstrumentationCheckValve" ;
                               skos:definition "Self-actuated smaller valve designed to allow fluid passage in only one direction"@en ,
                                               "Válvula auto-atuada de menor porte, projetada para permitir passagem de fluidos em apenas uma direção"@pt-br ;
                               skos:prefLabel "Instrumentation check valve"@en ,
                                              "Válvula de retenção de instrumentação"@pt-br ;
-                              edo:hasDiscipline edo:CONTROL_INSTRUMENTATION ,
-                                                edo:VALVES ;
-                              edo:hasExternalRef "MDA:InstrumentationCheckValve" .
+                              edo:entityStatus "NEW" ;
+                              edo:hasDiscipline edo:InstrumentationEngineering ,
+                                                edo:ValveEngineering ;
+                              edo:hasExternalRef "MDA:InstrumentationCheckValve" ;
+                              edo:ifc_objectType "InstrumentationCheckValve" ;
+                              edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#InstrumentationDirectionalValve
 edo:InstrumentationDirectionalValve rdf:type owl:Class ;
-                                    rdfs:subClassOf edo:ActuatedInstrumentationValve ;
+                                    rdfs:subClassOf edo:ActuatedProcessValve ,
+                                                    edo:IfcInstanciableElement ;
                                     dcterms:identifier "InstrumentationDirectionalValve" ;
                                     skos:definition "Smaller valve for routing flow between an inlet and multiple possible outlets"@en ,
                                                     "Válvula de menor porte para roteamento de fluxo entre uma entrada e múltiplas saídas possíveis"@pt-br ;
                                     skos:prefLabel "Instrumentation directional valve"@en ,
                                                    "Válvula direcional de instrumentação"@pt-br ;
-                                    edo:hasDiscipline edo:CONTROL_INSTRUMENTATION ,
-                                                      edo:VALVES ;
-                                    edo:hasExternalRef "MDA:InstrumentationDirectionalValve" .
+                                    edo:entityStatus "NEW" ;
+                                    edo:hasDiscipline edo:InstrumentationEngineering ,
+                                                      edo:ValveEngineering ;
+                                    edo:hasExternalRef "MDA:InstrumentationDirectionalValve" ;
+                                    edo:ifc_objectType "InstrumentationDirectionalValve" ;
+                                    edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#InstrumentationEngineering
@@ -4615,18 +4644,16 @@ edo:InstrumentationEngineering rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InstrumentationValve
 edo:InstrumentationValve rdf:type owl:Class ;
-                         rdfs:subClassOf edo:IfcInstanciableElement ,
-                                         edo:Valve ;
+                         rdfs:subClassOf edo:Valve ;
                          dcterms:identifier "InstrumentationValve" ;
                          skos:definition "Base for smaller valves generally for handling of control and chemical injection fluids"@en ,
                                          "Base para válvulas de menor porte que lidam principalmente com fluidos de controle e injeção química"@pt-br ;
                          skos:prefLabel "Instrumentation valve"@en ,
                                         "Válvula de instrumentação"@pt-br ;
-                         edo:hasDiscipline edo:CONTROL_INSTRUMENTATION ,
-                                           edo:VALVES ;
-                         edo:hasExternalRef "MDA:InstrumentationValve" ;
-                         edo:ifc_objectType "InstrumentationValve" ;
-                         edo:ifc_predefinedType "USERDEFINED" .
+                         edo:entityStatus "NEW" ;
+                         edo:hasDiscipline edo:InstrumentationEngineering ,
+                                           edo:ValveEngineering ;
+                         edo:hasExternalRef "MDA:InstrumentationValve" .
 
 
 ###  https://w3id.org/energy-domain/edo#InsulationTape
@@ -6336,6 +6363,7 @@ edo:MaxPressure rdf:type owl:Class ;
                 skos:prefLabel "Maximum design pressure"@en ,
                                "Pressão máxima de projeto"@pt-br ;
                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasExternalRef "MDA:max_pressure" ;
                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                 edo:hasTypedValue edo:FloatValue ;
                 edo:hasUnit unit:PSI ;
@@ -6716,15 +6744,19 @@ edo:MetallicTubing rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MeteringValve
 edo:MeteringValve rdf:type owl:Class ;
-                  rdfs:subClassOf edo:AuxiliaryModule ;
+                  rdfs:subClassOf edo:AuxiliaryModule ,
+                                  edo:IfcInstanciableElement ;
                   dcterms:identifier "MeteringValve" ;
                   skos:definition "Module containing a control loop able to regulate injection of a fluid (e.g. chemical)"@en ,
                                   "Módulo contendo uma malha de controle capaz de regular a injeção de um fluido (ex.: produto químico)"@pt-br ;
                   skos:prefLabel "Metering valve"@en ,
                                  "Válvula dosadora"@pt-br ;
-                  edo:hasDiscipline edo:CONTROL_INSTRUMENTATION ,
+                  edo:entityStatus "NEW" ;
+                  edo:hasDiscipline edo:InstrumentationEngineering ,
                                     edo:SUBSEA_MODULES ;
-                  edo:hasExternalRef "MDA:MeteringValve" .
+                  edo:hasExternalRef "MDA:MeteringValve" ;
+                  edo:ifc_objectType "MeteringValve" ;
+                  edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#MetricBoltSet
@@ -6970,10 +7002,12 @@ edo:NominalDiameter rdf:type owl:Class ;
                     rdfs:subClassOf edo:DomainAttribute ;
                     dcterms:accessRights "PUBLIC" ;
                     dcterms:identifier "NominalDiameter" ;
-                    skos:definition "The standard diameter of the component or pipe, typically used for classification and specification purposes."@en ;
+                    skos:definition "Expressão padronizada da dimensão diametral de tubos e componentes de tubulação, não correspondendo necessariamente aos seus diâmetros interno ou externo."@pt-br ,
+                                    "The standard diameter of the component or pipe, typically used for classification and specification purposes."@en ;
                     skos:prefLabel "Diâmetro Nominal"@pt-br ,
                                    "Nominal Diameter"@en ;
                     edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                    edo:hasExternalRef "MDA:nominal_diameter" ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:StringValue ;
                     edo:hasUnit unit:MilliM ;
@@ -7804,7 +7838,12 @@ edo:PipeSegment rdf:type owl:Class ;
                 skos:definition "Pipeline segment for movement/flow of fluids."@en ,
                                 "Segmento de Duto"@pt-br ;
                 skos:prefLabel "Pipe Segment"@en ,
-                               "Segmento de Duto"@pt-br .
+                               "Segmento de Duto"@pt-br ;
+                edo:hasAttribute edo:DesignFluid ,
+                                 edo:InnerDiameter ,
+                                 edo:MaxPressure ,
+                                 edo:NominalDiameter ,
+                                 edo:TotalThickness .
 
 
 ###  https://w3id.org/energy-domain/edo#PipeTermination
@@ -7879,14 +7918,16 @@ edo:PlasticHose rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#PlugCageValve
 edo:PlugCageValve rdf:type owl:Class ;
-                  rdfs:subClassOf edo:AngleChokeValve ;
+                  rdfs:subClassOf edo:AngleChokeValve ,
+                                  edo:IfcInstanciableElement ;
                   dcterms:identifier "PlugCageValve" ;
-                  skos:definition ""@en ,
-                                  ""@pt-br ;
                   skos:prefLabel "Plug/cage choke valve"@en ,
                                  "Válvula de restrição de plug/gaiola"@pt-br ;
-                  edo:hasDiscipline edo:VALVES ;
-                  edo:hasExternalRef "MDA:PlugCageValve" .
+                  edo:entityStatus "NEW" ;
+                  edo:hasDiscipline edo:ValveEngineering ;
+                  edo:hasExternalRef "MDA:PlugCageValve" ;
+                  edo:ifc_objectType "PlugCageValve" ;
+                  edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#PointLocation
@@ -8066,56 +8107,56 @@ edo:PressureSensor rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ProcessAxialCheckValve
 edo:ProcessAxialCheckValve rdf:type owl:Class ;
-                           rdfs:subClassOf edo:ProcessCheckValve ;
+                           rdfs:subClassOf edo:IfcInstanciableElement ,
+                                           edo:ProcessCheckValve ;
                            dcterms:identifier "ProcessAxialCheckValve" ;
-                           skos:definition ""@en ,
-                                           ""@pt-br ;
                            skos:prefLabel "Process axial check valve"@en ,
                                           "Válvula de retenção axial de processo"@pt-br ;
-                           edo:hasDiscipline edo:VALVES ;
-                           edo:hasExternalRef "MDA:ProcessAxialCheckValve" .
+                           edo:entityStatus "NEW" ;
+                           edo:hasDiscipline edo:ValveEngineering ;
+                           edo:hasExternalRef "MDA:ProcessAxialCheckValve" ;
+                           edo:ifc_objectType "ProcessAxialCheckValve" ;
+                           edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessBallValve
 edo:ProcessBallValve rdf:type owl:Class ;
-                     rdfs:subClassOf edo:ProcessBlockValve ;
+                     rdfs:subClassOf edo:IfcInstanciableElement ,
+                                     edo:ProcessBlockValve ;
                      dcterms:identifier "ProcessBallValve" ;
-                     skos:definition ""@en ,
-                                     ""@pt-br ;
                      skos:prefLabel "Process ball valve"@en ,
                                     "Válvula esfera de processo"@pt-br ;
-                     edo:hasDiscipline edo:VALVES ;
-                     edo:hasExternalRef "MDA:ProcessBallValve" .
+                     edo:entityStatus "NEW" ;
+                     edo:hasDiscipline edo:ValveEngineering ;
+                     edo:hasExternalRef "MDA:ProcessBallValve" ;
+                     edo:ifc_objectType "ProcessBallValve" ;
+                     edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessBlockValve
 edo:ProcessBlockValve rdf:type owl:Class ;
-                      rdfs:subClassOf edo:ActuatedProcessValve ,
-                                      edo:IfcInstanciableElement ;
+                      rdfs:subClassOf edo:ActuatedProcessValve ;
                       dcterms:identifier "ProcessBlockValve" ;
                       skos:definition "Process valve (large-bore) designed to operate either fully open or fully closed (i.e. on-off)"@en ,
                                       "Válvula de processo (grande porte) projetada para operar totalmente aberta ou totalmente fechada (on-off)"@pt-br ;
                       skos:prefLabel "Process block valve"@en ,
                                      "Válvula de bloqueio de processo"@pt-br ;
-                      edo:hasDiscipline edo:VALVES ;
-                      edo:hasExternalRef "MDA:ProcessBlockValve" ;
-                      edo:ifc_objectType "ProcessBlockValve" ;
-                      edo:ifc_predefinedType "USERDEFINED" .
+                      edo:entityStatus "NEW" ;
+                      edo:hasDiscipline edo:ValveEngineering ;
+                      edo:hasExternalRef "MDA:ProcessBlockValve" .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessCheckValve
 edo:ProcessCheckValve rdf:type owl:Class ;
-                      rdfs:subClassOf edo:IfcInstanciableElement ,
-                                      edo:ProcessValve ;
+                      rdfs:subClassOf edo:ProcessValve ;
                       dcterms:identifier "ProcessCheckValve" ;
                       skos:definition "Self-actuated process valve (large-bore) designed to allow fluid passage in only one direction"@en ,
                                       "Válvula de processo (grande porte) auto-atuada, projetada para permitir passagem de fluidos em apenas uma direção"@pt-br ;
                       skos:prefLabel "Process check valve"@en ,
                                      "Válvula de retenção de processo"@pt-br ;
-                      edo:hasDiscipline edo:VALVES ;
-                      edo:hasExternalRef "MDA:ProcessCheckValve" ;
-                      edo:ifc_objectType "ProcessCheckValve" ;
-                      edo:ifc_predefinedType "USERDEFINED" .
+                      edo:entityStatus "NEW" ;
+                      edo:hasDiscipline edo:ValveEngineering ;
+                      edo:hasExternalRef "MDA:ProcessCheckValve" .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessEngineering
@@ -8129,14 +8170,16 @@ edo:ProcessEngineering rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ProcessGateValve
 edo:ProcessGateValve rdf:type owl:Class ;
-                     rdfs:subClassOf edo:ProcessBlockValve ;
+                     rdfs:subClassOf edo:IfcInstanciableElement ,
+                                     edo:ProcessBlockValve ;
                      dcterms:identifier "ProcessGateValve" ;
-                     skos:definition ""@en ,
-                                     ""@pt-br ;
                      skos:prefLabel "Process gate valve"@en ,
                                     "Válvula gaveta de processo"@pt-br ;
-                     edo:hasDiscipline edo:VALVES ;
-                     edo:hasExternalRef "MDA:ProcessGateValve" .
+                     edo:entityStatus "NEW" ;
+                     edo:hasDiscipline edo:ValveEngineering ;
+                     edo:hasExternalRef "MDA:ProcessGateValve" ;
+                     edo:ifc_objectType "ProcessGateValve" ;
+                     edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessPipeSpec
@@ -8159,41 +8202,43 @@ edo:ProcessPipingEngineering rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ProcessRotaryDiskValve
 edo:ProcessRotaryDiskValve rdf:type owl:Class ;
-                           rdfs:subClassOf edo:ProcessBlockValve ;
+                           rdfs:subClassOf edo:IfcInstanciableElement ,
+                                           edo:ProcessBlockValve ;
                            dcterms:identifier "ProcessRotaryDiskValve" ;
-                           skos:definition ""@en ,
-                                           ""@pt-br ;
                            skos:prefLabel "Process rotary disk valve"@en ,
                                           "Válvula de disco rotativo de processo"@pt-br ;
-                           edo:hasDiscipline edo:VALVES ;
-                           edo:hasExternalRef "MDA:ProcessRotaryDiskValve" .
+                           edo:entityStatus "NEW" ;
+                           edo:hasDiscipline edo:ValveEngineering ;
+                           edo:hasExternalRef "MDA:ProcessRotaryDiskValve" ;
+                           edo:ifc_objectType "ProcessRotaryDiskValve" ;
+                           edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessSwingCheckValve
 edo:ProcessSwingCheckValve rdf:type owl:Class ;
-                           rdfs:subClassOf edo:ProcessCheckValve ;
+                           rdfs:subClassOf edo:IfcInstanciableElement ,
+                                           edo:ProcessCheckValve ;
                            dcterms:identifier "ProcessSwingCheckValve" ;
-                           skos:definition ""@en ,
-                                           ""@pt-br ;
                            skos:prefLabel "Process swing check valve"@en ,
                                           "Válvula de retenção de portinhola de processo"@pt-br ;
-                           edo:hasDiscipline edo:VALVES ;
-                           edo:hasExternalRef "MDA:ProcessSwingCheckValve" .
+                           edo:entityStatus "NEW" ;
+                           edo:hasDiscipline edo:ValveEngineering ;
+                           edo:hasExternalRef "MDA:ProcessSwingCheckValve" ;
+                           edo:ifc_objectType "ProcessSwingCheckValve" ;
+                           edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessValve
 edo:ProcessValve rdf:type owl:Class ;
-                 rdfs:subClassOf edo:IfcInstanciableElement ,
-                                 edo:Valve ;
+                 rdfs:subClassOf edo:Valve ;
                  dcterms:identifier "ProcessValve" ;
                  skos:definition "Base for large-bore valves for handling of process fluids"@en ,
                                  "Base para válvulas de maior porte que lidam com fluidos de processo"@pt-br ;
                  skos:prefLabel "Process valve"@en ,
                                 "Válvula de processo"@pt-br ;
-                 edo:hasDiscipline edo:VALVES ;
-                 edo:hasExternalRef "MDA:ProcessValve" ;
-                 edo:ifc_objectType "ProcessValve" ;
-                 edo:ifc_predefinedType "USERDEFINED" .
+                 edo:entityStatus "NEW" ;
+                 edo:hasDiscipline edo:ValveEngineering ;
+                 edo:hasExternalRef "MDA:ProcessValve" .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessingModule
@@ -9234,14 +9279,16 @@ edo:Sleeper rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SleeveCageValve
 edo:SleeveCageValve rdf:type owl:Class ;
-                    rdfs:subClassOf edo:AngleChokeValve ;
+                    rdfs:subClassOf edo:AngleChokeValve ,
+                                    edo:IfcInstanciableElement ;
                     dcterms:identifier "SleeveCageValve" ;
-                    skos:definition ""@en ,
-                                    ""@pt-br ;
                     skos:prefLabel "Sleeve/cage choke valve"@en ,
                                    "Válvula de restrição de luva/gaiola"@pt-br ;
-                    edo:hasDiscipline edo:VALVES ;
-                    edo:hasExternalRef "MDA:SleeveCageValve" .
+                    edo:entityStatus "NEW" ;
+                    edo:hasDiscipline edo:ValveEngineering ;
+                    edo:hasExternalRef "MDA:SleeveCageValve" ;
+                    edo:ifc_objectType "SleeveCageValve" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SmallHydropower
@@ -11002,6 +11049,21 @@ edo:TorsionalStiffnessLowerStorage rdf:type owl:Class ;
                                    edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#TotalThickness
+edo:TotalThickness rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "TotalThickness" ;
+                   skos:prefLabel "Espessura total"@pt-br ,
+                                  "Total thickness"@en ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:total_thickness" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#TransitionSpool
 edo:TransitionSpool rdf:type owl:Class ;
                     rdfs:subClassOf edo:LineAncillary ;
@@ -11475,17 +11537,13 @@ edo:ValueOrigin rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Valve
 edo:Valve rdf:type owl:Class ;
-          rdfs:subClassOf edo:IfcInstanciableElement ,
-                          edo:PressureComponent ;
+          rdfs:subClassOf edo:PressureComponent ;
           dcterms:identifier "Valve" ;
-          skos:definition ""@en ,
-                          ""@pt-br ;
           skos:prefLabel "Valve"@en ,
                          "Válvula"@pt-br ;
-          edo:hasDiscipline edo:VALVES ;
-          edo:hasExternalRef "MDA:Valve" ;
-          edo:ifc_objectType "Valve" ;
-          edo:ifc_predefinedType "USERDEFINED" .
+          edo:entityStatus "NEW" ;
+          edo:hasDiscipline edo:ValveEngineering ;
+          edo:hasExternalRef "MDA:Valve" .
 
 
 ###  https://w3id.org/energy-domain/edo#ValveActuator
@@ -11497,11 +11555,21 @@ edo:ValveActuator rdf:type owl:Class ;
                                   ""@pt-br ;
                   skos:prefLabel "Atuador de válvula"@pt-br ,
                                  "Valve actuator"@en ;
-                  edo:hasDiscipline edo:CONTROL_INSTRUMENTATION ,
-                                    edo:VALVES ;
+                  edo:entityStatus "NEW" ;
+                  edo:hasDiscipline edo:InstrumentationEngineering ,
+                                    edo:ValveEngineering ;
                   edo:hasExternalRef "MDA:ValveActuator" ;
                   edo:ifc_objectType "ValveActuator" ;
                   edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#ValveEngineering
+edo:ValveEngineering rdf:type owl:Class ;
+                     rdfs:subClassOf edo:ProcessPipingEngineering ;
+                     rdfs:label "Valves"@en ,
+                                "Válvulas"@pt-br ;
+                     skos:definition "Valves."@en ,
+                                     "Válvulas."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Version
@@ -12290,14 +12358,14 @@ unit:N rdf:type owl:NamedIndividual ,
        dcterms:source "QUDT Units Vocabulary"@en ;
        qudt:conversionMultiplier 1.0 ;
        qudt:definedUnitOfSystem sou:SI ;
-       qudt:hasFactorUnit [ qudt:exponent -2 ;
-                            qudt:hasUnit unit:S
-                          ] ,
-                          [ qudt:exponent 1 ;
+       qudt:hasFactorUnit [ qudt:exponent 1 ;
                             qudt:hasUnit unit:KG
                           ] ,
                           [ qudt:exponent 1 ;
                             qudt:hasUnit unit:M
+                          ] ,
+                          [ qudt:exponent -2 ;
+                            qudt:hasUnit unit:S
                           ] ;
        qudt:hasQuantityKind qudt:Force ;
        qudt:symbol "N" ;
@@ -12315,10 +12383,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -12383,11 +12451,11 @@ unit:PA rdf:type owl:NamedIndividual ,
         dcterms:source "QUDT Units Vocabulary"@en ;
         qudt:conversionMultiplier 1.0 ;
         qudt:definedUnitOfSystem sou:SI ;
-        qudt:hasFactorUnit [ qudt:exponent 1 ;
-                             qudt:hasUnit unit:N
-                           ] ,
-                           [ qudt:exponent -2 ;
+        qudt:hasFactorUnit [ qudt:exponent -2 ;
                              qudt:hasUnit unit:M
+                           ] ,
+                           [ qudt:exponent 1 ;
+                             qudt:hasUnit unit:N
                            ] ;
         qudt:hasQuantityKind qudt:Pressure ;
         qudt:symbol "Pa" ;
@@ -12544,17 +12612,17 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:S
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent 1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:S
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -12569,14 +12637,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
