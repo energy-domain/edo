@@ -1,6 +1,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ex: <http://example.com/> .
 @prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
 
 #################################################################
 # Restrições SHACL - Valores válidos por classe e propriedade
@@ -1176,9 +1177,46 @@ ex:Regra_Interconnection_1 a sh:NodeShape ;
     ] .			  
 
 
-ex:Regra_PipeSegment_1 a sh:NodeShape ;
+ex:Regra_PipeSegment a sh:NodeShape ;
     sh:targetClass edo:PipeSegment ;
     sh:property [
         sh:path edo:DesignFluid ;
         sh:in ( "CO2" "GAS" "CONDENSATE" "GAS_CONDENSATE" "GAS_WATER" "OIL" "OIL_GAS" "OIL_GAS_WATER" "INJECTION_WATER" "PRODUCED_WATER" "GLYCOL_WATER" "MEG" "METHANOL" "ETHANOL" "DIESEL" "OTHER" )
-    ] .			      
+    ] ;
+    sh:property [
+        sh:path edo:Corrosiveness ;
+        sh:in ( "NEUTRAL" "SWEET" "SOUR" )
+    ] .  
+
+ex:Regra_RigidPipeSegment a sh:NodeShape ;
+    sh:targetClass edo:RigidPipeSegment ;
+    sh:property [
+        sh:path edo:MainDesignNorm ;
+        sh:in ( "DNV_ST_F101" "DNV_ST_F201" "API_RP_1111" "ASME_B31_4" "ASME_B31_8" "ANSI_B31_4" "ANSI_B31_8" "OTHER" )
+    ] ;
+    sh:property [
+        sh:path edo:FieldJointCoating ;
+        sh:in ( "POLYURETHANE" "COALTAR_ENAMEL" "LIQUID_EPOXY" "FBE" "FBE_DUAL_LAYER" "FTPP" "FSPP" "HSS_PP" "IMPP" "FTPE" "FSPE" "HSS_PE" "IMPE" "IMPU" "IMEU" "SILICONE" "POLYCHLOROPRENE" "ULTRA" "RUBBER" "OTHER" )
+    ] ;
+    sh:property [
+        sh:path edo:Environment ;
+        sh:in ( "AIR" "SEAWATER_WITH_CP" "SEAWATER_WITHOUT_CP" )
+    ] ;
+    sh:property [
+        sh:path edo:SnCurve ;
+        sh:in ( "B1" "B2" "C" "C1" "C2" "D" "E" "F" "F1" "F3" "G" "W1" "W2" "W3" )
+    ] .                              
+
+ex:Regra_MaxPressure a sh:NodeShape ;
+    sh:targetClass edo:MaxPressure ;
+    sh:property [
+        sh:path (edo:PipeTermination edo:hasAttribute)  ;
+        sh:in ( unit:MPA )
+    ] ;
+    sh:property [
+        sh:path (edo:PipeSegment edo:hasAttribute) ;
+        sh:in ( unit:PSI )
+    ] .
+
+
+
