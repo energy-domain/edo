@@ -432,7 +432,12 @@ edo:ActuatedEquipment rdf:type owl:Class ;
                       skos:definition "Equipamentos com funções atuáveis localmente ou remotamente"@pt-br ,
                                       "Equipment with locally- or remotely-actuatable functions"@en ;
                       skos:prefLabel "Actuated Equipment"@en ,
-                                     "Equipamento Atuável"@pt-br .
+                                     "Equipamento Atuável"@pt-br ;
+                      edo:hasAttribute edo:ActuationPressure ,
+                                       edo:CompensationAccumulatorVolume ,
+                                       edo:HydraulicFluidAttribute ,
+                                       edo:PrimaryControlMode ;
+                      edo:hasExternalRef "MDA:ActuatedEquipment" .
 
 
 ###  https://w3id.org/energy-domain/edo#ActuatedInstrumentationValve
@@ -460,6 +465,23 @@ edo:ActuatedProcessValve rdf:type owl:Class ;
                          edo:entityStatus "NEW" ;
                          edo:hasDiscipline edo:ValveEngineering ;
                          edo:hasExternalRef "MDA:ActuatedProcessValve" .
+
+
+###  https://w3id.org/energy-domain/edo#ActuationPressure
+edo:ActuationPressure rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "ActuationPressure" ;
+                      skos:definition "Actuation pressure for main valves in equipment, only if they are hydraulically actuated"@en ,
+                                      "Pressão de atuação das válvulas principais do equipamento, apenas se forem atuadas hidraulicamente"@pt-br ;
+                      skos:prefLabel "Pressão de atuação das válvulas"@pt-br ,
+                                     "Valve actuation pressure"@en ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:actuation_pressure" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#AdministrativeAttribute
@@ -511,6 +533,21 @@ edo:AnchoringCollar rdf:type owl:Class ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "AnchoringCollar" ;
                     edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#AnchoringMethod
+edo:AnchoringMethod rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "AnchoringMethod" ;
+                    skos:prefLabel "Anchoring method"@en ,
+                                   "Método de ancoragem"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "MDA:anchoring_method" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:StringValue ;
+                    edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#AngleChokeValve
@@ -1720,6 +1757,41 @@ edo:CompactObject rdf:type owl:Class ;
                                  "Objeto Compacto"@pt-br ;
                   edo:hasAttribute edo:DimensionsTableColumn ,
                                    edo:Mass .
+
+
+###  https://w3id.org/energy-domain/edo#CompatibleFluids
+edo:CompatibleFluids rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ,
+                                     edo:HydraulicFluidAttribute ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "CompatibleFluids" ;
+                     skos:definition "Fluidos hidráulicos compatíveis com a aplicação/sistema em questão"@pt-br ,
+                                     "Hydraulic fluids known to be compatible with application/system"@en ;
+                     skos:prefLabel "Compatbile fluids"@en ,
+                                    "Fluidos compatíveis"@pt-br ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:compatible_fluids" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:StringValue ;
+                     edo:hasValueCardinality edo:MultiValue .
+
+
+###  https://w3id.org/energy-domain/edo#CompensationAccumulatorVolume
+edo:CompensationAccumulatorVolume rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:DomainAttribute ;
+                                  dcterms:accessRights "PUBLIC" ;
+                                  dcterms:identifier "CompensationAccumulatorVolume" ;
+                                  skos:definition "Total volume available in external hydrostatic pressure compensation system accumulators"@en ,
+                                                  "Volume total disponível nos acumuladores do sistema de compensação de pressão hidrostática externa"@pt-br ;
+                                  skos:prefLabel "Total compensation accumulator volume"@en ,
+                                                 "Volume total dos acumuladores de compensação"@pt-br ;
+                                  edo:entityStatus "NEW" ;
+                                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                  edo:hasExternalRef "MDA:compensation_accumulator_volume" ;
+                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                  edo:hasTypedValue edo:FloatValue ;
+                                  edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#Component
@@ -3058,7 +3130,8 @@ edo:Equipment rdf:type owl:Class ;
                               "Objetos de grande porte e complexidade, para uso permanente ou temporário"@pt-br ;
               skos:prefLabel "Equipamento"@pt-br ,
                              "Equipment"@en ;
-              edo:hasAttribute edo:TemperatureRangeAttribute .
+              edo:hasAttribute edo:TemperatureRangeAttribute ;
+              edo:hasExternalRef "MDA:Equipment" .
 
 
 ###  https://w3id.org/energy-domain/edo#EquipmentEngineering
@@ -3132,6 +3205,7 @@ edo:ExternalConcreteCoating rdf:type owl:Class ;
                             skos:prefLabel "External concrete coating"@en ,
                                            "Revestimento externo de concreto"@pt-br ;
                             edo:entityStatus "NEW" ;
+                            edo:hasAttribute edo:MaterialAttribute ;
                             edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                             edo:hasExternalRef "MDA:ExternalConcreteCoating" ;
                             edo:ifc_equivalentClass "IfcPipeSegment" ;
@@ -3162,6 +3236,7 @@ edo:ExternalPolymericCoating rdf:type owl:Class ;
                              skos:prefLabel "External polymeric coating"@en ,
                                             "Revestimento externo polimérico"@pt-br ;
                              edo:entityStatus "NEW" ;
+                             edo:hasAttribute edo:MaterialAttribute ;
                              edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                              edo:hasExternalRef "MDA:ExternalPolymericCoating" ;
                              edo:ifc_equivalentClass "IfcPipeSegment" ;
@@ -4273,6 +4348,21 @@ edo:HasThermalInsulation rdf:type owl:Class ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#HeatReference
+edo:HeatReference rdf:type owl:Class ;
+                  rdfs:subClassOf edo:DomainAttribute ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "HeatReference" ;
+                  skos:prefLabel "Heat reference"@en ,
+                                 "Referência da corrida"@pt-br ;
+                  edo:entityStatus "NEW" ;
+                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                  edo:hasExternalRef "MDA:heat_reference" ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:StringValue ;
+                  edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#HighStrengthTape
 edo:HighStrengthTape rdf:type owl:Class ;
                      rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -4417,6 +4507,12 @@ edo:HybridRenewables rdf:type owl:Class ;
                                      "Renováveis híbridas são sistemas que combinam duas ou mais fontes de energia renovável, como solar e eólica, com o objetivo de melhorar a confiabilidade, a eficiência e o uso do solo. Representam um campo crescente de integração que permite uma geração de energia mais flexível e resiliente."@pt-br ;
                      skos:prefLabel "Hybrid Renewables"@en ,
                                     "Renováveis Híbridas"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#HydraulicFluidAttribute
+edo:HydraulicFluidAttribute rdf:type owl:Class ;
+                            rdfs:subClassOf edo:DomainAttribute ;
+                            rdfs:label "Hydraulic fluid specification"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#HydraulicJumper
@@ -4949,6 +5045,7 @@ edo:InternalCladding rdf:type owl:Class ;
                      skos:prefLabel "Cladding interno"@pt-br ,
                                     "Internal cladding"@en ;
                      edo:entityStatus "NEW" ;
+                     edo:hasAttribute edo:MaterialAttribute ;
                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                      edo:hasExternalRef "MDA:InternalCladding" ;
                      edo:ifc_equivalentClass "IfcPipeSegment" ;
@@ -5061,6 +5158,7 @@ edo:InternalLiner rdf:type owl:Class ;
                   skos:prefLabel "Internal liner"@en ,
                                  "Liner interno"@pt-br ;
                   edo:entityStatus "NEW" ;
+                  edo:hasAttribute edo:AnchoringMethod ;
                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                   edo:hasExternalRef "MDA:InternalLiner" .
 
@@ -5073,6 +5171,7 @@ edo:InternalMetallicLiner rdf:type owl:Class ;
                           skos:prefLabel "Internal metallic liner"@en ,
                                          "Liner metálico interno"@pt-br ;
                           edo:entityStatus "NEW" ;
+                          edo:hasAttribute edo:MaterialAttribute ;
                           edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                           edo:hasExternalRef "MDA:InternalMetallicLiner" ;
                           edo:ifc_equivalentClass "IfcPipeSegment" ;
@@ -5687,6 +5786,7 @@ edo:LinePipe rdf:type owl:Class ;
              skos:prefLabel "Line pipe"@en ,
                             "Tubo rígido"@pt-br ;
              edo:entityStatus "NEW" ;
+             edo:hasAttribute edo:HeatReference ;
              edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
              edo:hasExternalRef "MDA:LinePipe" ;
              edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -6091,12 +6191,55 @@ edo:MaintenancePoint rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Manifold
 edo:Manifold rdf:type owl:Class ;
-             rdfs:subClassOf edo:FlowControlEquipment ;
+             rdfs:subClassOf edo:FlowControlEquipment ,
+                             edo:IfcInstanciableElement ;
              dcterms:identifier "Manifold" ;
              skos:definition "Equipamento que concentra ou divide fluxos"@pt-br ,
                              "Equipment to join or split flows"@en ;
              skos:prefLabel "Manifold"@en ,
-                            "Manifold"@pt-br .
+                            "Manifold"@pt-br ;
+             edo:hasAttribute edo:ManifoldApplication ,
+                              edo:ManifoldType ,
+                              edo:Retrievable ;
+             edo:hasDiscipline edo:SubseaManifoldsEngineering ;
+             edo:hasExternalRef "MDA:Manifold" ;
+             edo:ifc_equivalentClass "IfcDistributionFlowElement" ;
+             edo:ifc_objectType "Manifold" ;
+             edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#ManifoldApplication
+edo:ManifoldApplication rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "ManifoldApplication" ;
+                        skos:definition "Aplicações do manifold previstas em projeto"@pt-br ,
+                                        "Manifold applications foreseen in design"@en ;
+                        skos:prefLabel "Aplicação do manifold"@pt-br ,
+                                       "Manifold application"@en ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:application" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:StringValue ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#ManifoldType
+edo:ManifoldType rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "ManifoldType" ;
+                 skos:definition "Filosofia de projeto do manifold"@pt-br ,
+                                 "Manifold design philosophy"@en ;
+                 skos:prefLabel "Manifold type"@en ,
+                                "Tipo de manifold"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:manifold_type" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:StringValue ;
+                 edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#Manufacturer
@@ -6210,6 +6353,28 @@ edo:MasterControlStation rdf:type owl:Class ;
                                          "Topside electrical panel for controlling subsea multiplexed systems"@en ;
                          skos:prefLabel "Estação de controle mestra"@pt-br ,
                                         "Master control station"@en .
+
+
+###  https://w3id.org/energy-domain/edo#Material
+edo:Material rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ,
+                             edo:MaterialAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "Material" ;
+             skos:prefLabel "Material"@en ,
+                            "Material"@pt-br ;
+             edo:entityStatus "NEW" ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasExternalRef "MDA:material" ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:StringValue ;
+             edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MaterialAttribute
+edo:MaterialAttribute rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ;
+                      rdfs:label "Material"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#MaterialComposition
@@ -6625,6 +6790,23 @@ edo:MaxTemperature rdf:type owl:Class ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#MaxTensileStrength
+edo:MaxTensileStrength rdf:type owl:Class ;
+                       rdfs:subClassOf edo:DomainAttribute ,
+                                       edo:MaterialAttribute ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "MaxTensileStrength" ;
+                       skos:prefLabel "Limite de ruptura máximo"@pt-br ,
+                                      "Maximum tensile strength"@en ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:max_tensile_strength" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:MPa ;
+                       edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MaxThickness
 edo:MaxThickness rdf:type owl:Class ;
                  rdfs:subClassOf edo:DomainAttribute ;
@@ -6638,6 +6820,23 @@ edo:MaxThickness rdf:type owl:Class ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MaxYieldStrength
+edo:MaxYieldStrength rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ,
+                                     edo:MaterialAttribute ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "MaxYieldStrength" ;
+                     skos:prefLabel "Limite de escoamento máximo"@pt-br ,
+                                    "Maximum yield strength"@en ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:max_yield_strength" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:MPa ;
+                     edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#MaximumAllowableTensileForStraightLine
@@ -7192,6 +7391,40 @@ edo:MinTemperature rdf:type owl:Class ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#MinTensileStrength
+edo:MinTensileStrength rdf:type owl:Class ;
+                       rdfs:subClassOf edo:DomainAttribute ,
+                                       edo:MaterialAttribute ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "MinTensileStrength" ;
+                       skos:prefLabel "Limite de ruptura mínimo"@pt-br ,
+                                      "Minimum tensile strength"@en ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:min_tensile_strength" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:MPa ;
+                       edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinYieldStrength
+edo:MinYieldStrength rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ,
+                                     edo:MaterialAttribute ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "MinYieldStrength" ;
+                     skos:prefLabel "Limite de escoamento mínimo"@pt-br ,
+                                    "Minimum yield strength"@en ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:min_yield_strength" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:MPa ;
+                     edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MinimumHousedDiameter
 edo:MinimumHousedDiameter rdf:type owl:Class ;
                           rdfs:subClassOf edo:DomainAttribute ;
@@ -7286,6 +7519,22 @@ edo:MultiValue rdf:type owl:Class ;
                           "Múltiplos Valores"@pt-bt .
 
 
+###  https://w3id.org/energy-domain/edo#NegativeTolerance
+edo:NegativeTolerance rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ,
+                                      edo:ThicknessAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "Thickness.negativeTolerance" ;
+                      skos:prefLabel "(-) tolerance"@en ,
+                                     "Tolerância (-)"@pt-br ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:negative_tolerance" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#NominalDiameter
 edo:NominalDiameter rdf:type owl:Class ;
                     rdfs:subClassOf edo:DomainAttribute ;
@@ -7350,6 +7599,22 @@ edo:NominalLength rdf:type owl:Class ;
                   edo:hasTypedValue edo:FloatValue ;
                   edo:hasUnit unit:M ;
                   edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#NominalValue
+edo:NominalValue rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ,
+                                 edo:ThicknessAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "NominalValue" ;
+                 skos:prefLabel "Nominal"@en ,
+                                "Nominal"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:nominal" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#Nuclear
@@ -7785,8 +8050,7 @@ edo:OuterDiameter rdf:type owl:Class ;
                   edo:hasExternalRef "MDA:outer_diameter" ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
-                  edo:hasUnit unit:M ,
-                              unit:MilliM ;
+                  edo:hasUnit unit:MilliM ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -7841,6 +8105,7 @@ edo:PLEM rdf:type owl:Class ;
          skos:prefLabel "PLEM"@en ,
                         "PLEM"@pt-br ;
          edo:entityStatus "NEW" ;
+         edo:hasAttribute edo:PlemType ;
          edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
          edo:hasExternalRef "MDA:PLEM" ;
          edo:ifc_equivalentClass "IfcDistributionFlowElement" ;
@@ -8234,6 +8499,21 @@ edo:PlasticHose rdf:type owl:Class ;
                 edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#PlemType
+edo:PlemType rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "PlemType" ;
+             skos:prefLabel "PLEM type"@en ,
+                            "Tipo de PLEM"@pt-br ;
+             edo:entityStatus "NEW" ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasExternalRef "MDA:plem_type" ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:StringValue ;
+             edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#PlugCageValve
 edo:PlugCageValve rdf:type owl:Class ;
                   rdfs:subClassOf edo:AngleChokeValve ,
@@ -8256,6 +8536,22 @@ edo:PointLocation rdf:type owl:Class ;
                                   "Basis for all locations that can conventionally be situated at a single geographic point."@en ;
                   skos:prefLabel "Localização de Ponto"@pt-br ,
                                  "Point Location"@en .
+
+
+###  https://w3id.org/energy-domain/edo#PoissonRatio
+edo:PoissonRatio rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ,
+                                 edo:MaterialAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "PoissonRatio" ;
+                 skos:prefLabel "Coeficiente de Poisson"@pt-br ,
+                                "Poisson's ratio"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:poisson_ratio" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#PoissonRatioAt23Degrees
@@ -8316,6 +8612,22 @@ edo:Port rdf:type owl:Class ;
                          "Represents an interface point through which an element can exchange data, energy, or fluids."@en ;
          skos:prefLabel "Port"@en ,
                         "Porta"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#PositiveTolerance
+edo:PositiveTolerance rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ,
+                                      edo:ThicknessAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "Thickness.positiveTolerance" ;
+                      skos:prefLabel "(+) tolerance"@en ,
+                                     "Tolerância (+)"@pt-br ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:positive_tolerance" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#PostSlippingBendingStiffness
@@ -8423,6 +8735,23 @@ edo:PressureSensor rdf:type owl:Class ;
                    dcterms:identifier "PressureSensor" ;
                    skos:prefLabel "Pressure sensor"@en ,
                                   "Sensor de pressão"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#PrimaryControlMode
+edo:PrimaryControlMode rdf:type owl:Class ;
+                       rdfs:subClassOf edo:DomainAttribute ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "PrimaryControlMode" ;
+                       skos:definition "Modo primário de controle dos principais elementos atuados no equipamento"@pt-br ,
+                                       "Primary control mode for main actuated elements in the equipment"@en ;
+                       skos:prefLabel "Modo de controle primário"@pt-br ,
+                                      "Primary control mode"@en ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:primary_control_mode" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:StringValue ;
+                       edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessAxialCheckValve
@@ -8920,6 +9249,21 @@ edo:Renewable rdf:type owl:Class ;
                               "Industrial domain covering energy sources that are naturally replenished, such as solar, wind, and hydropower."@en .
 
 
+###  https://w3id.org/energy-domain/edo#Retrievable
+edo:Retrievable rdf:type owl:Class ;
+                rdfs:subClassOf edo:DomainAttribute ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "Retrievable" ;
+                skos:prefLabel "Recuperável"@pt-br ,
+                               "Retrievable"@en ;
+                edo:entityStatus "NEW" ;
+                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasExternalRef "MDA:retrievable" ;
+                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                edo:hasTypedValue edo:StringValue ;
+                edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#Reused
 edo:Reused rdf:type owl:Class ;
            rdfs:subClassOf edo:DomainAttribute ;
@@ -8970,6 +9314,7 @@ edo:RigidPipeCoating rdf:type owl:Class ;
                      skos:prefLabel "Revestimento de duto rígido"@pt-br ,
                                     "Rigid pipe coating"@en ;
                      edo:entityStatus "NEW" ;
+                     edo:hasAttribute edo:ThicknessAttribute ;
                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                      edo:hasExternalRef "MDA:RigidPipeCoating" .
 
@@ -9397,6 +9742,22 @@ edo:SacrificialSheath rdf:type owl:Class ;
                       edo:ifc_equivalentClass "IfcPipeSegment" ;
                       edo:ifc_objectType "SacrificialSheath" ;
                       edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#SaeAs4059ContaminationClass
+edo:SaeAs4059ContaminationClass rdf:type owl:Class ;
+                                rdfs:subClassOf edo:DomainAttribute ,
+                                                edo:HydraulicFluidAttribute ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "SaeAs4059ContaminationClass" ;
+                                skos:prefLabel "Classe de contaminação SAE AS4059"@pt-br ,
+                                               "SAE AS4059 contamination class"@en ;
+                                edo:entityStatus "NEW" ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasExternalRef "MDA:sae_as4059_contamination_class" ;
+                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                edo:hasTypedValue edo:StringValue ;
+                                edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#SafeWorkingLoad
@@ -9902,7 +10263,8 @@ edo:SpecialRequirements rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SpecificHeatCapacity
 edo:SpecificHeatCapacity rdf:type owl:Class ;
-                         rdfs:subClassOf edo:DomainAttribute ;
+                         rdfs:subClassOf edo:DomainAttribute ,
+                                         edo:MaterialAttribute ;
                          dcterms:accessRights "PUBLIC" ;
                          dcterms:identifier "SpecificHeatCapacity" ;
                          skos:definition "Calor Específico do material"@pt-br ,
@@ -9918,7 +10280,8 @@ edo:SpecificHeatCapacity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SpecificMass
 edo:SpecificMass rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainAttribute ;
+                 rdfs:subClassOf edo:DomainAttribute ,
+                                 edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "SpecificMass" ;
                  rdfs:comment "Massa específica equivalente"@pt-br ;
@@ -10534,7 +10897,8 @@ edo:SubseaEquipment rdf:type owl:Class ;
                     skos:prefLabel "Equipamento Submarino"@pt-br ,
                                    "Subsea Equipment"@en ;
                     edo:hasAttribute edo:MaxDepth ,
-                                     edo:WeightInWater .
+                                     edo:WeightInWater ;
+                    edo:hasExternalRef "MDA:SubseaEquipment" .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaFlexiblePipesBsddDictionary
@@ -11176,6 +11540,11 @@ edo:TestPressure rdf:type owl:Class ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#ThermalConductivity
+edo:ThermalConductivity rdf:type owl:Class ;
+                        rdfs:subClassOf edo:MaterialAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#ThermalConductivityCoefficient
 edo:ThermalConductivityCoefficient rdf:type owl:Class ;
                                    rdfs:subClassOf edo:DomainAttribute ;
@@ -11190,6 +11559,22 @@ edo:ThermalConductivityCoefficient rdf:type owl:Class ;
                                    edo:hasTypedValue edo:FloatValue ;
                                    edo:hasUnit unit:W-PER-M-K ;
                                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#ThermalEmissivity
+edo:ThermalEmissivity rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ,
+                                      edo:MaterialAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "ThermalEmissivity" ;
+                      skos:prefLabel "Emissividade térmica"@pt-br ,
+                                     "Thermal emissivity"@en ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:thermal_emissivity" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#ThermalExchangeCoefficientFlooded
@@ -11208,6 +11593,22 @@ edo:ThermalExchangeCoefficientFlooded rdf:type owl:Class ;
                                       edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#ThermalExpansionCoeff
+edo:ThermalExpansionCoeff rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ,
+                                          edo:MaterialAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "ThermalExpansionCoeff" ;
+                          skos:prefLabel "Coeficiente de expansão térmica"@pt-br ,
+                                         "Thermal expansion coefficient"@en ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:thermal_expansion_coeff" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:FloatValue ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#ThermalPower
 edo:ThermalPower rdf:type owl:Class ;
                  rdfs:subClassOf edo:Domain ;
@@ -11215,6 +11616,12 @@ edo:ThermalPower rdf:type owl:Class ;
                             "Thermal Power"@en ;
                  skos:definition "Energy production from fossil fuels (coal, natural gas) through thermal conversion."@en ,
                                  "Produção de energia a partir de combustíveis fósseis (carvão, gás natural) através de conversão térmica."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#ThicknessAttribute
+edo:ThicknessAttribute rdf:type owl:Class ;
+                       rdfs:subClassOf edo:DomainAttribute ;
+                       rdfs:label "Thickness"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#ThreadPitch
@@ -12295,6 +12702,22 @@ edo:WoundLayer rdf:type owl:Class ;
                               "Wound Layer"@en .
 
 
+###  https://w3id.org/energy-domain/edo#YoungModulus
+edo:YoungModulus rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ,
+                                 edo:MaterialAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "YoungModulus" ;
+                 skos:prefLabel "Módulo de Young"@pt-br ,
+                                "Specific mass"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:young_modulus" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#nominalOperatingFrequencyPower
 edo:nominalOperatingFrequencyPower rdf:type owl:Class ;
                                    rdfs:subClassOf edo:DomainAttribute ;
@@ -12796,14 +13219,14 @@ unit:N rdf:type owl:NamedIndividual ,
        dcterms:source "QUDT Units Vocabulary"@en ;
        qudt:conversionMultiplier 1.0 ;
        qudt:definedUnitOfSystem sou:SI ;
-       qudt:hasFactorUnit [ qudt:exponent 1 ;
+       qudt:hasFactorUnit [ qudt:exponent -2 ;
+                            qudt:hasUnit unit:S
+                          ] ,
+                          [ qudt:exponent 1 ;
                             qudt:hasUnit unit:KG
                           ] ,
                           [ qudt:exponent 1 ;
                             qudt:hasUnit unit:M
-                          ] ,
-                          [ qudt:exponent -2 ;
-                            qudt:hasUnit unit:S
                           ] ;
        qudt:hasQuantityKind qudt:Force ;
        qudt:symbol "N" ;
@@ -12821,10 +13244,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -13051,16 +13474,16 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:S
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                                          qudt:hasUnit unit:S
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -13075,11 +13498,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent -2 ;
+                 qudt:hasFactorUnit [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
