@@ -2,6 +2,12 @@
 @prefix ex: <http://example.com/> .
 @prefix edo: <https://w3id.org/energy-domain/edo#> .
 @prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+# Esse import só funciona para o Protege, que carrega os arquivos locais.
+ex:EnergyDomainSHACL a owl:Ontology ;
+    owl:imports <energy-domain-ontology.ttl> .
 
 #################################################################
 # Restrições SHACL - Valores válidos por classe e propriedade
@@ -46,7 +52,7 @@ ex:Regra_Tubing_BurstPressure a sh:NodeShape ;
     sh:targetClass edo:Tubing ;
     sh:property [
         sh:path edo:BurstPressure ;
-        sh:in ( "Número fracionário (≥ 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Regra_OpticalFiberCable_CladdingDiameter a sh:NodeShape ;
@@ -60,7 +66,7 @@ ex:Regra_Tubing_CollapsePressure a sh:NodeShape ;
     sh:targetClass edo:Tubing ;
     sh:property [
         sh:path edo:CollapsePressure ;
-        sh:in ( "Número fracionário (≥ 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Regra_CompositeMaterial_CompositeLayerMaterialType a sh:NodeShape ;
@@ -133,12 +139,7 @@ ex:Regra_OpticalFiberCable_FiberType a sh:NodeShape ;
         sh:in ( "SINGLE_MODE" "MULTI_MODE" )
     ] .
 
-ex:Regra_BuoyancyModule_FinalBuoyancy_EOF a sh:NodeShape ;
-    sh:targetClass edo:BuoyancyModule ;
-    sh:property [
-        sh:path edo:FinalBuoyancy_EOF ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] .
+
 
 ex:Regra_ThreadedFitting_FittingSpec_Gender a sh:NodeShape ;
     sh:targetClass edo:ThreadedFitting ;
@@ -204,14 +205,15 @@ ex:Regra_BendStiffener_2 a sh:NodeShape ;
 ex:Regra_BuoyancyModule a sh:NodeShape ;
     sh:targetClass edo:BuoyancyModule ;
     sh:property [
-        sh:path edo:InitialBuoyancy_SOL ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] .
-
-ex:Regra_BuoyancyModule_2 a sh:NodeShape ;
-    sh:targetClass edo:BuoyancyModule ;
-    sh:property [
         sh:path edo:OuterDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:InitialBuoyancy ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:FinalBuoyancy ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
@@ -227,19 +229,13 @@ ex:Regra_ComponentDevice a sh:NodeShape ;
     sh:property [
         sh:path edo:MaxDepth ;
         sh:in ( "Fractional number (≥ 0.0)" )
-    ] .
-
-ex:Regra_ComponentDevice_2 a sh:NodeShape ;
-    sh:targetClass edo:ComponentDevice ;
+    ] ;
     sh:property [
-        sh:path edo:TemperatureRange_MaxTemperature ;
+        sh:path edo:MaxTemperature ;
         sh:in ( "Fractional number" )
-    ] .
-
-ex:Regra_ComponentDevice_3 a sh:NodeShape ;
-    sh:targetClass edo:ComponentDevice ;
+    ] ;
     sh:property [
-        sh:path edo:TemperatureRange_MinTemperature ;
+        sh:path edo:MinTemperature ;
         sh:in ( "Fractional number" )
     ] .
 
@@ -409,38 +405,24 @@ ex:Regra_FlangeAdapter a sh:NodeShape ;
     sh:property [
         sh:path edo:Flange1_BoreDiameter ;
         sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_FlangeAdapter_2 a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter ;
+    ] ;
     sh:property [
         sh:path edo:Flange1_Type ;
         sh:in ( "MDA: flange_type" )
-    ] .
-
-ex:Regra_FlangeAdapter_3 a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter ;
+    ] ;
     sh:property [
         sh:path edo:Flange2_BoreDiameter ;
         sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_FlangeAdapter_4 a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter ;
+    ] ;
     sh:property [
         sh:path edo:Flange2_Type ;
         sh:in ( "MDA: flange_type" )
-    ] .
-
-ex:Regra_FlangeAdapter_5 a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter ;
+    ] ;
     sh:property [
         sh:path edo:InnerDiameter ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_FlangeAdapter_6 a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter ;
+        sh:in ( "Fractional number (? 0.0)" ) ;
+        edo:hasUnit unit:MilliM ;
+    ]  ;
     sh:property [
         sh:path edo:Length ;
         sh:in ( "Fractional number (? 0.0)" )
@@ -451,6 +433,10 @@ ex:Regra_FlexibleStructureLayer a sh:NodeShape ;
     sh:property [
         sh:path edo:LayerAnnularType ;
         sh:in ( "DOES_NOT_BELONG_TO_THE_ANNULAR" "ANNULAR_NEVER_FLOODED" "ANNULAR_ALWAYS_FLOODED" "ANNULAR_POSSIBLY_FLOODED" )
+    ] ;
+    sh:property [
+        sh:path edo:InnerDiameter ;
+        edo:hasUnit unit:MilliM ;
     ] .
 
 ex:Regra_FlexibleStructureLayerMaterial a sh:NodeShape ;
@@ -493,13 +479,11 @@ ex:Regra_HangOffCollar a sh:NodeShape ;
     sh:property [
         sh:path edo:FlangeType ;
         sh:in ( "API_6B_2_1/16_2000_PSI" "API_6B_2_9/16_2000_PSI" "API_6B_3_1/8_2000_PSI" "API_6B_4_1/16_2000_PSI" "API_6B_5_1/8_2000_PSI" "API_6B_7_1/16_2000_PSI" "API_6B_9_2000_PSI" "API_6B_11_2000_PSI" "API_6B_13_5/8_2000_PSI" "API_6B_16_3/4_2000_PSI" "API_6B_21_1/4_2000_PSI" "API_6B_2_1/16_3000_PSI" "API_6B_2_9/16_3000_PSI" "API_6B_3_1/8_3000_PSI" "API_6B_4_1/16_3000_PSI" "API_6B_5_1/8_3000_PSI" "API_6B_7_1/16_3000_PSI" "API_6B_9_3000_PSI" "API_6B_11_3000_PSI" "API_6B_13_5/8_3000_PSI" "API_6B_16_3/4_3000_PSI" "API_6B_20_3/4_3000_PSI" "API_6B_2_1/16_5000_PSI" "API_6B_2_9/16_5000_PSI" "API_6B_3_1/8_5000_PSI" "API_6B_4_1/16_5000_PSI" "API_6B_5_1/8_5000_PSI" "API_6B_7_1/16_5000_PSI" "API_6B_9_5000_PSI" "API_6B_11_5000_PSI" "API_6BX_1_13/16_10000_PSI" "API_6BX_2_1/16_10000_PSI" "API_6BX_2_9/16_10000_PSI" "API_6BX_3_1/16_10000_PSI" "API_6BX_4_1/16_10000_PSI" "API_6BX_5_1/8_10000_PSI" "API_6BX_7_1/16_10000_PSI" "API_6BX_9_10000_PSI" "API_6BX_11_10000_PSI" "API_6BX_13_5/8_10000_PSI" "API_6BX_16_3/4_10000_PSI" "API_6BX_18_3/4_10000_PSI" "API_6BX_21_1/4_10000_PSI" "API_6BX_1_13/16_15000_PSI" "API_6BX_2_1/16_15000_PSI" "API_6BX_2_9/16_15000_PSI" "API_6BX_3_1/16_15000_PSI" "API_6BX_4_1/16_15000_PSI" "API_6BX_5_1/8_15000_PSI" "API_6BX_7_1/16_15000_PSI" "API_6BX_9_15000_PSI" "API_6BX_11_15000_PSI" "API_6BX_13_5/8_15000_PSI" "API_6BX_18_3/4_15000_PSI" "API_6BX_1_13/16_20000_PSI" "API_6BX_2_1/16_20000_PSI" "API_6BX_2_9/16_20000_PSI" "API_6BX_3_1/16_20000_PSI" "API_6BX_4_1/16_20000_PSI" "API_6BX_7_1/16_20000_PSI" "API_6BX_9_20000_PSI" "API_6BX_11_20000_PSI" "API_6BX_13_5/8_20000_PSI" "API_6BX_26_3/4_2000_PSI_LB" "API_6BX_30_2000_PSI_LB" "API_6BX_26_3/4_3000_PSI_LB" "API_6BX_30_3000_PSI_LB" "API_6BX_13_5/8_5000_PSI_LB" "API_6BX_16_3/4_5000_PSI_LB" "API_6BX_18_3/4_5000_PSI_LB" "API_6BX_21_1/4_5000_PSI_LB" "API_17SS_2_1/16_5000_PSI" "API_17SS_2_9/16_5000_PSI" "API_17SS_3_1/8_5000_PSI" "API_17SS_4_1/16_5000_PSI" "API_17SS_5_1/8_5000_PSI" "API_17SS_7_1/16_5000_PSI" "API_17SS_9_5000_PSI" "API_17SS_11_5000_PSI" "API_17SS_13_5/8_5000_PSI" "API_17SV_2_1/16_5000_PSI" "API_17SV_2_9/16_5000_PSI" "API_17SV_3_1/8_5000_PSI" "API_17SV_4_1/16_5000_PSI" "API_17SV_5_1/8_5000_PSI" "API_17SV_7_1/16_5000_PSI" "API_17SV_9_5000_PSI" "API_17SV_11_5000_PSI" "API_17SV_13_5/8_5000_PSI" "API_17SV_1_13/16_10000_PSI" "API_17SV_2_1/16_10000_PSI" "API_17SV_2_9/16_10000_PSI" "API_17SV_3_1/16_10000_PSI" "API_17SV_4_1/16_10000_PSI" "API_17SV_5_1/8_10000_PSI" "API_17SV_7_1/16_10000_PSI" "API_17SV_9_10000_PSI" "API_17SV_11_10000_PSI" "API_17SV_13_5/8_10000_PSI" "MSS_SP_44_12_CLASS_150" "MSS_SP_44_14_CLASS_150" "MSS_SP_44_16_CLASS_150" "MSS_SP_44_18_CLASS_150" "MSS_SP_44_20_CLASS_150" "MSS_SP_44_22_CLASS_150" "MSS_SP_44_24_CLASS_150" "MSS_SP_44_26_CLASS_150" "MSS_SP_44_28_CLASS_150" "MSS_SP_44_30_CLASS_150" "MSS_SP_44_32_CLASS_150" "MSS_SP_44_34_CLASS_150" "MSS_SP_44_36_CLASS_150" "MSS_SP_44_38_CLASS_150" "MSS_SP_44_40_CLASS_150" "MSS_SP_44_42_CLASS_150" "MSS_SP_44_44_CLASS_150" "MSS_SP_44_46_CLASS_150" "MSS_SP_44_48_CLASS_150" "MSS_SP_44_50_CLASS_150" "MSS_SP_44_52_CLASS_150" "MSS_SP_44_54_CLASS_150" "MSS_SP_44_56_CLASS_150" "MSS_SP_44_58_CLASS_150" "MSS_SP_44_60_CLASS_150" "MSS_SP_44_12_CLASS_300" "MSS_SP_44_14_CLASS_300" "MSS_SP_44_16_CLASS_300" "MSS_SP_44_18_CLASS_300" "MSS_SP_44_20_CLASS_300" "MSS_SP_44_22_CLASS_300" "MSS_SP_44_24_CLASS_300" "MSS_SP_44_26_CLASS_300" "MSS_SP_44_28_CLASS_300" "MSS_SP_44_30_CLASS_300" "MSS_SP_44_32_CLASS_300" "MSS_SP_44_34_CLASS_300" "MSS_SP_44_36_CLASS_300" "MSS_SP_44_38_CLASS_300" "MSS_SP_44_40_CLASS_300" "MSS_SP_44_42_CLASS_300" "MSS_SP_44_44_CLASS_300" "MSS_SP_44_46_CLASS_300" "MSS_SP_44_48_CLASS_300" "MSS_SP_44_50_CLASS_300" "MSS_SP_44_52_CLASS_300" "MSS_SP_44_54_CLASS_300" "MSS_SP_44_56_CLASS_300" "MSS_SP_44_58_CLASS_300" "MSS_SP_44_60_CLASS_300" "MSS_SP_44_12_CLASS_400" "MSS_SP_44_14_CLASS_400" "MSS_SP_44_16_CLASS_400" "MSS_SP_44_18_CLASS_400" "MSS_SP_44_20_CLASS_400" "MSS_SP_44_22_CLASS_400" "MSS_SP_44_24_CLASS_400" "MSS_SP_44_26_CLASS_400" "MSS_SP_44_28_CLASS_400" "MSS_SP_44_30_CLASS_400" "MSS_SP_44_32_CLASS_400" "MSS_SP_44_34_CLASS_400" "MSS_SP_44_36_CLASS_400" "MSS_SP_44_38_CLASS_400" "MSS_SP_44_40_CLASS_400" "MSS_SP_44_42_CLASS_400" "MSS_SP_44_44_CLASS_400" "MSS_SP_44_46_CLASS_400" "MSS_SP_44_48_CLASS_400" "MSS_SP_44_50_CLASS_400" "MSS_SP_44_52_CLASS_400" "MSS_SP_44_54_CLASS_400" "MSS_SP_44_56_CLASS_400" "MSS_SP_44_58_CLASS_400" "MSS_SP_44_60_CLASS_400" "MSS_SP_44_12_CLASS_600" "MSS_SP_44_14_CLASS_600" "MSS_SP_44_16_CLASS_600" "MSS_SP_44_18_CLASS_600" "MSS_SP_44_20_CLASS_600" "MSS_SP_44_22_CLASS_600" "MSS_SP_44_24_CLASS_600" "MSS_SP_44_26_CLASS_600" "MSS_SP_44_28_CLASS_600" "MSS_SP_44_30_CLASS_600" "MSS_SP_44_32_CLASS_600" "MSS_SP_44_34_CLASS_600" "MSS_SP_44_36_CLASS_600" "MSS_SP_44_38_CLASS_600" "MSS_SP_44_40_CLASS_600" "MSS_SP_44_42_CLASS_600" "MSS_SP_44_44_CLASS_600" "MSS_SP_44_46_CLASS_600" "MSS_SP_44_48_CLASS_600" "MSS_SP_44_50_CLASS_600" "MSS_SP_44_52_CLASS_600" "MSS_SP_44_54_CLASS_600" "MSS_SP_44_56_CLASS_600" "MSS_SP_44_58_CLASS_600" "MSS_SP_44_60_CLASS_600" "MSS_SP_44_12_CLASS_900" "MSS_SP_44_14_CLASS_900" "MSS_SP_44_16_CLASS_900" "MSS_SP_44_18_CLASS_900" "MSS_SP_44_20_CLASS_900" "MSS_SP_44_22_CLASS_900" "MSS_SP_44_24_CLASS_900" "MSS_SP_44_26_CLASS_900" "MSS_SP_44_28_CLASS_900" "MSS_SP_44_30_CLASS_900" "MSS_SP_44_32_CLASS_900" "MSS_SP_44_34_CLASS_900" "MSS_SP_44_36_CLASS_900" "MSS_SP_44_38_CLASS_900" "MSS_SP_44_40_CLASS_900" "MSS_SP_44_42_CLASS_900" "MSS_SP_44_44_CLASS_900" "MSS_SP_44_46_CLASS_900" "MSS_SP_44_48_CLASS_900" )
-    ] .
-
-ex:Regra_HangOffCollar_2 a sh:NodeShape ;
-    sh:targetClass edo:HangOffCollar ;
+    ] ;
     sh:property [
         sh:path edo:InnerDiameter ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (? 0.0)" ) ;
+        edo:hasUnit unit:MilliM ;
     ] .
 
 ex:Regra_HydraulicJumper a sh:NodeShape ;
@@ -555,14 +539,18 @@ ex:Regra_LinearObject a sh:NodeShape ;
     sh:targetClass edo:LinearObject ;
     sh:property [
         sh:path edo:Length ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Regra_LineTermination a sh:NodeShape ;
     sh:targetClass edo:LineTermination ;
     sh:property [
         sh:path edo:OuterDiameter ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:WeightInWater ;
+        sh:in ( "Fractional number" )
     ] .
 
 ex:Regra_MetallicMaterial a sh:NodeShape ;
@@ -660,7 +648,8 @@ ex:Regra_PressureComponent a sh:NodeShape ;
     sh:targetClass edo:PressureComponent ;
     sh:property [
         sh:path edo:MaxPressure ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (? 0.0)" ) ;
+        edo:hasUnit unit:PSI ;
     ] .
 
 ex:Regra_PullInCollar a sh:NodeShape ;
@@ -710,13 +699,14 @@ ex:Regra_RingGasket a sh:NodeShape ;
     sh:property [
         sh:path edo:RingGasketMaterial ;
         sh:in ( "SOFT_IRON" "CARBON_STEEL" "LOW_ALLOY_STEEL" "STAINLESS_STEEL" "304_SS" "304L_SS" "309_SS" "316_SS" "316L_SS" "321_SS" "347_SS" "410_SS" "INCONEL" "INCONEL_600" "INCONEL_617" "INCONEL_625" "INCONEL_690" "INCONEL_718" "INCONEL_X750" "INCOLOY" "INCOLOY_020" "INCOLOY_028" "INCOLOY_330" "INCOLOY_800" "INCOLOY_803" "INCOLOY_825" "INCOLOY_907" "INCOLOY_908" "INCOLOY_945" "INCOLOY_945X." )
-    ] .
-
-ex:Regra_RingGasket_2 a sh:NodeShape ;
-    sh:targetClass edo:RingGasket ;
+    ] ;
     sh:property [
         sh:path edo:RingGasketType ;
         sh:in ( "ORING" "FLATSEAL" "SPIRALWOUND" )
+    ] ;
+    sh:property [
+        sh:path edo:InnerDiameter ;
+        edo:hasUnit unit:MilliM ;
     ] .
 
 ex:Regra_SubseaEquipment a sh:NodeShape ;
@@ -786,46 +776,30 @@ ex:Regra_Tubing a sh:NodeShape ;
     sh:targetClass edo:Tubing ;
     sh:property [
         sh:path edo:InnerDiameter ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_Tubing_2 a sh:NodeShape ;
-    sh:targetClass edo:Tubing ;
+        sh:in ( "Fractional number (? 0.0)" ) ;
+        edo:hasUnit unit:MilliM ;
+    ] ;
     sh:property [
         sh:path edo:InnerDiameter ;
         sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_Tubing_3 a sh:NodeShape ;
-    sh:targetClass edo:Tubing ;
+    ] ;
     sh:property [
         sh:path edo:LinearWeightEmptySubmerged ;
         sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_Tubing_4 a sh:NodeShape ;
-    sh:targetClass edo:Tubing ;
+    ] ;
     sh:property [
         sh:path edo:LinearWeightFilledAir ;
         sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_Tubing_5 a sh:NodeShape ;
-    sh:targetClass edo:Tubing ;
+    ] ;
     sh:property [
         sh:path edo:LinearWeightFilledSubmerged ;
         sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_Tubing_6 a sh:NodeShape ;
-    sh:targetClass edo:Tubing ;
+    ] ;
     sh:property [
         sh:path edo:MaxPressure ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Regra_Tubing_7 a sh:NodeShape ;
-    sh:targetClass edo:Tubing ;
+        sh:in ( "Fractional number (? 0.0)" ) ;
+        edo:hasUnit unit:MPa ;
+    ] ;
     sh:property [
         sh:path edo:TestPressure ;
         sh:in ( "Fractional number (? 0.0)" )
@@ -1118,7 +1092,7 @@ ex:Regra_UNSStudSet_2 a sh:NodeShape ;
         sh:in ( "ISO_METRIC" "ISO_FINE" "ISO_COARSE" "ISO_228" "ISO_7-1" )
     ] .
 
-ex:Regra_Asset_1 a sh:NodeShape ;
+ex:Regra_Asset a sh:NodeShape ;
     sh:targetClass edo:Asset ;
     sh:property [
         sh:path edo:Manufacturer ;
@@ -1138,6 +1112,26 @@ ex:Regra_Asset_1 a sh:NodeShape ;
                 "STOLT COMEX" "SUBSEA 7" "SUBSEA EQUIP" "TECHLABOR" "TECHNIP" "TECHNIPFMC" "TELEDYNE ODI" "TOM WHEATLEY" 
                 "TOSHIBA" "TRANSCONTROL" "TRANSELETRON" "TRANSOCEAN" "TRONIC" "ULTRATEC" "VECTOR" "VENTURA" "VETCO" 
                 "VILARES" "WEATHERFORD" "WELLDYNAMICS" "WELLSTREAM" "ZANOLLI ZANTI" )
+    ] ;
+    sh:property [
+        sh:path edo:DesignLifeSpan ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+	sh:property [
+        sh:path edo:ManufacturerSerialNumber ;
+        sh:in ( "String" )
+    ] ;
+	sh:property [
+        sh:path edo:PartNumber ;
+        sh:in ( "String" )
+    ] ;
+	sh:property [
+        sh:path edo:SerialNumber ;
+        sh:in ( "String" )
+    ] ;
+	sh:property [
+        sh:path edo:SerialNumber ;
+        sh:in ( "String" )
     ] .
 
 ex:Regra_LineSpan_1 a sh:NodeShape ;
@@ -1189,8 +1183,23 @@ ex:Regra_PipeSegment a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path edo:MaxPressure ;
-        sh:in ( "MPa" )
-    ] .  
+        edo:hasUnit unit:MPa
+    ] ;
+    sh:property [
+        sh:path edo:InnerDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:IN ;
+    ] ;
+    sh:property [
+        sh:path edo:MaxCo2Content ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:PERCENT-MOL ;
+    ] ;
+    sh:property [
+        sh:path edo:MaxH2sContent ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:PPM-VOL ;
+    ] .
 
 ex:Regra_RigidPipeSegment a sh:NodeShape ;
     sh:targetClass edo:RigidPipeSegment ;
@@ -1224,7 +1233,11 @@ ex:Regra_AnodeSled a sh:NodeShape ;
     sh:property [
         sh:path edo:AnodeMaterial ;
         sh:in ( "ALUMINUM" "ZINC" "OTHER" )
-    ] .         
+    ] ;
+    sh:property [
+        sh:path edo:WeightInWater ;
+        sh:in ( "Fractional number" )
+    ] .
 
 
 ex:Regra_FlowControlEquipment a sh:NodeShape ;
@@ -1259,6 +1272,10 @@ ex:Regra_Manifold a sh:NodeShape ;
     sh:property [
         sh:path edo:ManifoldType ;
         sh:in ( "INTEGRATED" "MODULAR" )
+    ] ;
+    sh:property [
+        sh:path edo:Retrievable ;
+        sh:in ( "Boolean (yes/no)" )
     ] .
 
 ex:Regra_PLEM a sh:NodeShape ;
@@ -1282,13 +1299,6 @@ ex:Regra_InternalMetallicLiner a sh:NodeShape ;
         sh:in ( "INCONEL" "INCONEL_625" "OTHER" ) 
     ].    
 
-ex:Regra_ExternalPolymericCoating a sh:NodeShape ;
-    sh:targetClass edo:ExternalPolymericCoating ;
-    sh:property [
-        sh:path edo:Material ;
-        sh:in ( "COALTAR_ENAMEL" "LIQUID_EPOXY" "FBE" "FBE_DUAL_LAYER" "3LPP" "3LPE" "POLYCHLOROPRENE" "5LPP" "GSPP" "GSPU" "ULTRA" "MARINE_DEEP" "SILICONE" "EPOXY_URETHANE" "RUBBER" "OTHER"  ) 
-    ].
-
 ex:Regra_InternalPolymericLiner a sh:NodeShape ;
     sh:targetClass edo:InternalPolymericLiner ;
     sh:property [
@@ -1302,3 +1312,244 @@ ex:Regra_InternalCladding a sh:NodeShape ;
         sh:path edo:Material ;
         sh:in ( "INCONEL" "INCONEL_625" "OTHER" ) 
     ].    
+
+
+ex:Regra_FlexibleJoint a sh:NodeShape ;
+    sh:targetClass edo:FlexibleJoint ;
+    sh:property [
+        sh:path edo:MaxRotationAngle ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+	sh:property [
+        sh:path edo:ExtensionLength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+	sh:property [
+        sh:path edo:MaxStaticRotationalStiffness ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+	sh:property [
+        sh:path edo:MaxDynamicRotationalStiffness ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
+
+ex:Regra_HangOffAdaptor a sh:NodeShape ;
+    sh:targetClass edo:HangOffAdaptor ;
+    sh:property [
+        sh:path edo:WeightInWater ;
+        sh:in ( "Fractional number" )
+    ] .    
+
+ex:Regra_LinePipe a sh:NodeShape ;
+    sh:targetClass edo:LinePipe ;
+    sh:property [
+        sh:path edo:HeatReference ;
+        sh:in ( "String" )
+    ] .    
+
+ex:Regra_PipeAnode a sh:NodeShape ;
+    sh:targetClass edo:PipeAnode ;
+	sh:property [
+        sh:path edo:TotalLength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+	sh:property [
+        sh:path edo:InnerDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" );
+        edo:hasUnit unit:MilliM ;
+    ] ;
+	sh:property [
+        sh:path edo:OuterDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+	sh:property [
+        sh:path edo:MaxThickness ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+	sh:property [
+        sh:path edo:TaperLength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+	sh:property [
+        sh:path edo:TaperEndThickness ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
+
+ex:Regra_WearBushing a sh:NodeShape ;
+    sh:targetClass edo:WearBushing ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        edo:hasUnit unit:PSI ;
+    ] ;
+    sh:property [
+        sh:path edo:InnerDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:IN ;
+    ] .
+
+
+ex:Regra_TubingCoupling a sh:NodeShape ;
+    sh:targetClass edo:TubingCoupling ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        edo:hasUnit unit:PSI ;
+    ] .    
+
+ex:Regra_PipeTermination a sh:NodeShape ;
+    sh:targetClass edo:PipeTermination ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:MPa ;
+    ] ;
+    sh:property [
+        sh:path edo:InnerDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:IN ;
+    ] .
+
+
+ex:Regra_Wellhead a sh:NodeShape ;
+    sh:targetClass edo:Wellhead ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        edo:hasUnit unit:PSI ;
+    ] .    
+
+ex:Regra_PressureEquipment a sh:NodeShape ;
+    sh:targetClass edo:PressureEquipment ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        edo:hasUnit unit:PSI ;
+    ] .    
+
+
+ex:Regra_RigidPipeCoating a sh:NodeShape ;
+    sh:targetClass edo:RigidPipeCoating ;
+    sh:property [
+        sh:path edo:NegativeTolerance ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:NominalValue ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:PositiveTolerance ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Regra_ExternalConcreteCoating a sh:NodeShape ;
+    sh:targetClass edo:ExternalConcreteCoating ;
+    sh:property [
+        sh:path edo:SpecificMass ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:YoungModulus ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:MinYieldStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:MaxYieldStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:MinTensileStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:MaxTensileStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:SpecificHeatCapacity ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:ThermalConductivity ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:ThermalEmissivity ;
+        sh:in ( "Fractional number (≥ 0.0, ≤ 1.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:ThermalExpansionCoeff ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:PoissonRatio ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:Material ;
+        sh:in ( "String" )
+    ] .
+
+ex:Regra_ExternalPolymericCoating a sh:NodeShape ;
+    sh:targetClass edo:ExternalPolymericCoating ;
+    sh:property [
+        sh:path edo:SpecificMass ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:YoungModulus ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:MinYieldStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:MaxYieldStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:MinTensileStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:MaxTensileStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:SpecificHeatCapacity ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:ThermalConductivity ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:ThermalEmissivity ;
+        sh:in ( "Fractional number (≥ 0.0, ≤ 1.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:ThermalExpansionCoeff ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:PoissonRatio ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] ;
+    sh:property [
+        sh:path edo:Material ;
+        sh:in ( "COALTAR_ENAMEL" "LIQUID_EPOXY" "FBE" "FBE_DUAL_LAYER" "3LPP" "3LPE" "POLYCHLOROPRENE" "5LPP" "GSPP" "GSPU" "ULTRA" "MARINE_DEEP" "SILICONE" "EPOXY_URETHANE" "RUBBER" "OTHER"  ) 
+    ].
+
+ex:Regra_RigidRiserTopConnector a sh:NodeShape ;
+    sh:targetClass edo:RigidRiserTopConnector ;
+    sh:property [
+        sh:path edo:HydrostaticTestPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:MPa ;
+    ] ;
+    sh:property [
+        sh:path edo:IncidentalPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:MPa ;
+    ] .
