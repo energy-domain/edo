@@ -1730,7 +1730,19 @@ ex:Regra_Interconnection a sh:NodeShape ;
 	sh:property [
         sh:path edo:AnpActType ;
         sh:in ( "AUTORIZACAO_CONSTRUCAO" "AUTORIZACAO_OPERACAO" "SUMARIO_PROJETO" "PLANO_DESENVOLVIMENTO" "AUT_INICIO_ATIV_ANTECIPADA" "PERMISSAO_CONSTRUCAO" "PERMISSAO_OPERACAO"  ) ;
-    ] .    
+    ] ;
+    sh:property [
+        sh:path edo:AnpActDate ;
+        sh:in ( "Date" )
+    ] ;
+	sh:property [
+        sh:path edo:AnpActNumber ;
+        sh:in ( "Integer number (≥ 1)" )
+    ] ;
+	sh:property [
+        sh:path edo:AnpProcess ;
+        sh:in ( "String" )
+    ] . 
 
 ex:Regra_Pipeline a sh:NodeShape ;
     sh:targetClass edo:Pipeline ;
@@ -1908,3 +1920,93 @@ ex:Regra_FlowlineSpan a sh:NodeShape ;
         sh:path edo:OnSensitiveArea ;
         sh:in ( "Boolean (yes/no)" )
     ] .        
+
+ex:Regra_LinearLocation a sh:NodeShape ;
+    sh:targetClass edo:LinearLocation ;
+    sh:property [
+        sh:path edo:Length ;
+        sh:in ( "Fractional number (≥ 0.0)" ) 
+    ] .
+
+ex:Regra_PointLocation a sh:NodeShape ;
+    sh:targetClass edo:PointLocation ;
+    sh:property [
+        sh:path edo:EnvironmentType ;
+        sh:in ( "TERRESTRIAL_SURFACE" "TERRESTRIAL_UNDERGROUND" "FLUVIAL_SURFACE" "FLUVIAL_SUBMERGED" "FLUVIAL_UNDERGROUND" "MARITIME_SURFACE" "MARITIME_SUBMERGED" "MARITIME_UNDERGROUND" ) 
+    ] ;
+    sh:property [
+        sh:path edo:Altitude ;
+        sh:in ( "Fractional number" ) 
+    ] ;
+    sh:property [
+        sh:path edo:Datum ;
+        sh:in ( "WGS_84" "SIRGAS_2000" ) 
+    ] ;
+    sh:property [
+        sh:path edo:Latitude ;
+        sh:in ( "Fractional number (≥ -90.0, ≤ 90.0)" ) 
+    ] ;
+    sh:property [
+        sh:path edo:Longitude ;
+        sh:in ( "Fractional number (≥ -180.0, ≤ 180.0)" ) 
+    ] .
+
+ex:Regra_EquipmentLocation a sh:NodeShape ;
+    sh:targetClass edo:EquipmentLocation ;
+    sh:property [
+        sh:path edo:Azimuth ;
+        sh:in ( "Fractional number (≥ 0.0, ≤ 360.0)" ) 
+    ] ;
+    sh:property [
+        sh:path edo:HasSafetyFunction ;
+        sh:in ( "Boolean (yes/no)" )
+    ] ;
+    sh:property [
+        sh:path edo:InstallationDate ;
+        sh:in ( "Date" ) 
+    ] ;
+    sh:property [
+        sh:path edo:NumUnits ;
+        sh:in ( "Integer number (≥ 1)" );
+    ] ;
+    sh:property [
+        sh:path edo:OperatingPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] ;
+    sh:property [
+        sh:path edo:UnitFunction ;
+        sh:in ( "Fractional number (≥ 0.0, ≤ 100.0)" ) 
+    ] .
+
+ex:Regra_MooringLineSegment a sh:NodeShape ;
+    sh:targetClass edo:MooringLineSegment ;
+    sh:property [
+        sh:path edo:Diameter ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Regra_ChainSegment a sh:NodeShape ;
+    sh:targetClass edo:ChainSegment ;
+    sh:property [
+        sh:path edo:HasStudLinks ;
+        sh:in ( "Boolean (yes/no)" )
+    ] ;
+    sh:property [
+        sh:path edo:ResistanceGrade ;
+        sh:in ( "R3" "R3S" "R4" "R4S" "R5" "ORQ" ) 
+    ] .    
+
+ex:Regra_PipingComponent a sh:NodeShape ;
+    sh:targetClass edo:PipingComponent ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+		edo:hasUnit unit:BAR ;
+    ] .    
+
+ex:Flange a sh:NodeShape ;
+    sh:targetClass edo:Flange ;
+    sh:property [
+        sh:path edo:AttachmentType ;
+        sh:in ( "WELD_NECK" "SOCKET_WELD" "LAP_JOINT" "SWIVEL" "THREADED" "BLIND" "OTHER" ) 
+    ] .    
