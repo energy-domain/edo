@@ -4161,12 +4161,38 @@ edo:FlowBase rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#FlowConnector
 edo:FlowConnector rdf:type owl:Class ;
-                  rdfs:subClassOf edo:PressureComponent ;
+                  rdfs:subClassOf edo:IfcInstanciableElement ,
+                                  edo:PressureComponent ;
                   dcterms:identifier "FlowConnector" ;
                   skos:definition "Conector de grande porte para acoplamento submarino com um hub/mandril correspondente"@pt-br ,
                                   "Major connector for subsea tie-in to a corresponding hub"@en ;
                   skos:prefLabel "Conector de Fluxo"@pt-br ,
-                                 "Flow Connector"@en .
+                                 "Flow Connector"@en ;
+                  edo:entityStatus "NEW" ;
+                  edo:hasAttribute edo:FlowConnectorOrientation ,
+                                   edo:LockingMechanism ,
+                                   edo:NumBores ,
+                                   edo:WeightInWater ;
+                  edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                  edo:hasExternalRef "MDA:FlowConnector" ;
+                  edo:ifc_equivalentClass "IfcPipeFitting" ;
+                  edo:ifc_objectType "FlowConnector" ;
+                  edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#FlowConnectorOrientation
+edo:FlowConnectorOrientation rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "FlowConnectorOrientation" ;
+                             skos:prefLabel "Flow Connector Orientation"@en ,
+                                            "Orientação do Conector de fluxo"@pt-br ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                             edo:hasExternalRef "MDA:orientation" ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:StringValue ;
+                             edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#FlowControlEquipment
@@ -6731,6 +6757,21 @@ edo:LockedLength rdf:type owl:Class ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#LockingMechanism
+edo:LockingMechanism rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "LockingMechanism" ;
+                     skos:prefLabel "Locking mechanism"@en ,
+                                    "Mecanismo de travamento"@pt-br ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:locking_mechanism" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:StringValue ;
+                     edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#LogicCap
 edo:LogicCap rdf:type owl:Class ;
              rdfs:subClassOf edo:AuxiliaryModule ;
@@ -8472,6 +8513,21 @@ edo:NuclearPowerGeneration rdf:type owl:Class ;
                                       "Nuclear Power Generation"@en ;
                            skos:definition "Operation and maintenance of nuclear power plants for electricity production."@en ,
                                            "Operação e manutenção de usinas nucleares para produção de eletricidade."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#NumBores
+edo:NumBores rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "NumBores" ;
+             skos:prefLabel "Number of flowline bores"@en ,
+                            "Número de passagens de fluxo"@pt-br ;
+             edo:entityStatus "NEW" ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasExternalRef "MDA:num_bores" ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:IfcInteger ;
+             edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#NumFibers
@@ -14503,14 +14559,14 @@ unit:N rdf:type owl:NamedIndividual ,
        dcterms:source "QUDT Units Vocabulary"@en ;
        qudt:conversionMultiplier 1.0 ;
        qudt:definedUnitOfSystem sou:SI ;
-       qudt:hasFactorUnit [ qudt:exponent -2 ;
-                            qudt:hasUnit unit:S
-                          ] ,
-                          [ qudt:exponent 1 ;
+       qudt:hasFactorUnit [ qudt:exponent 1 ;
                             qudt:hasUnit unit:KG
                           ] ,
                           [ qudt:exponent 1 ;
                             qudt:hasUnit unit:M
+                          ] ,
+                          [ qudt:exponent -2 ;
+                            qudt:hasUnit unit:S
                           ] ;
        qudt:hasQuantityKind qudt:Force ;
        qudt:symbol "N" ;
@@ -14804,17 +14860,17 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:S
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -14829,14 +14885,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
