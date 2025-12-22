@@ -565,6 +565,7 @@ edo:AnchoringCollar rdf:type owl:Class ;
                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                       edo:SubseaRigidPipesEngineering ,
                                       edo:SubseaUmbilicalsEngineering ;
+                    edo:hasExternalRef "MDA:AnchoringCollar" ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "AnchoringCollar" ;
                     edo:ifc_predefinedType "USERDEFINED" .
@@ -2810,16 +2811,18 @@ edo:Downstream rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#DragAnchor
 edo:DragAnchor rdf:type owl:Class ;
-               rdfs:subClassOf edo:Anchor, edo:IfcInstanciableElement ;
+               rdfs:subClassOf edo:Anchor ,
+                               edo:IfcInstanciableElement ;
                dcterms:identifier "DragAnchor" ;
                skos:prefLabel "Drag anchor"@en ,
                               "Âncora de arrasto"@pt-br ;
+               edo:entityStatus "NEW" ;
                edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+               edo:hasExternalRef "MDA:DragAnchor" ;
                edo:ifc_equivalentClass "IfcPipeFitting" ;
                edo:ifc_objectType "DragAnchor" ;
-               edo:ifc_predefinedType "USERDEFINED" ;
-               edo:entityStatus "NEW" ;
-               edo:hasExternalRef "MDA:DragAnchor" .
+               edo:ifc_predefinedType "USERDEFINED" .
+
 
 ###  https://w3id.org/energy-domain/edo#DrawingDimensionsTableAttribute
 edo:DrawingDimensionsTableAttribute rdf:type owl:Class ;
@@ -9927,7 +9930,8 @@ edo:ProcessBallValve rdf:type owl:Class ;
                      skos:prefLabel "Process ball valve"@en ,
                                     "Válvula esfera de processo"@pt-br ;
                      edo:entityStatus "NEW" ;
-                     edo:hasDiscipline edo:ValveEngineering, edo:SubseaRigidPipesEngineering ;
+                     edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
+                                       edo:ValveEngineering ;
                      edo:hasExternalRef "MDA:ProcessBallValve" ;
                      edo:ifc_objectType "ProcessBallValve" ;
                      edo:ifc_predefinedType "USERDEFINED" .
@@ -14616,11 +14620,11 @@ unit:N rdf:type owl:NamedIndividual ,
        dcterms:source "QUDT Units Vocabulary"@en ;
        qudt:conversionMultiplier 1.0 ;
        qudt:definedUnitOfSystem sou:SI ;
-       qudt:hasFactorUnit [ qudt:exponent 1 ;
-                            qudt:hasUnit unit:KG
-                          ] ,
-                          [ qudt:exponent -2 ;
+       qudt:hasFactorUnit [ qudt:exponent -2 ;
                             qudt:hasUnit unit:S
+                          ] ,
+                          [ qudt:exponent 1 ;
+                            qudt:hasUnit unit:KG
                           ] ,
                           [ qudt:exponent 1 ;
                             qudt:hasUnit unit:M
@@ -14641,10 +14645,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -14709,11 +14713,11 @@ unit:PA rdf:type owl:NamedIndividual ,
         dcterms:source "QUDT Units Vocabulary"@en ;
         qudt:conversionMultiplier 1.0 ;
         qudt:definedUnitOfSystem sou:SI ;
-        qudt:hasFactorUnit [ qudt:exponent 1 ;
-                             qudt:hasUnit unit:N
-                           ] ,
-                           [ qudt:exponent -2 ;
+        qudt:hasFactorUnit [ qudt:exponent -2 ;
                              qudt:hasUnit unit:M
+                           ] ,
+                           [ qudt:exponent 1 ;
+                             qudt:hasUnit unit:N
                            ] ;
         qudt:hasQuantityKind qudt:Pressure ;
         qudt:symbol "Pa" ;
@@ -14918,16 +14922,16 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:S
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -14942,14 +14946,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
@@ -15178,5 +15182,3 @@ edo:WeightWithoutEndTerminationIn_Air edo:hasUnit unit:KiloGM .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
-
-edo:AnchoringCollar edo:hasExternalRef "MDA:AnchoringCollar" .
