@@ -513,7 +513,8 @@ edo:Anchor rdf:type owl:Class ;
            skos:definition "Estrutura de fundação cravada no leito marinho"@pt-br ,
                            "Foundation structure driven into seabed"@en ;
            skos:prefLabel "Anchor"@en ,
-                          "Âncora"@pt-br .
+                          "Âncora"@pt-br ;
+           edo:hasAttribute edo:WeightInWater .
 
 
 ###  https://w3id.org/energy-domain/edo#AnchorCollarForging
@@ -9370,8 +9371,24 @@ edo:Pile rdf:type owl:Class ;
          skos:prefLabel "Estaca"@pt-br ,
                         "Pile"@en ;
          edo:entityStatus "NEW" ;
+         edo:hasAttribute edo:TargetPenetrationDepth ;
          edo:hasDiscipline edo:SubseaEngineering ;
          edo:hasExternalRef "MDA:Pile" .
+
+
+###  https://w3id.org/energy-domain/edo#PinPile
+edo:PinPile rdf:type owl:Class ;
+            rdfs:subClassOf edo:IfcInstanciableElement ,
+                            edo:Pile ;
+            dcterms:identifier "PinPile" ;
+            skos:prefLabel "Pin pile"@en ,
+                           "Pin pile"@pt-br ;
+            edo:entityStatus "NEW" ;
+            edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+            edo:hasExternalRef "MDA:PinPile" ;
+            edo:ifc_equivalentClass "IfcPipeFitting" ;
+            edo:ifc_objectType "PinPile" ;
+            edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#PipeAnode
@@ -12609,6 +12626,20 @@ edo:TapesQuantity rdf:type owl:Class ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#TargetPenetrationDepth
+edo:TargetPenetrationDepth rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "TargetPenetrationDepth" ;
+                           skos:prefLabel "Profundidade-alvo de penetração"@pt-br ,
+                                          "Target Penetration Depth"@en ;
+                           edo:hasExternalRef "MDA:target_penetration_depth" ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:M ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#TdpDepth
 edo:TdpDepth rdf:type owl:Class ;
              rdfs:subClassOf edo:DomainAttribute ,
@@ -14620,11 +14651,11 @@ unit:N rdf:type owl:NamedIndividual ,
        dcterms:source "QUDT Units Vocabulary"@en ;
        qudt:conversionMultiplier 1.0 ;
        qudt:definedUnitOfSystem sou:SI ;
-       qudt:hasFactorUnit [ qudt:exponent -2 ;
-                            qudt:hasUnit unit:S
-                          ] ,
-                          [ qudt:exponent 1 ;
+       qudt:hasFactorUnit [ qudt:exponent 1 ;
                             qudt:hasUnit unit:KG
+                          ] ,
+                          [ qudt:exponent -2 ;
+                            qudt:hasUnit unit:S
                           ] ,
                           [ qudt:exponent 1 ;
                             qudt:hasUnit unit:M
@@ -14645,10 +14676,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -14902,10 +14933,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -14924,14 +14955,14 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:S
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:S
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -14946,14 +14977,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
