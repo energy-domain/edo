@@ -1355,6 +1355,38 @@ edo:Biomass rdf:type owl:Class ;
                             "Energy produced from organic materials such as wood, agricultural residues, or waste."@en .
 
 
+###  https://w3id.org/energy-domain/edo#BodyDiameter
+edo:BodyDiameter rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "BodyDiameter" ;
+                 skos:prefLabel "Body diameter"@en ,
+                                "Diâmetro do corpo"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:body_diameter" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:MilliM ;
+                 edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#BodyWallThickness
+edo:BodyWallThickness rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "BodyWallThickness" ;
+                      skos:prefLabel "Body wall thickness"@en ,
+                                     "Espessura de parede do corpo"@pt-br ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:body_wall_thickness" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:MilliM ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#BoltSet
 edo:BoltSet rdf:type owl:Class ;
             rdfs:subClassOf edo:PhysicalConnection ;
@@ -7481,6 +7513,44 @@ edo:MaxLengthTolerance rdf:type owl:Class ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#MaxLoadAngle
+edo:MaxLoadAngle rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ,
+                                 edo:MaxLoadAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "MaxLoadAngle" ;
+                 skos:prefLabel "Angle with respect to horizontal"@en ,
+                                "Ângulo em relação à horizontal"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:max_load.angle" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MaxLoadAttribute
+edo:MaxLoadAttribute rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ;
+                     rdfs:label "MaxLoad" .
+
+
+###  https://w3id.org/energy-domain/edo#MaxLoadValue
+edo:MaxLoadValue rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ,
+                                 edo:MaxLoadAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "MaxLoadValue" ;
+                 skos:prefLabel "Max Load Value"@en ,
+                                "Valor da Carga máxima"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:max_load.value" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MaxPermissibleDeformationDynamic
 edo:MaxPermissibleDeformationDynamic rdf:type owl:Class ;
                                      rdfs:subClassOf edo:DomainAttribute ;
@@ -12629,11 +12699,11 @@ edo:TapesQuantity rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#TargetPenetrationDepth
 edo:TargetPenetrationDepth rdf:type owl:Class ;
                            rdfs:subClassOf edo:DomainAttribute ;
-                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                            dcterms:accessRights "PUBLIC" ;
                            dcterms:identifier "TargetPenetrationDepth" ;
                            skos:prefLabel "Profundidade-alvo de penetração"@pt-br ,
                                           "Target Penetration Depth"@en ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
                            edo:hasExternalRef "MDA:target_penetration_depth" ;
                            edo:hasTypedValue edo:FloatValue ;
                            edo:hasUnit unit:M ;
@@ -13245,6 +13315,9 @@ edo:TorpedoPile rdf:type owl:Class ;
                 skos:prefLabel "Estaca-torpedo"@pt-br ,
                                "Torpedo pile"@en ;
                 edo:entityStatus "NEW" ;
+                edo:hasAttribute edo:BodyDiameter ,
+                                 edo:BodyWallThickness ,
+                                 edo:MaxLoadAttribute ;
                 edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                 edo:hasExternalRef "MDA:TorpedoPile" ;
                 edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -14654,11 +14727,11 @@ unit:N rdf:type owl:NamedIndividual ,
        qudt:hasFactorUnit [ qudt:exponent 1 ;
                             qudt:hasUnit unit:KG
                           ] ,
-                          [ qudt:exponent -2 ;
-                            qudt:hasUnit unit:S
-                          ] ,
                           [ qudt:exponent 1 ;
                             qudt:hasUnit unit:M
+                          ] ,
+                          [ qudt:exponent -2 ;
+                            qudt:hasUnit unit:S
                           ] ;
        qudt:hasQuantityKind qudt:Force ;
        qudt:symbol "N" ;
@@ -14676,10 +14749,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -14744,11 +14817,11 @@ unit:PA rdf:type owl:NamedIndividual ,
         dcterms:source "QUDT Units Vocabulary"@en ;
         qudt:conversionMultiplier 1.0 ;
         qudt:definedUnitOfSystem sou:SI ;
-        qudt:hasFactorUnit [ qudt:exponent -2 ;
-                             qudt:hasUnit unit:M
-                           ] ,
-                           [ qudt:exponent 1 ;
+        qudt:hasFactorUnit [ qudt:exponent 1 ;
                              qudt:hasUnit unit:N
+                           ] ,
+                           [ qudt:exponent -2 ;
+                             qudt:hasUnit unit:M
                            ] ;
         qudt:hasQuantityKind qudt:Pressure ;
         qudt:symbol "Pa" ;
@@ -14933,10 +15006,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent -1 ;
+             qudt:hasFactorUnit [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent 3 ;
+                                [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -14953,16 +15026,16 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                                          qudt:hasUnit unit:S
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:S
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -14977,14 +15050,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
@@ -15015,9 +15088,6 @@ edo:AssyTorquesDry edo:hasUnit unit:N-M .
 
 
 edo:BendRestrictorForMaxUmbilical edo:hasUnit unit:MilliM .
-
-
-edo:BodyDiameter edo:hasUnit unit:MilliM .
 
 
 edo:BrStraightLengthCompressed edo:hasUnit unit:M .
