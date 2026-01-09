@@ -6123,6 +6123,21 @@ edo:JunctionBox rdf:type owl:Class ;
                 edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#KenterLink
+edo:KenterLink rdf:type owl:Class ;
+               rdfs:subClassOf edo:IfcInstanciableElement ,
+                               edo:Link ;
+               dcterms:identifier "KenterLink" ;
+               skos:prefLabel "Elo tipo kenter"@pt-br ,
+                              "Kenter link"@en ;
+               edo:entityStatus "NEW" ;
+               edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+               edo:hasExternalRef "MDA:KenterLink" ;
+               edo:ifc_equivalentClass "IfcPipeFitting" ;
+               edo:ifc_objectType "KenterLink" ;
+               edo:ifc_predefinedType "USERDEFINED" .
+
+
 ###  https://w3id.org/energy-domain/edo#LPHousing
 edo:LPHousing rdf:type owl:Class ;
               rdfs:subClassOf edo:PressureComponent ;
@@ -6860,6 +6875,18 @@ edo:LinearWeightSubmerged rdf:type owl:Class ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#Link
+edo:Link rdf:type owl:Class ;
+         rdfs:subClassOf edo:MooringAccessory ;
+         dcterms:identifier "Link" ;
+         skos:prefLabel "Elo"@pt-br ,
+                        "Link"@en ;
+         edo:entityStatus "NEW" ;
+         edo:hasAttribute edo:NominalDiameter ;
+         edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+         edo:hasExternalRef "MDA:Link" .
+
+
 ###  https://w3id.org/energy-domain/edo#Location
 edo:Location rdf:type owl:Class ;
              rdfs:subClassOf edo:DomainElement ;
@@ -7237,6 +7264,21 @@ edo:MasterControlStation rdf:type owl:Class ;
                                          "Topside electrical panel for controlling subsea multiplexed systems"@en ;
                          skos:prefLabel "Estação de controle mestra"@pt-br ,
                                         "Master control station"@en .
+
+
+###  https://w3id.org/energy-domain/edo#MasterLink
+edo:MasterLink rdf:type owl:Class ;
+               rdfs:subClassOf edo:IfcInstanciableElement ,
+                               edo:Link ;
+               dcterms:identifier "MasterLink" ;
+               skos:prefLabel "Anelão"@pt-br ,
+                              "Master link"@en ;
+               edo:entityStatus "NEW" ;
+               edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+               edo:hasExternalRef "MDA:MasterLink" ;
+               edo:ifc_equivalentClass "IfcPipeFitting" ;
+               edo:ifc_objectType "MasterLink" ;
+               edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#Material
@@ -8610,6 +8652,24 @@ edo:MinYieldStrength rdf:type owl:Class ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#MinimumBreakingLoad
+edo:MinimumBreakingLoad rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "MinimumBreakingLoad" ;
+                        skos:definition "Carga mínima de ruptura"@pt-br ,
+                                        "Minimum breaking load"@en ;
+                        skos:prefLabel "MBL"@en ,
+                                       "MBL"@pt-br ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:mbl" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:TONNE_F ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MinimumHousedDiameter
 edo:MinimumHousedDiameter rdf:type owl:Class ;
                           rdfs:subClassOf edo:DomainAttribute ;
@@ -8688,14 +8748,44 @@ edo:ModulusOfElasticity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MooringAccessory
 edo:MooringAccessory rdf:type owl:Class ;
-                     rdfs:subClassOf edo:HardwareItem ;
+                     rdfs:subClassOf edo:MooringHardwareItem ;
                      dcterms:identifier "MooringAccessory" ;
                      skos:definition "A Mooring Accessory includes components like anchors, chains, and connectors used to secure offshore platforms or vessels to the seabed, ensuring stability and safety in harsh marine conditions."@en ;
                      skos:prefLabel "Acessório de Amarração"@pt-br ,
                                     "Mooring Accessory"@en ;
                      edo:entityStatus "NEW" ;
-                     edo:hasDiscipline edo:SubseaEngineering ;
+                     edo:hasAttribute edo:MooringAccessoryGrade ,
+                                      edo:SafeWorkingLoad ;
+                     edo:hasDiscipline edo:SubseaEngineering ,
+                                       edo:SubseaRigidPipesEngineering ;
                      edo:hasExternalRef "MDA:MooringAccessory" .
+
+
+###  https://w3id.org/energy-domain/edo#MooringAccessoryGrade
+edo:MooringAccessoryGrade rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "MooringAccessoryGrade" ;
+                          skos:prefLabel "Grade"@en ,
+                                         "Grau"@pt-br ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:grade" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:StringValue ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MooringHardwareItem
+edo:MooringHardwareItem rdf:type owl:Class ;
+                        rdfs:subClassOf edo:HardwareItem ;
+                        dcterms:identifier "MooringHardwareItem" ;
+                        skos:prefLabel "Ferragem de ancoragem"@pt-br ,
+                                       "Mooring hardware item"@en ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttribute edo:MinimumBreakingLoad ;
+                        edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                        edo:hasExternalRef "MDA:MooringHardwareItem" .
 
 
 ###  https://w3id.org/energy-domain/edo#MooringLine
@@ -9517,6 +9607,21 @@ edo:PartNumber rdf:type owl:Class ;
                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                edo:hasTypedValue edo:StringValue ;
                edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#PearLink
+edo:PearLink rdf:type owl:Class ;
+             rdfs:subClassOf edo:IfcInstanciableElement ,
+                             edo:Link ;
+             dcterms:identifier "PearLink" ;
+             skos:prefLabel "Elo tipo pêra"@pt-br ,
+                            "Pear link"@en ;
+             edo:entityStatus "NEW" ;
+             edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+             edo:hasExternalRef "MDA:PearLink" ;
+             edo:ifc_equivalentClass "IfcPipeFitting" ;
+             edo:ifc_objectType "PearLink" ;
+             edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#PerformanceAttribute
@@ -14884,11 +14989,11 @@ unit:M2-PER-SEC rdf:type owl:NamedIndividual ,
                 dcterms:source "QUDT Units Vocabulary"@en ;
                 qudt:conversionMultiplier 1.0 ;
                 qudt:definedUnitOfSystem sou:SI ;
-                qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                     qudt:hasUnit unit:S
-                                   ] ,
-                                   [ qudt:exponent 2 ;
+                qudt:hasFactorUnit [ qudt:exponent 2 ;
                                      qudt:hasUnit unit:M
+                                   ] ,
+                                   [ qudt:exponent -1 ;
+                                     qudt:hasUnit unit:S
                                    ] ;
                 qudt:hasQuantityKind qudt:AreaFlux ;
                 qudt:symbol "m²/s" ;
@@ -15053,10 +15158,10 @@ unit:N-M rdf:type owl:NamedIndividual ,
          qudt:conversionMultiplier 1.0 ;
          qudt:definedUnitOfSystem sou:SI ;
          qudt:hasFactorUnit [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:N
+                              qudt:hasUnit unit:M
                             ] ,
                             [ qudt:exponent 1 ;
-                              qudt:hasUnit unit:M
+                              qudt:hasUnit unit:N
                             ] ;
          qudt:hasQuantityKind qudt:Torque ;
          qudt:symbol "N·m" ;
@@ -15121,11 +15226,11 @@ unit:PA rdf:type owl:NamedIndividual ,
         dcterms:source "QUDT Units Vocabulary"@en ;
         qudt:conversionMultiplier 1.0 ;
         qudt:definedUnitOfSystem sou:SI ;
-        qudt:hasFactorUnit [ qudt:exponent -2 ;
-                             qudt:hasUnit unit:M
-                           ] ,
-                           [ qudt:exponent 1 ;
+        qudt:hasFactorUnit [ qudt:exponent 1 ;
                              qudt:hasUnit unit:N
+                           ] ,
+                           [ qudt:exponent -2 ;
+                             qudt:hasUnit unit:M
                            ] ;
         qudt:hasQuantityKind qudt:Pressure ;
         qudt:symbol "Pa" ;
@@ -15310,10 +15415,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -15329,17 +15434,17 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:S
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
