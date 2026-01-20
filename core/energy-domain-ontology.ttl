@@ -481,6 +481,7 @@ edo:ActuationPressure rdf:type owl:Class ;
                       edo:hasExternalRef "MDA:actuation_pressure" ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:PSI ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -2813,6 +2814,23 @@ edo:DimensionsDrawing rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#DimensionsTableColumn
 edo:DimensionsTableColumn rdf:type owl:Class ;
                           rdfs:subClassOf edo:DrawingDimensionsTableAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DisplacedFluidVolume
+edo:DisplacedFluidVolume rdf:type owl:Class ;
+                         rdfs:subClassOf edo:DomainAttribute ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "DisplacedFluidVolume" ;
+                         skos:definition "Fluid volume displaced for full actuation"@en ,
+                                         "Volume de fluido deslocado para atuação completa"@pt-br ;
+                         skos:prefLabel "Displaced fluid volume"@en ,
+                                        "Volume de fluido deslocado"@pt-br ;
+                         edo:entityStatus "NEW" ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasExternalRef "MDA:displaced_fluid_volume" ;
+                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                         edo:hasTypedValue edo:FloatValue ;
+                         edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#DisplacedVolume
@@ -5370,6 +5388,19 @@ edo:HybridRenewables rdf:type owl:Class ;
                                      "Renováveis híbridas são sistemas que combinam duas ou mais fontes de energia renovável, como solar e eólica, com o objetivo de melhorar a confiabilidade, a eficiência e o uso do solo. Representam um campo crescente de integração que permite uma geração de energia mais flexível e resiliente."@pt-br ;
                      skos:prefLabel "Hybrid Renewables"@en ,
                                     "Renováveis Híbridas"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#HydraulicActuator
+edo:HydraulicActuator rdf:type owl:Class ;
+                      rdfs:subClassOf edo:RemoteActuator ;
+                      dcterms:identifier "HydraulicActuator" ;
+                      skos:prefLabel "Atuador hidráulico"@pt-br ,
+                                     "Hydraulic actuator"@en ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttribute edo:ActuationPressure ,
+                                       edo:MaxPressure ;
+                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                      edo:hasExternalRef "MDA:HydraulicActuator" .
 
 
 ###  https://w3id.org/energy-domain/edo#HydraulicFluidAttribute
@@ -10239,6 +10270,21 @@ edo:PipingSpool rdf:type owl:Class ;
                                "Trecho de tubulação"@pt-br .
 
 
+###  https://w3id.org/energy-domain/edo#PistonHydraulicActuator
+edo:PistonHydraulicActuator rdf:type owl:Class ;
+                            rdfs:subClassOf edo:HydraulicActuator ;
+                            dcterms:identifier "PistonHydraulicActuator" ;
+                            skos:definition "Atuador hidráulico com um único pistão"@pt-br ,
+                                            "Hydraulic actuator with a single piston"@en ;
+                            skos:prefLabel "Atuador hidráulico a pistão"@pt-br ,
+                                           "Piston hydraulic actuator"@en ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasAttribute edo:DisplacedFluidVolume ,
+                                             edo:Stroke ;
+                            edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                            edo:hasExternalRef "MDA:PistonHydraulicActuator" .
+
+
 ###  https://w3id.org/energy-domain/edo#PitchToleranceClass
 edo:PitchToleranceClass rdf:type owl:Class ;
                         rdfs:subClassOf edo:DomainAttribute ;
@@ -11913,6 +11959,21 @@ edo:ShutOffPressure rdf:type owl:Class ;
                     edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#SingleActingHydraulicActuator
+edo:SingleActingHydraulicActuator rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:IfcInstanciableElement ,
+                                                  edo:PistonHydraulicActuator ;
+                                  dcterms:identifier "SingleActingHydraulicActuator" ;
+                                  skos:prefLabel "Atuador hidráulico de ação simples"@pt-br ,
+                                                 "Single-acting hydraulic actuator"@en ;
+                                  edo:entityStatus "NEW" ;
+                                  edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                                  edo:hasExternalRef "MDA:SingleActingHydraulicActuator" ;
+                                  edo:ifc_equivalentClass "IfcPipeFitting" ;
+                                  edo:ifc_objectType "SingleActingHydraulicActuator" ;
+                                  edo:ifc_predefinedType "USERDEFINED" .
+
+
 ###  https://w3id.org/energy-domain/edo#SingleValue
 edo:SingleValue rdf:type owl:Class ;
                 rdfs:subClassOf edo:AttributeValueCardinality ;
@@ -12773,6 +12834,24 @@ edo:StringValue rdf:type owl:Class ;
                 rdfs:subClassOf edo:DataType ;
                 rdfs:comment "Constraint for xsd:string (character strings)"@en ;
                 rdfs:label "String Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#Stroke
+edo:Stroke rdf:type owl:Class ;
+           rdfs:subClassOf edo:DomainAttribute ;
+           dcterms:accessRights "PUBLIC" ;
+           dcterms:identifier "Stroke" ;
+           skos:definition "Curso da haste para atuação completa"@pt-br ,
+                           "Stem stroke/travel for full actuation"@en ;
+           skos:prefLabel "Curso"@pt-br ,
+                          "Stroke"@en ;
+           edo:entityStatus "NEW" ;
+           edo:hasAttributeScope edo:TypeLevelAttribute ;
+           edo:hasExternalRef "MDA:stroke" ;
+           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+           edo:hasTypedValue edo:FloatValue ;
+           edo:hasUnit unit:MilliM ;
+           edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#StructuralEngineering
@@ -15706,16 +15785,16 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -15730,11 +15809,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                            qudt:hasUnit unit:MilliGM
-                                          ] ,
-                                          [ qudt:exponent -1 ;
+                       qudt:hasFactorUnit [ qudt:exponent -1 ;
                                             qudt:hasUnit unit:GM
+                                          ] ,
+                                          [ qudt:exponent 1 ;
+                                            qudt:hasUnit unit:MilliGM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
