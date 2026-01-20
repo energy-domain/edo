@@ -5692,12 +5692,19 @@ edo:InlineEquipmentLocation rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InlineT
 edo:InlineT rdf:type owl:Class ;
-            rdfs:subClassOf edo:FlowControlEquipment ;
+            rdfs:subClassOf edo:FlowControlEquipment ,
+                            edo:IfcInstanciableElement ;
             dcterms:identifier "InlineT" ;
             skos:definition "Derivation of a main pipeline at an approximately right angle (90°)"@en ,
                             "Derivação de um duto principal em ângulo aproximadamente reto (90°)"@pt-br ;
             skos:prefLabel "'T' em linha"@pt-br ,
-                           "Inline tee"@en .
+                           "Inline tee"@en ;
+            edo:entityStatus "NEW" ;
+            edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+            edo:hasExternalRef "MDA:InlineT" ;
+            edo:ifc_equivalentClass "IfcPipeFitting" ;
+            edo:ifc_objectType "InlineT" ;
+            edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#InlineValve
@@ -5710,7 +5717,8 @@ edo:InlineValve rdf:type owl:Class ;
                 skos:prefLabel "Inline valve"@en ,
                                "Válvula inline"@pt-br ;
                 edo:entityStatus "NEW" ;
-                edo:hasDiscipline edo:SUBSEA_EQUIPMENT ;
+                edo:hasDiscipline edo:SUBSEA_EQUIPMENT ,
+                                  edo:SubseaRigidPipesEngineering ;
                 edo:hasExternalRef "MDA:InlineValve" ;
                 edo:ifc_objectType "InlineValve" ;
                 edo:ifc_predefinedType "USERDEFINED" .
@@ -5718,12 +5726,19 @@ edo:InlineValve rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InlineY
 edo:InlineY rdf:type owl:Class ;
-            rdfs:subClassOf edo:FlowControlEquipment ;
+            rdfs:subClassOf edo:FlowControlEquipment ,
+                            edo:IfcInstanciableElement ;
             dcterms:identifier "InlineY" ;
             skos:definition "Bifurcação de duto que permite passagem de pig"@pt-br ,
                             "Pipeline bifurcation that allows pigging"@en ;
             skos:prefLabel "'Y' em linha"@pt-br ,
-                           "Inline wye"@en .
+                           "Inline wye"@en ;
+            edo:entityStatus "NEW" ;
+            edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+            edo:hasExternalRef "MDA:InlineY" ;
+            edo:ifc_equivalentClass "IfcPipeFitting" ;
+            edo:ifc_objectType "InlineY" ;
+            edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#InnerDiameter
@@ -11363,12 +11378,19 @@ edo:RigidJoint rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#RigidJumper
 edo:RigidJumper rdf:type owl:Class ;
-                rdfs:subClassOf edo:TieInEquipment ;
+                rdfs:subClassOf edo:IfcInstanciableElement ,
+                                edo:TieInEquipment ;
                 dcterms:identifier "RigidJumper" ;
                 skos:definition "Elemento de interligação composto de tubulação rígida e conectores, instalável entre hubs de equipamentos submarinos"@pt-br ,
                                 "Tie-in element composed of rigid piping and connectors, installed between subsea equipment hubs"@en ;
                 skos:prefLabel "Jumper rígido"@pt-br ,
-                               "Rigid jumper"@en .
+                               "Rigid jumper"@en ;
+                edo:entityStatus "NEW" ;
+                edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                edo:hasExternalRef "MDA:RigidJumper" ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "RigidJumper" ;
+                edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#RigidPipeCoating
@@ -13633,6 +13655,23 @@ edo:TaperedLinePipe rdf:type owl:Class ;
                     edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#TaperedRigidPipeSegment
+edo:TaperedRigidPipeSegment rdf:type owl:Class ;
+                            rdfs:subClassOf edo:IfcInstanciableElement ,
+                                            edo:PipeSegment ;
+                            dcterms:identifier "TaperedRigidPipeSegment" ;
+                            skos:definition "A rigid pipe that performs a transition between different cross-sections"@en ,
+                                            "Um tubo rígido que realiza a transição entre seções transversais diferentes"@pt-br ;
+                            skos:prefLabel "Tapered rigid pipe segment"@en ,
+                                           "Tramo de duto rígido afunilado"@pt-br ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                            edo:hasExternalRef "MDA:TaperedRigidPipeSegment" ;
+                            edo:ifc_equivalentClass "IfcPipeFitting" ;
+                            edo:ifc_objectType "TaperedRigidPipeSegment" ;
+                            edo:ifc_predefinedType "USERDEFINED" .
+
+
 ###  https://w3id.org/energy-domain/edo#TapesQuantity
 edo:TapesQuantity rdf:type owl:Class ;
                   rdfs:subClassOf edo:DomainAttribute ;
@@ -15477,14 +15516,14 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:KiloN
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:DEG
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -16013,13 +16052,13 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
@@ -16056,14 +16095,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
