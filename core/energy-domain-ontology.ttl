@@ -1533,6 +1533,21 @@ edo:BoreDiameter rdf:type owl:Class ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#BoreType
+edo:BoreType rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "BoreType" ;
+             skos:prefLabel "Bore type"@en ,
+                            "Tipo de passagem"@pt-br ;
+             edo:entityStatus "NEW" ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasExternalRef "MDA:bore_type" ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:StringValue ;
+             edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#BraceletAnode
 edo:BraceletAnode rdf:type owl:Class ;
                   rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -3901,6 +3916,23 @@ edo:FabricationComponent rdf:type owl:Class ;
                                          "Represents elements that are physical, non-traceable, and non-replaceable. They are typically manufactured or assembled parts that become permanently integrated into a larger system or structure, without being individually tracked or substituted. Their purpose is to capture components that are essential for fabrication but do not exist as independently manageable units once incorporated."@en ;
                          skos:prefLabel "Componente de Fabricação"@pt-br ,
                                         "Fabrication Component"@en .
+
+
+###  https://w3id.org/energy-domain/edo#FailureBehavior
+edo:FailureBehavior rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "FailureBehavior" ;
+                    skos:definition "Comportamento do conjunto válvula + atuador em caso de falha no sistema de atuação"@pt-br ,
+                                    "Valve + actuator assembly behavior in case of failure in actuation system"@en ;
+                    skos:prefLabel "Comportamento na falha"@pt-br ,
+                                   "Failure behavior"@en ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "MDA:failure_behavior" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:StringValue ;
+                    edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#FatMaxPress
@@ -11071,6 +11103,9 @@ edo:ProcessBlockValve rdf:type owl:Class ;
                       skos:prefLabel "Process block valve"@en ,
                                      "Válvula de bloqueio de processo"@pt-br ;
                       edo:entityStatus "NEW" ;
+                      edo:hasAttribute edo:BoreType ,
+                                       edo:FailureBehavior ,
+                                       edo:Piggable ;
                       edo:hasDiscipline edo:ValveEngineering ;
                       edo:hasExternalRef "MDA:ProcessBlockValve" .
 
@@ -15934,11 +15969,11 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:KiloN
-                                        ] ,
-                                        [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:KiloN
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -16473,10 +16508,10 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                           qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
@@ -16494,11 +16529,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                            qudt:hasUnit unit:MilliGM
-                                          ] ,
-                                          [ qudt:exponent -1 ;
+                       qudt:hasFactorUnit [ qudt:exponent -1 ;
                                             qudt:hasUnit unit:GM
+                                          ] ,
+                                          [ qudt:exponent 1 ;
+                                            qudt:hasUnit unit:MilliGM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -16513,11 +16548,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
