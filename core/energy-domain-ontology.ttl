@@ -344,6 +344,25 @@ rdf:value rdf:type owl:DatatypeProperty .
 qudt:Unit rdf:type owl:Class .
 
 
+###  https://w3id.org/energy-domain/edo#
+edo: rdf:type owl:Class ;
+     rdfs:subClassOf edo:DomainAttribute ;
+     dcterms:accessRights "PUBLIC" ;
+     dcterms:identifier "#UpstreamSealingMode" ,
+                        "#UpstreamSealingType" ;
+     skos:prefLabel "Modo da vedação a montante"@pt-br ,
+                    "Tipo da vedação a montante"@pt-br ,
+                    "Upstream Sealing Mode"@en ,
+                    "Upstream Sealing Type"@en ;
+     edo:entityStatus "NEW" ;
+     edo:hasAttributeScope edo:TypeLevelAttribute ;
+     edo:hasExternalRef "MDA:upstream_sealing_params.mode" ,
+                        "MDA:upstream_sealing_params.type" ;
+     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+     edo:hasTypedValue edo:StringValue ;
+     edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#API6APSL
 edo:API6APSL rdf:type owl:Class ;
              rdfs:subClassOf edo:DomainAttribute ;
@@ -1157,6 +1176,21 @@ edo:BOP rdf:type owl:Class ;
         dcterms:identifier "BOP" ;
         skos:prefLabel "Blowout preventer"@en ,
                        "Blowout preventer"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#BallDesign
+edo:BallDesign rdf:type owl:Class ;
+               rdfs:subClassOf edo:DomainAttribute ;
+               dcterms:accessRights "PUBLIC" ;
+               dcterms:identifier "BallDesign" ;
+               skos:prefLabel "Ball design"@en ,
+                              "Projeto da esfera"@pt-br ;
+               edo:entityStatus "NEW" ;
+               edo:hasAttributeScope edo:TypeLevelAttribute ;
+               edo:hasExternalRef "MDA:ball_design" ;
+               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+               edo:hasTypedValue edo:StringValue ;
+               edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#Base64BinaryType
@@ -3105,6 +3139,44 @@ edo:Downstream rdf:type owl:Class ;
                           "Downstream"@pt-br ;
                skos:definition "Oil & Gas sector covering refining, processing, distribution, and retail of petroleum products."@en ,
                                "Setor de Petróleo & Gás que abrange refino, processamento, distribuição e varejo de produtos petrolíferos."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#DownstreamSealingMode
+edo:DownstreamSealingMode rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "DownstreamSealingMode" ;
+                          skos:prefLabel "Downstream sealing mode"@en ,
+                                         "Modo da vedação a jusante"@pt-br ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:downstream_sealing_params.mode" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:StringValue ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#DownstreamSealingParamsAttribute
+edo:DownstreamSealingParamsAttribute rdf:type owl:Class ;
+                                     rdfs:subClassOf edo:DomainAttribute ;
+                                     rdfs:label "Downstream sealing parameters" ;
+                                     edo:hasAttribute edo:DownstreamSealingMode ,
+                                                      edo:DownstreamSealingType .
+
+
+###  https://w3id.org/energy-domain/edo#DownstreamSealingType
+edo:DownstreamSealingType rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "DownstreamSealingType" ;
+                          skos:prefLabel "Downstream sealing yype"@en ,
+                                         "Tipo da vedação a jusante"@pt-br ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:downstream_sealing_params.type" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:StringValue ;
+                          edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#DragAnchor
@@ -11086,6 +11158,9 @@ edo:ProcessBallValve rdf:type owl:Class ;
                      skos:prefLabel "Process ball valve"@en ,
                                     "Válvula esfera de processo"@pt-br ;
                      edo:entityStatus "NEW" ;
+                     edo:hasAttribute edo:BallDesign ,
+                                      edo:DownstreamSealingParamsAttribute ,
+                                      edo:UpstreamSealingParamsAttribute ;
                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
                                        edo:ValveEngineering ;
                      edo:hasExternalRef "MDA:ProcessBallValve" ;
@@ -15303,6 +15378,14 @@ edo:Upstream rdf:type owl:Class ;
                              "Setor de Petróleo & Gás que abrange exploração, perfuração e produção de recursos de hidrocarbonetos."@pt-br .
 
 
+###  https://w3id.org/energy-domain/edo#UpstreamSealingParamsAttribute
+edo:UpstreamSealingParamsAttribute rdf:type owl:Class ;
+                                   rdfs:subClassOf edo:DomainAttribute ;
+                                   rdfs:label "Upstream sealing parameters" ;
+                                   edo:hasAttribute edo:UpstreamSealingMode ,
+                                                    edo:UpstreamSealingType .
+
+
 ###  https://w3id.org/energy-domain/edo#UtilityPipingEngineering
 edo:UtilityPipingEngineering rdf:type owl:Class ;
                              rdfs:subClassOf edo:TechnicalDiscipline ;
@@ -15970,10 +16053,10 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                                           qudt:hasUnit unit:DEG
                                         ] ,
                                         [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
+                                          qudt:hasUnit unit:KiloN
                                         ] ,
                                         [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:KiloN
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -16482,10 +16565,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -16504,11 +16587,11 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
@@ -16548,11 +16631,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                  qudt:hasFactorUnit [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
                                     ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
