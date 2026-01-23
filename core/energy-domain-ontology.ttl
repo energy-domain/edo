@@ -344,25 +344,6 @@ rdf:value rdf:type owl:DatatypeProperty .
 qudt:Unit rdf:type owl:Class .
 
 
-###  https://w3id.org/energy-domain/edo#
-edo: rdf:type owl:Class ;
-     rdfs:subClassOf edo:DomainAttribute ;
-     dcterms:accessRights "PUBLIC" ;
-     dcterms:identifier "#UpstreamSealingMode" ,
-                        "#UpstreamSealingType" ;
-     skos:prefLabel "Modo da vedação a montante"@pt-br ,
-                    "Tipo da vedação a montante"@pt-br ,
-                    "Upstream Sealing Mode"@en ,
-                    "Upstream Sealing Type"@en ;
-     edo:entityStatus "NEW" ;
-     edo:hasAttributeScope edo:TypeLevelAttribute ;
-     edo:hasExternalRef "MDA:upstream_sealing_params.mode" ,
-                        "MDA:upstream_sealing_params.type" ;
-     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-     edo:hasTypedValue edo:StringValue ;
-     edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#API6APSL
 edo:API6APSL rdf:type owl:Class ;
              rdfs:subClassOf edo:DomainAttribute ;
@@ -3143,7 +3124,8 @@ edo:Downstream rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#DownstreamSealingMode
 edo:DownstreamSealingMode rdf:type owl:Class ;
-                          rdfs:subClassOf edo:DomainAttribute ;
+                          rdfs:subClassOf edo:DomainAttribute ,
+                                          edo:DownstreamSealingParamsAttribute ;
                           dcterms:accessRights "PUBLIC" ;
                           dcterms:identifier "DownstreamSealingMode" ;
                           skos:prefLabel "Downstream sealing mode"@en ,
@@ -3159,14 +3141,13 @@ edo:DownstreamSealingMode rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#DownstreamSealingParamsAttribute
 edo:DownstreamSealingParamsAttribute rdf:type owl:Class ;
                                      rdfs:subClassOf edo:DomainAttribute ;
-                                     rdfs:label "Downstream sealing parameters" ;
-                                     edo:hasAttribute edo:DownstreamSealingMode ,
-                                                      edo:DownstreamSealingType .
+                                     rdfs:label "Downstream sealing parameters" .
 
 
 ###  https://w3id.org/energy-domain/edo#DownstreamSealingType
 edo:DownstreamSealingType rdf:type owl:Class ;
-                          rdfs:subClassOf edo:DomainAttribute ;
+                          rdfs:subClassOf edo:DomainAttribute ,
+                                          edo:DownstreamSealingParamsAttribute ;
                           dcterms:accessRights "PUBLIC" ;
                           dcterms:identifier "DownstreamSealingType" ;
                           skos:prefLabel "Downstream sealing yype"@en ,
@@ -15378,12 +15359,42 @@ edo:Upstream rdf:type owl:Class ;
                              "Setor de Petróleo & Gás que abrange exploração, perfuração e produção de recursos de hidrocarbonetos."@pt-br .
 
 
+###  https://w3id.org/energy-domain/edo#UpstreamSealingMode
+edo:UpstreamSealingMode rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ,
+                                        edo:UpstreamSealingParamsAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "UpstreamSealingMode" ;
+                        skos:prefLabel "Modo da vedação a montante"@pt-br ,
+                                       "Upstream Sealing Mode"@en ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:upstream_sealing_params.mode" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:StringValue ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#UpstreamSealingParamsAttribute
 edo:UpstreamSealingParamsAttribute rdf:type owl:Class ;
                                    rdfs:subClassOf edo:DomainAttribute ;
-                                   rdfs:label "Upstream sealing parameters" ;
-                                   edo:hasAttribute edo:UpstreamSealingMode ,
-                                                    edo:UpstreamSealingType .
+                                   rdfs:label "Upstream sealing parameters" .
+
+
+###  https://w3id.org/energy-domain/edo#UpstreamSealingType
+edo:UpstreamSealingType rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ,
+                                        edo:UpstreamSealingParamsAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "UpstreamSealingType" ;
+                        skos:prefLabel "Tipo da vedação a montante"@pt-br ,
+                                       "Upstream Sealing Type"@en ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:upstream_sealing_params.type" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:StringValue ;
+                        edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#UtilityPipingEngineering
@@ -16565,10 +16576,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent -1 ;
+             qudt:hasFactorUnit [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent 3 ;
+                                [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -16585,16 +16596,16 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
