@@ -480,7 +480,11 @@ edo:ActuatedProcessValve rdf:type owl:Class ;
                          skos:prefLabel "Externally-actuated process valve"@en ,
                                         "Válvula de processo atuada externamente"@pt-br ;
                          edo:entityStatus "NEW" ;
-                         edo:hasDiscipline edo:ValveEngineering ;
+                         edo:hasAttribute edo:BonnetMaterial ,
+                                          edo:LeakageClass ,
+                                          edo:StemMaterial ;
+                         edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
+                                           edo:ValveEngineering ;
                          edo:hasExternalRef "MDA:ActuatedProcessValve" .
 
 
@@ -1486,6 +1490,21 @@ edo:BoltSet rdf:type owl:Class ;
                              edo:NominalLength ,
                              edo:Quantity ,
                              edo:SpareQuantity .
+
+
+###  https://w3id.org/energy-domain/edo#BonnetMaterial
+edo:BonnetMaterial rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "BonnetMaterial" ;
+                   skos:prefLabel "Bonnet material"@en ,
+                                  "Material do bonnet"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:bonnet_material" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:StringValue ;
+                   edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#BooleanValue
@@ -6906,6 +6925,23 @@ edo:LayingMinimumRadiusTable_TensileArmourAnnulusCondition rdf:type owl:Class ;
                                                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                                            edo:hasTypedValue edo:StringValue ;
                                                            edo:hasValueCardinality edo:MultiValue .
+
+
+###  https://w3id.org/energy-domain/edo#LeakageClass
+edo:LeakageClass rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "LeakageClass" ;
+                 skos:definition "Classe de vedação da válvula conforme ISO 5208"@pt-br ,
+                                 "Valve leakage class as per ISO 5208"@en ;
+                 skos:prefLabel "Classe de vedação"@pt-br ,
+                                "Leakage class"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:leakage_class" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:StringValue ;
+                 edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#Length
@@ -13031,6 +13067,21 @@ edo:StdUmbilicalType rdf:type owl:Class ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#StemMaterial
+edo:StemMaterial rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "StemMaterial" ;
+                 skos:prefLabel "Material da haste"@pt-br ,
+                                "Stem material"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:stem_material" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:StringValue ;
+                 edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#StemMechanism
 edo:StemMechanism rdf:type owl:Class ;
                   rdfs:subClassOf edo:DomainAttribute ;
@@ -15884,13 +15935,13 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:KiloN
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -16422,10 +16473,10 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                           qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
@@ -16462,11 +16513,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent 1 ;
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
