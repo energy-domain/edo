@@ -12725,6 +12725,7 @@ edo:SingleActingHydraulicActuator rdf:type owl:Class ;
                                   skos:prefLabel "Atuador hidráulico de ação simples"@pt-br ,
                                                  "Single-acting hydraulic actuator"@en ;
                                   edo:entityStatus "NEW" ;
+                                  edo:hasAttribute edo:SpringParamsAttribute ;
                                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                                   edo:hasExternalRef "MDA:SingleActingHydraulicActuator" ;
                                   edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -13131,6 +13132,83 @@ edo:SpringMaterial rdf:type owl:Class ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:StringValue ;
                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SpringParamsAttribute
+edo:SpringParamsAttribute rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          rdfs:label "Spring params" .
+
+
+###  https://w3id.org/energy-domain/edo#SpringParamsFreeLength
+edo:SpringParamsFreeLength rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ,
+                                           edo:SpringParamsAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "SpringParamsFreeLength" ;
+                           skos:definition "Base spring length, without loading"@en ,
+                                           "Comprimento básico da mola, sem carregamento"@pt-br ;
+                           skos:prefLabel "Comprimento livre"@pt-br ,
+                                          "Free length"@en ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "MDA:spring_params.free_length" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:MilliM ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SpringParamsFullyCompressedLoad
+edo:SpringParamsFullyCompressedLoad rdf:type owl:Class ;
+                                    rdfs:subClassOf edo:DomainAttribute ,
+                                                    edo:SpringParamsAttribute ;
+                                    dcterms:accessRights "PUBLIC" ;
+                                    dcterms:identifier "SpringParamsFullyCompressedLoad" ;
+                                    skos:prefLabel "Carga na condição totalmente comprimida"@pt-br ,
+                                                   "Load at fully compressed condition"@en ;
+                                    edo:entityStatus "NEW" ;
+                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                    edo:hasExternalRef "MDA:spring_params.fully_compressed_load" ;
+                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                    edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:KiloN ;
+                                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SpringParamsPreload
+edo:SpringParamsPreload rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ,
+                                        edo:SpringParamsAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "SpringParamsPreload" ;
+                        skos:prefLabel "Preload"@en ,
+                                       "Pré-carga"@pt-br ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:spring_params.preload" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:KiloN ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SpringParamsSpringConstant
+edo:SpringParamsSpringConstant rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ,
+                                               edo:SpringParamsAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "SpringParamsSpringConstant" ;
+                               skos:definition "Constante elástica (k) da mola"@pt-br ,
+                                               "Spring elastic constant (k)"@en ;
+                               skos:prefLabel "Constante da mola"@pt-br ,
+                                              "Spring constant"@en ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasExternalRef "MDA:spring_params.spring_constant" ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#StandardType
@@ -16112,14 +16190,14 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:KiloN
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -16648,10 +16726,10 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                          qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
@@ -16691,14 +16769,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent 1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
