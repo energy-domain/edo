@@ -17,8 +17,11 @@
 <https://w3id.org/energy-domain/edo> rdf:type owl:Ontology ;
                                       owl:versionIRI <https://w3id.org/energy-domain/edo/v0.0.2> ;
                                       dcterms:description "An ontology designed to represent the energy domain with semantic richness, supporting interoperability across engineering systems and standards (e.g., IFC, CFIHOS, ISO15926)." ;
+                                      dcterms:hasPart <http://w3id.org/energy-domain/edo/shacl> ;
                                       dcterms:title "EDO - Energy Domain Ontology" ;
+                                      rdfs:comment "Associated SHACL shapes are available at http://w3id.org/energy-domain/edo/shacl"@en ;
                                       rdfs:label "Energy Domain Ontology" ;
+                                      rdfs:seeAlso <http://w3id.org/energy-domain/edo/shacl> ;
                                       owl:versionInfo "v0.0.3" .
 
 #################################################################
@@ -31,6 +34,10 @@ dcterms:accessRights rdf:type owl:AnnotationProperty .
 
 ###  http://purl.org/dc/terms/description
 dcterms:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/hasPart
+dcterms:hasPart rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/terms/identifier
@@ -244,13 +251,13 @@ edo:hasLifecycleUsagePhase rdf:type owl:AnnotationProperty ;
                            rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
 
 
-###  https://w3id.org/energy-domain/edo#hasLoadCase
-edo:hasLoadCase rdf:type owl:AnnotationProperty ;
-                rdfs:label "Has load case"@en ,
-                           "Possui caso de carregamento"@pt-br ;
-                skos:definition "Associa um elemento de domínio a um cenário específico de carregamento."@pt-br ,
-                                "Associates a domain element with a specific loading scenario."@en ;
-                rdfs:subPropertyOf edo:hasContext .
+###  https://w3id.org/energy-domain/edo#hasLoad
+edo:hasLoad rdf:type owl:AnnotationProperty ;
+            rdfs:label "Has load case"@en ,
+                       "Possui caso de carregamento"@pt-br ;
+            skos:definition "Associa um elemento de domínio a um cenário específico de carregamento."@pt-br ,
+                            "Associates a domain element with a specific loading scenario."@en ;
+            rdfs:subPropertyOf edo:hasContext .
 
 
 ###  https://w3id.org/energy-domain/edo#hasLocationType
@@ -1341,6 +1348,22 @@ edo:BendStiffener rdf:type owl:Class ;
                                    edo:WeightInWater .
 
 
+###  https://w3id.org/energy-domain/edo#BendingMoment
+edo:BendingMoment rdf:type owl:Class ;
+                  rdfs:subClassOf edo:DomainAttribute ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "BendingMoment" ;
+                  skos:prefLabel "Bending moment"@en ,
+                                 "Momento fletor"@pt-br ;
+                  edo:entityStatus "NEW" ;
+                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                  edo:hasExternalRef "MDA:normal_design_loads.bending_moment" ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:KiloN-M ;
+                  edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#BendingMomentTable_BendingMoment
 edo:BendingMomentTable_BendingMoment rdf:type owl:Class ;
                                      rdfs:subClassOf edo:BendingStiffnessTableColumn ;
@@ -2144,10 +2167,12 @@ edo:CompatibleFluids rdf:type owl:Class ;
                                     "Fluidos compatíveis"@pt-br ;
                      edo:entityStatus "NEW" ;
                      edo:hasAttributeScope edo:TypeLevelAttribute ;
-                     edo:hasExternalRef "MDA:compatible_fluids" ;
+                     edo:hasExternalRef "MDA:compatible_fluids" ,
+                                        "MDA:hydraulic_fluid_spec.compatible_fluids" ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:StringValue ;
-                     edo:hasValueCardinality edo:MultiValue .
+                     edo:hasValueCardinality edo:MultiValue ,
+                                             edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#CompatibleSupportType
@@ -2281,6 +2306,24 @@ edo:ConductorCrossSection rdf:type owl:Class ;
                           edo:hasTypedValue edo:FloatValue ;
                           edo:hasUnit unit:MM2 ;
                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#ConnSize
+edo:ConnSize rdf:type owl:Class ;
+             rdfs:subClassOf edo:_CAT-Specification ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "ConnSize" ;
+             skos:definition "Connector nominal diameter, associated to diameter of matching hub; not to be confused with internal bore diameter"@en ,
+                             "Diâmetro nominal do conector, associado ao diâmetro do hub correspondente; não deve ser confundido com o diâmetro da passagem interna (bore)"@pt-br ;
+             skos:prefLabel "Connector size"@en ,
+                            "Tamanho do conector"@pt-br ;
+             edo:entityStatus "NEW" ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasExternalRef "MDA:size" ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:IN ;
+             edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#ConnectionModule
@@ -2804,6 +2847,18 @@ edo:DesignLifeSpan rdf:type owl:Class ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#DesignLoadsSpec
+edo:DesignLoadsSpec rdf:type owl:Class ;
+                    rdfs:subClassOf edo:Spec ;
+                    rdfs:label "Design Loads Specification"@en ,
+                               "Especificação de Carregamentos de Projeto"@pt-br ;
+                    skos:definition "Define o conjunto padrão de atributos aplicáveis aos carregamentos de projeto, incluindo esforços mecânicos e condições internas relevantes para o dimensionamento."@pt-br ,
+                                    "Defines the standard set of attributes applicable to design loads, including mechanical efforts and internal conditions relevant for design."@en ;
+                    edo:hasAttribute edo:BendingMoment ,
+                                     edo:InternalPressure ,
+                                     edo:Tension .
+
+
 ###  https://w3id.org/energy-domain/edo#DesignPhase
 edo:DesignPhase rdf:type owl:Class ;
                 rdfs:subClassOf edo:LifecyclePhase ;
@@ -2970,7 +3025,8 @@ edo:DimensionsDrawing rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#DimensionsTableColumn
 edo:DimensionsTableColumn rdf:type owl:Class ;
-                          rdfs:subClassOf edo:DrawingDimensionsTableAttribute .
+                          rdfs:subClassOf edo:DrawingDimensionsTableAttribute ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#DisplacedFluidVolume
@@ -3586,7 +3642,7 @@ edo:ElementClassification rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#EmergencyUnlockingFluidVolume
 edo:EmergencyUnlockingFluidVolume rdf:type owl:Class ;
-                                  rdfs:subClassOf edo:DomainAttribute ;
+                                  rdfs:subClassOf edo:_CAT-TechnicalDetail ;
                                   dcterms:accessRights "PUBLIC" ;
                                   dcterms:identifier "EmergencyUnlockingFluidVolume" ;
                                   skos:prefLabel "Fluid volume for emergency unlocking"@en ,
@@ -4560,21 +4616,29 @@ edo:FlowConnector rdf:type owl:Class ;
                   skos:prefLabel "Conector de Fluxo"@pt-br ,
                                  "Flow Connector"@en ;
                   edo:entityStatus "NEW" ;
-                  edo:hasAttribute edo:EmergencyUnlockingFluidVolume ,
+                  edo:hasAttribute edo:ConnSize ,
+                                   edo:EmergencyUnlockingFluidVolume ,
                                    edo:FlowConnectorOrientation ,
                                    edo:HasSoftLanding ,
                                    edo:HubPupPieceDistance ,
                                    edo:LockingFluidVolume ,
                                    edo:LockingMechanism ,
                                    edo:LockingStroke ,
+                                   edo:Metallurgy ,
                                    edo:NumBores ,
                                    edo:SecondaryUnlockingFluidVolume ,
-                                   edo:SelfPenetrationDepthAttribute ,
                                    edo:SoftLandingStroke ,
                                    edo:UnlockingFluidVolume ,
-                                   edo:WeightInWater ;
+                                   edo:WeightInWater ,
+                                   edo:WeightInWaterEmpty ;
                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                   edo:hasExternalRef "MDA:FlowConnector" ;
+                  edo:hasLoad edo:FlowConnector_DesignLoad_Extreme ,
+                              edo:FlowConnector_DesignLoad_Normal ,
+                              edo:FlowConnector_DesignLoad_Survival ;
+                  edo:hasSpec edo:FlangeSpec ,
+                              edo:GasketSpec ,
+                              edo:HydraulicFluidSpec ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
                   edo:ifc_objectType "FlowConnector" ;
                   edo:ifc_predefinedType "USERDEFINED" .
@@ -4582,7 +4646,7 @@ edo:FlowConnector rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#FlowConnectorOrientation
 edo:FlowConnectorOrientation rdf:type owl:Class ;
-                             rdfs:subClassOf edo:DomainAttribute ;
+                             rdfs:subClassOf edo:_CAT-Specification ;
                              dcterms:accessRights "PUBLIC" ;
                              dcterms:identifier "FlowConnectorOrientation" ;
                              skos:prefLabel "Flow Connector Orientation"@en ,
@@ -5410,7 +5474,7 @@ edo:HasSafetyFunction rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#HasSoftLanding
 edo:HasSoftLanding rdf:type owl:Class ;
-                   rdfs:subClassOf edo:DomainAttribute ;
+                   rdfs:subClassOf edo:_CAT-Specification ;
                    dcterms:accessRights "PUBLIC" ;
                    dcterms:identifier "HasSoftLanding" ;
                    skos:prefLabel "Has soft landing system"@en ,
@@ -5614,7 +5678,7 @@ edo:HubProtectionCap rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#HubPupPieceDistance
 edo:HubPupPieceDistance rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ;
+                        rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
                         dcterms:accessRights "PUBLIC" ;
                         dcterms:identifier "HubPupPieceDistance" ;
                         skos:prefLabel "Distância da face do hub à extremidade do pup piece"@pt-br ,
@@ -5655,6 +5719,15 @@ edo:HydraulicActuator rdf:type owl:Class ;
 edo:HydraulicFluidAttribute rdf:type owl:Class ;
                             rdfs:subClassOf edo:DomainAttribute ;
                             rdfs:label "Hydraulic fluid specification"@en .
+
+
+###  https://w3id.org/energy-domain/edo#HydraulicFluidSpec
+edo:HydraulicFluidSpec rdf:type owl:Class ;
+                       rdfs:subClassOf edo:Spec ;
+                       skos:prefLabel "Especificação do fluido hidráulico"@pt-br ,
+                                      "Hydraulic fluid specification"@en ;
+                       edo:hasAttribute edo:CompatibleFluids ,
+                                        edo:SaeAs4059ContaminationClass .
 
 
 ###  https://w3id.org/energy-domain/edo#HydraulicJumper
@@ -7406,7 +7479,7 @@ edo:LockedLength rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LockingFluidVolume
 edo:LockingFluidVolume rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ;
+                       rdfs:subClassOf edo:_CAT-TechnicalDetail ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "LockingFluidVolume" ;
                        skos:prefLabel "Fluid volume for locking"@en ,
@@ -7421,7 +7494,7 @@ edo:LockingFluidVolume rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LockingMechanism
 edo:LockingMechanism rdf:type owl:Class ;
-                     rdfs:subClassOf edo:DomainAttribute ;
+                     rdfs:subClassOf edo:_CAT-Specification ;
                      dcterms:accessRights "PUBLIC" ;
                      dcterms:identifier "LockingMechanism" ;
                      skos:prefLabel "Locking mechanism"@en ,
@@ -7436,7 +7509,7 @@ edo:LockingMechanism rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LockingStroke
 edo:LockingStroke rdf:type owl:Class ;
-                  rdfs:subClassOf edo:DomainAttribute ;
+                  rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
                   dcterms:accessRights "PUBLIC" ;
                   dcterms:identifier "LockingStroke" ;
                   skos:prefLabel "Curso de travamento"@pt-br ,
@@ -8968,6 +9041,23 @@ edo:MetallicTubing rdf:type owl:Class ;
                    edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#Metallurgy
+edo:Metallurgy rdf:type owl:Class ;
+               rdfs:subClassOf edo:_CAT-Specification ;
+               dcterms:accessRights "PUBLIC" ;
+               dcterms:identifier "Metallurgy" ;
+               skos:definition "Classe de metalurgia das áreas expostas a fluidos de processo"@pt-br ,
+                               "Metallurgy class for areas exposed to process fluids"@en ;
+               skos:prefLabel "Metallurgy"@en ,
+                              "Metalurgia"@pt-br ;
+               edo:entityStatus "NEW" ;
+               edo:hasAttributeScope edo:TypeLevelAttribute ;
+               edo:hasExternalRef "MDA:metallurgy" ;
+               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+               edo:hasTypedValue edo:StringValue ;
+               edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MeteringValve
 edo:MeteringValve rdf:type owl:Class ;
                   rdfs:subClassOf edo:AuxiliaryModule ,
@@ -9640,7 +9730,7 @@ edo:NuclearPowerGeneration rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#NumBores
 edo:NumBores rdf:type owl:Class ;
-             rdfs:subClassOf edo:DomainAttribute ;
+             rdfs:subClassOf edo:_CAT-Specification ;
              dcterms:accessRights "PUBLIC" ;
              dcterms:identifier "NumBores" ;
              skos:prefLabel "Number of flowline bores"@en ,
@@ -11899,7 +11989,7 @@ edo:RigidRiserTopConnector rdf:type owl:Class ;
                                             edo:WeightInWater ;
                            edo:hasEnd edo:RigidRiserTopConnector_End_Top ;
                            edo:hasExternalRef "MDA:RigidRiserTopConnector" ;
-                           edo:hasLoadCase edo:RigidRiserTopConnector_LoadCase_Hydrotest .
+                           edo:hasLoad edo:RigidRiserTopConnector_LoadCase_Hydrotest .
 
 
 ###  https://w3id.org/energy-domain/edo#RingGasket
@@ -12379,7 +12469,8 @@ edo:SaeAs4059ContaminationClass rdf:type owl:Class ;
                                                "SAE AS4059 contamination class"@en ;
                                 edo:entityStatus "NEW" ;
                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
-                                edo:hasExternalRef "MDA:sae_as4059_contamination_class" ;
+                                edo:hasExternalRef "MDA:hydraulic_fluid_spec.sae_as4059_contamination_class" ,
+                                                   "MDA:sae_as4059_contamination_class" ;
                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                 edo:hasTypedValue edo:StringValue ;
                                 edo:hasValueCardinality edo:SingleValue .
@@ -12449,7 +12540,7 @@ edo:SandDetector rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SecondaryUnlockingFluidVolume
 edo:SecondaryUnlockingFluidVolume rdf:type owl:Class ;
-                                  rdfs:subClassOf edo:DomainAttribute ;
+                                  rdfs:subClassOf edo:_CAT-TechnicalDetail ;
                                   dcterms:accessRights "PUBLIC" ;
                                   dcterms:identifier "SecondaryUnlockingFluidVolume" ;
                                   skos:prefLabel "Fluid volume for secondary unlocking"@en ,
@@ -14274,7 +14365,8 @@ edo:TemperatureClass rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#TemperatureRangeAttribute
 edo:TemperatureRangeAttribute rdf:type owl:Class ;
                               rdfs:subClassOf edo:_CAT-Specification ;
-                              rdfs:label "Temperature Range" .
+                              rdfs:label "Temperature Range" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#TemperatureSensor
@@ -15482,7 +15574,7 @@ edo:UnitFunction rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#UnlockingFluidVolume
 edo:UnlockingFluidVolume rdf:type owl:Class ;
-                         rdfs:subClassOf edo:DomainAttribute ;
+                         rdfs:subClassOf edo:_CAT-TechnicalDetail ;
                          dcterms:accessRights "PUBLIC" ;
                          dcterms:identifier "UnlockingFluidVolume" ;
                          skos:prefLabel "Fluid volume for unlocking"@en ,
@@ -15702,6 +15794,24 @@ edo:WeightInWater rdf:type owl:Class ;
                   edo:hasTypedValue edo:FloatValue ;
                   edo:hasUnit unit:KiloGM_F ;
                   edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#WeightInWaterEmpty
+edo:WeightInWaterEmpty rdf:type owl:Class ;
+                       rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "WeightInWaterEmpty" ;
+                       skos:definition "Effective weight when submerged, subtracting upthrust"@en ,
+                                       "Peso efetivo quando submerso, descontando-se o empuxo"@pt-br ;
+                       skos:prefLabel "Peso na água, vazio"@pt-br ,
+                                      "Weight in water, empty"@en ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:weight_in_water_empty" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:MilliM ;
+                       edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#WeldedConnection
@@ -16214,14 +16324,14 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:DEG
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:KiloN
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:DEG
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -16743,15 +16853,42 @@ edo:FlangeAdapter_End_Out rdf:type owl:NamedIndividual ;
                           edo:hasSpec edo:FlangeSpec .
 
 
+###  https://w3id.org/energy-domain/edo#FlowConnector_DesignLoad_Extreme
+edo:FlowConnector_DesignLoad_Extreme rdf:type owl:NamedIndividual ;
+                                     rdfs:label "Carregamento de projeto em condição extrema"@pt-br ,
+                                                "Extreme design load"@en ;
+                                     skos:definition "Representa o cenário de carregamento de projeto aplicado a um Flow Connector sob condições extremas."@pt-br ,
+                                                     "Represents the design loading scenario applied to a Flow Connector under extreme conditions."@en ;
+                                     edo:hasSpec edo:DesignLoadsSpec .
+
+
+###  https://w3id.org/energy-domain/edo#FlowConnector_DesignLoad_Normal
+edo:FlowConnector_DesignLoad_Normal rdf:type owl:NamedIndividual ;
+                                    rdfs:label "Carregamento de projeto em condição normal"@pt-br ,
+                                               "Normal design load"@en ;
+                                    skos:definition "Representa o cenário de carregamento de projeto aplicado a um Flow Connector sob condições normais de operação."@pt-br ,
+                                                    "Represents the design loading scenario applied to a Flow Connector under normal operating conditions."@en ;
+                                    edo:hasSpec edo:DesignLoadsSpec .
+
+
+###  https://w3id.org/energy-domain/edo#FlowConnector_DesignLoad_Survival
+edo:FlowConnector_DesignLoad_Survival rdf:type owl:NamedIndividual ;
+                                      rdfs:label "Carregamento de projeto em condição de sobrevivência"@pt-br ,
+                                                 "Survival design load"@en ;
+                                      skos:definition "Representa o cenário de carregamento de projeto aplicado a um Flow Connector sob condições de sobrevivência."@pt-br ,
+                                                      "Represents the design loading scenario applied to a Flow Connector under survival conditions."@en ;
+                                      edo:hasSpec edo:DesignLoadsSpec .
+
+
 ###  https://w3id.org/energy-domain/edo#M3-PER-M
 edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent -1 ;
+             qudt:hasFactorUnit [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent 3 ;
+                                [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -16767,17 +16904,17 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent 1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -16811,14 +16948,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
