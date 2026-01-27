@@ -20,7 +20,7 @@
                                       dcterms:hasPart <http://w3id.org/energy-domain/edo/shacl> ;
                                       dcterms:title "EDO - Energy Domain Ontology" ;
                                       rdfs:comment "Associated SHACL shapes are available at http://w3id.org/energy-domain/edo/shacl"@en ;
-                                      rdfs:label "Energy Domain Ontology" ;                                      
+                                      rdfs:label "Energy Domain Ontology" ;
                                       owl:versionInfo "v0.0.3" .
 
 #################################################################
@@ -201,6 +201,15 @@ edo:hasContext rdf:type owl:AnnotationProperty ;
                rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
 
 
+###  https://w3id.org/energy-domain/edo#hasCurve
+edo:hasCurve rdf:type owl:AnnotationProperty ;
+             rdfs:label "Has stiffness curve"@en ,
+                        "Possui curva de rigidez"@pt-br ;
+             skos:definition "Associa um elemento de domínio a uma curva de rigidez."@pt-br ,
+                             "Associates a domain element with a stiffness curve."@en ;
+             rdfs:subPropertyOf edo:hasContext .
+
+
 ###  https://w3id.org/energy-domain/edo#hasDiscipline
 edo:hasDiscipline rdf:type owl:AnnotationProperty ;
                   rdfs:label "Has Discipline"@en ,
@@ -313,7 +322,7 @@ edo:hasValueCardinality rdf:type owl:AnnotationProperty ;
                         rdfs:label "Has Value Cardinality"@en ,
                                    "Possui cardinalidade de valor"@pt-br ;
                         skos:definition "Indica a quantidade de valores que a entidade possui"@pt-br ,
-                                        "Indicates the quantity of values the entity support"@en ;                        
+                                        "Indicates the quantity of values the entity support"@en ;
                         rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
 
 
@@ -555,6 +564,21 @@ edo:ActuationPressure rdf:type owl:Class ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#AdaptorCapType
+edo:AdaptorCapType rdf:type owl:Class ;
+                   rdfs:subClassOf edo:_CAT-Specification ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "AdaptorCapType" ;
+                   skos:prefLabel "Adaptor cap type"@en ,
+                                  "Tipo de capacete adaptador"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:adaptor_cap_type" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:StringValue ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#AdministrativeAttribute
 edo:AdministrativeAttribute rdf:type owl:Class ;
                             rdfs:subClassOf edo:AttributeNature .
@@ -683,6 +707,22 @@ edo:AngleChokeValve rdf:type owl:Class ;
                     edo:entityStatus "NEW" ;
                     edo:hasDiscipline edo:ValveEngineering ;
                     edo:hasExternalRef "MDA:AngleChokeValve" .
+
+
+###  https://w3id.org/energy-domain/edo#AnglePtos
+edo:AnglePtos rdf:type owl:Class ;
+              rdfs:subClassOf edo:StiffnessCurvePoint ;
+              dcterms:accessRights "PUBLIC" ;
+              dcterms:identifier "AnglePtos" ;
+              skos:prefLabel "Angle"@en ,
+                             "Ângulo"@pt-br ;
+              edo:entityStatus "NEW" ;
+              edo:hasAttributeScope edo:TypeLevelAttribute ;
+              edo:hasExternalRef "MDA:angle" ;
+              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+              edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:DEG ;
+              edo:hasValueCardinality edo:MultiValue .
 
 
 ###  https://w3id.org/energy-domain/edo#AnodeCollarSet
@@ -4051,6 +4091,22 @@ edo:ExtensionLength rdf:type owl:Class ;
                     edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#ExtensionOuterDiameter
+edo:ExtensionOuterDiameter rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "ExtensionOuterDiameter" ;
+                           skos:prefLabel "Diâmetro externo na extremidade da extensão"@pt-br ,
+                                          "Outer diameter at extension end"@en ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "MDA:extension_outer_diameter" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:MilliM ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#ExternalConcreteCoating
 edo:ExternalConcreteCoating rdf:type owl:Class ;
                             rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -4515,9 +4571,11 @@ edo:FlexibleJoint rdf:type owl:Class ;
                   edo:entityStatus "NEW" ;
                   edo:hasAttribute edo:CompatibleSupportType ,
                                    edo:ExtensionLength ,
+                                   edo:ExtensionOuterDiameter ,
                                    edo:MaxCockingAngle ,
                                    edo:MaxDynamicRotationalStiffness ,
                                    edo:MaxStaticRotationalStiffness ;
+                  edo:hasCurve edo:FlexibleJoint_StiffnessCurve_Hydrotest ;
                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                   edo:hasExternalRef "MDA:FlexibleJoint" ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -5812,6 +5870,11 @@ edo:HistoricalAttribute rdf:type owl:Class ;
                                    "Historical Attribute"@en ;
                         skos:definition "Representa registros de eventos passados, inspeções ou modificações"@pt-br ,
                                         "Represents records of past events, inspections, or modifications"@en .
+
+
+###  https://w3id.org/energy-domain/edo#HoldElement
+edo:HoldElement rdf:type owl:Class ;
+                skos:prefLabel "Hold"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#HoldingBandage
@@ -7438,7 +7501,8 @@ edo:LinePipe rdf:type owl:Class ;
              skos:prefLabel "Line pipe"@en ,
                             "Tubo rígido"@pt-br ;
              edo:entityStatus "NEW" ;
-             edo:hasAttribute edo:HeatReference ;
+             edo:hasAttribute edo:HeatReference ,
+                              edo:Mass ;
              edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
              edo:hasExternalRef "MDA:LinePipe" ;
              edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -7484,10 +7548,6 @@ edo:LineSection rdf:type owl:Class ;
                 edo:hasDiscipline edo:SubseaEngineering ,
                                   edo:SubseaRigidPipesEngineering ;
                 edo:hasExternalRef "MDA:LineSection" .
-
-
-###  https://w3id.org/energy-domain/edo#LineSpan
-edo:LineSpan rdf:type owl:Class .
 
 
 ###  https://w3id.org/energy-domain/edo#LineSupport
@@ -7881,6 +7941,22 @@ edo:LowResistanceTape rdf:type owl:Class ;
                       edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#LowestAnticipatedServiceTemperature
+edo:LowestAnticipatedServiceTemperature rdf:type owl:Class ;
+                                        rdfs:subClassOf edo:_CAT-Specification ;
+                                        dcterms:accessRights "PUBLIC" ;
+                                        dcterms:identifier "LowestAnticipatedServiceTemperature" ;
+                                        skos:prefLabel "Lowest anticipated service temperature"@en ,
+                                                       "Mínima temperatura de serviço prevista"@pt-br ;
+                                        edo:entityStatus "NEW" ;
+                                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                        edo:hasExternalRef "MDA:last" ;
+                                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                        edo:hasTypedValue edo:FloatValue ;
+                                        edo:hasUnit unit:DEG_C ;
+                                        edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#Lubricant
 edo:Lubricant rdf:type owl:Class ;
               rdfs:subClassOf edo:DomainAttribute ;
@@ -8156,8 +8232,8 @@ edo:MasterLink rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Material
 edo:Material rdf:type owl:Class ;
-             rdfs:subClassOf edo:DomainAttribute ,
-                             edo:MaterialAttribute ;
+             rdfs:subClassOf edo:MaterialAttribute ,
+                             edo:_CAT-Specification ;
              dcterms:accessRights "PUBLIC" ;
              dcterms:identifier "Material" ;
              skos:prefLabel "Material"@en ,
@@ -8488,6 +8564,7 @@ edo:MaxDynamicRotationalStiffness rdf:type owl:Class ;
                                   edo:hasExternalRef "MDA:max_dynamic_rotational_stiffness" ;
                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                   edo:hasTypedValue edo:FloatValue ;
+                                  edo:hasUnit unit:KiloN-M-PER-DEG ;
                                   edo:hasValueCardinality edo:SingleValue .
 
 
@@ -8761,6 +8838,7 @@ edo:MaxStaticRotationalStiffness rdf:type owl:Class ;
                                  edo:hasExternalRef "MDA:max_static_rotational_stiffness" ;
                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                  edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:KiloN-M-PER-DEG ;
                                  edo:hasValueCardinality edo:SingleValue .
 
 
@@ -11822,7 +11900,10 @@ edo:PullInTube rdf:type owl:Class ;
                skos:prefLabel "Pull-in tube"@en ,
                               "Pull-in tube"@pt-br ;
                edo:entityStatus "NEW" ;
+               edo:hasAttribute edo:AdaptorCapType ,
+                                edo:Material ;
                edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+               edo:hasEnd edo:PullInTube_End_Bottom ;
                edo:hasExternalRef "MDA:PullInTube" ;
                edo:ifc_equivalentClass "IfcPipeFitting" ;
                edo:ifc_objectType "PullInTube" ;
@@ -12313,10 +12394,11 @@ edo:RigidRiserTopConnector rdf:type owl:Class ;
                                           "Terminação de topo de duto rígido"@pt-br ;
                            edo:entityStatus "NEW" ;
                            edo:hasAttribute edo:InnerDiameter ,
+                                            edo:LowestAnticipatedServiceTemperature ,
                                             edo:MaxPressure ,
-                                            edo:OuterDiameter ,
                                             edo:TopFlangeClearance ,
                                             edo:TopFlangeElevation ,
+                                            edo:TotalOuterDiameter ,
                                             edo:WeightInWater ;
                            edo:hasEnd edo:RigidRiserTopConnector_End_Top ;
                            edo:hasExternalRef "MDA:RigidRiserTopConnector" ;
@@ -13769,6 +13851,47 @@ edo:StiffTorsionalStiffnessAtSeaLevel rdf:type owl:Class ;
                                       edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#Stiffness
+edo:Stiffness rdf:type owl:Class ;
+              rdfs:subClassOf edo:StiffnessCurvePoint ;
+              dcterms:accessRights "PUBLIC" ;
+              dcterms:identifier "Stiffness" ;
+              skos:prefLabel "Rigidez"@pt-br ,
+                             "Stiffness"@en ;
+              edo:entityStatus "NEW" ;
+              edo:hasAttributeScope edo:TypeLevelAttribute ;
+              edo:hasExternalRef "MDA:Stiffness" ;
+              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+              edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:KiloN-M-PER-DEG ;
+              edo:hasValueCardinality edo:MultiValue .
+
+
+###  https://w3id.org/energy-domain/edo#StiffnessCurvePoint
+edo:StiffnessCurvePoint rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "StiffnessCurvePoint" ;
+                        skos:definition "Representa um ponto individual de uma curva de rigidez, definido pela relação entre ângulo e rigidez, utilizado para descrever o comportamento mecânico do componente sob determinadas condições."@pt-br ,
+                                        "Represents an individual point of a stiffness curve, defined by the relationship between angle and stiffness, used to describe the mechanical behavior of the component under specific conditions."@en ;
+                        skos:prefLabel "Ponto da Curva de Rigidez"@pt-br ,
+                                       "Stiffness Curve Point"@en ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:stiffness_curve.points" .
+
+
+###  https://w3id.org/energy-domain/edo#StiffnessCurveSpec
+edo:StiffnessCurveSpec rdf:type owl:Class ;
+                       rdfs:subClassOf edo:Spec ;
+                       rdfs:label "Especificação de Curva de Rigidez"@pt-br ,
+                                  "Stiffness Curve Specification"@en ;
+                       skos:definition "Define o conjunto padrão de atributos aplicáveis a uma curva de rigidez, incluindo condições internas e a descrição dos pontos que caracterizam o comportamento de rigidez do elemento."@pt-br ,
+                                       "Defines the standard set of attributes applicable to a stiffness curve, including internal conditions and the definition of points that characterize the stiffness behavior of the element."@en ;
+                       edo:hasAttribute edo:InternalPressure ,
+                                        edo:InternalTemperature ,
+                                        edo:StiffnessCurvePoint .
+
+
 ###  https://w3id.org/energy-domain/edo#StopperCollar
 edo:StopperCollar rdf:type owl:Class ;
                   rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -14102,7 +14225,10 @@ edo:StressJoint rdf:type owl:Class ;
                 skos:prefLabel "Stress joint"@en ,
                                "Stress joint"@pt-br ;
                 edo:entityStatus "NEW" ;
+                edo:hasAttribute edo:CompatibleSupportType ,
+                                 edo:Material ;
                 edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                edo:hasEnd edo:StressJoint_End_Bottom ;
                 edo:hasExternalRef "MDA:StressJoint" ;
                 edo:ifc_equivalentClass "IfcPipeFitting" ;
                 edo:ifc_objectType "StressJoint" ;
@@ -14678,8 +14804,7 @@ edo:TaperLength rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TaperedLinePipe
 edo:TaperedLinePipe rdf:type owl:Class ;
-                    rdfs:subClassOf edo:IfcInstanciableElement ,
-                                    edo:RigidPipeSegmentComponent ;
+                    rdfs:subClassOf edo:HoldElement ;
                     dcterms:identifier "TaperedLinePipe" ;
                     skos:prefLabel "Tapered line pipe"@en ,
                                    "Tubo rígido afunilado"@pt-br ;
@@ -14917,7 +15042,7 @@ edo:Tension rdf:type owl:Class ;
             edo:hasExternalRef "MDA:tension" ;
             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
             edo:hasTypedValue edo:FloatValue ;
-            edo:hasUnit unit:KiloN-M ;
+            edo:hasUnit unit:KiloN ;
             edo:hasValueCardinality edo:SingleValue .
 
 
@@ -15532,6 +15657,24 @@ edo:TotalLength rdf:type owl:Class ;
                 edo:hasTypedValue edo:FloatValue ;
                 edo:hasUnit unit:MilliM ;
                 edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TotalOuterDiameter
+edo:TotalOuterDiameter rdf:type owl:Class ;
+                       rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "TotalOuterDiameter" ;
+                       skos:definition "Diâmetro externo máximo, considerando todas as protrusões externas"@pt-br ,
+                                       "Maximum outer diameter, considering all external protrusions"@en ;
+                       skos:prefLabel "Diâmetro externo total"@pt-br ,
+                                      "Total outer diameter"@en ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:total_outer_diameter" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:MilliM ;
+                       edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#TotalStemLength
@@ -16815,14 +16958,14 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -17347,6 +17490,15 @@ edo:FlangeAdapter_End_Out rdf:type owl:NamedIndividual ;
                           edo:hasSpec edo:FlangeSpec .
 
 
+###  https://w3id.org/energy-domain/edo#FlexibleJoint_StiffnessCurve_Hydrotest
+edo:FlexibleJoint_StiffnessCurve_Hydrotest rdf:type owl:NamedIndividual ;
+                                           rdfs:label "Curva de rigidez em teste hidrostático"@pt-br ,
+                                                      "Hydrotest stiffness curve"@en ;
+                                           skos:definition "Representa a curva de rigidez aplicada ao Flexible Joint durante o cenário de teste hidrostático, considerando condições internas e o comportamento de rigidez em função do ângulo."@pt-br ,
+                                                           "Represents the stiffness curve applied to the Flexible Joint during the hydrostatic test scenario, considering internal conditions and stiffness behavior as a function of angle."@en ;
+                                           edo:hasSpec edo:StiffnessCurveSpec .
+
+
 ###  https://w3id.org/energy-domain/edo#FlowConnector_DesignLoad_Extreme
 edo:FlowConnector_DesignLoad_Extreme rdf:type owl:NamedIndividual ;
                                      rdfs:label "Carregamento de projeto em condição extrema"@pt-br ,
@@ -17399,16 +17551,16 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
+                                          qudt:hasUnit unit:SEC
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -17442,10 +17594,7 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
@@ -17453,6 +17602,9 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
@@ -17460,6 +17612,15 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                  rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
                  rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
                  rdfs:label "Newton per square meter per radian"@en .
+
+
+###  https://w3id.org/energy-domain/edo#PullInTube_End_Bottom
+edo:PullInTube_End_Bottom rdf:type owl:NamedIndividual ;
+                          rdfs:label "Bottom end of pull-in tube"@en ,
+                                     "Extremidade inferior do pull-in tube"@pt-br ;
+                          skos:definition "Representa a extremidade funcional inferior do Pull-in Tube, responsável pela conexão mecânica com o elemento subsequente do sistema, como jumper, riser, stress joint ou outro componente associado."@pt-br ,
+                                          "Represents the bottom functional end of the Pull-in Tube, responsible for the mechanical connection to the subsequent system element, such as a jumper, riser, stress joint, or other associated component."@en ;
+                          edo:hasSpec edo:FlangeSpec .
 
 
 ###  https://w3id.org/energy-domain/edo#RigidRiserTopConnector_End_Top
@@ -17478,6 +17639,15 @@ edo:RigidRiserTopConnector_LoadCase_Hydrotest rdf:type owl:NamedIndividual ;
                                               skos:definition "Representa o cenário de carregamento aplicado ao Rigid Riser Top Connector durante o teste hidrostático."@pt-br ,
                                                               "Represents the loading scenario applied to the Rigid Riser Top Connector during hydrostatic testing."@en ;
                                               edo:hasSpec edo:LoadCaseSpec .
+
+
+###  https://w3id.org/energy-domain/edo#StressJoint_End_Bottom
+edo:StressJoint_End_Bottom rdf:type owl:NamedIndividual ;
+                           rdfs:label "Bottom end of stress joint"@en ,
+                                      "Extremidade inferior do stress joint"@pt-br ;
+                           skos:definition "Representa a extremidade funcional inferior do Stress Joint, responsável pela conexão mecânica com o elemento subsequente do sistema, como jumper, flowline ou outro componente estrutural."@pt-br ,
+                                           "Represents the bottom functional end of the Stress Joint, responsible for the mechanical connection to the subsequent system element, such as a jumper, flowline, or other structural component."@en ;
+                           edo:hasSpec edo:FlangeSpec .
 
 
 #################################################################
