@@ -9877,6 +9877,21 @@ edo:MultiValue rdf:type owl:Class ;
                           "Múltiplos Valores"@pt-bt .
 
 
+###  https://w3id.org/energy-domain/edo#N2TestPortType
+edo:N2TestPortType rdf:type owl:Class ;
+                   rdfs:subClassOf edo:_CAT-Specification ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "N2TestPortType" ;
+                   skos:prefLabel "N₂ test port type"@en ,
+                                  "Tipo de pórtico para teste de N₂"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:n2_test_port_type" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:StringValue ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#NegativeTolerance
 edo:NegativeTolerance rdf:type owl:Class ;
                       rdfs:subClassOf edo:DomainAttribute ,
@@ -11024,6 +11039,7 @@ edo:PipePullingHead rdf:type owl:Class ;
                     skos:prefLabel "Cabeça de Tração do Duto"@pt-br ,
                                    "Pipe Pulling Head"@en ;
                     edo:hasAttribute edo:FlangeType ,
+                                     edo:N2TestPortType ,
                                      edo:PullingHeadType ,
                                      edo:RingGasketInnerDIameter ,
                                      edo:RingGasketMaterial ,
@@ -11031,11 +11047,11 @@ edo:PipePullingHead rdf:type owl:Class ;
                                      edo:RingGasketPressureRating ,
                                      edo:RingGasketSpecification ,
                                      edo:RingGasketStandard ,
-                                     edo:RingGasketType ,
-                                     edo:SafeWorkingLoad ;
+                                     edo:RingGasketType ;
                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                       edo:SubseaRigidPipesEngineering ;
                     edo:hasExternalRef "MDA:PipePullingHead" ;
+                    edo:hasSpec edo:FlangeSpec ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "PipePullingHead" ;
                     edo:ifc_predefinedType "USERDEFINED" .
@@ -16866,14 +16882,14 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:DEG
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:DEG
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -17493,7 +17509,10 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent 1 ;
@@ -17501,9 +17520,6 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
