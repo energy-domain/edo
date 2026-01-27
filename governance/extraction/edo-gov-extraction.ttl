@@ -1,0 +1,482 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+@prefix edo: <http://w3id.org/energy-domain/edo#> .
+
+@prefix edo-gov-extraction: <http://w3id.org/energy-domain/edo/governance/extraction#> .
+
+################################################################################
+# Ontology
+################################################################################
+
+edo-gov-extraction:Ontology
+    a owl:Ontology ;
+    rdfs:label "EDO Governance – Extraction Ontology"@en ;
+    rdfs:comment "Ontology for governing derivation and extraction of artifacts from the Energy Domain Ontology (EDO)."@en .
+
+################################################################################
+# Root Concept
+################################################################################
+
+edo-gov-extraction:ExtractionConcept
+    a owl:Class ;
+    rdfs:label "Extraction Concept"@en ;
+    rdfs:comment "Root concept for all entities related to extraction and derivation from EDO."@en .
+
+################################################################################
+# Macro Taxonomy (Human-Oriented)
+################################################################################
+
+edo-gov-extraction:ExtractionClassification
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionConcept ;
+    rdfs:label "Extraction Classification"@en ;
+    rdfs:comment "Controlled vocabularies used to classify extractions."@en .
+
+edo-gov-extraction:ExtractionProcessElement
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionConcept ;
+    rdfs:label "Extraction Process Element"@en ;
+    rdfs:comment "Elements that compose the extraction process itself."@en .
+
+edo-gov-extraction:ExtractionProduct
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionConcept ;
+    rdfs:label "Extraction Product"@en ;
+    rdfs:comment "Artifacts produced as a result of extraction."@en .
+
+edo-gov-extraction:ExtractionContext
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionConcept ;
+    rdfs:label "Extraction Context"@en ;
+    rdfs:comment "Contextual elements describing how and by whom extractions are used."@en .
+
+################################################################################
+# Classification Axes (Controlled Vocabularies)
+################################################################################
+
+edo-gov-extraction:ExtractionIntent
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionClassification ;
+    rdfs:label "Extraction Intent"@en ;
+    rdfs:comment "Controlled vocabulary describing the purpose of an extraction."@en .
+
+edo-gov-extraction:ExtractionMethod
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionClassification ;
+    rdfs:label "Extraction Method"@en ;
+    rdfs:comment "Controlled vocabulary describing how an extraction is performed."@en .
+
+edo-gov-extraction:QueryRole
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionClassification ;
+    rdfs:label "Query Role"@en ;
+    rdfs:comment "Controlled vocabulary describing the semantic role of an extraction query."@en .
+
+################################################################################
+# Process Elements
+################################################################################
+
+edo-gov-extraction:ExtractionSpecification
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionProcessElement ;
+    rdfs:label "Extraction Specification"@en ;
+    rdfs:comment "Formal specification describing what is extracted, why, how, and what is produced."@en .
+
+edo-gov-extraction:ExtractionQuery
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionProcessElement ;
+    rdfs:label "Extraction Query"@en ;
+    rdfs:comment "Versioned and immutable SPARQL query used for extraction."@en .
+
+edo-gov-extraction:ExtractionConfiguration
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionProcessElement ;
+    rdfs:label "Extraction Configuration"@en ;
+    rdfs:comment "Declarative configuration guiding naming, grouping, segmentation and organization of extracted artifacts."@en .
+
+################################################################################
+# Products
+################################################################################
+
+edo-gov-extraction:DerivedArtifact
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionProduct ;
+    rdfs:label "Derived Artifact"@en ;
+    rdfs:comment "Artifact produced as a result of an extraction."@en .
+
+################################################################################
+# Context
+################################################################################
+
+edo-gov-extraction:ExtractionConsumer
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionContext ;
+    rdfs:label "Extraction Consumer"@en ;
+    rdfs:comment "Entity that consumes derived artifacts (e.g., standards, platforms, organizations)."@en .
+
+edo-gov-extraction:ConsumerExtractionProfile
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionContext ;
+    rdfs:label "Consumer Extraction Profile"@en ;
+    rdfs:comment "Profile grouping extraction specifications and configurations for a given consumer."@en .
+
+################################################################################
+# Object Properties
+################################################################################
+
+edo-gov-extraction:hasIntent
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:ExtractionSpecification ;
+    rdfs:range edo-gov-extraction:ExtractionIntent ;
+    rdfs:label "has intent"@en .
+
+edo-gov-extraction:usesMethod
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:ExtractionSpecification ;
+    rdfs:range edo-gov-extraction:ExtractionMethod ;
+    rdfs:label "uses method"@en .
+
+edo-gov-extraction:usesQuery
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:ExtractionSpecification ;
+    rdfs:range edo-gov-extraction:ExtractionQuery ;
+    rdfs:label "uses query"@en .
+
+edo-gov-extraction:produces
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:ExtractionSpecification ;
+    rdfs:range edo-gov-extraction:DerivedArtifact ;
+    rdfs:label "produces"@en .
+
+edo-gov-extraction:hasQueryRole
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:ExtractionQuery ;
+    rdfs:range edo-gov-extraction:QueryRole ;
+    rdfs:label "has query role"@en .
+
+edo-gov-extraction:usesConfiguration
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:ExtractionSpecification ;
+    rdfs:range edo-gov-extraction:ExtractionConfiguration ;
+    rdfs:label "uses configuration"@en .
+
+edo-gov-extraction:forConsumer
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:ConsumerExtractionProfile ;
+    rdfs:range edo-gov-extraction:ExtractionConsumer ;
+    rdfs:label "for consumer"@en .
+
+edo-gov-extraction:includesSpecification
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:ConsumerExtractionProfile ;
+    rdfs:range edo-gov-extraction:ExtractionSpecification ;
+    rdfs:label "includes specification"@en .
+
+################################################################################
+# QueryRole Vocabulary
+################################################################################
+
+edo-gov-extraction:ClassListExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:QueryRole .
+edo-gov-extraction:AttributeListExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:QueryRole .
+edo-gov-extraction:RelationshipListExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:QueryRole .
+edo-gov-extraction:ClassPropertyAssignmentExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:QueryRole .
+edo-gov-extraction:DirectClassPropertyAssignmentExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:QueryRole .
+edo-gov-extraction:ClassRelationshipAssignmentExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:QueryRole .
+edo-gov-extraction:DocumentationExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:QueryRole .
+
+################################################################################
+# ExtractionIntent Vocabulary
+################################################################################
+
+edo-gov-extraction:SchemaDerivation a owl:Class ; rdfs:subClassOf edo-gov-extraction:ExtractionIntent .
+edo-gov-extraction:DictionaryDerivation a owl:Class ; rdfs:subClassOf edo-gov-extraction:ExtractionIntent .
+edo-gov-extraction:ConstraintDerivation a owl:Class ; rdfs:subClassOf edo-gov-extraction:ExtractionIntent .
+edo-gov-extraction:DocumentationDerivation a owl:Class ; rdfs:subClassOf edo-gov-extraction:ExtractionIntent .
+edo-gov-extraction:ExchangeContractDerivation a owl:Class ; rdfs:subClassOf edo-gov-extraction:ExtractionIntent .
+
+################################################################################
+# ExtractionMethod Vocabulary
+################################################################################
+
+edo-gov-extraction:SPARQLBasedExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:ExtractionMethod .
+edo-gov-extraction:HybridExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:ExtractionMethod .
+edo-gov-extraction:ProgrammaticExtraction a owl:Class ; rdfs:subClassOf edo-gov-extraction:ExtractionMethod .
+
+################################################################################
+# Public Derived Artifacts (EDO Capabilities)
+################################################################################
+
+edo-gov-extraction:IFCSchema
+    a edo-gov-extraction:DerivedArtifact ;
+    rdfs:label "IFC Schema"@en ;
+    rdfs:comment "Formal IFC schema artifacts derived from EDO."@en .
+
+edo-gov-extraction:BSDDDictionary
+    a edo-gov-extraction:DerivedArtifact ;
+    rdfs:label "bSDD Dictionary"@en ;
+    rdfs:comment "Semantic dictionary for buildingSMART Data Dictionary derived from EDO."@en .
+
+edo-gov-extraction:HumanReadableDocumentation
+    a edo-gov-extraction:DerivedArtifact ;
+    rdfs:label "Human Readable Documentation"@en ;
+    rdfs:comment "Human-friendly documentation generated from EDO."@en .
+
+################################################################################
+# Public Extraction Specifications
+################################################################################
+
+edo-gov-extraction:IFCSchemaDerivationFromEDO
+    a edo-gov-extraction:ExtractionSpecification ;
+    rdfs:label "IFC Schema Derivation from EDO"@en ;
+    rdfs:comment "Generic extraction specification for deriving IFC schemas from the Energy Domain Ontology."@en ;
+    edo-gov-extraction:hasIntent edo-gov-extraction:SchemaDerivation ;
+    edo-gov-extraction:usesMethod edo-gov-extraction:SPARQLBasedExtraction ;
+    edo-gov-extraction:produces edo-gov-extraction:IFCSchema .
+
+edo-gov-extraction:BSDDDictionaryDerivationFromEDO
+    a edo-gov-extraction:ExtractionSpecification ;
+    rdfs:label "bSDD Dictionary Derivation from EDO"@en ;
+    rdfs:comment "Generic extraction specification for deriving bSDD dictionaries from the Energy Domain Ontology."@en ;
+    edo-gov-extraction:hasIntent edo-gov-extraction:DictionaryDerivation ;
+    edo-gov-extraction:usesMethod edo-gov-extraction:SPARQLBasedExtraction ;
+    edo-gov-extraction:produces edo-gov-extraction:BSDDDictionary .
+
+edo-gov-extraction:DocumentationDerivationFromEDO
+    a edo-gov-extraction:ExtractionSpecification ;
+    rdfs:label "Documentation Derivation from EDO"@en ;
+    rdfs:comment "Generic extraction specification for generating human-readable documentation from the Energy Domain Ontology."@en ;
+    edo-gov-extraction:hasIntent edo-gov-extraction:DocumentationDerivation ;
+    edo-gov-extraction:usesMethod edo-gov-extraction:SPARQLBasedExtraction ;
+    edo-gov-extraction:produces edo-gov-extraction:HumanReadableDocumentation .
+
+################################################################################
+# Public Generic Extraction Queries
+################################################################################
+
+edo-gov-extraction:ClassListQuery
+    a edo-gov-extraction:ExtractionQuery ;
+    rdfs:label "Class List Query"@en ;
+    rdfs:comment "Generic SPARQL query that extracts the list of classes from EDO."@en ;
+    edo-gov-extraction:hasQueryRole edo-gov-extraction:ClassListExtraction .
+
+edo-gov-extraction:AttributeListQuery
+    a edo-gov-extraction:ExtractionQuery ;
+    rdfs:label "Attribute List Query"@en ;
+    rdfs:comment "Generic SPARQL query that extracts the list of attributes from EDO."@en ;
+    edo-gov-extraction:hasQueryRole edo-gov-extraction:AttributeListExtraction .
+
+edo-gov-extraction:RelationshipListQuery
+    a edo-gov-extraction:ExtractionQuery ;
+    rdfs:label "Relationship List Query"@en ;
+    rdfs:comment "Generic SPARQL query that extracts the list of relationships from EDO."@en ;
+    edo-gov-extraction:hasQueryRole edo-gov-extraction:RelationshipListExtraction .
+
+edo-gov-extraction:ClassPropertyAssignmentQuery
+    a edo-gov-extraction:ExtractionQuery ;
+    rdfs:label "Class Property Assignment Query"@en ;
+    rdfs:comment "Generic SPARQL query that extracts direct and inherited property assignments for each class."@en ;
+    edo-gov-extraction:hasQueryRole edo-gov-extraction:ClassPropertyAssignmentExtraction .
+
+edo-gov-extraction:DirectClassPropertyAssignmentQuery
+    a edo-gov-extraction:ExtractionQuery ;
+    rdfs:label "Direct Class Property Assignment Query"@en ;
+    rdfs:comment "Generic SPARQL query that extracts only direct property assignments for each class."@en ;
+    edo-gov-extraction:hasQueryRole edo-gov-extraction:DirectClassPropertyAssignmentExtraction .
+
+edo-gov-extraction:ClassRelationshipAssignmentQuery
+    a edo-gov-extraction:ExtractionQuery ;
+    rdfs:label "Class Relationship Assignment Query"@en ;
+    rdfs:comment "Generic SPARQL query that extracts semantic relationship assignments between classes."@en ;
+    edo-gov-extraction:hasQueryRole edo-gov-extraction:ClassRelationshipAssignmentExtraction .
+
+edo-gov-extraction:DocumentationQuery
+    a edo-gov-extraction:ExtractionQuery ;
+    rdfs:label "Documentation Query"@en ;
+    rdfs:comment "Generic SPARQL query used to extract content for human-readable documentation."@en ;
+    edo-gov-extraction:hasQueryRole edo-gov-extraction:DocumentationExtraction .
+
+
+
+
+
+######################################################################################################
+######################################################################################################
+#LABELS AND DESCRIPTIONS
+######################################################################################################
+######################################################################################################
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix edo-gov-extraction: <http://w3id.org/energy-domain/edo/governance/extraction#> .
+
+################################################################################
+# Root and Macro Taxonomy
+################################################################################
+
+edo-gov-extraction:ExtractionConcept
+    rdfs:label "Extraction Concept"@en ;
+    rdfs:label "Conceito de Extração"@pt-br ;
+    skos:definition "Root concept for all entities related to derivation and extraction from the Energy Domain Ontology."@en ;
+    skos:definition "Conceito raiz para todas as entidades relacionadas à derivação e extração a partir da Energy Domain Ontology."@pt-br .
+
+edo-gov-extraction:ExtractionClassification
+    rdfs:label "Extraction Classification"@en ;
+    rdfs:label "Classificação de Extração"@pt-br ;
+    skos:definition "Controlled vocabularies used to classify extraction intentions, methods and query roles."@en ;
+    skos:definition "Vocabulários controlados utilizados para classificar intenções, métodos e papéis de consultas de extração."@pt-br .
+
+edo-gov-extraction:ExtractionProcessElement
+    rdfs:label "Extraction Process Element"@en ;
+    rdfs:label "Elemento do Processo de Extração"@pt-br ;
+    skos:definition "Elements that compose the extraction process itself, such as specifications, queries and configurations."@en ;
+    skos:definition "Elementos que compõem o próprio processo de extração, como especificações, consultas e configurações."@pt-br .
+
+edo-gov-extraction:ExtractionProduct
+    rdfs:label "Extraction Product"@en ;
+    rdfs:label "Produto da Extração"@pt-br ;
+    skos:definition "Artefacts produced as a result of an extraction process."@en ;
+    skos:definition "Artefatos produzidos como resultado de um processo de extração."@pt-br .
+
+edo-gov-extraction:ExtractionContext
+    rdfs:label "Extraction Context"@en ;
+    rdfs:label "Contexto de Extração"@pt-br ;
+    skos:definition "Contextual elements describing how extracted artefacts are consumed."@en ;
+    skos:definition "Elementos contextuais que descrevem como os artefatos extraídos são consumidos."@pt-br .
+
+################################################################################
+# Classification Axes
+################################################################################
+
+edo-gov-extraction:QueryRole
+    rdfs:label "Query Role"@en ;
+    rdfs:label "Papel da Consulta"@pt-br ;
+    skos:definition "Semantic role played by an extraction query."@en ;
+    skos:definition "Papel semântico desempenhado por uma consulta de extração."@pt-br .
+
+edo-gov-extraction:ExtractionIntent
+    rdfs:label "Extraction Intent"@en ;
+    rdfs:label "Intenção de Extração"@pt-br ;
+    skos:definition "Purpose or motivation of an extraction."@en ;
+    skos:definition "Finalidade ou motivação de uma extração."@pt-br .
+
+edo-gov-extraction:ExtractionMethod
+    rdfs:label "Extraction Method"@en ;
+    rdfs:label "Método de Extração"@pt-br ;
+    skos:definition "Technical method by which an extraction is performed."@en ;
+    skos:definition "Método técnico pelo qual uma extração é realizada."@pt-br .
+
+################################################################################
+# QueryRole Vocabulary
+################################################################################
+
+edo-gov-extraction:ClassListExtraction
+    rdfs:label "Class List Extraction"@en ;
+    rdfs:label "Extração da Lista de Classes"@pt-br ;
+    skos:definition "Extraction of the list of domain classes."@en ;
+    skos:definition "Extração da lista de classes do domínio."@pt-br .
+
+edo-gov-extraction:AttributeListExtraction
+    rdfs:label "Attribute List Extraction"@en ;
+    rdfs:label "Extração da Lista de Atributos"@pt-br ;
+    skos:definition "Extraction of the list of attributes defined in the domain."@en ;
+    skos:definition "Extração da lista de atributos definidos no domínio."@pt-br .
+
+edo-gov-extraction:RelationshipListExtraction
+    rdfs:label "Relationship List Extraction"@en ;
+    rdfs:label "Extração da Lista de Relacionamentos"@pt-br ;
+    skos:definition "Extraction of the list of semantic relationships defined in the domain."@en ;
+    skos:definition "Extração da lista de relacionamentos semânticos definidos no domínio."@pt-br .
+
+edo-gov-extraction:ClassPropertyAssignmentExtraction
+    rdfs:label "Class Property Assignment Extraction"@en ;
+    rdfs:label "Extração de Associação Classe–Atributo"@pt-br ;
+    skos:definition "Extraction of direct and inherited property assignments for each class."@en ;
+    skos:definition "Extração das associações de atributos diretas e herdadas para cada classe."@pt-br .
+
+edo-gov-extraction:DirectClassPropertyAssignmentExtraction
+    rdfs:label "Direct Class Property Assignment Extraction"@en ;
+    rdfs:label "Extração de Associação Direta Classe–Atributo"@pt-br ;
+    skos:definition "Extraction of only the properties directly assigned to each class."@en ;
+    skos:definition "Extração apenas dos atributos diretamente associados a cada classe."@pt-br .
+
+edo-gov-extraction:ClassRelationshipAssignmentExtraction
+    rdfs:label "Class Relationship Assignment Extraction"@en ;
+    rdfs:label "Extração de Associação de Relacionamentos entre Classes"@pt-br ;
+    skos:definition "Extraction of semantic relationship assignments between classes."@en ;
+    skos:definition "Extração das associações de relacionamentos semânticos entre classes."@pt-br .
+
+edo-gov-extraction:DocumentationExtraction
+    rdfs:label "Documentation Extraction"@en ;
+    rdfs:label "Extração de Documentação"@pt-br ;
+    skos:definition "Extraction of content intended for human-readable documentation."@en ;
+    skos:definition "Extração de conteúdo destinado à documentação legível por humanos."@pt-br .
+
+################################################################################
+# Public Extraction Specification
+################################################################################
+
+edo-gov-extraction:StructuredIFCSchemaTechnicalDocumentationExtraction
+    a edo-gov-extraction:ExtractionSpecification ;
+    rdfs:label "Structured IFC Schema Technical Documentation Extraction"@en ;
+    rdfs:label "Extração de Documentação Técnica Estruturada de Schema IFC"@pt-br ;
+    skos:definition
+        "Extraction specification for deriving structured technical documentation of IFC schemas from the Energy Domain Ontology, organised as a set of canonical technical lists."@en ;
+    skos:definition
+        "Especificação de extração para derivar documentação técnica estruturada de schemas IFC a partir da Energy Domain Ontology, organizada como um conjunto canônico de listas técnicas."@pt-br ;
+    edo-gov-extraction:hasIntent edo-gov-extraction:DocumentationDerivation ;
+    edo-gov-extraction:usesMethod edo-gov-extraction:SPARQLBasedExtraction ;
+    edo-gov-extraction:usesQuery
+        edo-gov-extraction:ClassListQuery ,
+        edo-gov-extraction:AttributeListQuery ,
+        edo-gov-extraction:ClassPropertyAssignmentQuery ,
+        edo-gov-extraction:ClassRelationshipAssignmentQuery .
+
+
+
+
+
+################################################################################
+# Extraction Configuration – Discipline Scope
+################################################################################
+
+edo-gov-extraction:DisciplineScopeConfiguration
+    a owl:Class ;
+    rdfs:subClassOf edo-gov-extraction:ExtractionConfiguration ;
+    rdfs:label "Discipline Scope Configuration"@en ;
+    rdfs:label "Configuração de Escopo por Disciplina"@pt-br ;
+    skos:definition
+        "Extraction configuration that restricts the scope of an extraction to elements associated with a specific engineering discipline defined in the Energy Domain Ontology."@en ;
+    skos:definition
+        "Configuração de extração que restringe o escopo de uma extração a elementos associados a uma disciplina de engenharia definida na Energy Domain Ontology."@pt-br .
+
+################################################################################
+# Property – Discipline Scope
+################################################################################
+
+edo-gov-extraction:hasDisciplineScope
+    a owl:ObjectProperty ;
+    rdfs:domain edo-gov-extraction:DisciplineScopeConfiguration ;
+    rdfs:range edo:Discipline ;
+    rdfs:label "has discipline scope"@en ;
+    rdfs:label "tem escopo de disciplina"@pt-br ;
+    skos:definition
+        "Associates a discipline scope configuration with the engineering discipline that defines the extraction scope."@en ;
+    skos:definition
+        "Associa uma configuração de escopo por disciplina à disciplina de engenharia que define o escopo da extração."@pt-br .
+
+################################################################################
+# Example Public Discipline Scope Configuration
+################################################################################
+
+edo-gov-extraction:SubseaFlexiblePipesDisciplineScope
+    a edo-gov-extraction:DisciplineScopeConfiguration ;
+    rdfs:label "Subsea Flexible Pipes Discipline Scope"@en ;
+    rdfs:label "Escopo de Disciplina – Dutos Flexíveis Submarinos"@pt-br ;
+    skos:definition
+        "Discipline scope configuration for extracting artefacts related to the Subsea Flexible Pipes engineering discipline."@en ;
+    skos:definition
+        "Configuração de escopo de disciplina para extração de artefatos relacionados à disciplina de engenharia de dutos flexíveis submarinos."@pt-br ;
+    edo-gov-extraction:hasDisciplineScope edo:SubseaFlexiblePipesEngineering .
