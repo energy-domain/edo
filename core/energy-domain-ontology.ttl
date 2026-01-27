@@ -5831,6 +5831,22 @@ edo:HoldingBandage rdf:type owl:Class ;
                    edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#HoleDiameter
+edo:HoleDiameter rdf:type owl:Class ;
+                 rdfs:subClassOf edo:_CAT-Specification ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "HoleDiameter" ;
+                 skos:prefLabel "Diâmetro dos furos"@pt-br ,
+                                "Hole diameter"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:hole_diameter" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:MilliM ;
+                 edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#Hook
 edo:Hook rdf:type owl:Class ;
          rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -15143,6 +15159,22 @@ edo:ThermalPower rdf:type owl:Class ;
                                  "Produção de energia a partir de combustíveis fósseis (carvão, gás natural) através de conversão térmica."@pt-br .
 
 
+###  https://w3id.org/energy-domain/edo#Thickness
+edo:Thickness rdf:type owl:Class ;
+              rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+              dcterms:accessRights "PUBLIC" ;
+              dcterms:identifier "Thickness" ;
+              skos:prefLabel "Espessura"@pt-br ,
+                             "Thickness"@en ;
+              edo:entityStatus "NEW" ;
+              edo:hasAttributeScope edo:TypeLevelAttribute ;
+              edo:hasExternalRef "MDA:thickness" ;
+              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+              edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:MilliM ;
+              edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#ThicknessAttribute
 edo:ThicknessAttribute rdf:type owl:Class ;
                        rdfs:subClassOf edo:DomainAttribute ;
@@ -15649,6 +15681,8 @@ edo:TrianglePlate rdf:type owl:Class ;
                   skos:prefLabel "Placa triangular"@pt-br ,
                                  "Triangle plate"@en ;
                   edo:entityStatus "NEW" ;
+                  edo:hasAttribute edo:HoleDiameter ,
+                                   edo:Thickness ;
                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                   edo:hasExternalRef "MDA:TrianglePlate" ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -17395,10 +17429,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -17417,14 +17451,14 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -17458,8 +17492,8 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ,
                                     [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
@@ -17467,8 +17501,8 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
