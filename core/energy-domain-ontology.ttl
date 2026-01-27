@@ -20,7 +20,7 @@
                                       dcterms:hasPart <http://w3id.org/energy-domain/edo/shacl> ;
                                       dcterms:title "EDO - Energy Domain Ontology" ;
                                       rdfs:comment "Associated SHACL shapes are available at http://w3id.org/energy-domain/edo/shacl"@en ;
-                                      rdfs:label "Energy Domain Ontology" ;                                      
+                                      rdfs:label "Energy Domain Ontology" ;
                                       owl:versionInfo "v0.0.3" .
 
 #################################################################
@@ -313,7 +313,7 @@ edo:hasValueCardinality rdf:type owl:AnnotationProperty ;
                         rdfs:label "Has Value Cardinality"@en ,
                                    "Possui cardinalidade de valor"@pt-br ;
                         skos:definition "Indica a quantidade de valores que a entidade possui"@pt-br ,
-                                        "Indicates the quantity of values the entity support"@en ;                        
+                                        "Indicates the quantity of values the entity support"@en ;
                         rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
 
 
@@ -5839,6 +5839,7 @@ edo:Hook rdf:type owl:Class ;
          skos:prefLabel "Gancho"@pt-br ,
                         "Hook"@en ;
          edo:entityStatus "NEW" ;
+         edo:hasAttribute edo:RovOperated ;
          edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
          edo:hasExternalRef "MDA:Hook" ;
          edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -9657,7 +9658,7 @@ edo:MinYieldStrength rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MinimumBreakingLoad
 edo:MinimumBreakingLoad rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ;
+                        rdfs:subClassOf edo:_CAT-Specification ;
                         dcterms:accessRights "PUBLIC" ;
                         dcterms:identifier "MinimumBreakingLoad" ;
                         skos:definition "Carga mínima de ruptura"@pt-br ,
@@ -9766,7 +9767,7 @@ edo:MooringAccessory rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MooringAccessoryGrade
 edo:MooringAccessoryGrade rdf:type owl:Class ;
-                          rdfs:subClassOf edo:DomainAttribute ;
+                          rdfs:subClassOf edo:_CAT-Specification ;
                           dcterms:accessRights "PUBLIC" ;
                           dcterms:identifier "MooringAccessoryGrade" ;
                           skos:prefLabel "Grade"@en ,
@@ -12664,6 +12665,21 @@ edo:Roughness rdf:type owl:Class ;
               edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#RovOperated
+edo:RovOperated rdf:type owl:Class ;
+                rdfs:subClassOf edo:_CAT-Specification ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "RovOperated" ;
+                skos:prefLabel "Operado por ROV"@pt-br ,
+                               "ROV-operated"@en ;
+                edo:entityStatus "NEW" ;
+                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasExternalRef "MDA:rov_operated" ;
+                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                edo:hasTypedValue edo:IfcBoolean ;
+                edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#RunOfRiver
 edo:RunOfRiver rdf:type owl:Class ;
                rdfs:subClassOf edo:Hydropower ;
@@ -12809,7 +12825,7 @@ edo:SaeAs4059ContaminationClass rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SafeWorkingLoad
 edo:SafeWorkingLoad rdf:type owl:Class ;
-                    rdfs:subClassOf edo:DomainAttribute ;
+                    rdfs:subClassOf edo:_CAT-Specification ;
                     dcterms:accessRights "PUBLIC" ;
                     dcterms:identifier "SafeWorkingLoad" ;
                     skos:definition "Safe Working Load (SWL) refers to the maximum load that can be safely handled under normal operating conditions. This value ensures the equipment operates within its designed capacity, preventing overloading and potential failure."@en ;
@@ -16815,17 +16831,17 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -17379,10 +17395,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent -1 ;
+             qudt:hasFactorUnit [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent 3 ;
+                                [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -17401,14 +17417,14 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
+                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
