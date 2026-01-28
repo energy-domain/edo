@@ -20,7 +20,7 @@
                                       dcterms:hasPart <http://w3id.org/energy-domain/edo/shacl> ;
                                       dcterms:title "EDO - Energy Domain Ontology" ;
                                       rdfs:comment "Associated SHACL shapes are available at http://w3id.org/energy-domain/edo/shacl"@en ;
-                                      rdfs:label "Energy Domain Ontology" ;                                      
+                                      rdfs:label "Energy Domain Ontology" ;
                                       owl:versionInfo "v0.0.3" .
 
 #################################################################
@@ -313,7 +313,7 @@ edo:hasValueCardinality rdf:type owl:AnnotationProperty ;
                         rdfs:label "Has Value Cardinality"@en ,
                                    "Possui cardinalidade de valor"@pt-br ;
                         skos:definition "Indica a quantidade de valores que a entidade possui"@pt-br ,
-                                        "Indicates the quantity of values the entity support"@en ;                        
+                                        "Indicates the quantity of values the entity support"@en ;
                         rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
 
 
@@ -744,7 +744,7 @@ edo:AnodeCollarsQuantity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#AnodeMaterial
 edo:AnodeMaterial rdf:type owl:Class ;
-                  rdfs:subClassOf edo:DomainAttribute ;
+                  rdfs:subClassOf edo:_CAT-Specification ;
                   dcterms:accessRights "PUBLIC" ;
                   dcterms:identifier "AnodeMaterial" ;
                   skos:prefLabel "Anode material"@en ,
@@ -5831,6 +5831,22 @@ edo:HoldingBandage rdf:type owl:Class ;
                    edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#HoleDiameter
+edo:HoleDiameter rdf:type owl:Class ;
+                 rdfs:subClassOf edo:_CAT-Specification ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "HoleDiameter" ;
+                 skos:prefLabel "Diâmetro dos furos"@pt-br ,
+                                "Hole diameter"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:hole_diameter" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:MilliM ;
+                 edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#Hook
 edo:Hook rdf:type owl:Class ;
          rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -5839,6 +5855,7 @@ edo:Hook rdf:type owl:Class ;
          skos:prefLabel "Gancho"@pt-br ,
                         "Hook"@en ;
          edo:entityStatus "NEW" ;
+         edo:hasAttribute edo:RovOperated ;
          edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
          edo:hasExternalRef "MDA:Hook" ;
          edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -8802,7 +8819,7 @@ edo:MaxTensileStrength rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MaxThickness
 edo:MaxThickness rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainAttribute ;
+                 rdfs:subClassOf edo:_CAT-Specification ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "MaxThickness" ;
                  skos:prefLabel "Espessura máxima"@pt-br ,
@@ -9657,7 +9674,7 @@ edo:MinYieldStrength rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MinimumBreakingLoad
 edo:MinimumBreakingLoad rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ;
+                        rdfs:subClassOf edo:_CAT-Specification ;
                         dcterms:accessRights "PUBLIC" ;
                         dcterms:identifier "MinimumBreakingLoad" ;
                         skos:definition "Carga mínima de ruptura"@pt-br ,
@@ -9766,7 +9783,7 @@ edo:MooringAccessory rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MooringAccessoryGrade
 edo:MooringAccessoryGrade rdf:type owl:Class ;
-                          rdfs:subClassOf edo:DomainAttribute ;
+                          rdfs:subClassOf edo:_CAT-Specification ;
                           dcterms:accessRights "PUBLIC" ;
                           dcterms:identifier "MooringAccessoryGrade" ;
                           skos:prefLabel "Grade"@en ,
@@ -9858,6 +9875,21 @@ edo:MultiValue rdf:type owl:Class ;
                             "Restrição para permitir múltiplos valores"@pt-br ;
                rdfs:label "Multiple Values"@en ,
                           "Múltiplos Valores"@pt-bt .
+
+
+###  https://w3id.org/energy-domain/edo#N2TestPortType
+edo:N2TestPortType rdf:type owl:Class ;
+                   rdfs:subClassOf edo:_CAT-Specification ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "N2TestPortType" ;
+                   skos:prefLabel "N₂ test port type"@en ,
+                                  "Tipo de pórtico para teste de N₂"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:n2_test_port_type" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:StringValue ;
+                   edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#NegativeTolerance
@@ -11007,6 +11039,7 @@ edo:PipePullingHead rdf:type owl:Class ;
                     skos:prefLabel "Cabeça de Tração do Duto"@pt-br ,
                                    "Pipe Pulling Head"@en ;
                     edo:hasAttribute edo:FlangeType ,
+                                     edo:N2TestPortType ,
                                      edo:PullingHeadType ,
                                      edo:RingGasketInnerDIameter ,
                                      edo:RingGasketMaterial ,
@@ -11014,11 +11047,11 @@ edo:PipePullingHead rdf:type owl:Class ;
                                      edo:RingGasketPressureRating ,
                                      edo:RingGasketSpecification ,
                                      edo:RingGasketStandard ,
-                                     edo:RingGasketType ,
-                                     edo:SafeWorkingLoad ;
+                                     edo:RingGasketType ;
                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                       edo:SubseaRigidPipesEngineering ;
                     edo:hasExternalRef "MDA:PipePullingHead" ;
+                    edo:hasSpec edo:FlangeSpec ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "PipePullingHead" ;
                     edo:ifc_predefinedType "USERDEFINED" .
@@ -12664,6 +12697,21 @@ edo:Roughness rdf:type owl:Class ;
               edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#RovOperated
+edo:RovOperated rdf:type owl:Class ;
+                rdfs:subClassOf edo:_CAT-Specification ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "RovOperated" ;
+                skos:prefLabel "Operado por ROV"@pt-br ,
+                               "ROV-operated"@en ;
+                edo:entityStatus "NEW" ;
+                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasExternalRef "MDA:rov_operated" ;
+                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                edo:hasTypedValue edo:IfcBoolean ;
+                edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#RunOfRiver
 edo:RunOfRiver rdf:type owl:Class ;
                rdfs:subClassOf edo:Hydropower ;
@@ -12809,7 +12857,7 @@ edo:SaeAs4059ContaminationClass rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SafeWorkingLoad
 edo:SafeWorkingLoad rdf:type owl:Class ;
-                    rdfs:subClassOf edo:DomainAttribute ;
+                    rdfs:subClassOf edo:_CAT-Specification ;
                     dcterms:accessRights "PUBLIC" ;
                     dcterms:identifier "SafeWorkingLoad" ;
                     skos:definition "Safe Working Load (SWL) refers to the maximum load that can be safely handled under normal operating conditions. This value ensures the equipment operates within its designed capacity, preventing overloading and potential failure."@en ;
@@ -13500,7 +13548,8 @@ edo:SplitCollar rdf:type owl:Class ;
                 skos:prefLabel "Colar Bipartido"@pt-br ,
                                "Split Collar"@en ;
                 edo:hasAttribute edo:PipeMountPosition ,
-                                 edo:WeightInWater .
+                                 edo:WeightInWater ;
+                edo:hasSpec edo:BoltingSpec .
 
 
 ###  https://w3id.org/energy-domain/edo#SpoolingTension
@@ -14646,7 +14695,7 @@ edo:TapeLayer rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TaperEndThickness
 edo:TaperEndThickness rdf:type owl:Class ;
-                      rdfs:subClassOf edo:DomainAttribute ;
+                      rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
                       dcterms:accessRights "PUBLIC" ;
                       dcterms:identifier "TaperEndThickness" ;
                       skos:prefLabel "Espessura final do afunilamento"@pt-br ,
@@ -14662,7 +14711,7 @@ edo:TaperEndThickness rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TaperLength
 edo:TaperLength rdf:type owl:Class ;
-                rdfs:subClassOf edo:DomainAttribute ;
+                rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
                 dcterms:accessRights "PUBLIC" ;
                 dcterms:identifier "TaperLength" ;
                 skos:prefLabel "Comprimento afunilado"@pt-br ,
@@ -15125,6 +15174,22 @@ edo:ThermalPower rdf:type owl:Class ;
                             "Thermal Power"@en ;
                  skos:definition "Energy production from fossil fuels (coal, natural gas) through thermal conversion."@en ,
                                  "Produção de energia a partir de combustíveis fósseis (carvão, gás natural) através de conversão térmica."@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#Thickness
+edo:Thickness rdf:type owl:Class ;
+              rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+              dcterms:accessRights "PUBLIC" ;
+              dcterms:identifier "Thickness" ;
+              skos:prefLabel "Espessura"@pt-br ,
+                             "Thickness"@en ;
+              edo:entityStatus "NEW" ;
+              edo:hasAttributeScope edo:TypeLevelAttribute ;
+              edo:hasExternalRef "MDA:thickness" ;
+              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+              edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:MilliM ;
+              edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#ThicknessAttribute
@@ -15633,6 +15698,8 @@ edo:TrianglePlate rdf:type owl:Class ;
                   skos:prefLabel "Placa triangular"@pt-br ,
                                  "Triangle plate"@en ;
                   edo:entityStatus "NEW" ;
+                  edo:hasAttribute edo:HoleDiameter ,
+                                   edo:Thickness ;
                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                   edo:hasExternalRef "MDA:TrianglePlate" ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -17398,17 +17465,17 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                                          qudt:hasUnit unit:SEC
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -17423,11 +17490,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                            qudt:hasUnit unit:GM
-                                          ] ,
-                                          [ qudt:exponent 1 ;
+                       qudt:hasFactorUnit [ qudt:exponent 1 ;
                                             qudt:hasUnit unit:MilliGM
+                                          ] ,
+                                          [ qudt:exponent -1 ;
+                                            qudt:hasUnit unit:GM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -17442,10 +17509,7 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
@@ -17453,6 +17517,9 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
