@@ -23,8 +23,8 @@ ex:Rule_OpticalFiberCable_AttenuationCoefficient a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_AxialStiffness a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_AxialStiffness a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure , edo:RopeSegment ;
     sh:property [
         sh:path edo:AxialStiffness ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -739,8 +739,6 @@ ex:Rule_RingGasket a sh:NodeShape ;
         sh:path edo:RingGasketType ;
         sh:in ( "ORING" "FLATSEAL" "SPIRALWOUND" )
     ] .
-    
-    
 
 ex:Rule_SubseaEquipment a sh:NodeShape ;
     sh:targetClass edo:SubseaEquipment ;
@@ -1971,23 +1969,26 @@ ex:Rule_EquipmentLocation a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0, ≤ 100.0)" ) 
     ] .
 
-ex:Rule_MooringLineSegment a sh:NodeShape ;
-    sh:targetClass edo:MooringLineSegment ;
+ex:Rule_Diameter a sh:NodeShape ;
+    sh:targetClass edo:RopeSegment ;
     sh:property [
         sh:path edo:Diameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
-ex:Rule_ChainSegment a sh:NodeShape ;
+ex:Rule_HasStudLinks a sh:NodeShape ;
     sh:targetClass edo:ChainSegment ;
     sh:property [
         sh:path edo:HasStudLinks ;
         sh:in ( "Boolean (yes/no)" )
-    ] ;
+    ] .
+
+ex:Rule_chain_resistance_grade a sh:NodeShape ;
+    sh:targetClass edo:ChainSegment ;
     sh:property [
         sh:path edo:ResistanceGrade ;
         sh:in ( "R3" "R3S" "R4" "R4S" "R5" "ORQ" ) 
-    ] .    
+    ] .
 
 ex:Rule_MaxPressure_BAR a sh:NodeShape ;
     sh:targetClass edo:PipingComponent ;
@@ -2144,13 +2145,12 @@ ex:Rule_MooringAccessory a sh:NodeShape ;
 		edo:hasUnit unit:TONNE_F ;
     ] . 
 
-ex:Rule_MooringHardwareItem a sh:NodeShape ;
-    sh:targetClass edo:MooringHardwareItem ;    
+ex:Rule_MinimumBreakingLoad a sh:NodeShape ;
+    sh:targetClass edo:MooringHardwareItem , edo:MooringLineSegment ;    
     sh:property [
         sh:path edo:MinimumBreakingLoad ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-		edo:hasUnit unit:TONNE_F ;
-    ] . 
+    ] .
 
 ex:Rule_BraceletAnode a sh:NodeShape ;
     sh:targetClass edo:BraceletAnode  ;
@@ -2686,4 +2686,11 @@ ex:Rule_LinearWeightInWater a sh:NodeShape ;
     sh:property [
         sh:path edo:LinearWeightInWater ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_fiber_rope_material a sh:NodeShape ;
+    sh:targetClass edo:FiberRopeSegment ;
+    sh:property [
+        sh:path edo:Material ;
+        sh:in ( "POLYESTER" "NYLON" "PP" "HMPE" "OTHER" )
     ] .
