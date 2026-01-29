@@ -669,13 +669,13 @@ edo:AnchoringCollar rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#AnchoringMethod
 edo:AnchoringMethod rdf:type owl:Class ;
-                    rdfs:subClassOf edo:DomainAttribute ;
+                    rdfs:subClassOf edo:_CAT-Specification ;
                     dcterms:accessRights "PUBLIC" ;
                     dcterms:identifier "AnchoringMethod" ;
                     skos:prefLabel "Anchoring method"@en ,
                                    "Método de ancoragem"@pt-br ;
                     edo:entityStatus "NEW" ;
-                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
                     edo:hasExternalRef "MDA:anchoring_method" ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:StringValue ;
@@ -6799,7 +6799,9 @@ edo:InternalLiner rdf:type owl:Class ;
                   skos:prefLabel "Internal liner"@en ,
                                  "Liner interno"@pt-br ;
                   edo:entityStatus "NEW" ;
-                  edo:hasAttribute edo:AnchoringMethod ;
+                  edo:hasAttribute edo:AnchoringMethod ,
+                                   edo:ThicknessAttribute ;
+                  edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                   edo:hasExternalRef "MDA:InternalLiner" .
 
 
@@ -12778,7 +12780,7 @@ edo:RotatingMachine rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Roughness
 edo:Roughness rdf:type owl:Class ;
-              rdfs:subClassOf edo:DomainAttribute ;
+              rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
               dcterms:accessRights "PUBLIC" ;
               dcterms:identifier "Roughness" ;
               skos:definition "Ra value after coating application"@en ,
@@ -12786,10 +12788,11 @@ edo:Roughness rdf:type owl:Class ;
               skos:prefLabel "Roughness after application"@en ,
                              "Rugosidade após aplicação"@pt-br ;
               edo:entityStatus "NEW" ;
-              edo:hasAttributeScope edo:TypeLevelAttribute ;
+              edo:hasAttributeScope edo:InstanceLevelAttribute ;
               edo:hasExternalRef "MDA:roughness" ;
               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
               edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:MicroM ;
               edo:hasValueCardinality edo:SingleValue .
 
 
@@ -17042,11 +17045,11 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                      qudt:hasFactorUnit [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -17631,17 +17634,17 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:M
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
-                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -17675,17 +17678,17 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent 1 ;
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
