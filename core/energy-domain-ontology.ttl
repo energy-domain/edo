@@ -6591,6 +6591,21 @@ edo:InterconnectionStatus rdf:type owl:Class ;
                           edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#InterfaceType
+edo:InterfaceType rdf:type owl:Class ;
+                  rdfs:subClassOf edo:_CAT-Specification ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "InterfaceType" ;
+                  skos:prefLabel "Interface type"@en ,
+                                 "Tipo de interface"@pt-br ;
+                  edo:entityStatus "NEW" ;
+                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                  edo:hasExternalRef "MDA:interface_type" ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:StringValue ;
+                  edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#InterlockedCarcass
 edo:InterlockedCarcass rdf:type owl:Class ;
                        rdfs:subClassOf edo:CarcassLayer ,
@@ -8609,13 +8624,13 @@ edo:MaxFlowRate rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MaxForce
 edo:MaxForce rdf:type owl:Class ;
-             rdfs:subClassOf edo:DomainAttribute ;
+             rdfs:subClassOf edo:_CAT-Specification ;
              dcterms:accessRights "PUBLIC" ;
              dcterms:identifier "MaxForce" ;
              skos:prefLabel "Força máxima"@pt-br ,
                             "Maximum force"@en ;
              edo:entityStatus "NEW" ;
-             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasAttributeScope edo:InstanceLevelAttribute ;
              edo:hasExternalRef "MDA:max_force" ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
@@ -12097,29 +12112,14 @@ edo:ROVLinearInterface rdf:type owl:Class ;
                        skos:prefLabel "Interface linear para ROV"@pt-br ,
                                       "ROV linear interface"@en ;
                        edo:entityStatus "NEW" ;
-                       edo:hasAttribute edo:MaxForce ,
-                                        edo:ROVLinearInterfaceType ,
+                       edo:hasAttribute edo:InterfaceType ,
+                                        edo:MaxForce ,
                                         edo:Stroke ;
                        edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                        edo:hasExternalRef "MDA:ROVLinearInterface" ;
                        edo:ifc_equivalentClass "IfcPipeFitting" ;
                        edo:ifc_objectType "ROVLinearInterface" ;
                        edo:ifc_predefinedType "USERDEFINED" .
-
-
-###  https://w3id.org/energy-domain/edo#ROVLinearInterfaceType
-edo:ROVLinearInterfaceType rdf:type owl:Class ;
-                           rdfs:subClassOf edo:DomainAttribute ;
-                           dcterms:accessRights "PUBLIC" ;
-                           dcterms:identifier "ROVLinearInterfaceType" ;
-                           skos:prefLabel "ROV linear interface type"@en ,
-                                          "Tipo de interface linear para ROV"@pt-br ;
-                           edo:entityStatus "NEW" ;
-                           edo:hasAttributeScope edo:TypeLevelAttribute ;
-                           edo:hasExternalRef "MDA:rov_linear_interface_type" ;
-                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                           edo:hasTypedValue edo:StringValue ;
-                           edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#ROVRotaryInterface
@@ -12132,30 +12132,15 @@ edo:ROVRotaryInterface rdf:type owl:Class ;
                        edo:entityStatus "NEW" ;
                        edo:hasAttribute edo:CloseDirection ,
                                         edo:DamagingTorque ,
+                                        edo:InterfaceType ,
                                         edo:MaxOperatingTorque ,
                                         edo:NominalOperatingTorque ,
-                                        edo:NumTurns ,
-                                        edo:ROVRotaryInterfaceType ;
+                                        edo:NumTurns ;
                        edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                        edo:hasExternalRef "MDA:ROVRotaryInterface" ;
                        edo:ifc_equivalentClass "IfcPipeFitting" ;
                        edo:ifc_objectType "ROVRotaryInterface" ;
                        edo:ifc_predefinedType "USERDEFINED" .
-
-
-###  https://w3id.org/energy-domain/edo#ROVRotaryInterfaceType
-edo:ROVRotaryInterfaceType rdf:type owl:Class ;
-                           rdfs:subClassOf edo:_CAT-Specification ;
-                           dcterms:accessRights "PUBLIC" ;
-                           dcterms:identifier "ROVRotaryInterfaceType" ;
-                           skos:prefLabel "ROV rotary interface type"@en ,
-                                          "Tipo de interface rotativa para ROV"@pt-br ;
-                           edo:entityStatus "NEW" ;
-                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                           edo:hasExternalRef "MDA:rov_rotary_interface_type" ;
-                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                           edo:hasTypedValue edo:StringValue ;
-                           edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#ROVTool
@@ -14302,7 +14287,7 @@ edo:StringValue rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Stroke
 edo:Stroke rdf:type owl:Class ;
-           rdfs:subClassOf edo:DomainAttribute ;
+           rdfs:subClassOf edo:_CAT-Specification ;
            dcterms:accessRights "PUBLIC" ;
            dcterms:identifier "Stroke" ;
            skos:definition "Curso da haste para atuação completa"@pt-br ,
@@ -14310,7 +14295,7 @@ edo:Stroke rdf:type owl:Class ;
            skos:prefLabel "Curso"@pt-br ,
                           "Stroke"@en ;
            edo:entityStatus "NEW" ;
-           edo:hasAttributeScope edo:TypeLevelAttribute ;
+           edo:hasAttributeScope edo:InstanceLevelAttribute ;
            edo:hasExternalRef "MDA:stroke" ;
            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
            edo:hasTypedValue edo:FloatValue ;
@@ -17036,11 +17021,11 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -17603,10 +17588,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent -1 ;
+             qudt:hasFactorUnit [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent 3 ;
+                                [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -17622,8 +17607,8 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
@@ -17631,8 +17616,8 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -17666,11 +17651,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent 1 ;
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M

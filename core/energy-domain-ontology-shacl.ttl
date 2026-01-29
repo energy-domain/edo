@@ -2192,14 +2192,6 @@ ex:Rule_ElectricActuator a sh:NodeShape ;
         sh:in ( "SIMPLE_4_20" "HART_4_20" "MODBUS_RTU" "MODBUS_TCP" "CAN_BUS" "FIELDBUS" "PROFIBUS" "SIIS_1" "SIIS_2" "SIIS_3" "OTHER_ELECTRICAL" "OTHER_OPTICAL"  ) 
     ] .
 
-ex:Rule_PistonHydraulicActuator a sh:NodeShape ;
-    sh:targetClass edo:PistonHydraulicActuator ;
-    sh:property [
-        sh:path edo:Stroke ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:MilliM ;
-    ] .
-
 ex:Rule_HydraulicActuator a sh:NodeShape ;
     sh:targetClass edo:HydraulicActuator ;
     sh:property [
@@ -2213,23 +2205,6 @@ ex:Rule_SteppingHydraulicActuator a sh:NodeShape ;
     sh:property [
         sh:path edo:NumPulses ;
         sh:in ( "Integer number (≥ 1)" )
-    ] .
-
-ex:Rule_ROVLinearInterface a sh:NodeShape ;
-    sh:targetClass edo:ROVLinearInterface ;    
-    sh:property [
-        sh:path edo:ROVLinearInterfaceType ;
-        sh:in ( "ISO_13628_TYPE_A" "ISO_13628_TYPE_B" "ISO_13628_TYPE_C" "OTHER" ) 
-    ] ;
-    sh:property [
-        sh:path edo:Stroke ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:MilliM ;
-    ] ;
-    sh:property [
-        sh:path edo:MaxForce ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:KiloN ;
     ] .
 
 ex:Rule_UniformPipeSegment a sh:NodeShape ;
@@ -2639,7 +2614,7 @@ ex:Rule_TopFlangeElevation a sh:NodeShape ;
 ex:Rule_rov_rotary_interface_type a sh:NodeShape ;
     sh:targetClass edo:ROVRotaryInterface ;    
     sh:property [
-        sh:path edo:ROVRotaryInterfaceType ;
+        sh:path edo:InterfaceType ;
         sh:in ( "ISO_13628_CLASS_1" "ISO_13628_CLASS_2" "ISO_13628_CLASS_3" "ISO_13628_CLASS_4" "ISO_13628_CLASS_5" "ISO_13628_CLASS_6" "ISO_13628_CLASS_7" "ISO_13628_LOW_TORQUE" "ISO_13628_HIGH_TORQUE" "OTHER" ) 
     ] .
 
@@ -2675,5 +2650,26 @@ ex:Rule_DamagingTorque a sh:NodeShape ;
     sh:targetClass edo:ManualActuator , edo:ROVRotaryInterface ;
     sh:property [
         sh:path edo:DamagingTorque ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_rov_linear_interface_type a sh:NodeShape ;
+    sh:targetClass edo:ROVLinearInterface ;    
+    sh:property [
+        sh:path edo:InterfaceType ;
+        sh:in ( "ISO_13628_TYPE_A" "ISO_13628_TYPE_B" "ISO_13628_TYPE_C" "OTHER" ) 
+    ] .
+
+ex:Rule_Stroke a sh:NodeShape ;
+    sh:targetClass edo:ROVLinearInterface , edo:PistonHydraulicActuator ;
+    sh:property [
+        sh:path edo:Stroke ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_MaxForce a sh:NodeShape ;
+    sh:targetClass edo:ROVLinearInterface ;
+    sh:property [
+        sh:path edo:MaxForce ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
