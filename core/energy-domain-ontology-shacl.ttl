@@ -23,8 +23,8 @@ ex:Rule_OpticalFiberCable_AttenuationCoefficient a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_AxialStiffness a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_AxialStiffness a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure , edo:RopeSegment ;
     sh:property [
         sh:path edo:AxialStiffness ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -729,8 +729,6 @@ ex:Rule_RingGasket a sh:NodeShape ;
         sh:path edo:RingGasketType ;
         sh:in ( "ORING" "FLATSEAL" "SPIRALWOUND" )
     ] .
-    
-    
 
 ex:Rule_SubseaEquipment a sh:NodeShape ;
     sh:targetClass edo:SubseaEquipment ;
@@ -1382,7 +1380,7 @@ ex:Rule_PLEM a sh:NodeShape ;
         sh:in ( "PLEM" "PLAEM" ) 
     ].    
 
-ex:Rule_InternalLiner a sh:NodeShape ;
+ex:Rule_rigid_pipe_liner_anchor_method a sh:NodeShape ;
     sh:targetClass edo:InternalLiner ;
     sh:property [
         sh:path edo:AnchoringMethod ;
@@ -1989,23 +1987,26 @@ ex:Rule_EquipmentLocation a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0, ≤ 100.0)" ) 
     ] .
 
-ex:Rule_MooringLineSegment a sh:NodeShape ;
-    sh:targetClass edo:MooringLineSegment ;
+ex:Rule_Diameter a sh:NodeShape ;
+    sh:targetClass edo:RopeSegment ;
     sh:property [
         sh:path edo:Diameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
-ex:Rule_ChainSegment a sh:NodeShape ;
+ex:Rule_HasStudLinks a sh:NodeShape ;
     sh:targetClass edo:ChainSegment ;
     sh:property [
         sh:path edo:HasStudLinks ;
         sh:in ( "Boolean (yes/no)" )
-    ] ;
+    ] .
+
+ex:Rule_chain_resistance_grade a sh:NodeShape ;
+    sh:targetClass edo:ChainSegment ;
     sh:property [
         sh:path edo:ResistanceGrade ;
         sh:in ( "R3" "R3S" "R4" "R4S" "R5" "ORQ" ) 
-    ] .    
+    ] .
 
 ex:Rule_MaxPressure_BAR a sh:NodeShape ;
     sh:targetClass edo:PipingComponent ;
@@ -2162,13 +2163,12 @@ ex:Rule_MooringAccessory a sh:NodeShape ;
 		edo:hasUnit unit:TONNE_F ;
     ] . 
 
-ex:Rule_MooringHardwareItem a sh:NodeShape ;
-    sh:targetClass edo:MooringHardwareItem ;    
+ex:Rule_MinimumBreakingLoad a sh:NodeShape ;
+    sh:targetClass edo:MooringHardwareItem , edo:MooringLineSegment ;    
     sh:property [
         sh:path edo:MinimumBreakingLoad ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-		edo:hasUnit unit:TONNE_F ;
-    ] . 
+    ] .
 
 ex:Rule_BraceletAnode a sh:NodeShape ;
     sh:targetClass edo:BraceletAnode  ;
@@ -2210,14 +2210,6 @@ ex:Rule_ElectricActuator a sh:NodeShape ;
         sh:in ( "SIMPLE_4_20" "HART_4_20" "MODBUS_RTU" "MODBUS_TCP" "CAN_BUS" "FIELDBUS" "PROFIBUS" "SIIS_1" "SIIS_2" "SIIS_3" "OTHER_ELECTRICAL" "OTHER_OPTICAL"  ) 
     ] .
 
-ex:Rule_PistonHydraulicActuator a sh:NodeShape ;
-    sh:targetClass edo:PistonHydraulicActuator ;
-    sh:property [
-        sh:path edo:Stroke ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:MilliM ;
-    ] .
-
 ex:Rule_HydraulicActuator a sh:NodeShape ;
     sh:targetClass edo:HydraulicActuator ;
     sh:property [
@@ -2231,75 +2223,6 @@ ex:Rule_SteppingHydraulicActuator a sh:NodeShape ;
     sh:property [
         sh:path edo:NumPulses ;
         sh:in ( "Integer number (≥ 1)" )
-    ] .
-
-ex:Rule_ManualActuator a sh:NodeShape ;
-    sh:targetClass edo:ManualActuator ;
-    sh:property [
-        sh:path edo:NumTurns ;
-        sh:in ( "Fractional number (≥ 0.0)" )        
-    ] ;
-    sh:property [
-        sh:path edo:NominalOperatingTorque ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:N-M ;
-    ] ;
-    sh:property [
-        sh:path edo:MaxOperatingTorque ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:N-M ;
-    ] ;
-    sh:property [
-        sh:path edo:DamagingTorque ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:N-M ;
-    ] .
-
-ex:Rule_ROVRotaryInterface a sh:NodeShape ;
-    sh:targetClass edo:ROVRotaryInterface ;    
-    sh:property [
-        sh:path edo:ROVRotaryInterfaceType ;
-        sh:in ( "ISO_13628_CLASS_1" "ISO_13628_CLASS_2" "ISO_13628_CLASS_3" "ISO_13628_CLASS_4" "ISO_13628_CLASS_5" "ISO_13628_CLASS_6" "ISO_13628_CLASS_7" "ISO_13628_LOW_TORQUE" "ISO_13628_HIGH_TORQUE" "OTHER" ) 
-    ] ;
-    sh:property [
-        sh:path edo:NumTurns ;
-        sh:in ( "Fractional number (≥ 0.0)" )        
-    ] ;
-    sh:property [
-        sh:path edo:CloseDirection ;
-        sh:in ( "CW" "CCW" )
-    ] ;
-    sh:property [
-        sh:path edo:NominalOperatingTorque ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:N-M ;
-    ] ;
-    sh:property [
-        sh:path edo:MaxOperatingTorque ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:N-M ;
-    ] ;
-    sh:property [
-        sh:path edo:DamagingTorque ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:N-M ;
-    ] .
-
-ex:Rule_ROVLinearInterface a sh:NodeShape ;
-    sh:targetClass edo:ROVLinearInterface ;    
-    sh:property [
-        sh:path edo:ROVLinearInterfaceType ;
-        sh:in ( "ISO_13628_TYPE_A" "ISO_13628_TYPE_B" "ISO_13628_TYPE_C" "OTHER" ) 
-    ] ;
-    sh:property [
-        sh:path edo:Stroke ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:MilliM ;
-    ] ;
-    sh:property [
-        sh:path edo:MaxForce ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:KiloN ;
     ] .
 
 ex:Rule_UniformPipeSegment a sh:NodeShape ;
@@ -2770,3 +2693,93 @@ ex:Rule_SagElevation a sh:NodeShape ;
         sh:path edo:SagElevation ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .        
+ex:Rule_rov_rotary_interface_type a sh:NodeShape ;
+    sh:targetClass edo:ROVRotaryInterface ;    
+    sh:property [
+        sh:path edo:InterfaceType ;
+        sh:in ( "ISO_13628_CLASS_1" "ISO_13628_CLASS_2" "ISO_13628_CLASS_3" "ISO_13628_CLASS_4" "ISO_13628_CLASS_5" "ISO_13628_CLASS_6" "ISO_13628_CLASS_7" "ISO_13628_LOW_TORQUE" "ISO_13628_HIGH_TORQUE" "OTHER" ) 
+    ] .
+
+ex:Rule_NumTurns a sh:NodeShape ;
+    sh:targetClass edo:ManualActuator , edo:ROVRotaryInterface ;
+    sh:property [
+        sh:path edo:NumTurns ;
+        sh:in ( "Fractional number (≥ 0.0)" )        
+    ] .
+
+ex:Rule_rotation_direction a sh:NodeShape ;
+    sh:targetClass edo:ROVRotaryInterface ;    
+    sh:property [
+        sh:path edo:CloseDirection ;
+        sh:in ( "CW" "CCW" )
+    ] .
+
+ex:Rule_NominalOperatingTorque a sh:NodeShape ;
+    sh:targetClass edo:ManualActuator , edo:ROVRotaryInterface ;
+    sh:property [
+        sh:path edo:NominalOperatingTorque ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_MaxOperatingTorque a sh:NodeShape ;
+    sh:targetClass edo:ManualActuator , edo:ROVRotaryInterface ;    
+    sh:property [
+        sh:path edo:MaxOperatingTorque ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_DamagingTorque a sh:NodeShape ;
+    sh:targetClass edo:ManualActuator , edo:ROVRotaryInterface ;
+    sh:property [
+        sh:path edo:DamagingTorque ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_rov_linear_interface_type a sh:NodeShape ;
+    sh:targetClass edo:ROVLinearInterface ;    
+    sh:property [
+        sh:path edo:InterfaceType ;
+        sh:in ( "ISO_13628_TYPE_A" "ISO_13628_TYPE_B" "ISO_13628_TYPE_C" "OTHER" ) 
+    ] .
+
+ex:Rule_Stroke a sh:NodeShape ;
+    sh:targetClass edo:ROVLinearInterface , edo:PistonHydraulicActuator ;
+    sh:property [
+        sh:path edo:Stroke ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_MaxForce a sh:NodeShape ;
+    sh:targetClass edo:ROVLinearInterface ;
+    sh:property [
+        sh:path edo:MaxForce ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_LinearMass a sh:NodeShape ;
+    sh:targetClass edo:MooringLineSegment ;
+    sh:property [
+        sh:path edo:LinearMass ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_LinearWeightInWater a sh:NodeShape ;
+    sh:targetClass edo:MooringLineSegment ;
+    sh:property [
+        sh:path edo:LinearWeightInWater ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_fiber_rope_material a sh:NodeShape ;
+    sh:targetClass edo:FiberRopeSegment ;
+    sh:property [
+        sh:path edo:Material ;
+        sh:in ( "POLYESTER" "NYLON" "PP" "HMPE" "OTHER" )
+    ] .
+
+ex:Rule_Roughness a sh:NodeShape ;
+    sh:targetClass edo:FlowCoating ;
+    sh:property [
+        sh:path edo:Roughness ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
