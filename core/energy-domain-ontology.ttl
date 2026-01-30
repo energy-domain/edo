@@ -2491,6 +2491,22 @@ edo:CompositeMaterial rdf:type owl:Class ;
                       edo:ifc_objectType "CompositeMaterial" .
 
 
+###  https://w3id.org/energy-domain/edo#CompressiveStrength
+edo:CompressiveStrength rdf:type owl:Class ;
+                        rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "CompressiveStrength" ;
+                        skos:prefLabel "Compressive strength"@en ,
+                                       "Resistência à compressão"@pt-br ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                        edo:hasExternalRef "MDA:material_spec.compressive_strength" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:MPa ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#ConceptualDesign
 edo:ConceptualDesign rdf:type owl:Class ;
                      rdfs:subClassOf edo:DesignPhase ;
@@ -4160,12 +4176,21 @@ edo:ExternalConcreteCoating rdf:type owl:Class ;
                             skos:prefLabel "External concrete coating"@en ,
                                            "Revestimento externo de concreto"@pt-br ;
                             edo:entityStatus "NEW" ;
-                            edo:hasAttribute edo:MaterialAttribute ;
+                            edo:hasAttribute edo:ExternalConcreteCoatingMaterialAttribute ,
+                                             edo:MaterialAttribute ;
                             edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                             edo:hasExternalRef "MDA:ExternalConcreteCoating" ;
                             edo:ifc_equivalentClass "IfcPipeSegment" ;
                             edo:ifc_objectType "ExternalConcreteCoating" ;
                             edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#ExternalConcreteCoatingMaterialAttribute
+edo:ExternalConcreteCoatingMaterialAttribute rdf:type owl:Class ;
+                                             rdfs:subClassOf edo:DomainAttribute ;
+                                             rdfs:label "External Concrete Coating Material"@en ;
+                                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                             edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
 ###  https://w3id.org/energy-domain/edo#ExternalDiameter
@@ -13745,7 +13770,7 @@ edo:SpecificHeatCapacity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SpecificMass
 edo:SpecificMass rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainAttribute ,
+                 rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ,
                                  edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "SpecificMass" ;
@@ -13755,6 +13780,7 @@ edo:SpecificMass rdf:type owl:Class ;
                  skos:prefLabel "Equivalent specific mass"@en ,
                                 "Massa específica equivalente"@pt-br ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:material_spec.specific_mass" ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:KiloGM-PER-M3 ;
@@ -15501,7 +15527,9 @@ edo:Thickness rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#ThicknessAttribute
 edo:ThicknessAttribute rdf:type owl:Class ;
                        rdfs:subClassOf edo:DomainAttribute ;
-                       rdfs:label "Thickness"@en .
+                       rdfs:label "Thickness"@en ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
 ###  https://w3id.org/energy-domain/edo#ThreadPitch
@@ -16880,12 +16908,12 @@ edo:XYZMaxLoadAttribute rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#YoungModulus
 edo:YoungModulus rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainAttribute ,
+                 rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ,
                                  edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "YoungModulus" ;
                  skos:prefLabel "Módulo de Young"@pt-br ,
-                                "Specific mass"@en ;
+                                "Young Modulus"@en ;
                  edo:entityStatus "NEW" ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasExternalRef "MDA:young_modulus" ;
@@ -17230,17 +17258,17 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -17821,10 +17849,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -17844,16 +17872,16 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
@@ -17871,11 +17899,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                            qudt:hasUnit unit:GM
-                                          ] ,
-                                          [ qudt:exponent 1 ;
+                       qudt:hasFactorUnit [ qudt:exponent 1 ;
                                             qudt:hasUnit unit:MilliGM
+                                          ] ,
+                                          [ qudt:exponent -1 ;
+                                            qudt:hasUnit unit:GM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
