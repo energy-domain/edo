@@ -2776,6 +2776,22 @@ edo:CreatorId rdf:type owl:Class ;
               edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#Creep
+edo:Creep rdf:type owl:Class ;
+          rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ;
+          dcterms:accessRights "PUBLIC" ;
+          dcterms:identifier "Creep" ;
+          skos:prefLabel "Creep"@en ,
+                         "Fluência"@pt-br ;
+          edo:entityStatus "NEW" ;
+          edo:hasAttributeScope edo:InstanceLevelAttribute ;
+          edo:hasExternalRef "MDA:material_spec.creep" ;
+          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+          edo:hasTypedValue edo:FloatValue ;
+          edo:hasUnit unit:PERCENT ;
+          edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#CriticalCurvatureOfSlipping
 edo:CriticalCurvatureOfSlipping rdf:type owl:Class ;
                                 rdfs:subClassOf edo:BendingStiffnessCurveAttribute ,
@@ -4176,8 +4192,7 @@ edo:ExternalConcreteCoating rdf:type owl:Class ;
                             skos:prefLabel "External concrete coating"@en ,
                                            "Revestimento externo de concreto"@pt-br ;
                             edo:entityStatus "NEW" ;
-                            edo:hasAttribute edo:ExternalConcreteCoatingMaterialAttribute ,
-                                             edo:MaterialAttribute ;
+                            edo:hasAttribute edo:ExternalConcreteCoatingMaterialAttribute ;
                             edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                             edo:hasExternalRef "MDA:ExternalConcreteCoating" ;
                             edo:ifc_equivalentClass "IfcPipeSegment" ;
@@ -4216,12 +4231,20 @@ edo:ExternalPolymericCoating rdf:type owl:Class ;
                              skos:prefLabel "External polymeric coating"@en ,
                                             "Revestimento externo polimérico"@pt-br ;
                              edo:entityStatus "NEW" ;
-                             edo:hasAttribute edo:MaterialAttribute ;
+                             edo:hasAttribute edo:ExternalPolymericCoatingMaterialAttribute ;
                              edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                              edo:hasExternalRef "MDA:ExternalPolymericCoating" ;
                              edo:ifc_equivalentClass "IfcPipeSegment" ;
                              edo:ifc_objectType "ExternalPolymericCoating" ;
                              edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#ExternalPolymericCoatingMaterialAttribute
+edo:ExternalPolymericCoatingMaterialAttribute rdf:type owl:Class ;
+                                              rdfs:subClassOf edo:DomainAttribute ;
+                                              rdfs:label "External Polymeric Coating Material"@en ;
+                                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                              edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
 ###  https://w3id.org/energy-domain/edo#ExternalReference
@@ -8410,7 +8433,8 @@ edo:MasterLink rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Material
 edo:Material rdf:type owl:Class ;
-             rdfs:subClassOf edo:MaterialAttribute ,
+             rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                             edo:MaterialAttribute ,
                              edo:_CAT-Specification ;
              dcterms:accessRights "PUBLIC" ;
              dcterms:identifier "Material" ;
@@ -8427,7 +8451,9 @@ edo:Material rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MaterialAttribute
 edo:MaterialAttribute rdf:type owl:Class ;
                       rdfs:subClassOf edo:DomainAttribute ;
-                      rdfs:label "Material"@en .
+                      rdfs:label "Material"@en ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
 ###  https://w3id.org/energy-domain/edo#MaterialComposition
@@ -9049,7 +9075,7 @@ edo:MaxTemperature rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MaxTensileStrength
 edo:MaxTensileStrength rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ,
+                       rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
                                        edo:MaterialAttribute ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "MaxTensileStrength" ;
@@ -9082,7 +9108,7 @@ edo:MaxThickness rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MaxYieldStrength
 edo:MaxYieldStrength rdf:type owl:Class ;
-                     rdfs:subClassOf edo:DomainAttribute ,
+                     rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
                                      edo:MaterialAttribute ;
                      dcterms:accessRights "PUBLIC" ;
                      dcterms:identifier "MaxYieldStrength" ;
@@ -9693,6 +9719,42 @@ edo:MetricThreadSpec rdf:type owl:Class ;
                      edo:hasExternalRef "MDA:thread_spec" .
 
 
+###  https://w3id.org/energy-domain/edo#MicrosphereCrushingStrength
+edo:MicrosphereCrushingStrength rdf:type owl:Class ;
+                                rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "MicrosphereCrushingStrength" ;
+                                skos:definition "Compression resistance of embedded microspheres, applicable only to syntactic materials"@en ,
+                                                "Resistência à compressão das micro-esferas embutidas, aplicável apenas a materiais sintáticos"@pt-br ;
+                                skos:prefLabel "Microsphere crushing strength"@en ,
+                                               "Resistência ao esmagamento das micro-esferas"@pt-br ;
+                                edo:entityStatus "NEW" ;
+                                edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                                edo:hasExternalRef "MDA:material_spec.microsphere_crushing_strength" ;
+                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:MPa ;
+                                edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MicrosphereSpecificMass
+edo:MicrosphereSpecificMass rdf:type owl:Class ;
+                            rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ;
+                            dcterms:accessRights "PUBLIC" ;
+                            dcterms:identifier "MicrosphereSpecificMass" ;
+                            skos:definition "Densidade das micro-esferas embutidas, aplicável apenas a materiais sintáticos"@pt-br ,
+                                            "Density of embedded microspheres, applicable only to syntactic materials"@en ;
+                            skos:prefLabel "Massa específica das micro-esferas"@pt-br ,
+                                           "Microsphere specific mass"@en ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                            edo:hasExternalRef "MDA:material_spec.microsphere_specific_mass" ;
+                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                            edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:KiloGM-PER-M3 ;
+                            edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#Midstream
 edo:Midstream rdf:type owl:Class ;
               rdfs:subClassOf edo:OilAndGas ;
@@ -9895,8 +9957,9 @@ edo:MinTemperature rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MinTensileStrength
 edo:MinTensileStrength rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ,
-                                       edo:MaterialAttribute ;
+                       rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                                       edo:MaterialAttribute ,
+                                       edo:edo:ExternalPolymericCoatingMaterialAttribute ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "MinTensileStrength" ;
                        skos:prefLabel "Limite de ruptura mínimo"@pt-br ,
@@ -9912,8 +9975,9 @@ edo:MinTensileStrength rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MinYieldStrength
 edo:MinYieldStrength rdf:type owl:Class ;
-                     rdfs:subClassOf edo:DomainAttribute ,
-                                     edo:MaterialAttribute ;
+                     rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                                     edo:MaterialAttribute ,
+                                     edo:edo:ExternalPolymericCoatingMaterialAttribute ;
                      dcterms:accessRights "PUBLIC" ;
                      dcterms:identifier "MinYieldStrength" ;
                      skos:prefLabel "Limite de escoamento mínimo"@pt-br ,
@@ -10151,8 +10215,7 @@ edo:N2TestPortType rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#NegativeTolerance
 edo:NegativeTolerance rdf:type owl:Class ;
-                      rdfs:subClassOf edo:DomainAttribute ,
-                                      edo:ThicknessAttribute ;
+                      rdfs:subClassOf edo:ThicknessAttribute ;
                       dcterms:accessRights "PUBLIC" ;
                       dcterms:identifier "Thickness.negativeTolerance" ;
                       skos:prefLabel "(-) tolerance"@en ,
@@ -10263,8 +10326,7 @@ edo:NominalOperatingTorque rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#NominalValue
 edo:NominalValue rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainAttribute ,
-                                 edo:ThicknessAttribute ;
+                 rdfs:subClassOf edo:ThicknessAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "NominalValue" ;
                  skos:prefLabel "Nominal"@en ,
@@ -11571,7 +11633,7 @@ edo:PointLocation rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#PoissonRatio
 edo:PoissonRatio rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainAttribute ,
+                 rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
                                  edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "PoissonRatio" ;
@@ -11656,8 +11718,7 @@ edo:PositionAttribute rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#PositiveTolerance
 edo:PositiveTolerance rdf:type owl:Class ;
-                      rdfs:subClassOf edo:DomainAttribute ,
-                                      edo:ThicknessAttribute ;
+                      rdfs:subClassOf edo:ThicknessAttribute ;
                       dcterms:accessRights "PUBLIC" ;
                       dcterms:identifier "Thickness.positiveTolerance" ;
                       skos:prefLabel "(+) tolerance"@en ,
@@ -12129,6 +12190,22 @@ edo:PullInTube rdf:type owl:Class ;
                edo:ifc_equivalentClass "IfcPipeFitting" ;
                edo:ifc_objectType "PullInTube" ;
                edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#PullOffStrength
+edo:PullOffStrength rdf:type owl:Class ;
+                    rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "PullOffStrength" ;
+                    skos:prefLabel "Pull-off adhesive strength"@en ,
+                                   "Resistência adesiva (pull-off)"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                    edo:hasExternalRef "MDA:material_spec.pull_off_strength" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:MPa ;
+                    edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#PullingHead
@@ -13753,7 +13830,7 @@ edo:SpecialRequirements rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SpecificHeatCapacity
 edo:SpecificHeatCapacity rdf:type owl:Class ;
-                         rdfs:subClassOf edo:DomainAttribute ,
+                         rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
                                          edo:MaterialAttribute ;
                          dcterms:accessRights "PUBLIC" ;
                          dcterms:identifier "SpecificHeatCapacity" ;
@@ -13771,6 +13848,7 @@ edo:SpecificHeatCapacity rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#SpecificMass
 edo:SpecificMass rdf:type owl:Class ;
                  rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ,
+                                 edo:ExternalPolymericCoatingMaterialAttribute ,
                                  edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "SpecificMass" ;
@@ -15419,7 +15497,7 @@ edo:TestPressure rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ThermalConductivity
 edo:ThermalConductivity rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ,
+                        rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
                                         edo:MaterialAttribute ;
                         dcterms:accessRights "PUBLIC" ;
                         dcterms:identifier "ThermalConductivity" ;
@@ -15484,7 +15562,7 @@ edo:ThermalExchangeCoefficientFlooded rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ThermalExpansionCoeff
 edo:ThermalExpansionCoeff rdf:type owl:Class ;
-                          rdfs:subClassOf edo:DomainAttribute ,
+                          rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
                                           edo:MaterialAttribute ;
                           dcterms:accessRights "PUBLIC" ;
                           dcterms:identifier "ThermalExpansionCoeff" ;
@@ -16669,6 +16747,22 @@ edo:WasteToEnergy rdf:type owl:Class ;
                                  "Waste to Energy"@en .
 
 
+###  https://w3id.org/energy-domain/edo#WaterAbsorption
+edo:WaterAbsorption rdf:type owl:Class ;
+                    rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "WaterAbsorption" ;
+                    skos:prefLabel "Absorção de água"@pt-br ,
+                                   "Water absorption"@en ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                    edo:hasExternalRef "MDA:material_spec.water_absorption" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:PERCENT ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#WaterIntake
 edo:WaterIntake rdf:type owl:Class ;
                 rdfs:subClassOf edo:SubseaEquipment ;
@@ -16909,6 +17003,7 @@ edo:XYZMaxLoadAttribute rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#YoungModulus
 edo:YoungModulus rdf:type owl:Class ;
                  rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ,
+                                 edo:ExternalPolymericCoatingMaterialAttribute ,
                                  edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "YoungModulus" ;
@@ -16992,6 +17087,10 @@ edo:nominalOperatingFrequencySignal rdf:type owl:Class ;
                                     edo:hasTypedValue edo:FloatValue ;
                                     edo:hasUnit unit:KiloV ;
                                     edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#edo:ExternalPolymericCoatingMaterialAttribute
+edo:edo:ExternalPolymericCoatingMaterialAttribute rdf:type owl:Class .
 
 
 #################################################################
@@ -17258,17 +17357,17 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -17868,7 +17967,10 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
@@ -17882,9 +17984,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -17899,11 +17998,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                            qudt:hasUnit unit:MilliGM
-                                          ] ,
-                                          [ qudt:exponent -1 ;
+                       qudt:hasFactorUnit [ qudt:exponent -1 ;
                                             qudt:hasUnit unit:GM
+                                          ] ,
+                                          [ qudt:exponent 1 ;
+                                            qudt:hasUnit unit:MilliGM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -17921,11 +18020,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                  qudt:hasFactorUnit [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
                                     ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
                                     [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
