@@ -409,12 +409,7 @@ ex:Rule_FlangeAdapter a sh:NodeShape ;
         sh:path edo:InnerDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
         edo:hasUnit unit:MilliM ;
-    ]  ;
-    sh:property [
-        sh:path edo:Length ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:MilliM ;
-    ] .
+    ]  .
 
 ex:Rule_FlexibleStructureLayer a sh:NodeShape ;
     sh:targetClass edo:FlexibleStructureLayer ;
@@ -519,12 +514,7 @@ ex:Rule_JumperConnector_5 a sh:NodeShape ;
         sh:in ( "Boolean (yes/no)" )
     ] .
 
-ex:Rule_LinearObject a sh:NodeShape ;
-    sh:targetClass edo:LinearObject ;
-    sh:property [
-        sh:path edo:Length ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] .
+
 
 ex:Rule_LineTermination a sh:NodeShape ;
     sh:targetClass edo:LineTermination ;
@@ -1186,40 +1176,71 @@ ex:Rule_Asset a sh:NodeShape ;
         sh:in ( "String" )
     ] .
 
-ex:Rule_LineSpan a sh:NodeShape ;
-    sh:targetClass edo:LineSpan ;
+ex:Rule_EnvironmentType a sh:NodeShape ;
+    sh:targetClass edo:LineSection, edo:PointLocation ;
     sh:property [
         sh:path edo:EnvironmentType ;
         sh:in ( "TERRESTRIAL_SURFACE" "TERRESTRIAL_UNDERGROUND" "FLUVIAL_SURFACE" "FLUVIAL_SUBMERGED" "FLUVIAL_UNDERGROUND" "MARITIME_SURFACE" "MARITIME_SUBMERGED" "MARITIME_UNDERGROUND" )
-    ] ;
+    ] .
+
+ex:Rule_line_corrosion_protection a sh:NodeShape ;
+    sh:targetClass edo:LineSection ;
     sh:property [
         sh:path edo:CorrosionProtection ;
         sh:in ( "NONE" "PASSIVE" "ACTIVE" )
-    ] ;
-    sh:property [
-        sh:path edo:Burial ;
-        sh:in ( "NONE" "PARTIAL" "FULL" )
-    ] ;
-    sh:property [
-        sh:path edo:CurrentInstallationDate ;
-        sh:in ( "Date" )
-    ] ;
+    ] .
+
+ex:Rule_FirstInstallationDate a sh:NodeShape ;
+    sh:targetClass edo:LineSection ;
     sh:property [
         sh:path edo:FirstInstallationDate ;
         sh:in ( "Date" )
-    ] ;
+    ] .
+ex:Rule_CurrentInstallationDate a sh:NodeShape ;
+    sh:targetClass edo:LineSection ;
+    sh:property [
+        sh:path edo:CurrentInstallationDate ;
+        sh:in ( "Date" )
+    ] .
+
+ex:Rule_Burial a sh:NodeShape ;
+    sh:targetClass edo:LineSection ;
+    sh:property [
+        sh:path edo:Burial ;
+        sh:in ( "NONE" "PARTIAL" "FULL" )
+    ] .
+    
+ex:Rule_IsCritical a sh:NodeShape ;
+    sh:targetClass edo:LineSection ;
     sh:property [
         sh:path edo:IsCritical ;
         sh:in ( "Boolean (yes/no)" )
-    ] ;
+    ] .
+
+ex:Rule_Length a sh:NodeShape ;
+    sh:targetClass edo:LineSection, edo:LinearLocation, edo:LinearObject ;
     sh:property [
         sh:path edo:Length ;
         sh:in ( "Fractional number (≥ 0.0)" ) 
-    ] ;
+    ] .
+
+ex:Rule_Length_MilliM a sh:NodeShape ;
+    sh:targetClass edo:FlangeAdapter ;
+    sh:property [
+        sh:path edo:Length ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:MilliM ;
+    ] .
+
+ex:Rule_MaxDepth a sh:NodeShape ;
+    sh:targetClass edo:PipelineSection, edo:LineSection ;
     sh:property [
         sh:path edo:MaxDepth ;
         sh:in ( "Fractional number (≥ 0.0)" ) 
-    ] ;
+    ] .
+
+ex:Rule_OperationStartDate a sh:NodeShape ;
+    sh:targetClass edo:LineSection ;
     sh:property [
         sh:path edo:OperationStartDate ;
         sh:in ( "Date" )
@@ -1825,14 +1846,18 @@ ex:Rule_Pipeline a sh:NodeShape ;
 	sh:property [
         sh:path edo:PiggableCleaning ;
         sh:in ( "Boolean (yes/no)" )
-    ] ;
+    ] .
+
+ex:Rule_MaxFlowRate a sh:NodeShape ;
+    sh:targetClass edo:Pipeline, edo:PipelineSection ;
 	sh:property [
         sh:path edo:MaxFlowRate ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .    
     
-ex:Rule_RiserSpan a sh:NodeShape ;
-    sh:targetClass edo:RiserSpan ;
+
+ex:Rule_RiserSection a sh:NodeShape ;
+    sh:targetClass edo:RiserSection ;
 	sh:property [
         sh:path edo:RiserConfiguration ;
         sh:in ( "SINGLE_CATENARY" "LAZY_WAVE" "STEEP_WAVE" "PLIANT_WAVE" "LAZY_S" "STEEP_S" "DUAL_CATENARY" "OTHER" ) ;
@@ -1886,45 +1911,38 @@ ex:Rule_RiserSpan a sh:NodeShape ;
         sh:in ( "String" )
     ] .    
 
-ex:Rule_PipelineSpan a sh:NodeShape ;
-    sh:targetClass edo:PipelineSpan ;
-    sh:property [
-        sh:path edo:MaxFlowRate ;
-        sh:in ( "Fractional number (≥ 0.0)" ) 
-    ] ;
+ex:Rule_OperatingFlowRate a sh:NodeShape ;
+    sh:targetClass edo:PipelineSection ;
     sh:property [
         sh:path edo:OperatingFlowRate ;
         sh:in ( "Fractional number (≥ 0.0)" ) 
     ] .    
 
-ex:Rule_FlowlineSpan a sh:NodeShape ;
-    sh:targetClass edo:FlowlineSpan ;
+ex:Rule_pipe_mechanical_protection a sh:NodeShape ;
+    sh:targetClass edo:FlowlineSection ;
 	sh:property [
         sh:path edo:MechanicalProtection ;
         sh:in ( "ANCHORING" "BURIAL" "TRENCH" "CARRIER_PIPE" "COVER" ) ;
-    ] ;
+    ] .
+
+ex:Rule_InIntenseTrafficArea a sh:NodeShape ;
+    sh:targetClass edo:FlowlineSection ;    
 	sh:property [
         sh:path edo:InIntenseTrafficArea ;
         sh:in ( "Boolean (yes/no)" )
-    ] ;
+    ] .
+
+ex:Rule_OnSensitiveArea a sh:NodeShape ;
+    sh:targetClass edo:FlowlineSection ;
 	sh:property [
         sh:path edo:OnSensitiveArea ;
         sh:in ( "Boolean (yes/no)" )
     ] .        
 
-ex:Rule_LinearLocation a sh:NodeShape ;
-    sh:targetClass edo:LinearLocation ;
-    sh:property [
-        sh:path edo:Length ;
-        sh:in ( "Fractional number (≥ 0.0)" ) 
-    ] .
+
 
 ex:Rule_PointLocation a sh:NodeShape ;
     sh:targetClass edo:PointLocation ;
-    sh:property [
-        sh:path edo:EnvironmentType ;
-        sh:in ( "TERRESTRIAL_SURFACE" "TERRESTRIAL_UNDERGROUND" "FLUVIAL_SURFACE" "FLUVIAL_SUBMERGED" "FLUVIAL_UNDERGROUND" "MARITIME_SURFACE" "MARITIME_SUBMERGED" "MARITIME_UNDERGROUND" ) 
-    ] ;
     sh:property [
         sh:path edo:Altitude ;
         sh:in ( "Fractional number" ) 
@@ -2611,6 +2629,70 @@ ex:Rule_TopFlangeElevation a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
+ex:Rule_InnerDiameter_IN a sh:NodeShape ;
+    sh:targetClass edo:HangOffAdaptor , edo:UniformPipeSegment , edo:RigidRiserTopConnector , edo:PipeTermination , edo:WearBushing , edo:PipeSegment ;
+    sh:property [
+        sh:path edo:InnerDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+        edo:hasUnit unit:IN ;
+    ] .
+
+ex:Rule_MaxPressure_MPa a sh:NodeShape ;
+    sh:targetClass edo:HangOffAdaptor , edo:RigidRiserTopConnector , edo:PipeTermination , edo:PipeSegment , edo:Tubing ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        edo:hasUnit unit:MPa ;
+    ] .
+
+ex:Rule_MaxPressure a sh:NodeShape ;
+    sh:targetClass edo:Wellhead , edo:HydraulicActuator , edo:PressureEquipment , edo:TubingCoupling , edo:WearBushing , edo:PressureComponent , edo:HangOffAdaptor , edo:RigidRiserTopConnector , edo:PipeTermination , edo:PipeSegment , edo:Tubing , edo:PipingComponent ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_pb_std_itube_type a sh:NodeShape ;
+    sh:targetClass edo:HangOffAdaptor ;
+    sh:property [
+        sh:path edo:CompatibleSupportType ;
+        sh:in ( "BSN" "BSMF" "BSDL" "TSUDL" "RMOST" "NONE"  )
+    ] .
+
+ex:Rule_TopFlangeClearance a sh:NodeShape ;
+    sh:targetClass edo:RigidRiserTopConnector , edo:HangOffAdaptor ;
+    sh:property [
+        sh:path edo:TopFlangeClearance ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_TopFlangeElevation a sh:NodeShape ;
+    sh:targetClass edo:RigidRiserTopConnector , edo:HangOffAdaptor ;
+    sh:property [
+        sh:path edo:TopFlangeElevation ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+
+ex:Rule_FluidDensity a sh:NodeShape ;
+    sh:targetClass edo:RiserSection ;
+    sh:property [
+        sh:path edo:FluidDensity ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_HogElevation a sh:NodeShape ;
+    sh:targetClass edo:RiserSection ;
+    sh:property [
+        sh:path edo:HogElevation ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_SagElevation a sh:NodeShape ;
+    sh:targetClass edo:RiserSection ;
+    sh:property [
+        sh:path edo:SagElevation ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .        
 ex:Rule_rov_rotary_interface_type a sh:NodeShape ;
     sh:targetClass edo:ROVRotaryInterface ;    
     sh:property [
