@@ -227,35 +227,6 @@ ex:Rule_CompactObject a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_ComponentDevice a sh:NodeShape ;
-    sh:targetClass edo:ComponentDevice ;
-    sh:property [
-        sh:path edo:MaxDepth ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] ;
-    sh:property [
-        sh:path edo:MaxTemperature ;
-        sh:in ( "Fractional number" )
-    ] ;
-    sh:property [
-        sh:path edo:MinTemperature ;
-        sh:in ( "Fractional number" )
-    ] .
-
-ex:Rule_Coupling a sh:NodeShape ;
-    sh:targetClass edo:Coupling ;
-    sh:property [
-        sh:path edo:TemperatureRange_MaxTemperature ;
-        sh:in ( "Fractional number" )
-    ] .
-
-ex:Rule_Coupling_2 a sh:NodeShape ;
-    sh:targetClass edo:Coupling ;
-    sh:property [
-        sh:path edo:TemperatureRange_MinTemperature ;
-        sh:in ( "Fractional number" )
-    ] .
-
 ex:Rule_ElectricalCable a sh:NodeShape ;
     sh:targetClass edo:ElectricalCable ;
     sh:property [
@@ -389,19 +360,7 @@ ex:Rule_Equipment_13 a sh:NodeShape ;
         sh:in ( "Integer number (? 0)" )
     ] .
 
-ex:Rule_Equipment_14 a sh:NodeShape ;
-    sh:targetClass edo:Equipment ;
-    sh:property [
-        sh:path edo:TemperatureRange_MaxTemperature ;
-        sh:in ( "Fractional number" )
-    ] .
 
-ex:Rule_Equipment_15 a sh:NodeShape ;
-    sh:targetClass edo:Equipment ;
-    sh:property [
-        sh:path edo:TemperatureRange_MinTemperature ;
-        sh:in ( "Fractional number" )
-    ] .
 
 ex:Rule_FlangeAdapter a sh:NodeShape ;
     sh:targetClass edo:FlangeAdapter ;
@@ -484,13 +443,6 @@ ex:Rule_HydraulicJumperConnector a sh:NodeShape ;
     sh:property [
         sh:path edo:MaxPressure ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] .
-
-ex:Rule_Jumper_7 a sh:NodeShape ;
-    sh:targetClass edo:Jumper ;
-    sh:property [
-        sh:path edo:MaxDepth ;
-        sh:in ( "Fractional number (? 0.0)" )
     ] .
 
 ex:Rule_Jumper_8 a sh:NodeShape ;
@@ -730,13 +682,6 @@ ex:Rule_RingGasket a sh:NodeShape ;
         sh:in ( "ORING" "FLATSEAL" "SPIRALWOUND" )
     ] .
 
-ex:Rule_SubseaEquipment a sh:NodeShape ;
-    sh:targetClass edo:SubseaEquipment ;
-    sh:property [
-        sh:path edo:MaxDepth ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
 ex:Rule_SubseaEquipment_2 a sh:NodeShape ;
     sh:targetClass edo:SubseaEquipment ;
     sh:property [
@@ -761,24 +706,12 @@ ex:Rule_SubseaUmbilical_2 a sh:NodeShape ;
 ex:Rule_TransportLineSegment a sh:NodeShape ;
     sh:targetClass edo:TransportLineSegment ;
     sh:property [
-        sh:path edo:MaxDepth ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] ;
-    sh:property [
         sh:path edo:OuterDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] ;
     sh:property [
         sh:path edo:Reused ;
         sh:in ( "Booleano (yes/no)" )
-    ] ;
-    sh:property [
-        sh:path edo:MaxTemperature ;
-        sh:in ( "Fractional number" )
-    ] ;
-    sh:property [
-        sh:path edo:MinTemperature ;
-        sh:in ( "Fractional number" )
     ] .
 
 ex:Rule_Tubing a sh:NodeShape ;
@@ -1015,20 +948,6 @@ ex:Rule_UmbilicalStructure_23 a sh:NodeShape ;
         sh:in ( "RISER" "RISER_TOP_SECTION" "RISER_INTERMEDIATE_SECTION" "RISER_BOTTOM_SECTION" "FLOWLINE" )
     ] .
 
-ex:Rule_UmbilicalStructure_24 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
-    sh:property [
-        sh:path edo:TemperatureRange_MaxTemperature ;
-        sh:in ( "Fractional number" )
-    ] .
-
-ex:Rule_UmbilicalStructure_25 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
-    sh:property [
-        sh:path edo:TemperatureRange_MinTemperature ;
-        sh:in ( "Fractional number" )
-    ] .
-
 ex:Rule_UmbilicalStructure_26 a sh:NodeShape ;
     sh:targetClass edo:FlexibleStructure ;
     sh:property [
@@ -1233,7 +1152,7 @@ ex:Rule_Length_MilliM a sh:NodeShape ;
     ] .
 
 ex:Rule_MaxDepth a sh:NodeShape ;
-    sh:targetClass edo:PipelineSection, edo:LineSection ;
+    sh:targetClass edo:SubseaEquipment, edo:PipelineSection, edo:LineSection, edo:ComponentDevice, edo:Jumper, edo:TransportLineSegment ;
     sh:property [
         sh:path edo:MaxDepth ;
         sh:in ( "Fractional number (≥ 0.0)" ) 
@@ -1358,22 +1277,28 @@ ex:Rule_ActuatedEquipment a sh:NodeShape ;
     ] .
 
 
-ex:Rule_Manifold a sh:NodeShape ;
+ex:Rule_manifold_application a sh:NodeShape ;
     sh:targetClass edo:Manifold ;
     sh:property [
         sh:path edo:ManifoldApplication ;
         sh:in ( "OIL_PRODUCTION" "GAS_PRODUCTION" "WATER_INJECTION" "GAS_INJECTION" "WAG_INJECTION" "GAS_LIFT" "MIXED" "OTHER"  )
-    ] ;
+    ] .
+
+ex:Rule_manifold_type a sh:NodeShape ;
+    sh:targetClass edo:Manifold ;
     sh:property [
         sh:path edo:ManifoldType ;
         sh:in ( "INTEGRATED" "MODULAR" )
-    ] ;
+    ] .
+
+ex:Rule_Retrievable a sh:NodeShape ;
+    sh:targetClass edo:Manifold ;
     sh:property [
         sh:path edo:Retrievable ;
         sh:in ( "Boolean (yes/no)" )
     ] .
 
-ex:Rule_PLEM a sh:NodeShape ;
+ex:Rule_plem_type a sh:NodeShape ;
     sh:targetClass edo:PLEM ;
     sh:property [
         sh:path edo:PlemType ;
@@ -1407,7 +1332,7 @@ ex:Rule_FlexibleJoint a sh:NodeShape ;
     ] .    
 
 ex:Rule_WeightInWater a sh:NodeShape ;
-    sh:targetClass edo:HangOffAdaptor, edo:Anchor , edo:RigidRiserTopConnector , edo:AnodeSled , edo:LineTermination , edo:PullingHead , edo:ProcessValve , edo:BraceletAnode , edo:MudMat , edo:FlowConnector , edo:LineSupport ;
+    sh:targetClass edo:SubseaEquipment, edo:HangOffAdaptor, edo:Anchor , edo:RigidRiserTopConnector , edo:AnodeSled , edo:LineTermination , edo:PullingHead , edo:ProcessValve , edo:BraceletAnode , edo:MudMat , edo:FlowConnector , edo:LineSupport ;
     sh:property [
         sh:path edo:WeightInWater ;
         sh:in ( "Fractional number" )
@@ -1905,11 +1830,7 @@ ex:Rule_RiserSection a sh:NodeShape ;
 	sh:property [
         sh:path edo:NumFloaters ;
         sh:in ( "Integer number (≥ 1)" )
-    ] ;
-	sh:property [
-        sh:path edo:TopsideSpoolTag ;
-        sh:in ( "String" )
-    ] .    
+    ] .
 
 ex:Rule_OperatingFlowRate a sh:NodeShape ;
     sh:targetClass edo:PipelineSection ;
@@ -2051,10 +1972,6 @@ ex:Rule_FlowConnector a sh:NodeShape ;
         sh:path edo:LockingStroke ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
 		edo:hasUnit unit:MilliM ;
-    ] ;
-    sh:property [
-        sh:path edo:HasSoftLanding ;
-        sh:in ( "Boolean (yes/no)" )
     ] ;
     sh:property [
         sh:path edo:WeightInWaterEmpty ;
@@ -2210,12 +2127,11 @@ ex:Rule_ElectricActuator a sh:NodeShape ;
         sh:in ( "SIMPLE_4_20" "HART_4_20" "MODBUS_RTU" "MODBUS_TCP" "CAN_BUS" "FIELDBUS" "PROFIBUS" "SIIS_1" "SIIS_2" "SIIS_3" "OTHER_ELECTRICAL" "OTHER_OPTICAL"  ) 
     ] .
 
-ex:Rule_HydraulicActuator a sh:NodeShape ;
-    sh:targetClass edo:HydraulicActuator ;
+ex:Rule_ActuationPressure a sh:NodeShape ;
+    sh:targetClass edo:HydraulicActuator, edo:ActuatedEquipment ;
     sh:property [
         sh:path edo:ActuationPressure ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:PSI ;
     ] .
 
 ex:Rule_SteppingHydraulicActuator a sh:NodeShape ;
@@ -2522,7 +2438,7 @@ ex:Rule_fxj_compatible_support_type a sh:NodeShape ;
     ] .    
 
 ex:Rule_BoreDiameter_IN a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter, edo:RigidRiserTopConnector, edo:FlowConnector, edo:StressJoint, edo:PullInTube ;
+    sh:targetClass edo:Flange, edo:FlangeAdapter, edo:RigidRiserTopConnector, edo:FlowConnector, edo:StressJoint, edo:PullInTube ;
     sh:property [
         sh:path edo:BoreDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -2530,14 +2446,14 @@ ex:Rule_BoreDiameter_IN a sh:NodeShape ;
     ] .
 
 ex:Rule_ring_gasket_profile a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter, edo:RingGasket, edo:RigidRiserTopConnector,  edo:FlowConnector,  edo:StressJoint, edo:PullInTube ;
+    sh:targetClass edo:Flange, edo:FlangeAdapter, edo:RingGasket, edo:RigidRiserTopConnector,  edo:FlowConnector,  edo:StressJoint, edo:PullInTube ;
     sh:property [
         sh:path edo:RingGasketProfile ;
         sh:in ( "NONE" "AX" "BX" "R" "RX" "VX" "VGX" "W" "WX" "OTHER" )
     ] .    
 
 ex:Rule_RingGasketNumber a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter, edo:RingGasket, edo:RigidRiserTopConnector,  edo:FlowConnector,  edo:StressJoint, edo:PullInTube ;
+    sh:targetClass edo:Flange, edo:FlangeAdapter, edo:RingGasket, edo:RigidRiserTopConnector,  edo:FlowConnector,  edo:StressJoint, edo:PullInTube ;
     sh:property [
         sh:path edo:RingGasketNumber ;
         sh:in ( "Integer number (≥ 1)" )
@@ -2692,6 +2608,77 @@ ex:Rule_SagElevation a sh:NodeShape ;
     sh:property [
         sh:path edo:SagElevation ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_CompensationAccumulatorVolume a sh:NodeShape ;
+    sh:targetClass edo:ActuatedEquipment ;
+    sh:property [
+        sh:path edo:CompensationAccumulatorVolume    ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+
+ex:Rule_MaxTemperature a sh:NodeShape ;
+    sh:targetClass edo:Equipment, edo:ComponentDevice, edo:Coupling, edo:TransportLineSegment ;
+    sh:property [
+        sh:path edo:MaxTemperature ;
+        sh:in ( "Fractional number" )
+    ] .
+
+ex:Rule_MinTemperature a sh:NodeShape ;
+    sh:targetClass edo:Equipment, edo:ComponentDevice, edo:Coupling, edo:TransportLineSegment ;
+    sh:property [
+        sh:path edo:MinTemperature ;
+        sh:in ( "Fractional number" )
+    ] .    
+
+ex:Rule_inline_valve_function a sh:NodeShape ;
+    sh:targetClass edo:InlineValve ;
+    sh:property [
+        sh:path edo:ValveFunction ;
+        sh:in ( "BLOCK" "CHECK" "CHOKE"  "CONTROL" "SAFETY" )
+    ] .        
+
+ex:Rule_HasSoftLanding a sh:NodeShape ;
+    sh:targetClass edo:FlowConnector, edo:FlowControlModule ;
+    sh:property [
+        sh:path edo:HasSoftLanding ;
+        sh:in ( "Boolean (yes/no)" )
+    ] .
+
+ex:Rule_rigid_jumper_geometry a sh:NodeShape ;
+    sh:targetClass edo:RigidJumper ;
+    sh:property [
+        sh:path edo:OverallGeometry ;
+        sh:in ( "HORIZONTAL" "M" "INVERTED_U" "3D" "OTHER" )
+    ] .            
+
+ex:Rule_TopsideSpoolTag a sh:NodeShape ;
+    sh:targetClass edo:RiserSection;
+    sh:property [
+        sh:path edo:TopsideSpoolTag ;
+        sh:in ( "String" )
+    ] .        
+
+ex:Rule_Tag a sh:NodeShape ;
+    sh:targetClass edo:PointLocation ;
+    sh:property [
+        sh:path edo:Tag ;
+        sh:in ( "String" )
+    ] .            
+
+ex:Rule_ActualPenetrationDepth a sh:NodeShape ;
+    sh:targetClass edo:AnchorLocation ;
+    sh:property [
+        sh:path edo:ActualPenetrationDepth ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .        
+
+ex:Rule_ActualTilt a sh:NodeShape ;
+    sh:targetClass edo:AnchorLocation ;
+    sh:property [
+        sh:path edo:ActualTilt ; 
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .        
 ex:Rule_rov_rotary_interface_type a sh:NodeShape ;
     sh:targetClass edo:ROVRotaryInterface ;    
@@ -2782,4 +2769,4 @@ ex:Rule_Roughness a sh:NodeShape ;
     sh:property [
         sh:path edo:Roughness ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] .
+    ] .    
