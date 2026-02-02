@@ -1266,16 +1266,7 @@ ex:Rule_ActuatedEquipment a sh:NodeShape ;
     sh:property [
         sh:path edo:PrimaryControlMode ;
         sh:in ( "NONE" "DIRECT_HYDRAULIC" "PILOTED_HYDRAULIC" "SEQUENTIAL_HYDRAULIC" "SHARED_HYDRAULIC" "PILOTED_EH" "MULTIPLEXED_EH" "DIRECT_ELECTRICAL" "SHARED_ELECTRICAL" "ROV_OPERATED" "DIVER_OPERATED" "OTHER" )
-    ] ;
-    sh:property [
-        sh:path edo:CompatibleFluids ;
-        sh:in ( "HW_443" "HW_525P" "ECF_25" "TRANSAQUA_DW" "TRANSAQUA_HT" "OTHER" )
-    ] ;
-    sh:property [
-        sh:path edo:SaeAs4059ContaminationClass ;
-        sh:in ( "NONE" "000" "00" "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" )
     ] .
-
 
 ex:Rule_manifold_application a sh:NodeShape ;
     sh:targetClass edo:Manifold ;
@@ -1977,14 +1968,6 @@ ex:Rule_FlowConnector a sh:NodeShape ;
         sh:path edo:WeightInWaterEmpty ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
         edo:hasUnit unit:KiloGM_F ;
-    ] ;
-    sh:property [
-        sh:path edo:CompatibleFluids ;
-        sh:in ( "HW_443" "HW_525P" "ECF_25" "TRANSAQUA_DW" "TRANSAQUA_HT" "OTHER" )
-    ] ;
-    sh:property [
-        sh:path edo:SaeAs4059ContaminationClass ;
-        sh:in ( "NONE" "000" "00" "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" )
     ] ;
     sh:property [
         sh:path edo:LockingFluidVolume ;
@@ -2769,4 +2752,60 @@ ex:Rule_Roughness a sh:NodeShape ;
     sh:property [
         sh:path edo:Roughness ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] .    
+    ] . 
+
+ex:Rule_hydraulic_fluid a sh:NodeShape ;
+    sh:targetClass edo:ActuatedEquipment , edo:FlowConnector , edo:HydraulicActuator ;
+    sh:property [
+        sh:path edo:CompatibleFluids ;
+        sh:in ( "HW_443" "HW_525P" "ECF_25" "TRANSAQUA_DW" "TRANSAQUA_HT" "OTHER" )
+    ] .
+
+ex:Rule_sae_as4059_contamination_class a sh:NodeShape ;
+    sh:targetClass edo:ActuatedEquipment , edo:FlowConnector , edo:HydraulicActuator ;
+    sh:property [
+        sh:path edo:SaeAs4059ContaminationClass ;
+        sh:in ( "NONE" "000" "00" "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" )
+    ] .
+
+ex:Rule_CompressiveStrength a sh:NodeShape ;
+    sh:targetClass edo:ExternalConcreteCoating ;
+    sh:property [
+        sh:path edo:CompressiveStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] . 
+
+ex:Rule_Creep a sh:NodeShape ;
+    sh:targetClass edo:ExternalPolymericCoating ;
+    sh:property [
+        sh:path edo:Creep ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] . 
+
+ex:Rule_rigid_pipe_ext_coat_polymer a sh:NodeShape ;
+    sh:targetClass edo:ExternalPolymericCoatingMaterialAttribute ;
+    sh:property [
+        sh:path edo:Material ;
+        sh:in ( "COALTAR_ENAMEL" "LIQUID_EPOXY" "FBE" "POLYCHLOROPRENE" "SOLID_PP" "SYNTACTIC_PP" "PE" "PS" "SOLID_PU" "SYNTACTIC_PU" "SILICONE" "EPOXY_URETHANE" "SOLID_RUBBER" "SYNTACTIC_RUBBER" "TSA" "CMPP" "OTHER" )
+    ] .
+
+ex:Rule_MicrosphereCrushingStrength a sh:NodeShape ;
+    sh:targetClass edo:ExternalPolymericCoating ;
+    sh:property [
+        sh:path edo:MicrosphereCrushingStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] . 
+
+ex:Rule_MicrosphereSpecificMass a sh:NodeShape ;
+    sh:targetClass edo:ExternalPolymericCoating ;
+    sh:property [
+        sh:path edo:MicrosphereSpecificMass ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] . 
+
+ex:Rule_PullOffStrength a sh:NodeShape ;
+    sh:targetClass edo:ExternalPolymericCoating ;
+    sh:property [
+        sh:path edo:PullOffStrength ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] . 
