@@ -1652,7 +1652,6 @@ edo:Biomass rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#BodyDiameter
 edo:BodyDiameter rdf:type owl:Class ;
                  rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
-                 rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "BodyDiameter" ;
                  skos:prefLabel "Body diameter"@en ,
@@ -4037,6 +4036,22 @@ edo:ElectronicDevice rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#ElementClassification
 edo:ElementClassification rdf:type owl:Class ;
                           rdfs:subClassOf edo:DomainClassification .
+
+
+###  https://w3id.org/energy-domain/edo#ElongationAtYield
+edo:ElongationAtYield rdf:type owl:Class ;
+                      rdfs:subClassOf edo:InternalMetallicLinerMaterialAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "ElongationAtYield" ;
+                      skos:prefLabel "Elongamento no escoamento"@pt-br ,
+                                     "Elongation at yield"@en ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                      edo:hasExternalRef "MDA:material_spec.elongation_at_yield" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:PERCENT ;
+                      edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#EmergencyUnlockingFluidVolume
@@ -7099,8 +7114,7 @@ edo:InternalLiner rdf:type owl:Class ;
                   skos:prefLabel "Internal liner"@en ,
                                  "Liner interno"@pt-br ;
                   edo:entityStatus "NEW" ;
-                  edo:hasAttribute edo:AnchoringMethod ,
-                                   edo:ThicknessAttribute ;
+                  edo:hasAttribute edo:AnchoringMethod ;
                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                   edo:hasExternalRef "MDA:InternalLiner" .
 
@@ -7113,12 +7127,20 @@ edo:InternalMetallicLiner rdf:type owl:Class ;
                           skos:prefLabel "Internal metallic liner"@en ,
                                          "Liner metálico interno"@pt-br ;
                           edo:entityStatus "NEW" ;
-                          edo:hasAttribute edo:MaterialAttribute ;
+                          edo:hasAttribute edo:InternalMetallicLinerMaterialAttribute ;
                           edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                           edo:hasExternalRef "MDA:InternalMetallicLiner" ;
                           edo:ifc_equivalentClass "IfcPipeSegment" ;
                           edo:ifc_objectType "InternalMetallicLiner" ;
                           edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#InternalMetallicLinerMaterialAttribute
+edo:InternalMetallicLinerMaterialAttribute rdf:type owl:Class ;
+                                           rdfs:subClassOf edo:DomainAttribute ;
+                                           rdfs:label "Internal Metallic Liner Material"@en ;
+                                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                           edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
 ###  https://w3id.org/energy-domain/edo#InternalPolymericLiner
@@ -8626,6 +8648,7 @@ edo:MasterLink rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#Material
 edo:Material rdf:type owl:Class ;
              rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                             edo:InternalMetallicLinerMaterialAttribute ,
                              edo:MaterialAttribute ,
                              edo:_CAT-Specification ;
              dcterms:accessRights "PUBLIC" ;
@@ -9381,6 +9404,7 @@ edo:MaxTemperature rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MaxTensileStrength
 edo:MaxTensileStrength rdf:type owl:Class ;
                        rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                                       edo:InternalMetallicLinerMaterialAttribute ,
                                        edo:MaterialAttribute ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "MaxTensileStrength" ;
@@ -9414,6 +9438,7 @@ edo:MaxThickness rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MaxYieldStrength
 edo:MaxYieldStrength rdf:type owl:Class ;
                      rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                                     edo:InternalMetallicLinerMaterialAttribute ,
                                      edo:MaterialAttribute ;
                      dcterms:accessRights "PUBLIC" ;
                      dcterms:identifier "MaxYieldStrength" ;
@@ -10267,8 +10292,8 @@ edo:MinTemperature rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MinTensileStrength
 edo:MinTensileStrength rdf:type owl:Class ;
                        rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                       edo:MaterialAttribute ,
-                                       edo:edo:ExternalPolymericCoatingMaterialAttribute ;
+                                       edo:InternalMetallicLinerMaterialAttribute ,
+                                       edo:MaterialAttribute ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "MinTensileStrength" ;
                        skos:prefLabel "Limite de ruptura mínimo"@pt-br ,
@@ -10285,8 +10310,8 @@ edo:MinTensileStrength rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MinYieldStrength
 edo:MinYieldStrength rdf:type owl:Class ;
                      rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                     edo:MaterialAttribute ,
-                                     edo:edo:ExternalPolymericCoatingMaterialAttribute ;
+                                     edo:InternalMetallicLinerMaterialAttribute ,
+                                     edo:MaterialAttribute ;
                      dcterms:accessRights "PUBLIC" ;
                      dcterms:identifier "MinYieldStrength" ;
                      skos:prefLabel "Limite de escoamento mínimo"@pt-br ,
@@ -11959,6 +11984,7 @@ edo:PointLocation rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#PoissonRatio
 edo:PoissonRatio rdf:type owl:Class ;
                  rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                                 edo:InternalMetallicLinerMaterialAttribute ,
                                  edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "PoissonRatio" ;
@@ -14185,6 +14211,7 @@ edo:SpecialRequirements rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#SpecificHeatCapacity
 edo:SpecificHeatCapacity rdf:type owl:Class ;
                          rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                                         edo:InternalMetallicLinerMaterialAttribute ,
                                          edo:MaterialAttribute ;
                          dcterms:accessRights "PUBLIC" ;
                          dcterms:identifier "SpecificHeatCapacity" ;
@@ -14203,6 +14230,7 @@ edo:SpecificHeatCapacity rdf:type owl:Class ;
 edo:SpecificMass rdf:type owl:Class ;
                  rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ,
                                  edo:ExternalPolymericCoatingMaterialAttribute ,
+                                 edo:InternalMetallicLinerMaterialAttribute ,
                                  edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "SpecificMass" ;
@@ -15914,6 +15942,7 @@ edo:TestPressure rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#ThermalConductivity
 edo:ThermalConductivity rdf:type owl:Class ;
                         rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                                        edo:InternalMetallicLinerMaterialAttribute ,
                                         edo:MaterialAttribute ;
                         dcterms:accessRights "PUBLIC" ;
                         dcterms:identifier "ThermalConductivity" ;
@@ -15979,6 +16008,7 @@ edo:ThermalExchangeCoefficientFlooded rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#ThermalExpansionCoeff
 edo:ThermalExpansionCoeff rdf:type owl:Class ;
                           rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
+                                          edo:InternalMetallicLinerMaterialAttribute ,
                                           edo:MaterialAttribute ;
                           dcterms:accessRights "PUBLIC" ;
                           dcterms:identifier "ThermalExpansionCoeff" ;
@@ -16887,6 +16917,24 @@ edo:UnifilarDiagramRev rdf:type owl:Class ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#UniformElongation
+edo:UniformElongation rdf:type owl:Class ;
+                      rdfs:subClassOf edo:InternalMetallicLinerMaterialAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "UniformElongation" ;
+                      skos:definition "Elongamento máximo antes do início da estricção"@pt-br ,
+                                      "Maximum elongation before the onset of necking"@en ;
+                      skos:prefLabel "Elongamento uniforme"@pt-br ,
+                                     "Uniform elongation"@en ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                      edo:hasExternalRef "MDA:material_spec.uniform_elongation" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:PERCENT ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#UniformPipeSegment
 edo:UniformPipeSegment rdf:type owl:Class ;
                        rdfs:subClassOf edo:PipeSegment ;
@@ -17414,6 +17462,7 @@ edo:WoundLayer rdf:type owl:Class ;
 edo:YoungModulus rdf:type owl:Class ;
                  rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ,
                                  edo:ExternalPolymericCoatingMaterialAttribute ,
+                                 edo:InternalMetallicLinerMaterialAttribute ,
                                  edo:MaterialAttribute ;
                  dcterms:accessRights "PUBLIC" ;
                  dcterms:identifier "YoungModulus" ;
@@ -17497,10 +17546,6 @@ edo:nominalOperatingFrequencySignal rdf:type owl:Class ;
                                     edo:hasTypedValue edo:FloatValue ;
                                     edo:hasUnit unit:KiloV ;
                                     edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#edo:ExternalPolymericCoatingMaterialAttribute
-edo:edo:ExternalPolymericCoatingMaterialAttribute rdf:type owl:Class .
 
 
 #################################################################
@@ -17776,11 +17821,11 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -18313,8 +18358,8 @@ edo:HangOffAdaptor_End_Bottom rdf:type owl:NamedIndividual ;
                               skos:definition "Representa a extremidade inferior do hang-off adaptor, responsável por realizar a conexão mecânica entre o próprio hang-off adaptor e o duto rígido (riser). "@pt-br ,
                                               "Represents the bottom end of the hang-off adaptor, responsible for the mechanical connection to the hang-off adaptor and the rigid pipe (riser)."@en ;
                               edo:hasSpec edo:BoltingSpec ,
-                                      edo:FlangeSpec ,
-                                      edo:GasketSpec .
+                                          edo:FlangeSpec ,
+                                          edo:GasketSpec .
 
 
 ###  https://w3id.org/energy-domain/edo#HangOffAdaptor_End_Top
@@ -18324,8 +18369,8 @@ edo:HangOffAdaptor_End_Top rdf:type owl:NamedIndividual ;
                            skos:definition "Representa a extremidade superior do hang-off adaptor, projetada para realizar a conexão entre o hang-off adaptor e a estrutura de suporte, como o deck de uma plataforma, um receptáculo de riser ou um sistema de suporte de risers."@pt-br ,
                                            "Represents the top end of the hang-off adaptor, designed to provide the connection between the hang-off adaptor and the supporting structure, such as a platform deck, a riser receptacle, or a riser support system.."@en ;
                            edo:hasSpec edo:BoltingSpec ,
-                                      edo:FlangeSpec ,
-                                      edo:GasketSpec .
+                                       edo:FlangeSpec ,
+                                       edo:GasketSpec .
 
 
 ###  https://w3id.org/energy-domain/edo#M3-PER-M
@@ -18362,13 +18407,13 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                           qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -18383,11 +18428,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                            qudt:hasUnit unit:GM
-                                          ] ,
-                                          [ qudt:exponent 1 ;
+                       qudt:hasFactorUnit [ qudt:exponent 1 ;
                                             qudt:hasUnit unit:MilliGM
+                                          ] ,
+                                          [ qudt:exponent -1 ;
+                                            qudt:hasUnit unit:GM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -18402,11 +18447,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
