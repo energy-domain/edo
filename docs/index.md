@@ -150,6 +150,20 @@ Those are defined exclusively in the ontology itself.
 
 ---
 
+## Documentation structure
+
+This documentation is organised into a small number of conceptual sections:
+
+- [Architecture of the EDO](architecture/overview.md)
+- [Ontology Governance](governance/intro.md) *Under construction
+- [Transitional Domain Ontologies](transitional/intro.md) *Under construction
+- [Semantics and Relationships](semantics/domain-relations.md) *Under construction
+- [Interoperability with IFC](ifc/mapping-philosophy.md) *Under construction
+
+Each section explains *how to read and interpret* the EDO, not how to model data step by step.
+
+---
+
 ## Scope and audience
 
 EDO is intended for:
