@@ -155,9 +155,9 @@ Those are defined exclusively in the ontology itself.
 This documentation is organised into a small number of conceptual sections:
 
 - [Architecture of the EDO](./architecture/overview.md)
-- [Ontology Governance](./governance/intro.md) *Under construction
+- [Ontology Governance](./governance/intro.md)
 - [Transitional Domain Ontologies](./transitional/intro.md) *Under construction
-- [Semantics and Relationships](./semantics/domain-relations.md) *Under construction
+- [Semantic Modelling Strategy](./semantics/semantic-modelling-strategy.md)
 - [Interoperability with IFC](./ifc/mapping-philosophy.md) *Under construction
 
 Each section explains *how to read and interpret* the EDO, not how to model data step by step.
