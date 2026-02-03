@@ -221,7 +221,7 @@ ex:Rule_BuoyancyModule a sh:NodeShape ;
     ] .
 
 ex:Rule_CompactObject a sh:NodeShape ;
-    sh:targetClass edo:CompactObject ;
+    sh:targetClass edo:CompactObject, edo:LinePipe ;
     sh:property [
         sh:path edo:Mass ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -857,7 +857,7 @@ ex:Rule_UmbilicalStructure_10 a sh:NodeShape ;
         sh:in ( "Fractional number (? 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_11 a sh:NodeShape ;
+ex:Rule_umbilical_design_norm a sh:NodeShape ;
     sh:targetClass edo:UmbilicalSegment ;
     sh:property [
         sh:path edo:MainDesignNorm ;
@@ -1095,7 +1095,7 @@ ex:Rule_Asset a sh:NodeShape ;
         sh:in ( "String" )
     ] .
 
-ex:Rule_EnvironmentType a sh:NodeShape ;
+ex:Rule_environment_type a sh:NodeShape ;
     sh:targetClass edo:LineSection, edo:PointLocation ;
     sh:property [
         sh:path edo:EnvironmentType ;
@@ -1207,22 +1207,22 @@ ex:Rule_PipeSegment a sh:NodeShape ;
         edo:hasUnit unit:PPM-VOL ;
     ] .
 
-ex:Rule_RigidPipeSegment a sh:NodeShape ;
+ex:Rule_rigid_pipe_design_norm a sh:NodeShape ;
     sh:targetClass edo:RigidPipeSegment ;
     sh:property [
         sh:path edo:MainDesignNorm ;
         sh:in ( "DNV_ST_F101" "DNV_ST_F201" "API_RP_1111" "ASME_B31_4" "ASME_B31_8" "ANSI_B31_4" "ANSI_B31_8" "OTHER" )
-    ] ;
+    ] .
+ex:Rule_rigid_pipe_weld_environment a sh:NodeShape ;
+    sh:targetClass edo:RigidPipeSegment ;    
     sh:property [
-        sh:path edo:FieldJointCoating ;
-        sh:in ( "POLYURETHANE" "COALTAR_ENAMEL" "LIQUID_EPOXY" "FBE" "FBE_DUAL_LAYER" "FTPP" "FSPP" "HSS_PP" "IMPP" "FTPE" "FSPE" "HSS_PE" "IMPE" "IMPU" "IMEU" "SILICONE" "POLYCHLOROPRENE" "ULTRA" "RUBBER" "OTHER" )
-    ] ;
-    sh:property [
-        sh:path edo:Environment ;
+        sh:path edo:Environment, edo:GirthWeldRootPassEnvironment, edo:GirthWeldCapPassEnvironment ;
         sh:in ( "AIR" "SEAWATER_WITH_CP" "SEAWATER_WITHOUT_CP" )
-    ] ;
+    ] .
+ex:Rule_rigid_pipe_weld_sn_curve a sh:NodeShape ;
+    sh:targetClass edo:RigidPipeSegment ;    
     sh:property [
-        sh:path edo:SnCurve ;
+        sh:path edo:SnCurve, edo:GirthWeldRootPassSNCurve, edo:GirthWeldCapPassSNCurve ;
         sh:in ( "B1" "B2" "C" "C1" "C2" "D" "E" "F" "F1" "F3" "G" "W1" "W2" "W3" )
     ] .                              
 
@@ -2237,11 +2237,10 @@ ex:Regra_Valve a sh:NodeShape ;
     ] .
 
 ex:Regra_ProcessValve a sh:NodeShape ;
-    sh:targetClass edo:ProcessValve ;
+    sh:targetClass edo:ProcessValve, edo:LinePipe, edo:RigidPipeSegment ;
     sh:property [
         sh:path edo:CorrosionAllowance ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:MilliM ;
     ] ;
     sh:property [
         sh:path edo:ErosionAllowance ;
@@ -2827,3 +2826,155 @@ ex:Rule_PullOffStrength a sh:NodeShape ;
         sh:path edo:PullOffStrength ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] . 
+
+ex:Rule_InnerDiameter a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [
+        sh:path edo:InnerDiameterNominal, edo:InnerDiameterEndTolerancePositive, edo:InnerDiameterBodyTolerancePositive ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_InnerDiameter a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [
+        sh:path edo:InnerDiameterBodyToleranceNegative, edo:InnerDiameterEndToleranceNegative ;
+        sh:in ( "Fractional number (≤ 0.0)" ) ;
+    ] .    
+
+ex:Rule_OuterDiameter a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ sh:path edo:OuterDiameterNominal, 
+        edo:OuterDiameterBodyTolerancePositive, 
+        edo:OuterDiameterEndTolerancePositive ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_OuterDiameterNegative a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ 
+        sh:path edo:OuterDiameterBodyToleranceNegative,
+            edo:OuterDiameterEndToleranceNegative,
+            edo:WallThicknessToleranceNegative ;
+        sh:in ( "Fractional number (≤ 0.0)" ) ;
+    ] .        
+
+ex:Rule_WallThickness a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ 
+        sh:path edo:WallThicknessNominal, 
+        edo:WallThicknessTolerancePositive ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] . 
+
+ex:Rule_LengthNominal a sh:NodeShape ;
+    sh:targetClass edo:LinePipe ;
+    sh:property [ sh:path edo:LengthNominal, 
+        edo:LengthTolerancePositive ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .     
+
+ex:Rule_LengthToleranceNegative a sh:NodeShape ;
+    sh:targetClass edo:LinePipe ;
+    sh:property [ 
+        sh:path edo:LengthToleranceNegative ;
+        sh:in ( "Fractional number (≤ 0.0)" ) ;
+    ] .         
+
+ex:Rule_MaxStraightnessDeviation a sh:NodeShape ;
+    sh:targetClass edo:LinePipe ;
+    sh:property [ 
+        sh:path edo:MaxStraightnessDeviation ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_MaxStraightnessDeviationEnd a sh:NodeShape ;
+    sh:targetClass edo:LinePipe ;
+    sh:property [ 
+        sh:path edo:MaxStraightnessDeviationEnd ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_line_pipe_oor_norm a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ 
+        sh:path edo:BodyOvalityStandard, edo:EndOvalityStandard ;
+        sh:in ( "DNV_ST_F101" "API_5L" ) ;
+    ] .
+
+ex:Rule_line_pipe_manuf_process a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ 
+        sh:path edo:ManufacturingProcess;
+        sh:in ( "SMLS" "SAWL" "SAWH" "HFW" "EBW" "LBW" "MWP" ) ;
+    ] .
+
+ex:Rule_dnv_pipe_supp_requirement a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ 
+        sh:path edo:DNVSupplementaryRequirements;
+        sh:in ( "S" "F" "P" "D" "U" ) ;
+    ] .    
+
+ex:Rule_api5l_pipe_supp_requirement a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ 
+        sh:path edo:API5LSupplementaryRequirements;
+        sh:in ( "S" "O" "I" ) ;
+    ] .        
+
+ex:Rule_api5l_pipe_delivery_condition a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ 
+        sh:path edo:API5LDeliveryCondition;
+        sh:in ( "R" "N" "Q" "M" ) ;
+    ] .
+
+ex:Rule_OvalityValue a sh:NodeShape ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
+    sh:property [ 
+        sh:path edo:BodyOvalityValue, edo:EndOvalityValue ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+
+ex:Rule_line_pipe_material_grade a sh:NodeShape ;
+    sh:targetClass edo:LinePipeMaterial ;
+    sh:property [ 
+        sh:path edo:MaterialGrade;
+        sh:in ( "API_5L_A" "API_5L_A25" "API_5L_A25P" "API_5L_B" "API_5L_X42" "API_5L_X46" "API_5L_X52" "API_5L_X56" "API_5L_X60" "API_5L_X65"
+                "API_5L_X70" "API_5L_X80" "API_5L_X90" "API_5L_X100" "API_5L_X120" "DNV_245" "DNV_290" "DNV_320" "DNV_360" "DNV_390"
+                "DNV_415" "DNV_450" "DNV_485" "DNV_555" "DNV_22CR" "DNV_25CR" "DNV_13CR_2MO" "DNV_13CR_2_5MO" "API_5A_H_40" "API_5A_J_55"
+                "API_5A_K_55" "API_5A_N_80" "DIN_1629_ST37" "DIN_1629_ST44" "DIN_1629_ST52" "TITANIUM" "ASTM_B381_F1" "ASTM_B381_F2" "ASTM_B381_F2H"
+                "ASTM_B381_F3" "ASTM_B381_F4" "ASTM_B381_F5" "ASTM_B381_F6" "ASTM_B381_F7" "ASTM_B381_F7H" "ASTM_B381_F9" "ASTM_B381_F11" "ASTM_B381_F12"
+                "ASTM_B381_F13" "ASTM_B381_F14" "ASTM_B381_F15" "ASTM_B381_F16" "ASTM_B381_F16H" "ASTM_B381_F17" "ASTM_B381_F18" "ASTM_B381_F19"
+                "ASTM_B381_F20" "ASTM_B381_F21" "ASTM_B381_F22" "ASTM_B381_F23" "ASTM_B381_F24" "ASTM_B381_F25" "ASTM_B381_F26" "ASTM_B381_F26H"
+                "ASTM_B381_F27"  "ASTM_B381_F28" "ASTM_B381_F29" "ASTM_B381_F30" "ASTM_B381_F31" "ASTM_B381_F32" "ASTM_B381_F33" "ASTM_B381_F34"
+                "ASTM_B381_F35" "ASTM_B381_F36" "ASTM_B381_F37" "ASTM_B381_F38" "OTHER" 
+        ) ;
+    ] .
+    
+ex:Rule_material_hardness_scale a sh:NodeShape ;
+    sh:targetClass edo:LinePipeMaterial ;
+    sh:property [ 
+        sh:path edo:MaterialHardnessScale;
+        sh:in ( "HB" "HV" "HRA" "HRB" "HRC" "HRD" ) ;
+    ] .    
+
+ex:Rule_LinePipeMaterial a sh:NodeShape ;
+    sh:targetClass edo:LinePipeMaterial ;
+    sh:property [ 
+        sh:path edo:MaterialSpecificMass, 
+            edo:MaterialYoungModulus, 
+            edo:MaterialPoissonRatio, 
+            edo:MaterialMinYieldStrength, 
+            edo:MaterialMaxYieldStrength, 
+            edo:MaterialMinTensileStrength, 
+            edo:MaterialMaxTensileStrength, 
+            edo:MaterialSpecificHeatCapacity, 
+            edo:MaterialThermalConductivity, 
+            edo:MaterialThermalExpansionCoefficient, 
+            edo:MaterialUniformElongation, 
+            edo:MaterialElongationAtYield, 
+            edo:MaterialHardnessValue;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .        
