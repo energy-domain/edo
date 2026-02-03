@@ -1,47 +1,51 @@
 
-# EDO-SRP — Transitional Ontology (Subsea Rigid Pipes)
+# Transitional Ontologies
 
 ## Scope
 
-This directory contains **EDO-SRP**, a **transitional ontology** defined to support the **early production of IFC documentation** for the *Subsea Rigid Pipes* sub-domain in situations where **semantic consensus among the relevant domain stakeholders has not yet been established**.
+This directory contains **transitional ontologies** defined to support **exceptional and time-critical delivery scenarios** in which IFC-based deliverables must be produced **prior to the establishment of semantic consensus** among the relevant domain stakeholders.
 
-This ontology **does not constitute a normative reference** and **does not form part of the standard EDO lifecycle**.
+Ontologies contained in this directory **do not constitute normative references** and **do not form part of the standard EDO lifecycle**.
 
 ---
 
-## Background
+## Purpose
 
-Under specific strategic and time-critical conditions related to the Subsea Rigid Pipes sub-domain, it may be necessary to produce IFC-based deliverables prior to the completion of the formal consensus process.
+The purpose of the `transitional/` directory is to host **temporary semantic artefacts** that:
 
-In such cases, the use of a **transitional semantic artefact** is required in order to:
-
-* enable the timely generation of IFC documentation;
+* enable early generation of IFC documentation under strategic constraints;
 * accommodate raw, non-consensual domain information provided by individual stakeholders;
-* preserve the integrity and stability of the **EDO core**, which is reserved exclusively for consensual domain concepts.
+* preserve the integrity, stability and governance of the **EDO core**, which is reserved exclusively for consensual domain semantics.
 
-EDO-SRP has been defined to fulfil this role.
+These ontologies exist **solely to address exceptional situations** and **shall not be interpreted as a permanent architectural layer**.
 
 ---
 
-## Transitional Status
+## Characteristics of Transitional Ontologies
 
-EDO-SRP is explicitly characterised by the following properties:
+Ontologies placed under `transitional/` are characterised by the following:
 
-* it is **temporary** in nature;
-* it is defined **for a specific sub-domain and context**;
-* it acts as an **intermediate semantic artefact** between source domain data and IFC deliverables;
-* it **shall not be interpreted** as representing agreed domain semantics;
-* it **shall not be merged** into the EDO core;
-* it **shall not be reused** as part of the normal consensus or extraction workflows.
+* **Temporary nature**
+  They are defined with the explicit expectation of future decommissioning.
 
-Within the standard EDO process, this ontology **does not exist**.
+* **Context specificity**
+  Each ontology applies to a clearly delimited technical sub-domain and delivery context.
+
+* **Non-consensual status**
+  They do not represent semantic agreement among domain stakeholders.
+
+* **Operational intent**
+  Their sole purpose is to support delivery and validation of IFC-based artefacts.
+
+* **Architectural isolation**
+  They are strictly separated from the EDO core, governance and release artefacts.
 
 ---
 
 ## Relationship to the EDO Architecture
 
 * **EDO core (`core/`)**
-  Contains domain concepts that have achieved semantic consensus among stakeholders and constitute the normative semantic reference.
+  Provides the normative semantic reference, consisting exclusively of consensual domain concepts.
 
 * **Governance (`governance/`)**
   Defines the formal processes for review, maintenance and semantic consolidation.
@@ -49,48 +53,48 @@ Within the standard EDO process, this ontology **does not exist**.
 * **Source ontologies**
   Represent domain information as provided by individual stakeholders, without implicit or explicit consensus.
 
-* **EDO-SRP (this directory)**
-  A transitional semantic artefact defined **exclusively** to support exceptional delivery scenarios within the Subsea Rigid Pipes sub-domain.
+* **Transitional ontologies (this directory)**
+  Serve as intermediate semantic artefacts required to support exceptional delivery conditions.
 
 ---
 
-## Intended Use
+## Permitted Use
 
-EDO-SRP may be used for the following purposes only:
+Ontologies in this directory may be used only for:
 
-* generation of IFC documentation within the Subsea Rigid Pipes context;
-* operational validation activities related to such deliverables;
-* traceability of domain information used in delivery scenarios.
+* generation of IFC documentation under exceptional conditions;
+* operational validation activities associated with such deliveries;
+* traceability of non-consensual domain information used in these contexts.
 
 ---
 
 ## Restrictions
 
-EDO-SRP **shall not**:
+Ontologies under `transitional/` **shall not**:
 
-* be regarded as a consensual or normative domain model;
-* be used as a reference ontology outside the Subsea Rigid Pipes context;
-* serve as a basis for defining new domains or sub-domains;
-* replace or bypass the formal consensus process among Subsea Rigid Pipes stakeholders;
-* be promoted, directly or indirectly, into the EDO core.
+* be regarded as consensual or normative domain models;
+* be merged into, or promoted to, the EDO core;
+* be used as references outside their explicitly defined context;
+* replace, bypass or weaken the formal semantic consensus process;
+* be treated as part of the normal EDO workflow.
 
 ---
 
-## Lifecycle Considerations
+## Lifecycle Principle
 
-Once semantic consensus among stakeholders of the Subsea Rigid Pipes sub-domain has been formally established:
+Once semantic consensus has been formally established for a given sub-domain:
 
-* EDO-SRP **shall be decommissioned**;
-* the standard workflow shall apply:
+* the corresponding transitional ontology **shall be decommissioned**;
+* the standard EDO workflow shall apply:
 
   * source ontologies → review → EDO core → EDO extraction → IFC.
 
-The existence of this directory reflects an **exceptional transitional requirement** and **shall not be interpreted as a permanent architectural pattern**.
+The existence of this directory reflects a **controlled architectural exception** and **shall not be generalised**.
 
 ---
 
 ## Statement of Intent
 
-> **EDO-SRP is a transitional semantic artefact defined to address exceptional delivery requirements.
-> It does not represent stakeholder consensus and does not form part of the normative EDO architecture.**
+> **Transitional ontologies exist to address exceptional delivery requirements.
+> They do not represent stakeholder consensus and are not part of the normative EDO architecture.**
 
