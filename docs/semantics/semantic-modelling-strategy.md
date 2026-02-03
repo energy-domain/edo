@@ -74,18 +74,38 @@ This approach reflects how engineering knowledge is actually produced, reviewed,
 
 ---
 
+## Relationships as semantic possibility, not factual assertion
+
+In the EDO, relationships do **not** assert that two project instances are connected, related, or composed.
+
+Instead, the ontology declares **which relationships are semantically possible** between classes of elements, under specific contextual conditions.
+
+A relationship in the EDO defines:
+- a permitted semantic interpretation  
+- a recognised engineering meaning  
+- a valid space of interaction  
+
+Whether such a relationship actually exists in a given project instance is determined outside the ontology, through contextual data, validation rules, and contractual scope.
+
+This distinction is fundamental.
+
+EDO defines what *can* be meaningfully stated.  
+Project data determines what *is* stated.
+
+---
+
 ## Relationships as declarative semantics
 
-In EDO, many engineering relationships are not modelled as OWL object properties.
+Because relationships express semantic possibility rather than factual truth, many engineering relationships in EDO are not modelled as OWL object properties.
 
-Instead, they are expressed as **declarative relationship semantics**, using annotations that describe:
+They are expressed as **declarative relationship semantics**, using annotations that describe:
 - the nature of the relationship  
 - the roles involved  
 - the context under which it applies  
 
 This avoids encoding engineering intent as rigid logical axioms, while still making the semantics explicit, inspectable, and governable.
 
-Relationships are therefore understood as **semantic statements**, not as universally true logical facts.
+Relationships are therefore understood as **semantic declarations**, not as universally true logical facts.
 
 ---
 
@@ -112,9 +132,9 @@ EDO does not abandon rigour.
 It **relocates rigour**.
 
 Formal validation is performed through:
-- explicit validation layers
-- context-aware constraints
-- contract- or phase-specific rules
+- explicit validation layers  
+- context-aware constraints  
+- contract- or phase-specific rules  
 
 This allows validation to be:
 - precise without being universal  
@@ -155,11 +175,11 @@ Meaning emerges from the combination of these layers, not from logical deduction
 ## Architectural consequence
 
 The semantic modelling strategy described here is not an isolated choice.
-It underpins:
 
+It underpins:
 - the use of annotations for relationships  
+- the interpretation of relationships as semantic possibilities  
 - the treatment of context as a core abstraction  
-- the separation between core, transitional, and governance ontologies  
-- the distinction between semantics and validation  
+- the separation between semantics, validation, and governance  
 
 Understanding this strategy is essential to understanding the EDO as a whole.
