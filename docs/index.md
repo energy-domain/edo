@@ -156,8 +156,8 @@ This documentation is organised into a small number of conceptual sections:
 
 - [Architecture of the EDO](./architecture/overview.md)
 - [Ontology Governance](./governance/intro.md)
-- [Transitional Domain Ontologies](./transitional/intro.md) *Under construction
 - [Semantic Modelling Strategy](./semantics/semantic-modelling-strategy.md)
+- [Transitional Domain Ontologies](./transitional/intro.md) *Under construction
 - [Interoperability with IFC](./ifc/mapping-philosophy.md) *Under construction
 
 Each section explains *how to read and interpret* the EDO, not how to model data step by step.
