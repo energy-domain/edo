@@ -2,201 +2,173 @@
 
 ![EDO logo](edo-logo.png)
 
-Welcome to the official documentation of the **Energy Domain Ontology (EDO)**. This ontology serves as a semantic framework for the structured representation, exchange, and validation of information across the full lifecycle of assets in the energy sector.
+Welcome to the official documentation of the **Energy Domain Ontology (EDO)**.
+EDO is a semantic framework for the structured representation, exchange, and validation
+of information across the full lifecycle of assets in the energy sector.
 
-**Namespace:** [`https://w3id.org/energy-domain/edo`](https://w3id.org/energy-domain/edo)  
+**Namespace:** https://w3id.org/energy-domain/edo  
 **Prefix:** `edo:`  
-**Stable Releases:** Hosted on GitHub and Zenodo with permanent URLs via [w3id.org](https://w3id.org)
+**Persistent URLs and stable releases:** https://w3id.org/energy-domain  
 
-[`User Friendly view`](./energy-domain-ontology.html)
-
----
-
-## 🔷 Executive Overview
-
-The Energy Domain Ontology is a collaborative, standards-driven initiative to support information interoperability in the energy sector. It is designed to serve the needs of clients (owners), engineering contractors, equipment and material suppliers, and software vendors.
-
-EDO enables:
-
-- Standardised information exchange across all lifecycle phases.
-- Specification of data delivery requirements in open formats such as IFC.
-- Support for project validation and compliance using SHACL and IDS.
-- Foundation for extensions to the IFC standard for the energy sector.
-- Roadmap for interoperability alignment with global standards such as ISO 15926 and CFIHOS.
-
-EDO is developed openly, with contributions and reviews from specialists across engineering disciplines and energy subdomains. A versioned, peer-reviewed core ontology is maintained, from which stable subontologies are derived for each sector and discipline.
+[Human-readable ontology rendering (non-normative)](./energy-domain-ontology.html)
 
 ---
 
-## 🏗️ Scope and Domain Coverage
 
-EDO covers information flows across all lifecycle phases:
+## What is the EDO
 
-- Conceptual Design  
-- Basic Design  
-- Detailed/Executive Design  
-- Procurement  
-- Installation/Construction  
-- Commissioning  
-- Operation  
-- Maintenance  
-- Decommissioning
+The **Energy Domain Ontology (EDO)** is a formal, domain-driven ontology created to represent energy assets and their engineering information across the full asset lifecycle.
 
-### Subdomains Covered
+EDO is not a data format, a modelling guideline, or a software specification.  
+It is a **semantic contract**: a shared, machine-readable definition of meaning, structure, and intent within the energy domain.
 
-#### Oil & Gas  
-- **Upstream:** Offshore platforms  
-- **Downstream:** Refineries  
-- **Subsea:** Subsea Wet Christmas Trees, Manifolds, Flexible and Rigid Risers and Flowlines, Umbilicals
-
-#### Renewables
-- Solar, Wind, Hydropower, Biomass and other energy plants
-
-#### Nuclear
-- Power generation facilities
-
-### Technical Disciplines Included
-
-- Equipment (static and rotating)  
-- Process Piping  
-- Instrumentation and Control  
-- Electrical  
-- Civil and Structural  
-- Subsea Systems  
-- Others (as needed)
+Its initial development focuses on complex subsea oil and gas systems, while its architectural principles are intentionally generic and extensible to other energy sectors.
 
 ---
 
-## 🧠 Ontology Modelling Strategy
+## Why the EDO exists
 
-- **Modelling Approach:** The Energy Domain Ontology is developed incrementally using [Protégé](https://protege.stanford.edu/).
-- **Guidelines:** The process follows Semantic Web and Linked Data best practices, along with OWL Design Principles.  
-- **Consistency:** Restriction-based patterns are applied to ensure logical coherence.
+Engineering information in the energy sector is traditionally:
 
-It is structured as:
+- Fragmented across disciplines, organisations, and tools  
+- Strongly document-centric  
+- Weakly governed at the semantic level  
+- Difficult to validate, reuse, and evolve consistently  
 
-### Core Ontology
+EDO addresses these limitations by treating **semantics as infrastructure**.
 
-A centralised ontology representing all energy subdomains and disciplines, used as the authoritative source for:
+Instead of relying on informal conventions or tool-specific schemas, EDO establishes a formal semantic layer where:
 
-- Data validation
-- Subontology extraction
-- Ontology-driven specification generation
-
-### Subontologies
-
-When a specific combination of **discipline** and **sector** achieves consensus maturity, a corresponding subontology is extracted. This subontology serves as the formal base for:
-
-- Technical Specifications for information delivery
-- IFC data modelling rules and diagrams
-- SHACL and IDS validation templates
+- Meaning is explicit and inspectable  
+- Constraints are machine-verifiable  
+- Governance is embedded in the model  
+- Evolution is controlled and auditable  
 
 ---
 
-## 📦 Publication and Versioning
+## Core principles
 
-Each stable release of the core and subontologies is published in the following formats:
+The EDO is guided by a small set of fundamental principles.
 
-- `.ttl` (Turtle)
-- `.jsonld` (JSON-LD)
-- `.nt` (N-Triples)
-- `.owl` (RDF/XML)
-- `.html` (Human-readable rendering)
+### Ontology as the source of truth
 
-They are versioned using semantic versioning and hosted at:
+All normative rules, constraints, and semantic definitions are expressed **exclusively within the ontology itself**, using formal languages such as OWL and SHACL.
 
-- GitHub: [`github.com/energy-domain `](https://github.com/energy-domain)
-- Zenodo (DOI for each release)
-- Persistent URL via: [`https://w3id.org/energy-domain`](https://w3id.org/energy-domain)
+Textual documentation never replaces, duplicates, or overrides the ontology.
 
-### Experimental / Test Releases  
-For early-access or experimental versions of the ontology (not yet stable), visit:  
-[Subsea Flexible Pipes - Detailed Design phase - Experimental ttl](https://raw.githubusercontent.com/energy-domain/ontologies/main/tests/core/subontologies/FlexiblePipesDetailedDesign.ttl).
-⚠️ *Not for production use*.
+### Separation of concerns
 
----
+Conceptual semantics, governance, validation, extraction, and implementation concerns are clearly separated into distinct layers, each with a well-defined role.
 
-## 🌐 Community Participation
+### Context over proliferation
 
-All modelling and publication steps are transparent and open to stakeholder review. A collaborative workflow is implemented through **GitHub Issues**, where experts can:
+Instead of uncontrolled subclassing or duplication, EDO uses explicit **contextual semantics** to express when and under which conditions concepts and relationships apply.
 
-- Comment on individual ontology entities (Assets, Attributes, Relationships)
-- Suggest modifications
-- Participate in approval workflows
+### Discipline-aware, not discipline-locked
 
-Our team mediates the discussions to reach consensus before locking subontology versions.
+EDO explicitly recognises engineering disciplines while remaining interoperable and cross-disciplinary by design.
+
+### Tool-agnostic interoperability
+
+EDO is designed to interoperate with existing standards and schemas without being owned by any specific tool, vendor, or platform.
 
 ---
 
-## 📄 Technical Specifications
+## Architectural overview
 
-Once a subontology reaches maturity, a **Technical Specification** is generated including:
+At a high level, the EDO ecosystem is organised into:
 
-- Textual normative guidelines  
-- Rules for modelling IFC-based data  
-- Visual diagrams  
-- Supporting spreadsheets derived from the ontology
+- **Core ontology**  
+  Fundamental domain concepts, relationships, and semantic primitives shared across all domains.
 
-These documents guide **clients** in contracting deliverables and **suppliers/contractors** in generating compliant models.
+- **Transitional domain ontologies**  
+  Discipline- or asset-specific specialisations built on top of the core, reflecting domain consensus at a given moment in time.
 
----
+- **Governance ontologies**  
+  Ontologies dedicated to review, maintenance, extraction, validation, and lifecycle governance.
 
-## ⚙️ Tooling and Applications
+- **Release artefacts**  
+  Frozen, versioned snapshots intended for contractual, institutional, or long-term reference.
 
-EDO supports various technical applications, including:
-
-### IFC Interoperability
-
-- Rule-based generation of IFC data using ontology-driven specifications
-- Generation of IFC data dictionary in [`bSDD`](https://www.buildingsmart.org/users/services/buildingsmart-data-dictionary/) dictionary 
-- Potential future support for translators between IFC and other formats
-- Guidance for extending IFC for energy-specific classes and properties
-
-### Project Validation
-
-- Generation of [SHACL](https://www.w3.org/TR/shacl/) shapes from ontology classes and properties
-- Creation of [buildingSMART IDS](https://technical.buildingsmart.org/standards/ids/) templates for requirement validation
-
-### SPARQL and SHACL Examples
-
-Examples and code snippets are available in the [Documentation Section](#documentation) to support:
-
-- Data querying
-- Consistency checking
-- Automated validation
+This structure allows the ontology to evolve without breaking trust, traceability, or contractual stability.
 
 ---
 
-## 📚 Documentation
+## Governance and evolution
 
-A complete documentation portal is provided, including:
+EDO is designed to evolve in a controlled, transparent, and auditable manner.
 
-### Executive Section
+Evolution is governed through:
+- Explicit versioning
+- Formal review and maintenance processes
+- Clear separation between experimental, transitional, and released artefacts
 
-- Vision and roadmap
-- Stakeholder benefits
-- Governance model
-
-### Technical Section
-
-- [Modelling conventions and methodology](./ontology_templates.md)
-- Procedures for creating, editing, and maintaining the core ontology
-- Guidelines for subontology extraction
-- SPARQL and SHACL usage examples
-- Naming conventions, annotations, and versioning practices
+A released version of the EDO is **immutable** and may be safely referenced in contracts, specifications, and long-term data exchanges.
 
 ---
 
-## 📞 Contact and Contributions
+## Relationship with IFC and other schemas
 
-We welcome collaboration from engineers, ontology experts, software developers, and stakeholders across the energy domain.
+EDO does not attempt to replace existing schemas such as IFC.
 
-To contribute or get in touch:
+Instead, it provides:
+- A semantic layer above them  
+- A formal interpretation of engineering intent  
+- An explicit framework for governance, extraction, and validation  
 
-- Visit: [`https://github.com/orgs/energy-domain`](https://github.com/orgs/energy-domain)
-- Submit Issues or Pull Requests
-- Join the discussion via GitHub Discussions
+Mappings, interpretations, and materialisation rules are defined formally and remain inspectable and verifiable within the ontology ecosystem.
 
 ---
 
-© Energy Domain, under [Creative Commons CC0 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/)
+## How to read the EDO
+
+The EDO is intentionally **self-describing**.
+
+To understand what is valid, mandatory, or constrained:
+- Consult the ontology definitions (OWL)
+- Consult the validation shapes (SHACL / SHACL-SPARQL)
+
+This documentation explains *why* certain modelling decisions exist and *how to reason about them*, not *how to encode data step by step*.
+
+---
+
+## Documentation scope
+
+This documentation focuses on:
+
+- Architectural intent and modelling philosophy  
+- Semantic design principles  
+- Governance and lifecycle concepts  
+- Interpretation of domain abstractions  
+
+It deliberately avoids duplicating:
+- Formal rules
+- Mandatory structures
+- Validation logic  
+
+Those are defined exclusively in the ontology itself.
+
+---
+
+## Scope and audience
+
+EDO is intended for:
+
+- Asset owners  
+- Engineering contractors and suppliers  
+- Software vendors  
+- Data architects  
+- Ontology engineers  
+- Standards and interoperability initiatives  
+
+It assumes familiarity with engineering concepts and a basic understanding of semantic technologies.
+
+---
+
+## Final note
+
+The Energy Domain Ontology is not a static artefact.  
+It is a **shared language**, evolving through formal governance, practical use, and collective understanding.
+
+Its authority derives from formal semantics — not from examples, conventions, or prose.
+
