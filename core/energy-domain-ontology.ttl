@@ -2002,7 +2002,6 @@ edo:BuoyancyModule rdf:type owl:Class ;
                                     edo:NominalFloatDensity ,
                                     edo:NominalFloatVolume ,
                                     edo:OuterDiameter ,
-                                    edo:PipeMountPosition ,
                                     edo:ShortTermFloatDensity ,
                                     edo:ShortTermFloatVolume ;
                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
@@ -8261,6 +8260,7 @@ edo:LineAncillary rdf:type owl:Class ;
                   skos:definition "A component designed to complement and enhance the functionality of subsea flexible pipes. Line Ancillaries include a variety of parts such as connectors, clamps, or collars that facilitate the installation, operation, and maintenance of flexible pipes used in subsea systems. These ancillaries ensure proper alignment, secure connections, and protection against environmental factors, contributing to the reliable performance and integrity of the flexible pipe system in harsh underwater conditions."@en ;
                   skos:prefLabel "Acessório de Linha"@pt-br ,
                                  "Line Ancillary"@en ;
+                  edo:hasAttribute edo:MountPosition ;
                   edo:hasExternalRef "MDA:LineAccessory" .
 
 
@@ -11300,6 +11300,22 @@ edo:MooringLineSegment rdf:type owl:Class ;
                        edo:hasExternalRef "MDA:MooringLineSegment" .
 
 
+###  https://w3id.org/energy-domain/edo#MountPosition
+edo:MountPosition rdf:type owl:Class ;
+                  rdfs:subClassOf edo:DomainAttribute ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "MountPosition" ;
+                  skos:definition "Cota em metros da posição em que o item é montado no sentido do fluxo do fluido."@pt-br ,
+                                  "Indicates the distance from the end fitting to the position of the accessory along the direction of fluid flow within the pipe body. This property specifies the precise location of the accessory relative to the end fitting, which is essential for accurate installation and alignment within the tubular body."@en ;
+                  skos:prefLabel "Mount Position"@en ,
+                                 "Posição de Montagem"@pt-br ;
+                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:M ;
+                  edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MudMat
 edo:MudMat rdf:type owl:Class ;
            rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -12571,22 +12587,6 @@ edo:PipeAnode rdf:type owl:Class ;
               edo:ifc_equivalentClass "IfcPipeFitting" ;
               edo:ifc_objectType "PipeAnode" ;
               edo:ifc_predefinedType "USERDEFINED" .
-
-
-###  https://w3id.org/energy-domain/edo#PipeMountPosition
-edo:PipeMountPosition rdf:type owl:Class ;
-                      rdfs:subClassOf edo:DomainAttribute ;
-                      dcterms:accessRights "PUBLIC" ;
-                      dcterms:identifier "PipeMountPosition" ;
-                      skos:definition "Cota em metros da posição em que o item é montado no tramo no sentido do fluxo do fluido."@pt-br ,
-                                      "Indicates the distance from the end fitting to the position of the accessory along the direction of fluid flow within the pipe body. This property specifies the precise location of the accessory relative to the end fitting, which is essential for accurate installation and alignment within the tubular body."@en ;
-                      skos:prefLabel "Pipe Mount Position"@en ,
-                                     "Posição de Montagem no Duto"@pt-br ;
-                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                      edo:hasTypedValue edo:FloatValue ;
-                      edo:hasUnit unit:M ;
-                      edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#PipePullingHead
@@ -15301,8 +15301,7 @@ edo:SplitCollar rdf:type owl:Class ;
                 skos:definition "A component used to encircle and secure parts of subsea systems, such as flexible pipes, risers, or accessories. The Split Collar is designed with a split or gap, allowing it to be clamped around the pipe or component and then fastened together. This design facilitates easy installation and removal, making it useful for applications where adjustments or maintenance are required. The Split Collar provides structural support, alignment, and stability, ensuring that the connected components remain securely in place."@en ;
                 skos:prefLabel "Colar Bipartido"@pt-br ,
                                "Split Collar"@en ;
-                edo:hasAttribute edo:PipeMountPosition ,
-                                 edo:WeightInWater ;
+                edo:hasAttribute edo:WeightInWater ;
                 edo:hasSpec edo:BoltingSpec .
 
 
@@ -19649,10 +19648,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent -1 ;
+             qudt:hasFactorUnit [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent 3 ;
+                                [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -19669,9 +19668,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
@@ -19681,10 +19677,13 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                          qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -19699,11 +19698,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                            qudt:hasUnit unit:GM
-                                          ] ,
-                                          [ qudt:exponent 1 ;
+                       qudt:hasFactorUnit [ qudt:exponent 1 ;
                                             qudt:hasUnit unit:MilliGM
+                                          ] ,
+                                          [ qudt:exponent -1 ;
+                                            qudt:hasUnit unit:GM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -19718,20 +19717,20 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
