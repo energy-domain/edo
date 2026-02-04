@@ -3050,21 +3050,6 @@ edo:CurvedPipeSection rdf:type owl:Class ;
                       edo:ifc_predefinedType "USERDEFINED" .
 
 
-###  https://w3id.org/energy-domain/edo#Cv
-edo:Cv rdf:type owl:Class ;
-       rdfs:subClassOf edo:_CAT-Specification ;
-       dcterms:accessRights "PUBLIC" ;
-       dcterms:identifier "Cv" ;
-       skos:prefLabel "Cv"@en ,
-                      "Cv"@pt-br ;
-       edo:entityStatus "NEW" ;
-       edo:hasAttributeScope edo:TypeLevelAttribute ;
-       edo:hasExternalRef "MDA:cv" ;
-       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-       edo:hasTypedValue edo:FloatValue ;
-       edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#DNVSupplementaryRequirements
 edo:DNVSupplementaryRequirements rdf:type owl:Class ;
                                  rdfs:subClassOf edo:LinePipeMaterialAttribute ;
@@ -5349,6 +5334,21 @@ edo:FlowCoatingMaterialAttribute rdf:type owl:Class ;
                                  rdfs:label "Flow Coating Material"@en ;
                                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                                  edo:hasLifecycleCreationPhase edo:DetailedDesign .
+
+
+###  https://w3id.org/energy-domain/edo#FlowCoefficientCv
+edo:FlowCoefficientCv rdf:type owl:Class ;
+                      rdfs:subClassOf edo:_CAT-Specification ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "FlowCoefficientCv" ;
+                      skos:prefLabel "Coeficiente de vazão - Cv"@pt-br ,
+                                     "Flow coefficient - Cv"@en ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:cv" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#FlowConnector
@@ -13167,7 +13167,7 @@ edo:ProcessCheckValve rdf:type owl:Class ;
                       skos:prefLabel "Process check valve"@en ,
                                      "Válvula de retenção de processo"@pt-br ;
                       edo:entityStatus "NEW" ;
-                      edo:hasAttribute edo:Cv ,
+                      edo:hasAttribute edo:FlowCoefficientCv ,
                                        edo:OpeningPressure ;
                       edo:hasDiscipline edo:ValveEngineering ;
                       edo:hasExternalRef "MDA:ProcessCheckValve" .
@@ -18913,11 +18913,11 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:DEG
-                                        ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:DEG
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -19583,15 +19583,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
@@ -19599,6 +19590,15 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -19613,11 +19613,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                            qudt:hasUnit unit:MilliGM
-                                          ] ,
-                                          [ qudt:exponent -1 ;
+                       qudt:hasFactorUnit [ qudt:exponent -1 ;
                                             qudt:hasUnit unit:GM
+                                          ] ,
+                                          [ qudt:exponent 1 ;
+                                            qudt:hasUnit unit:MilliGM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -19632,7 +19632,10 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
@@ -19640,9 +19643,6 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
