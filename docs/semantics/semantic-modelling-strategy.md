@@ -172,6 +172,22 @@ Meaning emerges from the combination of these layers, not from logical deduction
 
 ---
 
+## Decision criteria and modelling judgement
+
+The semantic modelling strategy described in this document explains **how meaning is expressed and interpreted** in the EDO.
+
+When concrete modelling decisions involve ambiguity, trade-offs, or tension between real-world fidelity and technical constraints, those decisions are guided by an explicit architectural criterion.
+
+That criterion is documented separately in:
+
+[Ontology Decision Criterion](./ontology-decision-criterion.md)
+
+This separation is intentional:
+- this document explains the modelling mindset
+- the decision criterion defines what prevails when interpretations or solutions diverge
+
+---
+
 ## Architectural consequence
 
 The semantic modelling strategy described here is not an isolated choice.
