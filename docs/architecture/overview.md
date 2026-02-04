@@ -105,3 +105,22 @@ The architecture of EDO is designed to ensure that:
 - formal semantics remain the ultimate source of truth  
 
 This architectural discipline is what allows EDO to function as semantic infrastructure rather than as documentation or convention.
+
+---
+
+## Architectural decision criteria for the EDO ecosystem
+
+This document describes the architectural organisation of the EDO and the intent behind its structure.
+
+When architectural decisions involve trade-offs between stability and evolution,  
+between domain specificity and reuse,  
+or between conceptual clarity and practical delivery constraints,  
+those decisions are guided by an explicit ecosystem-level criterion.
+
+That criterion is documented separately in:
+
+[EDO Ecosystem – Architectural Decision Criterion](./ecosystem-decision-criterion.md)
+
+This separation is intentional:
+- this document explains how the ecosystem is structured
+- the decision criterion defines how architectural tensions are resolved over time
