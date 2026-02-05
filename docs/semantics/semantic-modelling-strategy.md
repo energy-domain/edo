@@ -109,6 +109,28 @@ Relationships are therefore understood as **semantic declarations**, not as univ
 
 ---
 
+## Taxonomy as semantic contract
+
+Within the EDO semantic strategy, class hierarchies are not treated as neutral classification mechanisms.
+
+Declaring a class as a subclass of another class represents an explicit **semantic commitment**.
+
+In the EDO, taxonomy is understood as **contractual**:
+subclassing implies full acceptance of the semantic relationships declared at the superclass level.
+
+This means that inheriting a class also entails inheriting the space of relationships in which that class is allowed to participate.
+Relationship compatibility is therefore determined by correct ontological classification, not by downstream exceptions or validation rules.
+
+If a class must not participate in a relationship declared for its superclass, this is not a validation concern but a modelling error in the taxonomy itself.
+
+This principle is formalised as the **Contractual Inheritance Principle**, which defines how inheritance, relationships, and semantic responsibility interact in the EDO.
+
+For a detailed explanation, rationale, and modelling consequences, see:
+
+[Contractual Inheritance Principle](./contractual-inheritance-principle.md)
+
+---
+
 ## Context as a first-class concept
 
 Context is central to the EDO semantic strategy.
