@@ -456,7 +456,8 @@ edo:API6APSL rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#AbandonmentCap
 edo:AbandonmentCap rdf:type owl:Class ;
-                   rdfs:subClassOf edo:HardwareItem ;
+                   rdfs:subClassOf edo:HardwareItem ,
+                                   edo:IfcInstanciableElement ;
                    dcterms:identifier "AbandonmentCap" ;
                    skos:altLabel "Umbilical Abandonment Head"@en ;
                    skos:definition "Acessório de uso temporário para vedação da extremidade de um cabo, evitando ingresso de água."@pt-br ,
@@ -467,6 +468,7 @@ edo:AbandonmentCap rdf:type owl:Class ;
                                     edo:MinimumHousedDiameter ,
                                     edo:VoltageRatingAttribute ;
                    edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                   edo:hasExternalRef "MDA:AbandonmentCap" ;
                    edo:ifc_equivalentClass "IfcCableFitting" ;
                    edo:ifc_objectType "AbandonmentCap" ;
                    edo:ifc_predefinedType "USERDEFINED" .
@@ -2016,10 +2018,16 @@ edo:BuoyancyModule rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#BuoyancyTank
 edo:BuoyancyTank rdf:type owl:Class ;
-                 rdfs:subClassOf edo:SubseaEquipment ;
+                 rdfs:subClassOf edo:IfcInstanciableElement ,
+                                 edo:SubseaEquipment ;
                  dcterms:identifier "BuoyancyTank" ;
                  skos:prefLabel "Buoyancy tank"@en ,
-                                "Tanque de flutuação"@pt-br .
+                                "Tanque de flutuação"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasExternalRef "MDA:BuoyancyTank" ;
+                 edo:ifc_equivalentClass "IfcPipeFitting" ;
+                 edo:ifc_objectType "BuoyancyTank" ;
+                 edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#Burial
@@ -16182,11 +16190,17 @@ edo:SubseaFlexiblePipesEngineering rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SubseaLayout
 edo:SubseaLayout rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Location ;
+                 rdfs:subClassOf edo:IfcInstanciableElement ,
+                                 edo:Location ;
                  dcterms:identifier "SubseaLayout" ;
                  skos:definition "The arrangement or map of components and systems within a subsea environment, including pipelines, risers, manifolds, and other infrastructure."@en ;
                  skos:prefLabel "Arranjo Submarino"@pt-br ,
-                                "Subsea Layout"@en .
+                                "Subsea Layout"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasExternalRef "MDA:SubseaLayout" ;
+                 edo:ifc_equivalentClass "IfcPipeFitting" ;
+                 edo:ifc_objectType "SubseaLayout" ;
+                 edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaManifoldsEngineering
@@ -18288,10 +18302,17 @@ edo:Version rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Vessel
 edo:Vessel rdf:type owl:Class ;
-           rdfs:subClassOf edo:PressureComponent ;
+           rdfs:subClassOf edo:IfcInstanciableElement ,
+                           edo:PressureComponent ;
            dcterms:identifier "Vessel" ;
            skos:prefLabel "Vaso"@pt-br ,
-                          "Vessel"@en .
+                          "Vessel"@en ;
+           edo:entityStatus "NEW" ;
+           edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+           edo:hasExternalRef "MDA:Vessel" ;
+           edo:ifc_equivalentClass "IfcPipeFitting" ;
+           edo:ifc_objectType "Vessel" ;
+           edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#VoltageRatingAttribute
@@ -18995,14 +19016,14 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -19648,10 +19669,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -19668,9 +19689,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
@@ -19678,12 +19696,15 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -19717,7 +19738,13 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
@@ -19725,12 +19752,6 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
