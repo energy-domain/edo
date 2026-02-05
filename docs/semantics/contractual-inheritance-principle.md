@@ -3,8 +3,6 @@
 ## Principle Name
 **Contractual Inheritance Principle**
 
-(Alternative names you may consider: *Relational Contract Inheritance*, *Taxonomic Contract Principle*, *Semantic Contract Inheritance*.)
-
 ---
 
 ## Statement
