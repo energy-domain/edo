@@ -644,8 +644,6 @@ edo:ActuatedInstrumentationValve rdf:type owl:Class ;
                                  skos:prefLabel "Externally-actuated instrumentation valve"@en ,
                                                 "Válvula de instrumentação atuada externamente"@pt-br ;
                                  edo:entityStatus "NEW" ;
-                                 edo:hasDiscipline edo:InstrumentationEngineering ,
-                                                   edo:ValveEngineering ;
                                  edo:hasExternalRef "MDA:ActuatedInstrumentationValve" .
 
 
@@ -661,7 +659,6 @@ edo:ActuatedProcessValve rdf:type owl:Class ;
                          edo:hasAttribute edo:BonnetMaterial ,
                                           edo:LeakageClass ,
                                           edo:StemMaterial ;
-                         edo:hasDiscipline edo:ValveEngineering ;
                          edo:hasExternalRef "MDA:ActuatedProcessValve" .
 
 
@@ -835,7 +832,6 @@ edo:AngleChokeValve rdf:type owl:Class ;
                     skos:prefLabel "Angle choke valve"@en ,
                                    "Válvula de restrição angular"@pt-br ;
                     edo:entityStatus "NEW" ;
-                    edo:hasDiscipline edo:ValveEngineering ;
                     edo:hasExternalRef "MDA:AngleChokeValve" .
 
 
@@ -1749,21 +1745,6 @@ edo:BodyOvalityStandard rdf:type owl:Class ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#BodyOvalityValue
-edo:BodyOvalityValue rdf:type owl:Class ;
-                     rdfs:subClassOf edo:LinePipeMaterialAttribute ;
-                     dcterms:accessRights "PUBLIC" ;
-                     dcterms:identifier "BodyOvalityValue" ;
-                     skos:prefLabel "Valor de ovalização no corpo"@pt-br ,
-                                    "Value of ovality in the body"@en ;
-                     edo:entityStatus "NEW" ;
-                     edo:hasAttributeScope edo:TypeLevelAttribute ;
-                     edo:hasExternalRef "MDA:spec.oor_body.value" ;
-                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                     edo:hasTypedValue edo:FloatValue ;
-                     edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#BodyTec
 edo:BodyTec rdf:type owl:Class ;
             rdfs:subClassOf edo:DomainAttribute ;
@@ -2130,10 +2111,16 @@ edo:CarcassLayer rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#CasingHanger
 edo:CasingHanger rdf:type owl:Class ;
-                 rdfs:subClassOf edo:PressureComponent ;
+                 rdfs:subClassOf edo:IfcInstanciableElement ,
+                                 edo:PressureComponent ;
                  dcterms:identifier "CasingHanger" ;
                  skos:prefLabel "Casing hanger"@en ,
-                                "Suspensor de revestimento"@pt-br .
+                                "Suspensor de revestimento"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasExternalRef "MDA:CasingHanger" ;
+                 edo:ifc_equivalentClass "IfcPipeFitting" ;
+                 edo:ifc_objectType "CasingHanger" ;
+                 edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ChainSegment
@@ -2158,23 +2145,33 @@ edo:ChainSegment rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ChemicalInjectionUnit
 edo:ChemicalInjectionUnit rdf:type owl:Class ;
-                          rdfs:subClassOf edo:TopsideEquipment ;
+                          rdfs:subClassOf edo:IfcInstanciableElement ,
+                                          edo:TopsideEquipment ;
                           dcterms:identifier "ChemicalInjectionUnit" ;
                           skos:definition "Equipamento de superfície para pressurização de produtos químicos para injeção"@pt-br ,
                                           "Topside equipment for pressurization of chemical injection products"@en ;
                           skos:prefLabel "Chemical injection unit"@en ,
-                                         "Unidade de injeção de químicos"@pt-br .
+                                         "Unidade de injeção de químicos"@pt-br ;
+                          edo:hasExternalRef "MDA:ChemicalInjectionUnit" ;
+                          edo:ifc_equivalentClass "IfcPipeFitting" ;
+                          edo:ifc_objectType "ChemicalInjectionUnit" ;
+                          edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ChokeModule
 edo:ChokeModule rdf:type owl:Class ;
-                rdfs:subClassOf edo:FlowControlModule ;
+                rdfs:subClassOf edo:FlowControlModule ,
+                                edo:IfcInstanciableElement ;
                 dcterms:identifier "ChokeModule" ;
                 skos:definition "Módulo substituível com função principal de restrição ou regulagem de fluxo"@pt-br ,
                                 "Replaceable module with flow restriction or regulation functions"@en ;
                 skos:prefLabel "Choke module"@en ,
                                "Módulo de choke"@pt-br ;
-                edo:hasDiscipline edo:WetChristmasTreesEngineering .
+                edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                edo:hasExternalRef "MDA:ChokeModule" ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "ChokeModule" ;
+                edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ChokeValve
@@ -2186,7 +2183,6 @@ edo:ChokeValve rdf:type owl:Class ;
                skos:prefLabel "Choke valve"@en ,
                               "Válvula de restrição"@pt-br ;
                edo:entityStatus "NEW" ;
-               edo:hasDiscipline edo:ValveEngineering ;
                edo:hasExternalRef "MDA:ChokeValve" .
 
 
@@ -2951,13 +2947,19 @@ edo:CriticalCurvatureOfSlipping rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#CrossoverModule
 edo:CrossoverModule rdf:type owl:Class ;
-                    rdfs:subClassOf edo:FlowControlModule ;
+                    rdfs:subClassOf edo:FlowControlModule ,
+                                    edo:IfcInstanciableElement ;
                     dcterms:identifier "CrossoverModule" ;
                     skos:definition "Módulo substituível que permite fechamento de um circuito de fluxo"@pt-br ,
                                     "Replaceable module that enables closure of a flow circuit"@en ;
                     skos:prefLabel "Cross-over module"@en ,
                                    "Módulo de cross-over"@pt-br ;
-                    edo:hasDiscipline edo:WetChristmasTreesEngineering .
+                    edo:hasDiscipline edo:SubseaManifoldsEngineering ,
+                                      edo:WetChristmasTreesEngineering ;
+                    edo:hasExternalRef "MDA:CrossoverModule" ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "CrossoverModule" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#CrushingCurveAttribute
@@ -3577,12 +3579,18 @@ edo:DisplacedVolume rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#DistributionModule
 edo:DistributionModule rdf:type owl:Class ;
-                       rdfs:subClassOf edo:AuxiliaryModule ;
+                       rdfs:subClassOf edo:AuxiliaryModule ,
+                                       edo:IfcInstanciableElement ;
                        dcterms:identifier "DistributionModule" ;
                        skos:definition "Sub-module of larger equipment for distribution of hydraulic, chemical, electrical, etc. functions"@en ,
                                        "Sub-módulo de um equipamento maior para distribuição de funções hidráulicas, químicas, elétricas, etc."@pt-br ;
                        skos:prefLabel "Distribution module"@en ,
-                                      "Módulo de distribuição"@pt-br .
+                                      "Módulo de distribuição"@pt-br ;
+                       edo:hasDiscipline edo:SubseaManifoldsEngineering ;
+                       edo:hasExternalRef "MDA:DistributionModule" ;
+                       edo:ifc_equivalentClass "IfcPipeFitting" ;
+                       edo:ifc_objectType "DistributionModule" ;
+                       edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#Domain
@@ -4006,7 +4014,6 @@ edo:ElectricActuator rdf:type owl:Class ;
                      edo:entityStatus "NEW" ;
                      edo:hasAttribute edo:CommProtocol ,
                                       edo:MaxPowerDraw ;
-                     edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                      edo:hasExternalRef "MDA:ElectricActuator" .
 
 
@@ -4072,12 +4079,18 @@ edo:ElectricalEngineering rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ElectricalJumper
 edo:ElectricalJumper rdf:type owl:Class ;
-                     rdfs:subClassOf edo:Jumper ;
+                     rdfs:subClassOf edo:IfcInstanciableElement ,
+                                     edo:Jumper ;
                      dcterms:identifier "ElectricalJumper" ;
                      skos:definition "Jumper for signal transmission or low-power eletrical supply"@en ,
                                      "Jumper para transmissão de sinais ou alimentação elétrica de baixa potência"@pt-br ;
                      skos:prefLabel "Electrical jumper"@en ,
-                                    "Jumper elétrico"@pt-br .
+                                    "Jumper elétrico"@pt-br ;
+                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                     edo:hasExternalRef "MDA:ElectricalJumper" ;
+                     edo:ifc_equivalentClass "IfcPipeFitting" ;
+                     edo:ifc_objectType "ElectricalJumper" ;
+                     edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ElectricalJumperConnector
@@ -4099,10 +4112,16 @@ edo:ElectricalJumperConnector rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ElectricalPowerJumper
 edo:ElectricalPowerJumper rdf:type owl:Class ;
-                          rdfs:subClassOf edo:Jumper ;
+                          rdfs:subClassOf edo:IfcInstanciableElement ,
+                                          edo:Jumper ;
                           dcterms:identifier "ElectricalPowerJumper" ;
                           skos:prefLabel "Electrical power jumper"@en ,
-                                         "Jumper elétrico de potência"@pt-br .
+                                         "Jumper elétrico de potência"@pt-br ;
+                          edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                          edo:hasExternalRef "MDA:ElectricalPowerJumper" ;
+                          edo:ifc_equivalentClass "IfcPipeFitting" ;
+                          edo:ifc_objectType "ElectricalPowerJumper" ;
+                          edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ElectricalPowerJumperConnector
@@ -4201,38 +4220,6 @@ edo:EndFitting rdf:type owl:Class ;
                edo:ifc_equivalentClass "IfcPipeFitting" ;
                edo:ifc_objectType "EndFitting" ;
                edo:ifc_predefinedType "USERDEFINED" .
-
-
-###  https://w3id.org/energy-domain/edo#EndOvalityStandard
-edo:EndOvalityStandard rdf:type owl:Class ;
-                       rdfs:subClassOf edo:LinePipeMaterialAttribute ;
-                       dcterms:accessRights "PUBLIC" ;
-                       dcterms:identifier "EndOvalityStandard" ;
-                       skos:definition "Especifica a norma e método de cálculo adotado para especificação da ovalização"@pt-br ,
-                                       "Specifies the norm and calculation method employed for out-of-roundedness specification"@en ;
-                       skos:prefLabel "Norma de ovalização na extremidade"@pt-br ,
-                                      "Standard for ovality at the end"@en ;
-                       edo:entityStatus "NEW" ;
-                       edo:hasAttributeScope edo:TypeLevelAttribute ;
-                       edo:hasExternalRef "MDA:spec.oor_end.norm" ;
-                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                       edo:hasTypedValue edo:StringValue ;
-                       edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#EndOvalityValue
-edo:EndOvalityValue rdf:type owl:Class ;
-                    rdfs:subClassOf edo:LinePipeMaterialAttribute ;
-                    dcterms:accessRights "PUBLIC" ;
-                    dcterms:identifier "EndOvalityValue" ;
-                    skos:prefLabel "Ovality value at the end"@en ,
-                                   "Valor de ovalização na extremidade"@pt-br ;
-                    edo:entityStatus "NEW" ;
-                    edo:hasAttributeScope edo:TypeLevelAttribute ;
-                    edo:hasExternalRef "MDA:spec.oor_end.value" ;
-                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                    edo:hasTypedValue edo:FloatValue ;
-                    edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#EnergyStorage
@@ -4552,18 +4539,28 @@ edo:FEED rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#FSHRLowerAssembly
 edo:FSHRLowerAssembly rdf:type owl:Class ;
-                      rdfs:subClassOf edo:FlowControlEquipment ;
+                      rdfs:subClassOf edo:FlowControlEquipment ,
+                                      edo:IfcInstanciableElement ;
                       dcterms:identifier "FSHRLowerAssembly" ;
                       skos:prefLabel "Estrutura inferior de RHAS"@pt-br ,
-                                     "FSHR lower assembly"@en .
+                                     "FSHR lower assembly"@en ;
+                      edo:hasExternalRef "MDA:FSHRLowerAssembly" ;
+                      edo:ifc_equivalentClass "IfcPipeFitting" ;
+                      edo:ifc_objectType "FSHRLowerAssembly" ;
+                      edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#FSHRUpperAssembly
 edo:FSHRUpperAssembly rdf:type owl:Class ;
-                      rdfs:subClassOf edo:FlowControlEquipment ;
+                      rdfs:subClassOf edo:FlowControlEquipment ,
+                                      edo:IfcInstanciableElement ;
                       dcterms:identifier "FSHRUpperAssembly" ;
                       skos:prefLabel "Estrutura de topo de RHAS"@pt-br ,
-                                     "FSHR upper assembly"@en .
+                                     "FSHR upper assembly"@en ;
+                      edo:hasExternalRef "MDA:FSHRUpperAssembly" ;
+                      edo:ifc_equivalentClass "IfcPipeFitting" ;
+                      edo:ifc_objectType "FSHRUpperAssembly" ;
+                      edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#FabricTape
@@ -4625,7 +4622,6 @@ edo:FastenerSet rdf:type owl:Class ;
                                "Fastener set"@en ;
                 edo:entityStatus "NEW" ;
                 edo:hasAttribute edo:NumFastenerSets ;
-                edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                 edo:hasExternalRef "MDA:FastenerSet" .
 
 
@@ -4883,7 +4879,8 @@ edo:Flange rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#FlangeAdapter
 edo:FlangeAdapter rdf:type owl:Class ;
-                  rdfs:subClassOf edo:PressureComponent ;
+                  rdfs:subClassOf edo:IfcInstanciableElement ,
+                                  edo:PressureComponent ;
                   dcterms:identifier "FlangeAdapter" ;
                   skos:definition "Component enabling connection between two different flanges."@en ,
                                   "Peça que permite a conexão entre dois flanges diferentes."@pt-br ;
@@ -5291,13 +5288,6 @@ edo:FloatingProductionUnit rdf:type owl:Class ;
                            edo:ifc_predefinedType "USERDEFINED" .
 
 
-###  https://w3id.org/energy-domain/edo#FlowBase
-edo:FlowBase rdf:type owl:Class ;
-             rdfs:subClassOf edo:FlowControlEquipment ;
-             dcterms:identifier "FlowBase" ;
-             edo:hasDiscipline edo:WetChristmasTreesEngineering .
-
-
 ###  https://w3id.org/energy-domain/edo#FlowCoating
 edo:FlowCoating rdf:type owl:Class ;
                 rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -5423,21 +5413,47 @@ edo:FlowControlModule rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#FlowLineMandrel
 edo:FlowLineMandrel rdf:type owl:Class ;
-                    rdfs:subClassOf edo:TieInEquipment ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ,
+                                    edo:TieInEquipment ;
                     dcterms:identifier "FlowLineMandrel" ;
                     skos:definition "Equipamento para terminação e interligação de várias linhas simultaneamente"@pt-br ,
                                     "Equipment for terminating and connecting multiple lines simultaneously"@en ;
                     skos:prefLabel "Flow line mandrel"@en ,
                                    "Mandril das linhas de fluxo"@pt-br ;
-                    edo:hasDiscipline edo:WetChristmasTreesEngineering .
+                    edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                    edo:hasExternalRef "MDA:FlowLineMandrel" ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "FlowLineMandrel" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#Flowbase
+edo:Flowbase rdf:type owl:Class ;
+             rdfs:subClassOf edo:FlowControlEquipment ,
+                             edo:IfcInstanciableElement ;
+             skos:definition "Equipamento instalado sobre uma cabeça de poço para permitir a conexão permanente das linhas de fluxo de/para o poço, e prover interfaces com a árvore de Natal"@pt-br ,
+                             "Equipment installed atop a wellhead to allow permanent connection of flowlines from/to the well, and to provide interfaces with the Christmas tree"@en ;
+             skos:prefLabel "Base adaptadora de produção"@pt-br ,
+                            "Flowbase"@en ;
+             edo:entityStatus "NEW" ;
+             edo:hasExternalRef "MDA:Flowbase" ;
+             edo:ifc_equivalentClass "IfcPipeFitting" ;
+             edo:ifc_objectType "Flowbase" ;
+             edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#FlowbaseRunningTool
 edo:FlowbaseRunningTool rdf:type owl:Class ;
-                        rdfs:subClassOf edo:RunningTool ;
+                        rdfs:subClassOf edo:IfcInstanciableElement ,
+                                        edo:RunningTool ;
                         dcterms:identifier "FlowbaseRunningTool" ;
                         skos:prefLabel "Ferramenta de instalação de BAP"@pt-br ,
-                                       "Flowbase running tool"@en .
+                                       "Flowbase running tool"@en ;
+                        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                        edo:hasExternalRef "MDA:FlowbaseRunningTool" ;
+                        edo:ifc_equivalentClass "IfcPipeFitting" ;
+                        edo:ifc_objectType "FlowbaseRunningTool" ;
+                        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#FlowlineSection
@@ -6046,10 +6062,16 @@ edo:GroutBag rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#GuideBase
 edo:GuideBase rdf:type owl:Class ;
-              rdfs:subClassOf edo:Structure ;
+              rdfs:subClassOf edo:IfcInstanciableElement ,
+                              edo:Structure ;
               dcterms:identifier "GuideBase" ;
               skos:prefLabel "Base-guia"@pt-br ,
-                             "Guide base"@en .
+                             "Guide base"@en ;
+              edo:entityStatus "NEW" ;
+              edo:hasExternalRef "MDA:GuideBase" ;
+              edo:ifc_equivalentClass "IfcPipeFitting" ;
+              edo:ifc_objectType "GuideBase" ;
+              edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#H2SVolumeConcentration
@@ -6069,11 +6091,16 @@ edo:H2SVolumeConcentration rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#HCM
 edo:HCM rdf:type owl:Class ;
-        rdfs:subClassOf edo:ConnectionModule ;
+        rdfs:subClassOf edo:ConnectionModule ,
+                        edo:IfcInstanciableElement ;
         dcterms:identifier "HCM" ;
         skos:prefLabel "Horizontal connection module"@en ,
                        "Módulo de conexão horizontal"@pt-br ;
-        edo:hasDiscipline edo:WetChristmasTreesEngineering .
+        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+        edo:hasExternalRef "MDA:HCM" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
+        edo:ifc_objectType "HCM" ;
+        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#HCRHose
@@ -6094,10 +6121,16 @@ edo:HCRHose rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#HPHousing
 edo:HPHousing rdf:type owl:Class ;
-              rdfs:subClassOf edo:PressureComponent ;
+              rdfs:subClassOf edo:IfcInstanciableElement ,
+                              edo:PressureComponent ;
               dcterms:identifier "HPHousing" ;
               skos:prefLabel "Alojador de alta pressão"@pt-br ,
-                             "High-pressure housing"@en .
+                             "High-pressure housing"@en ;
+              edo:entityStatus "NEW" ;
+              edo:hasExternalRef "MDA:HPHousing" ;
+              edo:ifc_equivalentClass "IfcPipeFitting" ;
+              edo:ifc_objectType "HPHousing" ;
+              edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#HVACEngineering
@@ -6454,7 +6487,8 @@ edo:HoseFittingSpecTableColumn rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#HotStab
 edo:HotStab rdf:type owl:Class ;
-            rdfs:subClassOf edo:HydraulicJumperConnector ;
+            rdfs:subClassOf edo:HydraulicJumperConnector ,
+                            edo:IfcInstanciableElement ;
             dcterms:identifier "HotStab" ;
             skos:definition "Representa um tipo de conector jumper hidráulico projetado para operações de conexão/desconexão rápida sob pressão."@pt-br ,
                             "Represents a type of hydraulic jumper connector designed for quick connect/disconnect operations under pressure."@en ;
@@ -6462,6 +6496,7 @@ edo:HotStab rdf:type owl:Class ;
                            "Hot Stab"@pt-br ;
             edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                               edo:SubseaUmbilicalsEngineering ;
+            edo:hasExternalRef "MDA:HotStab" ;
             edo:ifc_equivalentClass "IfcPipeFitting" ;
             edo:ifc_objectType "HotStab" ;
             edo:ifc_predefinedType "USERDEFINED" .
@@ -6469,47 +6504,70 @@ edo:HotStab rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#HotStabReceptacle
 edo:HotStabReceptacle rdf:type owl:Class ;
-                      rdfs:subClassOf edo:PanelHydraulicConnector ;
+                      rdfs:subClassOf edo:IfcInstanciableElement ,
+                                      edo:PanelHydraulicConnector ;
                       dcterms:identifier "HotStabReceptacle" ;
                       skos:definition "Interface for receiving a hydraulic connector, such as a hot stab."@en ,
                                       "Interface para receber um conector hidráulico tipo hot stab."@pt-br ;
                       skos:prefLabel "Hot Stab Receptacle"@en ,
                                      "Receptáculo de Hot Stab"@pt-br ;
                       edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
-                                        edo:SubseaUmbilicalsEngineering ;
+                                        edo:SubseaUmbilicalsEngineering ,
+                                        edo:WetChristmasTreesEngineering ;
+                      edo:hasExternalRef "MDA:HotStabReceptacle" ;
                       edo:ifc_equivalentClass "IfcPipeFitting" ;
-                      edo:ifc_objectType "HotStabReceptacle" .
+                      edo:ifc_objectType "HotStabReceptacle" ;
+                      edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#Hub
 edo:Hub rdf:type owl:Class ;
-        rdfs:subClassOf edo:PressureComponent ;
+        rdfs:subClassOf edo:IfcInstanciableElement ,
+                        edo:PressureComponent ;
         dcterms:identifier "Hub" ;
         skos:definition "Interface for mating of a matching major connector"@en ,
                         "Interface para acoplamento de um conector de grande porte correspondente"@pt-br ;
         skos:prefLabel "Hub"@en ,
-                       "Hub"@pt-br .
+                       "Hub"@pt-br ;
+        edo:entityStatus "NEW" ;
+        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+        edo:hasExternalRef "MDA:Hub" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
+        edo:ifc_objectType "Hub" ;
+        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#HubBlockCap
 edo:HubBlockCap rdf:type owl:Class ;
-                rdfs:subClassOf edo:FlowControlModule ;
+                rdfs:subClassOf edo:FlowControlModule ,
+                                edo:IfcInstanciableElement ;
                 dcterms:identifier "HubBlockCap" ;
                 skos:definition "Cobertura que pode ser instalada e travada sobre um hub/mandril, capaz de conter as pressões de operação a longo prazo"@pt-br ,
                                 "Cover that may be installed and locked over a hub, being able to withstand operation pressures in the long term"@en ;
                 skos:prefLabel "Capa de bloqueio de hub"@pt-br ,
                                "Hub block cap"@en ;
-                edo:hasDiscipline edo:WetChristmasTreesEngineering .
+                edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                edo:hasExternalRef "MDA:HubBlockCap" ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "HubBlockCap" ;
+                edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#HubProtectionCap
 edo:HubProtectionCap rdf:type owl:Class ;
-                     rdfs:subClassOf edo:Accessory ;
+                     rdfs:subClassOf edo:Accessory ,
+                                     edo:IfcInstanciableElement ;
                      dcterms:identifier "HubProtectionCap" ;
                      skos:definition "Dispositivo simples, não resistente a pressões de trabalho, para proteção de um hub/mandril contra agentes externos (detritos, corrosão, etc.), geralmente temporariamente"@pt-br ,
                                      "Simple, non-pressure-containing device for usually temporary protection of a hub against external agents (such as debris, corrosion etc.)"@en ;
                      skos:prefLabel "Capa de proteção de hub"@pt-br ,
-                                    "Hub protection cap"@en .
+                                    "Hub protection cap"@en ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                     edo:hasExternalRef "MDA:HubProtectionCap" ;
+                     edo:ifc_equivalentClass "IfcPipeFitting" ;
+                     edo:ifc_objectType "HubProtectionCap" ;
+                     edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#HubPupPieceDistance
@@ -6547,7 +6605,6 @@ edo:HydraulicActuator rdf:type owl:Class ;
                       edo:entityStatus "NEW" ;
                       edo:hasAttribute edo:ActuationPressure ,
                                        edo:MaxPressure ;
-                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                       edo:hasExternalRef "MDA:HydraulicActuator" ;
                       edo:hasSpec edo:HydraulicFluidSpec .
 
@@ -6569,7 +6626,8 @@ edo:HydraulicFluidSpec rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#HydraulicJumper
 edo:HydraulicJumper rdf:type owl:Class ;
-                    rdfs:subClassOf edo:Jumper ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ,
+                                    edo:Jumper ;
                     dcterms:identifier "HydraulicJumper" ;
                     skos:prefLabel "Hydraulic jumper"@en ,
                                    "Jumper hidráulico"@pt-br ;
@@ -6577,6 +6635,8 @@ edo:HydraulicJumper rdf:type owl:Class ;
                                      edo:MinBendingRadius ,
                                      edo:WeightInWater ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                    edo:hasExternalRef "MDA:HydraulicJumper" ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "HydraulicJumper" ;
                     edo:ifc_predefinedType "USERDEFINED" .
 
@@ -6594,12 +6654,17 @@ edo:HydraulicJumperConnector rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#HydraulicPowerUnit
 edo:HydraulicPowerUnit rdf:type owl:Class ;
-                       rdfs:subClassOf edo:TopsideEquipment ;
+                       rdfs:subClassOf edo:IfcInstanciableElement ,
+                                       edo:TopsideEquipment ;
                        dcterms:identifier "HydraulicPowerUnit" ;
                        skos:definition "Equipamento de superfície para geração, controle e distribuição de potência hidráulica"@pt-br ,
                                        "Topside equipment for generation, control and distribution of hydraulic power"@en ;
                        skos:prefLabel "Hydraulic power unit"@en ,
-                                      "Unidade de potência hidráulica"@pt-br .
+                                      "Unidade de potência hidráulica"@pt-br ;
+                       edo:hasExternalRef "MDA:HydraulicPowerUnit" ;
+                       edo:ifc_equivalentClass "IfcPipeFitting" ;
+                       edo:ifc_objectType "HydraulicPowerUnit" ;
+                       edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#HydrogenEnergy
@@ -6686,20 +6751,32 @@ edo:HydrotestStiffnessCurveAttribute rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#IMUX
 edo:IMUX rdf:type owl:Class ;
-         rdfs:subClassOf edo:ElectronicDevice ;
+         rdfs:subClassOf edo:ElectronicDevice ,
+                         edo:IfcInstanciableElement ;
          dcterms:identifier "IMUX" ;
          skos:definition "Communications conversion module for downhole sensors and components"@en ,
                          "Módulo de conversão para comunicação com sensores e componentes de poço (downhole)"@pt-br ;
          skos:prefLabel "IWIS multiplexer"@en ,
-                        "Multiplexador IWIS"@pt-br .
+                        "Multiplexador IWIS"@pt-br ;
+         edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+         edo:hasExternalRef "MDA:IMUX" ;
+         edo:ifc_equivalentClass "IfcPipeFitting" ;
+         edo:ifc_objectType "IMUX" ;
+         edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ITube
 edo:ITube rdf:type owl:Class ;
-          rdfs:subClassOf edo:RiserSupport ;
+          rdfs:subClassOf edo:IfcInstanciableElement ,
+                          edo:RiserSupport ;
           dcterms:identifier "ITube" ;
           skos:prefLabel "I-tube"@en ,
-                         "I-tube"@pt-br .
+                         "I-tube"@pt-br ;
+          edo:entityStatus "NEW" ;
+          edo:hasExternalRef "MDA:ITube" ;
+          edo:ifc_equivalentClass "IfcPipeFitting" ;
+          edo:ifc_objectType "ITube" ;
+          edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#IdInUnifilarDiagram
@@ -7172,8 +7249,6 @@ edo:InstrumentationValve rdf:type owl:Class ;
                          skos:prefLabel "Instrumentation valve"@en ,
                                         "Válvula de instrumentação"@pt-br ;
                          edo:entityStatus "NEW" ;
-                         edo:hasDiscipline edo:InstrumentationEngineering ,
-                                           edo:ValveEngineering ;
                          edo:hasExternalRef "MDA:InstrumentationValve" .
 
 
@@ -7467,7 +7542,6 @@ edo:InternalLiner rdf:type owl:Class ;
                                  "Liner interno"@pt-br ;
                   edo:entityStatus "NEW" ;
                   edo:hasAttribute edo:AnchoringMethod ;
-                  edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                   edo:hasExternalRef "MDA:InternalLiner" .
 
 
@@ -7742,10 +7816,16 @@ edo:Kit rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LPHousing
 edo:LPHousing rdf:type owl:Class ;
-              rdfs:subClassOf edo:PressureComponent ;
+              rdfs:subClassOf edo:IfcInstanciableElement ,
+                              edo:PressureComponent ;
               dcterms:identifier "LPHousing" ;
               skos:prefLabel "Alojador de baixa pressão"@pt-br ,
-                             "Low-pressure housing"@en .
+                             "Low-pressure housing"@en ;
+              edo:entityStatus "NEW" ;
+              edo:hasExternalRef "MDA:LPHousing" ;
+              edo:ifc_equivalentClass "IfcPipeFitting" ;
+              edo:ifc_objectType "LPHousing" ;
+              edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#LargeHydropower
@@ -8322,41 +8402,6 @@ edo:LinePipe rdf:type owl:Class ;
              edo:ifc_predefinedType "USERDEFINED" .
 
 
-###  https://w3id.org/energy-domain/edo#LinePipeMaterial
-edo:LinePipeMaterial rdf:type owl:Class ;
-                     rdfs:subClassOf edo:MaterialType ;
-                     dcterms:accessRights "PUBLIC" ;
-                     dcterms:identifier "LinePipeMaterial" ;
-                     skos:definition "Base pipe material details"@en ,
-                                     "Detalhamento do material-base do duto"@pt-br ;
-                     skos:prefLabel "Especificação do material"@pt-br ,
-                                    "Naterial specification"@en ;
-                     edo:entityStatus "NEW" ;
-                     edo:hasAttribute edo:MaterialElongationAtYield ,
-                                      edo:MaterialGrade ,
-                                      edo:MaterialHardnessScale ,
-                                      edo:MaterialHardnessValue ,
-                                      edo:MaterialMaxTensileStrength ,
-                                      edo:MaterialMaxYieldStrength ,
-                                      edo:MaterialMinTensileStrength ,
-                                      edo:MaterialMinYieldStrength ,
-                                      edo:MaterialPoissonRatio ,
-                                      edo:MaterialSpecificHeatCapacity ,
-                                      edo:MaterialSpecificMass ,
-                                      edo:MaterialThermalConductivity ,
-                                      edo:MaterialThermalExpansionCoefficient ,
-                                      edo:MaterialUniformElongation ,
-                                      edo:MaterialYoungModulus ;
-                     edo:hasAttributeScope edo:TypeLevelAttribute ;
-                     edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
-                     edo:hasExternalRef "MDA:spec.material_spec" ;
-                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                     edo:hasTypedValue edo:StringValue ;
-                     edo:hasValueCardinality edo:SingleValue ;
-                     edo:ifc_equivalentClass "IfcMaterial" ;
-                     edo:ifc_objectType "LinePipeMaterial" .
-
-
 ###  https://w3id.org/energy-domain/edo#LinePipeMaterialAttribute
 edo:LinePipeMaterialAttribute rdf:type owl:Class ;
                               rdfs:subClassOf edo:DomainAttribute ;
@@ -8399,11 +8444,8 @@ edo:LinePipeSpec rdf:type owl:Class ;
                  edo:hasAttribute edo:API5LDeliveryCondition ,
                                   edo:API5LSupplementaryRequirements ,
                                   edo:BodyOvalityStandard ,
-                                  edo:BodyOvalityValue ,
                                   edo:CorrosionAllowance ,
                                   edo:DNVSupplementaryRequirements ,
-                                  edo:EndOvalityStandard ,
-                                  edo:EndOvalityValue ,
                                   edo:InnerDiameterBodyToleranceNegative ,
                                   edo:InnerDiameterBodyTolerancePositive ,
                                   edo:InnerDiameterEndToleranceNegative ,
@@ -8420,6 +8462,9 @@ edo:LinePipeSpec rdf:type owl:Class ;
                                   edo:OuterDiameterEndToleranceNegative ,
                                   edo:OuterDiameterEndTolerancePositive ,
                                   edo:OuterDiameterNominal ,
+                                  edo:OvalityBodyStandard ,
+                                  edo:OvalityEndStandard ,
+                                  edo:OvalityEndValue ,
                                   edo:WallThicknessNominal ,
                                   edo:WallThicknessToleranceNegative ,
                                   edo:WallThicknessTolerancePositive ;
@@ -8444,8 +8489,6 @@ edo:LineSection rdf:type owl:Class ;
                                  edo:Length ,
                                  edo:MaxDepth ,
                                  edo:OperationStartDate ;
-                edo:hasDiscipline edo:SubseaEngineering ,
-                                  edo:SubseaRigidPipesEngineering ;
                 edo:hasExternalRef "MDA:LineSection" .
 
 
@@ -8661,7 +8704,6 @@ edo:Link rdf:type owl:Class ;
                         "Link"@en ;
          edo:entityStatus "NEW" ;
          edo:hasAttribute edo:NominalDiameter ;
-         edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
          edo:hasExternalRef "MDA:Link" .
 
 
@@ -8760,10 +8802,17 @@ edo:LockingStroke rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LogicCap
 edo:LogicCap rdf:type owl:Class ;
-             rdfs:subClassOf edo:AuxiliaryModule ;
+             rdfs:subClassOf edo:AuxiliaryModule ,
+                             edo:IfcInstanciableElement ;
              dcterms:identifier "LogicCap" ;
              skos:prefLabel "Capa lógica"@pt-br ,
-                            "Logic cap"@en .
+                            "Logic cap"@en ;
+             edo:entityStatus "NEW" ;
+             edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+             edo:hasExternalRef "MDA:LogicCap" ;
+             edo:ifc_equivalentClass "IfcPipeFitting" ;
+             edo:ifc_objectType "LogicCap" ;
+             edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#LogicalElement
@@ -9132,12 +9181,18 @@ edo:Mass rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MasterControlStation
 edo:MasterControlStation rdf:type owl:Class ;
-                         rdfs:subClassOf edo:TopsideEquipment ;
+                         rdfs:subClassOf edo:IfcInstanciableElement ,
+                                         edo:TopsideEquipment ;
                          dcterms:identifier "MasterControlStation" ;
                          skos:definition "Painel elétrico de superfície que efetua o controle de sistemas multiplexados submarinos"@pt-br ,
                                          "Topside electrical panel for controlling subsea multiplexed systems"@en ;
                          skos:prefLabel "Estação de controle mestra"@pt-br ,
-                                        "Master control station"@en .
+                                        "Master control station"@en ;
+                         edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                         edo:hasExternalRef "MDA:MasterControlStation" ;
+                         edo:ifc_equivalentClass "IfcPipeFitting" ;
+                         edo:ifc_objectType "MasterControlStation" ;
+                         edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#MasterLink
@@ -10576,7 +10631,6 @@ edo:MechanicalActuator rdf:type owl:Class ;
                        skos:prefLabel "Atuador mecânico de válvula"@pt-br ,
                                       "Mechanical valve actuator"@en ;
                        edo:entityStatus "NEW" ;
-                       edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                        edo:hasExternalRef "MDA:MechanicalActuator" .
 
 
@@ -11226,8 +11280,6 @@ edo:MooringAccessory rdf:type owl:Class ;
                      edo:entityStatus "NEW" ;
                      edo:hasAttribute edo:MooringAccessoryGrade ,
                                       edo:SafeWorkingLoad ;
-                     edo:hasDiscipline edo:SubseaEngineering ,
-                                       edo:SubseaRigidPipesEngineering ;
                      edo:hasExternalRef "MDA:MooringAccessory" .
 
 
@@ -11254,7 +11306,6 @@ edo:MooringHardwareItem rdf:type owl:Class ;
                                        "Mooring hardware item"@en ;
                         edo:entityStatus "NEW" ;
                         edo:hasAttribute edo:MinimumBreakingLoad ;
-                        edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                         edo:hasExternalRef "MDA:MooringHardwareItem" .
 
 
@@ -11300,7 +11351,6 @@ edo:MooringLineSegment rdf:type owl:Class ;
                        edo:hasAttribute edo:LinearMass ,
                                         edo:LinearWeightInWater ,
                                         edo:MinimumBreakingLoad ;
-                       edo:hasDiscipline edo:SubseaEngineering ;
                        edo:hasExternalRef "MDA:MooringLineSegment" .
 
 
@@ -11958,10 +12008,16 @@ edo:OnshoreWind rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#OpenReceptacle
 edo:OpenReceptacle rdf:type owl:Class ;
-                   rdfs:subClassOf edo:RiserSupport ;
+                   rdfs:subClassOf edo:IfcInstanciableElement ,
+                                   edo:RiserSupport ;
                    dcterms:identifier "OpenReceptacle" ;
                    skos:prefLabel "Open receptacle"@en ,
-                                  "Receptáculo aberto"@pt-br .
+                                  "Receptáculo aberto"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasExternalRef "MDA:OpenReceptacle" ;
+                   edo:ifc_equivalentClass "IfcPipeFitting" ;
+                   edo:ifc_objectType "OpenReceptacle" ;
+                   edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#OpeningPressure
@@ -12208,6 +12264,53 @@ edo:OutsideTemperature rdf:type owl:Class ;
                        edo:hasTypedValue edo:FloatValue ;
                        edo:hasUnit unit:K ;
                        edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#OvalityBodyStandard
+edo:OvalityBodyStandard rdf:type owl:Class ;
+                        rdfs:subClassOf edo:LinePipeMaterialAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "OvalityBodyStandard" ;
+                        skos:prefLabel "Valor de ovalização no corpo"@pt-br ,
+                                       "Value of ovality in the body"@en ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:spec.oor_body.value" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#OvalityEndStandard
+edo:OvalityEndStandard rdf:type owl:Class ;
+                       rdfs:subClassOf edo:LinePipeMaterialAttribute ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "OvalityEndStandard" ;
+                       skos:definition "Especifica a norma e método de cálculo adotado para especificação da ovalização"@pt-br ,
+                                       "Specifies the norm and calculation method employed for out-of-roundedness specification"@en ;
+                       skos:prefLabel "Norma de ovalização na extremidade"@pt-br ,
+                                      "Standard for ovality at the end"@en ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:spec.oor_end.norm" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:StringValue ;
+                       edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#OvalityEndValue
+edo:OvalityEndValue rdf:type owl:Class ;
+                    rdfs:subClassOf edo:LinePipeMaterialAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "OvalityEndValue" ;
+                    skos:prefLabel "Ovality value at the end"@en ,
+                                   "Valor de ovalização na extremidade"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "MDA:spec.oor_end.value" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#OverallGeometry
@@ -12551,7 +12654,6 @@ edo:Pile rdf:type owl:Class ;
                         "Pile"@en ;
          edo:entityStatus "NEW" ;
          edo:hasAttribute edo:TargetPenetrationDepth ;
-         edo:hasDiscipline edo:SubseaEngineering ;
          edo:hasExternalRef "MDA:Pile" .
 
 
@@ -12757,8 +12859,6 @@ edo:PipelineSection rdf:type owl:Class ;
                     edo:entityStatus "NEW" ;
                     edo:hasAttribute edo:MaxFlowRate ,
                                      edo:OperatingFlowRate ;
-                    edo:hasDiscipline edo:SubseaEngineering ,
-                                      edo:SubseaRigidPipesEngineering ;
                     edo:hasExternalRef "MDA:PipelineSection" .
 
 
@@ -12770,18 +12870,24 @@ edo:PipingComponent rdf:type owl:Class ;
                                    "Piping component"@en ;
                     edo:entityStatus "NEW" ;
                     edo:hasAttribute edo:MaxPressure ;
-                    edo:hasDiscipline edo:SubseaEngineering ;
                     edo:hasExternalRef "MDA:PipingComponent" .
 
 
 ###  https://w3id.org/energy-domain/edo#PipingSpool
 edo:PipingSpool rdf:type owl:Class ;
-                rdfs:subClassOf edo:PressureComponent ;
+                rdfs:subClassOf edo:IfcInstanciableElement ,
+                                edo:PressureComponent ;
                 dcterms:identifier "PipingSpool" ;
                 skos:definition "Piping section internal to some equipment"@en ,
                                 "Trecho de tubulação interno a um equipamento"@pt-br ;
                 skos:prefLabel "Piping spool"@en ,
-                               "Trecho de tubulação"@pt-br .
+                               "Trecho de tubulação"@pt-br ;
+                edo:entityStatus "NEW" ;
+                edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                edo:hasExternalRef "MDA:PipingSpool" ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "PipingSpool" ;
+                edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#PistonHydraulicActuator
@@ -12795,7 +12901,6 @@ edo:PistonHydraulicActuator rdf:type owl:Class ;
                             edo:entityStatus "NEW" ;
                             edo:hasAttribute edo:DisplacedFluidVolume ,
                                              edo:Stroke ;
-                            edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                             edo:hasExternalRef "MDA:PistonHydraulicActuator" .
 
 
@@ -13090,10 +13195,16 @@ edo:PressureEquipment rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#PressureSensor
 edo:PressureSensor rdf:type owl:Class ;
-                   rdfs:subClassOf edo:Sensor ;
+                   rdfs:subClassOf edo:IfcInstanciableElement ,
+                                   edo:Sensor ;
                    dcterms:identifier "PressureSensor" ;
                    skos:prefLabel "Pressure sensor"@en ,
-                                  "Sensor de pressão"@pt-br .
+                                  "Sensor de pressão"@pt-br ;
+                   edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                   edo:hasExternalRef "MDA:PressureSensor" ;
+                   edo:ifc_equivalentClass "IfcPipeFitting" ;
+                   edo:ifc_objectType "PressureSensor" ;
+                   edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#PrimaryControlMode
@@ -13159,7 +13270,6 @@ edo:ProcessBlockValve rdf:type owl:Class ;
                       edo:hasAttribute edo:BoreType ,
                                        edo:FailureBehavior ,
                                        edo:Piggable ;
-                      edo:hasDiscipline edo:ValveEngineering ;
                       edo:hasExternalRef "MDA:ProcessBlockValve" .
 
 
@@ -13174,7 +13284,6 @@ edo:ProcessCheckValve rdf:type owl:Class ;
                       edo:entityStatus "NEW" ;
                       edo:hasAttribute edo:FlowCoefficientCv ,
                                        edo:OpeningPressure ;
-                      edo:hasDiscipline edo:ValveEngineering ;
                       edo:hasExternalRef "MDA:ProcessCheckValve" .
 
 
@@ -13275,7 +13384,6 @@ edo:ProcessValve rdf:type owl:Class ;
                                   edo:ObturatorMaterial ,
                                   edo:SeatMaterial ,
                                   edo:WeightInWater ;
-                 edo:hasDiscipline edo:ValveEngineering ;
                  edo:hasEnd edo:ProcessValve_End_Downstream ,
                             edo:ProcessValve_End_Upstream ;
                  edo:hasExternalRef "MDA:ProcessValve" .
@@ -13307,9 +13415,6 @@ edo:Project rdf:type owl:Class ;
             skos:definition "A broad concept that encompasses the design, development, and planning of various components or systems."@en ;
             skos:prefLabel "Project"@en ,
                            "Projeto"@pt-br ;
-            edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
-                              edo:SubseaRigidPipesEngineering ,
-                              edo:SubseaUmbilicalsEngineering ;
             edo:ifc_equivalentClass "IfcProject" .
 
 
@@ -13498,10 +13603,17 @@ edo:PullingHeadType rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Pump
 edo:Pump rdf:type owl:Class ;
-         rdfs:subClassOf edo:RotatingMachine ;
+         rdfs:subClassOf edo:IfcInstanciableElement ,
+                         edo:RotatingMachine ;
          dcterms:identifier "Pump" ;
          skos:prefLabel "Bomba"@pt-br ,
-                        "Pump"@en .
+                        "Pump"@en ;
+         edo:entityStatus "NEW" ;
+         edo:hasDiscipline edo:SubseaEngineering ;
+         edo:hasExternalRef "MDA:Pump" ;
+         edo:ifc_equivalentClass "IfcPipeFitting" ;
+         edo:ifc_objectType "Pump" ;
+         edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#PumpedStorage
@@ -13516,12 +13628,18 @@ edo:PumpedStorage rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#PumpingModule
 edo:PumpingModule rdf:type owl:Class ;
-                  rdfs:subClassOf edo:ProcessingModule ;
+                  rdfs:subClassOf edo:IfcInstanciableElement ,
+                                  edo:ProcessingModule ;
                   dcterms:identifier "PumpingModule" ;
                   skos:definition "Fluid pumping module installed as part of some larger equipment"@en ,
                                   "Módulo com função de bombeamento de fluidos instalado como parte de um equipamento maior"@pt-br ;
                   skos:prefLabel "Módulo de bombeamento"@pt-br ,
-                                 "Pumping module"@en .
+                                 "Pumping module"@en ;
+                  edo:hasDiscipline edo:SubseaEngineering ;
+                  edo:hasExternalRef "MDA:PumpingModule" ;
+                  edo:ifc_equivalentClass "IfcPipeFitting" ;
+                  edo:ifc_objectType "PumpingModule" ;
+                  edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#Quantity
@@ -13540,7 +13658,8 @@ edo:Quantity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#QuickConnectCoupling
 edo:QuickConnectCoupling rdf:type owl:Class ;
-                         rdfs:subClassOf edo:TubingCoupling ;
+                         rdfs:subClassOf edo:IfcInstanciableElement ,
+                                         edo:TubingCoupling ;
                          dcterms:identifier "QuickConnectCoupling" ;
                          skos:definition "Acoplamento de engate rápido utilizado para conectar ou desconectar linhas de fluido ou gás de forma prática e segura, garantindo vedação e minimizando vazamentos durante a operação."@pt-br ,
                                          "Quick connect coupling used to connect or disconnect fluid or gas lines in a practical and safe way, ensuring sealing and minimising leakage during operation."@en ;
@@ -13549,6 +13668,7 @@ edo:QuickConnectCoupling rdf:type owl:Class ;
                          edo:hasAttribute edo:HoseFittingSpecTableColumn ,
                                           edo:StandardType ;
                          edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                         edo:hasExternalRef "MDA:QuickConnectCoupling" ;
                          edo:ifc_equivalentClass "IfcPipeFitting" ;
                          edo:ifc_objectType "QuickConnectCoupling" ;
                          edo:ifc_predefinedType "USERDEFINED" .
@@ -13556,10 +13676,16 @@ edo:QuickConnectCoupling rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#QuickDisconnectionTool
 edo:QuickDisconnectionTool rdf:type owl:Class ;
-                           rdfs:subClassOf edo:RunningTool ;
+                           rdfs:subClassOf edo:IfcInstanciableElement ,
+                                           edo:RunningTool ;
                            dcterms:identifier "QuickDisconnectionTool" ;
                            skos:prefLabel "Ferramenta de desconexão rápida"@pt-br ,
-                                          "Quick disconnection tool"@en .
+                                          "Quick disconnection tool"@en ;
+                           edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                           edo:hasExternalRef "MDA:QuickDisconnectionTool" ;
+                           edo:ifc_equivalentClass "IfcPipeFitting" ;
+                           edo:ifc_objectType "QuickDisconnectionTool" ;
+                           edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ROVActuationInterface
@@ -13569,7 +13695,6 @@ edo:ROVActuationInterface rdf:type owl:Class ;
                           skos:prefLabel "Interface de atuação para ROV"@pt-br ,
                                          "ROV actuation interface"@en ;
                           edo:entityStatus "NEW" ;
-                          edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                           edo:hasExternalRef "MDA:ROVActuationInterface" .
 
 
@@ -13749,7 +13874,6 @@ edo:RemoteActuator rdf:type owl:Class ;
                                   "Remote valve actuator"@en ;
                    edo:entityStatus "NEW" ;
                    edo:hasAttribute edo:OverrideInterface ;
-                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                    edo:hasExternalRef "MDA:RemoteActuator" .
 
 
@@ -13825,13 +13949,15 @@ edo:Reused rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#RigidJoint
 edo:RigidJoint rdf:type owl:Class ;
-               rdfs:subClassOf edo:LineAncillary ;
+               rdfs:subClassOf edo:IfcInstanciableElement ,
+                               edo:LineAncillary ;
                dcterms:identifier "RigidJoint" ;
                skos:definition "Acessório de uso temporário para conexão entre armor pot e enrijecedor abaixo dele, a fim de prevenir curvatura excessiva da linha durante operações de manuseio."@pt-br ,
                                "Temporary accessory for connection between the armour pot and the bend stiffener below it, in order to prevent excessive line bending during handling operations."@en ;
                skos:prefLabel "Junta Rígida"@pt-br ,
                               "Rigid Joint"@en ;
                edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+               edo:hasExternalRef "MDA:RigidJoint" ;
                edo:ifc_equivalentClass "IfcPipeFitting" ;
                edo:ifc_objectType "RigidJoint" ;
                edo:ifc_predefinedType "USERDEFINED" .
@@ -13889,6 +14015,41 @@ edo:RigidPipeInternalCoating rdf:type owl:Class ;
                              edo:hasExternalRef "MDA:RigidPipeInternalCoating" .
 
 
+###  https://w3id.org/energy-domain/edo#RigidPipeMaterial
+edo:RigidPipeMaterial rdf:type owl:Class ;
+                      rdfs:subClassOf edo:MaterialType ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "RigidPipeMaterial" ;
+                      skos:definition "Base pipe material details"@en ,
+                                      "Detalhamento do material-base do duto"@pt-br ;
+                      skos:prefLabel "Especificação do material"@pt-br ,
+                                     "Naterial specification"@en ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttribute edo:MaterialElongationAtYield ,
+                                       edo:MaterialGrade ,
+                                       edo:MaterialHardnessScale ,
+                                       edo:MaterialHardnessValue ,
+                                       edo:MaterialMaxTensileStrength ,
+                                       edo:MaterialMaxYieldStrength ,
+                                       edo:MaterialMinTensileStrength ,
+                                       edo:MaterialMinYieldStrength ,
+                                       edo:MaterialPoissonRatio ,
+                                       edo:MaterialSpecificHeatCapacity ,
+                                       edo:MaterialSpecificMass ,
+                                       edo:MaterialThermalConductivity ,
+                                       edo:MaterialThermalExpansionCoefficient ,
+                                       edo:MaterialUniformElongation ,
+                                       edo:MaterialYoungModulus ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                      edo:hasExternalRef "MDA:spec.material_spec" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:StringValue ;
+                      edo:hasValueCardinality edo:SingleValue ;
+                      edo:ifc_equivalentClass "IfcMaterial" ;
+                      edo:ifc_objectType "RigidPipeMaterial" .
+
+
 ###  https://w3id.org/energy-domain/edo#RigidPipeSegment
 edo:RigidPipeSegment rdf:type owl:Class ;
                      rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -13931,12 +14092,9 @@ edo:RigidPipeSegmentSpec rdf:type owl:Class ;
                          edo:hasAttribute edo:API5LDeliveryCondition ,
                                           edo:API5LSupplementaryRequirements ,
                                           edo:BodyOvalityStandard ,
-                                          edo:BodyOvalityValue ,
                                           edo:BodyTec ,
                                           edo:CorrosionAllowance ,
                                           edo:DNVSupplementaryRequirements ,
-                                          edo:EndOvalityStandard ,
-                                          edo:EndOvalityValue ,
                                           edo:FieldJointTec ,
                                           edo:GirthWeldCapPassEnvironment ,
                                           edo:GirthWeldCapPassSNCurve ,
@@ -13953,6 +14111,9 @@ edo:RigidPipeSegmentSpec rdf:type owl:Class ;
                                           edo:OuterDiameterEndToleranceNegative ,
                                           edo:OuterDiameterEndTolerancePositive ,
                                           edo:OuterDiameterNominal ,
+                                          edo:OvalityBodyStandard ,
+                                          edo:OvalityEndStandard ,
+                                          edo:OvalityEndValue ,
                                           edo:TotalExternalCoatingThickness ,
                                           edo:TotalFieldJointCoatingThickness ,
                                           edo:TotalInternalCoatingThickness ,
@@ -14192,12 +14353,17 @@ edo:RiserAzimuth rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#RiserBalcony
 edo:RiserBalcony rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Location ;
+                 rdfs:subClassOf edo:IfcInstanciableElement ,
+                                 edo:Location ;
                  dcterms:identifier "RiserBalcony" ;
                  skos:definition "Installation location for supports and accessories on the riser balcony of the production unit."@en ,
                                  "Local de instalação para suportes e acessórios no riser balcony da unidade de produção"@pt-br ;
                  skos:prefLabel "Plataforma do Riser"@pt-br ,
-                                "Riser Balcony"@en .
+                                "Riser Balcony"@en ;
+                 edo:hasExternalRef "MDA:RiserBalcony" ;
+                 edo:ifc_equivalentClass "IfcPipeFitting" ;
+                 edo:ifc_objectType "RiserBalcony" ;
+                 edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#RiserConfiguration
@@ -14257,20 +14423,32 @@ edo:RiserSupport rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#RiserSupportBuoy
 edo:RiserSupportBuoy rdf:type owl:Class ;
-                     rdfs:subClassOf edo:BuoyancyTank ;
+                     rdfs:subClassOf edo:BuoyancyTank ,
+                                     edo:IfcInstanciableElement ;
                      dcterms:identifier "RiserSupportBuoy" ;
                      skos:prefLabel "Bóia de sustentação de risers"@pt-br ,
-                                    "Riser support buoy"@en .
+                                    "Riser support buoy"@en ;
+                     edo:hasExternalRef "MDA:RiserSupportBuoy" ;
+                     edo:ifc_equivalentClass "IfcPipeFitting" ;
+                     edo:ifc_objectType "RiserSupportBuoy" ;
+                     edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#RoboticActuator
 edo:RoboticActuator rdf:type owl:Class ;
-                    rdfs:subClassOf edo:AuxiliaryModule ;
+                    rdfs:subClassOf edo:AuxiliaryModule ,
+                                    edo:IfcInstanciableElement ;
                     dcterms:identifier "RoboticActuator" ;
                     skos:definition "Shared actuation system able to serve multiple final control elements (e.g. valves)"@en ,
                                     "Sistema de atuação compartilhada capaz de servir a múltiplos elementos de controle finais (ex.: válvulas)"@pt-br ;
                     skos:prefLabel "Atuador robótico"@pt-br ,
-                                   "Robotic actuator"@en .
+                                   "Robotic actuator"@en ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasDiscipline edo:SubseaManifoldsEngineering ;
+                    edo:hasExternalRef "MDA:RoboticActuator" ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "RoboticActuator" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#RootPassAttribute
@@ -14288,7 +14466,6 @@ edo:RopeSegment rdf:type owl:Class ;
                 edo:entityStatus "NEW" ;
                 edo:hasAttribute edo:AxialStiffness ,
                                  edo:Diameter ;
-                edo:hasDiscipline edo:SubseaEngineering ;
                 edo:hasExternalRef "MDA:RopeSegment" .
 
 
@@ -14301,7 +14478,6 @@ edo:RopeTermination rdf:type owl:Class ;
                     skos:prefLabel "Rope termination"@en ,
                                    "Terminação de cabo"@pt-br ;
                     edo:entityStatus "NEW" ;
-                    edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                     edo:hasExternalRef "MDA:RopeTermination" .
 
 
@@ -14407,48 +14583,78 @@ edo:RuptDefPerpendFibers rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SCM
 edo:SCM rdf:type owl:Class ;
-        rdfs:subClassOf edo:AuxiliaryModule ;
+        rdfs:subClassOf edo:AuxiliaryModule ,
+                        edo:IfcInstanciableElement ;
         dcterms:identifier "SCM" ;
         skos:definition "Distribution module for control and monitoring functions in subsea equipment"@en ,
                         "Módulo de distribuição de funções de controle e monitoramento em um equipamento submarino"@pt-br ;
         skos:prefLabel "Módulo de controle submarino"@pt-br ,
                        "Subsea control module"@en ;
-        edo:hasDiscipline edo:WetChristmasTreesEngineering .
+        edo:entityStatus "NEW" ;
+        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+        edo:hasExternalRef "MDA:SCM" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
+        edo:ifc_objectType "SCM" ;
+        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SCMMB
 edo:SCMMB rdf:type owl:Class ;
-          rdfs:subClassOf edo:AuxiliaryModule ;
+          rdfs:subClassOf edo:AuxiliaryModule ,
+                          edo:IfcInstanciableElement ;
           dcterms:identifier "SCMMB" ;
           skos:definition "Equipamento para instalação indireta de um SCM"@pt-br ,
                           "Equipment for indirect SCM installation"@en ;
           skos:prefLabel "Base de montagem de SCM"@pt-br ,
                          "SCM mounting base"@en ;
-          edo:hasDiscipline edo:WetChristmasTreesEngineering .
+          edo:entityStatus "NEW" ;
+          edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+          edo:hasExternalRef "MDA:SCMMB" ;
+          edo:ifc_equivalentClass "IfcPipeFitting" ;
+          edo:ifc_objectType "SCMMB" ;
+          edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SCMRunningTool
 edo:SCMRunningTool rdf:type owl:Class ;
-                   rdfs:subClassOf edo:RunningTool ;
+                   rdfs:subClassOf edo:IfcInstanciableElement ,
+                                   edo:RunningTool ;
                    dcterms:identifier "SCMRunningTool" ;
                    skos:prefLabel "Ferramenta de instalação de SCM"@pt-br ,
-                                  "SCM running tool"@en .
+                                  "SCM running tool"@en ;
+                   edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                   edo:hasExternalRef "MDA:SCMRunningTool" ;
+                   edo:ifc_equivalentClass "IfcPipeFitting" ;
+                   edo:ifc_objectType "SCMRunningTool" ;
+                   edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SDU
 edo:SDU rdf:type owl:Class ;
-        rdfs:subClassOf edo:SubseaEquipment ;
+        rdfs:subClassOf edo:IfcInstanciableElement ,
+                        edo:SubseaEquipment ;
         dcterms:identifier "SDU" ;
         skos:prefLabel "Subsea distribution unit"@en ,
-                       "Unidade de distribuição submarina"@pt-br .
+                       "Unidade de distribuição submarina"@pt-br ;
+        edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+        edo:hasExternalRef "MDA:SDU" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
+        edo:ifc_objectType "SDU" ;
+        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SEM
 edo:SEM rdf:type owl:Class ;
-        rdfs:subClassOf edo:ElectronicDevice ;
+        rdfs:subClassOf edo:ElectronicDevice ,
+                        edo:IfcInstanciableElement ;
         dcterms:identifier "SEM" ;
         skos:prefLabel "Módulo eletrônico submarino"@pt-br ,
-                       "Subsea electronic module"@en .
+                       "Subsea electronic module"@en ;
+        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+        edo:hasExternalRef "MDA:SEM" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
+        edo:ifc_objectType "SEM" ;
+        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SacrificialAnode
@@ -14574,10 +14780,17 @@ edo:Sand rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SandDetector
 edo:SandDetector rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Sensor ;
+                 rdfs:subClassOf edo:IfcInstanciableElement ,
+                                 edo:Sensor ;
                  dcterms:identifier "SandDetector" ;
                  skos:prefLabel "Detector de areia"@pt-br ,
-                                "Sand detector"@en .
+                                "Sand detector"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                 edo:hasExternalRef "MDA:SandDetector" ;
+                 edo:ifc_equivalentClass "IfcPipeFitting" ;
+                 edo:ifc_objectType "SandDetector" ;
+                 edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SeatMaterial
@@ -14635,10 +14848,17 @@ edo:Sensor rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SeparatorVessel
 edo:SeparatorVessel rdf:type owl:Class ;
-                    rdfs:subClassOf edo:Vessel ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ,
+                                    edo:Vessel ;
                     dcterms:identifier "SeparatorVessel" ;
                     skos:prefLabel "Seaparator vessel"@en ,
-                                   "Vaso separador"@pt-br .
+                                   "Vaso separador"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasDiscipline edo:SubseaEngineering ;
+                    edo:hasExternalRef "MDA:SeparatorVessel" ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "SeparatorVessel" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SerialNumber
@@ -14838,10 +15058,16 @@ edo:Shape_z rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ShearableRiserJoint
 edo:ShearableRiserJoint rdf:type owl:Class ;
-                        rdfs:subClassOf edo:RunningTool ;
+                        rdfs:subClassOf edo:IfcInstanciableElement ,
+                                        edo:RunningTool ;
                         dcterms:identifier "ShearableRiserJoint" ;
                         skos:prefLabel "Junta riser cisalhável"@pt-br ,
-                                       "Shearable riser joint"@en .
+                                       "Shearable riser joint"@en ;
+                        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                        edo:hasExternalRef "MDA:ShearableRiserJoint" ;
+                        edo:ifc_equivalentClass "IfcPipeFitting" ;
+                        edo:ifc_objectType "ShearableRiserJoint" ;
+                        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#ShortTermFloatDensity
@@ -15290,10 +15516,17 @@ edo:Specification rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SpliceBox
 edo:SpliceBox rdf:type owl:Class ;
-              rdfs:subClassOf edo:ComponentDevice ;
+              rdfs:subClassOf edo:ComponentDevice ,
+                              edo:IfcInstanciableElement ;
               dcterms:identifier "SpliceBox" ;
               skos:prefLabel "Caixa de emenda"@pt-br ,
-                             "Splice box"@en .
+                             "Splice box"@en ;
+              edo:entityStatus "NEW" ;
+              edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+              edo:hasExternalRef "MDA:SpliceBox" ;
+              edo:ifc_equivalentClass "IfcPipeFitting" ;
+              edo:ifc_objectType "SpliceBox" ;
+              edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#SplitCollar
@@ -15678,30 +15911,51 @@ edo:StorageAccessory rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#StorageBox
 edo:StorageBox rdf:type owl:Class ;
-               rdfs:subClassOf edo:StorageAccessory ;
+               rdfs:subClassOf edo:IfcInstanciableElement ,
+                               edo:StorageAccessory ;
                dcterms:identifier "StorageBox" ;
                skos:prefLabel "Caixa de armazenamento"@pt-br ,
-                              "Storage box"@en .
+                              "Storage box"@en ;
+               edo:entityStatus "NEW" ;
+               edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+               edo:hasExternalRef "MDA:StorageBox" ;
+               edo:ifc_equivalentClass "IfcPipeFitting" ;
+               edo:ifc_objectType "StorageBox" ;
+               edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#StorageSkid
 edo:StorageSkid rdf:type owl:Class ;
-                rdfs:subClassOf edo:StorageAccessory ;
+                rdfs:subClassOf edo:IfcInstanciableElement ,
+                                edo:StorageAccessory ;
                 dcterms:identifier "StorageSkid" ;
                 skos:definition "Estrutura de proteção para transporte e armazenamento de equipamentos"@pt-br ,
                                 "Protective structure for equipment storage and transportation"@en ;
                 skos:prefLabel "Skid de armazenamento"@pt-br ,
-                               "Storage skid"@en .
+                               "Storage skid"@en ;
+                edo:entityStatus "NEW" ;
+                edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                edo:hasExternalRef "MDA:StorageSkid" ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "StorageSkid" ;
+                edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#StorageSpool
 edo:StorageSpool rdf:type owl:Class ;
-                 rdfs:subClassOf edo:StorageAccessory ;
+                 rdfs:subClassOf edo:IfcInstanciableElement ,
+                                 edo:StorageAccessory ;
                  dcterms:identifier "StorageSpool" ;
                  skos:definition "Carretel/bobina para transporte e armazenamento de linhas"@pt-br ,
                                  "Spool for line storage and transportation"@en ;
                  skos:prefLabel "Carretel de armazenamento"@pt-br ,
-                                "Storage spool"@en .
+                                "Storage spool"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                 edo:hasExternalRef "MDA:StorageSpool" ;
+                 edo:ifc_equivalentClass "IfcPipeFitting" ;
+                 edo:ifc_objectType "StorageSpool" ;
+                 edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPress
@@ -16529,10 +16783,17 @@ edo:SurvivalDesignLoadsAttribute rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TPT
 edo:TPT rdf:type owl:Class ;
-        rdfs:subClassOf edo:Sensor ;
+        rdfs:subClassOf edo:IfcInstanciableElement ,
+                        edo:Sensor ;
         dcterms:identifier "TPT" ;
         skos:prefLabel "Pressure and temperature sensor"@en ,
-                       "Sensor de pressão e temperatura"@pt-br .
+                       "Sensor de pressão e temperatura"@pt-br ;
+        edo:entityStatus "NEW" ;
+        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+        edo:hasExternalRef "MDA:TPT" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
+        edo:ifc_objectType "TPT" ;
+        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#Table
@@ -16762,10 +17023,16 @@ edo:TemperatureRangeAttribute rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TemperatureSensor
 edo:TemperatureSensor rdf:type owl:Class ;
-                      rdfs:subClassOf edo:Sensor ;
+                      rdfs:subClassOf edo:IfcInstanciableElement ,
+                                      edo:Sensor ;
                       dcterms:identifier "TemperatureSensor" ;
                       skos:prefLabel "Sensor de temperatura"@pt-br ,
-                                     "Temperature sensor"@en .
+                                     "Temperature sensor"@en ;
+                      edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                      edo:hasExternalRef "MDA:TemperatureSensor" ;
+                      edo:ifc_equivalentClass "IfcPipeFitting" ;
+                      edo:ifc_objectType "TemperatureSensor" ;
+                      edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#TensileArmour
@@ -16941,10 +17208,16 @@ edo:TensionerTracksQuantity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TestBase
 edo:TestBase rdf:type owl:Class ;
-             rdfs:subClassOf edo:TestEquipment ;
+             rdfs:subClassOf edo:IfcInstanciableElement ,
+                             edo:TestEquipment ;
              dcterms:identifier "TestBase" ;
              skos:prefLabel "Base de teste"@pt-br ,
-                            "Test base"@en .
+                            "Test base"@en ;
+             edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+             edo:hasExternalRef "MDA:TestBase" ;
+             edo:ifc_equivalentClass "IfcPipeFitting" ;
+             edo:ifc_objectType "TestBase" ;
+             edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#TestConditions
@@ -17186,14 +17459,17 @@ edo:ThreadedEndLength rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ThreadedFitting
 edo:ThreadedFitting rdf:type owl:Class ;
-                    rdfs:subClassOf edo:TubingCoupling ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ,
+                                    edo:TubingCoupling ;
                     dcterms:identifier "ThreadedFitting" ;
                     skos:definition "A Threaded Fitting is a connector used to join fluid or gas lines through screw threads, providing a secure and leak-tight connection that can be easily assembled or disassembled during installation or maintenance."@en ,
                                     "Um Engate Rosqueado é um conector usado para unir linhas de fluido ou gás por meio de roscas, garantindo uma conexão segura e vedada que pode ser facilmente montada ou desmontada durante a instalação ou manutenção."@pt-br ;
                     skos:prefLabel "Engate Rosqueado"@pt-br ,
                                    "Threaded Fitting"@en ;
+                    edo:entityStatus "NEW" ;
                     edo:hasAttribute edo:HoseFittingSpecTableColumn ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                    edo:hasExternalRef "MDA:ThreadedFitting" ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "ThreadedFitting" ;
                     edo:ifc_predefinedType "USERDEFINED" .
@@ -17606,7 +17882,6 @@ edo:TransitionSpool rdf:type owl:Class ;
                     rdfs:subClassOf edo:LineAncillary ;
                     dcterms:identifier "TransitionSpool" ;
                     skos:prefLabel "Prolongador Bipartido"@pt-br ;
-                    edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "TransitionSpool" ;
                     edo:ifc_predefinedType "USERDEFINED" .
@@ -17648,16 +17923,21 @@ edo:Transportation rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#TreeCap
 edo:TreeCap rdf:type owl:Class ;
             rdfs:subClassOf edo:FlowControlModule ;
-            dcterms:identifier "TreeCap" ;
-            edo:hasDiscipline edo:WetChristmasTreesEngineering .
+            dcterms:identifier "TreeCap" .
 
 
 ###  https://w3id.org/energy-domain/edo#TreeRunningTool
 edo:TreeRunningTool rdf:type owl:Class ;
-                    rdfs:subClassOf edo:RunningTool ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ,
+                                    edo:RunningTool ;
                     dcterms:identifier "TreeRunningTool" ;
                     skos:prefLabel "Ferramenta de instalação de ANM"@pt-br ,
-                                   "Wet Christmas tree running tool"@en .
+                                   "Wet Christmas tree running tool"@en ;
+                    edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                    edo:hasExternalRef "MDA:TreeRunningTool" ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "TreeRunningTool" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#TrianglePlate
@@ -17709,20 +17989,32 @@ edo:TubingCoupling rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TubingHanger
 edo:TubingHanger rdf:type owl:Class ;
-                 rdfs:subClassOf edo:PressureComponent ;
+                 rdfs:subClassOf edo:IfcInstanciableElement ,
+                                 edo:PressureComponent ;
                  dcterms:identifier "TubingHanger" ;
                  skos:definition "Componente de topo que oferece suporte mecânico e interfaces (hidráulicas, elétricas, óticas, etc.) aos demais componentes da coluna de poço"@pt-br ,
                                  "Top component providing mechanical support and interfaces (hydraulic, electrical, optical, etc.) to other well tubing components"@en ;
                  skos:prefLabel "Suspensor de coluna"@pt-br ,
-                                "Tubing hanger"@en .
+                                "Tubing hanger"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasExternalRef "MDA:TubingHanger" ;
+                 edo:ifc_equivalentClass "IfcPipeFitting" ;
+                 edo:ifc_objectType "TubingHanger" ;
+                 edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#TubingHangerRunningTool
 edo:TubingHangerRunningTool rdf:type owl:Class ;
-                            rdfs:subClassOf edo:RunningTool ;
+                            rdfs:subClassOf edo:IfcInstanciableElement ,
+                                            edo:RunningTool ;
                             dcterms:identifier "TubingHangerRunningTool" ;
                             skos:prefLabel "Ferramenta de instalação de TH"@pt-br ,
-                                           "Tubing hanger running tool"@en .
+                                           "Tubing hanger running tool"@en ;
+                            edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                            edo:hasExternalRef "MDA:TubingHangerRunningTool" ;
+                            edo:ifc_equivalentClass "IfcPipeFitting" ;
+                            edo:ifc_objectType "TubingHangerRunningTool" ;
+                            edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#TypeLevelAttribute
@@ -17795,24 +18087,32 @@ edo:UNSThreadSpec rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#UTA
 edo:UTA rdf:type owl:Class ;
-        rdfs:subClassOf edo:SubseaEquipment ;
+        rdfs:subClassOf edo:IfcInstanciableElement ,
+                        edo:SubseaEquipment ;
         dcterms:identifier "UTA" ;
         skos:definition "Equipamento para terminação e ancoragem de um umbilical"@pt-br ,
                         "Equipment for umbilical termination and anchoring"@en ;
         skos:prefLabel "Conjunto de terminação de umbilical"@pt-br ,
                        "Umbilical termination assembly"@en ;
         edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+        edo:hasExternalRef "MDA:UTA" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
         edo:ifc_objectType "UTA" ;
         edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#UTM
 edo:UTM rdf:type owl:Class ;
-        rdfs:subClassOf edo:LineTerminationModule ;
+        rdfs:subClassOf edo:IfcInstanciableElement ,
+                        edo:LineTerminationModule ;
         dcterms:identifier "UTM" ;
         skos:prefLabel "Módulo de terminação de umbilical"@pt-br ,
                        "Umbilical termination module"@en ;
-        edo:hasDiscipline edo:WetChristmasTreesEngineering .
+        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+        edo:hasExternalRef "MDA:UTM" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
+        edo:ifc_objectType "UTM" ;
+        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#UltTensStrAlongFibers
@@ -17910,7 +18210,8 @@ edo:UmbilicalFunctions rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#UmbilicalPullingHead
 edo:UmbilicalPullingHead rdf:type owl:Class ;
-                         rdfs:subClassOf edo:PullingHead ;
+                         rdfs:subClassOf edo:IfcInstanciableElement ,
+                                         edo:PullingHead ;
                          dcterms:identifier "UmbilicalPullingHead" ;
                          skos:altLabel "Cabeça de Manuseio para Umbilical"@pt-br ;
                          skos:definition "Cabeça de tração tubular (com espaço para pigtails), usada para umbilicais."@pt-br ,
@@ -17921,6 +18222,7 @@ edo:UmbilicalPullingHead rdf:type owl:Class ;
                                           edo:InternalDiameter ,
                                           edo:InternalLength ;
                          edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                         edo:hasExternalRef "MDA:UmbilicalPullingHead" ;
                          edo:ifc_equivalentClass "IfcPipeFitting" ;
                          edo:ifc_objectType "UmbilicalPullingHead" ;
                          edo:ifc_predefinedType "USERDEFINED" .
@@ -18191,11 +18493,16 @@ edo:UtilizationFactor rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#VCM
 edo:VCM rdf:type owl:Class ;
-        rdfs:subClassOf edo:ConnectionModule ;
+        rdfs:subClassOf edo:ConnectionModule ,
+                        edo:IfcInstanciableElement ;
         dcterms:identifier "VCM" ;
         skos:prefLabel "Módulo de conexão vertical"@pt-br ,
                        "Vertical connection module"@en ;
-        edo:hasDiscipline edo:WetChristmasTreesEngineering .
+        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+        edo:hasExternalRef "MDA:VCM" ;
+        edo:ifc_equivalentClass "IfcPipeFitting" ;
+        edo:ifc_objectType "VCM" ;
+        edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#VIVStrake
@@ -18238,22 +18545,19 @@ edo:Valve rdf:type owl:Class ;
           edo:hasAttribute edo:API6APSL ,
                            edo:Metallurgy ,
                            edo:NominalDiameter ;
-          edo:hasDiscipline edo:ValveEngineering ;
           edo:hasExternalRef "MDA:Valve" .
 
 
 ###  https://w3id.org/energy-domain/edo#ValveActuator
 edo:ValveActuator rdf:type owl:Class ;
-                  rdfs:subClassOf edo:ComponentDevice ,
-                                  edo:IfcInstanciableElement ;
+                  rdfs:subClassOf edo:ComponentDevice ;
                   dcterms:identifier "ValveActuator" ;
                   skos:definition ""@en ,
                                   ""@pt-br ;
                   skos:prefLabel "Atuador de válvula"@pt-br ,
                                  "Valve actuator"@en ;
                   edo:entityStatus "NEW" ;
-                  edo:hasDiscipline edo:InstrumentationEngineering ,
-                                    edo:ValveEngineering ;
+                  edo:hasDiscipline edo:ValveEngineering ;
                   edo:hasExternalRef "MDA:ValveActuator" ;
                   edo:ifc_objectType "ValveActuator" ;
                   edo:ifc_predefinedType "USERDEFINED" .
@@ -18402,10 +18706,16 @@ edo:WaterAbsorption rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#WaterIntake
 edo:WaterIntake rdf:type owl:Class ;
-                rdfs:subClassOf edo:SubseaEquipment ;
+                rdfs:subClassOf edo:IfcInstanciableElement ,
+                                edo:SubseaEquipment ;
                 dcterms:identifier "WaterIntake" ;
                 skos:prefLabel "Captador de Água"@pt-br ,
-                               "Water Intake"@en .
+                               "Water Intake"@en ;
+                edo:hasDiscipline edo:SubseaEngineering ;
+                edo:hasExternalRef "MDA:WaterIntake" ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "WaterIntake" ;
+                edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#Wave
@@ -18420,20 +18730,33 @@ edo:Wave rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#WearBushing
 edo:WearBushing rdf:type owl:Class ;
-                rdfs:subClassOf edo:Accessory ;
+                rdfs:subClassOf edo:Accessory ,
+                                edo:IfcInstanciableElement ;
                 dcterms:identifier "WearBushing" ;
                 skos:definition "Accessory for protecting delicate surfaces in the flowbase during downhole interventions"@en ,
                                 "Acessório para proteção de superfícies delicadas na BAP durante intervenções no poço"@pt-br ;
                 skos:prefLabel "Bucha de Desgaste"@pt-br ,
-                               "Wear Bushing"@en .
+                               "Wear Bushing"@en ;
+                edo:entityStatus "NEW" ;
+                edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                edo:hasExternalRef "MDA:WearBushing" ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "WearBushing" ;
+                edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#WearBushingRunningTool
 edo:WearBushingRunningTool rdf:type owl:Class ;
-                           rdfs:subClassOf edo:RunningTool ;
+                           rdfs:subClassOf edo:IfcInstanciableElement ,
+                                           edo:RunningTool ;
                            dcterms:identifier "WearBushingRunningTool" ;
                            skos:prefLabel "Ferramenta de instalação de BD"@pt-br ,
-                                          "Wear bushing running tool"@en .
+                                          "Wear bushing running tool"@en ;
+                           edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                           edo:hasExternalRef "MDA:WearBushingRunningTool" ;
+                           edo:ifc_equivalentClass "IfcPipeFitting" ;
+                           edo:ifc_objectType "WearBushingRunningTool" ;
+                           edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#WeightInWater
@@ -18487,21 +18810,30 @@ edo:WeldedConnection rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Wellhead
 edo:Wellhead rdf:type owl:Class ;
-             rdfs:subClassOf edo:Structure ;
+             rdfs:subClassOf edo:IfcInstanciableElement ,
+                             edo:Structure ;
              dcterms:identifier "Wellhead" ;
              skos:prefLabel "Cabeça de poço"@pt-br ,
-                            "Wellhead"@en .
+                            "Wellhead"@en ;
+             edo:entityStatus "NEW" ;
+             edo:hasExternalRef "MDA:Wellhead" ;
+             edo:ifc_equivalentClass "IfcPipeFitting" ;
+             edo:ifc_objectType "Wellhead" ;
+             edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#WetChristmasTree
 edo:WetChristmasTree rdf:type owl:Class ;
-                     rdfs:subClassOf edo:FlowControlEquipment ;
+                     rdfs:subClassOf edo:FlowControlEquipment ,
+                                     edo:IfcInstanciableElement ;
                      dcterms:identifier "WetChristmasTree" ;
                      skos:definition "Equipamento composto por válvulas e instrumentos que permite controlar diretamente os fluidos de/para um poço"@pt-br ,
                                      "Piece of equipment containing valves and instrumentation allowing direct control of flow from/to a well"@en ;
                      skos:prefLabel "Wet Christmas tree"@en ,
                                     "Árvore de Natal molhada"@pt-br ;
                      edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                     edo:hasExternalRef "MDA:WetChristmasTree" ;
+                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                      edo:ifc_objectType "WetChristmasTree" ;
                      edo:ifc_predefinedType "USERDEFINED" .
 
@@ -18998,17 +19330,17 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:DEG
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:DEG
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -19688,14 +20020,14 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
+                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -19729,8 +20061,8 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
@@ -19738,11 +20070,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
                                     ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
