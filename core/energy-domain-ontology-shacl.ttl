@@ -1085,12 +1085,26 @@ ex:Rule_IsCritical a sh:NodeShape ;
         sh:in ( "Boolean (yes/no)" )
     ] .
 
-ex:Rule_Length a sh:NodeShape ;
-    sh:targetClass edo:LineSection, edo:LinearLocation, edo:LinearObject ;
+ex:Rule_InstalledSectionLength a sh:NodeShape ;
+    sh:targetClass edo:LineSection;
     sh:property [
-        sh:path edo:Length ;
+        sh:path edo:InstalledSectionLength ;
         sh:in ( "Fractional number (≥ 0.0)" ) 
     ] .
+
+ex:Rule_AsBuiltRouteLength a sh:NodeShape ;
+    sh:targetClass edo:LinearLocation;
+    sh:property [
+        sh:path edo:AsBuiltRouteLength ;
+        sh:in ( "Fractional number (≥ 0.0)" ) 
+    ] .
+
+ex:Rule_InstalledLength a sh:NodeShape ;
+    sh:targetClass  edo:LinearObject ;
+    sh:property [
+        sh:path edo:InstalledLength ;
+        sh:in ( "Fractional number (≥ 0.0)" ) 
+    ] .        
 
 ex:Rule_Length_MilliM a sh:NodeShape ;
     sh:targetClass edo:FlangeAdapter ;
@@ -1245,7 +1259,7 @@ ex:Rule_FlexibleJoint a sh:NodeShape ;
     ] .    
 
 ex:Rule_WeightInWater a sh:NodeShape ;
-    sh:targetClass edo:SubseaEquipment, edo:HangOffAdaptor, edo:Anchor , edo:RigidRiserTopConnector , edo:AnodeSled , edo:LineTermination , edo:PullingHead , edo:ProcessValve , edo:BraceletAnode , edo:MudMat , edo:FlowConnector , edo:LineSupport ;
+    sh:targetClass edo:SplitCollar, edo:SubseaEquipment, edo:HangOffAdaptor, edo:Anchor , edo:RigidRiserTopConnector , edo:AnodeSled , edo:LineTermination , edo:PullingHead , edo:ProcessValve , edo:BraceletAnode , edo:MudMat , edo:FlowConnector , edo:LineSupport ;
     sh:property [
         sh:path edo:WeightInWater ;
         sh:in ( "Fractional number" )
@@ -1364,10 +1378,6 @@ ex:Rule_Pipeline a sh:NodeShape ;
 	sh:property [
         sh:path edo:FluidAsphaltenes ;
         sh:in ( "Boolean (yes/no)" )
-    ] ;
-	sh:property [
-        sh:path edo:MaxCo2Content ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] ;
 	sh:property [
         sh:path edo:FluidAcetateContent ;
@@ -1739,7 +1749,7 @@ ex:Rule_UniformPipeSegment a sh:NodeShape ;
     ] .   
 
 ex:Rule_flange_type a sh:NodeShape ;
-    sh:targetClass edo:HangOffAdaptor, edo:ProcessValve, edo:StressJoint, edo:Flange, edo:FlangeAdapter, edo:HangOffCollar, edo:UmbilicalPullingHead, edo:PipePullingHead, edo:RigidRiserTopConnector, edo:FlowConnector, edo:PullInTube ;
+    sh:targetClass edo:PipePullingHead, edo:HangOffAdaptor, edo:ProcessValve, edo:StressJoint, edo:Flange, edo:FlangeAdapter, edo:HangOffCollar, edo:UmbilicalPullingHead, edo:PipePullingHead, edo:RigidRiserTopConnector, edo:FlowConnector, edo:PullInTube ;
     sh:property [
         sh:path edo:FlangeType ;
         sh:in ( "NONE" "API_6B_2_1/16_2000_PSI" "API_6B_2_9/16_2000_PSI" "API_6B_3_1/8_2000_PSI" "API_6B_4_1/16_2000_PSI" "API_6B_5_1/8_2000_PSI" "API_6B_7_1/16_2000_PSI" "API_6B_9_2000_PSI" "API_6B_11_2000_PSI" "API_6B_13_5/8_2000_PSI" 
@@ -1785,7 +1795,7 @@ ex:Rule_flange_type a sh:NodeShape ;
     ] .
 
 ex:Rule_Bolt a sh:NodeShape ;
-    sh:targetClass edo:HangOffAdaptor, edo:ProcessValve, edo:BuoyancyModule, edo:FlangeAdapter, edo:RigidRiserTopConnector, edo:Flange, edo:FlowConnector, edo:StressJoint, edo:PullInTube ;
+    sh:targetClass edo:SplitCollar, edo:PipePullingHead, edo:HangOffAdaptor, edo:ProcessValve, edo:BuoyancyModule, edo:FlangeAdapter, edo:RigidRiserTopConnector, edo:Flange, edo:FlowConnector, edo:StressJoint, edo:PullInTube ;
     sh:property [
         sh:path edo:BoltType ;
         sh:in ( "NONE" "M1" "M1.1" "M1.2" "M1.4" "M1.6" "M1.8" "M2" "M2.2" "M2.5" "M3"
@@ -1967,7 +1977,7 @@ ex:Regra_SpringParamsAttribute a sh:NodeShape ;
     ] .
 
 ex:Rule_flange_attachment_type a sh:NodeShape ;
-    sh:targetClass edo:HangOffAdaptor, edo:ProcessValve, edo:FlangeAdapter, edo:RigidRiserTopConnector, edo:Flange, edo:FlowConnector, edo:StressJoint, edo:PullInTube ;
+    sh:targetClass edo:PipePullingHead, edo:HangOffAdaptor, edo:ProcessValve, edo:FlangeAdapter, edo:RigidRiserTopConnector, edo:Flange, edo:FlowConnector, edo:StressJoint, edo:PullInTube ;
     sh:property [
         sh:path edo:AttachmentType ;
         sh:in ( "WELD_NECK" "INTEGRAL" "SOCKET_WELD" "LAP_JOINT" "SWIVEL" "THREADED" "BLIND" "OTHER" ) 
@@ -2017,7 +2027,7 @@ ex:Rule_fxj_compatible_support_type a sh:NodeShape ;
     ] .    
 
 ex:Rule_BoreDiameter_IN a sh:NodeShape ;
-    sh:targetClass edo:HangOffAdaptor, edo:ProcessValve, edo:Flange, edo:FlangeAdapter, edo:RigidRiserTopConnector, edo:FlowConnector, edo:StressJoint, edo:PullInTube ;
+    sh:targetClass edo:PipePullingHead, edo:HangOffAdaptor, edo:ProcessValve, edo:Flange, edo:FlangeAdapter, edo:RigidRiserTopConnector, edo:FlowConnector, edo:StressJoint, edo:PullInTube ;
     sh:property [
         sh:path edo:BoreDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -2025,14 +2035,14 @@ ex:Rule_BoreDiameter_IN a sh:NodeShape ;
     ] .
 
 ex:Rule_ring_gasket_profile a sh:NodeShape ;
-    sh:targetClass edo:HangOffAdaptor, edo:ProcessValve, edo:Flange, edo:FlangeAdapter, edo:RingGasket, edo:RigidRiserTopConnector,  edo:FlowConnector,  edo:StressJoint, edo:PullInTube ;
+    sh:targetClass edo:PipePullingHead, edo:HangOffAdaptor, edo:ProcessValve, edo:Flange, edo:FlangeAdapter, edo:RingGasket, edo:RigidRiserTopConnector,  edo:FlowConnector,  edo:StressJoint, edo:PullInTube ;
     sh:property [
         sh:path edo:RingGasketProfile ;
         sh:in ( "NONE" "AX" "BX" "R" "RX" "VX" "VGX" "W" "WX" "OTHER" )
     ] .    
 
 ex:Rule_RingGasketNumber a sh:NodeShape ;
-    sh:targetClass edo:HangOffAdaptor, edo:ProcessValve, edo:Flange, edo:FlangeAdapter, edo:RingGasket, edo:RigidRiserTopConnector,  edo:FlowConnector,  edo:StressJoint, edo:PullInTube ;
+    sh:targetClass edo:PipePullingHead, edo:HangOffAdaptor, edo:ProcessValve, edo:Flange, edo:FlangeAdapter, edo:RingGasket, edo:RigidRiserTopConnector,  edo:FlowConnector,  edo:StressJoint, edo:PullInTube ;
     sh:property [
         sh:path edo:RingGasketNumber ;
         sh:in ( "Integer number (≥ 1)" )
@@ -2770,7 +2780,7 @@ ex:Rule_NominalDiameter_IN a sh:NodeShape ;
     ] .
 
 ex:Rule_NominalDiameter_mm a sh:NodeShape ;
-    sh:targetClass edo:Link ;
+    sh:targetClass edo:Link, edo:Shackle ;
     sh:property [
         sh:path edo:NominalDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -2784,32 +2794,46 @@ ex:Rule_equipment_protection_type a sh:NodeShape ;
     ] .
 
 ex:Rule_fluid_corrosiveness a sh:NodeShape ;
-    sh:targetClass edo:PipeSegment, edo:Pipeline, edo:ProcessValve ;
+    sh:targetClass edo:Pipeline ;
     sh:property [
         sh:path edo:Corrosiveness ;
         sh:in ( "NEUTRAL" "SWEET" "SOUR" )
     ] .
 
-ex:Rule_MaxCo2Content a sh:NodeShape ;
+ex:Rule_fluid_corrosiveness_tolerance a sh:NodeShape ;
+    sh:targetClass edo:PipeSegment, edo:ProcessValve ;
+    sh:property [
+        sh:path edo:CorrosivenessTolerance ;
+        sh:in ( "NEUTRAL" "SWEET" "SOUR" )
+    ] .    
+
+ex:Rule_AllowableCo2Content a sh:NodeShape ;
     sh:targetClass edo:PipeSegment, edo:Pipeline, edo:ProcessValve ;
     sh:property [
-        sh:path edo:MaxCo2Content ;
+        sh:path edo:AllowableCo2Content ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
-ex:Rule_MaxH2sContent a sh:NodeShape ;
+ex:Rule_AllowableH2sContent a sh:NodeShape ;
     sh:targetClass edo:PipeSegment, edo:Pipeline, edo:ProcessValve ;
     sh:property [
-        sh:path edo:MaxH2sContent ;
+        sh:path edo:AllowableH2sContent ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
 ex:Rule_Sand a sh:NodeShape ;
-    sh:targetClass edo:PipeSegment, edo:Pipeline, edo:ProcessValve ;
+    sh:targetClass edo:Pipeline ;
     sh:property [
         sh:path edo:Sand ;
         sh:in ( "Boolean (yes/no)" )
     ] .
+
+ex:Rule_SandTolerance a sh:NodeShape ;
+    sh:targetClass edo:PipeSegment, edo:ProcessValve ;
+    sh:property [
+        sh:path edo:SandTolerance ;
+        sh:in ( "Boolean (yes/no)" )
+    ] .    
 
 ex:Rule_FluidVolumePerPulse a sh:NodeShape ;
     sh:targetClass edo:SteppingHydraulicActuator ;
@@ -2915,3 +2939,40 @@ ex:Rule_MaxPowerDraw a sh:NodeShape ;
         sh:path edo:MaxPowerDraw ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .    
+
+ex:Rule_PinDiameter a sh:NodeShape ;
+    sh:targetClass edo:Shackle ;
+    sh:property [
+        sh:path edo:PinDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_MaxRouteDepth a sh:NodeShape ;
+    sh:targetClass edo:LineSection ;
+    sh:property [
+        sh:path edo:MaxRouteDepth ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+
+ex:Rule_OverallWidth a sh:NodeShape ;
+    sh:targetClass edo:Structure, edo:ComponentDevice, edo:LineAncillary, edo:Equipment ;
+    sh:property [
+        sh:path edo:OverallWidth ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+	
+ex:Rule_OverallHeight a sh:NodeShape ;
+    sh:targetClass edo:Structure, edo:ComponentDevice, edo:LineAncillary, edo:Equipment ;
+    sh:property [
+        sh:path edo:OverallHeight ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .	
+	
+ex:Rule_OverallLength a sh:NodeShape ;
+    sh:targetClass edo:Structure, edo:ComponentDevice, edo:LineAncillary, edo:Equipment ;
+    sh:property [
+        sh:path edo:OverallLength ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+   
