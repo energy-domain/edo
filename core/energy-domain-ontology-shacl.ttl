@@ -2375,7 +2375,7 @@ ex:Rule_Creep a sh:NodeShape ;
     ] . 
 
 ex:Rule_rigid_pipe_ext_coat_polymer a sh:NodeShape ;
-    sh:targetClass edo:ExternalPolymericCoating ;
+    sh:targetClass edo:ExternalPolymericCoating , edo:ExternalPolymericCoatingMaterial ;
     sh:property [
         sh:path edo:Material ;
         sh:in ( "COALTAR_ENAMEL" "LIQUID_EPOXY" "FBE" "POLYCHLOROPRENE" "SOLID_PP" "SYNTACTIC_PP" "PE" "PS" "SOLID_PU" "SYNTACTIC_PU" "SILICONE" "EPOXY_URETHANE" "SOLID_RUBBER" "SYNTACTIC_RUBBER" "TSA" "CMPP" "OTHER" )
@@ -2575,22 +2575,29 @@ ex:Rule_WaterAbsorption a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] . 
 
-ex:Rule_rigid_pipe_int_coat_cra a sh:NodeShape ;
-    sh:targetClass edo:InternalMetallicLiner , edo:InternalCladding ;
+ex:Rule_rigid_pipe_int_liner_cra a sh:NodeShape ;
+    sh:targetClass edo:InternalMetallicLiner , edo:InternalMetallicLinerMaterial ;
     sh:property [
         sh:path edo:Material ;
-        sh:in ( "INCONEL" "INCONEL_625" "OTHER" ) ;
+        sh:in ( "INCONEL_625" "INCOLOY_825" "904L_SS" "UNS_S31254" "UNS_N08367" "UNS_N08926" "UNS_N08827" "UNS_N08642" "UNS_N08935" "UNS_S32654" "UNS_N08034" "OTHER" ) ;
+    ] .
+
+ex:Rule_rigid_pipe_int_cladding_cra a sh:NodeShape ;
+    sh:targetClass edo:InternalCladding , edo:InternalCladdingMaterial ;
+    sh:property [
+        sh:path edo:Material ;
+        sh:in ( "INCONEL_625" "OTHER" ) ;
     ] .
 
 ex:Rule_rigid_pipe_int_coat_polymer a sh:NodeShape ;
-    sh:targetClass edo:InternalPolymericLiner ;
+    sh:targetClass edo:InternalPolymericLiner , edo:InternalPolymericLinerMaterial ;
     sh:property [
         sh:path edo:Material ;
         sh:in ( "HDPE" "POLYAMIDE" "OTHER" ) ;
     ] .
 
 ex:Rule_rigid_pipe_flow_coat_polymer a sh:NodeShape ;
-    sh:targetClass edo:FlowCoating ;
+    sh:targetClass edo:FlowCoating , edo:FlowCoatingMaterial ;
     sh:property [
         sh:path edo:Material ;
         sh:in ( "FBE" "OTHER" ) ;
@@ -2674,14 +2681,14 @@ ex:Rule_ThermalExpansionCoeff a sh:NodeShape ;
     ] .
 
 ex:Rule_PoissonRatio a sh:NodeShape ;
-    sh:targetClass edo:ExternalConcreteCoating , edo:ExternalPolymericCoating , edo:InternalPolymericLiner , edo:InternalMetallicLiner , edo:InternalCladding , edo:FieldJointCoating ;
+    sh:targetClass edo:ExternalConcreteCoating , edo:ExternalPolymericCoating , edo:InternalPolymericLiner , edo:InternalMetallicLiner , edo:InternalCladding , edo:FieldJointCoating , edo:ExternalPolymericCoatingMaterial , edo:FieldJointCoatingMaterial , edo:InternalCladdingMaterial , edo:InternalMetallicLinerMaterial , edo:InternalPolymericLinerMaterial ;
     sh:property [
         sh:path edo:PoissonRatio ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
 ex:Rule_rigid_pipe_joint_coat_material a sh:NodeShape ;
-    sh:targetClass edo:FieldJointCoating ;
+    sh:targetClass edo:FieldJointCoating , edo:FieldJointCoatingMaterial ;
     sh:property [
         sh:path edo:Material ;
         sh:in ( "PU" "COALTAR_ENAMEL" "LIQUID_EPOXY" "FBE" "FTPP" "FSPP" "HSS_PP" "IMPP" "FTPE" "FSPE" "HSS_PE" "IMPE" "IMPU" "IMEU" "SILICONE" "POLYCHLOROPRENE" "ULTRA" "RUBBER" "CMPP" "OTHER" ) ;
@@ -2926,7 +2933,6 @@ ex:Rule_MaxRouteDepth a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
-
 ex:Rule_OverallWidth a sh:NodeShape ;
     sh:targetClass edo:Structure, edo:ComponentDevice, edo:LineAncillary, edo:Equipment ;
     sh:property [
@@ -2948,7 +2954,6 @@ ex:Rule_OverallLength a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
    
-
 ex:Rule_gasket_sealing_material a sh:NodeShape ;
     sh:targetClass edo:RingGasket ;
     sh:property [
@@ -2962,11 +2967,3 @@ ex:Rule_NumFastenerSets a sh:NodeShape ;
         sh:path edo:NumFastenerSets ;
         sh:in ( "Integer number (≥ 1)" ) ;
     ] .
-
-
-ex:Rule_InstalledLength_IN a sh:NodeShape ;
-    sh:targetClass  edo:MetricStudSet, edo:UNSStudSet ;
-    sh:property [
-        sh:path edo:InstalledLength ;
-        edo:hasUnit unit:IN ;
-    ] .        
