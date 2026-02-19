@@ -2083,7 +2083,7 @@ edo:CO2VolumePercentage rdf:type owl:Class ;
                         skos:prefLabel "Carbon Dioxide (CO2) Volume Percentage"@en ,
                                        "Porcentagem de Volume de Dióxido de Carbono (CO2)"@pt-br ;
                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                        edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                        edo:hasLifecycleCreationPhase edo:Operation ;
                         edo:hasTypedValue edo:FloatValue ;
                         edo:hasUnit unit:PERCENT ;
                         edo:hasValueCardinality edo:SingleValue .
@@ -4530,6 +4530,7 @@ edo:ExternalPolymericCoating rdf:type owl:Class ;
                                             "Revestimento Externo Polimérico"@pt-br ;
                              edo:entityStatus "NEW" ;
                              edo:hasAttribute edo:ExternalPolymericCoatingMaterialAttribute ;
+                             edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                              edo:hasExternalRef "MDA:ExternalPolymericCoating" ;
                              edo:ifc_equivalentClass "IfcPipeSegment" ;
                              edo:ifc_objectType "ExternalPolymericCoating" ;
@@ -5944,6 +5945,21 @@ edo:FullyThreaded rdf:type owl:Class ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#Function
+edo:Function rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "Function" ;
+             skos:definition "Escolha um da lista: IA (Injeção de água); IG (Injeção de Gás); LPO (Linha de Produção de Óleo); PG (Produtor de Gás); SE (Serviço); GAS (Gasoduto); UEH (Umbilical Eletro Hidráulico); CEP (Cabo Elétrico de Potência)."@pt-br ,
+                             "Indicates the type of function the pipeline is designated for, specifying its operational purpose within the project. This classification is used to ensure proper management, installation, and use of the pipeline according to its intended function."@en ;
+             skos:prefLabel "Function"@en ,
+                            "Função"@pt-br ;
+             edo:hasAttributeScope edo:InstanceLevelAttribute ;
+             edo:hasLifecycleCreationPhase edo:BasicDesign ;
+             edo:hasTypedValue edo:StringValue ;
+             edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#FunctionLine
 edo:FunctionLine rdf:type owl:Class ;
                  rdfs:subClassOf edo:UmbilicalComponent ;
@@ -6218,7 +6234,7 @@ edo:H2SVolumeConcentration rdf:type owl:Class ;
                            skos:prefLabel "Concentração Volumétrica de Sulfeto de Hidrogênio (H2S)"@pt-br ,
                                           "Hydrogen Sulfide (H2S) Volume Concentration"@en ;
                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                           edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                           edo:hasLifecycleCreationPhase edo:Operation ;
                            edo:hasTypedValue edo:FloatValue ;
                            edo:hasUnit unit:MicroM3-PER-M3 ;
                            edo:hasValueCardinality edo:SingleValue .
@@ -7513,13 +7529,14 @@ edo:Interconnection rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InterconnectionAccessories
 edo:InterconnectionAccessories rdf:type owl:Class ;
-                               rdfs:subClassOf edo:GroupingElements ;
+                               rdfs:subClassOf edo:GroupingElements , edo:IfcInstanciableElement ;
                                dcterms:identifier "InterconnectionAccessories" ;
                                skos:definition "Class used to organize classes representing accessories associated with interconnections."@en ,
                                                "Classe utilizada para agrupar no modelo IFC classes que representam acessórios associados a interligações."@pt-br ;
                                skos:prefLabel "Acessórios de Interligação"@pt-br ,
                                               "Interconnection Accessories"@en ;
                                edo:entityStatus "NEW" ;
+                               edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                                edo:ifc_equivalentClass "IfcElementAssembly" ;
                                edo:ifc_objectType "InterconnectionAccessories" ;
                                edo:ifc_predefinedType "USERDEFINED" .
@@ -7527,13 +7544,14 @@ edo:InterconnectionAccessories rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InterconnectionAnchoring
 edo:InterconnectionAnchoring rdf:type owl:Class ;
-                             rdfs:subClassOf edo:GroupingElements ;
+                             rdfs:subClassOf edo:GroupingElements , edo:IfcInstanciableElement ;
                              dcterms:identifier "InterconnectionAnchoring" ;
                              skos:definition "Class used to organize classes representing anchoring systems associated with interconnections."@en ,
                                              "Classe utilizada para agrupar no modelo IFC classes que representam sistemas de ancoragem associados a interligações."@pt-br ;
                              skos:prefLabel "Ancoragem de Interligação"@pt-br ,
                                             "Interconnection Anchoring"@en ;
                              edo:entityStatus "NEW" ;
+                             edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                              edo:ifc_equivalentClass "IfcElementAssembly" ;
                              edo:ifc_objectType "InterconnectionAnchoring" ;
                              edo:ifc_predefinedType "USERDEFINED" .
@@ -7541,13 +7559,14 @@ edo:InterconnectionAnchoring rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InterconnectionComponents
 edo:InterconnectionComponents rdf:type owl:Class ;
-                              rdfs:subClassOf edo:GroupingElements ;
+                              rdfs:subClassOf edo:GroupingElements , edo:IfcInstanciableElement ;
                               dcterms:identifier "InterconnectionComponents" ;
                               skos:definition "Class used to organize classes representing main components associated with interconnections."@en ,
                                               "Classe utilizada para agrupar no modelo IFC classes que representam componentes principais associados a interligações."@pt-br ;
                               skos:prefLabel "Componentes de Interligação"@pt-br ,
                                              "Interconnection Components"@en ;
                               edo:entityStatus "NEW" ;
+                              edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                               edo:ifc_equivalentClass "IfcElementAssembly" ;
                               edo:ifc_objectType "InterconnectionComponents" ;
                               edo:ifc_predefinedType "USERDEFINED" .
@@ -10555,22 +10574,22 @@ edo:MaxYieldStrength rdf:type owl:Class ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#MaximumAllowableOperatingPressure
-edo:MaximumAllowableOperatingPressure rdf:type owl:Class ;
-                                      rdfs:subClassOf edo:_CAT-Specification ;
-                                      dcterms:accessRights "PUBLIC" ;
-                                      dcterms:identifier "MaximumAllowableOperatingPressure" ;
-                                      skos:definition "Maximum internal pressure allowed for entire pipeline for operation in accordance with design parameters and integrity assessment."@en ,
-                                                      "Pressão interna máxima permitida, válida para o duto inteiro, para operação em concordância com os parâmetros de projeto e avaliação de integridade."@pt-br ;
-                                      skos:prefLabel "Maximum Allowable Operating Pressure"@en ,
-                                                     "Pressão Máxima de Operação Admissível"@pt-br ;
-                                      edo:entityStatus "NEW" ;
-                                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                                      edo:hasExternalRef "MDA:maop" ;
-                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                                      edo:hasTypedValue edo:FloatValue ;
-                                      edo:hasUnit unit:MPa ;
-                                      edo:hasValueCardinality edo:SingleValue .
+###  https://w3id.org/energy-domain/edo#MaximumAllowableOperatingInternalPressure
+edo:MaximumAllowableOperatingInternalPressure rdf:type owl:Class ;
+                                              rdfs:subClassOf edo:_CAT-Specification ;
+                                              dcterms:accessRights "PUBLIC" ;
+                                              dcterms:identifier "MaximumAllowableOperatingInternalPressure" ;
+                                              skos:definition "Maximum internal pressure allowed for entire pipeline for operation in accordance with design parameters and integrity assessment."@en ,
+                                                              "Pressão interna máxima permitida, válida para o duto inteiro, para operação em concordância com os parâmetros de projeto e avaliação de integridade."@pt-br ;
+                                              skos:prefLabel "Maximum Allowable Operating Pressure"@en ,
+                                                             "Pressão Máxima de Operação Admissível"@pt-br ;
+                                              edo:entityStatus "NEW" ;
+                                              edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                                              edo:hasExternalRef "MDA:maop" ;
+                                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                              edo:hasTypedValue edo:FloatValue ;
+                                              edo:hasUnit unit:MPa ;
+                                              edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#MaximumAllowableTensileForStraightLine
@@ -10850,7 +10869,7 @@ edo:MaximumTemperature rdf:type owl:Class ;
                        skos:prefLabel "Maximum Temperature"@en ,
                                       "Temperatura Máxima"@pt-br ;
                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                       edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                       edo:hasLifecycleCreationPhase edo:Operation ;
                        edo:hasTypedValue edo:FloatValue ;
                        edo:hasUnit unit:K ;
                        edo:hasValueCardinality edo:SingleValue .
@@ -14434,13 +14453,15 @@ edo:RigidPipeSegmentComponent rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#RigidPipeSegmentExternalCoatings
 edo:RigidPipeSegmentExternalCoatings rdf:type owl:Class ;
-                                     rdfs:subClassOf edo:GroupingElements ;
+                                     rdfs:subClassOf edo:GroupingElements ,
+                                                     edo:IfcInstanciableElement ;
                                      dcterms:identifier "RigidPipeSegmentExternalCoatings" ;
                                      skos:definition "Class used to group, within the IFC model, classes representing external coatings applied to rigid pipe segments."@en ,
                                                      "Classe utilizada para agrupar no modelo IFC classes que representam revestimentos externos aplicados a segmentos de tubos rígidos."@pt-br ;
                                      skos:prefLabel "Revestimentos Externos de Segmento de Tubo Rígido"@pt-br ,
                                                     "Rigid Pipe Segment External Coatings"@en ;
                                      edo:entityStatus "NEW" ;
+                                     edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                                      edo:ifc_equivalentClass "IfcCovering" ;
                                      edo:ifc_objectType "RigidPipeSegmentExternalCoatings" ;
                                      edo:ifc_predefinedType "USERDEFINED" .
@@ -14448,13 +14469,15 @@ edo:RigidPipeSegmentExternalCoatings rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#RigidPipeSegmentInternalCoatings
 edo:RigidPipeSegmentInternalCoatings rdf:type owl:Class ;
-                                     rdfs:subClassOf edo:GroupingElements ;
+                                     rdfs:subClassOf edo:GroupingElements ,
+                                                     edo:IfcInstanciableElement ;
                                      dcterms:identifier "RigidPipeSegmentInternalCoatings" ;
                                      skos:definition "Class used to group, within the IFC model, classes representing internal coatings applied to rigid pipe segments."@en ,
                                                      "Classe utilizada para agrupar no modelo IFC classes que representam revestimentos internos aplicados a segmentos de tubos rígidos."@pt-br ;
                                      skos:prefLabel "Revestimentos Internos de Segmento de Tubo Rígido"@pt-br ,
                                                     "Rigid Pipe Segment Internal Coatings"@en ;
                                      edo:entityStatus "NEW" ;
+                                     edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                                      edo:ifc_equivalentClass "IfcCovering" ;
                                      edo:ifc_objectType "RigidPipeSegmentInternalCoatings" ;
                                      edo:ifc_predefinedType "USERDEFINED" .
@@ -15277,21 +15300,6 @@ edo:SerialNumber rdf:type owl:Class ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#Service
-edo:Service rdf:type owl:Class ;
-            rdfs:subClassOf edo:DomainAttribute ;
-            dcterms:accessRights "PUBLIC" ;
-            dcterms:identifier "Service" ;
-            skos:definition "Escolha um da lista: IA (Injeção de água); IG (Injeção de Gás); LPO (Linha de Produção de Óleo); PG (Produtor de Gás); SE (Serviço); GAS (Gasoduto); UEH (Umbilical Eletro Hidráulico); CEP (Cabo Elétrico de Potência)."@pt-br ,
-                            "Indicates the type of service the pipeline is designated for, specifying its operational purpose within the project. This classification is used to ensure proper management, installation, and use of the pipeline according to its intended function."@en ;
-            skos:prefLabel "Service"@en ,
-                           "Serviço"@pt-br ;
-            edo:hasAttributeScope edo:InstanceLevelAttribute ;
-            edo:hasLifecycleCreationPhase edo:BasicDesign ;
-            edo:hasTypedValue edo:StringValue ;
-            edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#Shackle
 edo:Shackle rdf:type owl:Class ;
             rdfs:subClassOf edo:IfcInstanciableElement ,
@@ -15538,6 +15546,36 @@ edo:SingleActingHydraulicActuator rdf:type owl:Class ;
                                   edo:ifc_equivalentClass "IfcPipeFitting" ;
                                   edo:ifc_objectType "SingleActingHydraulicActuator" ;
                                   edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#SingleLineDiagram
+edo:SingleLineDiagram rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "SingleLineDiagram" ;
+                      skos:definition "Refere-se ao código identificador atribuído ao diagrama unifilar associado ao ativo. Esse código permite rastrear e referenciar o documento que representa, de forma simplificada, o arranjo das seções e de seus acessórios, como terminações, conexões e abraçadeiras. O diagrama unifilar fornece uma visão geral da configuração do sistema, sendo utilizado para apoiar o planejamento, a instalação e a compreensão do layout dos principais componentes."@pt-br ,
+                                      "Refers to the identification code assigned to the single-line diagram associated with the asset. This code enables traceability and referencing of the document that illustrates, in a simplified manner, the arrangement of the sections and their accessories, such as terminations, connections, and clamps. The single-line diagram provides an overview of the system configuration and is used to support planning, installation, and understanding of the layout of the main components."@en ;
+                      skos:prefLabel "Código do Diagrama Unifilar"@pt-br ,
+                                     "Single Line Diagram"@en ;
+                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:StringValue ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#SingleLineDiagramRev
+edo:SingleLineDiagramRev rdf:type owl:Class ;
+                         rdfs:subClassOf edo:DomainAttribute ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "SingleLineDiagramRev" ;
+                         skos:definition "Indica o número da revisão do diagrama unifilar, refletindo as atualizações ou alterações feitas no arranjo das seções do duto e seus acessórios. Cada revisão garante que a configuração mais recente seja documentada com precisão para fins de instalação e planejamento."@pt-br ,
+                                         "Indicates the revision number of the single line diagram, reflecting updates or changes made to the arrangement of pipeline sections and their accessories. Each revision ensures that the latest configuration is accurately documented for installation and planning purposes."@en ;
+                         skos:prefLabel "Número da Revisão do Diagrama Unifilar"@pt-br ,
+                                        "Single Line Diagram Revision"@en ;
+                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                         edo:hasTypedValue edo:StringValue ;
+                         edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#SingleValue
@@ -16885,27 +16923,26 @@ edo:SubseaPipeline rdf:type owl:Class ;
                    edo:hasAttribute edo:BasicProjectRevision ,
                                     edo:CO2VolumePercentage ,
                                     edo:ExecutiveProjectRevision ,
+                                    edo:Function ,
                                     edo:H2SVolumeConcentration ,
-                                    edo:InternalDiameter ,
-                                    edo:InternalIncidentalPressureCurveAttribute ,
                                     edo:MaterialRequest ,
                                     edo:MaterialRequestRev ,
-                                    edo:MaxDesignAbsIntPresTable ,
-                                    edo:MaxDesignAbsIntPresTable_PositionReference ,
-                                    edo:MaxDesignAbsIntPresTable_Pressure ,
-                                    edo:MaxDesignAbsIntPresTable_VPosWRTWaterline ,
+                                    edo:MaxFlowRate ,
+                                    edo:MaximumAllowableOperatingInternalPressure ,
                                     edo:MaximumTemperature ,
-                                    edo:MaximumThermalExchangeCoefficient ,
-                                    edo:MinimumThermalExchangeCoefficient ,
                                     edo:NominalLength ,
+                                    edo:PiggableCleaning ,
+                                    edo:PiggableInspection ,
+                                    edo:PipelineClassification ,
                                     edo:ProjectAcronym ,
                                     edo:ProjectCode ,
                                     edo:RiserConfiguration ,
-                                    edo:Service ,
-                                    edo:SubProjectId ,
-                                    edo:UnifilarDiagram ,
-                                    edo:UnifilarDiagramRev ;
-                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+                                    edo:ShutOffPressure ,
+                                    edo:SingleLineDiagram ,
+                                    edo:SingleLineDiagramRev ,
+                                    edo:SubProjectId ;
+                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                     edo:SubseaRigidPipesEngineering ;
                    edo:ifc_equivalentClass "IfcBuilding" ;
                    edo:ifc_objectType "SubseaPipeline" ;
                    edo:ifc_predefinedType "USERDEFINED" .
@@ -18698,36 +18735,6 @@ edo:UmbilicalStructure rdf:type owl:Class ;
                        edo:ifc_predefinedType "USERDEFINED" .
 
 
-###  https://w3id.org/energy-domain/edo#UnifilarDiagram
-edo:UnifilarDiagram rdf:type owl:Class ;
-                    rdfs:subClassOf edo:DomainAttribute ;
-                    dcterms:accessRights "PUBLIC" ;
-                    dcterms:identifier "UnifilarDiagram" ;
-                    skos:definition "Refere-se ao código identificador atribuído ao diagrama unifilar associado ao ativo. Esse código permite rastrear e referenciar o documento que representa, de forma simplificada, o arranjo das seções e de seus acessórios, como terminações, conexões e abraçadeiras. O diagrama unifilar fornece uma visão geral da configuração do sistema, sendo utilizado para apoiar o planejamento, a instalação e a compreensão do layout dos principais componentes."@pt-br ,
-                                    "Refers to the identification code assigned to the single-line diagram associated with the asset. This code enables traceability and referencing of the document that illustrates, in a simplified manner, the arrangement of the sections and their accessories, such as terminations, connections, and clamps. The single-line diagram provides an overview of the system configuration and is used to support planning, installation, and understanding of the layout of the main components."@en ;
-                    skos:prefLabel "Código do Diagrama Unifilar"@pt-br ,
-                                   "Unifilar Diagram"@en ;
-                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                    edo:hasTypedValue edo:StringValue ;
-                    edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#UnifilarDiagramRev
-edo:UnifilarDiagramRev rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ;
-                       dcterms:accessRights "PUBLIC" ;
-                       dcterms:identifier "UnifilarDiagramRev" ;
-                       skos:definition "Indica o número da revisão do diagrama unifilar, refletindo as atualizações ou alterações feitas no arranjo das seções do duto e seus acessórios. Cada revisão garante que a configuração mais recente seja documentada com precisão para fins de instalação e planejamento."@pt-br ,
-                                       "Indicates the revision number of the unifilar diagram, reflecting updates or changes made to the arrangement of pipeline sections and their accessories. Each revision ensures that the latest configuration is accurately documented for installation and planning purposes."@en ;
-                       skos:prefLabel "Número da Revisão do Diagrama Unifilar"@pt-br ,
-                                      "Unifilar Diagram Revision"@en ;
-                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                       edo:hasTypedValue edo:StringValue ;
-                       edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#UniformElongation
 edo:UniformElongation rdf:type owl:Class ;
                       rdfs:subClassOf edo:InternalCladdingMaterialAttribute ,
@@ -19699,11 +19706,11 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:DEG
-                                        ] ,
-                                        [ qudt:exponent 1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:DEG
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -20387,13 +20394,13 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
@@ -20433,11 +20440,8 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ,
                                     [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
@@ -20445,11 +20449,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
