@@ -7687,6 +7687,7 @@ edo:InternalCladding rdf:type owl:Class ;
                      edo:entityStatus "NEW" ;
                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                      edo:hasExternalRef "MDA:InternalCladding" ;
+                     edo:hasSpec edo:WeldOverlaySpec ;
                      edo:ifc_equivalentClass "IfcCovering" ;
                      edo:ifc_objectType "InternalCladding" ;
                      edo:ifc_predefinedType "USERDEFINED" .
@@ -7822,7 +7823,6 @@ edo:InternalLiner rdf:type owl:Class ;
                   skos:prefLabel "Internal Liner"@en ,
                                  "Liner Interno"@pt-br ;
                   edo:entityStatus "NEW" ;
-                  edo:hasAttribute edo:AnchoringMethod ;
                   edo:hasExternalRef "MDA:InternalLiner" .
 
 
@@ -7836,6 +7836,7 @@ edo:InternalMetallicLiner rdf:type owl:Class ;
                           edo:entityStatus "NEW" ;
                           edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                           edo:hasExternalRef "MDA:InternalMetallicLiner" ;
+                          edo:hasSpec edo:WeldOverlaySpec ;
                           edo:ifc_equivalentClass "IfcCovering" ;
                           edo:ifc_objectType "InternalMetallicLiner" ;
                           edo:ifc_predefinedType "USERDEFINED" .
@@ -7874,6 +7875,7 @@ edo:InternalPolymericLiner rdf:type owl:Class ;
                            skos:prefLabel "Internal Polymeric Liner"@en ,
                                           "Liner Polimérico Interno"@pt-br ;
                            edo:entityStatus "NEW" ;
+                           edo:hasAttribute edo:AnchoringMethod ;
                            edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                            edo:hasExternalRef "MDA:InternalPolymericLiner" ;
                            edo:ifc_equivalentClass "IfcCovering" ;
@@ -8753,8 +8755,12 @@ edo:LinePipeSpec rdf:type owl:Class ;
                                   edo:LengthToleranceNegative ,
                                   edo:LengthTolerancePositive ,
                                   edo:ManufacturingProcess ,
+                                  edo:MaxDesignTemperature ,
+                                  edo:MaxPcm ,
                                   edo:MaxStraightnessDeviation ,
                                   edo:MaxStraightnessDeviationEnd ,
+                                  edo:MinTensileStrengthAtDesignTemperature ,
+                                  edo:MinYieldStrengthAtDesignTemperature ,
                                   edo:OuterDiameterBodyToleranceNegative ,
                                   edo:OuterDiameterBodyTolerancePositive ,
                                   edo:OuterDiameterEndToleranceNegative ,
@@ -10042,6 +10048,24 @@ edo:MaxDesignPressure rdf:type owl:Class ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#MaxDesignTemperature
+edo:MaxDesignTemperature rdf:type owl:Class ;
+                         rdfs:subClassOf edo:_CAT-Specification ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "MaxDesignTemperature" ;
+                         skos:definition "Temperatura aplicável aos parâmetros de limite de escoamento/ruptura sob alta temperatura"@pt-br ,
+                                         "Temperature applicable to high-temperature yield/tensile strength parameters"@en ;
+                         skos:prefLabel "Maximum design temperature"@en ,
+                                        "Temperatura máxima de projeto"@pt-br ;
+                         edo:entityStatus "NEW" ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasExternalRef "MDA:spec.material_spec.max_design_temperature" ;
+                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                         edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:DEG_C ;
+                         edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MaxDragCoeff
 edo:MaxDragCoeff rdf:type owl:Class ;
                  rdfs:subClassOf edo:DomainAttribute ;
@@ -10278,6 +10302,27 @@ edo:MaxLoadXYZAttribute rdf:type owl:Class ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
+###  https://w3id.org/energy-domain/edo#MaxMassLossASTMG48
+edo:MaxMassLossASTMG48 rdf:type owl:Class ;
+                       rdfs:subClassOf edo:InternalCladdingMaterialAttribute ,
+                                       edo:InternalMetallicLinerMaterialAttribute ,
+                                       edo:_CAT-Specification ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "MaxMassLossASTMG48" ;
+                       skos:definition "Corrosion resistance criterion as per ASTM G48"@en ,
+                                       "Critério de resistência à corrosão conforme ASTM G48"@pt-br ;
+                       skos:prefLabel "Maximum mass loss as per ASTM G48 method A"@en ,
+                                      "Perda máxima de massa conforme ASTM G48 método A"@pt-br ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                       edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                       edo:hasExternalRef "MDA:material_spec.max_mass_loss_astm_g48" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:GM-PER-M2 ;
+                       edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MaxOperatingLoadCaseAttribute
 edo:MaxOperatingLoadCaseAttribute rdf:type owl:Class ;
                                   rdfs:subClassOf edo:LoadCaseAttribute ;
@@ -10335,6 +10380,23 @@ edo:MaxOperatingTorque rdf:type owl:Class ;
                        edo:hasTypedValue edo:FloatValue ;
                        edo:hasUnit unit:N-M ;
                        edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MaxPcm
+edo:MaxPcm rdf:type owl:Class ;
+           rdfs:subClassOf edo:_CAT-Specification ;
+           dcterms:accessRights "PUBLIC" ;
+           dcterms:identifier "MaxPcm" ;
+           skos:definition "Carbon equivalent parameter"@en ,
+                           "Parâmetro de carbono equivalente"@pt-br ;
+           skos:prefLabel "Maximum Pcm"@en ,
+                          "Pcm máximo"@pt-br ;
+           edo:entityStatus "NEW" ;
+           edo:hasAttributeScope edo:TypeLevelAttribute ;
+           edo:hasExternalRef "MDA:spec.material_spec.max_pcm" ;
+           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+           edo:hasTypedValue edo:FloatValue ;
+           edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#MaxPermissibleDeformationDynamic
@@ -11337,6 +11399,22 @@ edo:MinDragCoeff rdf:type owl:Class ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#MinGrippingForce
+edo:MinGrippingForce rdf:type owl:Class ;
+                     rdfs:subClassOf edo:_CAT-Specification ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "MinGrippingForce" ;
+                     skos:prefLabel "Força de ancoragem mínima"@pt-br ,
+                                    "Minimum gripping force"@en ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                     edo:hasExternalRef "MDA:min_gripping_force" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:KiloN ;
+                     edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MinInstallationPressure
 edo:MinInstallationPressure rdf:type owl:Class ;
                             rdfs:subClassOf edo:InstallationPressureAttribute ;
@@ -11351,6 +11429,43 @@ edo:MinInstallationPressure rdf:type owl:Class ;
                             edo:hasTypedValue edo:FloatValue ;
                             edo:hasUnit unit:BAR ;
                             edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinLength
+edo:MinLength rdf:type owl:Class ;
+              rdfs:subClassOf edo:_CAT-Specification ;
+              dcterms:accessRights "PUBLIC" ;
+              dcterms:identifier "MinLength" ;
+              skos:prefLabel "Comprimento mínimo"@pt-br ,
+                             "Minimum length"@en ;
+              edo:entityStatus "NEW" ;
+              edo:hasAttributeScope edo:InstanceLevelAttribute ;
+              edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+              edo:hasExternalRef "MDA:weld_overlay_spec.min_length" ;
+              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+              edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:MilliM ;
+              edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinPREN
+edo:MinPREN rdf:type owl:Class ;
+            rdfs:subClassOf edo:InternalCladdingMaterialAttribute ,
+                            edo:InternalMetallicLinerMaterialAttribute ,
+                            edo:_CAT-Specification ;
+            dcterms:accessRights "PUBLIC" ;
+            dcterms:identifier "MinPREN" ;
+            skos:definition "'Pitting resistance equivalent number'; parâmetro de resistência a corrosão por pitting"@pt-br ,
+                            "Pitting resistance equivalent number"@en ;
+            skos:prefLabel "Minimum PREN"@en ,
+                           "PREN mínimo"@pt-br ;
+            edo:entityStatus "NEW" ;
+            edo:hasAttributeScope edo:InstanceLevelAttribute ;
+            edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+            edo:hasExternalRef "MDA:material_spec.min_pren" ;
+            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+            edo:hasTypedValue edo:FloatValue ;
+            edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#MinRetrievalPressure
@@ -11425,6 +11540,38 @@ edo:MinTensileStrength rdf:type owl:Class ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#MinTensileStrengthAtDesignTemperature
+edo:MinTensileStrengthAtDesignTemperature rdf:type owl:Class ;
+                                          rdfs:subClassOf edo:_CAT-Specification ;
+                                          dcterms:accessRights "PUBLIC" ;
+                                          dcterms:identifier "MinTensileStrengthAtDesignTemperature" ;
+                                          skos:prefLabel "Limite de ruptura mínimo na temperatura de projeto"@pt-br ,
+                                                         "Minimum tensile strength at design temperature"@en ;
+                                          edo:entityStatus "NEW" ;
+                                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                          edo:hasExternalRef "MDA:spec.material_spec.min_tensile_strength_at_design_temperature" ;
+                                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                          edo:hasTypedValue edo:FloatValue ;
+                                          edo:hasUnit unit:MPa ;
+                                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinThickness
+edo:MinThickness rdf:type owl:Class ;
+                 rdfs:subClassOf edo:_CAT-Specification ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "MinThickness" ;
+                 skos:prefLabel "Espessura mínima"@pt-br ,
+                                "Minimum thickness"@en ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                 edo:hasExternalRef "MDA:weld_overlay_spec.min_thickness" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:MilliM ;
+                 edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MinYieldStrength
 edo:MinYieldStrength rdf:type owl:Class ;
                      rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
@@ -11444,6 +11591,22 @@ edo:MinYieldStrength rdf:type owl:Class ;
                      edo:hasTypedValue edo:FloatValue ;
                      edo:hasUnit unit:MPa ;
                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinYieldStrengthAtDesignTemperature
+edo:MinYieldStrengthAtDesignTemperature rdf:type owl:Class ;
+                                        rdfs:subClassOf edo:_CAT-Specification ;
+                                        dcterms:accessRights "PUBLIC" ;
+                                        dcterms:identifier "MinYieldStrengthAtDesignTemperature" ;
+                                        skos:prefLabel "Limite de escoamento mínimo na temperatura de projeto"@pt-br ,
+                                                       "Minimum yield strength at design temperature"@en ;
+                                        edo:entityStatus "NEW" ;
+                                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                        edo:hasExternalRef "MDA:spec.material_spec.min_yield_strength_at_design_temperature" ;
+                                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                        edo:hasTypedValue edo:FloatValue ;
+                                        edo:hasUnit unit:MPa ;
+                                        edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#MinimumBreakingLoad
@@ -13170,7 +13333,6 @@ edo:Pipeline rdf:type owl:Class ;
                               edo:PipelineFunction ,
                               edo:Sand ,
                               edo:ShutOffPressure ;
-             edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
              edo:hasExternalRef "MDA:Pipeline" ;
              edo:ifc_equivalentClass "IfcElementAssembly" ;
              edo:ifc_objectType "Pipeline" ;
@@ -14515,6 +14677,10 @@ edo:RigidPipeSegmentSpec rdf:type owl:Class ;
                                           edo:InnerDiameterEndTolerancePositive ,
                                           edo:InnerDiameterNominal ,
                                           edo:ManufacturingProcess ,
+                                          edo:MaxDesignTemperature ,
+                                          edo:MaxPcm ,
+                                          edo:MinTensileStrengthAtDesignTemperature ,
+                                          edo:MinYieldStrengthAtDesignTemperature ,
                                           edo:OuterDiameterBodyToleranceNegative ,
                                           edo:OuterDiameterBodyTolerancePositive ,
                                           edo:OuterDiameterEndToleranceNegative ,
@@ -19210,6 +19376,35 @@ edo:WeightInWaterEmpty rdf:type owl:Class ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#WeldOverlayMaterial
+edo:WeldOverlayMaterial rdf:type owl:Class ;
+                        rdfs:subClassOf edo:_CAT-Specification ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "WeldOverlayMaterial" ;
+                        skos:prefLabel "Material da deposição de solda "@pt-br ,
+                                       "Weld Overlay Material"@en ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                        edo:hasExternalRef "MDA:weld_overlay_spec.material" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:StringValue ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#WeldOverlaySpec
+edo:WeldOverlaySpec rdf:type owl:Class ;
+                    rdfs:subClassOf edo:Spec ;
+                    skos:prefLabel "Especificação da deposição de solda"@pt-br ,
+                                   "Weld Overlay Specification"@en ;
+                    edo:hasAttribute edo:MaxTensileStrength ,
+                                     edo:MaxYieldStrength ,
+                                     edo:MinLength ,
+                                     edo:MinTensileStrength ,
+                                     edo:MinThickness ,
+                                     edo:MinYieldStrength ,
+                                     edo:WeldOverlayMaterial .
+
+
 ###  https://w3id.org/energy-domain/edo#WeldedConnection
 edo:WeldedConnection rdf:type owl:Class ;
                      rdfs:subClassOf edo:FluidPort ;
@@ -19544,6 +19739,21 @@ unit:DM2 rdf:type owl:NamedIndividual ,
          rdfs:label "Square Decimeter"@en .
 
 
+###  http://qudt.org/vocab/unit/GM-PER-M2
+unit:GM-PER-M2 rdf:type owl:NamedIndividual ,
+                        qudt:Unit ,
+                        edo:DomainUnit ;
+               dcterms:source "QUDT Units Vocabulary"@en ;
+               qudt:conversionMultiplier 0.001 ;
+               qudt:definedUnitOfSystem sou:SI ;
+               qudt:hasQuantityKind qudt:MassPerArea ;
+               qudt:symbol "g/m²" ;
+               qudt:ucumCode "g.m-2" ;
+               rdfs:comment "Unit of mass per area"@en ;
+               rdfs:isDefinedBy unit:GM-PER-M2 ;
+               rdfs:label "Gram per Square Meter"@en .
+
+
 ###  http://qudt.org/vocab/unit/GPA
 unit:GPA rdf:type owl:NamedIndividual ,
                   qudt:Unit ,
@@ -19720,23 +19930,23 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -20399,15 +20609,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent 1 ;
@@ -20415,6 +20616,15 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -20429,11 +20639,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                            qudt:hasUnit unit:MilliGM
-                                          ] ,
-                                          [ qudt:exponent -1 ;
+                       qudt:hasFactorUnit [ qudt:exponent -1 ;
                                             qudt:hasUnit unit:GM
+                                          ] ,
+                                          [ qudt:exponent 1 ;
+                                            qudt:hasUnit unit:MilliGM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -20448,11 +20658,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -1 ;
+                 qudt:hasFactorUnit [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
@@ -20460,11 +20670,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
                                     [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
