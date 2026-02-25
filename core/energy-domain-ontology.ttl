@@ -130,8 +130,8 @@ edo:DomainRelationship rdf:type owl:AnnotationProperty ;
                        rdfs:subPropertyOf edo:DomainAnnotation .
 
 
-###  https://w3id.org/energy-domain/edo#SingleValue
-edo:SingleValue rdf:type owl:AnnotationProperty .
+###  https://w3id.org/energy-domain/edo#SingleValue_VERIFICAR
+edo:SingleValue_VERIFICAR rdf:type owl:AnnotationProperty .
 
 
 ###  https://w3id.org/energy-domain/edo#appliesTo
@@ -2010,8 +2010,8 @@ edo:BuoyancyModule rdf:type owl:Class ;
                                    "Dispositivo utilizado em sistemas submarinos para fornecer flutuabilidade controlada a dutos flexíveis, risers ou umbilicais, reduzindo a carga na estrutura e gerenciando a configuração da linha na coluna d'água. O Módulo de Flutuação é tipicamente composto por espuma sintática ou outros materiais de baixa densidade, projetados para suportar altas pressões externas enquanto mantêm suas propriedades de flutuabilidade ao longo do tempo. Ele desempenha um papel fundamental na otimização do desempenho e do posicionamento das linhas subsea, garantindo que mantenham a forma e a profundidade necessárias em condições oceânicas dinâmicas."@pt-br ;
                    skos:prefLabel "Buoyancy Module"@en ,
                                   "Módulo de Flutuação"@pt-br ;
-                   edo:hasAttribute edo:FinalBuoyancy ,
-                                    edo:InitialBuoyancy ,
+                   edo:hasAttribute edo:FinalBuoyancy-EOF ,
+                                    edo:InitialBuoyancy-SOL ,
                                     edo:LongTermFloatDensity ,
                                     edo:LongTermFloatVolume ,
                                     edo:NominalFloatDensity ,
@@ -2570,6 +2570,7 @@ edo:CompatibleFluids rdf:type owl:Class ;
                      edo:hasExternalRef "MDA:compatible_fluids" ,
                                         "MDA:hydraulic_fluid_spec.compatible_fluids" ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:StringValue ;
                      edo:hasValueCardinality edo:MultiValue .
 
 
@@ -3774,7 +3775,7 @@ edo:DownstreamSealingType rdf:type owl:Class ;
                           rdfs:subClassOf edo:DownstreamSealingParamsAttribute ;
                           dcterms:accessRights "PUBLIC" ;
                           dcterms:identifier "DownstreamSealingType" ;
-                          skos:prefLabel "Downstream Sealing Yype"@en ,
+                          skos:prefLabel "Downstream Sealing Type"@en ,
                                          "Tipo da Vedação a Jusante"@pt-br ;
                           edo:entityStatus "NEW" ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
@@ -4931,14 +4932,14 @@ edo:Filler rdf:type owl:Class ;
            edo:ifc_predefinedType "USERDEFINED" .
 
 
-###  https://w3id.org/energy-domain/edo#FinalBuoyancy
-edo:FinalBuoyancy rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#FinalBuoyancy-EOF
+edo:FinalBuoyancy-EOF rdf:type owl:Class ;
                   rdfs:subClassOf edo:_CAT-Specification ;
                   dcterms:accessRights "PUBLIC" ;
-                  dcterms:identifier "Finalbuoyancy(EOF)" ;
+                  dcterms:identifier "FinalBuoyancy-EOF" ;
                   rdfs:comment "Empuxo nominal fornecido pelo flutuador no final da vida útil"@pt-br ;
-                  skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no final de sua vida útil."@pt-br ,
-                                  "Nominal upthrust supplied by buoyancy module late in its lifespan."@en ;
+                  skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no final de sua vida útil (EOF)."@pt-br ,
+                                  "Nominal upthrust supplied by buoyancy module late in its lifespan (EOF)."@en ;
                   skos:prefLabel "Final Buoyancy"@en ,
                                  "Flutuabilidade Final"@pt-br ;
                   edo:hasAttribute "MDA:final_buoyancy" ;
@@ -7068,14 +7069,14 @@ edo:IndividualAnodeMass rdf:type owl:Class ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#InitialBuoyancy
-edo:InitialBuoyancy rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#InitialBuoyancy-SOL
+edo:InitialBuoyancy-SOL rdf:type owl:Class ;
                     rdfs:subClassOf edo:_CAT-Specification ;
                     dcterms:accessRights "PUBLIC" ;
-                    dcterms:identifier "InitialBuoyancy(SOL)" ;
+                    dcterms:identifier "InitialBuoyancy-SOL" ;
                     rdfs:comment "Empuxo nominal fornecido pelo flutuador no começo da vida útil"@pt-br ;
-                    skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no início de sua vida útil."@pt-br ,
-                                    "Nominal upthrust supplied by buoyancy module early in its lifespan."@en ;
+                    skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no início de sua vida útil (SOL)."@pt-br ,
+                                    "Nominal upthrust supplied by buoyancy module early in its lifespan (SOL)."@en ;
                     skos:prefLabel "Flutuabilidade Inicial"@pt-br ,
                                    "Initial Buoyancy"@en ;
                     edo:hasAttribute "MDA:initial_buoyancy" ;
@@ -19139,9 +19140,7 @@ edo:ValveActuator rdf:type owl:Class ;
                                  "Valve Actuator"@en ;
                   edo:entityStatus "NEW" ;
                   edo:hasDiscipline edo:ValveEngineering ;
-                  edo:hasExternalRef "MDA:ValveActuator" ;
-                  edo:ifc_objectType "ValveActuator" ;
-                  edo:ifc_predefinedType "USERDEFINED" .
+                  edo:hasExternalRef "MDA:ValveActuator" .
 
 
 ###  https://w3id.org/energy-domain/edo#ValveEngineering
@@ -20804,22 +20803,11 @@ edo:EquivalentMBR edo:hasUnit unit:M .
 edo:FilletRadius edo:hasUnit unit:MilliM .
 
 
-edo:FinalBuoyancy_EOF edo:hasUnit unit:KiloGM_F .
-
-
-edo:Flange1_BoreDiameter edo:hasUnit unit:IN .
-
-
-edo:Flange2_BoreDiameter edo:hasUnit unit:IN .
-
-
 edo:Height edo:hasUnit unit:MilliM .
 
 
 edo:HosePressure edo:hasUnit unit:PSI .
 
-
-edo:InitialBuoyancy_SOL edo:hasUnit unit:KiloGM_F .
 
 
 edo:LifeSpan edo:hasUnit unit:YR_Common .
