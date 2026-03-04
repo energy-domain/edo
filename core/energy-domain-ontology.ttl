@@ -3046,7 +3046,7 @@ edo:CreatorId rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#Creep
 edo:Creep rdf:type owl:Class ;
           rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                          edo:FieldJointCoatingMaterialAttribute ,
+                          edo:FieldJointPolymericCoatingMaterialAttribute ,
                           edo:InternalPolymericLinerMaterialAttribute ;
           dcterms:accessRights "PUBLIC" ;
           dcterms:identifier "Creep" ;
@@ -4957,44 +4957,53 @@ edo:FiberType rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#FieldJointCoating
 edo:FieldJointCoating rdf:type owl:Class ;
-                      rdfs:subClassOf edo:IfcInstanciableElement ,
-                                      edo:RigidPipeCoating ;
+                      rdfs:subClassOf edo:RigidPipeCoating ;
                       dcterms:identifier "FieldJointCoating" ;
-                      skos:definition "Especifica as camadas de revestimento aplicadas às juntas de campo."@pt-br ,
-                                      "Specifies coating layers applied to field joints."@en ;
                       skos:prefLabel "Field Joint Coating"@en ,
                                      "Revestimento de Junta de Campo"@pt-br ;
                       edo:entityStatus "NEW" ;
-                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
-                      edo:hasExternalRef "MDA:FieldJointCoating" ;
-                      edo:ifc_equivalentClass "IfcCovering" ;
-                      edo:ifc_objectType "FieldJointCoating" ;
-                      edo:ifc_predefinedType "USERDEFINED" .
+                      edo:hasExternalRef "MDA:FieldJointCoating" .
 
 
-###  https://w3id.org/energy-domain/edo#FieldJointCoatingMaterial
-edo:FieldJointCoatingMaterial rdf:type owl:Class ;
-                              rdfs:subClassOf edo:IfcInstanciableElement ,
-                                              edo:MaterialType ;
-                              dcterms:identifier "FieldJointCoatingMaterial" ;
-                              skos:prefLabel "Especificação do Material de Revestimento Polimérico Interno"@pt-br ,
-                                             "Internal Polymeric Liner Material"@en ;
-                              edo:hasAttribute edo:FieldJointCoatingMaterialAttribute ;
-                              edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                              edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
-                              edo:hasExternalRef "MDA:material_spec" ;
-                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                              edo:ifc_equivalentClass "IfcMaterial" ;
-                              edo:ifc_objectType "FieldJointCoatingMaterial" .
+###  https://w3id.org/energy-domain/edo#FieldJointPolymericCoating
+edo:FieldJointPolymericCoating rdf:type owl:Class ;
+                               rdfs:subClassOf edo:FieldJointCoating ,
+                                               edo:IfcInstanciableElement ;
+                               dcterms:identifier "FieldJointPolymericCoating" ;
+                               skos:prefLabel "Field Joint Polymeric Coating"@en ,
+                                              "Revestimento Polimérico de Junta de Campo"@pt-br ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttribute edo:FieldJointPolymericCoatingMaterialAttribute ;
+                               edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                               edo:hasExternalRef "MDA:FieldJointPolymericCoating" ;
+                               edo:ifc_equivalentClass "IfcPipeSegment" ;
+                               edo:ifc_objectType "FieldJointPolymericCoating" ;
+                               edo:ifc_predefinedType "USERDEFINED" .
 
 
-###  https://w3id.org/energy-domain/edo#FieldJointCoatingMaterialAttribute
-edo:FieldJointCoatingMaterialAttribute rdf:type owl:Class ;
-                                       rdfs:subClassOf edo:MaterialAttribute ;
-                                       rdfs:label "Field Joint Coating Material"@en ;
-                                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+###  https://w3id.org/energy-domain/edo#FieldJointPolymericCoatingMaterial
+edo:FieldJointPolymericCoatingMaterial rdf:type owl:Class ;
+                                       rdfs:subClassOf edo:IfcInstanciableElement ,
+                                                       edo:MaterialType ;
+                                       dcterms:identifier "FieldJointPolymericCoatingMaterial" ;
+                                       skos:prefLabel "Especificação do Material de Revestimento Polimérico da Junta de Campo"@pt-br ,
+                                                      "Field Joint Polymeric Coating Material"@en ;
+                                       edo:hasAttribute edo:FieldJointPolymericCoatingMaterialAttribute ;
+                                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                                       edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
                                        edo:hasExternalRef "MDA:material_spec" ;
-                                       edo:hasLifecycleCreationPhase edo:DetailedDesign .
+                                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                       edo:ifc_equivalentClass "IfcMaterial" ;
+                                       edo:ifc_objectType "FieldJointPolymericCoatingMaterial" .
+
+
+###  https://w3id.org/energy-domain/edo#FieldJointPolymericCoatingMaterialAttribute
+edo:FieldJointPolymericCoatingMaterialAttribute rdf:type owl:Class ;
+                                                rdfs:subClassOf edo:MaterialAttribute ;
+                                                rdfs:label "Field Joint Polymeric Coating Material"@en ;
+                                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                                edo:hasExternalRef "MDA:material_spec" ;
+                                                edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
 ###  https://w3id.org/energy-domain/edo#FieldJointTec
@@ -9698,7 +9707,7 @@ edo:MasterLink rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#Material
 edo:Material rdf:type owl:Class ;
              rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                             edo:FieldJointCoatingMaterialAttribute ,
+                             edo:FieldJointPolymericCoatingMaterialAttribute ,
                              edo:FlowCoatingMaterialAttribute ,
                              edo:InternalCladdingMaterialAttribute ,
                              edo:InternalMetallicLinerMaterialAttribute ,
@@ -10857,7 +10866,7 @@ edo:MaxTemperature rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MaxTensileStrength
 edo:MaxTensileStrength rdf:type owl:Class ;
                        rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                       edo:FieldJointCoatingMaterialAttribute ,
+                                       edo:FieldJointPolymericCoatingMaterialAttribute ,
                                        edo:InternalCladdingMaterialAttribute ,
                                        edo:InternalMetallicLinerMaterialAttribute ,
                                        edo:InternalPolymericLinerMaterialAttribute ,
@@ -10900,7 +10909,7 @@ edo:MaxThickness rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MaxYieldStrength
 edo:MaxYieldStrength rdf:type owl:Class ;
                      rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                     edo:FieldJointCoatingMaterialAttribute ,
+                                     edo:FieldJointPolymericCoatingMaterialAttribute ,
                                      edo:InternalCladdingMaterialAttribute ,
                                      edo:InternalMetallicLinerMaterialAttribute ,
                                      edo:InternalPolymericLinerMaterialAttribute ,
@@ -11827,7 +11836,7 @@ edo:MinTemperature rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MinTensileStrength
 edo:MinTensileStrength rdf:type owl:Class ;
                        rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                       edo:FieldJointCoatingMaterialAttribute ,
+                                       edo:FieldJointPolymericCoatingMaterialAttribute ,
                                        edo:InternalCladdingMaterialAttribute ,
                                        edo:InternalMetallicLinerMaterialAttribute ,
                                        edo:InternalPolymericLinerMaterialAttribute ,
@@ -11889,7 +11898,7 @@ edo:MinThickness rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#MinYieldStrength
 edo:MinYieldStrength rdf:type owl:Class ;
                      rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                     edo:FieldJointCoatingMaterialAttribute ,
+                                     edo:FieldJointPolymericCoatingMaterialAttribute ,
                                      edo:InternalCladdingMaterialAttribute ,
                                      edo:InternalMetallicLinerMaterialAttribute ,
                                      edo:InternalPolymericLinerMaterialAttribute ,
@@ -13893,7 +13902,7 @@ edo:PointLocation rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#PoissonRatio
 edo:PoissonRatio rdf:type owl:Class ;
                  rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                 edo:FieldJointCoatingMaterialAttribute ,
+                                 edo:FieldJointPolymericCoatingMaterialAttribute ,
                                  edo:InternalCladdingMaterialAttribute ,
                                  edo:InternalMetallicLinerMaterialAttribute ,
                                  edo:InternalPolymericLinerMaterialAttribute ,
@@ -14479,7 +14488,7 @@ edo:PullInTube rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#PullOffStrength
 edo:PullOffStrength rdf:type owl:Class ;
                     rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                    edo:FieldJointCoatingMaterialAttribute ,
+                                    edo:FieldJointPolymericCoatingMaterialAttribute ,
                                     edo:FlowCoatingMaterialAttribute ;
                     dcterms:accessRights "PUBLIC" ;
                     dcterms:identifier "PullOffStrength" ;
@@ -14936,8 +14945,8 @@ edo:RigidPipeMaterial rdf:type owl:Class ;
                       dcterms:identifier "RigidPipeMaterial" ;
                       skos:definition "Base pipe material details."@en ,
                                       "Detalhamento do material-base do duto."@pt-br ;
-                      skos:prefLabel "Especificação do Material"@pt-br ,
-                                     "Material Specification"@en ;
+                      skos:prefLabel "Material de Dutos Rígidos"@pt-br ,
+                                     "Rigid Pipe Material"@en ;
                       edo:entityStatus "NEW" ;
                       edo:hasAttribute edo:MaterialElongationAtYield ,
                                        edo:MaterialGrade ,
@@ -15025,6 +15034,22 @@ edo:RigidPipeSegmentExternalCoatings rdf:type owl:Class ;
                                      edo:ifc_equivalentClass "IfcCovering" ;
                                      edo:ifc_objectType "RigidPipeSegmentExternalCoatings" ;
                                      edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#RigidPipeSegmentFieldJointCoatings
+edo:RigidPipeSegmentFieldJointCoatings rdf:type owl:Class ;
+                                       rdfs:subClassOf edo:GroupingElements ,
+                                                       edo:IfcInstanciableElement ;
+                                       dcterms:identifier "RigidPipeSegmentFieldJointCoatings" ;
+                                       skos:definition "Class used to group, within the IFC model, classes representing field joint coatings applied to rigid pipe segments."@en ,
+                                                       "Classe utilizada para agrupar no modelo IFC classes que representam revestimentos de juntas de campo aplicados a segmentos de tubos rígidos."@pt-br ;
+                                       skos:prefLabel "Revestimentos de Juntas de Campo de Segmento de Tubo Rígido"@pt-br ,
+                                                      "Rigid Pipe Segment Field Joint Coatings"@en ;
+                                       edo:entityStatus "NEW" ;
+                                       edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
+                                       edo:ifc_equivalentClass "IfcCovering" ;
+                                       edo:ifc_objectType "RigidPipeSegmentFieldJointCoatings" ;
+                                       edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#RigidPipeSegmentInternalCoatings
@@ -16492,7 +16517,7 @@ edo:SpecialRequirements rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#SpecificHeatCapacity
 edo:SpecificHeatCapacity rdf:type owl:Class ;
                          rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                         edo:FieldJointCoatingMaterialAttribute ,
+                                         edo:FieldJointPolymericCoatingMaterialAttribute ,
                                          edo:InternalCladdingMaterialAttribute ,
                                          edo:InternalMetallicLinerMaterialAttribute ,
                                          edo:InternalPolymericLinerMaterialAttribute ,
@@ -16515,7 +16540,7 @@ edo:SpecificHeatCapacity rdf:type owl:Class ;
 edo:SpecificMass rdf:type owl:Class ;
                  rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ,
                                  edo:ExternalPolymericCoatingMaterialAttribute ,
-                                 edo:FieldJointCoatingMaterialAttribute ,
+                                 edo:FieldJointPolymericCoatingMaterialAttribute ,
                                  edo:FlowCoatingMaterialAttribute ,
                                  edo:InternalCladdingMaterialAttribute ,
                                  edo:InternalMetallicLinerMaterialAttribute ,
@@ -18342,7 +18367,7 @@ edo:TestPressure rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#ThermalConductivity
 edo:ThermalConductivity rdf:type owl:Class ;
                         rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                        edo:FieldJointCoatingMaterialAttribute ,
+                                        edo:FieldJointPolymericCoatingMaterialAttribute ,
                                         edo:InternalCladdingMaterialAttribute ,
                                         edo:InternalMetallicLinerMaterialAttribute ,
                                         edo:InternalPolymericLinerMaterialAttribute ,
@@ -18414,7 +18439,7 @@ edo:ThermalExchangeCoefficientFlooded rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#ThermalExpansionCoeff
 edo:ThermalExpansionCoeff rdf:type owl:Class ;
                           rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                          edo:FieldJointCoatingMaterialAttribute ,
+                                          edo:FieldJointPolymericCoatingMaterialAttribute ,
                                           edo:InternalCladdingMaterialAttribute ,
                                           edo:InternalMetallicLinerMaterialAttribute ,
                                           edo:InternalPolymericLinerMaterialAttribute ,
@@ -19777,7 +19802,7 @@ edo:WasteToEnergy rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#WaterAbsorption
 edo:WaterAbsorption rdf:type owl:Class ;
                     rdfs:subClassOf edo:ExternalPolymericCoatingMaterialAttribute ,
-                                    edo:FieldJointCoatingMaterialAttribute ,
+                                    edo:FieldJointPolymericCoatingMaterialAttribute ,
                                     edo:FlowCoatingMaterialAttribute ,
                                     edo:InternalPolymericLinerMaterialAttribute ;
                     dcterms:accessRights "PUBLIC" ;
@@ -20100,7 +20125,7 @@ edo:WoundLayer rdf:type owl:Class ;
 edo:YoungModulus rdf:type owl:Class ;
                  rdfs:subClassOf edo:ExternalConcreteCoatingMaterialAttribute ,
                                  edo:ExternalPolymericCoatingMaterialAttribute ,
-                                 edo:FieldJointCoatingMaterialAttribute ,
+                                 edo:FieldJointPolymericCoatingMaterialAttribute ,
                                  edo:FlowCoatingMaterialAttribute ,
                                  edo:InternalCladdingMaterialAttribute ,
                                  edo:InternalMetallicLinerMaterialAttribute ,
@@ -20453,17 +20478,17 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -21126,7 +21151,13 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
@@ -21136,12 +21167,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -21156,11 +21181,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                            qudt:hasUnit unit:GM
-                                          ] ,
-                                          [ qudt:exponent 1 ;
+                       qudt:hasFactorUnit [ qudt:exponent 1 ;
                                             qudt:hasUnit unit:MilliGM
+                                          ] ,
+                                          [ qudt:exponent -1 ;
+                                            qudt:hasUnit unit:GM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -21175,14 +21200,11 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent 1 ;
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
                                     ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
@@ -21192,6 +21214,9 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     ] ,
                                     [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
