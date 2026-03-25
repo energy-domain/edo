@@ -3377,6 +3377,21 @@ edo:CurvedPipeSection rdf:type owl:Class ;
                       edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#DNVDeliveryCondition
+edo:DNVDeliveryCondition rdf:type owl:Class ;
+                         rdfs:subClassOf edo:RigidPipeMaterialAttribute ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "DNVDeliveryCondition" ;
+                         skos:prefLabel "Condição de entrega DNV"@pt-br ,
+                                        "DNV delivery condition"@en ;
+                         edo:entityStatus "NEW" ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasExternalRef "MDA:line_pipe_spec.dnv_delivery_condition" ;
+                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                         edo:hasTypedValue edo:StringValue ;
+                         edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#DNVSupplementaryRequirements
 edo:DNVSupplementaryRequirements rdf:type owl:Class ;
                                  rdfs:subClassOf edo:RigidPipeMaterialAttribute ;
@@ -9246,6 +9261,7 @@ edo:LinePipeSpec rdf:type owl:Class ;
                  edo:hasAttribute edo:API5LDeliveryCondition ,
                                   edo:API5LSupplementaryRequirements ,
                                   edo:CorrosionAllowance ,
+                                  edo:DNVDeliveryCondition ,
                                   edo:DNVSupplementaryRequirements ,
                                   edo:InnerDiameterBodyToleranceNegative ,
                                   edo:InnerDiameterBodyTolerancePositive ,
@@ -15780,12 +15796,9 @@ edo:RigidPipeSegmentSpec rdf:type owl:Class ;
                                           edo:API5LSupplementaryRequirements ,
                                           edo:BodyTec ,
                                           edo:CorrosionAllowance ,
+                                          edo:DNVDeliveryCondition ,
                                           edo:DNVSupplementaryRequirements ,
                                           edo:FieldJointTec ,
-                                          edo:GirthWeldCapPassEnvironment ,
-                                          edo:GirthWeldCapPassSNCurve ,
-                                          edo:GirthWeldRootPassEnvironment ,
-                                          edo:GirthWeldRootPassSNCurve ,
                                           edo:InnerDiameterBodyToleranceNegative ,
                                           edo:InnerDiameterBodyTolerancePositive ,
                                           edo:InnerDiameterEndToleranceNegative ,
@@ -21423,29 +21436,29 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -22104,10 +22117,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -22123,13 +22136,16 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent 1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
@@ -22137,9 +22153,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -22154,11 +22167,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                            qudt:hasUnit unit:MilliGM
-                                          ] ,
-                                          [ qudt:exponent -1 ;
+                       qudt:hasFactorUnit [ qudt:exponent -1 ;
                                             qudt:hasUnit unit:GM
+                                          ] ,
+                                          [ qudt:exponent 1 ;
+                                            qudt:hasUnit unit:MilliGM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -22176,6 +22189,9 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                  qudt:hasFactorUnit [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
+                                    ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
                                     ] ,
@@ -22184,9 +22200,6 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
                                     ] ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
