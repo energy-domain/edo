@@ -1656,7 +1656,7 @@ edo:BendRestrictor rdf:type owl:Class ;
                    skos:prefLabel "Bend Restrictor"@en ,
                                   "Restritor de Curvatura"@pt-br ;
                    edo:hasAttribute edo:ArcAngle ,
-                                    edo:BendMomentVsShearForceTableColumn ,
+                                    edo:BendMomentVsShearForceCurveAttribute ,
                                     edo:LockedLength ,
                                     edo:MaximumBendingMoment ,
                                     edo:MaximumBendingMomentLongTerm ,
@@ -4171,7 +4171,7 @@ edo:EarlyLeakMaxPressTable_Press rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressIntValStrat
 edo:EarlyLeakMaxPressTable_PressIntValStrat rdf:type owl:Class ;
-                                            rdfs:subClassOf edo:EarlyLeakMaxPressTableAttribute ;
+                                            rdfs:subClassOf edo:EarlyLeakMaxPressTableColumn ;
                                             dcterms:accessRights "PUBLIC" ;
                                             dcterms:identifier "EarlyLeakMaxPressTable_PressIntValStrat" ;
                                             skos:definition "Condições de teste dos tramos para Estratégia de valores intermediários - Máximo - Teste de vazamento hidrostático precoce."@pt-br ,
@@ -4273,7 +4273,7 @@ edo:EarlyLeakNomPressTable_Press rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressIntValStrat
 edo:EarlyLeakNomPressTable_PressIntValStrat rdf:type owl:Class ;
-                                            rdfs:subClassOf edo:EarlyLeakNomPressTableAttribute ;
+                                            rdfs:subClassOf edo:EarlyLeakNomPressTableColumn ;
                                             dcterms:accessRights "PUBLIC" ;
                                             dcterms:identifier "EarlyLeakNomPressTable_PressIntValStrat" ;
                                             skos:definition "Condições de teste dos tramos para Estratégia de valores intermediários - Nominal - Teste de vazamento hidrostático precoce."@pt-br ,
@@ -5463,49 +5463,14 @@ edo:FlexiblePipeSegment rdf:type owl:Class ;
                         skos:prefLabel "Flexible Pipe Segment"@en ,
                                        "Tramo de Duto Flexível"@pt-br ;
                         edo:hasAttribute edo:AssemblyShouldObeyModelPolarity ,
-                                         edo:EarlyLeakMaxPressTable_Press ,
-                                         edo:EarlyLeakMaxPressTable_PressIntValStrat ,
-                                         edo:EarlyLeakMaxPressTable_PressValRef ,
-                                         edo:EarlyLeakMaxPressTable_PressValRefMult ,
-                                         edo:EarlyLeakMaxPressTable_TensLimit ,
-                                         edo:EarlyLeakMaxPressTable_TensLimitValRef ,
-                                         edo:EarlyLeakNomPressTable_Press ,
-                                         edo:EarlyLeakNomPressTable_PressIntValStrat ,
-                                         edo:EarlyLeakNomPressTable_PressValRef ,
-                                         edo:EarlyLeakNomPressTable_PressValRefMult ,
-                                         edo:EarlyLeakNomPressTable_TensLimit ,
-                                         edo:EarlyLeakNomPressTable_TensLimitValRef ,
-                                         edo:FatMaxPress ,
-                                         edo:FatMaxPressValRef ,
-                                         edo:FatMaxPressValRefMult ,
-                                         edo:FatNomPress ,
-                                         edo:FatNomPressValRef ,
-                                         edo:FatNomPressValRefMult ,
+                                         edo:HydrostaticPressureTestsAttribute ,
                                          edo:IdInUnifilarDiagram ,
                                          edo:ManufacturingDate ,
                                          edo:ManufacturingNonConformities ,
                                          edo:MaxLengthTolerance ,
                                          edo:NominalLength ,
-                                         edo:OffLeakPLevMaxPress ,
-                                         edo:OffLeakPLevMaxPressValRef ,
-                                         edo:OffLeakPLevMaxPressValRefMult ,
-                                         edo:OffLeakPLevNomPress ,
-                                         edo:OffLeakPLevNomPressValRef ,
-                                         edo:OffLeakPLevNomPressValRefMult ,
                                          edo:PipeSectionApplication ,
-                                         edo:SpecialRequirements ,
-                                         edo:StrIntOffPLevMaxPress ,
-                                         edo:StrIntOffPLevMaxPressValRef ,
-                                         edo:StrIntOffPLevMaxPressValRefMult ,
-                                         edo:StrIntOffPLevNomPress ,
-                                         edo:StrIntOffPLevNomPressValRef ,
-                                         edo:StrIntOffPLevNomPressValRefMult ,
-                                         edo:StrIntOnNoTensMaxPress ,
-                                         edo:StrIntOnNoTensMaxPressValRef ,
-                                         edo:StrIntOnNoTensMaxPressValRefMult ,
-                                         edo:StrIntOnNoTensNomPress ,
-                                         edo:StrIntOnNoTensNomPressValRef ,
-                                         edo:StrIntOnNoTensNomPressValRefMult ;
+                                         edo:SpecialRequirements ;
                         edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
                         edo:ifc_equivalentClass "IfcPipeSegment" ;
                         edo:ifc_objectType "FlexiblePipeSegment" ;
@@ -5574,7 +5539,9 @@ edo:FlexibleStructure rdf:type owl:Class ;
                       skos:prefLabel "Estrutura Flexível"@pt-br ,
                                      "Flexiblestructure"@en ;
                       edo:hasAttribute edo:BendingStiffnessCurveAttribute ,
-                                       edo:CrushingCurveAttribute ,
+                                       edo:CrushingFrictionCoefficientTighteningAttribute ,
+                                       edo:CrushingMaximumAllowableTensionAttribute ,
+                                       edo:CrushingMaximumAllowableTighteningAttribute ,
                                        edo:LayingMinimumRadiusCurveAttribute .
 
 
@@ -9174,7 +9141,7 @@ edo:LineAncillary rdf:type owl:Class ;
                   skos:definition "A component designed to complement and enhance the functionality of subsea flexible pipes. Line Ancillaries include a variety of parts such as connectors, clamps, or collars that facilitate the installation, operation, and maintenance of flexible pipes used in subsea systems. These ancillaries ensure proper alignment, secure connections, and protection against environmental factors, contributing to the reliable performance and integrity of the flexible pipe system in harsh underwater conditions."@en ;
                   skos:prefLabel "Acessório de Linha"@pt-br ,
                                  "Line Ancillary"@en ;
-                  edo:hasAttribute edo:DimensionsTableColumn ,
+                  edo:hasAttribute edo:DrawingDimensionsTableAttribute ,
                                    edo:MountPosition ,
                                    edo:OverallDimensionsAttribute ;
                   edo:hasExternalRef "MDA:LineAccessory" .
@@ -11363,7 +11330,7 @@ edo:MaximumAllowableOperatingInternalPressure rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MaximumAllowableTensileForStraightLine
 edo:MaximumAllowableTensileForStraightLine rdf:type owl:Class ;
-                                           rdfs:subClassOf edo:CrushingCurveAttribute ;
+                                           rdfs:subClassOf edo:DomainAttribute ;
                                            dcterms:accessRights "PUBLIC" ;
                                            dcterms:identifier "MaximumAllowableTensileForStraightLine" ;
                                            skos:definition "MaximumAllowableTensileForStraightLine refers to the highest tensile force that can be applied to the flexible pipe in a straight-line configuration without risking damage or compromising the structural integrity of the pipe. This property is critical during installation and operation, ensuring that the pipe can withstand axial loads without overstressing or damaging its internal layers, such as the tensile armour, while maintaining safe handling limits."@en ,
@@ -14450,14 +14417,14 @@ edo:PolymericMaterial rdf:type owl:Class ;
                       skos:definition "Material made from polymers, used to fabricate flexible layers in subsea flexible pipes. Polymeric Material is selected for its properties such as flexibility, chemical resistance, and durability, making it suitable for withstanding the harsh conditions of subsea environments. These materials are commonly used in layers that provide insulation, protection, or pressure containment, ensuring the overall performance and integrity of the flexible pipe under dynamic loads and extreme underwater conditions."@en ;
                       skos:prefLabel "Material Polimérico"@pt-br ,
                                      "Polymeric Material"@en ;
-                      edo:hasAttribute edo:DiffusionTableColumn ,
-                                       edo:EModVsTempTableColumn ,
+                      edo:hasAttribute edo:DiffusionCurveAttribute ,
+                                       edo:EModVsTempCurveAttribute ,
                                        edo:MaxPermissibleDeformationDynamic ,
                                        edo:MaxPermissibleDeformationStatic ,
                                        edo:MinimumTemperature ,
-                                       edo:PermeabilityTableColumn ,
+                                       edo:PermeabilityCurveAttribute ,
                                        edo:PolymericLayerMaterialType ,
-                                       edo:SolubilityTableColumn ;
+                                       edo:SolubilityCurveAttribute ;
                       edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                         edo:SubseaUmbilicalsEngineering ;
                       edo:ifc_equivalentClass "IfcMaterial" ;
@@ -15208,7 +15175,7 @@ edo:QuickConnectCoupling rdf:type owl:Class ;
                                          "Quick connect coupling used to connect or disconnect fluid or gas lines in a practical and safe way, ensuring sealing and minimising leakage during operation."@en ;
                          skos:prefLabel "Engate Rápido"@pt-br ,
                                         "Quick Connect Coupling"@en ;
-                         edo:hasAttribute edo:HoseFittingSpecTableColumn ,
+                         edo:hasAttribute edo:HoseFittingSpecTableAttribute ,
                                           edo:StandardType ;
                          edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                          edo:hasExternalRef "MDA:QuickConnectCoupling" ;
@@ -19397,7 +19364,7 @@ edo:ThreadedFitting rdf:type owl:Class ;
                     skos:prefLabel "Engate Rosqueado"@pt-br ,
                                    "Threaded Fitting"@en ;
                     edo:entityStatus "NEW" ;
-                    edo:hasAttribute edo:HoseFittingSpecTableColumn ;
+                    edo:hasAttribute edo:HoseFittingSpecTableAttribute ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
                     edo:hasExternalRef "MDA:ThreadedFitting" ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -21420,20 +21387,20 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                      qudt:hasFactorUnit [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
@@ -22098,10 +22065,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -22118,6 +22085,15 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
@@ -22125,15 +22101,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
@@ -22167,10 +22134,7 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent -2 ;
+                 qudt:hasFactorUnit [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent -1 ;
@@ -22179,11 +22143,14 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     [ qudt:exponent 1 ;
                                       qudt:hasUnit unit:N
                                     ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
                                     ] ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
