@@ -1276,7 +1276,7 @@ ex:Rule_RigidPipeCoating a sh:NodeShape ;
     sh:targetClass edo:RigidPipeCoating ;
     sh:property [
         sh:path edo:NegativeTolerance ;
-        sh:in ( "Fractional number (≥ 0.0)" )
+        sh:in ( "Fractional number (≤ 0.0)" )
     ] ;
     sh:property [
         sh:path edo:NominalValue ;
@@ -1480,7 +1480,7 @@ ex:Rule_PointLocation a sh:NodeShape ;
         sh:in ( "Fractional number" ) 
     ] ;
     sh:property [
-        sh:path edo:Datum ;
+        sh:path edo:GeodeticDatum ;
         sh:in ( "WGS_84" "SIRGAS_2000" ) 
     ] ;
     sh:property [
@@ -2293,7 +2293,7 @@ ex:Rule_rov_linear_interface_type a sh:NodeShape ;
 ex:Rule_Stroke a sh:NodeShape ;
     sh:targetClass edo:ROVLinearInterface , edo:PistonHydraulicActuator ;
     sh:property [
-        sh:path edo:Stroke ;
+        sh:path edo:Stroke, edo:ActualStroke ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
@@ -3074,28 +3074,28 @@ ex:Rule_MinGrippingForce a sh:NodeShape ;
     ] . 
 
 ex:Rule_MaxDesignTemperature a sh:NodeShape ;
-    sh:targetClass edo:LinePipe , edo:RigidPipeSegment ;
+    sh:targetClass edo:LinePipe , edo:RigidPipeSegment, edo:RigidPipeMaterial ;
     sh:property [
         sh:path edo:MaxDesignTemperature ;
         sh:in ( "Fractional number" ) ;
     ] . 
 
 ex:Rule_MaxPcm a sh:NodeShape ;
-    sh:targetClass edo:LinePipe , edo:RigidPipeSegment ;
+    sh:targetClass edo:LinePipe , edo:RigidPipeSegment, edo:RigidPipeMaterial ;
     sh:property [
         sh:path edo:MaxPcm ;
         sh:in ( "Fractional number (≥ 0)" ) ;
     ] . 
 
 ex:Rule_MinYieldStrengthAtDesignTemperature a sh:NodeShape ;
-    sh:targetClass edo:LinePipe , edo:RigidPipeSegment ;
+    sh:targetClass edo:LinePipe , edo:RigidPipeSegment, edo:RigidPipeMaterial ;
     sh:property [
         sh:path edo:MinYieldStrengthAtDesignTemperature ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] . 
 
 ex:Rule_MinTensileStrengthAtDesignTemperature a sh:NodeShape ;
-    sh:targetClass edo:LinePipe , edo:RigidPipeSegment ;
+    sh:targetClass edo:LinePipe , edo:RigidPipeSegment, edo:RigidPipeMaterial ;
     sh:property [
         sh:path edo:MinTensileStrengthAtDesignTemperature ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -3175,7 +3175,7 @@ ex:Rule_rigid_pipe_sample_condition a sh:NodeShape ;
 ex:Rule_rigid_pipe_gw_bevel a sh:NodeShape ;
     sh:targetClass edo:RigidPipeGirthWeld ;
     sh:property [
-        sh:path edo:WeldMetalSampleCondition ;
+        sh:path edo:WeldMetalSampleCondition, edo:BevelType ;
         sh:in ( "V" "COMPOUND_V" "J" "COMPOUND_J" ) ;
     ] .
 
@@ -3320,8 +3320,31 @@ ex:Rule_PowerLawExponent-x a sh:NodeShape ;
     ] .
 
 ex:Rule_dnv_pipe_delivery_condition a sh:NodeShape ;
-    sh:targetClass edo:RigidPipeSegment ;
+    sh:targetClass edo:RigidPipeSegment, edo:LinePipe ;
     sh:property [
         sh:path edo:DNVDeliveryCondition ;
         sh:in ( "N" "Q" "M" )
     ] .
+
+ex:Rule_InstalledLength_MilliM a sh:NodeShape ;
+    sh:targetClass  edo:MetricStudSet;
+    sh:property [
+        sh:path edo:InstalledLength ;
+        edo:hasUnit unit:MilliM ;
+    ] .
+
+ex:Rule_InstalledLength_IN a sh:NodeShape ;
+    sh:targetClass  edo:UNSStudSet ;
+    sh:property [
+        sh:path edo:InstalledLength ;
+        edo:hasUnit unit:IN ;
+    ] .
+
+ex:Rule_MaximumAllowableOperatingPressure a sh:NodeShape ;
+    sh:targetClass edo:Pipeline ;
+    sh:property [
+        sh:path edo:MaximumAllowableOperatingPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+    
