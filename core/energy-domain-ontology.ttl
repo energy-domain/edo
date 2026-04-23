@@ -606,7 +606,7 @@ edo:ActualPenetrationDepth rdf:type owl:Class ;
                            skos:prefLabel "Actual Penetration Depth"@en ,
                                           "Profunidade Real de Penetração"@pt-br ;
                            edo:entityStatus "NEW" ;
-                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
                            edo:hasExternalRef "MDA:actual_penetration_depth" ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
@@ -640,7 +640,7 @@ edo:ActualTilt rdf:type owl:Class ;
                skos:prefLabel "Actual Tilt"@en ,
                               "Inclinação Real"@pt-br ;
                edo:entityStatus "NEW" ;
-               edo:hasAttributeScope edo:TypeLevelAttribute ;
+               edo:hasAttributeScope edo:InstanceLevelAttribute ;
                edo:hasExternalRef "MDA:actual_tilt" ;
                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                edo:hasTypedValue edo:FloatValue ;
@@ -3113,6 +3113,39 @@ edo:ConsumableManufacturer rdf:type owl:Class ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:StringValue ;
                            edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#ConsumableRingGasket
+edo:ConsumableRingGasket rdf:type owl:Class ;
+                         rdfs:subClassOf edo:IfcInstanciableElement ,
+                                         edo:PhysicalConnection ;
+                         dcterms:identifier "ConsumableRingGasket" ;
+                         skos:altLabel "Gasket"@en ,
+                                       "O-Ring"@en ,
+                                       "Packing Ring"@en ,
+                                       "Seal Gasket"@en ,
+                                       "Seal Ring"@en ,
+                                       "Sealing Ring"@en ;
+                         skos:definition "The seal ring is a crucial component used in subsea oil and gas interconnection end fittings to ensure a secure and leak-proof connection between pipes or equipment. Typically made from high-performance materials such as elastomers or metals, the seal ring is designed to withstand extreme pressure, temperature, and environmental conditions found in subsea operations. It is installed within the end fitting to create a reliable seal that prevents fluid leakage and maintains the integrity of the interconnection. The seal ring’s precise design and material selection are essential for ensuring long-term durability and performance in harsh subsea environments."@en ;
+                         skos:prefLabel "Junta de Conexão"@pt-br ,
+                                        "Ring Gasket"@en ;
+                         edo:hasAttribute edo:InnerDiameter ,
+                                          edo:NominalDiameter ,
+                                          edo:OuterDiameter ,
+                                          edo:RingGasketInnerDIameter ,
+                                          edo:RingGasketMaterial ,
+                                          edo:RingGasketOuterDiameter ,
+                                          edo:RingGasketPressureRating ,
+                                          edo:RingGasketSpecification ,
+                                          edo:RingGasketStandard ,
+                                          edo:RingGasketType ,
+                                          edo:SealingMaterial ;
+                         edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+                         edo:hasExternalRef "MDA:RingGasket" ;
+                         edo:hasSpec edo:GasketSpec ;
+                         edo:ifc_equivalentClass "IfcMechanicalFastener" ;
+                         edo:ifc_objectType "ConsumableRingGasket" ;
+                         edo:ifc_predefinedType "USERDEFINED" .
 
 
 ###  https://w3id.org/energy-domain/edo#Content
@@ -9275,8 +9308,8 @@ edo:LinePipe rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LinePipePreAssembly
 edo:LinePipePreAssembly rdf:type owl:Class ;
-                        rdfs:subClassOf edo:IfcInstanciableElement ,
-                                        edo:RigidPipeSegmentComponent ;
+                        rdfs:subClassOf edo:GroupingElements ,
+                                        edo:IfcInstanciableElement ;
                         dcterms:identifier "LinePipePreAssembly" ;
                         skos:definition "Representa um conjunto pré-montado de tubos rígidos individuais (ex.: double-joint ou quad-joint)."@pt-br ,
                                         "Represents a pre-assembled sequence of individual linepipes (e.g. double- or quad-joint)."@en ;
@@ -9896,12 +9929,8 @@ edo:Manifold rdf:type owl:Class ;
              edo:hasAttribute edo:ManifoldApplication ,
                               edo:ManifoldType ,
                               edo:Retrievable ;
-             edo:hasDiscipline edo:SubseaManifoldsEngineering ,
-                               edo:SubseaRigidPipesEngineering ;
-             edo:hasExternalRef "MDA:Manifold" ;
-             edo:ifc_equivalentClass "IfcPipeFitting" ;
-             edo:ifc_objectType "Manifold" ;
-             edo:ifc_predefinedType "USERDEFINED" .
+             edo:hasDiscipline edo:SubseaManifoldsEngineering ;
+             edo:hasExternalRef "MDA:Manifold" .
 
 
 ###  https://w3id.org/energy-domain/edo#ManifoldApplication
@@ -15926,8 +15955,8 @@ edo:RigidRiserTopConnector rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#RingGasket
 edo:RingGasket rdf:type owl:Class ;
-               rdfs:subClassOf edo:IfcInstanciableElement ,
-                               edo:PhysicalConnection ;
+               rdfs:subClassOf edo:HardwareItem ,
+                               edo:IfcInstanciableElement ;
                dcterms:identifier "RingGasket" ;
                skos:altLabel "Gasket"@en ,
                              "O-Ring"@en ,
@@ -15949,8 +15978,7 @@ edo:RingGasket rdf:type owl:Class ;
                                 edo:RingGasketStandard ,
                                 edo:RingGasketType ,
                                 edo:SealingMaterial ;
-               edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
-                                 edo:SubseaRigidPipesEngineering ,
+               edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
                                  edo:SubseaUmbilicalsEngineering ;
                edo:hasExternalRef "MDA:RingGasket" ;
                edo:hasSpec edo:GasketSpec ;
@@ -21520,29 +21548,29 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                               edo:DomainUnit ;
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                     qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -22201,10 +22229,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -22226,14 +22254,14 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
                                         ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:PA
@@ -22251,11 +22279,11 @@ edo:MilliGM_KOH-PER-GM rdf:type owl:NamedIndividual ,
                                 edo:DomainUnit ;
                        qudt:conversionMultiplier "0.001"^^xsd:double ;
                        qudt:definedUnitOfSystem sou:SI ;
-                       qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                            qudt:hasUnit unit:MilliGM
-                                          ] ,
-                                          [ qudt:exponent -1 ;
+                       qudt:hasFactorUnit [ qudt:exponent -1 ;
                                             qudt:hasUnit unit:GM
+                                          ] ,
+                                          [ qudt:exponent 1 ;
+                                            qudt:hasUnit unit:MilliGM
                                           ] ;
                        qudt:hasQuantityKind qudt:Dimensionless ;
                        qudt:symbol "mgKOH/g" ;
@@ -22270,7 +22298,13 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                           edo:DomainUnit ;
                  qudt:conversionMultiplier 1.0 ;
                  qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                 qudt:hasFactorUnit [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
                                     [ qudt:exponent -1 ;
@@ -22279,14 +22313,8 @@ edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
                                     [ qudt:exponent -2 ;
                                       qudt:hasUnit unit:M
                                     ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ,
                                     [ qudt:exponent -1 ;
                                       qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
                                     ] ;
                  qudt:hasQuantityKind qudt:StressPerAngle ;
                  qudt:symbol "N/m²·rad" ;
