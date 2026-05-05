@@ -78,8 +78,3 @@ Ensure all ontology updates comply with existing EDO standards and naming conven
 ## License
 
 This project is licensed under **Attribution 4.0 International (CC BY 4.0)**. See the [LICENSE](LICENSE) file for details.
-
-```
-
-Se você quiser, posso também **remover a seção de Contact** completamente e deixar o README mais enxuto para GitHub. Quer que eu faça isso?
-```
