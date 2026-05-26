@@ -5,6 +5,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ######################################################################
 # EDO-IFC — Mapping ontology
@@ -12,11 +13,13 @@
 # Scope:
 # - Imports/uses EDO core.
 # - Defines IFC-specific mapping annotations.
+# - Defines controlled IFC entities and IFC attribute roles used by mappings.
 # - Declares IFC materialisation rules for EDO relationships.
 #
 # Important:
 # - This ontology is the source of truth for EDO → IFC mapping.
 # - EDO core remains independent of IFC.
+# - IFC classes and roles are represented as controlled resources, not strings.
 ######################################################################
 
 ######################################################################
@@ -30,8 +33,8 @@
     rdfs:label "EDO IFC Mapping Ontology"@en ;
     rdfs:label "Ontologia de Mapeamento IFC da EDO"@pt-br ;
 
-    dcterms:description "Ontology containing IFC-specific mapping annotations and materialisation rules for the Energy Domain Ontology."@en ;
-    dcterms:description "Ontologia contendo anotações de mapeamento IFC e regras de materialização IFC para a Energy Domain Ontology."@pt-br .
+    dcterms:description "Ontology containing IFC-specific mapping annotations, controlled IFC references and materialisation rules for the Energy Domain Ontology."@en ;
+    dcterms:description "Ontologia contendo anotações de mapeamento IFC, referências IFC controladas e regras de materialização IFC para a Energy Domain Ontology."@pt-br .
 
 ######################################################################
 # 2) Root annotation for IFC mapping
@@ -55,12 +58,13 @@ edo-ifc:IFCMappingAnnotation
 edo-ifc:ifc_equivalentClass
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
 
     rdfs:label "IFC Equivalent Class"@en ;
     rdfs:label "Classe IFC Equivalente"@pt-br ;
 
-    skos:definition "Indicates the IFC class or IFC relationship class used to materialise an EDO class or relationship."@en ;
-    skos:definition "Indica a classe IFC ou classe de relacionamento IFC usada para materializar uma classe ou relacionamento da EDO."@pt-br ;
+    skos:definition "Indicates the controlled IFC entity used to materialise an EDO class or relationship."@en ;
+    skos:definition "Indica a entidade IFC controlada usada para materializar uma classe ou relacionamento da EDO."@pt-br ;
 
     skos:altLabel "IFC Mapping Class"@en ;
     skos:altLabel "Classe de Mapeamento IFC"@pt-br ;
@@ -71,6 +75,7 @@ edo-ifc:ifc_equivalentClass
 edo-ifc:ifc_invertedDirection
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range xsd:boolean ;
 
     rdfs:label "IFC Inverted Direction"@en ;
     rdfs:label "Direção Invertida no IFC"@pt-br ;
@@ -87,12 +92,13 @@ edo-ifc:ifc_invertedDirection
 edo-ifc:ifc_subjectRole
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCAttributeRole ;
 
     rdfs:label "IFC Subject Role"@en ;
     rdfs:label "Papel do Sujeito no IFC"@pt-br ;
 
-    skos:definition "Indicates the IFC role or attribute fulfilled by the subject of an EDO relationship when materialised in IFC."@en ;
-    skos:definition "Indica o papel ou atributo IFC exercido pelo sujeito de um relacionamento da EDO quando materializado em IFC."@pt-br ;
+    skos:definition "Indicates the controlled IFC attribute role fulfilled by the subject of an EDO relationship when materialised in IFC."@en ;
+    skos:definition "Indica o papel controlado de atributo IFC exercido pelo sujeito de um relacionamento da EDO quando materializado em IFC."@pt-br ;
 
     dcterms:identifier "ifc_subjectRole" .
 
@@ -100,12 +106,13 @@ edo-ifc:ifc_subjectRole
 edo-ifc:ifc_objectRole
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCAttributeRole ;
 
     rdfs:label "IFC Object Role"@en ;
     rdfs:label "Papel do Objeto no IFC"@pt-br ;
 
-    skos:definition "Indicates the IFC role or attribute fulfilled by the object of an EDO relationship when materialised in IFC."@en ;
-    skos:definition "Indica o papel ou atributo IFC exercido pelo objeto de um relacionamento da EDO quando materializado em IFC."@pt-br ;
+    skos:definition "Indicates the controlled IFC attribute role fulfilled by the object of an EDO relationship when materialised in IFC."@en ;
+    skos:definition "Indica o papel controlado de atributo IFC exercido pelo objeto de um relacionamento da EDO quando materializado em IFC."@pt-br ;
 
     dcterms:identifier "ifc_objectRole" .
 
@@ -129,12 +136,13 @@ edo-ifc:ifc_mappingRule
 edo-ifc:sourceIfcEquivalentClass
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
 
     rdfs:label "Source IFC Equivalent Class"@en ;
     rdfs:label "Classe IFC Equivalente da Origem"@pt-br ;
 
-    skos:definition "Specifies the IFC-equivalent class expected for the source type of a relationship mapping rule."@en ;
-    skos:definition "Especifica a classe IFC equivalente esperada para o tipo de origem de uma regra de mapeamento de relacionamento."@pt-br ;
+    skos:definition "Specifies the controlled IFC entity expected for the source type of a relationship mapping rule."@en ;
+    skos:definition "Especifica a entidade IFC controlada esperada para o tipo de origem de uma regra de mapeamento de relacionamento."@pt-br ;
 
     dcterms:identifier "sourceIfcEquivalentClass" .
 
@@ -142,12 +150,13 @@ edo-ifc:sourceIfcEquivalentClass
 edo-ifc:targetIfcEquivalentClass
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
 
     rdfs:label "Target IFC Equivalent Class"@en ;
     rdfs:label "Classe IFC Equivalente do Destino"@pt-br ;
 
-    skos:definition "Specifies the IFC-equivalent class expected for the target type of a relationship mapping rule."@en ;
-    skos:definition "Especifica a classe IFC equivalente esperada para o tipo de destino de uma regra de mapeamento de relacionamento."@pt-br ;
+    skos:definition "Specifies the controlled IFC entity expected for the target type of a relationship mapping rule."@en ;
+    skos:definition "Especifica a entidade IFC controlada esperada para o tipo de destino de uma regra de mapeamento de relacionamento."@pt-br ;
 
     dcterms:identifier "targetIfcEquivalentClass" .
 
@@ -155,12 +164,13 @@ edo-ifc:targetIfcEquivalentClass
 edo-ifc:sourceNotIfcEquivalentClass
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
 
     rdfs:label "Source Not IFC Equivalent Class"@en ;
     rdfs:label "Origem Não Equivalente à Classe IFC"@pt-br ;
 
-    skos:definition "Specifies an IFC-equivalent class that the source type must not have for a mapping rule to apply."@en ;
-    skos:definition "Especifica uma classe IFC equivalente que o tipo de origem não deve ter para que uma regra de mapeamento se aplique."@pt-br ;
+    skos:definition "Specifies a controlled IFC entity that the source type must not have for a mapping rule to apply."@en ;
+    skos:definition "Especifica uma entidade IFC controlada que o tipo de origem não deve ter para que uma regra de mapeamento se aplique."@pt-br ;
 
     dcterms:identifier "sourceNotIfcEquivalentClass" .
 
@@ -168,12 +178,13 @@ edo-ifc:sourceNotIfcEquivalentClass
 edo-ifc:targetNotIfcEquivalentClass
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
 
     rdfs:label "Target Not IFC Equivalent Class"@en ;
     rdfs:label "Destino Não Equivalente à Classe IFC"@pt-br ;
 
-    skos:definition "Specifies an IFC-equivalent class that the target type must not have for a mapping rule to apply."@en ;
-    skos:definition "Especifica uma classe IFC equivalente que o tipo de destino não deve ter para que uma regra de mapeamento se aplique."@pt-br ;
+    skos:definition "Specifies a controlled IFC entity that the target type must not have for a mapping rule to apply."@en ;
+    skos:definition "Especifica uma entidade IFC controlada que o tipo de destino não deve ter para que uma regra de mapeamento se aplique."@pt-br ;
 
     dcterms:identifier "targetNotIfcEquivalentClass" .
 
@@ -181,6 +192,7 @@ edo-ifc:targetNotIfcEquivalentClass
 edo-ifc:realizingElementRequirement
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:RealizingElementRequirement ;
 
     rdfs:label "Realizing Element Requirement"@en ;
     rdfs:label "Requisito de Elemento Realizador"@pt-br ;
@@ -194,18 +206,98 @@ edo-ifc:realizingElementRequirement
 edo-ifc:realizingElementRole
     rdf:type owl:AnnotationProperty ;
     rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCAttributeRole ;
 
     rdfs:label "Realizing Element Role"@en ;
     rdfs:label "Papel do Elemento Realizador"@pt-br ;
 
-    skos:definition "Specifies the IFC attribute or role used to store realizing elements in the materialised IFC relationship."@en ;
-    skos:definition "Especifica o atributo ou papel IFC usado para armazenar elementos realizadores no relacionamento IFC materializado."@pt-br ;
+    skos:definition "Specifies the controlled IFC attribute role used to store realizing elements in the materialised IFC relationship."@en ;
+    skos:definition "Especifica o papel controlado de atributo IFC usado para armazenar elementos realizadores no relacionamento IFC materializado."@pt-br ;
 
     dcterms:identifier "realizingElementRole" .
 
 ######################################################################
-# 5) Controlled concepts for realizing element requirement
+# 5) IFC controlled reference annotations
 ######################################################################
+
+edo-ifc:ifcEntityName
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+
+    rdfs:label "IFC Entity Name"@en ;
+    rdfs:label "Nome da Entidade IFC"@pt-br ;
+
+    skos:definition "Stores the official IFC entity name used by translators when generating IFC data."@en ;
+    skos:definition "Armazena o nome oficial da entidade IFC usado por tradutores ao gerar dados IFC."@pt-br ;
+
+    dcterms:identifier "ifcEntityName" .
+
+
+edo-ifc:ifcAttributeName
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+
+    rdfs:label "IFC Attribute Name"@en ;
+    rdfs:label "Nome do Atributo IFC"@pt-br ;
+
+    skos:definition "Stores the official IFC attribute name used by translators when filling IFC relationship roles."@en ;
+    skos:definition "Armazena o nome oficial do atributo IFC usado por tradutores ao preencher papéis em relacionamentos IFC."@pt-br ;
+
+    dcterms:identifier "ifcAttributeName" .
+
+######################################################################
+# 6) Controlled concepts for IFC entities and roles
+######################################################################
+
+edo-ifc:IFCEntity
+    rdf:type owl:Class ;
+
+    rdfs:label "IFC Entity"@en ;
+    rdfs:label "Entidade IFC"@pt-br ;
+
+    skos:definition "Controlled concept representing an IFC entity used by the EDO-IFC mapping ontology."@en ;
+    skos:definition "Conceito controlado que representa uma entidade IFC usada pela ontologia de mapeamento EDO-IFC."@pt-br ;
+
+    dcterms:identifier "IFCEntity" .
+
+
+edo-ifc:IFCObjectEntity
+    rdf:type owl:Class ;
+    rdfs:subClassOf edo-ifc:IFCEntity ;
+
+    rdfs:label "IFC Object Entity"@en ;
+    rdfs:label "Entidade de Objeto IFC"@pt-br ;
+
+    skos:definition "Controlled concept representing an IFC object entity used by the EDO-IFC mapping ontology."@en ;
+    skos:definition "Conceito controlado que representa uma entidade de objeto IFC usada pela ontologia de mapeamento EDO-IFC."@pt-br ;
+
+    dcterms:identifier "IFCObjectEntity" .
+
+
+edo-ifc:IFCRelationshipEntity
+    rdf:type owl:Class ;
+    rdfs:subClassOf edo-ifc:IFCEntity ;
+
+    rdfs:label "IFC Relationship Entity"@en ;
+    rdfs:label "Entidade de Relacionamento IFC"@pt-br ;
+
+    skos:definition "Controlled concept representing an IFC relationship entity used by the EDO-IFC mapping ontology."@en ;
+    skos:definition "Conceito controlado que representa uma entidade de relacionamento IFC usada pela ontologia de mapeamento EDO-IFC."@pt-br ;
+
+    dcterms:identifier "IFCRelationshipEntity" .
+
+
+edo-ifc:IFCAttributeRole
+    rdf:type owl:Class ;
+
+    rdfs:label "IFC Attribute Role"@en ;
+    rdfs:label "Papel de Atributo IFC"@pt-br ;
+
+    skos:definition "Controlled concept representing an IFC attribute used as a role when materialising EDO relationships in IFC."@en ;
+    skos:definition "Conceito controlado que representa um atributo IFC usado como papel ao materializar relacionamentos da EDO em IFC."@pt-br ;
+
+    dcterms:identifier "IFCAttributeRole" .
+
 
 edo-ifc:RealizingElementRequirement
     rdf:type owl:Class ;
@@ -214,83 +306,379 @@ edo-ifc:RealizingElementRequirement
     rdfs:label "Requisito de Elemento Realizador"@pt-br ;
 
     skos:definition "Controlled concept used to indicate whether realizing elements are required, absent, or irrelevant for an IFC mapping rule."@en ;
-    skos:definition "Conceito controlado usado para indicar se elementos realizadores são requeridos, ausentes ou irrelevantes para uma regra de mapeamento IFC."@pt-br .
+    skos:definition "Conceito controlado usado para indicar se elementos realizadores são requeridos, ausentes ou irrelevantes para uma regra de mapeamento IFC."@pt-br ;
 
+    dcterms:identifier "RealizingElementRequirement" .
+
+######################################################################
+# 7) Controlled IFC relationship entities
+######################################################################
+
+edo-ifc:IfcRelAggregates
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAggregates"@en ;
+    edo-ifc:ifcEntityName "IfcRelAggregates" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAggregates.htm> ;
+
+    dcterms:identifier "IfcRelAggregates" .
+
+
+edo-ifc:IfcRelNests
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelNests"@en ;
+    edo-ifc:ifcEntityName "IfcRelNests" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelNests.htm> ;
+
+    dcterms:identifier "IfcRelNests" .
+
+
+edo-ifc:IfcRelAssociatesDocument
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssociatesDocument"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssociatesDocument" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssociatesDocument.htm> ;
+
+    dcterms:identifier "IfcRelAssociatesDocument" .
+
+
+edo-ifc:IfcRelAssociatesClassification
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssociatesClassification"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssociatesClassification" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssociatesClassification.htm> ;
+
+    dcterms:identifier "IfcRelAssociatesClassification" .
+
+
+edo-ifc:IfcRelAssociatesMaterial
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssociatesMaterial"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssociatesMaterial" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssociatesMaterial.htm> ;
+
+    dcterms:identifier "IfcRelAssociatesMaterial" .
+
+
+edo-ifc:IfcRelAssignsToGroup
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssignsToGroup"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssignsToGroup" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssignsToGroup.htm> ;
+
+    dcterms:identifier "IfcRelAssignsToGroup" .
+
+
+edo-ifc:IfcRelAssignsToProduct
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssignsToProduct"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssignsToProduct" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssignsToProduct.htm> ;
+
+    dcterms:identifier "IfcRelAssignsToProduct" .
+
+
+edo-ifc:IfcRelConnectsPorts
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelConnectsPorts"@en ;
+    edo-ifc:ifcEntityName "IfcRelConnectsPorts" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelConnectsPorts.htm> ;
+
+    dcterms:identifier "IfcRelConnectsPorts" .
+
+
+edo-ifc:IfcRelConnectsElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelConnectsElements"@en ;
+    edo-ifc:ifcEntityName "IfcRelConnectsElements" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelConnectsElements.htm> ;
+
+    dcterms:identifier "IfcRelConnectsElements" .
+
+
+edo-ifc:IfcRelConnectsWithRealizingElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelConnectsWithRealizingElements"@en ;
+    edo-ifc:ifcEntityName "IfcRelConnectsWithRealizingElements" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelConnectsWithRealizingElements.htm> ;
+
+    dcterms:identifier "IfcRelConnectsWithRealizingElements" .
+
+######################################################################
+# 8) Controlled IFC object entities
+######################################################################
+
+edo-ifc:IfcDistributionPort
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+
+    rdfs:label "IfcDistributionPort"@en ;
+    edo-ifc:ifcEntityName "IfcDistributionPort" ;
+
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcDistributionPort> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcDistributionPort.htm> ;
+
+    dcterms:identifier "IfcDistributionPort" .
+
+
+edo-ifc:IfcPipeSegment
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+
+    rdfs:label "IfcPipeSegment"@en ;
+    edo-ifc:ifcEntityName "IfcPipeSegment" ;
+
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcPipeSegment> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcPipeSegment.htm> ;
+
+    dcterms:identifier "IfcPipeSegment" .
+
+######################################################################
+# 9) Controlled IFC attribute roles
+######################################################################
+
+edo-ifc:RelatingObject
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingObject"@en ;
+    edo-ifc:ifcAttributeName "RelatingObject" ;
+
+    dcterms:identifier "RelatingObject" .
+
+
+edo-ifc:RelatedObjects
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatedObjects"@en ;
+    edo-ifc:ifcAttributeName "RelatedObjects" ;
+
+    dcterms:identifier "RelatedObjects" .
+
+
+edo-ifc:RelatingDocument
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingDocument"@en ;
+    edo-ifc:ifcAttributeName "RelatingDocument" ;
+
+    dcterms:identifier "RelatingDocument" .
+
+
+edo-ifc:RelatingClassification
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingClassification"@en ;
+    edo-ifc:ifcAttributeName "RelatingClassification" ;
+
+    dcterms:identifier "RelatingClassification" .
+
+
+edo-ifc:RelatingMaterial
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingMaterial"@en ;
+    edo-ifc:ifcAttributeName "RelatingMaterial" ;
+
+    dcterms:identifier "RelatingMaterial" .
+
+
+edo-ifc:RelatingGroup
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingGroup"@en ;
+    edo-ifc:ifcAttributeName "RelatingGroup" ;
+
+    dcterms:identifier "RelatingGroup" .
+
+
+edo-ifc:RelatingProduct
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingProduct"@en ;
+    edo-ifc:ifcAttributeName "RelatingProduct" ;
+
+    dcterms:identifier "RelatingProduct" .
+
+
+edo-ifc:RelatingPort
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingPort"@en ;
+    edo-ifc:ifcAttributeName "RelatingPort" ;
+
+    dcterms:identifier "RelatingPort" .
+
+
+edo-ifc:RelatedPort
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatedPort"@en ;
+    edo-ifc:ifcAttributeName "RelatedPort" ;
+
+    dcterms:identifier "RelatedPort" .
+
+
+edo-ifc:RelatingElement
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingElement"@en ;
+    edo-ifc:ifcAttributeName "RelatingElement" ;
+
+    dcterms:identifier "RelatingElement" .
+
+
+edo-ifc:RelatedElement
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatedElement"@en ;
+    edo-ifc:ifcAttributeName "RelatedElement" ;
+
+    dcterms:identifier "RelatedElement" .
+
+
+edo-ifc:RealizingElement
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RealizingElement"@en ;
+    edo-ifc:ifcAttributeName "RealizingElement" ;
+
+    dcterms:identifier "RealizingElement" .
+
+
+edo-ifc:RealizingElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RealizingElements"@en ;
+    edo-ifc:ifcAttributeName "RealizingElements" ;
+
+    dcterms:identifier "RealizingElements" .
+
+######################################################################
+# 10) Controlled concepts for realizing element requirement
+######################################################################
 
 edo-ifc:RequiresRealizingElements
-    rdf:type owl:Class ;
-    rdfs:subClassOf edo-ifc:RealizingElementRequirement ;
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:RealizingElementRequirement ;
 
     rdfs:label "Requires Realizing Elements"@en ;
     rdfs:label "Requer Elementos Realizadores"@pt-br ;
 
     skos:definition "Indicates that the IFC mapping rule applies when the EDO connection context includes one or more realizing elements."@en ;
-    skos:definition "Indica que a regra de mapeamento IFC se aplica quando o contexto de conexão da EDO inclui um ou mais elementos realizadores."@pt-br .
+    skos:definition "Indica que a regra de mapeamento IFC se aplica quando o contexto de conexão da EDO inclui um ou mais elementos realizadores."@pt-br ;
+
+    dcterms:identifier "RequiresRealizingElements" .
 
 
 edo-ifc:DoesNotRequireRealizingElements
-    rdf:type owl:Class ;
-    rdfs:subClassOf edo-ifc:RealizingElementRequirement ;
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:RealizingElementRequirement ;
 
     rdfs:label "Does Not Require Realizing Elements"@en ;
     rdfs:label "Não Requer Elementos Realizadores"@pt-br ;
 
     skos:definition "Indicates that the IFC mapping rule applies when the EDO connection context does not include realizing elements."@en ;
-    skos:definition "Indica que a regra de mapeamento IFC se aplica quando o contexto de conexão da EDO não inclui elementos realizadores."@pt-br .
+    skos:definition "Indica que a regra de mapeamento IFC se aplica quando o contexto de conexão da EDO não inclui elementos realizadores."@pt-br ;
+
+    dcterms:identifier "DoesNotRequireRealizingElements" .
 
 
 edo-ifc:AnyRealizingElementRequirement
-    rdf:type owl:Class ;
-    rdfs:subClassOf edo-ifc:RealizingElementRequirement ;
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:RealizingElementRequirement ;
 
     rdfs:label "Any Realizing Element Requirement"@en ;
     rdfs:label "Qualquer Requisito de Elemento Realizador"@pt-br ;
 
     skos:definition "Indicates that the IFC mapping rule applies regardless of whether realizing elements are present or absent."@en ;
-    skos:definition "Indica que a regra de mapeamento IFC se aplica independentemente de elementos realizadores estarem presentes ou ausentes."@pt-br .
+    skos:definition "Indica que a regra de mapeamento IFC se aplica independentemente de elementos realizadores estarem presentes ou ausentes."@pt-br ;
+
+    dcterms:identifier "AnyRealizingElementRequirement" .
 
 ######################################################################
-# 6) Direct IFC mappings for EDO relationships
+# 11) Direct IFC mappings for EDO relationships
 ######################################################################
 
 edo:hasPart
-    edo-ifc:ifc_equivalentClass "IfcRelAggregates" ;
-    edo-ifc:ifc_subjectRole "RelatingObject" ;
-    edo-ifc:ifc_objectRole "RelatedObjects" .
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAggregates ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedObjects .
 
 edo:hasOrderedPart
-    edo-ifc:ifc_equivalentClass "IfcRelNests" ;
-    edo-ifc:ifc_subjectRole "RelatingObject" ;
-    edo-ifc:ifc_objectRole "RelatedObjects" .
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelNests ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedObjects .
 
 edo:hasDocument
-    edo-ifc:ifc_equivalentClass "IfcRelAssociatesDocument" ;
-    edo-ifc:ifc_subjectRole "RelatedObjects" ;
-    edo-ifc:ifc_objectRole "RelatingDocument" .
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssociatesDocument ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingDocument .
 
 edo:hasClassificationReference
-    edo-ifc:ifc_equivalentClass "IfcRelAssociatesClassification" ;
-    edo-ifc:ifc_subjectRole "RelatedObjects" ;
-    edo-ifc:ifc_objectRole "RelatingClassification" .
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssociatesClassification ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingClassification .
 
 edo:hasMaterial
-    edo-ifc:ifc_equivalentClass "IfcRelAssociatesMaterial" ;
-    edo-ifc:ifc_subjectRole "RelatedObjects" ;
-    edo-ifc:ifc_objectRole "RelatingMaterial" .
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssociatesMaterial ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingMaterial .
 
 edo:belongsToGroup
-    edo-ifc:ifc_equivalentClass "IfcRelAssignsToGroup" ;
-    edo-ifc:ifc_subjectRole "RelatedObjects" ;
-    edo-ifc:ifc_objectRole "RelatingGroup" .
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssignsToGroup ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingGroup .
 
 edo:hasSparePart
-    edo-ifc:ifc_equivalentClass "IfcRelAssignsToProduct" ;
-    edo-ifc:ifc_invertedDirection "true" ;
-    edo-ifc:ifc_subjectRole "RelatingProduct" ;
-    edo-ifc:ifc_objectRole "RelatedObjects" .
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssignsToProduct ;
+    edo-ifc:ifc_invertedDirection "true"^^xsd:boolean ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingProduct ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedObjects .
 
 ######################################################################
-# 7) Conditional IFC materialisation rules for edo:isConnectedTo
+# 12) Conditional IFC materialisation rules for edo:isConnectedTo
 #
 # Logic:
 #
@@ -308,30 +696,30 @@ edo:hasSparePart
 
 edo:isConnectedTo
     edo-ifc:ifc_mappingRule [
-        edo-ifc:sourceIfcEquivalentClass "IfcDistributionPort" ;
-        edo-ifc:targetIfcEquivalentClass "IfcDistributionPort" ;
+        edo-ifc:sourceIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:targetIfcEquivalentClass edo-ifc:IfcDistributionPort ;
         edo-ifc:realizingElementRequirement edo-ifc:AnyRealizingElementRequirement ;
-        edo-ifc:ifc_equivalentClass "IfcRelConnectsPorts" ;
-        edo-ifc:ifc_subjectRole "RelatingPort" ;
-        edo-ifc:ifc_objectRole "RelatedPort" ;
-        edo-ifc:realizingElementRole "RealizingElement"
+        edo-ifc:ifc_equivalentClass edo-ifc:IfcRelConnectsPorts ;
+        edo-ifc:ifc_subjectRole edo-ifc:RelatingPort ;
+        edo-ifc:ifc_objectRole edo-ifc:RelatedPort ;
+        edo-ifc:realizingElementRole edo-ifc:RealizingElement
     ] ;
 
     edo-ifc:ifc_mappingRule [
-        edo-ifc:sourceNotIfcEquivalentClass "IfcDistributionPort" ;
-        edo-ifc:targetNotIfcEquivalentClass "IfcDistributionPort" ;
+        edo-ifc:sourceNotIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:targetNotIfcEquivalentClass edo-ifc:IfcDistributionPort ;
         edo-ifc:realizingElementRequirement edo-ifc:DoesNotRequireRealizingElements ;
-        edo-ifc:ifc_equivalentClass "IfcRelConnectsElements" ;
-        edo-ifc:ifc_subjectRole "RelatingElement" ;
-        edo-ifc:ifc_objectRole "RelatedElement"
+        edo-ifc:ifc_equivalentClass edo-ifc:IfcRelConnectsElements ;
+        edo-ifc:ifc_subjectRole edo-ifc:RelatingElement ;
+        edo-ifc:ifc_objectRole edo-ifc:RelatedElement
     ] ;
 
     edo-ifc:ifc_mappingRule [
-        edo-ifc:sourceNotIfcEquivalentClass "IfcDistributionPort" ;
-        edo-ifc:targetNotIfcEquivalentClass "IfcDistributionPort" ;
+        edo-ifc:sourceNotIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:targetNotIfcEquivalentClass edo-ifc:IfcDistributionPort ;
         edo-ifc:realizingElementRequirement edo-ifc:RequiresRealizingElements ;
-        edo-ifc:ifc_equivalentClass "IfcRelConnectsWithRealizingElements" ;
-        edo-ifc:ifc_subjectRole "RelatingElement" ;
-        edo-ifc:ifc_objectRole "RelatedElement" ;
-        edo-ifc:realizingElementRole "RealizingElements"
+        edo-ifc:ifc_equivalentClass edo-ifc:IfcRelConnectsWithRealizingElements ;
+        edo-ifc:ifc_subjectRole edo-ifc:RelatingElement ;
+        edo-ifc:ifc_objectRole edo-ifc:RelatedElement ;
+        edo-ifc:realizingElementRole edo-ifc:RealizingElements
     ] .
