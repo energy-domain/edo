@@ -1,0 +1,504 @@
+@prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+######################################################################
+# EDO — Relations (as annotations) + Relation Taxonomy + Support Annotations
+#
+# Scope:
+# - Relationship taxonomy under edo:DomainRelation
+# - Relationship predicates (as owl:AnnotationProperty)
+# - Metamodel taxonomy under edo:DomainMetamodelAnnotation
+# - Governance / Interoperability / Mapping annotations used by relations
+#
+# Notes:
+# - This file is “additive” (schema only). No instances.
+######################################################################
+
+######################################################################
+# 1) Roots
+######################################################################
+
+edo:DomainRelation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:label "Domain Relation"@en ;
+    rdfs:label "Relacionamento de Domínio"@pt-br ;
+    skos:definition "Root annotation property for representing conceptual relationships between domain entities in the Energy Domain Ontology."@en ;
+    skos:definition "Propriedade de anotação raiz para representar relacionamentos conceituais entre entidades do domínio na Energy Domain Ontology."@pt-br ;
+    dcterms:identifier "DomainRelation" .
+
+######################################################################
+# 2) Relationship Taxonomy (1 level above concrete relations)
+######################################################################
+
+edo:PartWholeRelation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainRelation ;
+    rdfs:label "Part–Whole Relation"@en ;
+    rdfs:label "Relação Parte–Todo"@pt-br ;
+    skos:definition "Category of relationships used to represent part–whole structures between domain entities."@en ;
+    skos:definition "Categoria de relacionamentos usada para representar estruturas parte–todo entre entidades do domínio."@pt-br ;
+    skos:altLabel "Composition Relation"@en ;
+    skos:altLabel "Relação de Composição"@pt-br ;
+    dcterms:identifier "PartWholeRelation" .
+
+edo:InformationRelation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainRelation ;
+    rdfs:label "Information Relation"@en ;
+    rdfs:label "Relação Informacional"@pt-br ;
+    skos:definition "Category of relationships used to associate domain entities with informational artefacts such as documents and external classification references."@en ;
+    skos:definition "Categoria de relacionamentos usada para associar entidades do domínio a artefatos informacionais como documentos e referências externas de classificação."@pt-br ;
+    skos:altLabel "Documentation Relation"@en ;
+    skos:altLabel "Relação de Documentação"@pt-br ;
+    dcterms:identifier "InformationRelation" .
+
+edo:MaterialRelation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainRelation ;
+    rdfs:label "Material Relation"@en ;
+    rdfs:label "Relação de Material"@pt-br ;
+    skos:definition "Category of relationships used to relate a domain element to its material specification or material concept."@en ;
+    skos:definition "Categoria de relacionamentos usada para relacionar um elemento do domínio ao seu material ou conceito de material."@pt-br ;
+    skos:altLabel "Material Association"@en ;
+    skos:altLabel "Associação de Material"@pt-br ;
+    dcterms:identifier "MaterialRelation" .
+
+edo:ConnectionRelation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainRelation ;
+    rdfs:label "Connection Relation"@en ;
+    rdfs:label "Relação de Conexão"@pt-br ;
+    skos:definition "Category of relationships used to express conceptual connectivity between domain entities."@en ;
+    skos:definition "Categoria de relacionamentos usada para expressar conectividade conceitual entre entidades do domínio."@pt-br ;
+    skos:altLabel "Connectivity Relation"@en ;
+    skos:altLabel "Relação de Conectividade"@pt-br ;
+    dcterms:identifier "ConnectionRelation" .
+
+edo:OrganizationalRelation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainRelation ;
+    rdfs:label "Organisational Relation"@en ;
+    rdfs:label "Relação Organizacional"@pt-br ;
+    skos:definition "Category of relationships used to represent organisational or grouping semantics over domain entities."@en ;
+    skos:definition "Categoria de relacionamentos usada para representar semântica organizacional ou de agrupamento sobre entidades do domínio."@pt-br ;
+    skos:altLabel "Grouping Relation"@en ;
+    skos:altLabel "Relação de Agrupamento"@pt-br ;
+    dcterms:identifier "OrganizationalRelation" .
+
+edo:ProvisionRelation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainRelation ;
+    rdfs:label "Provision Relation"@en ;
+    rdfs:label "Relação de Provisão"@pt-br ;
+    skos:definition "Category of relationships used to represent provisioning semantics, such as spare parts associated with operational assets."@en ;
+    skos:definition "Categoria de relacionamentos usada para representar semântica de provisão, como sobressalentes associados a ativos operacionais."@pt-br ;
+    skos:altLabel "Spare Relation"@en ;
+    skos:altLabel "Relação de Sobressalência"@pt-br ;
+    dcterms:identifier "ProvisionRelation" .
+
+######################################################################
+# 3) Concrete Relationship Predicates
+######################################################################
+
+### 3.1 Part–Whole
+
+edo:hasPart
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:PartWholeRelation ;
+    rdfs:label "Has Part"@en ;
+    rdfs:label "Tem Parte"@pt-br ;
+    skos:definition "Indicates that one domain entity is a constituent part of another, expressing a generic part–whole relationship without qualification regarding order, essentiality or replaceability."@en ;
+    skos:definition "Indica que uma entidade do domínio é parte constituinte de outra, expressando uma relação parte–todo genérica, sem qualificação quanto à ordem, essencialidade ou substituibilidade."@pt-br ;
+    skos:altLabel "Part Of"@en ;
+    skos:altLabel "É Parte De"@pt-br ;
+    dcterms:identifier "hasPart" .
+
+edo:hasOrderedPart
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:hasPart ;
+    rdfs:label "Has Ordered Part"@en ;
+    rdfs:label "Tem Parte Ordenada"@pt-br ;
+    skos:definition "Indicates a part–whole relationship in which the parts participate in an explicit sequence, where the order of the parts is semantically relevant in the domain schema."@en ;
+    skos:definition "Indica uma relação parte–todo na qual as partes participam de uma sequência explícita, em que a ordem das partes é semanticamente relevante no schema do domínio."@pt-br ;
+    skos:altLabel "Sequential Part"@en ;
+    skos:altLabel "Parte Sequencial"@pt-br ;
+    dcterms:identifier "hasOrderedPart" .
+
+### 3.2 Information
+
+edo:hasDocument
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:InformationRelation ;
+    rdfs:label "Has Document"@en ;
+    rdfs:label "Tem Documento"@pt-br ;
+    skos:definition "Associates a domain entity with one or more documents describing, specifying or evidencing it."@en ;
+    skos:definition "Associa uma entidade do domínio a um ou mais documentos que a descrevem, especificam ou evidenciam."@pt-br ;
+    skos:altLabel "Document Reference"@en ;
+    skos:altLabel "Referência de Documento"@pt-br ;
+    dcterms:identifier "hasDocument" .
+
+edo:hasClassificationReference
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:InformationRelation ;
+    rdfs:label "Has Classification Reference"@en ;
+    rdfs:label "Tem Referência de Classificação"@pt-br ;
+    skos:definition "Associates a domain entity with an external classification reference, such as an identifier from a classification system."@en ;
+    skos:definition "Associa uma entidade do domínio a uma referência externa de classificação, como um identificador de um sistema de classificação."@pt-br ;
+    skos:altLabel "Has Classification"@en ;
+    skos:altLabel "Tem Classificação"@pt-br ;
+    dcterms:identifier "hasClassificationReference" .
+
+### 3.3 Material
+
+edo:hasMaterial
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:MaterialRelation ;
+    rdfs:label "Has Material"@en ;
+    rdfs:label "Tem Material"@pt-br ;
+    skos:definition "Associates a domain element with the material it is made of, without prescribing a specific modelling pattern for material definitions."@en ;
+    skos:definition "Associa um elemento do domínio ao material do qual é feito, sem impor um padrão específico de modelagem para definições de material."@pt-br ;
+    skos:altLabel "Is Made Of"@en ;
+    skos:altLabel "É Feito De"@pt-br ;
+    dcterms:identifier "hasMaterial" .
+
+### 3.4 Connection
+
+edo:isConnectedTo
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:ConnectionRelation ;
+    rdfs:label "Is Connected To"@en ;
+    rdfs:label "Está Conectado A"@pt-br ;
+    skos:definition "Indicates that two classes of domain elements are conceptually connectable to each other, without specifying how the connection is realised."@en ;
+    skos:definition "Indica que duas classes de elementos do domínio são conceitualmente conectáveis entre si, sem especificar como a conexão é realizada."@pt-br ;
+    skos:altLabel "Connects To"@en ;
+    skos:altLabel "Conecta-se A"@pt-br ;
+    dcterms:identifier "isConnectedTo" .
+
+edo:connectionRealizedBy
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:ConnectionRelation ;
+    rdfs:label "Connection Realised By"@en ;
+    rdfs:label "Conexão Realizada Por"@pt-br ;
+    skos:definition "Indicates which classes of elements realise the connection between other connected elements."@en ;
+    skos:definition "Indica quais classes de elementos realizam a conexão entre outros elementos conectados."@pt-br ;
+    skos:altLabel "Realised By"@en ;
+    skos:altLabel "Realizada Por"@pt-br ;
+    dcterms:identifier "connectionRealizedBy" .
+
+### 3.5 Organisational / Grouping
+
+edo:belongsToGroup
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:OrganizationalRelation ;
+    rdfs:label "Belongs To Group"@en ;
+    rdfs:label "Pertence a Grupo"@pt-br ;
+    skos:definition "Indicates that a domain entity is a member of a group, where groups represent an organisational or logical grouping concept."@en ;
+    skos:definition "Indica que uma entidade do domínio é membro de um grupo, onde grupos representam um conceito de agrupamento organizacional ou lógico."@pt-br ;
+    skos:altLabel "Is Member Of"@en ;
+    skos:altLabel "É Membro De"@pt-br ;
+    dcterms:identifier "belongsToGroup" .
+
+### 3.6 Provisioning / Spares
+
+edo:hasSparePart
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:ProvisionRelation ;
+    rdfs:label "Has Spare Part"@en ;
+    rdfs:label "Tem Sobressalente"@pt-br ;
+    skos:definition "Indicates that a domain asset may have spare parts intended to replace or support its operation, recorded in the domain schema."@en ;
+    skos:definition "Indica que um ativo do domínio pode ter sobressalentes destinados a substituição ou suporte à operação, registrados no schema do domínio."@pt-br ;
+    skos:altLabel "Spare For"@en ;
+    skos:altLabel "Sobressalente Para"@pt-br ;
+    dcterms:identifier "hasSparePart" .
+
+######################################################################
+# 4) Metamodel Annotation Taxonomy
+######################################################################
+
+edo:DomainMetamodelAnnotation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:label "Domain Metamodel Annotation"@en ;
+    rdfs:label "Anotação de Metamodelo de Domínio"@pt-br ;
+    skos:definition "Category of annotations that describe the structure, rules and interoperability aspects of the Energy Domain Ontology metamodel."@en ;
+    skos:definition "Categoria de anotações que descrevem a estrutura, regras e aspectos de interoperabilidade do metamodelo da Energy Domain Ontology."@pt-br ;
+    dcterms:identifier "DomainMetamodelAnnotation" .
+
+edo:DomainAttributeStructureAnnotation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
+    rdfs:label "Attribute Structure Annotation"@en ;
+    rdfs:label "Anotação de Estrutura de Atributo"@pt-br ;
+    skos:definition "Category of annotations that describe how attributes are structured and organised within the ontology."@en ;
+    skos:definition "Categoria de anotações que descrevem como os atributos são estruturados e organizados dentro da ontologia."@pt-br ;
+    dcterms:identifier "DomainAttributeStructureAnnotation" .
+
+edo:DomainValidationAnnotation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
+    rdfs:label "Validation Annotation"@en ;
+    rdfs:label "Anotação de Validação"@pt-br ;
+    skos:definition "Category of annotations used to express constraints and validation rules over ontology elements."@en ;
+    skos:definition "Categoria de anotações usadas para expressar restrições e regras de validação sobre elementos da ontologia."@pt-br ;
+    dcterms:identifier "DomainValidationAnnotation" .
+
+edo:DomainClassificationAnnotation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
+    rdfs:label "Classification Annotation"@en ;
+    rdfs:label "Anotação de Classificação"@pt-br ;
+    skos:definition "Category of annotations used to classify ontology elements according to domain-specific taxonomies such as discipline, domain and attribute categories."@en ;
+    skos:definition "Categoria de anotações usadas para classificar elementos da ontologia de acordo com taxonomias específicas do domínio, como disciplina, domínio e categorias de atributos."@pt-br ;
+    dcterms:identifier "DomainClassificationAnnotation" .
+
+edo:DomainLifecycleAnnotation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
+    rdfs:label "Lifecycle Annotation"@en ;
+    rdfs:label "Anotação de Ciclo de Vida"@pt-br ;
+    skos:definition "Category of annotations used to describe lifecycle-related aspects of domain assets and their data."@en ;
+    skos:definition "Categoria de anotações usadas para descrever aspectos de ciclo de vida de ativos do domínio e seus dados."@pt-br ;
+    dcterms:identifier "DomainLifecycleAnnotation" .
+
+edo:DomainInteroperabilityAnnotation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
+    rdfs:label "Interoperability Annotation"@en ;
+    rdfs:label "Anotação de Interoperabilidade"@pt-br ;
+    skos:definition "Category of annotations used to express interoperability with external vocabularies, dictionaries and ontologies, without being specific to a single standard."@en ;
+    skos:definition "Categoria de anotações usadas para expressar interoperabilidade com vocabulários, dicionários e ontologias externas, sem ser específica de um único padrão."@pt-br ;
+    dcterms:identifier "DomainInteroperabilityAnnotation" .
+
+edo:DomainGovernanceAnnotation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
+    rdfs:label "Governance Annotation"@en ;
+    rdfs:label "Anotação de Governança"@pt-br ;
+    skos:definition "Category of annotations used to manage and control the editorial lifecycle and governance status of entities within the Energy Domain Ontology."@en ;
+    skos:definition "Categoria de anotações usadas para gerenciar e controlar o ciclo de vida editorial e o status de governança das entidades dentro da Energy Domain Ontology."@pt-br ;
+    dcterms:identifier "DomainGovernanceAnnotation" .
+
+######################################################################
+# 5) Metamodel Annotations used by Relations and Translators
+######################################################################
+
+######################################################################
+# 5.1 Relation-level cardinality
+######################################################################
+
+edo:DomainRelationConstraintAnnotation
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
+    rdfs:label "Relation Constraint Annotation"@en ;
+    rdfs:label "Anotação de Restrição de Relacionamento"@pt-br ;
+    skos:definition "Category of annotations used to express structural or semantic constraints on domain relationships, such as expected cardinalities per role."@en ;
+    skos:definition "Categoria de anotações usada para expressar restrições estruturais ou semânticas sobre relacionamentos de domínio, como cardinalidades esperadas por papel."@pt-br ;
+    dcterms:identifier "DomainRelationConstraintAnnotation" .
+
+edo:subjectExpectedCardinality
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainRelationConstraintAnnotation ;
+    rdfs:label "Subject Expected Cardinality"@en ;
+    rdfs:label "Cardinalidade Esperada do Sujeito"@pt-br ;
+    skos:definition "Indicates the expected cardinality of the subject role when this annotation is applied to a domain relationship."@en ;
+    skos:definition "Indica a cardinalidade esperada do papel de sujeito quando esta anotação é aplicada a um relacionamento de domínio."@pt-br ;
+    dcterms:identifier "subjectExpectedCardinality" .
+
+edo:objectExpectedCardinality
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainRelationConstraintAnnotation ;
+    rdfs:label "Object Expected Cardinality"@en ;
+    rdfs:label "Cardinalidade Esperada do Objeto"@pt-br ;
+    skos:definition "Indicates the expected cardinality of the object role when this annotation is applied to a domain relationship."@en ;
+    skos:definition "Indica a cardinalidade esperada do papel de objeto quando esta anotação é aplicada a um relacionamento de domínio."@pt-br ;
+    dcterms:identifier "objectExpectedCardinality" .
+
+# ######################################################################
+# # 5.1b Cardinality value classes
+# ######################################################################
+
+# edo:Cardinality
+#     rdf:type owl:Class ;
+#     rdfs:label "Cardinality"@en ;
+#     rdfs:label "Cardinalidade"@pt-br ;
+#     skos:definition "Abstract class representing an expected cardinality concept used in domain relationship constraints."@en ;
+#     skos:definition "Classe abstrata que representa um conceito de cardinalidade esperada usado em restrições de relacionamentos de domínio."@pt-br .
+
+# edo:ExactlyOne
+#     rdf:type owl:Class ;
+#     rdfs:subClassOf edo:Cardinality ;
+#     rdfs:label "Exactly One"@en ;
+#     rdfs:label "Exatamente Um"@pt-br ;
+#     skos:definition "Indicates that exactly one instance is expected."@en ;
+#     skos:definition "Indica que exatamente uma instância é esperada."@pt-br .
+
+# edo:ZeroOrOne
+#     rdf:type owl:Class ;
+#     rdfs:subClassOf edo:Cardinality ;
+#     rdfs:label "Zero or One"@en ;
+#     rdfs:label "Zero ou Um"@pt-br ;
+#     skos:definition "Indicates that zero or one instance is expected."@en ;
+#     skos:definition "Indica que zero ou uma instância é esperada."@pt-br .
+
+# edo:OneOrMore
+#     rdf:type owl:Class ;
+#     rdfs:subClassOf edo:Cardinality ;
+#     rdfs:label "One or More"@en ;
+#     rdfs:label "Um ou Mais"@pt-br ;
+#     skos:definition "Indicates that one or more instances are expected."@en ;
+#     skos:definition "Indica que uma ou mais instâncias são esperadas."@pt-br .
+
+# edo:ZeroOrMore
+#     rdf:type owl:Class ;
+#     rdfs:subClassOf edo:Cardinality ;
+#     rdfs:label "Zero or More"@en ;
+#     rdfs:label "Zero ou Mais"@pt-br ;
+#     skos:definition "Indicates that zero or more instances are expected."@en ;
+#     skos:definition "Indica que zero ou mais instâncias são esperadas."@pt-br .
+
+# edo:ExactlyTwo
+#     rdf:type owl:Class ;
+#     rdfs:subClassOf edo:Cardinality ;
+#     rdfs:label "Exactly Two"@en ;
+#     rdfs:label "Exatamente Dois"@pt-br ;
+#     skos:definition "Indicates that exactly two instances are expected."@en ;
+#     skos:definition "Indica que exatamente duas instâncias são esperadas."@pt-br .
+
+
+### 5.2 Interoperability support
+
+edo:equivalentExternalProperty
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainInteroperabilityAnnotation ;
+    rdfs:label "Equivalent External Property"@en ;
+    rdfs:label "Propriedade Externa Equivalente"@pt-br ;
+    skos:definition "Links an EDO property to an equivalent external property from another vocabulary or standard."@en ;
+    skos:definition "Vincula uma propriedade da EDO a uma propriedade externa equivalente de outro vocabulário ou padrão."@pt-br ;
+    skos:altLabel "External Equivalent"@en ;
+    skos:altLabel "Equivalente Externo"@pt-br ;
+    dcterms:identifier "equivalentExternalProperty" .
+
+edo:hasExternalRef
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainInteroperabilityAnnotation ;
+    rdfs:label "Has External Reference"@en ;
+    rdfs:label "Tem Referência Externa"@pt-br ;
+    skos:definition "Associates an EDO entity with an equivalent or corresponding concept defined in an external data dictionary, ontology, classification system or engineering standard."@en ;
+    skos:definition "Associa uma entidade da EDO a um conceito equivalente ou correspondente definido em um dicionário de dados, ontologia, sistema de classificação ou norma de engenharia externa."@pt-br ;
+    skos:altLabel "External Reference"@en ;
+    skos:altLabel "Referência Externa"@pt-br ;
+    skos:altLabel "External Mapping"@en ;
+    skos:altLabel "Mapeamento Externo"@pt-br ;
+    skos:example "Example: linking an EDO class to an equivalent concept in an external classification system."@en ;
+    skos:example "Exemplo: vincular uma classe da EDO a um conceito equivalente em um sistema de classificação externo."@pt-br ;
+    dcterms:identifier "hasExternalRef" .
+
+### 5.3 Governance support
+
+# edo:entityStatus
+#     rdf:type owl:AnnotationProperty ;
+#     rdfs:subPropertyOf edo:DomainGovernanceAnnotation ;
+#     rdfs:label "Entity Status"@en ;
+#     rdfs:label "Status da Entidade"@pt-br ;
+#     skos:definition "Annotation used to indicate the governance and editorial status of an entity within the Energy Domain Ontology, representing its level of maturity in the approval process."@en ;
+#     skos:definition "Anotação usada para indicar o status de governança e editorial de uma entidade dentro da Energy Domain Ontology, representando seu nível de maturidade no processo de aprovação."@pt-br ;
+#     skos:altLabel "Governance Status"@en ;
+#     skos:altLabel "Situação da Entidade"@pt-br ;
+#     skos:example "Typical values include: NEW, REVIEW, APPROVED."@en ;
+#     skos:example "Valores típicos incluem: NOVO, ANALISANDO, APROVADO."@pt-br ;
+#     dcterms:identifier "entityStatus" .
+
+edo:EntityMaturityLevel
+    rdf:type owl:Class ;
+    rdfs:label "Entity Maturity Level"@en ;
+    rdfs:label "Nível de Maturidade da Entidade"@pt-br ;
+    skos:altLabel "Editorial Maturity Level"@en ;
+    skos:altLabel "Nível de Maturidade Editorial"@pt-br ;
+    skos:definition "Controlled vocabulary for editorial maturity levels of entities in the Energy Domain Ontology."@en ;
+    skos:definition "Vocabulário controlado para níveis de maturidade editorial de entidades da Energy Domain Ontology."@pt-br ;
+    skos:example "Example values include Proposed, UnderReview, Consolidated, Published and Deprecated."@en ;
+    skos:example "Exemplos de valores incluem Proposed, UnderReview, Consolidated, Published e Deprecated."@pt-br ;
+    dcterms:identifier "EntityMaturityLevel" .
+
+edo:Proposed
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo:EntityMaturityLevel ;
+    rdfs:label "Proposed"@en ;
+    rdfs:label "Proposto"@pt-br ;
+    skos:altLabel "Draft Proposal"@en ;
+    skos:altLabel "Proposta Inicial"@pt-br ;
+    skos:definition "Entity proposed for inclusion or change, not yet reviewed or consolidated."@en ;
+    skos:definition "Entidade proposta para inclusão ou alteração, ainda não revisada nem consolidada."@pt-br ;
+    skos:example "Example: a new domain class introduced by a modeller before formal technical review."@en ;
+    skos:example "Exemplo: uma nova classe de domínio introduzida por um modelador antes da revisão técnica formal."@pt-br ;
+    dcterms:identifier "Proposed" .
+
+edo:UnderReview
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo:EntityMaturityLevel ;
+    rdfs:label "Under Review"@en ;
+    rdfs:label "Em Revisão"@pt-br ;
+    skos:altLabel "In Review"@en ;
+    skos:altLabel "Em Análise"@pt-br ;
+    skos:definition "Entity currently under technical, editorial or domain review."@en ;
+    skos:definition "Entidade atualmente em revisão técnica, editorial ou de domínio."@pt-br ;
+    skos:example "Example: a proposed relation being evaluated by domain specialists before consolidation."@en ;
+    skos:example "Exemplo: uma relação proposta sendo avaliada por especialistas de domínio antes da consolidação."@pt-br ;
+    dcterms:identifier "UnderReview" .
+
+edo:Consolidated
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo:EntityMaturityLevel ;
+    rdfs:label "Consolidated"@en ;
+    rdfs:label "Consolidado"@pt-br ;
+    skos:altLabel "Stabilised"@en ;
+    skos:altLabel "Estabilizado"@pt-br ;
+    skos:definition "Entity reviewed and stabilised in the working ontology, but not necessarily included in an official published release."@en ;
+    skos:definition "Entidade revisada e estabilizada na ontologia de trabalho, mas não necessariamente incluída em uma release oficial publicada."@pt-br ;
+    skos:example "Example: a class approved by the modelling team but not yet included in a formal release package."@en ;
+    skos:example "Exemplo: uma classe aprovada pela equipe de modelagem, mas ainda não incluída em um pacote formal de release."@pt-br ;
+    dcterms:identifier "Consolidated" .
+
+edo:Published
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo:EntityMaturityLevel ;
+    rdfs:label "Published"@en ;
+    rdfs:label "Publicado"@pt-br ;
+    skos:altLabel "Released"@en ;
+    skos:altLabel "Publicado em Release"@pt-br ;
+    skos:definition "Entity included in an official published release of the Energy Domain Ontology."@en ;
+    skos:definition "Entidade incluída em uma release oficial publicada da Energy Domain Ontology."@pt-br ;
+    skos:example "Example: a domain attribute included in a released EDO version used to generate a data dictionary."@en ;
+    skos:example "Exemplo: um atributo de domínio incluído em uma versão publicada da EDO usada para gerar um dicionário de dados."@pt-br ;
+    dcterms:identifier "Published" .
+
+edo:Deprecated
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo:EntityMaturityLevel ;
+    rdfs:label "Deprecated"@en ;
+    rdfs:label "Descontinuado"@pt-br ;
+    skos:altLabel "Not Recommended"@en ;
+    skos:altLabel "Não Recomendado"@pt-br ;
+    skos:definition "Entity kept for traceability but no longer recommended for use."@en ;
+    skos:definition "Entidade mantida para rastreabilidade, mas não mais recomendada para uso."@pt-br ;
+    skos:example "Example: an older attribute kept for compatibility with previous releases but replaced by a newer concept."@en ;
+    skos:example "Exemplo: um atributo antigo mantido para compatibilidade com releases anteriores, mas substituído por um conceito mais novo."@pt-br ;
+    dcterms:identifier "Deprecated" .
+
+### 5.4 Attribute structure support (used by attributes referenced by relations/contracts)
+
+edo:hasUnit
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation ;
+    rdfs:label "Has Unit"@en ;
+    rdfs:label "Tem Unidade"@pt-br ;
+    skos:definition "Relates a DomainAttribute to the measurement unit in which its values are expressed."@en ;
+    skos:definition "Relaciona um DomainAttribute à unidade de medida na qual seus valores são expressos."@pt-br ;
+    skos:altLabel "Unit Of Measure"@en ;
+    skos:altLabel "Unidade de Medida"@pt-br ;
+    rdfs:domain edo:DomainAttribute ;
+    rdfs:range edo:DomainUnit ;
+    dcterms:identifier "hasUnit" .
