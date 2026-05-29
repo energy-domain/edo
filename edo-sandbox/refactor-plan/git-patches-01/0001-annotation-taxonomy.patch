@@ -1,0 +1,733 @@
+--- a/core/edo.ttl	2026-05-29 18:47:00.035823080 +0000
++++ b/core/edo.ttl	2026-05-29 18:47:00.090945264 +0000
+@@ -60,6 +60,10 @@
+ skos:definition rdf:type owl:AnnotationProperty .
+ 
+ 
++###  http://www.w3.org/2004/02/skos/core#example
++skos:example rdf:type owl:AnnotationProperty .
++
++
+ ###  http://www.w3.org/2004/02/skos/core#prefLabel
+ skos:prefLabel rdf:type owl:AnnotationProperty .
+ 
+@@ -68,187 +72,644 @@
+ edo:DomainAnnotation rdf:type owl:AnnotationProperty .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#DomainRelation
++edo:DomainRelation rdf:type owl:AnnotationProperty ;
++                   rdfs:subPropertyOf edo:DomainAnnotation ;
++                   rdfs:label "Domain Relation"@en ,
++                              "Relacionamento de Domínio"@pt-br ;
++                   skos:definition "Propriedade de anotação raiz para representar relacionamentos conceituais entre entidades do domínio na Energy Domain Ontology."@pt-br ,
++                                   "Root annotation property for representing conceptual relationships between domain entities in the Energy Domain Ontology."@en ;
++                   dcterms:identifier "DomainRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#PartWholeRelation
++edo:PartWholeRelation rdf:type owl:AnnotationProperty ;
++                      rdfs:subPropertyOf edo:DomainRelation ;
++                      rdfs:label "Part–Whole Relation"@en ,
++                                 "Relação Parte–Todo"@pt-br ;
++                      skos:definition "Categoria de relacionamentos usada para representar estruturas parte–todo entre entidades do domínio."@pt-br ,
++                                      "Category of relationships used to represent part–whole structures between domain entities."@en ;
++                      skos:altLabel "Composition Relation"@en ,
++                                    "Relação de Composição"@pt-br ;
++                      dcterms:identifier "PartWholeRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#InformationRelation
++edo:InformationRelation rdf:type owl:AnnotationProperty ;
++                        rdfs:subPropertyOf edo:DomainRelation ;
++                        rdfs:label "Information Relation"@en ,
++                                   "Relação Informacional"@pt-br ;
++                        skos:definition "Categoria de relacionamentos usada para associar entidades do domínio a artefatos informacionais como documentos e referências externas de classificação."@pt-br ,
++                                        "Category of relationships used to associate domain entities with informational artefacts such as documents and external classification references."@en ;
++                        skos:altLabel "Documentation Relation"@en ,
++                                      "Relação de Documentação"@pt-br ;
++                        dcterms:identifier "InformationRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#MaterialRelation
++edo:MaterialRelation rdf:type owl:AnnotationProperty ;
++                     rdfs:subPropertyOf edo:DomainRelation ;
++                     rdfs:label "Material Relation"@en ,
++                                "Relação de Material"@pt-br ;
++                     skos:definition "Categoria de relacionamentos usada para relacionar um elemento do domínio ao seu material ou conceito de material."@pt-br ,
++                                     "Category of relationships used to relate a domain element to its material specification or material concept."@en ;
++                     skos:altLabel "Associação de Material"@pt-br ,
++                                   "Material Association"@en ;
++                     dcterms:identifier "MaterialRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#ConnectionRelation
++edo:ConnectionRelation rdf:type owl:AnnotationProperty ;
++                       rdfs:subPropertyOf edo:DomainRelation ;
++                       rdfs:label "Connection Relation"@en ,
++                                  "Relação de Conexão"@pt-br ;
++                       skos:definition "Categoria de relacionamentos usada para expressar conectividade conceitual entre entidades do domínio."@pt-br ,
++                                       "Category of relationships used to express conceptual connectivity between domain entities."@en ;
++                       skos:altLabel "Connectivity Relation"@en ,
++                                     "Relação de Conectividade"@pt-br ;
++                       dcterms:identifier "ConnectionRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#InterfaceRelation
++edo:InterfaceRelation rdf:type owl:AnnotationProperty ;
++                      rdfs:subPropertyOf edo:DomainRelation ;
++                      rdfs:label "Interface Relation"@en ,
++                                 "Relação de Interface"@pt-br ;
++                      skos:definition "Categoria de relacionamentos usada para associar entidades do domínio a pontos, portas ou features de interface."@pt-br ,
++                                      "Category of relationships used to associate domain entities with interface points, ports or features."@en ;
++                      dcterms:identifier "InterfaceRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#AttributeRelation
++edo:AttributeRelation rdf:type owl:AnnotationProperty ;
++                      rdfs:subPropertyOf edo:DomainRelation ;
++                      rdfs:label "Attribute Relation"@en ,
++                                 "Relação de Atributo"@pt-br ;
++                      skos:definition "Categoria de relacionamentos usada para associar entidades do domínio a atributos de domínio ou para relacionar atributos entre si."@pt-br ,
++                                      "Category of relationships used to associate domain entities with domain attributes or to relate attributes to each other."@en ;
++                      dcterms:identifier "AttributeRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#TechnicalDefinitionRelation
++edo:TechnicalDefinitionRelation rdf:type owl:AnnotationProperty ;
++                                rdfs:subPropertyOf edo:DomainRelation ;
++                                rdfs:label "Technical Definition Relation"@en ,
++                                           "Relação de Definição Técnica"@pt-br ;
++                                skos:definition "Categoria de relacionamentos usada para associar entidades do domínio a especificações, tipos ou artefatos técnicos que definem sua configuração ou compatibilidade."@pt-br ,
++                                                "Category of relationships used to associate domain entities with specifications, types or technical artefacts that define their configuration or compatibility."@en ;
++                                dcterms:identifier "TechnicalDefinitionRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#OrganizationalRelation
++edo:OrganizationalRelation rdf:type owl:AnnotationProperty ;
++                           rdfs:subPropertyOf edo:DomainRelation ;
++                           rdfs:label "Organisational Relation"@en ,
++                                      "Relação Organizacional"@pt-br ;
++                           skos:definition "Categoria de relacionamentos usada para representar semântica organizacional ou de agrupamento sobre entidades do domínio."@pt-br ,
++                                           "Category of relationships used to represent organisational or grouping semantics over domain entities."@en ;
++                           skos:altLabel "Grouping Relation"@en ,
++                                         "Relação de Agrupamento"@pt-br ;
++                           dcterms:identifier "OrganizationalRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#ProvisionRelation
++edo:ProvisionRelation rdf:type owl:AnnotationProperty ;
++                      rdfs:subPropertyOf edo:DomainRelation ;
++                      rdfs:label "Provision Relation"@en ,
++                                 "Relação de Provisão"@pt-br ;
++                      skos:definition "Categoria de relacionamentos usada para representar semântica de provisão, como sobressalentes associados a ativos operacionais."@pt-br ,
++                                      "Category of relationships used to represent provisioning semantics, such as spare parts associated with operational assets."@en ;
++                      skos:altLabel "Relação de Sobressalência"@pt-br ,
++                                    "Spare Relation"@en ;
++                      dcterms:identifier "ProvisionRelation" .
++
++
++###  https://w3id.org/energy-domain/edo#hasPart
++edo:hasPart rdf:type owl:AnnotationProperty ;
++            rdfs:subPropertyOf edo:PartWholeRelation ;
++            rdfs:label "Has Part"@en ,
++                       "Tem Parte"@pt-br ;
++            skos:definition "Indica que uma entidade do domínio é parte constituinte de outra, expressando uma relação parte–todo genérica, sem qualificação quanto à ordem, essencialidade ou substituibilidade."@pt-br ,
++                            "Indicates that one domain entity is a constituent part of another, expressing a generic part–whole relationship without qualification regarding order, essentiality or replaceability."@en ;
++            skos:altLabel "Part Of"@en ,
++                          "É Parte De"@pt-br ;
++            dcterms:identifier "hasPart" .
++
++
++###  https://w3id.org/energy-domain/edo#hasOrderedPart
++edo:hasOrderedPart rdf:type owl:AnnotationProperty ;
++                   rdfs:subPropertyOf edo:hasPart ;
++                   rdfs:label "Has Ordered Part"@en ,
++                              "Tem Parte Ordenada"@pt-br ;
++                   skos:definition "Indica uma relação parte–todo na qual as partes participam de uma sequência explícita, em que a ordem das partes é semanticamente relevante no schema do domínio."@pt-br ,
++                                   "Indicates a part–whole relationship in which the parts participate in an explicit sequence, where the order of the parts is semantically relevant in the domain schema."@en ;
++                   skos:altLabel "Sequential Part"@en ,
++                                 "Parte Sequencial"@pt-br ;
++                   dcterms:identifier "hasOrderedPart" .
++
++
++###  https://w3id.org/energy-domain/edo#hasDocument
++edo:hasDocument rdf:type owl:AnnotationProperty ;
++                rdfs:subPropertyOf edo:InformationRelation ;
++                rdfs:label "Has Document"@en ,
++                           "Tem Documento"@pt-br ;
++                skos:definition "Associa uma entidade do domínio a um ou mais documentos que a descrevem, especificam ou evidenciam."@pt-br ,
++                                "Associates a domain entity with one or more documents describing, specifying or evidencing it."@en ;
++                skos:altLabel "Document Reference"@en ,
++                              "Referência de Documento"@pt-br ;
++                dcterms:identifier "hasDocument" .
++
++
++###  https://w3id.org/energy-domain/edo#hasClassificationReference
++edo:hasClassificationReference rdf:type owl:AnnotationProperty ;
++                               rdfs:subPropertyOf edo:InformationRelation ;
++                               rdfs:label "Has Classification Reference"@en ,
++                                          "Tem Referência de Classificação"@pt-br ;
++                               skos:definition "Associa uma entidade do domínio a uma referência externa de classificação, como um identificador de um sistema de classificação."@pt-br ,
++                                               "Associates a domain entity with an external classification reference, such as an identifier from a classification system."@en ;
++                               skos:altLabel "Has Classification"@en ,
++                                             "Tem Classificação"@pt-br ;
++                               dcterms:identifier "hasClassificationReference" .
++
++
++###  https://w3id.org/energy-domain/edo#hasMaterial
++edo:hasMaterial rdf:type owl:AnnotationProperty ;
++                rdfs:subPropertyOf edo:MaterialRelation ;
++                rdfs:label "Has Material"@en ,
++                           "Tem Material"@pt-br ;
++                skos:definition "Associa um elemento do domínio ao material do qual é feito, sem impor um padrão específico de modelagem para definições de material."@pt-br ,
++                                "Associates a domain element with the material it is made of, without prescribing a specific modelling pattern for material definitions."@en ;
++                skos:altLabel "Is Made Of"@en ,
++                              "É Feito De"@pt-br ;
++                dcterms:identifier "hasMaterial" .
++
++
++###  https://w3id.org/energy-domain/edo#isConnectedTo
++edo:isConnectedTo rdf:type owl:AnnotationProperty ;
++                  rdfs:subPropertyOf edo:ConnectionRelation ;
++                  rdfs:label "Is Connected To"@en ,
++                             "Está Conectado A"@pt-br ;
++                  skos:definition "Indica que duas classes de elementos do domínio são conceitualmente conectáveis entre si, sem especificar como a conexão é realizada."@pt-br ,
++                                  "Indicates that two classes of domain elements are conceptually connectable to each other, without specifying how the connection is realised."@en ;
++                  skos:altLabel "Connects To"@en ,
++                                "Conecta-se A"@pt-br ;
++                  dcterms:identifier "isConnectedTo" .
++
++
++###  https://w3id.org/energy-domain/edo#connectionRealizedBy
++edo:connectionRealizedBy rdf:type owl:AnnotationProperty ;
++                         rdfs:subPropertyOf edo:ConnectionRelation ;
++                         rdfs:label "Connection Realised By"@en ,
++                                    "Conexão Realizada Por"@pt-br ;
++                         skos:definition "Indica quais classes de elementos realizam a conexão entre outros elementos conectados."@pt-br ,
++                                         "Indicates which classes of elements realise the connection between other connected elements."@en ;
++                         skos:altLabel "Realised By"@en ,
++                                       "Realizada Por"@pt-br ;
++                         dcterms:identifier "connectionRealizedBy" .
++
++
++###  https://w3id.org/energy-domain/edo#hasConnectionPoint
++edo:hasConnectionPoint rdf:type owl:AnnotationProperty ;
++                       rdfs:subPropertyOf edo:InterfaceRelation ;
++                       rdfs:label "Has Connection Point"@en ,
++                                  "Tem Ponto de Conexão"@pt-br ;
++                       skos:definition "Associa uma entidade do domínio a um ponto, porta ou feature que permite conexão ou interface com outras entidades."@pt-br ,
++                                       "Associates a domain entity with a point, port or feature that enables connection or interface with other entities."@en ;
++                       dcterms:identifier "hasConnectionPoint" .
++
++
++###  https://w3id.org/energy-domain/edo#hasAttribute
++edo:hasAttribute rdf:type owl:AnnotationProperty ;
++                 rdfs:subPropertyOf edo:AttributeRelation ;
++                 rdfs:label "Has Attribute"@en ,
++                            "Possui Atributo"@pt-br ;
++                 skos:definition "Indica atributo(s) que a entidade possui."@pt-br ,
++                                 "Indicates attribute(s) that the entity has."@en ;
++                 dcterms:identifier "hasAttribute" .
++
++
++###  https://w3id.org/energy-domain/edo#specializesAttribute
++edo:specializesAttribute rdf:type owl:AnnotationProperty ;
++                         rdfs:subPropertyOf edo:AttributeRelation ;
++                         rdfs:label "Specialises Attribute"@en ,
++                                    "Especializa Atributo"@pt-br ;
++                         skos:definition "Indica que um atributo de domínio especializa outro atributo mais geral, preservando a ligação conceitual entre ambos."@pt-br ,
++                                         "Indicates that a domain attribute specialises another, more general attribute, preserving the conceptual link between both."@en ;
++                         dcterms:identifier "specializesAttribute" .
++
++
++###  https://w3id.org/energy-domain/edo#hasSpec
++edo:hasSpec rdf:type owl:AnnotationProperty ;
++            rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
++            rdfs:label "Has Specification"@en ,
++                       "Tem Especificação"@pt-br ;
++            skos:definition "Associa uma entidade do domínio a uma especificação, requisito ou artefato técnico que define, limita ou governa sua seleção e compatibilidade."@pt-br ,
++                            "Associates a domain entity with a specification, requirement or technical artefact that defines, limits or governs its selection and compatibility."@en ;
++            dcterms:identifier "hasSpec" .
++
++
++###  https://w3id.org/energy-domain/edo#isDefinedByType
++edo:isDefinedByType rdf:type owl:AnnotationProperty ;
++                    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
++                    rdfs:label "Is Defined By Type"@en ,
++                               "É Definido Por Tipo"@pt-br ;
++                    skos:definition "Associa uma ocorrência de domínio a um tipo técnico reutilizável que define seus atributos ou representação."@pt-br ,
++                                    "Associates a domain occurrence with a reusable technical type that defines its attributes or representation."@en ;
++                    dcterms:identifier "isDefinedByType" .
++
++
++###  https://w3id.org/energy-domain/edo#belongsToGroup
++edo:belongsToGroup rdf:type owl:AnnotationProperty ;
++                   rdfs:subPropertyOf edo:OrganizationalRelation ;
++                   rdfs:label "Belongs To Group"@en ,
++                              "Pertence a Grupo"@pt-br ;
++                   skos:definition "Indica que uma entidade do domínio é membro de um grupo, onde grupos representam um conceito de agrupamento organizacional ou lógico."@pt-br ,
++                                   "Indicates that a domain entity is a member of a group, where groups represent an organisational or logical grouping concept."@en ;
++                   skos:altLabel "Is Member Of"@en ,
++                                 "É Membro De"@pt-br ;
++                   dcterms:identifier "belongsToGroup" .
++
++
++###  https://w3id.org/energy-domain/edo#hasSparePart
++edo:hasSparePart rdf:type owl:AnnotationProperty ;
++                 rdfs:subPropertyOf edo:ProvisionRelation ;
++                 rdfs:label "Has Spare Part"@en ,
++                            "Tem Sobressalente"@pt-br ;
++                 skos:definition "Indica que um ativo do domínio pode ter sobressalentes destinados a substituição ou suporte à operação, registrados no schema do domínio."@pt-br ,
++                                 "Indicates that a domain asset may have spare parts intended to replace or support its operation, recorded in the domain schema."@en ;
++                 skos:altLabel "Spare For"@en ,
++                               "Sobressalente Para"@pt-br ;
++                 dcterms:identifier "hasSparePart" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainMetamodelAnnotation
++edo:DomainMetamodelAnnotation rdf:type owl:AnnotationProperty ;
++                              rdfs:subPropertyOf edo:DomainAnnotation ;
++                              rdfs:label "Domain Metamodel Annotation"@en ,
++                                         "Anotação de Metamodelo de Domínio"@pt-br ;
++                              skos:definition "Categoria de anotações que descrevem como elementos do metamodelo da Energy Domain Ontology são estruturados, classificados, governados ou validados."@pt-br ,
++                                              "Category of annotations that describe how Energy Domain Ontology metamodel elements are structured, classified, governed or validated."@en ;
++                              dcterms:identifier "DomainMetamodelAnnotation" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainApplicabilityAnnotation
++edo:DomainApplicabilityAnnotation rdf:type owl:AnnotationProperty ;
++                                  rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
++                                  rdfs:label "Domain Applicability Annotation"@en ,
++                                             "Anotação de Aplicabilidade de Domínio"@pt-br ;
++                                  skos:definition "Categoria de anotações que qualificam quando uma relação, atributo, valor ou regra se aplica no contexto do domínio."@pt-br ,
++                                                  "Category of annotations that qualify when a relation, attribute, value or rule applies in the domain context."@en ;
++                                  dcterms:identifier "DomainApplicabilityAnnotation" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainAttributeStructureAnnotation
++edo:DomainAttributeStructureAnnotation rdf:type owl:AnnotationProperty ;
++                                       rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
++                                       rdfs:label "Attribute Structure Annotation"@en ,
++                                                  "Anotação de Estrutura de Atributo"@pt-br ;
++                                       skos:definition "Categoria de anotações que descrevem como atributos são estruturados e organizados dentro da ontologia."@pt-br ,
++                                                       "Category of annotations that describe how attributes are structured and organised within the ontology."@en ;
++                                       dcterms:identifier "DomainAttributeStructureAnnotation" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainValidationAnnotation
++edo:DomainValidationAnnotation rdf:type owl:AnnotationProperty ;
++                               rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
++                               rdfs:label "Validation Annotation"@en ,
++                                          "Anotação de Validação"@pt-br ;
++                               skos:definition "Categoria de anotações usadas para expressar restrições e regras de validação sobre elementos da ontologia."@pt-br ,
++                                               "Category of annotations used to express constraints and validation rules over ontology elements."@en ;
++                               dcterms:identifier "DomainValidationAnnotation" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainClassificationAnnotation
++edo:DomainClassificationAnnotation rdf:type owl:AnnotationProperty ;
++                                   rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
++                                   rdfs:label "Classification Annotation"@en ,
++                                              "Anotação de Classificação"@pt-br ;
++                                   skos:definition "Categoria de anotações usadas para classificar elementos da ontologia de acordo com taxonomias específicas do domínio, como disciplina, domínio e categorias de atributos."@pt-br ,
++                                                   "Category of annotations used to classify ontology elements according to domain-specific taxonomies such as discipline, domain and attribute categories."@en ;
++                                   dcterms:identifier "DomainClassificationAnnotation" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainLifecycleAnnotation
++edo:DomainLifecycleAnnotation rdf:type owl:AnnotationProperty ;
++                              rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
++                              rdfs:label "Lifecycle Annotation"@en ,
++                                         "Anotação de Ciclo de Vida"@pt-br ;
++                              skos:definition "Categoria de anotações usadas para descrever aspectos de ciclo de vida de ativos e dados de domínio."@pt-br ,
++                                              "Category of annotations used to describe lifecycle-related aspects of domain assets and their data."@en ;
++                              dcterms:identifier "DomainLifecycleAnnotation" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainInteroperabilityAnnotation
++edo:DomainInteroperabilityAnnotation rdf:type owl:AnnotationProperty ;
++                                     rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
++                                     rdfs:label "Interoperability Annotation"@en ,
++                                                "Anotação de Interoperabilidade"@pt-br ;
++                                     skos:definition "Categoria de anotações usadas para expressar interoperabilidade com vocabulários, dicionários de dados, ontologias e classificações externas, sem ser específica de um único padrão."@pt-br ,
++                                                     "Category of annotations used to express interoperability with external vocabularies, data dictionaries, ontologies and classifications, without being specific to a single standard."@en ;
++                                     dcterms:identifier "DomainInteroperabilityAnnotation" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainGovernanceAnnotation
++edo:DomainGovernanceAnnotation rdf:type owl:AnnotationProperty ;
++                               rdfs:subPropertyOf edo:DomainMetamodelAnnotation ;
++                               rdfs:label "Governance Annotation"@en ,
++                                          "Anotação de Governança"@pt-br ;
++                               skos:definition "Categoria de anotações usadas para gerir maturidade, curadoria, publicação e governança editorial de entidades da Energy Domain Ontology."@pt-br ,
++                                               "Category of annotations used to manage maturity, curation, publication and editorial governance of entities in the Energy Domain Ontology."@en ;
++                               dcterms:identifier "DomainGovernanceAnnotation" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainRelationConstraintAnnotation
++edo:DomainRelationConstraintAnnotation rdf:type owl:AnnotationProperty ;
++                                       rdfs:subPropertyOf edo:DomainValidationAnnotation ;
++                                       rdfs:label "Relation Constraint Annotation"@en ,
++                                                  "Anotação de Restrição de Relacionamento"@pt-br ;
++                                       skos:definition "Categoria de anotações usadas para expressar restrições estruturais ou semânticas sobre relacionamentos de domínio, como cardinalidades esperadas por papel."@pt-br ,
++                                                       "Category of annotations used to express structural or semantic constraints on domain relationships, such as expected cardinalities per role."@en ;
++                                       dcterms:identifier "DomainRelationConstraintAnnotation" .
++
++
+ ###  https://w3id.org/energy-domain/edo#DomainAuxiliarAnnotation
+ edo:DomainAuxiliarAnnotation rdf:type owl:AnnotationProperty ;
+-                             rdfs:subPropertyOf edo:DomainAnnotation .
++                             rdfs:subPropertyOf edo:DomainMetamodelAnnotation .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#DomainEngineeringAnnotation
+ edo:DomainEngineeringAnnotation rdf:type owl:AnnotationProperty ;
+-                                rdfs:subPropertyOf edo:DomainAnnotation .
++                                rdfs:subPropertyOf edo:DomainMetamodelAnnotation .
+ 
+ 
+-###  https://w3id.org/energy-domain/edo#DomainRelation
+-edo:DomainRelation
+-    rdf:type owl:AnnotationProperty ;
+-    rdfs:label "Domain Relation"@en ;
+-    rdfs:label "Relacionamento de Domínio"@pt-br ;
+-    skos:definition "Root annotation property for representing conceptual relationships between domain entities in the Energy Domain Ontology."@en ;
+-    skos:definition "Propriedade de anotação raiz para representar relacionamentos conceituais entre entidades do domínio na Energy Domain Ontology."@pt-br ;
+-    dcterms:identifier "DomainRelation" .
++###  https://w3id.org/energy-domain/edo#appliesWhen
++edo:appliesWhen rdf:type owl:AnnotationProperty ;
++                rdfs:subPropertyOf edo:DomainApplicabilityAnnotation ;
++                rdfs:label "Applies When"@en ,
++                           "Aplica-se Quando"@pt-br ;
++                skos:definition "Qualifica o contexto em que uma relação, atributo, valor ou regra se aplica."@pt-br ,
++                                "Qualifies the context in which a relation, attribute, value or rule applies."@en ;
++                dcterms:identifier "appliesWhen" .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#appliesTo
+ edo:appliesTo rdf:type owl:AnnotationProperty ;
++              rdfs:subPropertyOf edo:DomainApplicabilityAnnotation ;
+               rdfs:label "Applies to"@en ,
+                          "Se aplica a"@pt-br ;
+-              skos:definition "Indica que o sujeito se aplica ao predicado"@pt-br ,
+-                              "Indicates that the subject applies to the object"@en ;
+-              rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
++              skos:definition "Indica que o sujeito se aplica ao predicado."@pt-br ,
++                              "Indicates that the subject applies to the object."@en .
++
++
++###  https://w3id.org/energy-domain/edo#appliesToDomainElement
++edo:appliesToDomainElement rdf:type owl:AnnotationProperty ;
++                           rdfs:subPropertyOf edo:DomainApplicabilityAnnotation ;
++                           rdfs:label "Applies To Domain Element"@en ,
++                                      "Aplica-se a Elemento de Domínio"@pt-br ;
++                           skos:definition "Indica a classe de elemento de domínio à qual uma entidade, atributo, valor ou regra se aplica."@pt-br ,
++                                           "Indicates the domain element class to which an entity, attribute, value or rule applies."@en ;
++                           dcterms:identifier "appliesToDomainElement" .
++
++
++###  https://w3id.org/energy-domain/edo#sourceType
++edo:sourceType rdf:type owl:AnnotationProperty ;
++               rdfs:subPropertyOf edo:DomainApplicabilityAnnotation ;
++               rdfs:label "Source Type"@en ,
++                          "Tipo de Origem"@pt-br ;
++               skos:definition "Indica o tipo de origem em uma regra, relação ou contexto de aplicabilidade."@pt-br ,
++                               "Indicates the source type in a rule, relation or applicability context."@en ;
++               dcterms:identifier "sourceType" .
++
++
++###  https://w3id.org/energy-domain/edo#targetType
++edo:targetType rdf:type owl:AnnotationProperty ;
++               rdfs:subPropertyOf edo:DomainApplicabilityAnnotation ;
++               rdfs:label "Target Type"@en ,
++                          "Tipo de Destino"@pt-br ;
++               skos:definition "Indica o tipo de destino em uma regra, relação ou contexto de aplicabilidade."@pt-br ,
++                               "Indicates the target type in a rule, relation or applicability context."@en ;
++               dcterms:identifier "targetType" .
++
++
++###  https://w3id.org/energy-domain/edo#allowedValue
++edo:allowedValue rdf:type owl:AnnotationProperty ;
++                 rdfs:subPropertyOf edo:DomainApplicabilityAnnotation ;
++                 rdfs:label "Allowed Value"@en ,
++                            "Valor Permitido"@pt-br ;
++                 skos:definition "Indica um valor controlado permitido para um atributo ou contexto de domínio."@pt-br ,
++                                 "Indicates a controlled value allowed for a domain attribute or context."@en ;
++                 dcterms:identifier "allowedValue" .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#defaultValidValues
+ edo:defaultValidValues rdf:type owl:AnnotationProperty ;
+-                       rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
++                       rdfs:subPropertyOf edo:DomainApplicabilityAnnotation .
+ 
+ 
+-###  https://w3id.org/energy-domain/edo#hasAttribute
+-edo:hasAttribute rdf:type owl:AnnotationProperty ;
+-                 rdfs:label "Has attribute"@en ,
+-                            "Possui atributo"@pt-br ;
+-                 skos:definition "Indica atributo(s) que a entidade possui"@pt-br ,
+-                                 "Indicates attribute(s) that the entity has"@en ;
+-                 rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
++###  https://w3id.org/energy-domain/edo#specifiValidValues
++edo:specifiValidValues rdf:type owl:AnnotationProperty ;
++                       rdfs:subPropertyOf edo:DomainApplicabilityAnnotation .
++
++
++###  https://w3id.org/energy-domain/edo#validValues
++edo:validValues rdf:type owl:AnnotationProperty ;
++                rdfs:subPropertyOf edo:DomainApplicabilityAnnotation ;
++                rdfs:label "Valid Values"@en ,
++                           "Valores Válidos"@pt-br ;
++                skos:definition "Lista de valores válidos para o atributo."@pt-br ,
++                                "List of valid values for the attribute."@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasAttributeCategory
+ edo:hasAttributeCategory rdf:type owl:AnnotationProperty ;
++                         rdfs:subPropertyOf edo:DomainClassificationAnnotation ;
+                          rdfs:label "has attribute category"@en ,
+                                     "tem categoria de atributo"@pt-br ;
+                          skos:definition "A categoria técnica do atributo (geométrica, funcional, etc.)"@pt-br ,
+-                                         "The technical category of the attribute (geometric, functional, etc.)"@en ;
+-                         rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                         "The technical category of the attribute (geometric, functional, etc.)"@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasAttributeGroup
+ edo:hasAttributeGroup rdf:type owl:AnnotationProperty ;
++                      rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation ;
+                       rdfs:label "has attribute group"@en ,
+                                  "tem grupo de atributo"@pt-br ;
+                       skos:definition "Indica que o atributo tem um agrupamento especial para fins de organização"@pt-br ,
+-                                      "Indicates that the attribute has a special grouping for organizational purposes"@en ;
+-                      rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                      "Indicates that the attribute has a special grouping for organizational purposes"@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasAttributeScope
+ edo:hasAttributeScope rdf:type owl:AnnotationProperty ;
++                      rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation ;
+                       rdfs:label "has attribute scope"@en ,
+                                  "tem escopo de atributo"@pt-br ;
+                       skos:definition "Classifica se o atributo se aplica ao tipo de equipamento, instância ou lote"@pt-br ,
+-                                      "Classifies whether the attribute applies to equipment type, instance or batch"@en ;
+-                      rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                      "Classifies whether the attribute applies to equipment type, instance or batch"@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasDiscipline
+ edo:hasDiscipline rdf:type owl:AnnotationProperty ;
++                  rdfs:subPropertyOf edo:DomainClassificationAnnotation ;
+                   rdfs:label "Has Discipline"@en ,
+                              "Pertence a uma disciplina técnica"@pt-br ;
+                   skos:definition "Associa a entidade a uma disciplina técnica"@pt-br ,
+-                                  "Belongs to a technical discipline"@en ;
+-                  rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                  "Belongs to a technical discipline"@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasDomain
+ edo:hasDomain rdf:type owl:AnnotationProperty ;
++              rdfs:subPropertyOf edo:DomainClassificationAnnotation ;
+               rdfs:label "Has Domain"@en ,
+                          "Pertence a um domínio"@pt-br ;
+               skos:definition "Associa a entidade a um ou mais domínios"@pt-br ,
+-                              "Belongs to one or more domains"@en ;
+-              rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
+-
+-
+-###  https://w3id.org/energy-domain/edo#hasLifecycleCreationPhase
+-edo:hasLifecycleCreationPhase rdf:type owl:AnnotationProperty ;
+-                              rdfs:label "has lifecycle creation phase"@en ,
+-                                         "tem fase de criação no ciclo de vida"@pt-br ;
+-                              skos:definition "A fase do ciclo de vida quando o valor do atributo é criado"@pt-br ,
+-                                              "The lifecycle phase when the attribute value is created"@en ;
+-                              rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
+-
+-
+-###  https://w3id.org/energy-domain/edo#hasLifecycleUsagePhase
+-edo:hasLifecycleUsagePhase rdf:type owl:AnnotationProperty ;
+-                           rdfs:label "has lifecycle usage phase"@en ,
+-                                      "tem fase de uso no ciclo de vida"@pt-br ;
+-                           skos:definition "A(s) fase(s) do ciclo de vida quando o valor do atributo é utilizado"@pt-br ,
+-                                           "The lifecycle phase(s) when the attribute value is used"@en ;
+-                           rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                              "Belongs to one or more domains"@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasLocationType
+ edo:hasLocationType rdf:type owl:AnnotationProperty ;
++                    rdfs:subPropertyOf edo:DomainClassificationAnnotation ;
+                     rdfs:label "Has Location Type"@en ,
+                                "Pertence a um tipo de locação"@pt-br ;
+                     skos:definition "Associa a entidade a um tipo de locação"@pt-br ,
+-                                    "Belongs to one or more Location Types"@en ;
+-                    rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                    "Belongs to one or more Location Types"@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasSubDomain
+ edo:hasSubDomain rdf:type owl:AnnotationProperty ;
++                 rdfs:subPropertyOf edo:DomainClassificationAnnotation ;
+                  rdfs:label "Has SubDomain"@en ,
+                             "Pertence a um subdomínio"@pt-br ;
+                  skos:definition "Associa a entidade a um ou mais subdomínios"@pt-br ,
+-                                 "Belongs to one or more subdomains"@en ;
+-                 rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                 "Belongs to one or more subdomains"@en .
++
++
++###  https://w3id.org/energy-domain/edo#hasLifecycleCreationPhase
++edo:hasLifecycleCreationPhase rdf:type owl:AnnotationProperty ;
++                              rdfs:subPropertyOf edo:DomainLifecycleAnnotation ;
++                              rdfs:label "has lifecycle creation phase"@en ,
++                                         "tem fase de criação no ciclo de vida"@pt-br ;
++                              skos:definition "A fase do ciclo de vida quando o valor do atributo é criado"@pt-br ,
++                                              "The lifecycle phase when the attribute value is created"@en .
++
++
++###  https://w3id.org/energy-domain/edo#hasLifecycleUsagePhase
++edo:hasLifecycleUsagePhase rdf:type owl:AnnotationProperty ;
++                           rdfs:subPropertyOf edo:DomainLifecycleAnnotation ;
++                           rdfs:label "has lifecycle usage phase"@en ,
++                                      "tem fase de uso no ciclo de vida"@pt-br ;
++                           skos:definition "A(s) fase(s) do ciclo de vida quando o valor do atributo é utilizado"@pt-br ,
++                                           "The lifecycle phase(s) when the attribute value is used"@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasTypedValue
+ edo:hasTypedValue rdf:type owl:AnnotationProperty ;
++                  rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation ;
+                   rdfs:label "Has Typed Value"@en ,
+                              "Possui tipo de valor"@pt-br ;
+                   skos:definition "Indica que a entidade tem um valor como número real, inteiro, texto, booleano e etc."@pt-br ,
+-                                  "Indicates that the entity has a typed value, lik float, string, boolean, integer, etc."@en ;
+-                  rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
++                                  "Indicates that the entity has a typed value, like float, string, boolean, integer, etc."@en .
++
++
++###  https://w3id.org/energy-domain/edo#hasUnit
++edo:hasUnit rdf:type owl:AnnotationProperty ;
++            rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation ;
++            rdfs:label "Has Unit"@en ,
++                       "Tem Unidade"@pt-br ;
++            skos:definition "Relaciona um DomainAttribute à unidade de medida na qual seus valores são expressos."@pt-br ,
++                            "Relates a DomainAttribute to the measurement unit in which its values are expressed."@en ;
++            dcterms:identifier "hasUnit" .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#hasValueCardinality
+ edo:hasValueCardinality rdf:type owl:AnnotationProperty ;
++                        rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation ;
+                         rdfs:label "Has Value Cardinality"@en ,
+                                    "Possui cardinalidade de valor"@pt-br ;
+                         skos:definition "Indica a quantidade de valores que a entidade possui"@pt-br ,
+-                                        "Indicates the quantity of values the entity support"@en ;
+-                        rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
++                                        "Indicates the quantity of values the entity supports"@en .
++
++
++###  https://w3id.org/energy-domain/edo#subjectExpectedCardinality
++edo:subjectExpectedCardinality rdf:type owl:AnnotationProperty ;
++                               rdfs:subPropertyOf edo:DomainRelationConstraintAnnotation ;
++                               rdfs:label "Subject Expected Cardinality"@en ,
++                                          "Cardinalidade Esperada do Sujeito"@pt-br ;
++                               skos:definition "Indica a cardinalidade esperada do papel de sujeito quando esta anotação é aplicada a um relacionamento de domínio."@pt-br ,
++                                               "Indicates the expected cardinality of the subject role when this annotation is applied to a domain relationship."@en ;
++                               dcterms:identifier "subjectExpectedCardinality" .
++
++
++###  https://w3id.org/energy-domain/edo#objectExpectedCardinality
++edo:objectExpectedCardinality rdf:type owl:AnnotationProperty ;
++                              rdfs:subPropertyOf edo:DomainRelationConstraintAnnotation ;
++                              rdfs:label "Object Expected Cardinality"@en ,
++                                         "Cardinalidade Esperada do Objeto"@pt-br ;
++                              skos:definition "Indica a cardinalidade esperada do papel de objeto quando esta anotação é aplicada a um relacionamento de domínio."@pt-br ,
++                                              "Indicates the expected cardinality of the object role when this annotation is applied to a domain relationship."@en ;
++                              dcterms:identifier "objectExpectedCardinality" .
++
++
++###  https://w3id.org/energy-domain/edo#equivalentExternalProperty
++edo:equivalentExternalProperty rdf:type owl:AnnotationProperty ;
++                               rdfs:subPropertyOf edo:DomainInteroperabilityAnnotation ;
++                               rdfs:label "Equivalent External Property"@en ,
++                                          "Propriedade Externa Equivalente"@pt-br ;
++                               skos:definition "Vincula uma propriedade da EDO a uma propriedade externa equivalente de outro vocabulário ou padrão."@pt-br ,
++                                               "Links an EDO property to an equivalent external property from another vocabulary or standard."@en ;
++                               skos:altLabel "External Equivalent"@en ,
++                                             "Equivalente Externo"@pt-br ;
++                               dcterms:identifier "equivalentExternalProperty" .
++
++
++###  https://w3id.org/energy-domain/edo#hasExternalRef
++edo:hasExternalRef rdf:type owl:AnnotationProperty ;
++                   rdfs:subPropertyOf edo:DomainInteroperabilityAnnotation ;
++                   rdfs:label "Has External Reference"@en ,
++                              "Tem Referência Externa"@pt-br ;
++                   skos:definition "Associa uma entidade da EDO a um conceito equivalente ou correspondente definido em um dicionário de dados, ontologia, sistema de classificação ou norma de engenharia externa."@pt-br ,
++                                   "Associates an EDO entity with an equivalent or corresponding concept defined in an external data dictionary, ontology, classification system or engineering standard."@en ;
++                   skos:altLabel "External Mapping"@en ,
++                                 "External Reference"@en ,
++                                 "Mapeamento Externo"@pt-br ,
++                                 "Referência Externa"@pt-br ;
++                   dcterms:identifier "hasExternalRef" .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#ifc_equivalentClass
+ edo:ifc_equivalentClass rdf:type owl:AnnotationProperty ;
++                        rdfs:subPropertyOf edo:DomainInteroperabilityAnnotation ;
+                         rdfs:label "Classe IFC equivalente"@pt-br ,
+                                    "IFC equivalent Class"@en ;
+                         skos:definition "Classe IFC equivalente"@pt-br ,
+-                                        "IFC equivalent class"@en ;
+-                        rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                        "IFC equivalent class"@en .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#ifc_objectType
+ edo:ifc_objectType rdf:type owl:AnnotationProperty ;
++                   rdfs:subPropertyOf edo:DomainInteroperabilityAnnotation ;
+                    rdfs:label "IFC ObjectType"@en ,
+                               "ObjectType IFC"@pt-br ;
+                    skos:definition "Object Type for IFC class customization"@en ,
+-                                   "Object Type para a customização de classes IFC"@pt-br ;
+-                   rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                   "Object Type para a customização de classes IFC"@pt-br .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#ifc_predefinedType
+ edo:ifc_predefinedType rdf:type owl:AnnotationProperty ;
++                       rdfs:subPropertyOf edo:DomainInteroperabilityAnnotation ;
+                        rdfs:label "IFC PredefinedType"@en ,
+                                   "PredefinedType IFC"@pt-br ;
+                        skos:definition "Predefined Type for IFC class customization"@en ,
+-                                       "Predefined Type para a customização de classes IFC"@pt-br ;
+-                       rdfs:subPropertyOf edo:DomainEngineeringAnnotation .
++                                       "Predefined Type para a customização de classes IFC"@pt-br .
+ 
+ 
+-###  https://w3id.org/energy-domain/edo#specifiValidValues
+-edo:specifiValidValues rdf:type owl:AnnotationProperty ;
+-                       rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
+-
+-
+-###  https://w3id.org/energy-domain/edo#validValues
+-edo:validValues rdf:type owl:AnnotationProperty ;
+-                rdfs:label "Valid Values"@en ,
+-                           "Valores Válidos"@pt-br ;
+-                skos:definition "List of Valid Values for the Attribute"@en ,
+-                                "Lista de valores válidos para o atributo"@pt-br ;
+-                rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
++###  https://w3id.org/energy-domain/edo#hasMaturityLevel
++edo:hasMaturityLevel rdf:type owl:AnnotationProperty ;
++                     rdfs:subPropertyOf edo:DomainGovernanceAnnotation ;
++                     rdfs:label "Has Maturity Level"@en ,
++                                "Tem Nível de Maturidade"@pt-br ;
++                     skos:definition "Indica o nível de maturidade editorial ou de governança de uma entidade da Energy Domain Ontology."@pt-br ,
++                                     "Indicates the editorial or governance maturity level of an Energy Domain Ontology entity."@en ;
++                     dcterms:identifier "hasMaturityLevel" .
+ 
+ 
+ #################################################################
