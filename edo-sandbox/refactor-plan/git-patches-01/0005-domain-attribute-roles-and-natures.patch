@@ -1,0 +1,182 @@
+diff --git a/core/edo.ttl b/core/edo.ttl
+index ea2e634..594bc7d 100644
+--- a/core/edo.ttl
++++ b/core/edo.ttl
+@@ -639,6 +639,26 @@ edo:hasValueCardinality rdf:type owl:AnnotationProperty ;
+                                         "Indicates the quantity of values the entity supports"@en .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#lifecycleRole
++edo:lifecycleRole rdf:type owl:AnnotationProperty ;
++                  rdfs:subPropertyOf edo:DomainLifecycleAnnotation ;
++                  rdfs:label "Lifecycle role"@en ,
++                             "Papel no ciclo de vida"@pt-br ;
++                  skos:definition "Indicates the semantic lifecycle role played by a domain attribute, such as requirement, design, test, operation, installation, as-built or certification."@en ,
++                                  "Indica o papel semântico desempenhado por um atributo de domínio ao longo do ciclo de vida, como requisito, projeto, teste, operação, instalação, as-built ou certificação."@pt-br ;
++                  dcterms:identifier "lifecycleRole" .
++
++
++###  https://w3id.org/energy-domain/edo#attributeNature
++edo:attributeNature rdf:type owl:AnnotationProperty ;
++                    rdfs:subPropertyOf edo:DomainClassificationAnnotation ;
++                    rdfs:label "Attribute nature"@en ,
++                               "Natureza do atributo"@pt-br ;
++                    skos:definition "Indicates the conceptual nature of a domain attribute, such as dimensional, mechanical, environmental, operational, performance, location or capability."@en ,
++                                    "Indica a natureza conceitual de um atributo de domínio, como dimensional, mecânica, ambiental, operacional, desempenho, localização ou capacidade."@pt-br ;
++                    dcterms:identifier "attributeNature" .
++
++
+ ###  https://w3id.org/energy-domain/edo#subjectExpectedCardinality
+ edo:subjectExpectedCardinality rdf:type owl:AnnotationProperty ;
+                                rdfs:subPropertyOf edo:DomainRelationConstraintAnnotation ;
+@@ -2261,6 +2281,150 @@ edo:DomainAttribute rdf:type owl:Class ;
+                                    "Domain Attribute"@en .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#DomainAttributeRole
++edo:DomainAttributeRole rdf:type skos:ConceptScheme ;
++                        rdfs:label "Domain attribute role"@en ,
++                                   "Papel de atributo de domínio"@pt-br ;
++                        skos:definition "Controlled vocabulary for semantic lifecycle roles played by domain attributes."@en ,
++                                        "Vocabulário controlado para papéis semânticos de ciclo de vida desempenhados por atributos de domínio."@pt-br ;
++                        dcterms:identifier "DomainAttributeRole" .
++
++
++edo:RequirementRole rdf:type skos:Concept ;
++                    skos:inScheme edo:DomainAttributeRole ;
++                    skos:prefLabel "Requirement role"@en ,
++                                   "Papel de requisito"@pt-br ;
++                    skos:definition "Role of an attribute that expresses a required or contractual value."@en ,
++                                    "Papel de um atributo que expressa um valor requerido ou contratual."@pt-br ;
++                    dcterms:identifier "RequirementRole" .
++
++
++edo:DesignRole rdf:type skos:Concept ;
++               skos:inScheme edo:DomainAttributeRole ;
++               skos:prefLabel "Design role"@en ,
++                              "Papel de projeto"@pt-br ;
++               skos:definition "Role of an attribute that expresses a value defined by engineering design."@en ,
++                               "Papel de um atributo que expressa um valor definido pelo projeto de engenharia."@pt-br ;
++               dcterms:identifier "DesignRole" .
++
++
++edo:TestRole rdf:type skos:Concept ;
++             skos:inScheme edo:DomainAttributeRole ;
++             skos:prefLabel "Test role"@en ,
++                            "Papel de teste"@pt-br ;
++             skos:definition "Role of an attribute that expresses a value associated with testing or verification."@en ,
++                             "Papel de um atributo que expressa um valor associado a teste ou verificação."@pt-br ;
++             dcterms:identifier "TestRole" .
++
++
++edo:OperatingRole rdf:type skos:Concept ;
++                  skos:inScheme edo:DomainAttributeRole ;
++                  skos:prefLabel "Operating role"@en ,
++                                 "Papel operacional"@pt-br ;
++                  skos:definition "Role of an attribute that expresses an operating value or condition."@en ,
++                                  "Papel de um atributo que expressa um valor ou condição operacional."@pt-br ;
++                  dcterms:identifier "OperatingRole" .
++
++
++edo:InstalledRole rdf:type skos:Concept ;
++                  skos:inScheme edo:DomainAttributeRole ;
++                  skos:prefLabel "Installed role"@en ,
++                                 "Papel instalado"@pt-br ;
++                  skos:definition "Role of an attribute that expresses a factual value or condition of the installed asset."@en ,
++                                  "Papel de um atributo que expressa um valor ou condição factual do ativo instalado."@pt-br ;
++                  dcterms:identifier "InstalledRole" .
++
++
++edo:AsBuiltRole rdf:type skos:Concept ;
++                skos:inScheme edo:DomainAttributeRole ;
++                skos:prefLabel "As-built role"@en ,
++                               "Papel as-built"@pt-br ;
++                skos:definition "Role of an attribute that expresses a documented as-built value."@en ,
++                                "Papel de um atributo que expressa um valor as-built documentado."@pt-br ;
++                dcterms:identifier "AsBuiltRole" .
++
++
++edo:CertifiedRole rdf:type skos:Concept ;
++                  skos:inScheme edo:DomainAttributeRole ;
++                  skos:prefLabel "Certified role"@en ,
++                                 "Papel certificado"@pt-br ;
++                  skos:definition "Role of an attribute that expresses a formally certified value, capability or condition."@en ,
++                                  "Papel de um atributo que expressa um valor, capacidade ou condição formalmente certificada."@pt-br ;
++                  dcterms:identifier "CertifiedRole" .
++
++
++###  https://w3id.org/energy-domain/edo#DomainAttributeNature
++edo:DomainAttributeNature rdf:type skos:ConceptScheme ;
++                          rdfs:label "Domain attribute nature"@en ,
++                                     "Natureza de atributo de domínio"@pt-br ;
++                          skos:definition "Controlled vocabulary for conceptual natures of domain attributes."@en ,
++                                          "Vocabulário controlado para naturezas conceituais de atributos de domínio."@pt-br ;
++                          dcterms:identifier "DomainAttributeNature" .
++
++
++edo:DimensionalAttribute rdf:type skos:Concept ;
++                         skos:inScheme edo:DomainAttributeNature ;
++                         skos:prefLabel "Dimensional attribute"@en ,
++                                        "Atributo dimensional"@pt-br ;
++                         skos:definition "Attribute nature related to dimensions, geometry or measurable extent."@en ,
++                                         "Natureza de atributo relacionada a dimensões, geometria ou extensão mensurável."@pt-br ;
++                         dcterms:identifier "DimensionalAttribute" .
++
++
++edo:MechanicalAttribute rdf:type skos:Concept ;
++                        skos:inScheme edo:DomainAttributeNature ;
++                        skos:prefLabel "Mechanical attribute"@en ,
++                                       "Atributo mecânico"@pt-br ;
++                        skos:definition "Attribute nature related to mechanical behaviour, resistance, load or strength."@en ,
++                                        "Natureza de atributo relacionada a comportamento mecânico, resistência, carga ou capacidade estrutural."@pt-br ;
++                        dcterms:identifier "MechanicalAttribute" .
++
++
++edo:EnvironmentalAttribute rdf:type skos:Concept ;
++                           skos:inScheme edo:DomainAttributeNature ;
++                           skos:prefLabel "Environmental attribute"@en ,
++                                          "Atributo ambiental"@pt-br ;
++                           skos:definition "Attribute nature related to environmental conditions or exposure."@en ,
++                                           "Natureza de atributo relacionada a condições ambientais ou exposição."@pt-br ;
++                           dcterms:identifier "EnvironmentalAttribute" .
++
++
++edo:OperationalAttribute rdf:type skos:Concept ;
++                         skos:inScheme edo:DomainAttributeNature ;
++                         skos:prefLabel "Operational attribute"@en ,
++                                        "Atributo operacional"@pt-br ;
++                         skos:definition "Attribute nature related to operation, use or service conditions."@en ,
++                                         "Natureza de atributo relacionada a operação, uso ou condições de serviço."@pt-br ;
++                         dcterms:identifier "OperationalAttribute" .
++
++
++edo:PerformanceAttribute rdf:type skos:Concept ;
++                         skos:inScheme edo:DomainAttributeNature ;
++                         skos:prefLabel "Performance attribute"@en ,
++                                        "Atributo de desempenho"@pt-br ;
++                         skos:definition "Attribute nature related to expected or observed performance."@en ,
++                                         "Natureza de atributo relacionada a desempenho esperado ou observado."@pt-br ;
++                         dcterms:identifier "PerformanceAttribute" .
++
++
++edo:LocationAttribute rdf:type skos:Concept ;
++                      skos:inScheme edo:DomainAttributeNature ;
++                      skos:prefLabel "Location attribute"@en ,
++                                     "Atributo de localização"@pt-br ;
++                      skos:definition "Attribute nature related to physical, spatial or installation location."@en ,
++                                      "Natureza de atributo relacionada a localização física, espacial ou de instalação."@pt-br ;
++                      dcterms:identifier "LocationAttribute" .
++
++
++edo:CapabilityAttribute rdf:type skos:Concept ;
++                        skos:inScheme edo:DomainAttributeNature ;
++                        skos:prefLabel "Capability attribute"@en ,
++                                       "Atributo de capacidade"@pt-br ;
++                        skos:definition "Attribute nature related to a capability, limit or supported condition."@en ,
++                                        "Natureza de atributo relacionada a uma capacidade, limite ou condição suportada."@pt-br ;
++                        dcterms:identifier "CapabilityAttribute" .
++
++
+ ###  https://w3id.org/energy-domain/edo#DomainClassification
+ edo:DomainClassification rdf:type owl:Class ;
+                          rdfs:label "Classificação de Domínio"@pt-br ,
