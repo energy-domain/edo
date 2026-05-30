@@ -1,0 +1,17 @@
+PREFIX edo-ifc: <https://w3id.org/energy-domain/edo-ifc#>
+
+# Run against: core/edo.ttl
+# Expected result: empty.
+# Finds references from the EDO core to EDO-IFC resources.
+
+SELECT ?subject ?property ?object
+WHERE {
+  ?subject ?property ?object .
+
+  FILTER (
+    STRSTARTS(STR(?subject), STR(edo-ifc:)) ||
+    STRSTARTS(STR(?property), STR(edo-ifc:)) ||
+    STRSTARTS(STR(?object), STR(edo-ifc:))
+  )
+}
+ORDER BY ?subject ?property ?object

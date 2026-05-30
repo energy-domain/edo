@@ -1,0 +1,24 @@
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Run against: core/edo.ttl
+# Expected result: empty.
+# Checks key domain relations that should be under edo:DomainRelation.
+
+SELECT ?relation
+WHERE {
+  VALUES ?relation {
+    edo:hasPart
+    edo:hasDirectPart
+    edo:hasSpec
+    edo:isDefinedByType
+    edo:isConnectedTo
+    edo:hasConnectionPoint
+    edo:hasAttachmentPoint
+  }
+
+  FILTER NOT EXISTS {
+    ?relation rdfs:subPropertyOf+ edo:DomainRelation .
+  }
+}
+ORDER BY ?relation

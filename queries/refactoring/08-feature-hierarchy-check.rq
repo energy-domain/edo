@@ -1,0 +1,21 @@
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Run against: core/edo.ttl
+# Expected result: empty.
+# Checks whether feature-like concepts remain below edo:Feature.
+
+SELECT ?class
+WHERE {
+  VALUES ?class {
+    edo:ConnectionPoint
+    edo:AttachmentPoint
+    edo:ReferencePoint
+    edo:Port
+  }
+
+  FILTER NOT EXISTS {
+    ?class rdfs:subClassOf+ edo:Feature .
+  }
+}
+ORDER BY ?class

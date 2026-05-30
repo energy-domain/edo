@@ -1,0 +1,326 @@
+From e675160a2591fdd4ba39d12c178a2ed09b1a988e Mon Sep 17 00:00:00 2001
+From: test <test@example.com>
+Date: Sat, 30 May 2026 12:19:06 +0000
+Subject: [PATCH] add sparql validation queries
+
+---
+ .../01-core-no-legacy-ifc-properties.rq       | 17 ++++++++++
+ .../02-core-no-edo-ifc-namespace.rq           | 17 ++++++++++
+ .../03-datatypes-no-owl-restrictions.rq       | 21 +++++++++++++
+ ...domain-attributes-missing-hasTypedValue.rq | 16 ++++++++++
+ ...ain-attributes-missing-attribute-nature.rq | 16 ++++++++++
+ ...cycle-attributes-missing-lifecycle-role.rq | 25 +++++++++++++++
+ ...7-domain-relations-below-domainrelation.rq | 24 ++++++++++++++
+ .../refactoring/08-feature-hierarchy-check.rq | 21 +++++++++++++
+ .../09-waterdepth-lifecycle-completeness.rq   | 31 +++++++++++++++++++
+ .../10-edo-ifc-isdefinedbytype-mapping.rq     | 24 ++++++++++++++
+ queries/refactoring/README.md                 | 15 +++++++++
+ 11 files changed, 227 insertions(+)
+ create mode 100644 queries/refactoring/01-core-no-legacy-ifc-properties.rq
+ create mode 100644 queries/refactoring/02-core-no-edo-ifc-namespace.rq
+ create mode 100644 queries/refactoring/03-datatypes-no-owl-restrictions.rq
+ create mode 100644 queries/refactoring/04-domain-attributes-missing-hasTypedValue.rq
+ create mode 100644 queries/refactoring/05-domain-attributes-missing-attribute-nature.rq
+ create mode 100644 queries/refactoring/06-lifecycle-attributes-missing-lifecycle-role.rq
+ create mode 100644 queries/refactoring/07-domain-relations-below-domainrelation.rq
+ create mode 100644 queries/refactoring/08-feature-hierarchy-check.rq
+ create mode 100644 queries/refactoring/09-waterdepth-lifecycle-completeness.rq
+ create mode 100644 queries/refactoring/10-edo-ifc-isdefinedbytype-mapping.rq
+ create mode 100644 queries/refactoring/README.md
+
+diff --git a/queries/refactoring/01-core-no-legacy-ifc-properties.rq b/queries/refactoring/01-core-no-legacy-ifc-properties.rq
+new file mode 100644
+index 0000000..faee3c7
+--- /dev/null
++++ b/queries/refactoring/01-core-no-legacy-ifc-properties.rq
+@@ -0,0 +1,17 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++
++# Run against: core/edo.ttl
++# Expected result: empty.
++# Finds legacy IFC mapping annotations that must not remain in the EDO core.
++
++SELECT ?subject ?property ?object
++WHERE {
++  VALUES ?property {
++    edo:ifc_equivalentClass
++    edo:ifc_objectType
++    edo:ifc_predefinedType
++  }
++
++  ?subject ?property ?object .
++}
++ORDER BY ?subject ?property ?object
+diff --git a/queries/refactoring/02-core-no-edo-ifc-namespace.rq b/queries/refactoring/02-core-no-edo-ifc-namespace.rq
+new file mode 100644
+index 0000000..bb73995
+--- /dev/null
++++ b/queries/refactoring/02-core-no-edo-ifc-namespace.rq
+@@ -0,0 +1,17 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo-ifc#>
++
++# Run against: core/edo.ttl
++# Expected result: empty.
++# Finds references from the EDO core to EDO-IFC resources.
++
++SELECT ?subject ?property ?object
++WHERE {
++  ?subject ?property ?object .
++
++  FILTER (
++    STRSTARTS(STR(?subject), STR(edo-ifc:)) ||
++    STRSTARTS(STR(?property), STR(edo-ifc:)) ||
++    STRSTARTS(STR(?object), STR(edo-ifc:))
++  )
++}
++ORDER BY ?subject ?property ?object
+diff --git a/queries/refactoring/03-datatypes-no-owl-restrictions.rq b/queries/refactoring/03-datatypes-no-owl-restrictions.rq
+new file mode 100644
+index 0000000..9a34b23
+--- /dev/null
++++ b/queries/refactoring/03-datatypes-no-owl-restrictions.rq
+@@ -0,0 +1,21 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++PREFIX owl: <http://www.w3.org/2002/07/owl#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++# Run against: core/edo.ttl
++# Expected result: empty.
++# DataTypes should declare their expected XSD type with edo:expectedXsdType,
++# not through OWL restrictions.
++
++SELECT ?datatype ?predicate ?restriction
++WHERE {
++  ?datatype rdfs:subClassOf* edo:DataType .
++  ?datatype ?predicate ?restriction .
++  ?restriction a owl:Restriction .
++
++  VALUES ?predicate {
++    rdfs:subClassOf
++    owl:equivalentClass
++  }
++}
++ORDER BY ?datatype ?predicate
+diff --git a/queries/refactoring/04-domain-attributes-missing-hasTypedValue.rq b/queries/refactoring/04-domain-attributes-missing-hasTypedValue.rq
+new file mode 100644
+index 0000000..6c6e808
+--- /dev/null
++++ b/queries/refactoring/04-domain-attributes-missing-hasTypedValue.rq
+@@ -0,0 +1,16 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++# Run against: core/edo.ttl
++# Expected result: review list.
++# Finds DomainAttribute classes without an explicit value type.
++
++SELECT ?attribute
++WHERE {
++  ?attribute rdfs:subClassOf+ edo:DomainAttribute .
++
++  FILTER NOT EXISTS {
++    ?attribute edo:hasTypedValue ?valueType .
++  }
++}
++ORDER BY ?attribute
+diff --git a/queries/refactoring/05-domain-attributes-missing-attribute-nature.rq b/queries/refactoring/05-domain-attributes-missing-attribute-nature.rq
+new file mode 100644
+index 0000000..c059fbc
+--- /dev/null
++++ b/queries/refactoring/05-domain-attributes-missing-attribute-nature.rq
+@@ -0,0 +1,16 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++# Run against: core/edo.ttl
++# Expected result: review list.
++# Finds DomainAttribute classes without edo:attributeNature.
++
++SELECT ?attribute
++WHERE {
++  ?attribute rdfs:subClassOf+ edo:DomainAttribute .
++
++  FILTER NOT EXISTS {
++    ?attribute edo:attributeNature ?nature .
++  }
++}
++ORDER BY ?attribute
+diff --git a/queries/refactoring/06-lifecycle-attributes-missing-lifecycle-role.rq b/queries/refactoring/06-lifecycle-attributes-missing-lifecycle-role.rq
+new file mode 100644
+index 0000000..b863a64
+--- /dev/null
++++ b/queries/refactoring/06-lifecycle-attributes-missing-lifecycle-role.rq
+@@ -0,0 +1,25 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++# Run against: core/edo.ttl
++# Expected result: review list.
++# Finds attributes whose local names suggest lifecycle semantics but that do not
++# declare edo:lifecycleRole.
++
++SELECT ?attribute ?localName
++WHERE {
++  ?attribute rdfs:subClassOf+ edo:DomainAttribute .
++
++  BIND(REPLACE(STR(?attribute), "^.*[#/]", "") AS ?localName)
++
++  FILTER REGEX(
++    ?localName,
++    "^(Required|Designed|Certified|Installed|AsBuilt|Operating|Test|Factory|Commissioning|Maximum|Minimum|Nominal|Allowable|Design)",
++    "i"
++  )
++
++  FILTER NOT EXISTS {
++    ?attribute edo:lifecycleRole ?role .
++  }
++}
++ORDER BY ?localName
+diff --git a/queries/refactoring/07-domain-relations-below-domainrelation.rq b/queries/refactoring/07-domain-relations-below-domainrelation.rq
+new file mode 100644
+index 0000000..c6a4d92
+--- /dev/null
++++ b/queries/refactoring/07-domain-relations-below-domainrelation.rq
+@@ -0,0 +1,24 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++# Run against: core/edo.ttl
++# Expected result: empty.
++# Checks key domain relations that should be under edo:DomainRelation.
++
++SELECT ?relation
++WHERE {
++  VALUES ?relation {
++    edo:hasPart
++    edo:hasDirectPart
++    edo:hasSpec
++    edo:isDefinedByType
++    edo:isConnectedTo
++    edo:hasConnectionPoint
++    edo:hasAttachmentPoint
++  }
++
++  FILTER NOT EXISTS {
++    ?relation rdfs:subPropertyOf+ edo:DomainRelation .
++  }
++}
++ORDER BY ?relation
+diff --git a/queries/refactoring/08-feature-hierarchy-check.rq b/queries/refactoring/08-feature-hierarchy-check.rq
+new file mode 100644
+index 0000000..0594f75
+--- /dev/null
++++ b/queries/refactoring/08-feature-hierarchy-check.rq
+@@ -0,0 +1,21 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++# Run against: core/edo.ttl
++# Expected result: empty.
++# Checks whether feature-like concepts remain below edo:Feature.
++
++SELECT ?class
++WHERE {
++  VALUES ?class {
++    edo:ConnectionPoint
++    edo:AttachmentPoint
++    edo:ReferencePoint
++    edo:Port
++  }
++
++  FILTER NOT EXISTS {
++    ?class rdfs:subClassOf+ edo:Feature .
++  }
++}
++ORDER BY ?class
+diff --git a/queries/refactoring/09-waterdepth-lifecycle-completeness.rq b/queries/refactoring/09-waterdepth-lifecycle-completeness.rq
+new file mode 100644
+index 0000000..0dced44
+--- /dev/null
++++ b/queries/refactoring/09-waterdepth-lifecycle-completeness.rq
+@@ -0,0 +1,31 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++# Run against: core/edo.ttl
++# Expected result: empty.
++# Checks the first lifecycle attribute family created during the refactoring.
++
++SELECT ?attribute ?missing
++WHERE {
++  VALUES ?attribute {
++    edo:WaterDepth
++    edo:MaxWaterDepth
++    edo:RequiredMaxWaterDepth
++    edo:DesignedMaxWaterDepth
++    edo:CertifiedMaxWaterDepth
++    edo:InstalledWaterDepth
++  }
++
++  VALUES ?requiredProperty {
++    edo:hasTypedValue
++    edo:hasUnit
++    edo:attributeNature
++  }
++
++  FILTER NOT EXISTS {
++    ?attribute ?requiredProperty ?value .
++  }
++
++  BIND(STRAFTER(STR(?requiredProperty), STR(edo:)) AS ?missing)
++}
++ORDER BY ?attribute ?missing
+diff --git a/queries/refactoring/10-edo-ifc-isdefinedbytype-mapping.rq b/queries/refactoring/10-edo-ifc-isdefinedbytype-mapping.rq
+new file mode 100644
+index 0000000..228f024
+--- /dev/null
++++ b/queries/refactoring/10-edo-ifc-isdefinedbytype-mapping.rq
+@@ -0,0 +1,24 @@
++PREFIX edo: <https://w3id.org/energy-domain/edo#>
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo-ifc#>
++
++# Run against: mappings/ifc/edo-ifc.ttl
++# Expected result: empty.
++# Checks that edo:isDefinedByType is mapped to IfcRelDefinesByType in EDO-IFC.
++
++SELECT ?missing
++WHERE {
++  VALUES ?requiredTriple {
++    "ifc_equivalentClass"
++    "ifc_subjectRole"
++    "ifc_objectRole"
++  }
++
++  FILTER (
++    (?requiredTriple = "ifc_equivalentClass" && NOT EXISTS { edo:isDefinedByType edo-ifc:ifc_equivalentClass edo-ifc:IfcRelDefinesByType }) ||
++    (?requiredTriple = "ifc_subjectRole" && NOT EXISTS { edo:isDefinedByType edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects }) ||
++    (?requiredTriple = "ifc_objectRole" && NOT EXISTS { edo:isDefinedByType edo-ifc:ifc_objectRole edo-ifc:RelatingType })
++  )
++
++  BIND(?requiredTriple AS ?missing)
++}
++ORDER BY ?missing
+diff --git a/queries/refactoring/README.md b/queries/refactoring/README.md
+new file mode 100644
+index 0000000..af06327
+--- /dev/null
++++ b/queries/refactoring/README.md
+@@ -0,0 +1,15 @@
++# Refactoring validation queries
++
++This folder contains SPARQL queries used to validate the EDO refactoring.
++
++The queries are intentionally conservative: they return possible issues to review, not automatic corrections.
++
++Recommended use:
++
++```powershell
++python scripts/run-sparql.py queries/refactoring/01-core-no-legacy-ifc-properties.rq core/edo.ttl
++```
++
++If the project does not yet have a SPARQL runner, load the indicated TTL files in Protégé, GraphDB, RDF4J, Apache Jena, or another RDF tool and execute the query manually.
++
++Most queries are expected to return an empty result set. Queries that identify missing metadata may return known backlog items and should be used as curation aids.
+-- 
+2.47.3
+

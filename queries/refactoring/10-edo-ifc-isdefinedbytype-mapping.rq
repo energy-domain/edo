@@ -1,0 +1,24 @@
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+PREFIX edo-ifc: <https://w3id.org/energy-domain/edo-ifc#>
+
+# Run against: mappings/ifc/edo-ifc.ttl
+# Expected result: empty.
+# Checks that edo:isDefinedByType is mapped to IfcRelDefinesByType in EDO-IFC.
+
+SELECT ?missing
+WHERE {
+  VALUES ?requiredTriple {
+    "ifc_equivalentClass"
+    "ifc_subjectRole"
+    "ifc_objectRole"
+  }
+
+  FILTER (
+    (?requiredTriple = "ifc_equivalentClass" && NOT EXISTS { edo:isDefinedByType edo-ifc:ifc_equivalentClass edo-ifc:IfcRelDefinesByType }) ||
+    (?requiredTriple = "ifc_subjectRole" && NOT EXISTS { edo:isDefinedByType edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects }) ||
+    (?requiredTriple = "ifc_objectRole" && NOT EXISTS { edo:isDefinedByType edo-ifc:ifc_objectRole edo-ifc:RelatingType })
+  )
+
+  BIND(?requiredTriple AS ?missing)
+}
+ORDER BY ?missing

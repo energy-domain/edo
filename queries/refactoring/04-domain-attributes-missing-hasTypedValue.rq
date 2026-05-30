@@ -1,0 +1,16 @@
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Run against: core/edo.ttl
+# Expected result: review list.
+# Finds DomainAttribute classes without an explicit value type.
+
+SELECT ?attribute
+WHERE {
+  ?attribute rdfs:subClassOf+ edo:DomainAttribute .
+
+  FILTER NOT EXISTS {
+    ?attribute edo:hasTypedValue ?valueType .
+  }
+}
+ORDER BY ?attribute

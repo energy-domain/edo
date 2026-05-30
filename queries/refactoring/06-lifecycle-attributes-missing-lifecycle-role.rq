@@ -1,0 +1,25 @@
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Run against: core/edo.ttl
+# Expected result: review list.
+# Finds attributes whose local names suggest lifecycle semantics but that do not
+# declare edo:lifecycleRole.
+
+SELECT ?attribute ?localName
+WHERE {
+  ?attribute rdfs:subClassOf+ edo:DomainAttribute .
+
+  BIND(REPLACE(STR(?attribute), "^.*[#/]", "") AS ?localName)
+
+  FILTER REGEX(
+    ?localName,
+    "^(Required|Designed|Certified|Installed|AsBuilt|Operating|Test|Factory|Commissioning|Maximum|Minimum|Nominal|Allowable|Design)",
+    "i"
+  )
+
+  FILTER NOT EXISTS {
+    ?attribute edo:lifecycleRole ?role .
+  }
+}
+ORDER BY ?localName

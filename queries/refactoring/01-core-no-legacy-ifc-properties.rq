@@ -1,0 +1,17 @@
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+
+# Run against: core/edo.ttl
+# Expected result: empty.
+# Finds legacy IFC mapping annotations that must not remain in the EDO core.
+
+SELECT ?subject ?property ?object
+WHERE {
+  VALUES ?property {
+    edo:ifc_equivalentClass
+    edo:ifc_objectType
+    edo:ifc_predefinedType
+  }
+
+  ?subject ?property ?object .
+}
+ORDER BY ?subject ?property ?object

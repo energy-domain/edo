@@ -1,0 +1,31 @@
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Run against: core/edo.ttl
+# Expected result: empty.
+# Checks the first lifecycle attribute family created during the refactoring.
+
+SELECT ?attribute ?missing
+WHERE {
+  VALUES ?attribute {
+    edo:WaterDepth
+    edo:MaxWaterDepth
+    edo:RequiredMaxWaterDepth
+    edo:DesignedMaxWaterDepth
+    edo:CertifiedMaxWaterDepth
+    edo:InstalledWaterDepth
+  }
+
+  VALUES ?requiredProperty {
+    edo:hasTypedValue
+    edo:hasUnit
+    edo:attributeNature
+  }
+
+  FILTER NOT EXISTS {
+    ?attribute ?requiredProperty ?value .
+  }
+
+  BIND(STRAFTER(STR(?requiredProperty), STR(edo:)) AS ?missing)
+}
+ORDER BY ?attribute ?missing
