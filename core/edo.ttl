@@ -2337,18 +2337,137 @@ edo:DimensionsTableColumn rdf:type owl:Class ;
                           rdfs:subClassOf edo:DrawingDimensionsTableAttribute .
 
 
+###  https://w3id.org/energy-domain/edo#Volume
+edo:Volume rdf:type owl:Class ;
+           rdfs:subClassOf edo:DomainAttribute ;
+           dcterms:identifier "Volume" ;
+           skos:definition "Amount of three-dimensional space occupied, enclosed, or displaced by an element, component, material, or system."@en ;
+           skos:prefLabel "Volume"@en ,
+                          "Volume"@pt-br ;
+           edo:hasAttributeScope edo:TypeLevelAttribute ;
+           edo:hasTypedValue edo:FloatValue ;
+           edo:hasUnit unit:M3 ;
+           edo:hasValueCardinality edo:SingleValue ;
+           edo:attributeNature edo:DimensionalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RequiredVolume
+edo:RequiredVolume rdf:type owl:Class ;
+                   rdfs:subClassOf edo:Volume ;
+                   dcterms:identifier "RequiredVolume" ;
+                   skos:definition "Required volume that an element, component, material, or system shall satisfy."@en ;
+                   skos:prefLabel "Required Volume"@en ,
+                                  "Volume Requerido"@pt-br ;
+                   edo:specializesAttribute edo:Volume ;
+                   edo:lifecycleRole edo:RequirementRole ;
+                   edo:attributeNature edo:DimensionalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignedVolume
+edo:DesignedVolume rdf:type owl:Class ;
+                   rdfs:subClassOf edo:Volume ;
+                   dcterms:identifier "DesignedVolume" ;
+                   skos:definition "Volume defined by design."@en ;
+                   skos:prefLabel "Designed Volume"@en ,
+                                  "Volume de Projeto"@pt-br ;
+                   edo:specializesAttribute edo:Volume ;
+                   edo:lifecycleRole edo:DesignRole ;
+                   edo:attributeNature edo:DimensionalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedVolume
+edo:CertifiedVolume rdf:type owl:Class ;
+                    rdfs:subClassOf edo:Volume ;
+                    dcterms:identifier "CertifiedVolume" ;
+                    skos:definition "Volume confirmed by certification or qualification evidence."@en ;
+                    skos:prefLabel "Certified Volume"@en ,
+                                   "Volume Certificado"@pt-br ;
+                    edo:specializesAttribute edo:Volume ;
+                    edo:lifecycleRole edo:CertifiedRole ;
+                    edo:attributeNature edo:DimensionalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AsBuiltVolume
+edo:AsBuiltVolume rdf:type owl:Class ;
+                  rdfs:subClassOf edo:Volume ;
+                  dcterms:identifier "AsBuiltVolume" ;
+                  skos:definition "Volume verified or declared for the as-built condition."@en ;
+                  skos:prefLabel "As-Built Volume"@en ,
+                                 "Volume Conforme Construído"@pt-br ;
+                  edo:specializesAttribute edo:Volume ;
+                  edo:lifecycleRole edo:AsBuiltRole ;
+                  edo:attributeNature edo:DimensionalAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#DisplacedVolume
 edo:DisplacedVolume rdf:type owl:Class ;
-                    rdfs:subClassOf edo:DomainAttribute ;
+                    rdfs:subClassOf edo:Volume ;
                     dcterms:accessRights "PUBLIC" ;
                     dcterms:identifier "DisplacedVolume" ;
-                    skos:definition "Refers to the total volume of an object that is submerged or immersed in a fluid. This volume is used to calculate the buoyant force acting on the object and is crucial for understanding its buoyancy and stability in the fluid."@en ;
+                    skos:definition "Total submerged or immersed volume used to determine displacement and buoyancy behaviour."@en ;
                     skos:prefLabel "Displaced Volume"@en ,
                                    "Volume Deslocado"@pt-br ;
                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:FloatValue ;
-                    edo:hasValueCardinality edo:SingleValue .
+                    edo:hasUnit unit:M3 ;
+                    edo:hasValueCardinality edo:SingleValue ;
+                    edo:specializesAttribute edo:Volume ;
+                    edo:lifecycleRole edo:DesignRole ;
+                    edo:attributeNature edo:DimensionalAttribute ,
+                                        edo:PerformanceAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RequiredDisplacedVolume
+edo:RequiredDisplacedVolume rdf:type owl:Class ;
+                            rdfs:subClassOf edo:DisplacedVolume ;
+                            dcterms:identifier "RequiredDisplacedVolume" ;
+                            skos:definition "Required displaced volume that an element or component shall satisfy."@en ;
+                            skos:prefLabel "Required Displaced Volume"@en ,
+                                           "Volume Deslocado Requerido"@pt-br ;
+                            edo:specializesAttribute edo:DisplacedVolume ;
+                            edo:lifecycleRole edo:RequirementRole ;
+                            edo:attributeNature edo:DimensionalAttribute ,
+                                                edo:PerformanceAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignedDisplacedVolume
+edo:DesignedDisplacedVolume rdf:type owl:Class ;
+                            rdfs:subClassOf edo:DisplacedVolume ;
+                            dcterms:identifier "DesignedDisplacedVolume" ;
+                            skos:definition "Displaced volume defined by design."@en ;
+                            skos:prefLabel "Designed Displaced Volume"@en ,
+                                           "Volume Deslocado de Projeto"@pt-br ;
+                            edo:specializesAttribute edo:DisplacedVolume ;
+                            edo:lifecycleRole edo:DesignRole ;
+                            edo:attributeNature edo:DimensionalAttribute ,
+                                                edo:PerformanceAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedDisplacedVolume
+edo:CertifiedDisplacedVolume rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DisplacedVolume ;
+                             dcterms:identifier "CertifiedDisplacedVolume" ;
+                             skos:definition "Displaced volume confirmed by certification or qualification evidence."@en ;
+                             skos:prefLabel "Certified Displaced Volume"@en ,
+                                            "Volume Deslocado Certificado"@pt-br ;
+                             edo:specializesAttribute edo:DisplacedVolume ;
+                             edo:lifecycleRole edo:CertifiedRole ;
+                             edo:attributeNature edo:DimensionalAttribute ,
+                                                 edo:PerformanceAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AsBuiltDisplacedVolume
+edo:AsBuiltDisplacedVolume rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DisplacedVolume ;
+                           dcterms:identifier "AsBuiltDisplacedVolume" ;
+                           skos:definition "Displaced volume verified or declared for the as-built condition."@en ;
+                           skos:prefLabel "As-Built Displaced Volume"@en ,
+                                          "Volume Deslocado Conforme Construído"@pt-br ;
+                           edo:specializesAttribute edo:DisplacedVolume ;
+                           edo:lifecycleRole edo:AsBuiltRole ;
+                           edo:attributeNature edo:DimensionalAttribute ,
+                                               edo:PerformanceAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#DistributionModule
@@ -4804,16 +4923,73 @@ edo:InternalPressureSheath rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InternalVolume
 edo:InternalVolume rdf:type owl:Class ;
-                   rdfs:subClassOf edo:DomainAttribute ;
+                   rdfs:subClassOf edo:Volume ;
                    dcterms:accessRights "PUBLIC" ;
                    dcterms:identifier "InternalVolume" ;
-                   skos:definition "Refers to the volume of space within an object that can be occupied by a fluid when the object is fully filled or immersed. This property is essential for understanding the capacity and fluid-holding capabilities of the accessory."@en ;
+                   skos:definition "Volume of internal space available to be occupied by a fluid, material, or free volume region."@en ;
                    skos:prefLabel "Internal Volume"@en ,
                                   "Volume interno"@pt-br ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
-                   edo:hasValueCardinality edo:SingleValue .
+                   edo:hasUnit unit:M3 ;
+                   edo:hasValueCardinality edo:SingleValue ;
+                   edo:specializesAttribute edo:Volume ;
+                   edo:lifecycleRole edo:DesignRole ;
+                   edo:attributeNature edo:DimensionalAttribute ,
+                                       edo:OperationalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RequiredInternalVolume
+edo:RequiredInternalVolume rdf:type owl:Class ;
+                           rdfs:subClassOf edo:InternalVolume ;
+                           dcterms:identifier "RequiredInternalVolume" ;
+                           skos:definition "Required internal volume that an element, component, or system shall satisfy."@en ;
+                           skos:prefLabel "Required Internal Volume"@en ,
+                                          "Volume Interno Requerido"@pt-br ;
+                           edo:specializesAttribute edo:InternalVolume ;
+                           edo:lifecycleRole edo:RequirementRole ;
+                           edo:attributeNature edo:DimensionalAttribute ,
+                                               edo:OperationalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignedInternalVolume
+edo:DesignedInternalVolume rdf:type owl:Class ;
+                           rdfs:subClassOf edo:InternalVolume ;
+                           dcterms:identifier "DesignedInternalVolume" ;
+                           skos:definition "Internal volume defined by design."@en ;
+                           skos:prefLabel "Designed Internal Volume"@en ,
+                                          "Volume Interno de Projeto"@pt-br ;
+                           edo:specializesAttribute edo:InternalVolume ;
+                           edo:lifecycleRole edo:DesignRole ;
+                           edo:attributeNature edo:DimensionalAttribute ,
+                                               edo:OperationalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedInternalVolume
+edo:CertifiedInternalVolume rdf:type owl:Class ;
+                            rdfs:subClassOf edo:InternalVolume ;
+                            dcterms:identifier "CertifiedInternalVolume" ;
+                            skos:definition "Internal volume confirmed by certification or qualification evidence."@en ;
+                            skos:prefLabel "Certified Internal Volume"@en ,
+                                           "Volume Interno Certificado"@pt-br ;
+                            edo:specializesAttribute edo:InternalVolume ;
+                            edo:lifecycleRole edo:CertifiedRole ;
+                            edo:attributeNature edo:DimensionalAttribute ,
+                                                edo:OperationalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AsBuiltInternalVolume
+edo:AsBuiltInternalVolume rdf:type owl:Class ;
+                          rdfs:subClassOf edo:InternalVolume ;
+                          dcterms:identifier "AsBuiltInternalVolume" ;
+                          skos:definition "Internal volume verified or declared for the as-built condition."@en ;
+                          skos:prefLabel "As-Built Internal Volume"@en ,
+                                         "Volume Interno Conforme Construído"@pt-br ;
+                          edo:specializesAttribute edo:InternalVolume ;
+                          edo:lifecycleRole edo:AsBuiltRole ;
+                          edo:attributeNature edo:DimensionalAttribute ,
+                                              edo:OperationalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#IsSpare
@@ -5076,7 +5252,7 @@ edo:LayerWatertight rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LayerWatertightLowerLayerInternalFreeVolume
 edo:LayerWatertightLowerLayerInternalFreeVolume rdf:type owl:Class ;
-                                                rdfs:subClassOf edo:DomainAttribute ;
+                                                rdfs:subClassOf edo:InternalVolume ;
                                                 dcterms:accessRights "PUBLIC" ;
                                                 dcterms:identifier "LayerWatertightLowerLayerInternalFreeVolume" ;
                                                 skos:definition "Indicates the free volume between this layer and the previous continuous or watertight lower layer. If this layer is not watertight, or if there is no previous watertight lower layer, the value should be indicated as zero. This property is important for assessing the space that may affect pressure distribution or fluid movement within the structure."@en ,
@@ -5086,7 +5262,12 @@ edo:LayerWatertightLowerLayerInternalFreeVolume rdf:type owl:Class ;
                                                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
                                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                                 edo:hasTypedValue edo:FloatValue ;
-                                                edo:hasValueCardinality edo:SingleValue .
+                                                edo:hasValueCardinality edo:SingleValue ;
+                                                edo:specializesAttribute edo:InternalVolume ;
+                                                edo:hasUnit unit:M3 ;
+                                                edo:lifecycleRole edo:DesignRole ;
+                                                edo:attributeNature edo:DimensionalAttribute ,
+                                                                    edo:OperationalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#LayingMinimumRadiusCurveAttribute
@@ -5390,7 +5571,7 @@ edo:LongTermFloatDensity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LongTermFloatVolume
 edo:LongTermFloatVolume rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ;
+                        rdfs:subClassOf edo:DisplacedVolume ;
                         dcterms:accessRights "PUBLIC" ;
                         dcterms:identifier "LongTermFloatVolume" ;
                         skos:definition "O volume esperado ao longo do tempo, após fatores como absorção de água e possíveis deformações. Este volume representa as condições do flutuador em sua fase de vida útil, quando a flutuabilidade tende a ser menor."@pt-br ,
@@ -5400,7 +5581,12 @@ edo:LongTermFloatVolume rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
-                        edo:hasValueCardinality edo:SingleValue .
+                        edo:hasValueCardinality edo:SingleValue ;
+                        edo:specializesAttribute edo:DisplacedVolume ;
+                        edo:hasUnit unit:M3 ;
+                        edo:lifecycleRole edo:OperatingRole ;
+                        edo:attributeNature edo:DimensionalAttribute ,
+                                            edo:PerformanceAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#LongValue
@@ -6505,7 +6691,7 @@ edo:NominalFloatDensity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#NominalFloatVolume
 edo:NominalFloatVolume rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ;
+                       rdfs:subClassOf edo:DisplacedVolume ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "NominalFloatVolume" ;
                        skos:definition "O volume ideal, ou \"de fábrica\", sem considerar a absorção de água ou deformações. É usado para calcular a flutuabilidade máxima possível, antes de qualquer degradação."@pt-br ,
@@ -6515,7 +6701,12 @@ edo:NominalFloatVolume rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
-                       edo:hasValueCardinality edo:SingleValue .
+                       edo:hasValueCardinality edo:SingleValue ;
+                       edo:specializesAttribute edo:DisplacedVolume ;
+                       edo:hasUnit unit:M3 ;
+                       edo:lifecycleRole edo:DesignRole ;
+                       edo:attributeNature edo:DimensionalAttribute ,
+                                           edo:PerformanceAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Length
@@ -8375,7 +8566,7 @@ edo:ShortTermFloatDensity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ShortTermFloatVolume
 edo:ShortTermFloatVolume rdf:type owl:Class ;
-                         rdfs:subClassOf edo:DomainAttribute ;
+                         rdfs:subClassOf edo:DisplacedVolume ;
                          dcterms:accessRights "PUBLIC" ;
                          dcterms:identifier "ShortTermFloatVolume" ;
                          skos:definition "O volume submerso esperado logo após o início da operação, levando em consideração pequenas variações iniciais, como a absorção mínima de água ou pequenas deformações. Serve para calcular a flutuabilidade em condições reais no curto prazo."@pt-br ,
@@ -8385,7 +8576,12 @@ edo:ShortTermFloatVolume rdf:type owl:Class ;
                          edo:hasAttributeScope edo:TypeLevelAttribute ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
-                         edo:hasValueCardinality edo:SingleValue .
+                         edo:hasValueCardinality edo:SingleValue ;
+                         edo:specializesAttribute edo:DisplacedVolume ;
+                         edo:hasUnit unit:M3 ;
+                         edo:lifecycleRole edo:OperatingRole ;
+                         edo:attributeNature edo:DimensionalAttribute ,
+                                             edo:PerformanceAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#SingleValue
@@ -9664,7 +9860,7 @@ edo:TensileArmourAnnulusCondition rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TensileArmourFreeAnnulusVolume
 edo:TensileArmourFreeAnnulusVolume rdf:type owl:Class ;
-                                   rdfs:subClassOf edo:DomainAttribute ;
+                                   rdfs:subClassOf edo:InternalVolume ;
                                    dcterms:accessRights "PUBLIC" ;
                                    dcterms:identifier "TensileArmourFreeAnnulusVolume" ;
                                    skos:definition "Indicates the available volume within the annulus of the tensile armour layer that is not occupied by material."@en ;
@@ -9673,7 +9869,12 @@ edo:TensileArmourFreeAnnulusVolume rdf:type owl:Class ;
                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                    edo:hasTypedValue edo:FloatValue ;
-                                   edo:hasValueCardinality edo:SingleValue .
+                                   edo:hasValueCardinality edo:SingleValue ;
+                                   edo:specializesAttribute edo:InternalVolume ;
+                                   edo:hasUnit unit:M3 ;
+                                   edo:lifecycleRole edo:DesignRole ;
+                                   edo:attributeNature edo:DimensionalAttribute ,
+                                                       edo:OperationalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#TensileWireLayAngle
