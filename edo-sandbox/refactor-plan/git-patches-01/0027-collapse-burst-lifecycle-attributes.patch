@@ -1,0 +1,188 @@
+diff --git a/core/edo.ttl b/core/edo.ttl
+index 71ab739..504d85b 100644
+--- a/core/edo.ttl
++++ b/core/edo.ttl
+@@ -1012,9 +1012,76 @@ edo:CO2VolumePercentage rdf:type owl:Class ;
+                         edo:hasValueCardinality edo:SingleValue .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#BurstPressure
++edo:BurstPressure rdf:type owl:Class ;
++                  rdfs:subClassOf edo:Pressure ;
++                  dcterms:identifier "BurstPressure" ;
++                  skos:definition "Pressure associated with the internal pressure limit at which an element, component, or system may rupture."@en ;
++                  skos:prefLabel "Burst Pressure"@en ,
++                                 "Pressão de Ruptura"@pt-br ;
++                  edo:hasAttributeScope edo:TypeLevelAttribute ;
++                  edo:hasTypedValue edo:FloatValue ;
++                  edo:hasUnit unit:PA ;
++                  edo:hasValueCardinality edo:SingleValue ;
++                  edo:attributeNature edo:MechanicalAttribute ,
++                                      edo:PerformanceAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#RequiredBurstPressure
++edo:RequiredBurstPressure rdf:type owl:Class ;
++                          rdfs:subClassOf edo:BurstPressure ;
++                          dcterms:identifier "RequiredBurstPressure" ;
++                          skos:definition "Required burst pressure that an element, component, or system shall satisfy."@en ;
++                          skos:prefLabel "Pressão de Ruptura Requerida"@pt-br ,
++                                         "Required Burst Pressure"@en ;
++                          edo:specializesAttribute edo:BurstPressure ;
++                          edo:lifecycleRole edo:RequirementRole ;
++                          edo:attributeNature edo:MechanicalAttribute ,
++                                              edo:PerformanceAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#DesignedBurstPressure
++edo:DesignedBurstPressure rdf:type owl:Class ;
++                          rdfs:subClassOf edo:BurstPressure ;
++                          dcterms:identifier "DesignedBurstPressure" ;
++                          skos:definition "Burst pressure considered or calculated during design."@en ;
++                          skos:prefLabel "Designed Burst Pressure"@en ,
++                                         "Pressão de Ruptura de Projeto"@pt-br ;
++                          edo:specializesAttribute edo:BurstPressure ;
++                          edo:lifecycleRole edo:DesignRole ;
++                          edo:attributeNature edo:MechanicalAttribute ,
++                                              edo:PerformanceAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#CertifiedBurstPressure
++edo:CertifiedBurstPressure rdf:type owl:Class ;
++                           rdfs:subClassOf edo:BurstPressure ;
++                           dcterms:identifier "CertifiedBurstPressure" ;
++                           skos:definition "Certified burst pressure declared or accepted as part of qualification, certification, or conformity evidence."@en ;
++                           skos:prefLabel "Certified Burst Pressure"@en ,
++                                          "Pressão de Ruptura Certificada"@pt-br ;
++                           edo:specializesAttribute edo:BurstPressure ;
++                           edo:lifecycleRole edo:CertifiedRole ;
++                           edo:attributeNature edo:MechanicalAttribute ,
++                                               edo:PerformanceAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#OperatingBurstPressure
++edo:OperatingBurstPressure rdf:type owl:Class ;
++                           rdfs:subClassOf edo:BurstPressure ;
++                           dcterms:identifier "OperatingBurstPressure" ;
++                           skos:definition "Burst pressure value used, monitored, or assessed in an operational context."@en ;
++                           skos:prefLabel "Operating Burst Pressure"@en ,
++                                          "Pressão de Ruptura Operacional"@pt-br ;
++                           edo:specializesAttribute edo:BurstPressure ;
++                           edo:lifecycleRole edo:OperatingRole ;
++                           edo:attributeNature edo:MechanicalAttribute ,
++                                               edo:PerformanceAttribute .
++
++
+ ###  https://w3id.org/energy-domain/edo#CalculatedAbsoluteBurstPressure
+ edo:CalculatedAbsoluteBurstPressure rdf:type owl:Class ;
+-                                    rdfs:subClassOf edo:DomainAttribute ;
++                                    rdfs:subClassOf edo:BurstPressure ;
+                                     dcterms:accessRights "PUBLIC" ;
+                                     dcterms:identifier "CalculatedAbsoluteBurstPressure" ;
+                                     skos:definition "Represents the estimated absolute pressure at which a component or system is expected to fail or rupture. This property is crucial for determining the maximum safe operating pressure, ensuring that the component can withstand internal forces without bursting."@en ;
+@@ -1023,7 +1090,12 @@ edo:CalculatedAbsoluteBurstPressure rdf:type owl:Class ;
+                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                     edo:hasTypedValue edo:FloatValue ;
+-                                    edo:hasValueCardinality edo:SingleValue .
++                                    edo:hasUnit unit:PA ;
++                                    edo:hasValueCardinality edo:SingleValue ;
++                                    edo:specializesAttribute edo:BurstPressure ;
++                                    edo:lifecycleRole edo:DesignRole ;
++                                    edo:attributeNature edo:MechanicalAttribute ,
++                                                        edo:PerformanceAttribute .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#CalculatedValue
+@@ -3694,9 +3766,76 @@ edo:Hydropower rdf:type owl:Class ;
+                                "Energy generated from moving water, including dams and tidal power."@en .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#CollapsePressure
++edo:CollapsePressure rdf:type owl:Class ;
++                     rdfs:subClassOf edo:Pressure ;
++                     dcterms:identifier "CollapsePressure" ;
++                     skos:definition "Pressure associated with the external pressure limit at which an element, component, or system may collapse."@en ;
++                     skos:prefLabel "Collapse Pressure"@en ,
++                                    "Pressão de Colapso"@pt-br ;
++                     edo:hasAttributeScope edo:TypeLevelAttribute ;
++                     edo:hasTypedValue edo:FloatValue ;
++                     edo:hasUnit unit:PA ;
++                     edo:hasValueCardinality edo:SingleValue ;
++                     edo:attributeNature edo:MechanicalAttribute ,
++                                         edo:PerformanceAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#RequiredCollapsePressure
++edo:RequiredCollapsePressure rdf:type owl:Class ;
++                             rdfs:subClassOf edo:CollapsePressure ;
++                             dcterms:identifier "RequiredCollapsePressure" ;
++                             skos:definition "Required collapse pressure that an element, component, or system shall satisfy."@en ;
++                             skos:prefLabel "Pressão de Colapso Requerida"@pt-br ,
++                                            "Required Collapse Pressure"@en ;
++                             edo:specializesAttribute edo:CollapsePressure ;
++                             edo:lifecycleRole edo:RequirementRole ;
++                             edo:attributeNature edo:MechanicalAttribute ,
++                                                 edo:PerformanceAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#DesignedCollapsePressure
++edo:DesignedCollapsePressure rdf:type owl:Class ;
++                             rdfs:subClassOf edo:CollapsePressure ;
++                             dcterms:identifier "DesignedCollapsePressure" ;
++                             skos:definition "Collapse pressure considered or calculated during design."@en ;
++                             skos:prefLabel "Designed Collapse Pressure"@en ,
++                                            "Pressão de Colapso de Projeto"@pt-br ;
++                             edo:specializesAttribute edo:CollapsePressure ;
++                             edo:lifecycleRole edo:DesignRole ;
++                             edo:attributeNature edo:MechanicalAttribute ,
++                                                 edo:PerformanceAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#CertifiedCollapsePressure
++edo:CertifiedCollapsePressure rdf:type owl:Class ;
++                              rdfs:subClassOf edo:CollapsePressure ;
++                              dcterms:identifier "CertifiedCollapsePressure" ;
++                              skos:definition "Certified collapse pressure declared or accepted as part of qualification, certification, or conformity evidence."@en ;
++                              skos:prefLabel "Certified Collapse Pressure"@en ,
++                                             "Pressão de Colapso Certificada"@pt-br ;
++                              edo:specializesAttribute edo:CollapsePressure ;
++                              edo:lifecycleRole edo:CertifiedRole ;
++                              edo:attributeNature edo:MechanicalAttribute ,
++                                                  edo:PerformanceAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#OperatingCollapsePressure
++edo:OperatingCollapsePressure rdf:type owl:Class ;
++                              rdfs:subClassOf edo:CollapsePressure ;
++                              dcterms:identifier "OperatingCollapsePressure" ;
++                              skos:definition "Collapse pressure value used, monitored, or assessed in an operational context."@en ;
++                              skos:prefLabel "Operating Collapse Pressure"@en ,
++                                             "Pressão de Colapso Operacional"@pt-br ;
++                              edo:specializesAttribute edo:CollapsePressure ;
++                              edo:lifecycleRole edo:OperatingRole ;
++                              edo:attributeNature edo:MechanicalAttribute ,
++                                                  edo:PerformanceAttribute .
++
++
+ ###  https://w3id.org/energy-domain/edo#HydrostaticCollapseAbsPressDry
+ edo:HydrostaticCollapseAbsPressDry rdf:type owl:Class ;
+-                                   rdfs:subClassOf edo:DomainAttribute ;
++                                   rdfs:subClassOf edo:CollapsePressure ;
+                                    dcterms:accessRights "PUBLIC" ;
+                                    dcterms:identifier "HydrostaticCollapseAbsPressDry" ;
+                                    skos:definition "Pressão Absoluta de colapso hidrostático, anular seco, linha reta"@pt-br ,
+@@ -3706,7 +3845,12 @@ edo:HydrostaticCollapseAbsPressDry rdf:type owl:Class ;
+                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                    edo:hasTypedValue edo:FloatValue ;
+-                                   edo:hasValueCardinality edo:SingleValue .
++                                   edo:hasUnit unit:PA ;
++                                   edo:hasValueCardinality edo:SingleValue ;
++                                   edo:specializesAttribute edo:CollapsePressure ;
++                                   edo:lifecycleRole edo:DesignRole ;
++                                   edo:attributeNature edo:MechanicalAttribute ,
++                                                       edo:PerformanceAttribute .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#HydrostaticPressureTestsAttribute
