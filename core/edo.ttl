@@ -5477,6 +5477,62 @@ edo:LinearObject rdf:type owl:Class ;
                                 "Objeto Linear"@pt-br .
 
 
+###  https://w3id.org/energy-domain/edo#Distance
+edo:Distance rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "Distance" ;
+             skos:definition "Linear measurement between two reference points or positions."@en ,
+                             "Medição linear entre dois pontos ou posições de referência."@pt-br ;
+             skos:prefLabel "Distance"@en ,
+                            "Distância"@pt-br ;
+             edo:hasAttributeScope edo:InstanceLevelAttribute ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:M ;
+             edo:hasValueCardinality edo:SingleValue ;
+             edo:lifecycleRole edo:DesignRole ;
+             edo:attributeNature edo:DimensionalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#Offset
+edo:Offset rdf:type owl:Class ;
+           rdfs:subClassOf edo:Distance ;
+           dcterms:accessRights "PUBLIC" ;
+           dcterms:identifier "Offset" ;
+           skos:definition "Distance expressed as a displacement from a reference point, line or position."@en ,
+                           "Distância expressa como deslocamento a partir de um ponto, linha ou posição de referência."@pt-br ;
+           skos:prefLabel "Offset"@en ,
+                          "Deslocamento"@pt-br ;
+           edo:specializesAttribute edo:Distance ;
+           edo:hasAttributeScope edo:InstanceLevelAttribute ;
+           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+           edo:hasTypedValue edo:FloatValue ;
+           edo:hasUnit unit:M ;
+           edo:hasValueCardinality edo:SingleValue ;
+           edo:lifecycleRole edo:DesignRole ;
+           edo:attributeNature edo:DimensionalAttribute ,
+                               edo:LocationAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#Position
+edo:Position rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "Position" ;
+             skos:definition "Location of an element, feature or point within a reference system or relative to a reference element."@en ,
+                             "Localização de um elemento, feature ou ponto em um sistema de referência ou em relação a um elemento de referência."@pt-br ;
+             skos:prefLabel "Position"@en ,
+                            "Posição"@pt-br ;
+             edo:hasAttributeScope edo:InstanceLevelAttribute ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:M ;
+             edo:hasValueCardinality edo:SingleValue ;
+             edo:lifecycleRole edo:DesignRole ;
+             edo:attributeNature edo:LocationAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#Location
 edo:Location rdf:type owl:Class ;
              rdfs:subClassOf edo:DomainElement ;
@@ -5518,13 +5574,15 @@ edo:LogicalElement rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LongitudinalOffset
 edo:LongitudinalOffset rdf:type owl:Class ;
-                       rdfs:subClassOf edo:IntendedLongitudinalPlacement ;
+                       rdfs:subClassOf edo:IntendedLongitudinalPlacement ,
+                                       edo:Offset ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "LongitudinalOffset" ;
                        skos:definition "Distance from the applicable reference point to the intended attachment point position along the longitudinal direction."@en ,
                                        "Distância do ponto de referência aplicável até a posição pretendida do ponto de anexação ao longo da direção longitudinal."@pt-br ;
                        skos:prefLabel "Longitudinal Offset"@en ,
                                       "Deslocamento Longitudinal"@pt-br ;
+                       edo:specializesAttribute edo:Offset ;
                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
@@ -7393,17 +7451,22 @@ edo:PipeMechanicalSupport rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#PipeMountPosition
 edo:PipeMountPosition rdf:type owl:Class ;
-                      rdfs:subClassOf edo:DomainAttribute ;
+                      rdfs:subClassOf edo:Position ;
                       dcterms:accessRights "PUBLIC" ;
                       dcterms:identifier "PipeMountPosition" ;
                       skos:definition "Cota em metros da posição em que o item é montado no tramo no sentido do fluxo do fluido."@pt-br ,
                                       "Indicates the distance from the end fitting to the position of the accessory along the direction of fluid flow within the pipe body. This property specifies the precise location of the accessory relative to the end fitting, which is essential for accurate installation and alignment within the tubular body."@en ;
                       skos:prefLabel "Pipe Mount Position"@en ,
                                      "Posição de Montagem no Duto"@pt-br ;
+                      edo:specializesAttribute edo:Position ;
                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
-                      edo:hasValueCardinality edo:SingleValue .
+                      edo:hasUnit unit:M ;
+                      edo:hasValueCardinality edo:SingleValue ;
+                      edo:lifecycleRole edo:DesignRole ;
+                      edo:attributeNature edo:DimensionalAttribute ,
+                                          edo:LocationAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#PipePullingHead
