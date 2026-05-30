@@ -32,7 +32,6 @@ class QueryResult:
 
 
 def log(message: str = "") -> None:
-    # print(message)
     with LOG_FILE.open("a", encoding="utf-8") as f:
         f.write(message + "\n")
 
@@ -208,7 +207,12 @@ def main() -> int:
     try:
         graph = parse_ttl_files()
         results = run_queries(graph)
-        return print_summary(results)
+        exit_code = print_summary(results)
+
+        print(f"Validation result: {'OK' if exit_code == 0 else 'FAILED'}")
+        print(f"Log file: {LOG_FILE}")
+
+        return exit_code
 
     except Exception:
         log("============================================================")
@@ -216,6 +220,12 @@ def main() -> int:
         log("============================================================")
         log(traceback.format_exc())
         log(f"Log written to: {LOG_FILE}")
+        log("")
+        log("Validation result: FAILED")
+
+        print("Validation result: FAILED")
+        print(f"Log file: {LOG_FILE}")
+
         return 1
 
 
