@@ -1,0 +1,191 @@
+diff --git a/queries/refactoring/lifecycle-attribute-family-overview.rq b/queries/refactoring/lifecycle-attribute-family-overview.rq
+new file mode 100644
+index 0000000..5aaf491
+--- /dev/null
++++ b/queries/refactoring/lifecycle-attribute-family-overview.rq
+@@ -0,0 +1,36 @@
++PREFIX edo: <http://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++SELECT ?family ?attribute ?role ?nature ?unit ?typedValue
++WHERE {
++  VALUES ?family {
++    edo:WaterDepth
++    edo:Pressure
++    edo:Temperature
++    edo:Length
++    edo:Tension
++    edo:BendingRadius
++    edo:DesignLife
++    edo:FatigueLife
++    edo:Mass
++    edo:Weight
++    edo:Diameter
++    edo:Thickness
++    edo:BurstPressure
++    edo:CollapsePressure
++    edo:Volume
++    edo:InternalVolume
++    edo:DisplacedVolume
++    edo:Distance
++    edo:Offset
++    edo:Position
++  }
++
++  ?attribute rdfs:subClassOf* ?family .
++  ?attribute rdfs:subClassOf* edo:DomainAttribute .
++  OPTIONAL { ?attribute edo:lifecycleRole ?role . }
++  OPTIONAL { ?attribute edo:attributeNature ?nature . }
++  OPTIONAL { ?attribute edo:hasUnit ?unit . }
++  OPTIONAL { ?attribute edo:hasTypedValue ?typedValue . }
++}
++ORDER BY ?family ?attribute
+diff --git a/queries/refactoring/lifecycle-attributes-missing-nature.rq b/queries/refactoring/lifecycle-attributes-missing-nature.rq
+new file mode 100644
+index 0000000..1563241
+--- /dev/null
++++ b/queries/refactoring/lifecycle-attributes-missing-nature.rq
+@@ -0,0 +1,9 @@
++PREFIX edo: <http://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++SELECT ?attribute
++WHERE {
++  ?attribute rdfs:subClassOf* edo:DomainAttribute .
++  FILTER NOT EXISTS { ?attribute edo:attributeNature ?nature . }
++}
++ORDER BY ?attribute
+diff --git a/queries/refactoring/lifecycle-attributes-missing-role.rq b/queries/refactoring/lifecycle-attributes-missing-role.rq
+new file mode 100644
+index 0000000..8fb9352
+--- /dev/null
++++ b/queries/refactoring/lifecycle-attributes-missing-role.rq
+@@ -0,0 +1,34 @@
++PREFIX edo: <http://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++SELECT ?attribute
++WHERE {
++  VALUES ?family {
++    edo:WaterDepth
++    edo:Pressure
++    edo:Temperature
++    edo:Length
++    edo:Tension
++    edo:BendingRadius
++    edo:DesignLife
++    edo:FatigueLife
++    edo:Mass
++    edo:Weight
++    edo:Diameter
++    edo:Thickness
++    edo:BurstPressure
++    edo:CollapsePressure
++    edo:Volume
++    edo:InternalVolume
++    edo:DisplacedVolume
++    edo:Distance
++    edo:Offset
++    edo:Position
++  }
++
++  ?attribute rdfs:subClassOf* ?family .
++  ?attribute rdfs:subClassOf* edo:DomainAttribute .
++  FILTER (?attribute != ?family)
++  FILTER NOT EXISTS { ?attribute edo:lifecycleRole ?role . }
++}
++ORDER BY ?family ?attribute
+diff --git a/queries/refactoring/lifecycle-attributes-missing-specializes-attribute.rq b/queries/refactoring/lifecycle-attributes-missing-specializes-attribute.rq
+new file mode 100644
+index 0000000..f806ab3
+--- /dev/null
++++ b/queries/refactoring/lifecycle-attributes-missing-specializes-attribute.rq
+@@ -0,0 +1,34 @@
++PREFIX edo: <http://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++SELECT ?family ?attribute
++WHERE {
++  VALUES ?family {
++    edo:WaterDepth
++    edo:Pressure
++    edo:Temperature
++    edo:Length
++    edo:Tension
++    edo:BendingRadius
++    edo:DesignLife
++    edo:FatigueLife
++    edo:Mass
++    edo:Weight
++    edo:Diameter
++    edo:Thickness
++    edo:BurstPressure
++    edo:CollapsePressure
++    edo:Volume
++    edo:InternalVolume
++    edo:DisplacedVolume
++    edo:Distance
++    edo:Offset
++    edo:Position
++  }
++
++  ?attribute rdfs:subClassOf* ?family .
++  ?attribute rdfs:subClassOf* edo:DomainAttribute .
++  FILTER (?attribute != ?family)
++  FILTER NOT EXISTS { ?attribute edo:specializesAttribute ?family . }
++}
++ORDER BY ?family ?attribute
+diff --git a/queries/refactoring/lifecycle-attributes-missing-typed-value.rq b/queries/refactoring/lifecycle-attributes-missing-typed-value.rq
+new file mode 100644
+index 0000000..462bc7c
+--- /dev/null
++++ b/queries/refactoring/lifecycle-attributes-missing-typed-value.rq
+@@ -0,0 +1,9 @@
++PREFIX edo: <http://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++SELECT ?attribute
++WHERE {
++  ?attribute rdfs:subClassOf* edo:DomainAttribute .
++  FILTER NOT EXISTS { ?attribute edo:hasTypedValue ?typedValue . }
++}
++ORDER BY ?attribute
+diff --git a/queries/refactoring/lifecycle-attributes-missing-unit.rq b/queries/refactoring/lifecycle-attributes-missing-unit.rq
+new file mode 100644
+index 0000000..d4aa929
+--- /dev/null
++++ b/queries/refactoring/lifecycle-attributes-missing-unit.rq
+@@ -0,0 +1,33 @@
++PREFIX edo: <http://w3id.org/energy-domain/edo#>
++PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
++
++SELECT ?attribute
++WHERE {
++  VALUES ?family {
++    edo:WaterDepth
++    edo:Pressure
++    edo:Temperature
++    edo:Length
++    edo:Tension
++    edo:BendingRadius
++    edo:DesignLife
++    edo:FatigueLife
++    edo:Mass
++    edo:Weight
++    edo:Diameter
++    edo:Thickness
++    edo:BurstPressure
++    edo:CollapsePressure
++    edo:Volume
++    edo:InternalVolume
++    edo:DisplacedVolume
++    edo:Distance
++    edo:Offset
++    edo:Position
++  }
++
++  ?attribute rdfs:subClassOf* ?family .
++  ?attribute rdfs:subClassOf* edo:DomainAttribute .
++  FILTER NOT EXISTS { ?attribute edo:hasUnit ?unit . }
++}
++ORDER BY ?family ?attribute

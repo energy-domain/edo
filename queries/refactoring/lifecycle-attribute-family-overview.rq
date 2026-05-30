@@ -1,0 +1,36 @@
+PREFIX edo: <http://w3id.org/energy-domain/edo#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?family ?attribute ?role ?nature ?unit ?typedValue
+WHERE {
+  VALUES ?family {
+    edo:WaterDepth
+    edo:Pressure
+    edo:Temperature
+    edo:Length
+    edo:Tension
+    edo:BendingRadius
+    edo:DesignLife
+    edo:FatigueLife
+    edo:Mass
+    edo:Weight
+    edo:Diameter
+    edo:Thickness
+    edo:BurstPressure
+    edo:CollapsePressure
+    edo:Volume
+    edo:InternalVolume
+    edo:DisplacedVolume
+    edo:Distance
+    edo:Offset
+    edo:Position
+  }
+
+  ?attribute rdfs:subClassOf* ?family .
+  ?attribute rdfs:subClassOf* edo:DomainAttribute .
+  OPTIONAL { ?attribute edo:lifecycleRole ?role . }
+  OPTIONAL { ?attribute edo:attributeNature ?nature . }
+  OPTIONAL { ?attribute edo:hasUnit ?unit . }
+  OPTIONAL { ?attribute edo:hasTypedValue ?typedValue . }
+}
+ORDER BY ?family ?attribute
