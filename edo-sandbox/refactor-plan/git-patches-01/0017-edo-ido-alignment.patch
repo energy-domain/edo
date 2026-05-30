@@ -1,0 +1,169 @@
+diff --git a/modules/alignments/ido/edo-ido-alignment.ttl b/modules/alignments/ido/edo-ido-alignment.ttl
+index ddcb952..140497a 100644
+--- a/modules/alignments/ido/edo-ido-alignment.ttl
++++ b/modules/alignments/ido/edo-ido-alignment.ttl
+@@ -2,6 +2,7 @@
+ @prefix lis: <http://rds.posccaesar.org/ontology/lis14/rdl/> .
+ @prefix owl: <http://www.w3.org/2002/07/owl#> .
+ @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
++@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+ @prefix dcterms: <http://purl.org/dc/terms/> .
+ 
+ <https://w3id.org/energy-domain/edo/alignments/ido>
+@@ -10,47 +11,136 @@
+     dcterms:description """
+     Alignment module relating the Energy Domain Ontology (EDO)
+     to the Industrial Data Ontology (IDO/LIS-14) published by POSC Caesar.
+-    This module provides non-invasive references from EDO domain concepts
+-    and relationship annotations to upper-level IDO categories.
++    This module keeps the alignment outside the EDO core and uses SKOS mapping
++    properties to provide non-invasive references from EDO domain concepts,
++    attributes and relationship annotations to upper-level IDO categories.
+     """ .
+ 
+-edo:idoReference
+-    a owl:AnnotationProperty ;
+-    rdfs:label "IDO reference" ;
+-    rdfs:comment """
+-    Relates an EDO entity to a relevant IDO entity without necessarily
+-    asserting formal equivalence or subclassing.
+-    """ .
++#################################################################
++#    Core domain entities
++#################################################################
+ 
+ edo:Asset
+-    edo:idoReference lis:PhysicalArtefact .
++    skos:closeMatch lis:PhysicalArtefact .
+ 
+ edo:SubseaSystem
+-    edo:idoReference lis:System .
++    skos:closeMatch lis:System .
+ 
+ edo:FlexiblePipeSegment
+-    edo:idoReference lis:PhysicalArtefact .
++    skos:closeMatch lis:PhysicalArtefact .
+ 
+ edo:EndFitting
+-    edo:idoReference lis:PhysicalArtefact .
++    skos:closeMatch lis:PhysicalArtefact .
+ 
+ edo:LineAncillary
+-    edo:idoReference lis:PhysicalArtefact .
++    skos:closeMatch lis:PhysicalArtefact .
+ 
+ edo:FluidStream
+-    edo:idoReference lis:Stream .
++    skos:closeMatch lis:Stream .
++
++#################################################################
++#    Technical artifacts, specifications and configurations
++#################################################################
++
++edo:TechnicalArtifact
++    skos:closeMatch lis:InformationObject .
++
++edo:Specification
++    skos:closeMatch lis:PrescriptiveObject .
++
++edo:ConfiguredSystem
++    skos:closeMatch lis:System .
++
++edo:FlexibleStructure
++    skos:closeMatch lis:System .
++
++#################################################################
++#    Features and interface points
++#################################################################
++
++edo:Feature
++    skos:closeMatch lis:Feature .
++
++edo:ConnectionPoint
++    skos:closeMatch lis:Feature .
++
++edo:AttachmentPoint
++    skos:closeMatch lis:Feature .
++
++edo:ReferencePoint
++    skos:closeMatch lis:Feature .
++
++edo:Port
++    skos:closeMatch lis:Feature .
++
++#################################################################
++#    Domain attributes and physical quantities
++#################################################################
++
++edo:DomainAttribute
++    skos:closeMatch lis:Quality .
+ 
+ edo:Pressure
+-    edo:idoReference lis:PhysicalQuantity .
++    skos:closeMatch lis:PhysicalQuantity .
++
++edo:WaterDepth
++    skos:closeMatch lis:PhysicalQuantity .
++
++edo:MaxWaterDepth
++    skos:closeMatch lis:PhysicalQuantity .
++
++edo:RequiredMaxWaterDepth
++    skos:closeMatch lis:PhysicalQuantity .
++
++edo:DesignedMaxWaterDepth
++    skos:closeMatch lis:PhysicalQuantity .
++
++edo:CertifiedMaxWaterDepth
++    skos:closeMatch lis:PhysicalQuantity .
++
++edo:InstalledWaterDepth
++    skos:closeMatch lis:PhysicalQuantity .
++
++#################################################################
++#    Attribute classification schemes
++#################################################################
++
++edo:DomainAttributeRole
++    skos:relatedMatch lis:Role .
++
++edo:DomainAttributeNature
++    skos:relatedMatch lis:Quality .
++
++edo:CapabilityAttribute
++    skos:relatedMatch lis:Capability .
++
++edo:DimensionalAttribute
++    skos:relatedMatch lis:PhysicalQuantity .
++
++edo:LocationAttribute
++    skos:relatedMatch lis:Location .
++
++#################################################################
++#    Domain relationship annotations
++#################################################################
+ 
+ edo:hasPart
+-    edo:idoReference lis:hasPart .
++    skos:closeMatch lis:hasPart .
++
++edo:hasOrderedPart
++    skos:relatedMatch lis:hasArrangedPart .
+ 
+ edo:hasFunctionalPart
+-    edo:idoReference lis:hasFunctionalPart .
++    skos:closeMatch lis:hasFunctionalPart .
+ 
+ edo:isConnectedTo
+-    edo:idoReference lis:connectedTo .
++    skos:closeMatch lis:connectedTo .
++
++edo:hasConnectionPoint
++    skos:closeMatch lis:hasFeature .
+ 
+ edo:hasContainedElement
+-    edo:idoReference lis:contains .
++    skos:closeMatch lis:contains .
++
++edo:hasDocument
++    skos:relatedMatch lis:representedIn .
