@@ -32,7 +32,7 @@ class QueryResult:
 
 
 def log(message: str = "") -> None:
-    print(message)
+    # print(message)
     with LOG_FILE.open("a", encoding="utf-8") as f:
         f.write(message + "\n")
 
