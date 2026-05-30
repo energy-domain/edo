@@ -1048,7 +1048,8 @@ edo:AttachmentPoint rdf:type owl:Class ;
                     skos:definition "Feature that represents a point intended for attaching, mounting or positioning an ancillary element without implying a physical flow connection."@en ,
                                     "Feature que representa um ponto destinado à anexação, montagem ou posicionamento de um elemento acessório, sem implicar conexão física de fluxo."@pt-br ;
                     skos:prefLabel "Attachment Point"@en ,
-                                   "Ponto de Anexação"@pt-br .
+                                   "Ponto de Anexação"@pt-br ;
+                    edo:hasAttribute edo:IntendedLongitudinalPlacement .
 
 
 ###  https://w3id.org/energy-domain/edo#AttributeClassification
@@ -2499,6 +2500,26 @@ edo:PropagateAttributesToRelationship rdf:type skos:Concept ;
                                       skos:definition "Propagation strategy indicating that attributes should be projected to the materialised relationship when activated by an extraction profile or data contract."@en ,
                                                       "Estratégia de propagação que indica que atributos devem ser projetados para o relacionamento materializado quando ativada por um perfil de extração ou data contract."@pt-br ;
                                       dcterms:identifier "PropagateAttributesToRelationship" .
+
+
+###  https://w3id.org/energy-domain/edo#FromReferencePoint
+edo:FromReferencePoint rdf:type skos:Concept ;
+                       skos:inScheme edo:DomainValueConcept ;
+                       skos:prefLabel "From reference point"@en ,
+                                      "A partir do ponto de referência"@pt-br ;
+                       skos:definition "Longitudinal orientation value indicating that the placement is measured from the reference point along the applicable longitudinal direction."@en ,
+                                       "Valor de orientação longitudinal que indica que o posicionamento é medido a partir do ponto de referência ao longo da direção longitudinal aplicável."@pt-br ;
+                       dcterms:identifier "FromReferencePoint" .
+
+
+###  https://w3id.org/energy-domain/edo#TowardsReferencePoint
+edo:TowardsReferencePoint rdf:type skos:Concept ;
+                         skos:inScheme edo:DomainValueConcept ;
+                         skos:prefLabel "Towards reference point"@en ,
+                                        "Em direção ao ponto de referência"@pt-br ;
+                         skos:definition "Longitudinal orientation value indicating that the placement is measured towards the reference point along the applicable longitudinal direction."@en ,
+                                         "Valor de orientação longitudinal que indica que o posicionamento é medido em direção ao ponto de referência ao longo da direção longitudinal aplicável."@pt-br ;
+                         dcterms:identifier "TowardsReferencePoint" .
 
 
 ###  https://w3id.org/energy-domain/edo#DoubleValue
@@ -4401,6 +4422,19 @@ edo:InsulationTape rdf:type owl:Class ;
                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering .
 
 
+###  https://w3id.org/energy-domain/edo#IntendedLongitudinalPlacement
+edo:IntendedLongitudinalPlacement rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:DomainAttribute ;
+                                  dcterms:accessRights "PUBLIC" ;
+                                  dcterms:identifier "IntendedLongitudinalPlacement" ;
+                                  skos:definition "Intended longitudinal placement of an attachment point, expressed by a longitudinal offset and an orientation relative to a reference point. It represents design intent for positioning, not final as-built geometry."@en ,
+                                                  "Posicionamento longitudinal pretendido de um ponto de anexação, expresso por um deslocamento longitudinal e uma orientação em relação a um ponto de referência. Representa intenção de projeto para posicionamento, não geometria as-built final."@pt-br ;
+                                  skos:prefLabel "Intended Longitudinal Placement"@en ,
+                                                 "Posicionamento Longitudinal Pretendido"@pt-br ;
+                                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                                  edo:hasLifecycleCreationPhase edo:DetailedDesign .
+
+
 ###  https://w3id.org/energy-domain/edo#IntValue
 edo:IntValue rdf:type owl:Class ;
              rdfs:subClassOf edo:DataType ;
@@ -5093,6 +5127,44 @@ edo:LogicalElement rdf:type owl:Class ;
                                    "Represents elements that are non-physical, describing functional, logical, or informational aspects of a project or system, supporting design, operation, and analysis."@en ;
                    skos:prefLabel "Elemento Lógico"@pt-br ,
                                   "Logical Element"@en .
+
+
+###  https://w3id.org/energy-domain/edo#LongitudinalOffset
+edo:LongitudinalOffset rdf:type owl:Class ;
+                       rdfs:subClassOf edo:IntendedLongitudinalPlacement ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "LongitudinalOffset" ;
+                       skos:definition "Distance from the applicable reference point to the intended attachment point position along the longitudinal direction."@en ,
+                                       "Distância do ponto de referência aplicável até a posição pretendida do ponto de anexação ao longo da direção longitudinal."@pt-br ;
+                       skos:prefLabel "Longitudinal Offset"@en ,
+                                      "Deslocamento Longitudinal"@pt-br ;
+                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:M ;
+                       edo:hasValueCardinality edo:SingleValue ;
+                       edo:lifecycleRole edo:DesignRole ;
+                       edo:attributeNature edo:DimensionalAttribute ,
+                                           edo:LocationAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#LongitudinalOrientation
+edo:LongitudinalOrientation rdf:type owl:Class ;
+                            rdfs:subClassOf edo:IntendedLongitudinalPlacement ;
+                            dcterms:accessRights "PUBLIC" ;
+                            dcterms:identifier "LongitudinalOrientation" ;
+                            skos:definition "Orientation used to interpret the longitudinal offset relative to the reference point."@en ,
+                                            "Orientação usada para interpretar o deslocamento longitudinal em relação ao ponto de referência."@pt-br ;
+                            skos:prefLabel "Longitudinal Orientation"@en ,
+                                           "Orientação Longitudinal"@pt-br ;
+                            edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                            edo:hasTypedValue edo:StringValue ;
+                            edo:hasValueCardinality edo:SingleValue ;
+                            edo:allowedValue edo:FromReferencePoint ,
+                                             edo:TowardsReferencePoint ;
+                            edo:lifecycleRole edo:DesignRole ;
+                            edo:attributeNature edo:LocationAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#LongTermFloatDensity
