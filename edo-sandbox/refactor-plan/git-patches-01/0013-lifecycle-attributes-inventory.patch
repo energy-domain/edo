@@ -1,0 +1,358 @@
+diff --git a/docs/refactoring/lifecycle-attributes-inventory.md b/docs/refactoring/lifecycle-attributes-inventory.md
+new file mode 100644
+index 0000000..038f183
+--- /dev/null
++++ b/docs/refactoring/lifecycle-attributes-inventory.md
+@@ -0,0 +1,352 @@
++# Lifecycle attributes inventory
++
++## Purpose
++
++This document records the initial inventory of EDO attributes related to lifecycle-dependent engineering values.
++
++It supports the next lifecycle-attribute refactoring steps without changing the ontology yet.
++
++Rule used in the review:
++
++> If the meaning changes, the concept changes.
++
++This rule must be applied with care. It should not be used to mechanically create every possible combination of lifecycle prefix and attribute name.
++
++## Scope
++
++Source reviewed:
++
++```text
++core/edo.ttl
++```
++
++Families reviewed:
++
++```text
++Length
++WaterDepth / Depth
++Pressure
++Temperature
++BendingRadius
++Tension / Tensile / AxialLoad
++Collapse / Burst
++FatigueLife / DesignLife
++Weight / Mass
++Diameter / Thickness
++```
++
++## General findings
++
++The current EDO already contains many engineering attributes that encode lifecycle or operational meaning in their names, especially in pressure, temperature, tension, diameter, mass and table-column attributes.
++
++The refactoring should not rename these attributes automatically.
++
++The first safe action is to classify selected attributes with:
++
++```ttl
++edo:lifecycleRole
++edo:attributeNature
++```
++
++and only create new attributes when there is a real semantic distinction.
++
++## Length-related attributes found
++
++Existing attributes and columns include:
++
++```text
++NominalLength
++MaxLengthTolerance
++MetallicStrandLength
++WireRopeSlingLength
++StrandsTable_StrandsLength
++```
++
++Initial assessment:
++
++- `NominalLength` appears to be the main generic/domain length attribute.
++- `MaxLengthTolerance` is a tolerance attribute, not a lifecycle value of length itself.
++- `MetallicStrandLength`, `WireRopeSlingLength` and `StrandsTable_StrandsLength` are component/table-specific length attributes.
++
++Suggested action:
++
++- Do not create `RequiredLength`, `DesignedLength` or `AsBuiltLength` yet.
++- Revisit length after pressure or water depth, because length is less useful as the first test family for lifecycle-role modelling.
++
++## Water depth / depth attributes found
++
++No explicit `WaterDepth` or `Depth` attribute was found in the reviewed EDO core.
++
++Initial assessment:
++
++This makes water depth a good candidate for a clean first modelling exercise, because it can demonstrate the difference between:
++
++```text
++maximum supported water depth
++installed water depth
++```
++
++Suggested candidate concepts:
++
++```text
++RequiredMaxWaterDepth
++DesignedMaxWaterDepth
++InstalledWaterDepth
++CertifiedMaxWaterDepth
++```
++
++Suggested action:
++
++- Do not create these automatically in this inventory patch.
++- Use water depth as a candidate for the first lifecycle-attribute implementation patch if the goal is a clean example.
++
++## Pressure-related attributes found
++
++Existing attributes and columns include:
++
++```text
++AbsoluteInsidePressure
++AbsoluteOutsidePressure
++CalculatedAbsoluteBurstPressure
++HydrostaticCollapseAbsPressDry
++HydrostaticPressureTestsAttribute
++InternalIncidentalPressureCurveAttribute
++InternalIncidentalPressureTable_Pressure
++LayingMinimumRadiusTable_AbsoluteExternalPressure
++LayingMinimumRadiusTable_AbsoluteInternalPressure
++MaxDesignAbsIntPresTable_Pressure
++MaxDesignPressure
++RingGasketPressureRating
++StressAtDesignPressure
++```
++
++Related classes/components also include pressure in their names, but they are not attributes, for example:
++
++```text
++InternalPressureSheath
++PressureArmour
++PressureComponent
++PressureEquipment
++PressureSensor
++```
++
++Initial assessment:
++
++Pressure is a strong candidate family because the current EDO already contains design, test, incidental, collapse, burst and rating-related pressure concepts.
++
++Suggested action:
++
++- Do not merge these under a single generic `Pressure` attribute.
++- Classify existing pressure attributes first with `lifecycleRole` and `attributeNature` where obvious.
++- Create new lifecycle-specific pressure attributes only when the existing concept does not already capture the intended meaning.
++
++Candidate semantic distinctions:
++
++```text
++required pressure
++maximum design pressure
++test pressure
++operating pressure
++burst pressure
++collapse pressure
++certified pressure rating
++```
++
++## Temperature-related attributes found
++
++Existing attributes and columns include:
++
++```text
++MaximumTemperature
++MinimumTemperature
++InsideTemperature
++OutsideTemperature
++MaximumAmbientTemperature
++DiffusionTable_Temperature
++EModVsTempTable_Temperature
++PermeabilityTable_Temperature
++SolubilityTable_Temperature
++```
++
++Initial assessment:
++
++Temperature already appears in both generic attributes and table-column contexts.
++
++Suggested action:
++
++- Do not create a full lifecycle temperature family yet.
++- Preserve table-column attributes as table-column concepts.
++- Classify generic temperature attributes only where their lifecycle role is clear.
++
++## Bending radius attributes found
++
++Existing attributes and columns include:
++
++```text
++MinimumBendingRadiusForStorage
++LayingMinimumRadiusTable_MinimumAllowableBendingRadius
++```
++
++Initial assessment:
++
++Bending radius values are context-dependent and should not be collapsed into a single generic radius attribute.
++
++Suggested action:
++
++- Treat storage and laying/installability contexts separately.
++- Do not refactor in the first lifecycle family unless needed.
++
++## Tension / tensile / axial-load attributes found
++
++Existing attributes and columns include:
++
++```text
++AxialStiffnessUnderCompressionAtSeaLevel
++AxialStiffnessUnderTensionAtSeaLevel
++MaximumAllowableTensileForStraightLine
++MaximumAllowableTensionTable_MaximumAllowableTensile
++MaximumAllowableTighteningTable_AxialLoad
++SpoolingTension
++TensileArmourAnnulusCondition
++TensileArmourFreeAnnulusVolume
++TensileWireLayAngle
++TensileWiresCount
++UltimateTensileStress
++```
++
++Related classes/components include:
++
++```text
++TensileArmour
++```
++
++Initial assessment:
++
++This family mixes force, stress, stiffness, installation/load cases and component structure.
++
++Suggested action:
++
++- Do not use this as the first lifecycle family.
++- Revisit after pressure and water depth.
++
++## Collapse / burst attributes found
++
++Existing attributes include:
++
++```text
++CalculatedAbsoluteBurstPressure
++HydrostaticCollapseAbsPressDry
++```
++
++Initial assessment:
++
++These are capability/resistance concepts and should likely receive `CapabilityAttribute` plus a mechanical nature.
++
++Suggested action:
++
++- Treat as pressure-related capability attributes.
++- Do not rename automatically.
++
++## Fatigue life / design life attributes found
++
++No explicit matching attributes were found in the initial scan.
++
++Suggested action:
++
++- Leave for future review.
++
++## Weight / mass attributes found
++
++Existing attributes include:
++
++```text
++Mass
++LinearMass
++IndividualAnodeMass
++SpecificWeight
++```
++
++Initial assessment:
++
++Mass and weight should not be treated as synonyms.
++
++Suggested action:
++
++- Do not refactor in the first lifecycle family.
++- Preserve distinction between mass, linear mass and specific weight.
++
++## Diameter / thickness attributes found
++
++Existing attributes include:
++
++```text
++BoreDiameter
++ClampInternalDiameter
++CollarInternalDiameter
++ExternalDiameter
++GrooveDiameter
++GrooveSupportSurfaceDiameter
++InternalDiameter
++LayerGeometryProfileThickness
++LayerGeometryThickness
++LayerThickness
++NominalDiameter
++OuterDiameter
++RingGasketInnerDIameter
++RingGasketOuterDiameter
++ShackleInnerDiameter
++ShackleOuterDiameter
++ShackleThickness
++UpperItubeDiameter
++WireRopeSlingDiameter
++```
++
++Initial assessment:
++
++Diameter and thickness attributes are mostly component-specific or geometry-specific.
++
++Suggested action:
++
++- Do not create lifecycle variants mechanically.
++- Classify with `DimensionalAttribute` when useful.
++
++## Recommended first implementation family
++
++Two good candidates remain:
++
++```text
++WaterDepth
++Pressure
++```
++
++Recommended approach:
++
++1. Use `WaterDepth` if the goal is a clean modelling example with few legacy conflicts.
++2. Use `Pressure` if the goal is to classify and improve an already rich area of the ontology.
++
++## Proposed next patch
++
++The next lifecycle patch should choose one family only.
++
++Recommended next patch:
++
++```text
++Patch 14 — First lifecycle attribute family
++Candidate: WaterDepth or Pressure
++```
++
++Before generating Patch 14, decide which family will be implemented first.
++
++## Items explicitly not changed by this inventory
++
++This inventory does not:
++
++```text
++rename existing attributes
++remove existing attributes
++create lifecycle-specific attributes
++add lifecycleRole to existing attributes
++add attributeNature to existing attributes
++change data contracts
++change EDO-IFC mappings
++```
