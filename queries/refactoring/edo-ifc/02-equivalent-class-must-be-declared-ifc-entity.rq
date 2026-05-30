@@ -1,0 +1,10 @@
+PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
+
+SELECT ?edoConcept ?ifcEntity
+WHERE {
+  ?edoConcept edo-ifc:ifc_equivalentClass ?ifcEntity .
+
+  FILTER(STRSTARTS(STR(?ifcEntity), STR(edo-ifc:)))
+  FILTER NOT EXISTS { ?ifcEntity a edo-ifc:IFCEntity . }
+}
+ORDER BY ?edoConcept ?ifcEntity

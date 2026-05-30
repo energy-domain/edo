@@ -1,0 +1,160 @@
+diff --git a/queries/refactoring/edo-ifc/01-no-placeholder-ifc-resources.rq b/queries/refactoring/edo-ifc/01-no-placeholder-ifc-resources.rq
+new file mode 100644
+index 0000000..273183a
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/01-no-placeholder-ifc-resources.rq
+@@ -0,0 +1,15 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
++
++SELECT ?s ?p ?o
++WHERE {
++  BIND(<https://w3id.org/energy-domain/edo/mappings/ifc#-> AS ?placeholder)
++  {
++    ?s ?p ?placeholder .
++    BIND(?placeholder AS ?o)
++  }
++  UNION
++  {
++    ?placeholder ?p ?o .
++    BIND(?placeholder AS ?s)
++  }
++}
+diff --git a/queries/refactoring/edo-ifc/02-equivalent-class-must-be-declared-ifc-entity.rq b/queries/refactoring/edo-ifc/02-equivalent-class-must-be-declared-ifc-entity.rq
+new file mode 100644
+index 0000000..9c8e761
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/02-equivalent-class-must-be-declared-ifc-entity.rq
+@@ -0,0 +1,10 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
++
++SELECT ?edoConcept ?ifcEntity
++WHERE {
++  ?edoConcept edo-ifc:ifc_equivalentClass ?ifcEntity .
++
++  FILTER(STRSTARTS(STR(?ifcEntity), STR(edo-ifc:)))
++  FILTER NOT EXISTS { ?ifcEntity a edo-ifc:IFCEntity . }
++}
++ORDER BY ?edoConcept ?ifcEntity
+diff --git a/queries/refactoring/edo-ifc/03-userdefined-mappings-missing-objecttype.rq b/queries/refactoring/edo-ifc/03-userdefined-mappings-missing-objecttype.rq
+new file mode 100644
+index 0000000..3e45065
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/03-userdefined-mappings-missing-objecttype.rq
+@@ -0,0 +1,9 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
++
++SELECT ?edoConcept ?predefinedType
++WHERE {
++  ?edoConcept edo-ifc:ifc_predefinedType ?predefinedType .
++  FILTER(UCASE(STR(?predefinedType)) = "USERDEFINED")
++  FILTER NOT EXISTS { ?edoConcept edo-ifc:ifc_objectType ?objectType . }
++}
++ORDER BY ?edoConcept
+diff --git a/queries/refactoring/edo-ifc/04-objecttype-looks-like-ifc-class.rq b/queries/refactoring/edo-ifc/04-objecttype-looks-like-ifc-class.rq
+new file mode 100644
+index 0000000..81d95f1
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/04-objecttype-looks-like-ifc-class.rq
+@@ -0,0 +1,8 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
++
++SELECT ?edoConcept ?objectType
++WHERE {
++  ?edoConcept edo-ifc:ifc_objectType ?objectType .
++  FILTER(REGEX(STR(?objectType), "^Ifc[A-Z]"))
++}
++ORDER BY ?edoConcept
+diff --git a/queries/refactoring/edo-ifc/05-objecttype-without-userdefined-review.rq b/queries/refactoring/edo-ifc/05-objecttype-without-userdefined-review.rq
+new file mode 100644
+index 0000000..6c7121a
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/05-objecttype-without-userdefined-review.rq
+@@ -0,0 +1,13 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
++
++SELECT ?edoConcept ?objectType ?predefinedType
++WHERE {
++  ?edoConcept edo-ifc:ifc_objectType ?objectType .
++  OPTIONAL { ?edoConcept edo-ifc:ifc_predefinedType ?predefinedType . }
++
++  FILTER NOT EXISTS {
++    ?edoConcept edo-ifc:ifc_predefinedType ?userDefined .
++    FILTER(UCASE(STR(?userDefined)) = "USERDEFINED")
++  }
++}
++ORDER BY ?edoConcept
+diff --git a/queries/refactoring/edo-ifc/06-mapping-metadata-without-equivalent-class.rq b/queries/refactoring/edo-ifc/06-mapping-metadata-without-equivalent-class.rq
+new file mode 100644
+index 0000000..766cdb7
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/06-mapping-metadata-without-equivalent-class.rq
+@@ -0,0 +1,20 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
++
++SELECT DISTINCT ?edoConcept ?mappingProperty ?value
++WHERE {
++  VALUES ?mappingProperty {
++    edo-ifc:ifc_objectType
++    edo-ifc:ifc_predefinedType
++    edo-ifc:ifc_invertedDirection
++    edo-ifc:ifc_relatingRole
++    edo-ifc:ifc_relatedRole
++    edo-ifc:ifc_condition
++  }
++
++  ?edoConcept ?mappingProperty ?value .
++
++  FILTER NOT EXISTS {
++    ?edoConcept edo-ifc:ifc_equivalentClass ?ifcEntity .
++  }
++}
++ORDER BY ?edoConcept ?mappingProperty
+diff --git a/queries/refactoring/edo-ifc/07-edo-ifc-mapping-overview.rq b/queries/refactoring/edo-ifc/07-edo-ifc-mapping-overview.rq
+new file mode 100644
+index 0000000..0bb94e5
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/07-edo-ifc-mapping-overview.rq
+@@ -0,0 +1,12 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
++
++SELECT ?edoConcept ?ifcEntity ?objectType ?predefinedType ?relatingRole ?relatedRole
++WHERE {
++  ?edoConcept edo-ifc:ifc_equivalentClass ?ifcEntity .
++
++  OPTIONAL { ?edoConcept edo-ifc:ifc_objectType ?objectType . }
++  OPTIONAL { ?edoConcept edo-ifc:ifc_predefinedType ?predefinedType . }
++  OPTIONAL { ?edoConcept edo-ifc:ifc_relatingRole ?relatingRole . }
++  OPTIONAL { ?edoConcept edo-ifc:ifc_relatedRole ?relatedRole . }
++}
++ORDER BY ?edoConcept
+diff --git a/queries/refactoring/edo-ifc/08-ifc-entities-missing-exactmatch-review.rq b/queries/refactoring/edo-ifc/08-ifc-entities-missing-exactmatch-review.rq
+new file mode 100644
+index 0000000..4f01883
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/08-ifc-entities-missing-exactmatch-review.rq
+@@ -0,0 +1,13 @@
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
++PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
++
++SELECT ?ifcEntity
++WHERE {
++  ?ifcEntity a edo-ifc:IFCEntity .
++
++  BIND(STRAFTER(STR(?ifcEntity), STR(edo-ifc:)) AS ?localName)
++  FILTER(REGEX(?localName, "^Ifc[A-Za-z0-9]+$"))
++
++  FILTER NOT EXISTS { ?ifcEntity skos:exactMatch ?officialIfcUri . }
++}
++ORDER BY ?ifcEntity
+diff --git a/queries/refactoring/edo-ifc/README.md b/queries/refactoring/edo-ifc/README.md
+new file mode 100644
+index 0000000..a5b0283
+--- /dev/null
++++ b/queries/refactoring/edo-ifc/README.md
+@@ -0,0 +1,6 @@
++# EDO-IFC refactoring validation queries
++
++SPARQL queries for reviewing the EDO-IFC mapping ontology after the EDO refactoring.
++
++These queries are intentionally focused on mapping hygiene, not on validating IFC models.
++Some queries are expected to return review candidates rather than hard errors.

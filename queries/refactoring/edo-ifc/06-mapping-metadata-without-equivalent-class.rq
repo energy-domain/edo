@@ -1,0 +1,20 @@
+PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
+
+SELECT DISTINCT ?edoConcept ?mappingProperty ?value
+WHERE {
+  VALUES ?mappingProperty {
+    edo-ifc:ifc_objectType
+    edo-ifc:ifc_predefinedType
+    edo-ifc:ifc_invertedDirection
+    edo-ifc:ifc_relatingRole
+    edo-ifc:ifc_relatedRole
+    edo-ifc:ifc_condition
+  }
+
+  ?edoConcept ?mappingProperty ?value .
+
+  FILTER NOT EXISTS {
+    ?edoConcept edo-ifc:ifc_equivalentClass ?ifcEntity .
+  }
+}
+ORDER BY ?edoConcept ?mappingProperty

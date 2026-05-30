@@ -1,0 +1,13 @@
+PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?ifcEntity
+WHERE {
+  ?ifcEntity a edo-ifc:IFCEntity .
+
+  BIND(STRAFTER(STR(?ifcEntity), STR(edo-ifc:)) AS ?localName)
+  FILTER(REGEX(?localName, "^Ifc[A-Za-z0-9]+$"))
+
+  FILTER NOT EXISTS { ?ifcEntity skos:exactMatch ?officialIfcUri . }
+}
+ORDER BY ?ifcEntity

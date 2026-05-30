@@ -1,0 +1,13 @@
+PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
+
+SELECT ?edoConcept ?objectType ?predefinedType
+WHERE {
+  ?edoConcept edo-ifc:ifc_objectType ?objectType .
+  OPTIONAL { ?edoConcept edo-ifc:ifc_predefinedType ?predefinedType . }
+
+  FILTER NOT EXISTS {
+    ?edoConcept edo-ifc:ifc_predefinedType ?userDefined .
+    FILTER(UCASE(STR(?userDefined)) = "USERDEFINED")
+  }
+}
+ORDER BY ?edoConcept
