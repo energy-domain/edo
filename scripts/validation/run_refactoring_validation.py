@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+"""Run EDO refactoring validation queries.
+
+The runner loads the local TTL modules used in this refactoring and executes all
+SPARQL queries under queries/refactoring.
+
+Strict queries are expected to return no results. Query files whose names contain
+"overview" or "review" are informational and do not fail the run.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable
+
+from rdflib import Graph
+
+
+TTL_FILES = (
+    Path("core/edo.ttl"),
+    Path("mappings/ifc/edo-ifc.ttl"),
+    Path("modules/alignments/ido/edo-ido-alignment.ttl"),
+)
+
+REVIEW_MARKERS = ("overview", "review")
+
+
+@dataclass(frozen=True)
+class QueryResult:
+    path: Path
+    kind: str
+    row_count: int
+    failed: bool
+    rows: list[object]
+    error: str | None = None
+
+
+def repo_root_from_script() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def load_graph(root: Path, ttl_files: Iterable[Path]) -> Graph:
+    graph = Graph()
+    for relative_path in ttl_files:
+        path = root / relative_path
+        if not path.exists():
+            raise FileNotFoundError(f"Required TTL not found: {relative_path}")
+        graph.parse(path.as_posix(), format="turtle")
+        print(f"[parse] {relative_path}")
+    print(f"[graph] {len(graph)} triples loaded")
+    return graph
+
+
+def is_review_query(path: Path) -> bool:
+    name = path.name.lower()
+    return any(marker in name for marker in REVIEW_MARKERS)
+
+
+def run_query(graph: Graph, root: Path, query_path: Path, max_rows: int) -> QueryResult:
+    relative_path = query_path.relative_to(root)
+    try:
+        query_text = query_path.read_text(encoding="utf-8")
+        result = graph.query(query_text)
+        if result.type == "ASK":
+            rows = [bool(result.askAnswer)]
+            row_count = 1 if result.askAnswer else 0
+        else:
+            rows = list(result)
+            row_count = len(rows)
+        review = is_review_query(query_path)
+        failed = (not review) and row_count > 0
+        return QueryResult(relative_path, "review" if review else "strict", row_count, failed, rows[:max_rows])
+    except Exception as exc:  # noqa: BLE001 - CLI should report any query error.
+        return QueryResult(relative_path, "error", 0, True, [], str(exc))
+
+
+def print_result(result: QueryResult) -> None:
+    if result.error:
+        print(f"[ERROR] {result.path}: {result.error}")
+        return
+
+    if result.kind == "review":
+        status = "REVIEW" if result.row_count else "OK"
+    else:
+        status = "FAIL" if result.failed else "OK"
+
+    print(f"[{status}] {result.path} ({result.row_count} result{'s' if result.row_count != 1 else ''})")
+    if result.rows and status in {"FAIL", "REVIEW"}:
+        for row in result.rows:
+            print(f"    {row}")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run EDO refactoring validation queries.")
+    parser.add_argument("--root", type=Path, default=repo_root_from_script(), help="Repository root.")
+    parser.add_argument(
+        "--query-dir",
+        type=Path,
+        default=Path("queries/refactoring"),
+        help="Query directory, relative to the repository root unless absolute.",
+    )
+    parser.add_argument("--max-rows", type=int, default=10, help="Maximum rows printed per query.")
+    args = parser.parse_args()
+
+    root = args.root.resolve()
+    query_dir = args.query_dir if args.query_dir.is_absolute() else root / args.query_dir
+
+    if not query_dir.exists():
+        print(f"Query directory not found: {query_dir}", file=sys.stderr)
+        return 2
+
+    try:
+        graph = load_graph(root, TTL_FILES)
+    except Exception as exc:  # noqa: BLE001 - CLI should report parse errors.
+        print(f"[ERROR] Failed to load TTL files: {exc}", file=sys.stderr)
+        return 2
+
+    query_paths = sorted(query_dir.rglob("*.rq"))
+    if not query_paths:
+        print(f"No .rq files found under {query_dir}", file=sys.stderr)
+        return 2
+
+    print(f"[queries] {len(query_paths)} query files found")
+    print()
+
+    results = [run_query(graph, root, path, args.max_rows) for path in query_paths]
+    for result in results:
+        print_result(result)
+
+    failures = [result for result in results if result.failed]
+    print()
+    print(f"[summary] {len(results)} queries, {len(failures)} strict failure/error(s)")
+    return 1 if failures else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
