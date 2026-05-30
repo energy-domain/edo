@@ -4362,16 +4362,21 @@ edo:InnerTube rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#InsideTemperature
 edo:InsideTemperature rdf:type owl:Class ;
                       rdfs:subClassOf edo:BendingStiffnessCurveAttribute ,
-                                      edo:DomainAttribute ;
+                                      edo:Temperature ;
                       dcterms:accessRights "PUBLIC" ;
                       dcterms:identifier "InsideTemperature" ;
-                      skos:definition "Represents the internal temperature within a component or system. This property is important for assessing the thermal conditions inside the system, ensuring that it operates within safe temperature limits, particularly in subsea environments where temperature control is essential for maintaining performance and integrity."@en ;
+                      skos:definition "Temperature inside a component, system or analysed boundary."@en ,
+                                      "Temperatura interna de um componente, sistema ou limite analisado."@pt-br ;
                       skos:prefLabel "Inside Temperature"@en ,
-                                     "Temperatura Interna"@pt-br ;
+                                     "Temperatura interna"@pt-br ;
+                      edo:specializesAttribute edo:Temperature ;
                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
-                      edo:hasValueCardinality edo:SingleValue .
+                      edo:hasUnit unit:DEG_C ;
+                      edo:hasValueCardinality edo:SingleValue ;
+                      edo:lifecycleRole edo:DesignRole ;
+                      edo:attributeNature edo:EnvironmentalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#Installation
@@ -5746,6 +5751,22 @@ edo:MaximumAllowableTighteningTable_TighteningPerTrack rdf:type owl:Class ;
                                                        edo:hasValueCardinality edo:MultiValue .
 
 
+###  https://w3id.org/energy-domain/edo#Temperature
+edo:Temperature rdf:type owl:Class ;
+                rdfs:subClassOf edo:DomainAttribute ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "Temperature" ;
+                skos:definition "Generic attribute for temperature values. Specialized attributes must be used when the value represents a requirement, design limit, certified limit, operating condition or another lifecycle-specific meaning."@en ,
+                                "Atributo genérico para valores de temperatura. Atributos especializados devem ser usados quando o valor representar requisito, limite de projeto, limite certificado, condição operacional ou outro significado específico do ciclo de vida."@pt-br ;
+                skos:prefLabel "Temperature"@en ,
+                               "Temperatura"@pt-br ;
+                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:DEG_C ;
+                edo:hasValueCardinality edo:SingleValue ;
+                edo:attributeNature edo:EnvironmentalAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#MaximumAmbientTemperature
 edo:MaximumAmbientTemperature rdf:type owl:Class ;
                               rdfs:subClassOf edo:CrushingFrictionCoefficientTighteningAttribute ,
@@ -5764,16 +5785,98 @@ edo:MaximumAmbientTemperature rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MaximumTemperature
 edo:MaximumTemperature rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ;
+                       rdfs:subClassOf edo:Temperature ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "MaximumTemperature" ;
-                       skos:definition "Represents the highest temperature at which the structure or component can safely operate without compromising its integrity or performance. This value is critical for ensuring that materials and components maintain their mechanical properties and do not experience degradation, deformation, or failure under extreme thermal conditions."@en ;
+                       skos:definition "Generic maximum temperature attribute. Use a lifecycle-specific specialization when the value represents a requirement, design value or certified value."@en ,
+                                       "Atributo genérico de temperatura máxima. Usar uma especialização de ciclo de vida quando o valor representar requisito, valor de projeto ou valor certificado."@pt-br ;
                        skos:prefLabel "Maximum Temperature"@en ,
-                                      "Temperatura Máxima"@pt-br ;
+                                      "Temperatura máxima"@pt-br ;
+                       edo:specializesAttribute edo:Temperature ;
                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:BasicDesign ;
                        edo:hasTypedValue edo:FloatValue ;
-                       edo:hasValueCardinality edo:SingleValue .
+                       edo:hasUnit unit:DEG_C ;
+                       edo:hasValueCardinality edo:SingleValue ;
+                       edo:attributeNature edo:CapabilityAttribute ,
+                                           edo:EnvironmentalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RequiredMaximumTemperature
+edo:RequiredMaximumTemperature rdf:type owl:Class ;
+                               rdfs:subClassOf edo:MaximumTemperature ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "RequiredMaximumTemperature" ;
+                               skos:definition "Maximum temperature required by a data contract, project requirement or owner specification."@en ,
+                                               "Temperatura máxima requerida por contrato de dados, requisito de projeto ou especificação do proprietário."@pt-br ;
+                               skos:prefLabel "Required Maximum Temperature"@en ,
+                                              "Temperatura máxima requerida"@pt-br ;
+                               edo:specializesAttribute edo:MaximumTemperature ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:DEG_C ;
+                               edo:hasValueCardinality edo:SingleValue ;
+                               edo:lifecycleRole edo:RequirementRole ;
+                               edo:attributeNature edo:CapabilityAttribute ,
+                                                   edo:EnvironmentalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignedMaximumTemperature
+edo:DesignedMaximumTemperature rdf:type owl:Class ;
+                               rdfs:subClassOf edo:MaximumTemperature ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "DesignedMaximumTemperature" ;
+                               skos:definition "Maximum temperature considered or established in design for the component or system."@en ,
+                                               "Temperatura máxima considerada ou estabelecida em projeto para o componente ou sistema."@pt-br ;
+                               skos:prefLabel "Designed Maximum Temperature"@en ,
+                                              "Temperatura máxima de projeto"@pt-br ;
+                               edo:specializesAttribute edo:MaximumTemperature ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:DEG_C ;
+                               edo:hasValueCardinality edo:SingleValue ;
+                               edo:lifecycleRole edo:DesignRole ;
+                               edo:attributeNature edo:CapabilityAttribute ,
+                                                   edo:EnvironmentalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedMaximumTemperature
+edo:CertifiedMaximumTemperature rdf:type owl:Class ;
+                                rdfs:subClassOf edo:MaximumTemperature ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "CertifiedMaximumTemperature" ;
+                                skos:definition "Maximum temperature certified for the component or system after qualification, testing, certification or supplier declaration."@en ,
+                                                "Temperatura máxima certificada para o componente ou sistema após qualificação, ensaio, certificação ou declaração do fornecedor."@pt-br ;
+                                skos:prefLabel "Certified Maximum Temperature"@en ,
+                                               "Temperatura máxima certificada"@pt-br ;
+                                edo:specializesAttribute edo:MaximumTemperature ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:DEG_C ;
+                                edo:hasValueCardinality edo:SingleValue ;
+                                edo:lifecycleRole edo:CertifiedRole ;
+                                edo:attributeNature edo:CapabilityAttribute ,
+                                                    edo:EnvironmentalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OperatingTemperature
+edo:OperatingTemperature rdf:type owl:Class ;
+                         rdfs:subClassOf edo:Temperature ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "OperatingTemperature" ;
+                         skos:definition "Temperature associated with an operating condition of the component or system."@en ,
+                                         "Temperatura associada a uma condição operacional do componente ou sistema."@pt-br ;
+                         skos:prefLabel "Operating Temperature"@en ,
+                                        "Temperatura operacional"@pt-br ;
+                         edo:specializesAttribute edo:Temperature ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:DEG_C ;
+                         edo:hasValueCardinality edo:SingleValue ;
+                         edo:lifecycleRole edo:OperatingRole ;
+                         edo:attributeNature edo:EnvironmentalAttribute ,
+                                             edo:OperationalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#MaximumThermalExchangeCoefficient
@@ -5958,16 +6061,79 @@ edo:MinimumBendingRadiusForStorage rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MinimumTemperature
 edo:MinimumTemperature rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ;
+                       rdfs:subClassOf edo:Temperature ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "MinimumTemperature" ;
-                       skos:definition "Represents the lowest temperature at which the structure or component can safely operate without experiencing performance degradation or failure. This value is important for ensuring that the materials maintain their properties and structural integrity when exposed to extremely low temperatures"@en ;
+                       skos:definition "Generic minimum temperature attribute. Use a lifecycle-specific specialization when the value represents a requirement, design value or certified value."@en ,
+                                       "Atributo genérico de temperatura mínima. Usar uma especialização de ciclo de vida quando o valor representar requisito, valor de projeto ou valor certificado."@pt-br ;
                        skos:prefLabel "Minimum Temperature"@en ,
-                                      "Temperatura Mínima"@pt-br ;
+                                      "Temperatura mínima"@pt-br ;
+                       edo:specializesAttribute edo:Temperature ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
-                       edo:hasValueCardinality edo:SingleValue .
+                       edo:hasUnit unit:DEG_C ;
+                       edo:hasValueCardinality edo:SingleValue ;
+                       edo:attributeNature edo:CapabilityAttribute ,
+                                           edo:EnvironmentalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RequiredMinimumTemperature
+edo:RequiredMinimumTemperature rdf:type owl:Class ;
+                               rdfs:subClassOf edo:MinimumTemperature ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "RequiredMinimumTemperature" ;
+                               skos:definition "Minimum temperature required by a data contract, project requirement or owner specification."@en ,
+                                               "Temperatura mínima requerida por contrato de dados, requisito de projeto ou especificação do proprietário."@pt-br ;
+                               skos:prefLabel "Required Minimum Temperature"@en ,
+                                              "Temperatura mínima requerida"@pt-br ;
+                               edo:specializesAttribute edo:MinimumTemperature ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:DEG_C ;
+                               edo:hasValueCardinality edo:SingleValue ;
+                               edo:lifecycleRole edo:RequirementRole ;
+                               edo:attributeNature edo:CapabilityAttribute ,
+                                                   edo:EnvironmentalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignedMinimumTemperature
+edo:DesignedMinimumTemperature rdf:type owl:Class ;
+                               rdfs:subClassOf edo:MinimumTemperature ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "DesignedMinimumTemperature" ;
+                               skos:definition "Minimum temperature considered or established in design for the component or system."@en ,
+                                               "Temperatura mínima considerada ou estabelecida em projeto para o componente ou sistema."@pt-br ;
+                               skos:prefLabel "Designed Minimum Temperature"@en ,
+                                              "Temperatura mínima de projeto"@pt-br ;
+                               edo:specializesAttribute edo:MinimumTemperature ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:DEG_C ;
+                               edo:hasValueCardinality edo:SingleValue ;
+                               edo:lifecycleRole edo:DesignRole ;
+                               edo:attributeNature edo:CapabilityAttribute ,
+                                                   edo:EnvironmentalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedMinimumTemperature
+edo:CertifiedMinimumTemperature rdf:type owl:Class ;
+                                rdfs:subClassOf edo:MinimumTemperature ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "CertifiedMinimumTemperature" ;
+                                skos:definition "Minimum temperature certified for the component or system after qualification, testing, certification or supplier declaration."@en ,
+                                                "Temperatura mínima certificada para o componente ou sistema após qualificação, ensaio, certificação ou declaração do fornecedor."@pt-br ;
+                                skos:prefLabel "Certified Minimum Temperature"@en ,
+                                               "Temperatura mínima certificada"@pt-br ;
+                                edo:specializesAttribute edo:MinimumTemperature ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:DEG_C ;
+                                edo:hasValueCardinality edo:SingleValue ;
+                                edo:lifecycleRole edo:CertifiedRole ;
+                                edo:attributeNature edo:CapabilityAttribute ,
+                                                    edo:EnvironmentalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#MinimumThermalExchangeCoefficient
@@ -6392,16 +6558,21 @@ edo:OuterDiameter rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#OutsideTemperature
 edo:OutsideTemperature rdf:type owl:Class ;
                        rdfs:subClassOf edo:BendingStiffnessCurveAttribute ,
-                                       edo:DomainAttribute ;
+                                       edo:Temperature ;
                        dcterms:accessRights "PUBLIC" ;
                        dcterms:identifier "OutsideTemperature" ;
-                       skos:definition "Represents the external temperature surrounding a component or system. This property is important for assessing the thermal conditions that the component is exposed to, ensuring it operates within safe temperature limits."@en ;
+                       skos:definition "Temperature outside a component, system or analysed boundary."@en ,
+                                       "Temperatura externa de um componente, sistema ou limite analisado."@pt-br ;
                        skos:prefLabel "Outside Temperature"@en ,
-                                      "Temperatura Externa"@pt-br ;
+                                      "Temperatura externa"@pt-br ;
+                       edo:specializesAttribute edo:Temperature ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
-                       edo:hasValueCardinality edo:SingleValue .
+                       edo:hasUnit unit:DEG_C ;
+                       edo:hasValueCardinality edo:SingleValue ;
+                       edo:lifecycleRole edo:DesignRole ;
+                       edo:attributeNature edo:EnvironmentalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#OverrideTool
