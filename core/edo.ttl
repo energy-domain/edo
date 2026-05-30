@@ -4306,7 +4306,7 @@ edo:ImportedValue rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#IndividualAnodeMass
 edo:IndividualAnodeMass rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ;
+                        rdfs:subClassOf edo:Mass ;
                         dcterms:accessRights "PUBLIC" ;
                         dcterms:identifier "IndividualAnodeMass" ;
                         skos:definition "Total mass of the sacrificial anode material within each individual anode."@en ;
@@ -4315,8 +4315,11 @@ edo:IndividualAnodeMass rdf:type owl:Class ;
                         edo:hasAttributeScope edo:TypeLevelAttribute ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
-                        edo:hasValueCardinality edo:SingleValue .
-
+                        edo:hasUnit unit:KiloGM ;
+                        edo:hasValueCardinality edo:SingleValue ;
+                        edo:specializesAttribute edo:Mass ;
+                        edo:lifecycleRole edo:DesignRole ;
+                        edo:attributeNature edo:MechanicalAttribute .
 
 ###  https://w3id.org/energy-domain/edo#InlineT
 edo:InlineT rdf:type owl:Class ;
@@ -5072,18 +5075,22 @@ edo:LinearLocation rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#LinearMass
 edo:LinearMass rdf:type owl:Class ;
-               rdfs:subClassOf edo:DomainAttribute ;
+               rdfs:subClassOf edo:Mass ;
                dcterms:accessRights "PUBLIC" ;
                dcterms:identifier "LinearMass" ;
-               skos:definition "Indicates the mass per unit length, providing essential information for weight distribution and load calculations. This value is critical for evaluating how the structure will perform under various operational conditions, including installation and transport."@en ;
+               skos:definition "Mass per unit length."@en ,
+                               "Massa por unidade de comprimento."@pt-br ;
                skos:prefLabel "Linear Mass"@en ,
                               "Massa Linear"@pt-br ;
                edo:hasAttributeScope edo:InstanceLevelAttribute ,
                                      edo:TypeLevelAttribute ;
                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                edo:hasTypedValue edo:FloatValue ;
-               edo:hasValueCardinality edo:SingleValue .
-
+               edo:hasUnit unit:KiloGM-PER-M ;
+               edo:hasValueCardinality edo:SingleValue ;
+               edo:specializesAttribute edo:Mass ;
+               edo:lifecycleRole edo:DesignRole ;
+               edo:attributeNature edo:MechanicalAttribute .
 
 ###  https://w3id.org/energy-domain/edo#LinearObject
 edo:LinearObject rdf:type owl:Class ;
@@ -5335,14 +5342,94 @@ edo:Mass rdf:type owl:Class ;
          rdfs:subClassOf edo:DomainAttribute ;
          dcterms:accessRights "PUBLIC" ;
          dcterms:identifier "Mass" ;
-         skos:definition "Amount of matter that makes up an object."@en ;
+         skos:definition "Amount of matter that makes up an object."@en ,
+                         "Quantidade de matéria que compõe um objeto."@pt-br ;
          skos:prefLabel "Mass"@en ,
                         "Massa"@pt-br ;
          edo:hasAttributeScope edo:TypeLevelAttribute ;
          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
          edo:hasTypedValue edo:FloatValue ;
-         edo:hasValueCardinality edo:SingleValue .
+         edo:hasUnit unit:KiloGM ;
+         edo:hasValueCardinality edo:SingleValue ;
+         edo:lifecycleRole edo:DesignRole ;
+         edo:attributeNature edo:MechanicalAttribute .
 
+
+###  https://w3id.org/energy-domain/edo#RequiredMass
+edo:RequiredMass rdf:type owl:Class ;
+                 rdfs:subClassOf edo:Mass ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "RequiredMass" ;
+                 skos:definition "Required mass for an object or component."@en ,
+                                 "Massa requerida para um objeto ou componente."@pt-br ;
+                 skos:prefLabel "Required Mass"@en ,
+                                "Massa Requerida"@pt-br ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:KiloGM ;
+                 edo:hasValueCardinality edo:SingleValue ;
+                 edo:specializesAttribute edo:Mass ;
+                 edo:lifecycleRole edo:RequirementRole ;
+                 edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignedMass
+edo:DesignedMass rdf:type owl:Class ;
+                 rdfs:subClassOf edo:Mass ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "DesignedMass" ;
+                 skos:definition "Mass adopted or calculated in design."@en ,
+                                 "Massa adotada ou calculada em projeto."@pt-br ;
+                 skos:prefLabel "Designed Mass"@en ,
+                                "Massa de Projeto"@pt-br ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:KiloGM ;
+                 edo:hasValueCardinality edo:SingleValue ;
+                 edo:specializesAttribute edo:Mass ;
+                 edo:lifecycleRole edo:DesignRole ;
+                 edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedMass
+edo:CertifiedMass rdf:type owl:Class ;
+                  rdfs:subClassOf edo:Mass ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "CertifiedMass" ;
+                  skos:definition "Mass certified for an object or component."@en ,
+                                  "Massa certificada para um objeto ou componente."@pt-br ;
+                  skos:prefLabel "Certified Mass"@en ,
+                                 "Massa Certificada"@pt-br ;
+                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:KiloGM ;
+                  edo:hasValueCardinality edo:SingleValue ;
+                  edo:specializesAttribute edo:Mass ;
+                  edo:lifecycleRole edo:CertifiedRole ;
+                  edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AsBuiltMass
+edo:AsBuiltMass rdf:type owl:Class ;
+                rdfs:subClassOf edo:Mass ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "AsBuiltMass" ;
+                skos:definition "Mass recorded for the object or component as built."@en ,
+                                "Massa registrada para o objeto ou componente como construído."@pt-br ;
+                skos:prefLabel "As-Built Mass"@en ,
+                               "Massa As-Built"@pt-br ;
+                edo:hasAttributeScope edo:InstanceLevelAttribute ,
+                                      edo:TypeLevelAttribute ;
+                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:KiloGM ;
+                edo:hasValueCardinality edo:SingleValue ;
+                edo:specializesAttribute edo:Mass ;
+                edo:lifecycleRole edo:AsBuiltRole ;
+                edo:attributeNature edo:MechanicalAttribute .
 
 ###  https://w3id.org/energy-domain/edo#MasterControlStation
 edo:MasterControlStation rdf:type owl:Class ;
@@ -8296,18 +8383,116 @@ edo:SpecificHeatCapacity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SpecificWeight
 edo:SpecificWeight rdf:type owl:Class ;
-                   rdfs:subClassOf edo:DomainAttribute ;
+                   rdfs:subClassOf edo:Weight ;
                    dcterms:accessRights "PUBLIC" ;
                    dcterms:identifier "SpecificWeight" ;
-                   skos:definition "Indicates the weight of the material per unit volume. This property is crucial for understanding the material's density and its impact on the overall weight."@en ,
-                                   "Peso específico do material"@pt-br ;
+                   skos:definition "Weight per unit volume."@en ,
+                                   "Peso por unidade de volume."@pt-br ;
                    skos:prefLabel "Peso Específico"@pt-br ,
                                   "Specific Weight"@en ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
-                   edo:hasValueCardinality edo:SingleValue .
+                   edo:hasUnit unit:N-PER-M3 ;
+                   edo:hasValueCardinality edo:SingleValue ;
+                   edo:specializesAttribute edo:Weight ;
+                   edo:lifecycleRole edo:DesignRole ;
+                   edo:attributeNature edo:MechanicalAttribute .
 
+
+###  https://w3id.org/energy-domain/edo#Weight
+edo:Weight rdf:type owl:Class ;
+           rdfs:subClassOf edo:DomainAttribute ;
+           dcterms:accessRights "PUBLIC" ;
+           dcterms:identifier "Weight" ;
+           skos:definition "Force exerted by gravity on an object."@en ,
+                           "Força exercida pela gravidade sobre um objeto."@pt-br ;
+           skos:prefLabel "Peso"@pt-br ,
+                          "Weight"@en ;
+           edo:hasAttributeScope edo:TypeLevelAttribute ;
+           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+           edo:hasTypedValue edo:FloatValue ;
+           edo:hasUnit unit:N ;
+           edo:hasValueCardinality edo:SingleValue ;
+           edo:lifecycleRole edo:DesignRole ;
+           edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RequiredWeight
+edo:RequiredWeight rdf:type owl:Class ;
+                   rdfs:subClassOf edo:Weight ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "RequiredWeight" ;
+                   skos:definition "Required weight for an object or component."@en ,
+                                   "Peso requerido para um objeto ou componente."@pt-br ;
+                   skos:prefLabel "Peso Requerido"@pt-br ,
+                                  "Required Weight"@en ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:N ;
+                   edo:hasValueCardinality edo:SingleValue ;
+                   edo:specializesAttribute edo:Weight ;
+                   edo:lifecycleRole edo:RequirementRole ;
+                   edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignedWeight
+edo:DesignedWeight rdf:type owl:Class ;
+                   rdfs:subClassOf edo:Weight ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "DesignedWeight" ;
+                   skos:definition "Weight adopted or calculated in design."@en ,
+                                   "Peso adotado ou calculado em projeto."@pt-br ;
+                   skos:prefLabel "Peso de Projeto"@pt-br ,
+                                  "Designed Weight"@en ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:N ;
+                   edo:hasValueCardinality edo:SingleValue ;
+                   edo:specializesAttribute edo:Weight ;
+                   edo:lifecycleRole edo:DesignRole ;
+                   edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedWeight
+edo:CertifiedWeight rdf:type owl:Class ;
+                    rdfs:subClassOf edo:Weight ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "CertifiedWeight" ;
+                    skos:definition "Weight certified for an object or component."@en ,
+                                    "Peso certificado para um objeto ou componente."@pt-br ;
+                    skos:prefLabel "Peso Certificado"@pt-br ,
+                                   "Certified Weight"@en ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:N ;
+                    edo:hasValueCardinality edo:SingleValue ;
+                    edo:specializesAttribute edo:Weight ;
+                    edo:lifecycleRole edo:CertifiedRole ;
+                    edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#AsBuiltWeight
+edo:AsBuiltWeight rdf:type owl:Class ;
+                  rdfs:subClassOf edo:Weight ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "AsBuiltWeight" ;
+                  skos:definition "Weight recorded for the object or component as built."@en ,
+                                  "Peso registrado para o objeto ou componente como construído."@pt-br ;
+                  skos:prefLabel "Peso As-Built"@pt-br ,
+                                 "As-Built Weight"@en ;
+                  edo:hasAttributeScope edo:InstanceLevelAttribute ,
+                                        edo:TypeLevelAttribute ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:N ;
+                  edo:hasValueCardinality edo:SingleValue ;
+                  edo:specializesAttribute edo:Weight ;
+                  edo:lifecycleRole edo:AsBuiltRole ;
+                  edo:attributeNature edo:MechanicalAttribute .
 
 ###  https://w3id.org/energy-domain/edo#TechnicalArtifact
 edo:TechnicalArtifact rdf:type owl:Class ;
