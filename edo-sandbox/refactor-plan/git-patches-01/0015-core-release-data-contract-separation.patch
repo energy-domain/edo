@@ -1,0 +1,147 @@
+diff --git a/docs/refactoring/core-release-data-contract-separation.md b/docs/refactoring/core-release-data-contract-separation.md
+new file mode 100644
+index 0000000..b2c8f4a
+--- /dev/null
++++ b/docs/refactoring/core-release-data-contract-separation.md
+@@ -0,0 +1,109 @@
++# Separação entre EDO core, releases de domínio e data contracts
++
++## Objetivo
++
++Este documento registra o critério de separação entre a EDO core, releases ou módulos de domínio e data contracts.
++
++A separação evita que a EDO core acumule responsabilidades de contrato, entrega, ferramenta ou cliente específico.
++
++## Princípio geral
++
++```text
++EDO core = semântica estrutural reutilizável
++Release/módulo de domínio = vocabulário específico maduro
++Data contract = obrigação de entrega
++```
++
++## EDO core
++
++A EDO core deve conter conceitos estruturais, reutilizáveis e estáveis do domínio.
++
++Entram na core conceitos que ajudam a estruturar, classificar, relacionar ou governar informações de domínio independentemente de uma entrega específica.
++
++Exemplos:
++
++```text
++DomainElement
++DomainAttribute
++DomainRelation
++DomainAnnotation
++DomainMetamodelElement
++DomainValueConcept
++TechnicalArtifact
++Specification
++ConfiguredSystem
++Feature
++ConnectionPoint
++AttachmentPoint
++ReferencePoint
++```
++
++Também entram na core estruturas reutilizáveis para curadoria e classificação de atributos:
++
++```text
++DomainAttributeRole
++RequirementRole
++DesignRole
++TestRole
++OperatingRole
++InstalledRole
++AsBuiltRole
++CertifiedRole
++
++DomainAttributeNature
++DimensionalAttribute
++MechanicalAttribute
++EnvironmentalAttribute
++OperationalAttribute
++PerformanceAttribute
++LocationAttribute
++CapabilityAttribute
++```
++
++Atributos específicos podem entrar na core quando forem maduros, reutilizáveis e semanticamente úteis para mais de um contrato ou release.
++
++Exemplos possíveis:
++
++```text
++WaterDepth
++MaxWaterDepth
++RequiredMaxWaterDepth
++DesignedMaxWaterDepth
++CertifiedMaxWaterDepth
++InstalledWaterDepth
++```
++
++## Releases ou módulos de domínio
++
++Releases ou módulos de domínio devem conter vocabulário específico de uma disciplina, família de ativos ou escopo técnico estabilizado.
++
++Entram em releases ou módulos de domínio conceitos que são importantes para uma área específica, mas que não precisam necessariamente fazer parte da core geral.
++
++Exemplos:
++
++```text
++classes específicas de uma disciplina
++atributos específicos de uma família de ativos
++valores controlados específicos de domínio
++relações específicas de domínio
++perfis estabilizados para uma entrega ou release
++```
++
++Um release ou módulo pode congelar uma visão da EDO usada por um data contract publicado.
++
++Quando uma disciplina evolui a partir de uma branch, a versão usada para publicação deve ser preservada como referência permanente do contrato publicado.
++
++## Data contracts
++
++Data contracts não definem a semântica principal da EDO.
++
++Eles definem a obrigação de entrega de informação em um escopo específico.
++
++Um data contract deve declarar, para cada entrega:
++
++```text
++quais classes entram no escopo
++quais atributos são exigidos
++quais relações são exigidas
++quais atributos são opcionais
++quais atributos são excluídos
++qual unidade deve ser usada
++qual cardinalidade é aceita
++qual disciplina é responsável
++qual fase ou maturidade se aplica
++quais regras IDS/IDSX validam a entrega
++```
++
++Assim, a EDO governa a semântica, enquanto o data contract governa a obrigação de entrega.
++
++## Relação com IDS, IDSX e ferramentas
++
++IDS e IDSX devem validar entregas com base nos conceitos da EDO, EDO-IFC e data contracts.
++
++A Data Mapping Tool deve resolver os dados de entrada e produzir JSON estruturado para o IfcStepParser.
++
++O IfcStepParser deve consumir JSON já estruturado, sem decidir a semântica de domínio.
++
++## Regra de decisão
++
++Antes de inserir um novo conceito na EDO core, perguntar:
++
++> Este conceito é semântico, reutilizável e útil para estruturar o domínio além de uma entrega específica?
++
++Se sim, pode ser candidato à EDO core.
++
++Se for específico de uma disciplina ou família de ativos, pode ir para release ou módulo de domínio.
++
++Se for obrigação de entrega, vai para data contract.
++
++Se for mapeamento IFC, vai para EDO-IFC.
++
++Se for comportamento de ferramenta, vai para ferramenta, pipeline, extrator, CDE, Data Mapping Tool, IDSX ou IfcStepParser.
