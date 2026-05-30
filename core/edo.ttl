@@ -8349,16 +8349,21 @@ edo:SplitCollar rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SpoolingTension
 edo:SpoolingTension rdf:type owl:Class ;
-                    rdfs:subClassOf edo:DomainAttribute ;
+                    rdfs:subClassOf edo:Tension ;
                     dcterms:accessRights "PUBLIC" ;
                     dcterms:identifier "SpoolingTension" ;
-                    skos:definition "Represents the tension applied to a flexible component during the spooling process. This property is crucial for ensuring that the material is wound onto the reel or spool without exceeding its mechanical limits, preventing damage or deformation during handling and storage."@en ;
+                    skos:definition "Tension applied to a flexible component during the spooling process."@en ,
+                                    "Tração aplicada a um componente flexível durante o processo de bobinamento."@pt-br ;
                     skos:prefLabel "Spooling Tension"@en ,
-                                   "Tração de Desenrolamento"@pt-br ;
+                                   "Tração de bobinamento"@pt-br ;
+                    edo:specializesAttribute edo:Tension ;
                     edo:hasAttributeScope edo:TypeLevelAttribute ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:FloatValue ;
-                    edo:hasValueCardinality edo:SingleValue .
+                    edo:hasUnit unit:N ;
+                    edo:hasValueCardinality edo:SingleValue ;
+                    edo:lifecycleRole edo:DesignRole ;
+                    edo:attributeNature edo:MechanicalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#StaticEquipmentEngineering
@@ -9104,6 +9109,112 @@ edo:TemperatureSensor rdf:type owl:Class ;
                       dcterms:identifier "TemperatureSensor" ;
                       skos:prefLabel "Sensor de temperatura"@pt-br ,
                                      "Temperature sensor"@en .
+
+
+###  https://w3id.org/energy-domain/edo#Tension
+edo:Tension rdf:type owl:Class ;
+            rdfs:subClassOf edo:DomainAttribute ;
+            dcterms:accessRights "PUBLIC" ;
+            dcterms:identifier "Tension" ;
+            skos:definition "Generic attribute for tensile force values. Specialized attributes must be used when the value represents a requirement, design value, certified value, operating condition or another lifecycle-specific meaning."@en ,
+                            "Atributo genérico para valores de força de tração. Atributos especializados devem ser usados quando o valor representar requisito, valor de projeto, valor certificado, condição operacional ou outro significado específico do ciclo de vida."@pt-br ;
+            skos:prefLabel "Tension"@en ,
+                           "Tração"@pt-br ;
+            edo:hasAttributeScope edo:TypeLevelAttribute ;
+            edo:hasTypedValue edo:FloatValue ;
+            edo:hasUnit unit:N ;
+            edo:hasValueCardinality edo:SingleValue ;
+            edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxTension
+edo:MaxTension rdf:type owl:Class ;
+               rdfs:subClassOf edo:Tension ;
+               dcterms:accessRights "PUBLIC" ;
+               dcterms:identifier "MaxTension" ;
+               skos:definition "Maximum tensile force associated with a component or system."@en ,
+                               "Força máxima de tração associada a um componente ou sistema."@pt-br ;
+               skos:prefLabel "Max Tension"@en ,
+                              "Tração máxima"@pt-br ;
+               edo:specializesAttribute edo:Tension ;
+               edo:hasAttributeScope edo:TypeLevelAttribute ;
+               edo:hasTypedValue edo:FloatValue ;
+               edo:hasUnit unit:N ;
+               edo:hasValueCardinality edo:SingleValue ;
+               edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RequiredMaxTension
+edo:RequiredMaxTension rdf:type owl:Class ;
+                       rdfs:subClassOf edo:MaxTension ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "RequiredMaxTension" ;
+                       skos:definition "Maximum tensile force required by a data contract, project requirement or owner specification."@en ,
+                                       "Força máxima de tração requerida por contrato de dados, requisito de projeto ou especificação do proprietário."@pt-br ;
+                       skos:prefLabel "Required Max Tension"@en ,
+                                      "Tração máxima requerida"@pt-br ;
+                       edo:specializesAttribute edo:MaxTension ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:N ;
+                       edo:hasValueCardinality edo:SingleValue ;
+                       edo:lifecycleRole edo:RequirementRole ;
+                       edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DesignedMaxTension
+edo:DesignedMaxTension rdf:type owl:Class ;
+                       rdfs:subClassOf edo:MaxTension ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "DesignedMaxTension" ;
+                       skos:definition "Maximum tensile force established in design for the component or system."@en ,
+                                       "Força máxima de tração estabelecida em projeto para o componente ou sistema."@pt-br ;
+                       skos:prefLabel "Designed Max Tension"@en ,
+                                      "Tração máxima de projeto"@pt-br ;
+                       edo:specializesAttribute edo:MaxTension ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:N ;
+                       edo:hasValueCardinality edo:SingleValue ;
+                       edo:lifecycleRole edo:DesignRole ;
+                       edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedMaxTension
+edo:CertifiedMaxTension rdf:type owl:Class ;
+                        rdfs:subClassOf edo:MaxTension ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "CertifiedMaxTension" ;
+                        skos:definition "Maximum tensile force certified for the component or system after verification, testing, certification or supplier declaration."@en ,
+                                        "Força máxima de tração certificada para o componente ou sistema após verificação, ensaio, certificação ou declaração do fornecedor."@pt-br ;
+                        skos:prefLabel "Certified Max Tension"@en ,
+                                       "Tração máxima certificada"@pt-br ;
+                        edo:specializesAttribute edo:MaxTension ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:N ;
+                        edo:hasValueCardinality edo:SingleValue ;
+                        edo:lifecycleRole edo:CertifiedRole ;
+                        edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OperatingTension
+edo:OperatingTension rdf:type owl:Class ;
+                     rdfs:subClassOf edo:Tension ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "OperatingTension" ;
+                     skos:definition "Tensile force associated with an operating condition of the component or system."@en ,
+                                     "Força de tração associada a uma condição operacional do componente ou sistema."@pt-br ;
+                     skos:prefLabel "Operating Tension"@en ,
+                                    "Tração operacional"@pt-br ;
+                     edo:specializesAttribute edo:Tension ;
+                     edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                     edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:N ;
+                     edo:hasValueCardinality edo:SingleValue ;
+                     edo:lifecycleRole edo:OperatingRole ;
+                     edo:attributeNature edo:MechanicalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#TensileArmour

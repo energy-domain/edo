@@ -1,0 +1,139 @@
+diff --git a/core/edo.ttl b/core/edo.ttl
+index 50633a4..05ac30d 100644
+--- a/core/edo.ttl
++++ b/core/edo.ttl
+@@ -5664,19 +5664,131 @@ edo:NominalFloatVolume rdf:type owl:Class ;
+                        edo:hasValueCardinality edo:SingleValue .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#Length
++edo:Length rdf:type owl:Class ;
++           rdfs:subClassOf edo:DomainAttribute ;
++           dcterms:accessRights "PUBLIC" ;
++           dcterms:identifier "Length" ;
++           skos:definition "Generic attribute for linear length values. Specialized attributes must be used when the value represents a requirement, design value, certified value, as-built condition, installed condition or another lifecycle-specific meaning."@en ,
++                           "Atributo genérico para valores de comprimento linear. Atributos especializados devem ser usados quando o valor representar requisito, valor de projeto, valor certificado, condição as-built, condição instalada ou outro significado específico do ciclo de vida."@pt-br ;
++           skos:prefLabel "Comprimento"@pt-br ,
++                          "Length"@en ;
++           edo:hasAttributeScope edo:TypeLevelAttribute ;
++           edo:hasTypedValue edo:FloatValue ;
++           edo:hasUnit unit:M ;
++           edo:hasValueCardinality edo:SingleValue ;
++           edo:attributeNature edo:DimensionalAttribute .
++
++
+ ###  https://w3id.org/energy-domain/edo#NominalLength
+ edo:NominalLength rdf:type owl:Class ;
+-                  rdfs:subClassOf edo:DomainAttribute ;
++                  rdfs:subClassOf edo:Length ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "NominalLength" ;
+-                  skos:definition "Nominal length refers to the length of an object as designed, typically used as a reference value. It may not represent the exact physical measurement but serves as the standard or intended length for manufacturing, design, or specification purposes."@en ;
++                  skos:definition "Nominal or intended length used as the reference value for design, manufacturing or specification."@en ,
++                                  "Comprimento nominal ou pretendido usado como valor de referência para projeto, fabricação ou especificação."@pt-br ;
+                   skos:prefLabel "Comprimento Nominal"@pt-br ,
+                                  "Nominal Length"@en ;
++                  edo:specializesAttribute edo:Length ;
+                   edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                   edo:hasLifecycleCreationPhase edo:BasicDesign ,
+                                                 edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+-                  edo:hasValueCardinality edo:SingleValue .
++                  edo:hasUnit unit:M ;
++                  edo:hasValueCardinality edo:SingleValue ;
++                  edo:lifecycleRole edo:DesignRole ;
++                  edo:attributeNature edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#RequiredLength
++edo:RequiredLength rdf:type owl:Class ;
++                   rdfs:subClassOf edo:Length ;
++                   dcterms:accessRights "PUBLIC" ;
++                   dcterms:identifier "RequiredLength" ;
++                   skos:definition "Length required by a data contract, project requirement or owner specification."@en ,
++                                   "Comprimento requerido por contrato de dados, requisito de projeto ou especificação do proprietário."@pt-br ;
++                   skos:prefLabel "Comprimento requerido"@pt-br ,
++                                  "Required Length"@en ;
++                   edo:specializesAttribute edo:Length ;
++                   edo:hasAttributeScope edo:TypeLevelAttribute ;
++                   edo:hasTypedValue edo:FloatValue ;
++                   edo:hasUnit unit:M ;
++                   edo:hasValueCardinality edo:SingleValue ;
++                   edo:lifecycleRole edo:RequirementRole ;
++                   edo:attributeNature edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#DesignedLength
++edo:DesignedLength rdf:type owl:Class ;
++                   rdfs:subClassOf edo:Length ;
++                   dcterms:accessRights "PUBLIC" ;
++                   dcterms:identifier "DesignedLength" ;
++                   skos:definition "Length established in design for the component or system."@en ,
++                                   "Comprimento estabelecido em projeto para o componente ou sistema."@pt-br ;
++                   skos:prefLabel "Comprimento de projeto"@pt-br ,
++                                  "Designed Length"@en ;
++                   edo:specializesAttribute edo:Length ;
++                   edo:hasAttributeScope edo:TypeLevelAttribute ;
++                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++                   edo:hasTypedValue edo:FloatValue ;
++                   edo:hasUnit unit:M ;
++                   edo:hasValueCardinality edo:SingleValue ;
++                   edo:lifecycleRole edo:DesignRole ;
++                   edo:attributeNature edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#CertifiedLength
++edo:CertifiedLength rdf:type owl:Class ;
++                    rdfs:subClassOf edo:Length ;
++                    dcterms:accessRights "PUBLIC" ;
++                    dcterms:identifier "CertifiedLength" ;
++                    skos:definition "Length certified for the component or system after measurement, inspection, certification or supplier declaration."@en ,
++                                    "Comprimento certificado para o componente ou sistema após medição, inspeção, certificação ou declaração do fornecedor."@pt-br ;
++                    skos:prefLabel "Certified Length"@en ,
++                                   "Comprimento certificado"@pt-br ;
++                    edo:specializesAttribute edo:Length ;
++                    edo:hasAttributeScope edo:TypeLevelAttribute ;
++                    edo:hasTypedValue edo:FloatValue ;
++                    edo:hasUnit unit:M ;
++                    edo:hasValueCardinality edo:SingleValue ;
++                    edo:lifecycleRole edo:CertifiedRole ;
++                    edo:attributeNature edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#AsBuiltLength
++edo:AsBuiltLength rdf:type owl:Class ;
++                  rdfs:subClassOf edo:Length ;
++                  dcterms:accessRights "PUBLIC" ;
++                  dcterms:identifier "AsBuiltLength" ;
++                  skos:definition "Length recorded for the component or system as built, manufactured or delivered."@en ,
++                                  "Comprimento registrado para o componente ou sistema como construído, fabricado ou entregue."@pt-br ;
++                  skos:prefLabel "As-built Length"@en ,
++                                 "Comprimento as-built"@pt-br ;
++                  edo:specializesAttribute edo:Length ;
++                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
++                  edo:hasTypedValue edo:FloatValue ;
++                  edo:hasUnit unit:M ;
++                  edo:hasValueCardinality edo:SingleValue ;
++                  edo:lifecycleRole edo:AsBuiltRole ;
++                  edo:attributeNature edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#InstalledLength
++edo:InstalledLength rdf:type owl:Class ;
++                    rdfs:subClassOf edo:Length ;
++                    dcterms:accessRights "PUBLIC" ;
++                    dcterms:identifier "InstalledLength" ;
++                    skos:definition "Length associated with the installed condition of the component or system."@en ,
++                                    "Comprimento associado à condição instalada do componente ou sistema."@pt-br ;
++                    skos:prefLabel "Comprimento instalado"@pt-br ,
++                                   "Installed Length"@en ;
++                    edo:specializesAttribute edo:Length ;
++                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
++                    edo:hasTypedValue edo:FloatValue ;
++                    edo:hasUnit unit:M ;
++                    edo:hasValueCardinality edo:SingleValue ;
++                    edo:lifecycleRole edo:InstalledRole ;
++                    edo:attributeNature edo:DimensionalAttribute .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#Nuclear
