@@ -5493,18 +5493,115 @@ edo:MaxDesignAbsIntPresTable_VPosWRTWaterline rdf:type owl:Class ;
                                               edo:hasValueCardinality edo:MultiValue .
 
 
+###  https://w3id.org/energy-domain/edo#Pressure
+edo:Pressure rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "Pressure" ;
+             skos:definition "Generic attribute for pressure values. Specialized attributes must be used when the value represents a requirement, design capacity, certified capacity, operating condition or another lifecycle-specific meaning."@en ,
+                             "Atributo genérico para valores de pressão. Atributos especializados devem ser usados quando o valor representar requisito, capacidade de projeto, capacidade certificada, condição operacional ou outro significado específico do ciclo de vida."@pt-br ;
+             skos:prefLabel "Pressure"@en ,
+                            "Pressão"@pt-br ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:PA ;
+             edo:hasValueCardinality edo:SingleValue ;
+             edo:attributeNature edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MaxPressure
+edo:MaxPressure rdf:type owl:Class ;
+                rdfs:subClassOf edo:Pressure ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "MaxPressure" ;
+                skos:definition "Generic maximum pressure capability attribute. Use a lifecycle-specific specialization when the value represents a requirement, design value or certified value."@en ,
+                                "Atributo genérico de capacidade máxima de pressão. Usar uma especialização de ciclo de vida quando o valor representar requisito, valor de projeto ou valor certificado."@pt-br ;
+                skos:prefLabel "Maximum Pressure"@en ,
+                               "Pressão máxima"@pt-br ;
+                edo:specializesAttribute edo:Pressure ;
+                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:PA ;
+                edo:hasValueCardinality edo:SingleValue ;
+                edo:attributeNature edo:CapabilityAttribute ,
+                                    edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#RequiredMaxPressure
+edo:RequiredMaxPressure rdf:type owl:Class ;
+                        rdfs:subClassOf edo:MaxPressure ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "RequiredMaxPressure" ;
+                        skos:definition "Maximum pressure required by a data contract, project requirement or owner specification."@en ,
+                                        "Pressão máxima requerida por contrato de dados, requisito de projeto ou especificação do proprietário."@pt-br ;
+                        skos:prefLabel "Pressão máxima requerida"@pt-br ,
+                                       "Required Maximum Pressure"@en ;
+                        edo:specializesAttribute edo:MaxPressure ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:PA ;
+                        edo:hasValueCardinality edo:SingleValue ;
+                        edo:lifecycleRole edo:RequirementRole ;
+                        edo:attributeNature edo:CapabilityAttribute ,
+                                            edo:MechanicalAttribute .
+
+
 ###  https://w3id.org/energy-domain/edo#MaxDesignPressure
 edo:MaxDesignPressure rdf:type owl:Class ;
-                      rdfs:subClassOf edo:DomainAttribute ;
+                      rdfs:subClassOf edo:MaxPressure ;
                       dcterms:accessRights "PUBLIC" ;
                       dcterms:identifier "MaxDesignPressure" ;
-                      skos:definition "The highest internal or external pressure that the component or system is designed to withstand under operational conditions, ensuring safety and reliability."@en ;
+                      skos:definition "Maximum pressure that the component or system is designed to withstand under the applicable design conditions."@en ,
+                                      "Pressão máxima que o componente ou sistema foi projetado para suportar nas condições de projeto aplicáveis."@pt-br ;
                       skos:prefLabel "Maximum Design Pressure"@en ,
                                      "Pressão Máxima de Projeto"@pt-br ;
+                      edo:specializesAttribute edo:MaxPressure ;
                       edo:hasAttributeScope edo:TypeLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
-                      edo:hasValueCardinality edo:SingleValue .
+                      edo:hasUnit unit:PA ;
+                      edo:hasValueCardinality edo:SingleValue ;
+                      edo:lifecycleRole edo:DesignRole ;
+                      edo:attributeNature edo:CapabilityAttribute ,
+                                          edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CertifiedMaxPressure
+edo:CertifiedMaxPressure rdf:type owl:Class ;
+                         rdfs:subClassOf edo:MaxPressure ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "CertifiedMaxPressure" ;
+                         skos:definition "Maximum pressure certified for the component or system after qualification, testing, certification or supplier declaration."@en ,
+                                         "Pressão máxima certificada para o componente ou sistema após qualificação, ensaio, certificação ou declaração do fornecedor."@pt-br ;
+                         skos:prefLabel "Certified Maximum Pressure"@en ,
+                                        "Pressão máxima certificada"@pt-br ;
+                         edo:specializesAttribute edo:MaxPressure ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:PA ;
+                         edo:hasValueCardinality edo:SingleValue ;
+                         edo:lifecycleRole edo:CertifiedRole ;
+                         edo:attributeNature edo:CapabilityAttribute ,
+                                             edo:MechanicalAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#OperatingPressure
+edo:OperatingPressure rdf:type owl:Class ;
+                      rdfs:subClassOf edo:Pressure ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "OperatingPressure" ;
+                      skos:definition "Pressure associated with an operating condition of the component or system."@en ,
+                                      "Pressão associada a uma condição operacional do componente ou sistema."@pt-br ;
+                      skos:prefLabel "Operating Pressure"@en ,
+                                     "Pressão operacional"@pt-br ;
+                      edo:specializesAttribute edo:Pressure ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasUnit unit:PA ;
+                      edo:hasValueCardinality edo:SingleValue ;
+                      edo:lifecycleRole edo:OperatingRole ;
+                      edo:attributeNature edo:MechanicalAttribute ,
+                                          edo:OperationalAttribute .
 
 
 ###  https://w3id.org/energy-domain/edo#MaxDynamicLoad
