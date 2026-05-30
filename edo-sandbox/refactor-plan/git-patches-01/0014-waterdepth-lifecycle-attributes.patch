@@ -1,0 +1,125 @@
+diff --git a/core/edo.ttl b/core/edo.ttl
+index bd70add..ffc57e4 100644
+--- a/core/edo.ttl
++++ b/core/edo.ttl
+@@ -9496,6 +9496,120 @@ edo:WaterIntake rdf:type owl:Class ;
+                                "Water Intake"@en .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#WaterDepth
++edo:WaterDepth rdf:type owl:Class ;
++               rdfs:subClassOf edo:DomainAttribute ;
++               dcterms:accessRights "PUBLIC" ;
++               dcterms:identifier "WaterDepth" ;
++               skos:definition "Generic attribute for water depth values. Specialized attributes must be used when the value represents a requirement, design capacity, certified capacity, installed location or another lifecycle-specific meaning."@en ,
++                               "Atributo genérico para valores de profundidade d'água. Atributos especializados devem ser usados quando o valor representar requisito, capacidade de projeto, capacidade certificada, localização instalada ou outro significado específico do ciclo de vida."@pt-br ;
++               skos:prefLabel "Profundidade d'água"@pt-br ,
++                              "Water Depth"@en ;
++               edo:hasAttributeScope edo:TypeLevelAttribute ;
++               edo:hasTypedValue edo:FloatValue ;
++               edo:hasUnit unit:M ;
++               edo:hasValueCardinality edo:SingleValue ;
++               edo:attributeNature edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#MaxWaterDepth
++edo:MaxWaterDepth rdf:type owl:Class ;
++                  rdfs:subClassOf edo:WaterDepth ;
++                  dcterms:accessRights "PUBLIC" ;
++                  dcterms:identifier "MaxWaterDepth" ;
++                  skos:definition "Generic maximum water depth capability attribute. Use a lifecycle-specific specialization when the value represents a requirement, design value or certified value."@en ,
++                                  "Atributo genérico de capacidade máxima de profundidade d'água. Usar uma especialização de ciclo de vida quando o valor representar requisito, valor de projeto ou valor certificado."@pt-br ;
++                  skos:prefLabel "Maximum Water Depth"@en ,
++                                 "Profundidade d'água máxima"@pt-br ;
++                  edo:specializesAttribute edo:WaterDepth ;
++                  edo:hasAttributeScope edo:TypeLevelAttribute ;
++                  edo:hasTypedValue edo:FloatValue ;
++                  edo:hasUnit unit:M ;
++                  edo:hasValueCardinality edo:SingleValue ;
++                  edo:attributeNature edo:CapabilityAttribute ,
++                                      edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#RequiredMaxWaterDepth
++edo:RequiredMaxWaterDepth rdf:type owl:Class ;
++                          rdfs:subClassOf edo:MaxWaterDepth ;
++                          dcterms:accessRights "PUBLIC" ;
++                          dcterms:identifier "RequiredMaxWaterDepth" ;
++                          skos:definition "Maximum water depth required by the project, contract or owner requirement. It represents a required capability and must not be overwritten by design, installed or certified values."@en ,
++                                          "Profundidade d'água máxima requerida pelo projeto, contrato ou requisito do owner. Representa uma capacidade requerida e não deve ser sobrescrita por valores de projeto, instalação ou certificação."@pt-br ;
++                          skos:prefLabel "Profundidade d'água máxima requerida"@pt-br ,
++                                         "Required Maximum Water Depth"@en ;
++                          edo:specializesAttribute edo:MaxWaterDepth ;
++                          edo:hasAttributeScope edo:TypeLevelAttribute ;
++                          edo:hasLifecycleCreationPhase edo:BasicDesign ;
++                          edo:hasTypedValue edo:FloatValue ;
++                          edo:hasUnit unit:M ;
++                          edo:hasValueCardinality edo:SingleValue ;
++                          edo:lifecycleRole edo:RequirementRole ;
++                          edo:attributeNature edo:CapabilityAttribute ,
++                                              edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#DesignedMaxWaterDepth
++edo:DesignedMaxWaterDepth rdf:type owl:Class ;
++                          rdfs:subClassOf edo:MaxWaterDepth ;
++                          dcterms:accessRights "PUBLIC" ;
++                          dcterms:identifier "DesignedMaxWaterDepth" ;
++                          skos:definition "Maximum water depth the item is designed to withstand. It represents design capability and must not be overwritten by required, installed or certified values."@en ,
++                                          "Profundidade d'água máxima que o item foi projetado para suportar. Representa capacidade de projeto e não deve ser sobrescrita por valores requeridos, instalados ou certificados."@pt-br ;
++                          skos:prefLabel "Designed Maximum Water Depth"@en ,
++                                         "Profundidade d'água máxima de projeto"@pt-br ;
++                          edo:specializesAttribute edo:MaxWaterDepth ;
++                          edo:hasAttributeScope edo:TypeLevelAttribute ;
++                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++                          edo:hasTypedValue edo:FloatValue ;
++                          edo:hasUnit unit:M ;
++                          edo:hasValueCardinality edo:SingleValue ;
++                          edo:lifecycleRole edo:DesignRole ;
++                          edo:attributeNature edo:CapabilityAttribute ,
++                                              edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#CertifiedMaxWaterDepth
++edo:CertifiedMaxWaterDepth rdf:type owl:Class ;
++                           rdfs:subClassOf edo:MaxWaterDepth ;
++                           dcterms:accessRights "PUBLIC" ;
++                           dcterms:identifier "CertifiedMaxWaterDepth" ;
++                           skos:definition "Maximum water depth formally certified for the item. It represents certified capability and must not be overwritten by required, design or installed values."@en ,
++                                           "Profundidade d'água máxima formalmente certificada para o item. Representa capacidade certificada e não deve ser sobrescrita por valores requeridos, de projeto ou instalados."@pt-br ;
++                           skos:prefLabel "Certified Maximum Water Depth"@en ,
++                                          "Profundidade d'água máxima certificada"@pt-br ;
++                           edo:specializesAttribute edo:MaxWaterDepth ;
++                           edo:hasAttributeScope edo:TypeLevelAttribute ;
++                           edo:hasLifecycleCreationPhase edo:Commissioning ;
++                           edo:hasTypedValue edo:FloatValue ;
++                           edo:hasUnit unit:M ;
++                           edo:hasValueCardinality edo:SingleValue ;
++                           edo:lifecycleRole edo:CertifiedRole ;
++                           edo:attributeNature edo:CapabilityAttribute ,
++                                               edo:DimensionalAttribute .
++
++
++###  https://w3id.org/energy-domain/edo#InstalledWaterDepth
++edo:InstalledWaterDepth rdf:type owl:Class ;
++                        rdfs:subClassOf edo:WaterDepth ;
++                        dcterms:accessRights "PUBLIC" ;
++                        dcterms:identifier "InstalledWaterDepth" ;
++                        skos:definition "Water depth at the installed location of the item. It represents the installed physical condition or location and must not be confused with maximum water depth capability."@en ,
++                                        "Profundidade d'água na localização instalada do item. Representa a condição física ou localização instalada e não deve ser confundida com a capacidade máxima de profundidade d'água."@pt-br ;
++                        skos:prefLabel "Installed Water Depth"@en ,
++                                       "Profundidade d'água instalada"@pt-br ;
++                        edo:specializesAttribute edo:WaterDepth ;
++                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
++                        edo:hasLifecycleCreationPhase edo:Installation ;
++                        edo:hasTypedValue edo:FloatValue ;
++                        edo:hasUnit unit:M ;
++                        edo:hasValueCardinality edo:SingleValue ;
++                        edo:lifecycleRole edo:InstalledRole ;
++                        edo:attributeNature edo:DimensionalAttribute ,
++                                            edo:LocationAttribute .
++
++
+ ###  https://w3id.org/energy-domain/edo#Wave
+ edo:Wave rdf:type owl:Class ;
+          rdfs:subClassOf edo:Marine ;
