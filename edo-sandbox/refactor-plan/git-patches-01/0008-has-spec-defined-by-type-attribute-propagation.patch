@@ -1,0 +1,111 @@
+diff --git a/core/edo.ttl b/core/edo.ttl
+index bf2e794..d331ff1 100644
+--- a/core/edo.ttl
++++ b/core/edo.ttl
+@@ -501,6 +501,16 @@ edo:allowedValue rdf:type owl:AnnotationProperty ;
+                  dcterms:identifier "allowedValue" .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#attributePropagation
++edo:attributePropagation rdf:type owl:AnnotationProperty ;
++                         rdfs:subPropertyOf edo:DomainApplicabilityAnnotation ;
++                         rdfs:label "Attribute propagation"@en ,
++                                    "Propagação de atributo"@pt-br ;
++                         skos:definition "Declares how attributes associated with one side of a semantic relation may be projected to another entity or to the relationship during an extraction or delivery process."@en ,
++                                         "Declara como atributos associados a um lado de uma relação semântica podem ser projetados para outra entidade ou para o relacionamento durante um processo de extração ou entrega."@pt-br ;
++                         dcterms:identifier "attributePropagation" .
++
++
+ ###  https://w3id.org/energy-domain/edo#defaultValidValues
+ edo:defaultValidValues rdf:type owl:AnnotationProperty ;
+                        rdfs:subPropertyOf edo:DomainApplicabilityAnnotation .
+@@ -2451,6 +2461,36 @@ edo:DomainValueConcept rdf:type skos:ConceptScheme ;
+                        dcterms:identifier "DomainValueConcept" .
+ 
+ 
++###  https://w3id.org/energy-domain/edo#PropagateAttributesToSource
++edo:PropagateAttributesToSource rdf:type skos:Concept ;
++                                skos:inScheme edo:DomainValueConcept ;
++                                skos:prefLabel "Propagate attributes to source"@en ,
++                                               "Propagar atributos para a origem"@pt-br ;
++                                skos:definition "Propagation strategy indicating that attributes should be projected to the source entity of the contextual relation when activated by an extraction profile or data contract."@en ,
++                                                "Estratégia de propagação que indica que atributos devem ser projetados para a entidade de origem da relação contextual quando ativada por um perfil de extração ou data contract."@pt-br ;
++                                dcterms:identifier "PropagateAttributesToSource" .
++
++
++###  https://w3id.org/energy-domain/edo#PropagateAttributesToTarget
++edo:PropagateAttributesToTarget rdf:type skos:Concept ;
++                                skos:inScheme edo:DomainValueConcept ;
++                                skos:prefLabel "Propagate attributes to target"@en ,
++                                               "Propagar atributos para o destino"@pt-br ;
++                                skos:definition "Propagation strategy indicating that attributes should be projected to the target entity of the contextual relation when activated by an extraction profile or data contract."@en ,
++                                                "Estratégia de propagação que indica que atributos devem ser projetados para a entidade de destino da relação contextual quando ativada por um perfil de extração ou data contract."@pt-br ;
++                                dcterms:identifier "PropagateAttributesToTarget" .
++
++
++###  https://w3id.org/energy-domain/edo#PropagateAttributesToRelationship
++edo:PropagateAttributesToRelationship rdf:type skos:Concept ;
++                                      skos:inScheme edo:DomainValueConcept ;
++                                      skos:prefLabel "Propagate attributes to relationship"@en ,
++                                                     "Propagar atributos para o relacionamento"@pt-br ;
++                                      skos:definition "Propagation strategy indicating that attributes should be projected to the materialised relationship when activated by an extraction profile or data contract."@en ,
++                                                      "Estratégia de propagação que indica que atributos devem ser projetados para o relacionamento materializado quando ativada por um perfil de extração ou data contract."@pt-br ;
++                                      dcterms:identifier "PropagateAttributesToRelationship" .
++
++
+ ###  https://w3id.org/energy-domain/edo#DoubleValue
+ edo:DoubleValue rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DataType ;
+diff --git a/mappings/ifc/edo-ifc.ttl b/mappings/ifc/edo-ifc.ttl
+index 16ac621..50fd574 100644
+--- a/mappings/ifc/edo-ifc.ttl
++++ b/mappings/ifc/edo-ifc.ttl
+@@ -433,6 +433,18 @@ edo-ifc:IfcRelConnectsWithRealizingElements
+ 
+     dcterms:identifier "IfcRelConnectsWithRealizingElements" .
+ 
++
++edo-ifc:IfcRelDefinesByType
++    rdf:type owl:NamedIndividual ;
++    rdf:type edo-ifc:IFCRelationshipEntity ;
++
++    rdfs:label "IfcRelDefinesByType"@en ;
++    edo-ifc:ifcEntityName "IfcRelDefinesByType" ;
++
++    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelDefinesByType.htm> ;
++
++    dcterms:identifier "IfcRelDefinesByType" .
++
+ ######################################################################
+ # 8) Controlled IFC object entities
+ ######################################################################
+@@ -762,6 +774,17 @@ edo-ifc:RelatedObjects
+     dcterms:identifier "RelatedObjects" .
+ 
+ 
++
++edo-ifc:RelatingType
++    rdf:type owl:NamedIndividual ;
++    rdf:type edo-ifc:IFCAttributeRole ;
++
++    rdfs:label "RelatingType"@en ;
++    edo-ifc:ifcAttributeName "RelatingType" ;
++
++    dcterms:identifier "RelatingType" .
++
++
+ edo-ifc:RelatingDocument
+     rdf:type owl:NamedIndividual ;
+     rdf:type edo-ifc:IFCAttributeRole ;
+@@ -1443,6 +1466,11 @@ edo:hasSparePart
+     edo-ifc:ifc_subjectRole edo-ifc:RelatingProduct ;
+     edo-ifc:ifc_objectRole edo-ifc:RelatedObjects .
+ 
++edo:isDefinedByType
++    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelDefinesByType ;
++    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
++    edo-ifc:ifc_objectRole edo-ifc:RelatingType .
++
+ ######################################################################
+ # 12) Conditional IFC materialisation rules for edo:isConnectedTo
+ #
