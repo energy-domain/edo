@@ -29,6 +29,9 @@ WHERE {
   ?attribute rdfs:subClassOf* ?family .
   ?attribute rdfs:subClassOf* edo:DomainAttribute .
   FILTER (?attribute != ?family)
-  FILTER NOT EXISTS { ?attribute edo:specializesAttribute ?family . }
+  FILTER NOT EXISTS {
+    ?attribute edo:specializesAttribute ?base .
+    ?base rdfs:subClassOf* ?family .
+  }
 }
 ORDER BY ?family ?attribute

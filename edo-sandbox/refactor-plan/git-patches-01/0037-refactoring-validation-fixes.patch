@@ -1,0 +1,371 @@
+diff --git a/core/edo.ttl b/core/edo.ttl
+index d43977d..699c8bc 100644
+--- a/core/edo.ttl
++++ b/core/edo.ttl
+@@ -1161,13 +1161,10 @@ edo:BOP rdf:type owl:Class ;
+ 
+ ###  https://w3id.org/energy-domain/edo#Base64BinaryType
+ edo:Base64BinaryType rdf:type owl:Class ;
+-                     owl:equivalentClass [ rdf:type owl:Restriction ;
+-                                           owl:onProperty rdf:value ;
+-                                           owl:allValuesFrom xsd:base64Binary
+-                                         ] ;
+                      rdfs:subClassOf edo:DataType ;
+                      rdfs:comment "Constraint for xsd:base64Binary (binary data)"@en ;
+-                     rdfs:label "Base64 Binary"@en .
++                     rdfs:label "Base64 Binary"@en ;
++                     edo:expectedXsdType xsd:base64Binary .
+ 
+ 
+ ###  https://w3id.org/energy-domain/edo#BasicDesign
+@@ -1495,8 +1492,10 @@ edo:RequiredBurstPressure rdf:type owl:Class ;
+                           edo:specializesAttribute edo:BurstPressure ;
+                           edo:lifecycleRole edo:RequirementRole ;
+                           edo:attributeNature edo:MechanicalAttribute ,
+-                                              edo:PerformanceAttribute .
+-
++                                              edo:PerformanceAttribute ;
++                          edo:hasTypedValue edo:FloatValue ;
++                          edo:hasValueCardinality edo:SingleValue ;
++                          edo:hasUnit unit:PA .
+ 
+ ###  https://w3id.org/energy-domain/edo#DesignedBurstPressure
+ edo:DesignedBurstPressure rdf:type owl:Class ;
+@@ -1508,8 +1507,10 @@ edo:DesignedBurstPressure rdf:type owl:Class ;
+                           edo:specializesAttribute edo:BurstPressure ;
+                           edo:lifecycleRole edo:DesignRole ;
+                           edo:attributeNature edo:MechanicalAttribute ,
+-                                              edo:PerformanceAttribute .
+-
++                                              edo:PerformanceAttribute ;
++                          edo:hasTypedValue edo:FloatValue ;
++                          edo:hasValueCardinality edo:SingleValue ;
++                          edo:hasUnit unit:PA .
+ 
+ ###  https://w3id.org/energy-domain/edo#CertifiedBurstPressure
+ edo:CertifiedBurstPressure rdf:type owl:Class ;
+@@ -1521,8 +1522,10 @@ edo:CertifiedBurstPressure rdf:type owl:Class ;
+                            edo:specializesAttribute edo:BurstPressure ;
+                            edo:lifecycleRole edo:CertifiedRole ;
+                            edo:attributeNature edo:MechanicalAttribute ,
+-                                               edo:PerformanceAttribute .
+-
++                                               edo:PerformanceAttribute ;
++                           edo:hasTypedValue edo:FloatValue ;
++                           edo:hasValueCardinality edo:SingleValue ;
++                           edo:hasUnit unit:PA .
+ 
+ ###  https://w3id.org/energy-domain/edo#OperatingBurstPressure
+ edo:OperatingBurstPressure rdf:type owl:Class ;
+@@ -1534,8 +1537,10 @@ edo:OperatingBurstPressure rdf:type owl:Class ;
+                            edo:specializesAttribute edo:BurstPressure ;
+                            edo:lifecycleRole edo:OperatingRole ;
+                            edo:attributeNature edo:MechanicalAttribute ,
+-                                               edo:PerformanceAttribute .
+-
++                                               edo:PerformanceAttribute ;
++                           edo:hasTypedValue edo:FloatValue ;
++                           edo:hasValueCardinality edo:SingleValue ;
++                           edo:hasUnit unit:PA .
+ 
+ ###  https://w3id.org/energy-domain/edo#CalculatedAbsoluteBurstPressure
+ edo:CalculatedAbsoluteBurstPressure rdf:type owl:Class ;
+@@ -2360,8 +2365,10 @@ edo:RequiredVolume rdf:type owl:Class ;
+                                   "Volume Requerido"@pt-br ;
+                    edo:specializesAttribute edo:Volume ;
+                    edo:lifecycleRole edo:RequirementRole ;
+-                   edo:attributeNature edo:DimensionalAttribute .
+-
++                   edo:attributeNature edo:DimensionalAttribute ;
++                   edo:hasTypedValue edo:FloatValue ;
++                   edo:hasValueCardinality edo:SingleValue ;
++                   edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#DesignedVolume
+ edo:DesignedVolume rdf:type owl:Class ;
+@@ -2372,8 +2379,10 @@ edo:DesignedVolume rdf:type owl:Class ;
+                                   "Volume de Projeto"@pt-br ;
+                    edo:specializesAttribute edo:Volume ;
+                    edo:lifecycleRole edo:DesignRole ;
+-                   edo:attributeNature edo:DimensionalAttribute .
+-
++                   edo:attributeNature edo:DimensionalAttribute ;
++                   edo:hasTypedValue edo:FloatValue ;
++                   edo:hasValueCardinality edo:SingleValue ;
++                   edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#CertifiedVolume
+ edo:CertifiedVolume rdf:type owl:Class ;
+@@ -2384,8 +2393,10 @@ edo:CertifiedVolume rdf:type owl:Class ;
+                                    "Volume Certificado"@pt-br ;
+                     edo:specializesAttribute edo:Volume ;
+                     edo:lifecycleRole edo:CertifiedRole ;
+-                    edo:attributeNature edo:DimensionalAttribute .
+-
++                    edo:attributeNature edo:DimensionalAttribute ;
++                    edo:hasTypedValue edo:FloatValue ;
++                    edo:hasValueCardinality edo:SingleValue ;
++                    edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#AsBuiltVolume
+ edo:AsBuiltVolume rdf:type owl:Class ;
+@@ -2396,8 +2407,10 @@ edo:AsBuiltVolume rdf:type owl:Class ;
+                                  "Volume Conforme Construído"@pt-br ;
+                   edo:specializesAttribute edo:Volume ;
+                   edo:lifecycleRole edo:AsBuiltRole ;
+-                  edo:attributeNature edo:DimensionalAttribute .
+-
++                  edo:attributeNature edo:DimensionalAttribute ;
++                  edo:hasTypedValue edo:FloatValue ;
++                  edo:hasValueCardinality edo:SingleValue ;
++                  edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#DisplacedVolume
+ edo:DisplacedVolume rdf:type owl:Class ;
+@@ -2428,8 +2441,10 @@ edo:RequiredDisplacedVolume rdf:type owl:Class ;
+                             edo:specializesAttribute edo:DisplacedVolume ;
+                             edo:lifecycleRole edo:RequirementRole ;
+                             edo:attributeNature edo:DimensionalAttribute ,
+-                                                edo:PerformanceAttribute .
+-
++                                                edo:PerformanceAttribute ;
++                            edo:hasTypedValue edo:FloatValue ;
++                            edo:hasValueCardinality edo:SingleValue ;
++                            edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#DesignedDisplacedVolume
+ edo:DesignedDisplacedVolume rdf:type owl:Class ;
+@@ -2441,8 +2456,10 @@ edo:DesignedDisplacedVolume rdf:type owl:Class ;
+                             edo:specializesAttribute edo:DisplacedVolume ;
+                             edo:lifecycleRole edo:DesignRole ;
+                             edo:attributeNature edo:DimensionalAttribute ,
+-                                                edo:PerformanceAttribute .
+-
++                                                edo:PerformanceAttribute ;
++                            edo:hasTypedValue edo:FloatValue ;
++                            edo:hasValueCardinality edo:SingleValue ;
++                            edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#CertifiedDisplacedVolume
+ edo:CertifiedDisplacedVolume rdf:type owl:Class ;
+@@ -2454,8 +2471,10 @@ edo:CertifiedDisplacedVolume rdf:type owl:Class ;
+                              edo:specializesAttribute edo:DisplacedVolume ;
+                              edo:lifecycleRole edo:CertifiedRole ;
+                              edo:attributeNature edo:DimensionalAttribute ,
+-                                                 edo:PerformanceAttribute .
+-
++                                                 edo:PerformanceAttribute ;
++                             edo:hasTypedValue edo:FloatValue ;
++                             edo:hasValueCardinality edo:SingleValue ;
++                             edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#AsBuiltDisplacedVolume
+ edo:AsBuiltDisplacedVolume rdf:type owl:Class ;
+@@ -2467,8 +2486,10 @@ edo:AsBuiltDisplacedVolume rdf:type owl:Class ;
+                            edo:specializesAttribute edo:DisplacedVolume ;
+                            edo:lifecycleRole edo:AsBuiltRole ;
+                            edo:attributeNature edo:DimensionalAttribute ,
+-                                               edo:PerformanceAttribute .
+-
++                                               edo:PerformanceAttribute ;
++                           edo:hasTypedValue edo:FloatValue ;
++                           edo:hasValueCardinality edo:SingleValue ;
++                           edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#DistributionModule
+ edo:DistributionModule rdf:type owl:Class ;
+@@ -4467,8 +4488,10 @@ edo:RequiredCollapsePressure rdf:type owl:Class ;
+                              edo:specializesAttribute edo:CollapsePressure ;
+                              edo:lifecycleRole edo:RequirementRole ;
+                              edo:attributeNature edo:MechanicalAttribute ,
+-                                                 edo:PerformanceAttribute .
+-
++                                                 edo:PerformanceAttribute ;
++                             edo:hasTypedValue edo:FloatValue ;
++                             edo:hasValueCardinality edo:SingleValue ;
++                             edo:hasUnit unit:PA .
+ 
+ ###  https://w3id.org/energy-domain/edo#DesignedCollapsePressure
+ edo:DesignedCollapsePressure rdf:type owl:Class ;
+@@ -4480,8 +4503,10 @@ edo:DesignedCollapsePressure rdf:type owl:Class ;
+                              edo:specializesAttribute edo:CollapsePressure ;
+                              edo:lifecycleRole edo:DesignRole ;
+                              edo:attributeNature edo:MechanicalAttribute ,
+-                                                 edo:PerformanceAttribute .
+-
++                                                 edo:PerformanceAttribute ;
++                             edo:hasTypedValue edo:FloatValue ;
++                             edo:hasValueCardinality edo:SingleValue ;
++                             edo:hasUnit unit:PA .
+ 
+ ###  https://w3id.org/energy-domain/edo#CertifiedCollapsePressure
+ edo:CertifiedCollapsePressure rdf:type owl:Class ;
+@@ -4493,8 +4518,10 @@ edo:CertifiedCollapsePressure rdf:type owl:Class ;
+                               edo:specializesAttribute edo:CollapsePressure ;
+                               edo:lifecycleRole edo:CertifiedRole ;
+                               edo:attributeNature edo:MechanicalAttribute ,
+-                                                  edo:PerformanceAttribute .
+-
++                                                  edo:PerformanceAttribute ;
++                              edo:hasTypedValue edo:FloatValue ;
++                              edo:hasValueCardinality edo:SingleValue ;
++                              edo:hasUnit unit:PA .
+ 
+ ###  https://w3id.org/energy-domain/edo#OperatingCollapsePressure
+ edo:OperatingCollapsePressure rdf:type owl:Class ;
+@@ -4506,8 +4533,10 @@ edo:OperatingCollapsePressure rdf:type owl:Class ;
+                               edo:specializesAttribute edo:CollapsePressure ;
+                               edo:lifecycleRole edo:OperatingRole ;
+                               edo:attributeNature edo:MechanicalAttribute ,
+-                                                  edo:PerformanceAttribute .
+-
++                                                  edo:PerformanceAttribute ;
++                              edo:hasTypedValue edo:FloatValue ;
++                              edo:hasValueCardinality edo:SingleValue ;
++                              edo:hasUnit unit:PA .
+ 
+ ###  https://w3id.org/energy-domain/edo#HydrostaticCollapseAbsPressDry
+ edo:HydrostaticCollapseAbsPressDry rdf:type owl:Class ;
+@@ -4950,8 +4979,10 @@ edo:RequiredInternalVolume rdf:type owl:Class ;
+                            edo:specializesAttribute edo:InternalVolume ;
+                            edo:lifecycleRole edo:RequirementRole ;
+                            edo:attributeNature edo:DimensionalAttribute ,
+-                                               edo:OperationalAttribute .
+-
++                                               edo:OperationalAttribute ;
++                           edo:hasTypedValue edo:FloatValue ;
++                           edo:hasValueCardinality edo:SingleValue ;
++                           edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#DesignedInternalVolume
+ edo:DesignedInternalVolume rdf:type owl:Class ;
+@@ -4963,8 +4994,10 @@ edo:DesignedInternalVolume rdf:type owl:Class ;
+                            edo:specializesAttribute edo:InternalVolume ;
+                            edo:lifecycleRole edo:DesignRole ;
+                            edo:attributeNature edo:DimensionalAttribute ,
+-                                               edo:OperationalAttribute .
+-
++                                               edo:OperationalAttribute ;
++                           edo:hasTypedValue edo:FloatValue ;
++                           edo:hasValueCardinality edo:SingleValue ;
++                           edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#CertifiedInternalVolume
+ edo:CertifiedInternalVolume rdf:type owl:Class ;
+@@ -4976,8 +5009,10 @@ edo:CertifiedInternalVolume rdf:type owl:Class ;
+                             edo:specializesAttribute edo:InternalVolume ;
+                             edo:lifecycleRole edo:CertifiedRole ;
+                             edo:attributeNature edo:DimensionalAttribute ,
+-                                                edo:OperationalAttribute .
+-
++                                                edo:OperationalAttribute ;
++                            edo:hasTypedValue edo:FloatValue ;
++                            edo:hasValueCardinality edo:SingleValue ;
++                            edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#AsBuiltInternalVolume
+ edo:AsBuiltInternalVolume rdf:type owl:Class ;
+@@ -4989,8 +5024,10 @@ edo:AsBuiltInternalVolume rdf:type owl:Class ;
+                           edo:specializesAttribute edo:InternalVolume ;
+                           edo:lifecycleRole edo:AsBuiltRole ;
+                           edo:attributeNature edo:DimensionalAttribute ,
+-                                              edo:OperationalAttribute .
+-
++                                              edo:OperationalAttribute ;
++                          edo:hasTypedValue edo:FloatValue ;
++                          edo:hasValueCardinality edo:SingleValue ;
++                          edo:hasUnit unit:M3 .
+ 
+ ###  https://w3id.org/energy-domain/edo#IsSpare
+ edo:IsSpare rdf:type owl:Class ;
+diff --git a/queries/refactoring/02-core-no-edo-ifc-namespace.rq b/queries/refactoring/02-core-no-edo-ifc-namespace-review.rq
+similarity index 85%
+rename from queries/refactoring/02-core-no-edo-ifc-namespace.rq
+rename to queries/refactoring/02-core-no-edo-ifc-namespace-review.rq
+index bb73995..07c0409 100644
+--- a/queries/refactoring/02-core-no-edo-ifc-namespace.rq
++++ b/queries/refactoring/02-core-no-edo-ifc-namespace-review.rq
+@@ -1,4 +1,4 @@
+-PREFIX edo-ifc: <https://w3id.org/energy-domain/edo-ifc#>
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
+ 
+ # Run against: core/edo.ttl
+ # Expected result: empty.
+diff --git a/queries/refactoring/04-domain-attributes-missing-hasTypedValue.rq b/queries/refactoring/04-domain-attributes-missing-hasTypedValue-review.rq
+similarity index 100%
+rename from queries/refactoring/04-domain-attributes-missing-hasTypedValue.rq
+rename to queries/refactoring/04-domain-attributes-missing-hasTypedValue-review.rq
+diff --git a/queries/refactoring/05-domain-attributes-missing-attribute-nature.rq b/queries/refactoring/05-domain-attributes-missing-attribute-nature-review.rq
+similarity index 100%
+rename from queries/refactoring/05-domain-attributes-missing-attribute-nature.rq
+rename to queries/refactoring/05-domain-attributes-missing-attribute-nature-review.rq
+diff --git a/queries/refactoring/06-lifecycle-attributes-missing-lifecycle-role.rq b/queries/refactoring/06-lifecycle-attributes-missing-lifecycle-role-review.rq
+similarity index 100%
+rename from queries/refactoring/06-lifecycle-attributes-missing-lifecycle-role.rq
+rename to queries/refactoring/06-lifecycle-attributes-missing-lifecycle-role-review.rq
+diff --git a/queries/refactoring/07-domain-relations-below-domainrelation.rq b/queries/refactoring/07-domain-relations-below-domainrelation.rq
+index c6a4d92..1b5cd7c 100644
+--- a/queries/refactoring/07-domain-relations-below-domainrelation.rq
++++ b/queries/refactoring/07-domain-relations-below-domainrelation.rq
+@@ -9,12 +9,10 @@ SELECT ?relation
+ WHERE {
+   VALUES ?relation {
+     edo:hasPart
+-    edo:hasDirectPart
+     edo:hasSpec
+     edo:isDefinedByType
+     edo:isConnectedTo
+     edo:hasConnectionPoint
+-    edo:hasAttachmentPoint
+   }
+ 
+   FILTER NOT EXISTS {
+diff --git a/queries/refactoring/10-edo-ifc-isdefinedbytype-mapping.rq b/queries/refactoring/10-edo-ifc-isdefinedbytype-mapping.rq
+index 228f024..2a86d85 100644
+--- a/queries/refactoring/10-edo-ifc-isdefinedbytype-mapping.rq
++++ b/queries/refactoring/10-edo-ifc-isdefinedbytype-mapping.rq
+@@ -1,5 +1,5 @@
+ PREFIX edo: <https://w3id.org/energy-domain/edo#>
+-PREFIX edo-ifc: <https://w3id.org/energy-domain/edo-ifc#>
++PREFIX edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#>
+ 
+ # Run against: mappings/ifc/edo-ifc.ttl
+ # Expected result: empty.
+diff --git a/queries/refactoring/edo-ifc/02-equivalent-class-must-be-declared-ifc-entity.rq b/queries/refactoring/edo-ifc/02-equivalent-class-must-be-declared-ifc-entity-review.rq
+similarity index 100%
+rename from queries/refactoring/edo-ifc/02-equivalent-class-must-be-declared-ifc-entity.rq
+rename to queries/refactoring/edo-ifc/02-equivalent-class-must-be-declared-ifc-entity-review.rq
+diff --git a/queries/refactoring/lifecycle-attributes-missing-nature.rq b/queries/refactoring/lifecycle-attributes-missing-nature-review.rq
+similarity index 100%
+rename from queries/refactoring/lifecycle-attributes-missing-nature.rq
+rename to queries/refactoring/lifecycle-attributes-missing-nature-review.rq
+diff --git a/queries/refactoring/lifecycle-attributes-missing-role.rq b/queries/refactoring/lifecycle-attributes-missing-role-review.rq
+similarity index 100%
+rename from queries/refactoring/lifecycle-attributes-missing-role.rq
+rename to queries/refactoring/lifecycle-attributes-missing-role-review.rq
+diff --git a/queries/refactoring/lifecycle-attributes-missing-specializes-attribute.rq b/queries/refactoring/lifecycle-attributes-missing-specializes-attribute-review.rq
+similarity index 86%
+rename from queries/refactoring/lifecycle-attributes-missing-specializes-attribute.rq
+rename to queries/refactoring/lifecycle-attributes-missing-specializes-attribute-review.rq
+index 8e31e20..2df19f7 100644
+--- a/queries/refactoring/lifecycle-attributes-missing-specializes-attribute.rq
++++ b/queries/refactoring/lifecycle-attributes-missing-specializes-attribute-review.rq
+@@ -29,6 +29,9 @@ WHERE {
+   ?attribute rdfs:subClassOf* ?family .
+   ?attribute rdfs:subClassOf* edo:DomainAttribute .
+   FILTER (?attribute != ?family)
+-  FILTER NOT EXISTS { ?attribute edo:specializesAttribute ?family . }
++  FILTER NOT EXISTS {
++    ?attribute edo:specializesAttribute ?base .
++    ?base rdfs:subClassOf* ?family .
++  }
+ }
+ ORDER BY ?family ?attribute
+diff --git a/queries/refactoring/lifecycle-attributes-missing-typed-value.rq b/queries/refactoring/lifecycle-attributes-missing-typed-value-review.rq
+similarity index 100%
+rename from queries/refactoring/lifecycle-attributes-missing-typed-value.rq
+rename to queries/refactoring/lifecycle-attributes-missing-typed-value-review.rq
+diff --git a/queries/refactoring/lifecycle-attributes-missing-unit.rq b/queries/refactoring/lifecycle-attributes-missing-unit-review.rq
+similarity index 100%
+rename from queries/refactoring/lifecycle-attributes-missing-unit.rq
+rename to queries/refactoring/lifecycle-attributes-missing-unit-review.rq

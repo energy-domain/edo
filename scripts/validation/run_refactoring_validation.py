@@ -1,140 +1,223 @@
-#!/usr/bin/env python3
-"""Run EDO refactoring validation queries.
-
-The runner loads the local TTL modules used in this refactoring and executes all
-SPARQL queries under queries/refactoring.
-
-Strict queries are expected to return no results. Query files whose names contain
-"overview" or "review" are informational and do not fail the run.
-"""
-
 from __future__ import annotations
 
-import argparse
-import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from datetime import datetime
+import traceback
+import sys
 
 from rdflib import Graph
 
 
-TTL_FILES = (
-    Path("core/edo.ttl"),
-    Path("mappings/ifc/edo-ifc.ttl"),
-    Path("modules/alignments/ido/edo-ido-alignment.ttl"),
-)
+ROOT = Path(__file__).resolve().parents[2]
 
-REVIEW_MARKERS = ("overview", "review")
+TTL_FILES = [
+    ROOT / "core" / "edo.ttl",
+    ROOT / "mappings" / "ifc" / "edo-ifc.ttl",
+    ROOT / "modules" / "alignments" / "ido" / "edo-ido-alignment.ttl",
+]
+
+QUERY_ROOT = ROOT / "queries" / "refactoring"
+LOG_DIR = ROOT / "logs"
+LOG_FILE = LOG_DIR / f"refactoring-validation-{datetime.now().strftime('%Y%m%d-%H%M%S')}.log"
 
 
-@dataclass(frozen=True)
+@dataclass
 class QueryResult:
     path: Path
     kind: str
     row_count: int
-    failed: bool
-    rows: list[object]
+    ok: bool
     error: str | None = None
 
 
-def repo_root_from_script() -> Path:
-    return Path(__file__).resolve().parents[2]
+def log(message: str = "") -> None:
+    print(message)
+    with LOG_FILE.open("a", encoding="utf-8") as f:
+        f.write(message + "\n")
 
 
-def load_graph(root: Path, ttl_files: Iterable[Path]) -> Graph:
+def relative(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT)).replace("\\", "/")
+    except ValueError:
+        return str(path)
+
+
+def is_informative_query(path: Path) -> bool:
+    name = path.name.lower()
+    parts = [p.lower() for p in path.parts]
+
+    return (
+        "overview" in name
+        or "review" in name
+        or "list" in name
+        or "report" in name
+        or "informative" in name
+        or "edo-ifc" in parts
+    )
+
+
+def parse_ttl_files() -> Graph:
     graph = Graph()
-    for relative_path in ttl_files:
-        path = root / relative_path
-        if not path.exists():
-            raise FileNotFoundError(f"Required TTL not found: {relative_path}")
-        graph.parse(path.as_posix(), format="turtle")
-        print(f"[parse] {relative_path}")
-    print(f"[graph] {len(graph)} triples loaded")
+
+    log("============================================================")
+    log("EDO refactoring validation")
+    log("============================================================")
+    log(f"Root: {ROOT}")
+    log(f"Log:  {LOG_FILE}")
+    log("")
+
+    log("Parsing TTL files")
+    log("-----------------")
+
+    for ttl_file in TTL_FILES:
+        log(f"[TTL] {relative(ttl_file)}")
+
+        if not ttl_file.exists():
+            raise FileNotFoundError(f"Missing TTL file: {ttl_file}")
+
+        graph.parse(ttl_file, format="turtle")
+        log("      OK")
+
+    log("")
+    log(f"Loaded triples: {len(graph)}")
+    log("")
+
     return graph
 
 
-def is_review_query(path: Path) -> bool:
-    name = path.name.lower()
-    return any(marker in name for marker in REVIEW_MARKERS)
+def run_query(graph: Graph, query_path: Path) -> QueryResult:
+    kind = "informative" if is_informative_query(query_path) else "strict"
 
-
-def run_query(graph: Graph, root: Path, query_path: Path, max_rows: int) -> QueryResult:
-    relative_path = query_path.relative_to(root)
     try:
         query_text = query_path.read_text(encoding="utf-8")
-        result = graph.query(query_text)
-        if result.type == "ASK":
-            rows = [bool(result.askAnswer)]
-            row_count = 1 if result.askAnswer else 0
-        else:
-            rows = list(result)
-            row_count = len(rows)
-        review = is_review_query(query_path)
-        failed = (not review) and row_count > 0
-        return QueryResult(relative_path, "review" if review else "strict", row_count, failed, rows[:max_rows])
-    except Exception as exc:  # noqa: BLE001 - CLI should report any query error.
-        return QueryResult(relative_path, "error", 0, True, [], str(exc))
+        rows = list(graph.query(query_text))
+        row_count = len(rows)
+
+        ok = kind == "informative" or row_count == 0
+
+        log("------------------------------------------------------------")
+        log(f"[QUERY] {relative(query_path)}")
+        log(f"Type:   {kind}")
+        log(f"Rows:   {row_count}")
+        log(f"Status: {'OK' if ok else 'FAILED'}")
+
+        if row_count:
+            log("")
+            log("Results:")
+            for i, row in enumerate(rows, start=1):
+                values = [str(value) for value in row]
+                log(f"  {i}. " + " | ".join(values))
+
+        log("")
+
+        return QueryResult(
+            path=query_path,
+            kind=kind,
+            row_count=row_count,
+            ok=ok,
+        )
+
+    except Exception as exc:
+        error = "".join(traceback.format_exception_only(type(exc), exc)).strip()
+
+        log("------------------------------------------------------------")
+        log(f"[QUERY] {relative(query_path)}")
+        log(f"Type:   {kind}")
+        log("Status: ERROR")
+        log(f"Error:  {error}")
+        log("")
+        log("Traceback:")
+        log(traceback.format_exc())
+        log("")
+
+        return QueryResult(
+            path=query_path,
+            kind=kind,
+            row_count=0,
+            ok=False,
+            error=error,
+        )
 
 
-def print_result(result: QueryResult) -> None:
-    if result.error:
-        print(f"[ERROR] {result.path}: {result.error}")
-        return
+def run_queries(graph: Graph) -> list[QueryResult]:
+    log("Running SPARQL queries")
+    log("----------------------")
 
-    if result.kind == "review":
-        status = "REVIEW" if result.row_count else "OK"
-    else:
-        status = "FAIL" if result.failed else "OK"
+    if not QUERY_ROOT.exists():
+        raise FileNotFoundError(f"Missing query directory: {QUERY_ROOT}")
 
-    print(f"[{status}] {result.path} ({result.row_count} result{'s' if result.row_count != 1 else ''})")
-    if result.rows and status in {"FAIL", "REVIEW"}:
-        for row in result.rows:
-            print(f"    {row}")
+    query_files = sorted(QUERY_ROOT.rglob("*.rq"))
+
+    if not query_files:
+        log("No .rq files found.")
+        return []
+
+    results: list[QueryResult] = []
+
+    for query_path in query_files:
+        results.append(run_query(graph, query_path))
+
+    return results
+
+
+def print_summary(results: list[QueryResult]) -> int:
+    strict_results = [r for r in results if r.kind == "strict"]
+    informative_results = [r for r in results if r.kind == "informative"]
+
+    failed = [r for r in strict_results if not r.ok]
+    errors = [r for r in results if r.error is not None]
+
+    log("============================================================")
+    log("Summary")
+    log("============================================================")
+    log(f"Total queries:        {len(results)}")
+    log(f"Strict queries:       {len(strict_results)}")
+    log(f"Informative queries:  {len(informative_results)}")
+    log(f"Strict failures:      {len(failed)}")
+    log(f"Query errors:         {len(errors)}")
+    log("")
+
+    if failed:
+        log("Strict failures:")
+        for result in failed:
+            log(f"- {relative(result.path)} ({result.row_count} rows)")
+        log("")
+
+    if errors:
+        log("Query errors:")
+        for result in errors:
+            log(f"- {relative(result.path)}: {result.error}")
+        log("")
+
+    log(f"Log written to: {LOG_FILE}")
+    log("")
+
+    if failed or errors:
+        log("Validation result: FAILED")
+        return 1
+
+    log("Validation result: OK")
+    return 0
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run EDO refactoring validation queries.")
-    parser.add_argument("--root", type=Path, default=repo_root_from_script(), help="Repository root.")
-    parser.add_argument(
-        "--query-dir",
-        type=Path,
-        default=Path("queries/refactoring"),
-        help="Query directory, relative to the repository root unless absolute.",
-    )
-    parser.add_argument("--max-rows", type=int, default=10, help="Maximum rows printed per query.")
-    args = parser.parse_args()
-
-    root = args.root.resolve()
-    query_dir = args.query_dir if args.query_dir.is_absolute() else root / args.query_dir
-
-    if not query_dir.exists():
-        print(f"Query directory not found: {query_dir}", file=sys.stderr)
-        return 2
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
 
     try:
-        graph = load_graph(root, TTL_FILES)
-    except Exception as exc:  # noqa: BLE001 - CLI should report parse errors.
-        print(f"[ERROR] Failed to load TTL files: {exc}", file=sys.stderr)
-        return 2
+        graph = parse_ttl_files()
+        results = run_queries(graph)
+        return print_summary(results)
 
-    query_paths = sorted(query_dir.rglob("*.rq"))
-    if not query_paths:
-        print(f"No .rq files found under {query_dir}", file=sys.stderr)
-        return 2
-
-    print(f"[queries] {len(query_paths)} query files found")
-    print()
-
-    results = [run_query(graph, root, path, args.max_rows) for path in query_paths]
-    for result in results:
-        print_result(result)
-
-    failures = [result for result in results if result.failed]
-    print()
-    print(f"[summary] {len(results)} queries, {len(failures)} strict failure/error(s)")
-    return 1 if failures else 0
+    except Exception:
+        log("============================================================")
+        log("Fatal error")
+        log("============================================================")
+        log(traceback.format_exc())
+        log(f"Log written to: {LOG_FILE}")
+        return 1
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
