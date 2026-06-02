@@ -1,4 +1,5 @@
 @prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix edo-align: <https://w3id.org/energy-domain/edo/alignments/alignment#> .
 @prefix lis: <http://rds.posccaesar.org/ontology/lis14/rdl/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -9,15 +10,22 @@
     a owl:Ontology ;
     owl:imports
         <https://w3id.org/energy-domain/edo> ,
+        <https://w3id.org/energy-domain/edo/alignments/alignment> ,
         <http://rds.posccaesar.org/ontology/lis14/ont/core> ;
-    rdfs:label "EDO to IDO Alignment" ;
+    rdfs:label "EDO to IDO Alignment"@en ;
+    dcterms:title "EDO to IDO Alignment"@en ;
+    edo-align:sourceStandard edo-align:IDO , edo-align:ISO15926 ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview ;
+    edo-align:alignmentRationale "This module records non-invasive SKOS mappings from EDO concepts to IDO/LIS-14 categories. It keeps IDO/ISO 15926 alignment outside the EDO core while making the interpretation explicit and reviewable."@en ;
     dcterms:description """
     Alignment module relating the Energy Domain Ontology (EDO)
     to the Industrial Data Ontology (IDO/LIS-14) published by POSC Caesar.
     This module keeps the alignment outside the EDO core and uses SKOS mapping
     properties to provide non-invasive references from EDO domain concepts,
     attributes and relationship annotations to upper-level IDO categories.
-    """ .
+    """@en .
 
 #################################################################
 #    Core domain entities
@@ -453,3 +461,25 @@ edo:hasContainedElement
 
 edo:hasDocument
     skos:relatedMatch lis:representedIn .
+
+#################################################################
+#    Alignment review notes
+#################################################################
+
+edo:DomainAttribute
+    edo-align:alignmentRationale "DomainAttribute is an operational EDO data-dictionary concept. Its alignment with IDO Quality is intentionally lightweight: many concrete EDO attributes represent data about qualities, quantities or information-delivery requirements rather than formal OWL qualities themselves."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:CertifiedMaxPressure
+    edo-align:alignmentRationale "CertifiedMaxPressure is treated as a certified datum about the underlying pressure-related quality. The alignment is therefore useful for IDO-oriented interpretation, but should not be read as creating a new root physical quality independent of Pressure."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:HighConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:hasAttribute
+    edo-align:alignmentRationale "hasAttribute is an EDO metamodel relation used to declare that a domain element has an applicable domain attribute. This is kept separate from formal IDO quality inherence and from CFIHOS-style class-property applicability."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
