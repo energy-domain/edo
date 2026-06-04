@@ -36,6 +36,30 @@ edo-cfihos:Property
     skos:prefLabel "CFIHOS Property"@en ;
     skos:definition "Reference concept representing the CFIHOS notion of a property used for information handover."@en .
 
+edo-cfihos:PropertyCategory
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS property category"@en ;
+    skos:definition "Reference concept representing classification or grouping metadata used to organise properties for handover, review or information requirements."@en .
+
+edo-cfihos:PropertyValueType
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS property value type"@en ;
+    skos:definition "Reference concept representing metadata about the expected datatype or value representation of a property value."@en .
+
+edo-cfihos:PropertyValueCardinality
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS property value cardinality"@en ;
+    skos:definition "Reference concept representing metadata about whether a property is expected to carry one value or multiple values."@en .
+
+edo-cfihos:PropertyValueOrigin
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS property value origin"@en ;
+    skos:definition "Reference concept representing provenance or origin metadata for a property value, such as declared, imported, measured or calculated information."@en .
+
 edo-cfihos:ClassProperty
     a skos:Concept ;
     skos:inScheme edo-cfihos:ReferenceConceptScheme ;
@@ -150,15 +174,15 @@ edo:hasAttributeScope
     edo-align:reviewStatus edo-align:UnderReview .
 
 edo:hasTypedValue
-    skos:relatedMatch edo-cfihos:Property ;
-    edo-align:alignmentRationale "hasTypedValue records the expected value datatype category of an EDO attribute. It is related to, but not equivalent to, CFIHOS property value typing."@en ;
+    skos:relatedMatch edo-cfihos:PropertyValueType ;
+    edo-align:alignmentRationale "hasTypedValue records the expected value datatype category of an EDO attribute. In the CFIHOS-oriented view, this is property-value metadata rather than a property concept itself."@en ;
     edo-align:alignmentStatus edo-align:ProposedAlignment ;
     edo-align:alignmentConfidence edo-align:MediumConfidence ;
     edo-align:reviewStatus edo-align:UnderReview .
 
 edo:hasValueCardinality
-    skos:relatedMatch edo-cfihos:Property ;
-    edo-align:alignmentRationale "hasValueCardinality records whether an EDO attribute is expected to have a single value or multiple values. It supports data-contract validation rather than representing a CFIHOS concept directly."@en ;
+    skos:relatedMatch edo-cfihos:PropertyValueCardinality ;
+    edo-align:alignmentRationale "hasValueCardinality records whether an EDO attribute is expected to have a single value or multiple values. In the CFIHOS-oriented view, this is property-value cardinality metadata supporting information-requirement validation."@en ;
     edo-align:alignmentStatus edo-align:ProposedAlignment ;
     edo-align:alignmentConfidence edo-align:MediumConfidence ;
     edo-align:reviewStatus edo-align:UnderReview .
@@ -214,22 +238,103 @@ edo:TestRole
 #################################################################
 
 edo:IdentificationAttribute
-    skos:relatedMatch edo-cfihos:Property ;
-    edo-align:alignmentRationale "IdentificationAttribute represents identifiers and naming-related properties used in information handover."@en ;
+    skos:relatedMatch edo-cfihos:PropertyCategory ;
+    edo-align:alignmentRationale "IdentificationAttribute is now an EDO SKOS classification concept for identifier and naming-related attributes. In the CFIHOS-oriented view, it is best treated as a property category rather than as a property itself."@en ;
     edo-align:alignmentStatus edo-align:ProposedAlignment ;
     edo-align:alignmentConfidence edo-align:MediumConfidence ;
     edo-align:reviewStatus edo-align:UnderReview .
 
 edo:PhysicalPropertyAttribute
-    skos:relatedMatch edo-cfihos:Property ;
-    edo-align:alignmentRationale "PhysicalPropertyAttribute represents physical properties used as delivered or required property information."@en ;
+    skos:relatedMatch edo-cfihos:PropertyCategory ;
+    edo-align:alignmentRationale "PhysicalPropertyAttribute is now an EDO SKOS classification concept for attributes describing physical properties. In the CFIHOS-oriented view, it is best treated as a property category rather than as a property itself."@en ;
     edo-align:alignmentStatus edo-align:ProposedAlignment ;
     edo-align:alignmentConfidence edo-align:MediumConfidence ;
     edo-align:reviewStatus edo-align:UnderReview .
 
 edo:FunctionalAttribute
-    skos:relatedMatch edo-cfihos:Property ;
-    edo-align:alignmentRationale "FunctionalAttribute represents functional characteristics or capabilities that may appear as handover properties."@en ;
+    skos:relatedMatch edo-cfihos:PropertyCategory ;
+    edo-align:alignmentRationale "FunctionalAttribute is now an EDO SKOS classification concept for functional characteristics or capabilities. In the CFIHOS-oriented view, it is best treated as a property category rather than as a property itself."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+#################################################################
+#    Refactored EDO property-metadata concepts
+#################################################################
+
+edo:CalculatedValue
+    skos:relatedMatch edo-cfihos:PropertyValueOrigin ;
+    edo-align:alignmentRationale "CalculatedValue is an EDO SKOS concept indicating that a value is derived from other values. In the CFIHOS-oriented view, it is property-value origin/provenance metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:DeclaredValue
+    skos:relatedMatch edo-cfihos:PropertyValueOrigin ;
+    edo-align:alignmentRationale "DeclaredValue is an EDO SKOS concept indicating that a value is declared directly. In the CFIHOS-oriented view, it is property-value origin/provenance metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:ImportedValue
+    skos:relatedMatch edo-cfihos:PropertyValueOrigin ;
+    edo-align:alignmentRationale "ImportedValue is an EDO SKOS concept indicating that a value is imported from another system or source. In the CFIHOS-oriented view, it is property-value origin/provenance metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:MeasuredValue
+    skos:relatedMatch edo-cfihos:PropertyValueOrigin ;
+    edo-align:alignmentRationale "MeasuredValue is an EDO SKOS concept indicating that a value is obtained by measurement. In the CFIHOS-oriented view, it is property-value origin/provenance metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:FloatValue
+    skos:relatedMatch edo-cfihos:PropertyValueType ;
+    edo-align:alignmentRationale "FloatValue is an EDO SKOS concept for decimal numeric values. In the CFIHOS-oriented view, it is property-value type metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:StringValue
+    skos:relatedMatch edo-cfihos:PropertyValueType ;
+    edo-align:alignmentRationale "StringValue is an EDO SKOS concept for textual values. In the CFIHOS-oriented view, it is property-value type metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:BooleanValue
+    skos:relatedMatch edo-cfihos:PropertyValueType ;
+    edo-align:alignmentRationale "BooleanValue is an EDO SKOS concept for true/false values. In the CFIHOS-oriented view, it is property-value type metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:IntValue
+    skos:relatedMatch edo-cfihos:PropertyValueType ;
+    edo-align:alignmentRationale "IntValue is an EDO SKOS concept for integer values. In the CFIHOS-oriented view, it is property-value type metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:DateTimeValue
+    skos:relatedMatch edo-cfihos:PropertyValueType ;
+    edo-align:alignmentRationale "DateTimeValue is an EDO SKOS concept for date-time values. In the CFIHOS-oriented view, it is property-value type metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:SingleValue
+    skos:relatedMatch edo-cfihos:PropertyValueCardinality ;
+    edo-align:alignmentRationale "SingleValue is an EDO SKOS concept indicating that an attribute carries one value. In the CFIHOS-oriented view, it is property-value cardinality metadata."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:MultiValue
+    skos:relatedMatch edo-cfihos:PropertyValueCardinality ;
+    edo-align:alignmentRationale "MultiValue is an EDO SKOS concept indicating that an attribute may carry multiple values. In the CFIHOS-oriented view, it is property-value cardinality metadata."@en ;
     edo-align:alignmentStatus edo-align:ProposedAlignment ;
     edo-align:alignmentConfidence edo-align:MediumConfidence ;
     edo-align:reviewStatus edo-align:UnderReview .
