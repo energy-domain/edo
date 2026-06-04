@@ -1,0 +1,3255 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EDO–IDO / ISO 15926 Alignment</title>
+  <style>
+:root {
+  --bg: #f7f7f8;
+  --panel: #ffffff;
+  --text: #1f2328;
+  --muted: #667085;
+  --border: #d0d5dd;
+  --chip: #eef2f6;
+  --chip-strong: #e4e7ec;
+  --accent: #344054;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+header {
+  padding: 40px 28px 28px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px;
+}
+h1 { margin: 0 0 8px; font-size: 2rem; letter-spacing: -0.02em; }
+h2 { margin-top: 36px; font-size: 1.35rem; }
+p { max-width: 880px; }
+a { color: #175cd3; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin: 22px 0;
+}
+.metric, .panel, .card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.metric { padding: 18px; }
+.metric .value { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.metric .label { color: var(--muted); margin-top: 4px; }
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) repeat(4, minmax(150px, 190px));
+  gap: 10px;
+  margin: 22px 0;
+  position: sticky;
+  top: 0;
+  background: rgba(247,247,248,0.96);
+  padding: 12px 0;
+  z-index: 10;
+}
+input, select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--text);
+}
+.cards {
+  display: grid;
+  gap: 14px;
+}
+.card {
+  padding: 18px;
+}
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 1.08rem;
+}
+.mapping {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 10px 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: var(--chip);
+  color: var(--accent);
+  font-size: 0.88rem;
+}
+.chip.strong {
+  background: var(--chip-strong);
+  font-weight: 600;
+}
+.rationale {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--border);
+  background: #fcfcfd;
+  border-radius: 8px;
+}
+.meta {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.nav a {
+  display: inline-block;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+.count-line {
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 28px 48px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+@media (max-width: 920px) {
+  .toolbar { grid-template-columns: 1fr; position: static; }
+  header { padding: 28px 20px 20px; }
+  main { padding: 20px; }
+}
+</style>
+</head>
+<body>
+  <header>
+    <h1>EDO–IDO / ISO 15926 Alignment</h1>
+    <p>Human-readable view of the EDO alignment with IDO / ISO 15926, generated from the curation data.</p>
+    <nav class="nav">
+      <a href="../index.html">Overview</a>
+      <a href="../ido/index.html">IDO / ISO 15926</a>
+      <a href="../cfihos/index.html">CFIHOS / IOGP</a>
+    </nav>
+  </header>
+  <main>
+
+<section class="panel" style="padding: 18px;">
+  <p>This page presents SKOS-based alignment assertions between EDO concepts and IDO / ISO 15926 concepts. The alignment is intentionally lightweight and reviewable.</p>
+</section>
+
+<section class="summary">
+  <div class="metric"><div class="value">137</div><div class="label"> mapping assertions</div></div>
+  <div class="metric"><div class="value">2</div><div class="label">mapping relation types</div></div>
+  <div class="metric"><div class="value">Unspecified</div><div class="label">most common confidence</div></div>
+  <div class="metric"><div class="value">Unspecified</div><div class="label">most common review status</div></div>
+</section>
+
+<section class="toolbar" aria-label="Filters">
+  <input id="search" type="search" placeholder="Search concepts, relations, rationale...">
+  <select id="relation"><option value="">All relations</option></select>
+  <select id="confidence"><option value="">All confidence levels</option></select>
+  <select id="status"><option value="">All statuses</option></select>
+  <select id="review"><option value="">All review states</option></select>
+</section>
+<div class="count-line"><span id="visible-count">137</span> visible mappings</div>
+<section class="cards">
+
+<article class="card"
+  data-search="edo:asbuiltdiameter as-built diameter lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>As-Built Diameter</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:asbuiltdisplacedvolume as-built displaced volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>As-Built Displaced Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:asbuiltinternalvolume as-built internal volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>As-Built Internal Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:asbuiltlength as-built length lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>As-built Length</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:asbuiltmass as-built mass lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>As-Built Mass</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:asbuiltthickness as-built thickness lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>As-Built Thickness</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:asbuiltvolume as-built volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>As-Built Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:asbuiltweight as-built weight lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>As-Built Weight</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:asset asset lis:physicalartefact physical artefact closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Asset</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Artefact</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:attachmentpoint attachment point lis:feature feature closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Attachment Point</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Feature</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:bendingradius bending radius lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Bending Radius</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:burstpressure burst pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Burst Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:calculatedabsoluteburstpressure calculated absolute burst pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Calculated Absolute Burst Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:capabilityattribute capability attribute lis:capability capability relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Capability attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">Capability</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedburstpressure certified burst pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Burst Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedcollapsepressure certified collapse pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Collapse Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifieddesignlife certified design life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Design Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifieddiameter certified diameter lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Diameter</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifieddisplacedvolume certified displaced volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Displaced Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedfatiguelife certified fatigue life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Fatigue Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedinternalvolume certified internal volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Internal Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedlength certified length lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Length</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedmass certified mass lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Mass</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedmaxpressure certified maximum pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Maximum Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedmaxtension certified max tension lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Max Tension</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedmaxwaterdepth certified maximum water depth lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Maximum Water Depth</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedmaximumtemperature certified maximum temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Maximum Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedminimumbendingradius certified minimum bending radius lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Minimum Bending Radius</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedminimumtemperature certified minimum temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Minimum Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedthickness certified thickness lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Thickness</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedvolume certified volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedweight certified weight lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Certified Weight</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:collapsepressure collapse pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Collapse Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:configuredsystem configured system lis:system system closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Configured System</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">System</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:connectionpoint connection point lis:feature feature closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Connection Point</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Feature</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designlife design life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Design Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedburstpressure designed burst pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Burst Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedcollapsepressure designed collapse pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Collapse Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designeddiameter designed diameter lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Diameter</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designeddisplacedvolume designed displaced volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Displaced Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedfatiguelife designed fatigue life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Fatigue Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedinternalvolume designed internal volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Internal Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedlength designed length lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Length</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedmass designed mass lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Mass</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedmaxtension designed max tension lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Max Tension</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedmaxwaterdepth designed maximum water depth lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Maximum Water Depth</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedmaximumtemperature designed maximum temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Maximum Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedminimumbendingradius designed minimum bending radius lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Minimum Bending Radius</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedminimumtemperature designed minimum temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Minimum Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedthickness designed thickness lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Thickness</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedvolume designed volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:designedweight designed weight lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Designed Weight</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:diameter diameter lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Diameter</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:dimensionalattribute dimensional attribute lis:physicalquantity physical quantity relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Dimensional attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:displacedvolume displaced volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Displaced Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:distance distance lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Distance</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:domainattribute domain attribute lis:quality quality closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Domain Attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Quality</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:domainattributenature domain attribute nature lis:quality quality relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Domain attribute nature</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">Quality</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:domainattributerole domain attribute role lis:role role relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Domain attribute role</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">Role</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:endfitting end fitting lis:physicalartefact physical artefact closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>End fitting</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Artefact</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:fatiguelife fatigue life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Fatigue Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:feature feature lis:feature feature closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Feature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Feature</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:flexiblepipesegment flexible pipe segment lis:physicalartefact physical artefact closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Flexible Pipe Segment</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Artefact</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:flexiblestructure flexiblestructure lis:system system closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>FlexibleStructure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">System</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:fluidstream fluid stream lis:stream stream closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Fluid Stream</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Stream</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:hydrostaticcollapseabspressdry hydrostatic collapse absolute pressure dry lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Hydrostatic Collapse Absolute Pressure Dry</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:individualanodemass individual anode mass lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Individual Anode Mass</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:insidetemperature inside temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Inside Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:installedlength installed length lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Installed Length</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:installedwaterdepth installed water depth lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Installed Water Depth</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:internalvolume internal volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Internal Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:length length lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Length</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:lineancillary line ancillary lis:physicalartefact physical artefact closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Line Ancillary</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Artefact</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:linearmass linear mass lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Linear Mass</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:locationattribute location attribute lis:location location relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Location attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">Location</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:longitudinaloffset longitudinal offset lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Longitudinal Offset</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:mass mass lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Mass</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:maxdesignpressure maximum design pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Maximum Design Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:maxpressure maximum pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Maximum Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:maxtension max tension lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Max Tension</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:maxwaterdepth maximum water depth lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Maximum Water Depth</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:maximumtemperature maximum temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Maximum Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:minimumbendingradius minimum bending radius lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Minimum Bending Radius</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:minimumbendingradiusforstorage minimum bending radius for storage lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Minimum Bending Radius for Storage</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:minimumtemperature minimum temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Minimum Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:nominallength nominal length lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Nominal Length</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:offset offset lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Offset</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:operatingbendingradius operating bending radius lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Operating Bending Radius</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:operatingburstpressure operating burst pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Operating Burst Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:operatingcollapsepressure operating collapse pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Operating Collapse Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:operatingpressure operating pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Operating Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:operatingtemperature operating temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Operating Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:operatingtension operating tension lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Operating Tension</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:outsidetemperature outside temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Outside Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:pipemountposition pipe mount position lis:location location relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Pipe Mount Position</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">Location</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:port port lis:feature feature closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Port</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Feature</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:position position lis:location location relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Position</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">Location</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:pressure pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:referencepoint reference point lis:feature feature closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Reference Point</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Feature</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:remainingdesignlife remaining design life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Remaining Design Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:remainingfatiguelife remaining fatigue life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Remaining Fatigue Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredburstpressure required burst pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Burst Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredcollapsepressure required collapse pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Collapse Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requireddesignlife required design life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Design Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requireddiameter required diameter lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Diameter</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requireddisplacedvolume required displaced volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Displaced Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredfatiguelife required fatigue life lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Fatigue Life</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredinternalvolume required internal volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Internal Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredlength required length lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Length</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredmass required mass lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Mass</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredmaxpressure required maximum pressure lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Maximum Pressure</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredmaxtension required max tension lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Max Tension</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredmaxwaterdepth required maximum water depth lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Maximum Water Depth</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredmaximumtemperature required maximum temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Maximum Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredminimumbendingradius required minimum bending radius lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Minimum Bending Radius</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredminimumtemperature required minimum temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Minimum Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredthickness required thickness lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Thickness</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredvolume required volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:requiredweight required weight lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Required Weight</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:specificweight specific weight lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Specific Weight</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:specification specification lis:prescriptiveobject prescriptive object closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Specification</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Prescriptive Object</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:spoolingtension spooling tension lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Spooling Tension</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:subseasystem subsea system lis:system system closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Subsea System</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">System</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:technicalartifact technical artifact lis:informationobject information object closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Technical Artifact</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Information Object</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:temperature temperature lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Temperature</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:tension tension lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Tension</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:thickness thickness lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Thickness</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:volume volume lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Volume</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:waterdepth water depth lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Water Depth</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:weight weight lis:physicalquantity physical quantity closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Weight</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">Physical Quantity</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:hasconnectionpoint has connection point lis:hasfeature has feature closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Has Connection Point</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">has Feature</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:hascontainedelement has contained element lis:contains contains closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>has Contained Element</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">contains</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:hasdocument has document lis:representedin represented in relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Has Document</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">represented In</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:hasfunctionalpart has functional part lis:hasfunctionalpart has functional part closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>has Functional Part</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">has Functional Part</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:hasorderedpart has ordered part lis:hasarrangedpart has arranged part relatedmatch  proposedalignment    "
+  data-relation="relatedMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Has Ordered Part</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">has Arranged Part</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:haspart has part lis:haspart has part closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Has Part</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">has Part</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+
+<article class="card"
+  data-search="edo:isconnectedto is connected to lis:connectedto connected to closematch  proposedalignment    "
+  data-relation="closeMatch"
+  data-confidence=""
+  data-status="ProposedAlignment"
+  data-review="">
+  <h3>Is Connected To</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">connected To</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: ProposedAlignment</span>
+    
+    
+  </div>
+  
+  
+</article>
+</section>
+
+  </main>
+  <footer>
+    Generated from EDO alignment curation data on 2026-06-02.
+  </footer>
+  <script>
+function uniqueValues(cards, attr) {
+  const values = new Set();
+  cards.forEach(card => {
+    const value = card.dataset[attr];
+    if (value) values.add(value);
+  });
+  return Array.from(values).sort();
+}
+function populateSelect(select, values) {
+  values.forEach(value => {
+    const opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = value;
+    select.appendChild(opt);
+  });
+}
+function initFilters() {
+  const cards = Array.from(document.querySelectorAll('.card[data-search]'));
+  const search = document.getElementById('search');
+  const relation = document.getElementById('relation');
+  const confidence = document.getElementById('confidence');
+  const status = document.getElementById('status');
+  const review = document.getElementById('review');
+  const visibleCount = document.getElementById('visible-count');
+
+  if (!cards.length) return;
+
+  populateSelect(relation, uniqueValues(cards, 'relation'));
+  populateSelect(confidence, uniqueValues(cards, 'confidence'));
+  populateSelect(status, uniqueValues(cards, 'status'));
+  populateSelect(review, uniqueValues(cards, 'review'));
+
+  function apply() {
+    const q = (search.value || '').toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const okSearch = !q || card.dataset.search.includes(q);
+      const okRelation = !relation.value || card.dataset.relation === relation.value;
+      const okConfidence = !confidence.value || card.dataset.confidence === confidence.value;
+      const okStatus = !status.value || card.dataset.status === status.value;
+      const okReview = !review.value || card.dataset.review === review.value;
+      const show = okSearch && okRelation && okConfidence && okStatus && okReview;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (visibleCount) visibleCount.textContent = visible.toString();
+  }
+
+  [search, relation, confidence, status, review].forEach(el => el.addEventListener('input', apply));
+  apply();
+}
+document.addEventListener('DOMContentLoaded', initFilters);
+</script>
+</body>
+</html>

@@ -1,56 +1,485 @@
 @prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix edo-align: <https://w3id.org/energy-domain/edo/alignments/alignment#> .
 @prefix lis: <http://rds.posccaesar.org/ontology/lis14/rdl/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 <https://w3id.org/energy-domain/edo/alignments/ido>
     a owl:Ontology ;
-    rdfs:label "EDO to IDO Alignment" ;
+    owl:imports
+        <https://w3id.org/energy-domain/edo> ,
+        <https://w3id.org/energy-domain/edo/alignments/alignment> ,
+        <http://rds.posccaesar.org/ontology/lis14/ont/core> ;
+    rdfs:label "EDO to IDO Alignment"@en ;
+    dcterms:title "EDO to IDO Alignment"@en ;
+    edo-align:sourceStandard edo-align:IDO , edo-align:ISO15926 ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview ;
+    edo-align:alignmentRationale "This module records non-invasive SKOS mappings from EDO concepts to IDO/LIS-14 categories. It keeps IDO/ISO 15926 alignment outside the EDO core while making the interpretation explicit and reviewable."@en ;
     dcterms:description """
     Alignment module relating the Energy Domain Ontology (EDO)
     to the Industrial Data Ontology (IDO/LIS-14) published by POSC Caesar.
-    This module provides non-invasive references from EDO domain concepts
-    and relationship annotations to upper-level IDO categories.
-    """ .
+    This module keeps the alignment outside the EDO core and uses SKOS mapping
+    properties to provide non-invasive references from EDO domain concepts,
+    attributes and relationship annotations to upper-level IDO categories.
+    """@en .
 
-edo:idoReference
-    a owl:AnnotationProperty ;
-    rdfs:label "IDO reference" ;
-    rdfs:comment """
-    Relates an EDO entity to a relevant IDO entity without necessarily
-    asserting formal equivalence or subclassing.
-    """ .
+#################################################################
+#    Core domain entities
+#################################################################
 
 edo:Asset
-    edo:idoReference lis:PhysicalArtefact .
+    skos:closeMatch lis:PhysicalArtefact .
 
 edo:SubseaSystem
-    edo:idoReference lis:System .
+    skos:closeMatch lis:System .
 
 edo:FlexiblePipeSegment
-    edo:idoReference lis:PhysicalArtefact .
+    skos:closeMatch lis:PhysicalArtefact .
 
 edo:EndFitting
-    edo:idoReference lis:PhysicalArtefact .
+    skos:closeMatch lis:PhysicalArtefact .
 
 edo:LineAncillary
-    edo:idoReference lis:PhysicalArtefact .
+    skos:closeMatch lis:PhysicalArtefact .
 
 edo:FluidStream
-    edo:idoReference lis:Stream .
+    skos:closeMatch lis:Stream .
+
+#################################################################
+#    Technical artifacts, specifications and configurations
+#################################################################
+
+edo:TechnicalArtifact
+    skos:closeMatch lis:InformationObject .
+
+edo:Specification
+    skos:closeMatch lis:PrescriptiveObject .
+
+edo:ConfiguredSystem
+    skos:closeMatch lis:System .
+
+edo:FlexibleStructure
+    skos:closeMatch lis:System .
+
+#################################################################
+#    Features and interface points
+#################################################################
+
+edo:Feature
+    skos:closeMatch lis:Feature .
+
+edo:ConnectionPoint
+    skos:closeMatch lis:Feature .
+
+edo:AttachmentPoint
+    skos:closeMatch lis:Feature .
+
+edo:ReferencePoint
+    skos:closeMatch lis:Feature .
+
+edo:Port
+    skos:closeMatch lis:Feature .
+
+#################################################################
+#    Domain attributes and physical quantities
+#################################################################
+
+edo:DomainAttribute
+    skos:closeMatch lis:Quality .
+
+edo:WaterDepth
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:MaxWaterDepth
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredMaxWaterDepth
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedMaxWaterDepth
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedMaxWaterDepth
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:InstalledWaterDepth
+    skos:closeMatch lis:PhysicalQuantity .
 
 edo:Pressure
-    edo:idoReference lis:PhysicalQuantity .
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:MaxPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredMaxPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:MaxDesignPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedMaxPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:OperatingPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Temperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:MaximumTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:MinimumTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredMaximumTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedMaximumTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedMaximumTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:OperatingTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredMinimumTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedMinimumTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedMinimumTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:InsideTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:OutsideTemperature
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Length
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:NominalLength
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredLength
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedLength
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedLength
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:AsBuiltLength
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:InstalledLength
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Tension
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:MaxTension
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredMaxTension
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedMaxTension
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedMaxTension
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:OperatingTension
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:SpoolingTension
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:BendingRadius
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:MinimumBendingRadius
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredMinimumBendingRadius
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedMinimumBendingRadius
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedMinimumBendingRadius
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:OperatingBendingRadius
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:MinimumBendingRadiusForStorage
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredDesignLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedDesignLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RemainingDesignLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:FatigueLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredFatigueLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedFatigueLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedFatigueLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RemainingFatigueLife
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Mass
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredMass
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedMass
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedMass
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:AsBuiltMass
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:LinearMass
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:IndividualAnodeMass
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Weight
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredWeight
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedWeight
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedWeight
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:AsBuiltWeight
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:SpecificWeight
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Diameter
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredDiameter
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedDiameter
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedDiameter
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:AsBuiltDiameter
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Thickness
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredThickness
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedThickness
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedThickness
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:AsBuiltThickness
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:BurstPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredBurstPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedBurstPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedBurstPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:OperatingBurstPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CalculatedAbsoluteBurstPressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CollapsePressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredCollapsePressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedCollapsePressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedCollapsePressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:OperatingCollapsePressure
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:HydrostaticCollapseAbsPressDry
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Volume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:AsBuiltVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:InternalVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredInternalVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedInternalVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedInternalVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:AsBuiltInternalVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DisplacedVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:RequiredDisplacedVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:DesignedDisplacedVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:CertifiedDisplacedVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:AsBuiltDisplacedVolume
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Distance
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Offset
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:LongitudinalOffset
+    skos:closeMatch lis:PhysicalQuantity .
+
+edo:Position
+    skos:relatedMatch lis:Location .
+
+edo:PipeMountPosition
+    skos:relatedMatch lis:Location .
+
+#################################################################
+#    Attribute classification schemes
+#################################################################
+
+edo:DomainAttributeRole
+    skos:relatedMatch lis:Role .
+
+edo:DomainAttributeNature
+    skos:relatedMatch lis:Quality .
+
+edo:CapabilityAttribute
+    skos:relatedMatch lis:Capability .
+
+edo:DimensionalAttribute
+    skos:relatedMatch lis:PhysicalQuantity .
+
+edo:LocationAttribute
+    skos:relatedMatch lis:Location .
+
+#################################################################
+#    Domain relationship annotations
+#################################################################
 
 edo:hasPart
-    edo:idoReference lis:hasPart .
+    skos:closeMatch lis:hasPart .
+
+edo:hasOrderedPart
+    skos:relatedMatch lis:hasArrangedPart .
 
 edo:hasFunctionalPart
-    edo:idoReference lis:hasFunctionalPart .
+    skos:closeMatch lis:hasFunctionalPart .
 
 edo:isConnectedTo
-    edo:idoReference lis:connectedTo .
+    skos:closeMatch lis:connectedTo .
+
+edo:hasConnectionPoint
+    skos:closeMatch lis:hasFeature .
 
 edo:hasContainedElement
-    edo:idoReference lis:contains .
+    skos:closeMatch lis:contains .
+
+edo:hasDocument
+    skos:relatedMatch lis:representedIn .
+
+#################################################################
+#    Alignment review notes
+#################################################################
+
+edo:DomainAttribute
+    edo-align:alignmentRationale "DomainAttribute is an operational EDO data-dictionary concept. Its alignment with IDO Quality is intentionally lightweight: many concrete EDO attributes represent data about qualities, quantities or information-delivery requirements rather than formal OWL qualities themselves."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:CertifiedMaxPressure
+    edo-align:alignmentRationale "CertifiedMaxPressure is treated as a certified datum about the underlying pressure-related quality. The alignment is therefore useful for IDO-oriented interpretation, but should not be read as creating a new root physical quality independent of Pressure."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:HighConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:hasAttribute
+    edo-align:alignmentRationale "hasAttribute is an EDO metamodel relation used to declare that a domain element has an applicable domain attribute. This is kept separate from formal IDO quality inherence and from CFIHOS-style class-property applicability."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .

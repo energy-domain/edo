@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EDO–CFIHOS / IOGP Alignment</title>
+  <style>
+:root {
+  --bg: #f7f7f8;
+  --panel: #ffffff;
+  --text: #1f2328;
+  --muted: #667085;
+  --border: #d0d5dd;
+  --chip: #eef2f6;
+  --chip-strong: #e4e7ec;
+  --accent: #344054;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+header {
+  padding: 40px 28px 28px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px;
+}
+h1 { margin: 0 0 8px; font-size: 2rem; letter-spacing: -0.02em; }
+h2 { margin-top: 36px; font-size: 1.35rem; }
+p { max-width: 880px; }
+a { color: #175cd3; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin: 22px 0;
+}
+.metric, .panel, .card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.metric { padding: 18px; }
+.metric .value { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.metric .label { color: var(--muted); margin-top: 4px; }
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) repeat(4, minmax(150px, 190px));
+  gap: 10px;
+  margin: 22px 0;
+  position: sticky;
+  top: 0;
+  background: rgba(247,247,248,0.96);
+  padding: 12px 0;
+  z-index: 10;
+}
+input, select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--text);
+}
+.cards {
+  display: grid;
+  gap: 14px;
+}
+.card {
+  padding: 18px;
+}
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 1.08rem;
+}
+.mapping {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 10px 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: var(--chip);
+  color: var(--accent);
+  font-size: 0.88rem;
+}
+.chip.strong {
+  background: var(--chip-strong);
+  font-weight: 600;
+}
+.rationale {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--border);
+  background: #fcfcfd;
+  border-radius: 8px;
+}
+.meta {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.nav a {
+  display: inline-block;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+.count-line {
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 28px 48px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+@media (max-width: 920px) {
+  .toolbar { grid-template-columns: 1fr; position: static; }
+  header { padding: 28px 20px 20px; }
+  main { padding: 20px; }
+}
+</style>
+</head>
+<body>
+  <header>
+    <h1>EDO–CFIHOS / IOGP Alignment</h1>
+    <p>Human-readable view of the EDO alignment with CFIHOS / IOGP, generated from the curation data.</p>
+    <nav class="nav">
+      <a href="../index.html">Overview</a>
+      <a href="../ido/index.html">IDO / ISO 15926</a>
+      <a href="../cfihos/index.html">CFIHOS / IOGP</a>
+    </nav>
+  </header>
+  <main>
+
+<section class="panel" style="padding: 18px;">
+  <p>This page presents a lightweight CFIHOS / IOGP alignment view. Local CFIHOS reference concepts may later be replaced by official stable URIs if adopted.</p>
+</section>
+
+<section class="summary">
+  <div class="metric"><div class="value">23</div><div class="label"> mapping assertions</div></div>
+  <div class="metric"><div class="value">2</div><div class="label">mapping relation types</div></div>
+  <div class="metric"><div class="value">edo-align:MediumConfidence</div><div class="label">most common confidence</div></div>
+  <div class="metric"><div class="value">edo-align:UnderReview</div><div class="label">most common review status</div></div>
+</section>
+
+<section class="toolbar" aria-label="Filters">
+  <input id="search" type="search" placeholder="Search concepts, relations, rationale...">
+  <select id="relation"><option value="">All relations</option></select>
+  <select id="confidence"><option value="">All confidence levels</option></select>
+  <select id="status"><option value="">All statuses</option></select>
+  <select id="review"><option value="">All review states</option></select>
+</section>
+<div class="count-line"><span id="visible-count">23</span> visible mappings</div>
+<section class="cards">
+
+<article class="card"
+  data-search="edo:asbuiltrole as-built role edo-cfihos:lifecycleinformation cfihos lifecycle information relatedmatch  edo-align:proposedalignment edo-align:highconfidence edo-align:underreview asbuiltrole marks as-built information relevant to handover and operation. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:HighConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>As-built role</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS lifecycle information</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:HighConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> AsBuiltRole marks as-built information relevant to handover and operation.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:asset asset edo-cfihos:equipmentclass cfihos equipment class relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview asset is related to cfihos tag and equipment classification, but exact mapping depends on whether the edo class is used as a functional asset, physical asset, system or equipment concept. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Asset</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS equipment class</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> Asset is related to CFIHOS tag and equipment classification, but exact mapping depends on whether the EDO class is used as a functional asset, physical asset, system or equipment concept.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:asset asset edo-cfihos:tagclass cfihos tag class relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview asset is related to cfihos tag and equipment classification, but exact mapping depends on whether the edo class is used as a functional asset, physical asset, system or equipment concept. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Asset</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS tag class</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> Asset is related to CFIHOS tag and equipment classification, but exact mapping depends on whether the EDO class is used as a functional asset, physical asset, system or equipment concept.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:certifiedrole certified role edo-cfihos:lifecycleinformation cfihos lifecycle information relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview certifiedrole marks certified values that can support traceability and acceptance in handover information. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Certified role</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS lifecycle information</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> CertifiedRole marks certified values that can support traceability and acceptance in handover information.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:designrole design role edo-cfihos:lifecycleinformation cfihos lifecycle information relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview designrole marks design-stage information relevant to handover and lifecycle data management. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Design role</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS lifecycle information</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> DesignRole marks design-stage information relevant to handover and lifecycle data management.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:domainattribute domain attribute edo-cfihos:property cfihos property closematch  edo-align:proposedalignment edo-align:highconfidence edo-align:underreview domainattribute is the edo operational concept closest to a cfihos property: it represents a named information requirement or property that can be used in data dictionaries and data contracts. "
+  data-relation="closeMatch"
+  data-confidence="edo-align:HighConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Domain Attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS Property</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:HighConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> DomainAttribute is the EDO operational concept closest to a CFIHOS property: it represents a named information requirement or property that can be used in data dictionaries and data contracts.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:domainelement domain element edo-cfihos:equipmentclass cfihos equipment class relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview domainelement is broader than cfihos tag or equipment classes. it represents edo concepts that make up projects or assets and can participate in information deliveries, including physical, functional and informational elements. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Domain Element</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS equipment class</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> DomainElement is broader than CFIHOS tag or equipment classes. It represents EDO concepts that make up projects or assets and can participate in information deliveries, including physical, functional and informational elements.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:domainelement domain element edo-cfihos:tagclass cfihos tag class relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview domainelement is broader than cfihos tag or equipment classes. it represents edo concepts that make up projects or assets and can participate in information deliveries, including physical, functional and informational elements. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Domain Element</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS tag class</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> DomainElement is broader than CFIHOS tag or equipment classes. It represents EDO concepts that make up projects or assets and can participate in information deliveries, including physical, functional and informational elements.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:functionalattribute functional attribute edo-cfihos:property cfihos property relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview functionalattribute represents functional characteristics or capabilities that may appear as handover properties. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Functional Attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS Property</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> FunctionalAttribute represents functional characteristics or capabilities that may appear as handover properties.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:identificationattribute identification attribute edo-cfihos:property cfihos property relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview identificationattribute represents identifiers and naming-related properties used in information handover. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Identification Attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS Property</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> IdentificationAttribute represents identifiers and naming-related properties used in information handover.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:operatingrole operating role edo-cfihos:lifecycleinformation cfihos lifecycle information relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview operatingrole marks operating information relevant to lifecycle operation and maintenance contexts. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Operating role</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS lifecycle information</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> OperatingRole marks operating information relevant to lifecycle operation and maintenance contexts.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:physicalpropertyattribute physical property attribute edo-cfihos:property cfihos property relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview physicalpropertyattribute represents physical properties used as delivered or required property information. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Physical Property Attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS Property</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> PhysicalPropertyAttribute represents physical properties used as delivered or required property information.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:requirementrole requirement role edo-cfihos:requirement cfihos requirement closematch  edo-align:proposedalignment edo-align:highconfidence edo-align:underreview requirementrole marks edo attributes whose values express required, contractual or specification-driven information. "
+  data-relation="closeMatch"
+  data-confidence="edo-align:HighConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Requirement role</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS requirement</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:HighConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> RequirementRole marks EDO attributes whose values express required, contractual or specification-driven information.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:specification specification edo-cfihos:document cfihos document relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview specification may act both as a document-like artefact and as a source of requirements for property values or information delivery constraints. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Specification</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS document</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> Specification may act both as a document-like artefact and as a source of requirements for property values or information delivery constraints.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:specification specification edo-cfihos:requirement cfihos requirement relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview specification may act both as a document-like artefact and as a source of requirements for property values or information delivery constraints. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Specification</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS requirement</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> Specification may act both as a document-like artefact and as a source of requirements for property values or information delivery constraints.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:technicalartifact technical artifact edo-cfihos:document cfihos document relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview technicalartifact covers informational artefacts used by edo. in a cfihos handover perspective, many such artefacts correspond to documents or document references. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Technical Artifact</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS document</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> TechnicalArtifact covers informational artefacts used by EDO. In a CFIHOS handover perspective, many such artefacts correspond to documents or document references.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:testrole test role edo-cfihos:lifecycleinformation cfihos lifecycle information relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview testrole marks test information that may support verification, acceptance and handover traceability. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Test role</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS lifecycle information</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> TestRole marks test information that may support verification, acceptance and handover traceability.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:hasattribute has attribute edo-cfihos:classproperty cfihos class property closematch  edo-align:proposedalignment edo-align:highconfidence edo-align:underreview hasattribute expresses that an edo domain element has an applicable domain attribute. this is close to the cfihos class-property applicability pattern, while remaining an edo annotation relation rather than a materialised class-property entity. "
+  data-relation="closeMatch"
+  data-confidence="edo-align:HighConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Has Attribute</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS class property</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:HighConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> hasAttribute expresses that an EDO domain element has an applicable domain attribute. This is close to the CFIHOS class-property applicability pattern, while remaining an EDO annotation relation rather than a materialised class-property entity.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:hasattributescope has attribute scope edo-cfihos:classproperty cfihos class property relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview hasattributescope distinguishes type-level and instance-level attribute use in edo. this is relevant to the cfihos distinction between class-level property applicability and delivered instance information. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>has attribute scope</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS class property</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> hasAttributeScope distinguishes type-level and instance-level attribute use in EDO. This is relevant to the CFIHOS distinction between class-level property applicability and delivered instance information.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:hastypedvalue has typed value edo-cfihos:property cfihos property relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview hastypedvalue records the expected value datatype category of an edo attribute. it is related to, but not equivalent to, cfihos property value typing. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Has Typed Value</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS Property</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> hasTypedValue records the expected value datatype category of an EDO attribute. It is related to, but not equivalent to, CFIHOS property value typing.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:hasunit has unit edo-cfihos:unitofmeasure cfihos unit of measure closematch  edo-align:proposedalignment edo-align:highconfidence edo-align:underreview hasunit records the expected unit for an edo domain attribute. this is close to the cfihos treatment of unit of measure associated with property values. "
+  data-relation="closeMatch"
+  data-confidence="edo-align:HighConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Has Unit</h3>
+  <div class="mapping">
+    <span class="chip strong">closeMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS unit of measure</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:HighConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> hasUnit records the expected unit for an EDO domain attribute. This is close to the CFIHOS treatment of unit of measure associated with property values.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:hasvaluecardinality has value cardinality edo-cfihos:property cfihos property relatedmatch  edo-align:proposedalignment edo-align:mediumconfidence edo-align:underreview hasvaluecardinality records whether an edo attribute is expected to have a single value or multiple values. it supports data-contract validation rather than representing a cfihos concept directly. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:MediumConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Has Value Cardinality</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS Property</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:MediumConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> hasValueCardinality records whether an EDO attribute is expected to have a single value or multiple values. It supports data-contract validation rather than representing a CFIHOS concept directly.</div>
+  
+</article>
+
+<article class="card"
+  data-search="edo:lifecyclerole lifecycle role edo-cfihos:lifecycleinformation cfihos lifecycle information relatedmatch  edo-align:proposedalignment edo-align:highconfidence edo-align:underreview lifecyclerole classifies the role of a value in the asset lifecycle, such as requirement, design, certified, installed, as-built, operating or test information. this supports cfihos-style handover interpretation without making the edo core dependent on cfihos. "
+  data-relation="relatedMatch"
+  data-confidence="edo-align:HighConfidence"
+  data-status="edo-align:ProposedAlignment"
+  data-review="edo-align:UnderReview">
+  <h3>Lifecycle role</h3>
+  <div class="mapping">
+    <span class="chip strong">relatedMatch</span>
+    <span>→</span>
+    <span class="chip">CFIHOS lifecycle information</span>
+  </div>
+  <div class="mapping">
+    
+    <span class="chip">status: edo-align:ProposedAlignment</span>
+    <span class="chip">confidence: edo-align:HighConfidence</span>
+    <span class="chip">review: edo-align:UnderReview</span>
+  </div>
+  <div class="rationale"><strong>Rationale.</strong> lifecycleRole classifies the role of a value in the asset lifecycle, such as requirement, design, certified, installed, as-built, operating or test information. This supports CFIHOS-style handover interpretation without making the EDO core dependent on CFIHOS.</div>
+  
+</article>
+</section>
+
+  </main>
+  <footer>
+    Generated from EDO alignment curation data on 2026-06-02.
+  </footer>
+  <script>
+function uniqueValues(cards, attr) {
+  const values = new Set();
+  cards.forEach(card => {
+    const value = card.dataset[attr];
+    if (value) values.add(value);
+  });
+  return Array.from(values).sort();
+}
+function populateSelect(select, values) {
+  values.forEach(value => {
+    const opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = value;
+    select.appendChild(opt);
+  });
+}
+function initFilters() {
+  const cards = Array.from(document.querySelectorAll('.card[data-search]'));
+  const search = document.getElementById('search');
+  const relation = document.getElementById('relation');
+  const confidence = document.getElementById('confidence');
+  const status = document.getElementById('status');
+  const review = document.getElementById('review');
+  const visibleCount = document.getElementById('visible-count');
+
+  if (!cards.length) return;
+
+  populateSelect(relation, uniqueValues(cards, 'relation'));
+  populateSelect(confidence, uniqueValues(cards, 'confidence'));
+  populateSelect(status, uniqueValues(cards, 'status'));
+  populateSelect(review, uniqueValues(cards, 'review'));
+
+  function apply() {
+    const q = (search.value || '').toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const okSearch = !q || card.dataset.search.includes(q);
+      const okRelation = !relation.value || card.dataset.relation === relation.value;
+      const okConfidence = !confidence.value || card.dataset.confidence === confidence.value;
+      const okStatus = !status.value || card.dataset.status === status.value;
+      const okReview = !review.value || card.dataset.review === review.value;
+      const show = okSearch && okRelation && okConfidence && okStatus && okReview;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (visibleCount) visibleCount.textContent = visible.toString();
+  }
+
+  [search, relation, confidence, status, review].forEach(el => el.addEventListener('input', apply));
+  apply();
+}
+document.addEventListener('DOMContentLoaded', initFilters);
+</script>
+</body>
+</html>

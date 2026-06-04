@@ -1,0 +1,242 @@
+@prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix edo-align: <https://w3id.org/energy-domain/edo/alignments/alignment#> .
+@prefix edo-cfihos: <https://w3id.org/energy-domain/edo/alignments/cfihos#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://w3id.org/energy-domain/edo/alignments/cfihos>
+    a owl:Ontology ;
+    owl:imports
+        <https://w3id.org/energy-domain/edo> ,
+        <https://w3id.org/energy-domain/edo/alignments/alignment> ;
+    dcterms:title "EDO to CFIHOS Alignment"@en ;
+    rdfs:label "EDO to CFIHOS Alignment"@en ;
+    edo-align:sourceStandard edo-align:CFIHOS , edo-align:IOGP ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview ;
+    edo-align:alignmentRationale "This module records a lightweight alignment between EDO and the CFIHOS information-handover perspective. Because no stable external CFIHOS ontology URI is assumed here, CFIHOS reference concepts are represented as local SKOS concepts in this module. These concepts can later be replaced or complemented by official CFIHOS URIs if available."@en ;
+    dcterms:description "Alignment module relating EDO to the CFIHOS/IOGP information handover perspective, especially around properties, class-property applicability, units, lifecycle context and information delivery governance."@en .
+
+#################################################################
+#    Local CFIHOS reference concepts
+#################################################################
+
+edo-cfihos:ReferenceConceptScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "CFIHOS reference concept scheme"@en ;
+    skos:definition "Local reference concepts used by the EDO to CFIHOS alignment module when stable external CFIHOS ontology IRIs are not asserted."@en .
+
+edo-cfihos:Property
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS Property"@en ;
+    skos:definition "Reference concept representing the CFIHOS notion of a property used for information handover."@en .
+
+edo-cfihos:ClassProperty
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS class property"@en ;
+    skos:definition "Reference concept representing the applicability of a property to a class of tag, equipment or asset."@en .
+
+edo-cfihos:TagClass
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS tag class"@en ;
+    skos:definition "Reference concept representing CFIHOS classification of tags or functional assets."@en .
+
+edo-cfihos:EquipmentClass
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS equipment class"@en ;
+    skos:definition "Reference concept representing CFIHOS classification of equipment or physical asset classes."@en .
+
+edo-cfihos:UnitOfMeasure
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS unit of measure"@en ;
+    skos:definition "Reference concept representing the unit of measure associated with a property value."@en .
+
+edo-cfihos:LifecycleInformation
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS lifecycle information"@en ;
+    skos:definition "Reference concept representing information used across handover, operation, maintenance and lifecycle processes."@en .
+
+edo-cfihos:Document
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS document"@en ;
+    skos:definition "Reference concept representing documents and document references in a handover information context."@en .
+
+edo-cfihos:Requirement
+    a skos:Concept ;
+    skos:inScheme edo-cfihos:ReferenceConceptScheme ;
+    skos:prefLabel "CFIHOS requirement"@en ;
+    skos:definition "Reference concept representing required information, required property values or specification-driven constraints in handover."@en .
+
+#################################################################
+#    EDO metamodel concepts
+#################################################################
+
+edo:DomainAttribute
+    skos:closeMatch edo-cfihos:Property ;
+    edo-align:alignmentRationale "DomainAttribute is the EDO operational concept closest to a CFIHOS property: it represents a named information requirement or property that can be used in data dictionaries and data contracts."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:HighConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:hasAttribute
+    skos:closeMatch edo-cfihos:ClassProperty ;
+    edo-align:alignmentRationale "hasAttribute expresses that an EDO domain element has an applicable domain attribute. This is close to the CFIHOS class-property applicability pattern, while remaining an EDO annotation relation rather than a materialised class-property entity."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:HighConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:DomainElement
+    skos:relatedMatch edo-cfihos:TagClass , edo-cfihos:EquipmentClass ;
+    edo-align:alignmentRationale "DomainElement is broader than CFIHOS tag or equipment classes. It represents EDO concepts that make up projects or assets and can participate in information deliveries, including physical, functional and informational elements."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:Asset
+    skos:relatedMatch edo-cfihos:TagClass , edo-cfihos:EquipmentClass ;
+    edo-align:alignmentRationale "Asset is related to CFIHOS tag and equipment classification, but exact mapping depends on whether the EDO class is used as a functional asset, physical asset, system or equipment concept."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:TechnicalArtifact
+    skos:relatedMatch edo-cfihos:Document ;
+    edo-align:alignmentRationale "TechnicalArtifact covers informational artefacts used by EDO. In a CFIHOS handover perspective, many such artefacts correspond to documents or document references."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:Specification
+    skos:relatedMatch edo-cfihos:Requirement , edo-cfihos:Document ;
+    edo-align:alignmentRationale "Specification may act both as a document-like artefact and as a source of requirements for property values or information delivery constraints."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+#################################################################
+#    EDO annotation properties and value metadata
+#################################################################
+
+edo:hasUnit
+    skos:closeMatch edo-cfihos:UnitOfMeasure ;
+    edo-align:alignmentRationale "hasUnit records the expected unit for an EDO domain attribute. This is close to the CFIHOS treatment of unit of measure associated with property values."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:HighConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:lifecycleRole
+    skos:relatedMatch edo-cfihos:LifecycleInformation ;
+    edo-align:alignmentRationale "lifecycleRole classifies the role of a value in the asset lifecycle, such as requirement, design, certified, installed, as-built, operating or test information. This supports CFIHOS-style handover interpretation without making the EDO core dependent on CFIHOS."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:HighConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:hasAttributeScope
+    skos:relatedMatch edo-cfihos:ClassProperty ;
+    edo-align:alignmentRationale "hasAttributeScope distinguishes type-level and instance-level attribute use in EDO. This is relevant to the CFIHOS distinction between class-level property applicability and delivered instance information."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:hasTypedValue
+    skos:relatedMatch edo-cfihos:Property ;
+    edo-align:alignmentRationale "hasTypedValue records the expected value datatype category of an EDO attribute. It is related to, but not equivalent to, CFIHOS property value typing."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:hasValueCardinality
+    skos:relatedMatch edo-cfihos:Property ;
+    edo-align:alignmentRationale "hasValueCardinality records whether an EDO attribute is expected to have a single value or multiple values. It supports data-contract validation rather than representing a CFIHOS concept directly."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+#################################################################
+#    Lifecycle-role concepts
+#################################################################
+
+edo:RequirementRole
+    skos:closeMatch edo-cfihos:Requirement ;
+    edo-align:alignmentRationale "RequirementRole marks EDO attributes whose values express required, contractual or specification-driven information."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:HighConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:DesignRole
+    skos:relatedMatch edo-cfihos:LifecycleInformation ;
+    edo-align:alignmentRationale "DesignRole marks design-stage information relevant to handover and lifecycle data management."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:CertifiedRole
+    skos:relatedMatch edo-cfihos:LifecycleInformation ;
+    edo-align:alignmentRationale "CertifiedRole marks certified values that can support traceability and acceptance in handover information."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:AsBuiltRole
+    skos:relatedMatch edo-cfihos:LifecycleInformation ;
+    edo-align:alignmentRationale "AsBuiltRole marks as-built information relevant to handover and operation."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:HighConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:OperatingRole
+    skos:relatedMatch edo-cfihos:LifecycleInformation ;
+    edo-align:alignmentRationale "OperatingRole marks operating information relevant to lifecycle operation and maintenance contexts."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:TestRole
+    skos:relatedMatch edo-cfihos:LifecycleInformation ;
+    edo-align:alignmentRationale "TestRole marks test information that may support verification, acceptance and handover traceability."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+#################################################################
+#    Attribute-category concepts
+#################################################################
+
+edo:IdentificationAttribute
+    skos:relatedMatch edo-cfihos:Property ;
+    edo-align:alignmentRationale "IdentificationAttribute represents identifiers and naming-related properties used in information handover."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:PhysicalPropertyAttribute
+    skos:relatedMatch edo-cfihos:Property ;
+    edo-align:alignmentRationale "PhysicalPropertyAttribute represents physical properties used as delivered or required property information."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+edo:FunctionalAttribute
+    skos:relatedMatch edo-cfihos:Property ;
+    edo-align:alignmentRationale "FunctionalAttribute represents functional characteristics or capabilities that may appear as handover properties."@en ;
+    edo-align:alignmentStatus edo-align:ProposedAlignment ;
+    edo-align:alignmentConfidence edo-align:MediumConfidence ;
+    edo-align:reviewStatus edo-align:UnderReview .
+
+#################################################################
+#    Review note
+#################################################################
+
+edo-cfihos:ReferenceConceptScheme
+    edo-align:reviewNote "The local CFIHOS reference concepts in this module are intentionally lightweight placeholders. Before any exact mapping is asserted, the project should decide whether to use official CFIHOS identifiers, a published CFIHOS ontology if available, or a maintained internal reference namespace."@en .

@@ -1,0 +1,196 @@
+@prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix edo-align: <https://w3id.org/energy-domain/edo/alignments/alignment#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/energy-domain/edo/alignments/alignment>
+    a owl:Ontology ;
+    owl:imports <https://w3id.org/energy-domain/edo> ;
+    dcterms:title "EDO Alignment Vocabulary"@en ;
+    rdfs:label "EDO Alignment Vocabulary"@en ;
+    dcterms:description "Common vocabulary for documenting alignment assertions between the Energy Domain Ontology (EDO) and external ontologies, standards and reference data models. This module defines reusable annotation properties, review statuses, confidence levels and source-standard references. Concrete mappings are expected to be declared in specific alignment modules, such as the EDO to IDO alignment and the EDO to CFIHOS alignment."@en ;
+    owl:versionInfo "v0.1.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+edo-align:alignmentRationale
+    a owl:AnnotationProperty ;
+    rdfs:label "alignment rationale"@en ;
+    skos:definition "Explains the reasoning behind an alignment assertion between an EDO concept and an external concept, standard or reference data model."@en ;
+    dcterms:identifier "alignmentRationale" .
+
+edo-align:alignmentStatus
+    a owl:AnnotationProperty ;
+    rdfs:label "alignment status"@en ;
+    skos:definition "Indicates the maturity status of an alignment assertion or alignment module."@en ;
+    dcterms:identifier "alignmentStatus" .
+
+edo-align:alignmentConfidence
+    a owl:AnnotationProperty ;
+    rdfs:label "alignment confidence"@en ;
+    skos:definition "Indicates the confidence level assigned to an alignment assertion or alignment module."@en ;
+    dcterms:identifier "alignmentConfidence" .
+
+edo-align:sourceStandard
+    a owl:AnnotationProperty ;
+    rdfs:label "source standard"@en ;
+    skos:definition "Identifies the external ontology, standard or reference data model used as the target or source of an alignment assertion."@en ;
+    dcterms:identifier "sourceStandard" .
+
+edo-align:reviewStatus
+    a owl:AnnotationProperty ;
+    rdfs:label "review status"@en ;
+    skos:definition "Indicates the review state of an alignment assertion or alignment module."@en ;
+    dcterms:identifier "reviewStatus" .
+
+edo-align:reviewNote
+    a owl:AnnotationProperty ;
+    rdfs:label "review note"@en ;
+    skos:definition "Records review-oriented notes, cautions or open issues related to an alignment assertion or alignment module."@en ;
+    dcterms:identifier "reviewNote" .
+
+edo-align:alignmentDate
+    a owl:AnnotationProperty ;
+    rdfs:label "alignment date"@en ;
+    skos:definition "Records the date on which an alignment assertion or alignment module was created or last substantively updated."@en ;
+    dcterms:identifier "alignmentDate" .
+
+#################################################################
+#    Concept schemes
+#################################################################
+
+edo-align:AlignmentStatusScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Alignment status scheme"@en ;
+    skos:definition "Controlled vocabulary for the maturity status of EDO alignment assertions."@en .
+
+edo-align:AlignmentConfidenceScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Alignment confidence scheme"@en ;
+    skos:definition "Controlled vocabulary for confidence levels assigned to EDO alignment assertions."@en .
+
+edo-align:ReviewStatusScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Review status scheme"@en ;
+    skos:definition "Controlled vocabulary for review states assigned to EDO alignment assertions."@en .
+
+edo-align:SourceStandardScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Source standard scheme"@en ;
+    skos:definition "Controlled vocabulary for external ontologies, standards and reference data models used in EDO alignment modules."@en .
+
+#################################################################
+#    Alignment statuses
+#################################################################
+
+edo-align:ProposedAlignment
+    a skos:Concept ;
+    skos:inScheme edo-align:AlignmentStatusScheme ;
+    skos:prefLabel "proposed alignment"@en ;
+    skos:definition "An alignment assertion proposed for discussion, review or future consolidation."@en .
+
+edo-align:ReviewedAlignment
+    a skos:Concept ;
+    skos:inScheme edo-align:AlignmentStatusScheme ;
+    skos:prefLabel "reviewed alignment"@en ;
+    skos:definition "An alignment assertion that has been reviewed by the project team but remains non-normative."@en .
+
+edo-align:AcceptedAlignment
+    a skos:Concept ;
+    skos:inScheme edo-align:AlignmentStatusScheme ;
+    skos:prefLabel "accepted alignment"@en ;
+    skos:definition "An alignment assertion accepted for use in EDO-related documentation, governance or tooling."@en .
+
+edo-align:DeprecatedAlignment
+    a skos:Concept ;
+    skos:inScheme edo-align:AlignmentStatusScheme ;
+    skos:prefLabel "deprecated alignment"@en ;
+    skos:definition "An alignment assertion retained for traceability but no longer recommended for use."@en .
+
+#################################################################
+#    Confidence levels
+#################################################################
+
+edo-align:LowConfidence
+    a skos:Concept ;
+    skos:inScheme edo-align:AlignmentConfidenceScheme ;
+    skos:prefLabel "low confidence"@en ;
+    skos:definition "The alignment is tentative and requires substantial review before operational use."@en .
+
+edo-align:MediumConfidence
+    a skos:Concept ;
+    skos:inScheme edo-align:AlignmentConfidenceScheme ;
+    skos:prefLabel "medium confidence"@en ;
+    skos:definition "The alignment is plausible and useful, but may require refinement or external validation."@en .
+
+edo-align:HighConfidence
+    a skos:Concept ;
+    skos:inScheme edo-align:AlignmentConfidenceScheme ;
+    skos:prefLabel "high confidence"@en ;
+    skos:definition "The alignment is considered robust for the current EDO modelling purpose, while remaining non-invasive unless explicitly strengthened elsewhere."@en .
+
+#################################################################
+#    Review statuses
+#################################################################
+
+edo-align:NotReviewed
+    a skos:Concept ;
+    skos:inScheme edo-align:ReviewStatusScheme ;
+    skos:prefLabel "not reviewed"@en ;
+    skos:definition "The alignment has not yet been reviewed by the project team."@en .
+
+edo-align:UnderReview
+    a skos:Concept ;
+    skos:inScheme edo-align:ReviewStatusScheme ;
+    skos:prefLabel "under review"@en ;
+    skos:definition "The alignment is currently under review."@en .
+
+edo-align:Reviewed
+    a skos:Concept ;
+    skos:inScheme edo-align:ReviewStatusScheme ;
+    skos:prefLabel "reviewed"@en ;
+    skos:definition "The alignment has been reviewed by the project team."@en .
+
+edo-align:NeedsRevision
+    a skos:Concept ;
+    skos:inScheme edo-align:ReviewStatusScheme ;
+    skos:prefLabel "needs revision"@en ;
+    skos:definition "The alignment requires correction, refinement or replacement."@en .
+
+#################################################################
+#    Source standards and reference models
+#################################################################
+
+edo-align:IDO
+    a skos:Concept ;
+    skos:inScheme edo-align:SourceStandardScheme ;
+    skos:prefLabel "IDO / LIS-14"@en ;
+    skos:altLabel "Industrial Data Ontology"@en ;
+    skos:altLabel "ISO 15926-aligned LIS-14 ontology"@en ;
+    skos:definition "Industrial Data Ontology / LIS-14 reference ontology used as an upper-level industrial interoperability alignment target for EDO."@en .
+
+edo-align:ISO15926
+    a skos:Concept ;
+    skos:inScheme edo-align:SourceStandardScheme ;
+    skos:prefLabel "ISO 15926"@en ;
+    skos:definition "ISO 15926 family of standards for integration of life-cycle data for process plants and related industrial facilities."@en .
+
+edo-align:CFIHOS
+    a skos:Concept ;
+    skos:inScheme edo-align:SourceStandardScheme ;
+    skos:prefLabel "CFIHOS"@en ;
+    skos:altLabel "Capital Facilities Information Handover Specification"@en ;
+    skos:definition "Capital Facilities Information Handover Specification used as a reference for information handover, properties, class-property applicability and lifecycle information delivery."@en .
+
+edo-align:IOGP
+    a skos:Concept ;
+    skos:inScheme edo-align:SourceStandardScheme ;
+    skos:prefLabel "IOGP"@en ;
+    skos:altLabel "International Association of Oil & Gas Producers"@en ;
+    skos:definition "Industry association associated with CFIHOS governance and oil and gas information standards."@en .
