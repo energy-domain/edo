@@ -623,7 +623,6 @@ edo:classInstantiationRole rdf:type owl:AnnotationProperty ;
                            dcterms:identifier "classInstantiationRole" .
 
 
-
 ###  https://w3id.org/energy-domain/edo#hasUnit
 edo:hasUnit rdf:type owl:AnnotationProperty ;
             rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation ;
@@ -661,6 +660,25 @@ edo:attributeNature rdf:type owl:AnnotationProperty ;
                     skos:definition "Indicates the conceptual nature of a domain attribute, such as dimensional, mechanical, environmental, operational, performance, location or capability."@en ,
                                     "Indica a natureza conceitual de um atributo de domínio, como dimensional, mecânica, ambiental, operacional, desempenho, localização ou capacidade."@pt-br ;
                     dcterms:identifier "attributeNature" .
+
+###  https://w3id.org/energy-domain/edo#attributeCategory
+edo:attributeCategory rdf:type owl:AnnotationProperty ;
+                      rdfs:subPropertyOf edo:DomainClassificationAnnotation ;
+                      rdfs:label "Attribute category"@en ,
+                                 "Categoria do atributo"@pt-br ;
+                      skos:definition "Classifies a domain attribute according to an internal EDO attribute-category vocabulary."@en ,
+                                      "Classifica um atributo de domínio segundo um vocabulário interno de categorias de atributos da EDO."@pt-br ;
+                      dcterms:identifier "attributeCategory" .
+
+
+###  https://w3id.org/energy-domain/edo#valueOrigin
+edo:valueOrigin rdf:type owl:AnnotationProperty ;
+                rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation ;
+                rdfs:label "Value origin"@en ,
+                           "Origem do valor"@pt-br ;
+                skos:definition "Indicates the origin or acquisition mode of a value associated with a domain attribute."@en ,
+                                "Indica a origem ou modo de obtenção de um valor associado a um atributo de domínio."@pt-br ;
+                dcterms:identifier "valueOrigin" .
 
 
 ###  https://w3id.org/energy-domain/edo#subjectExpectedCardinality
@@ -811,8 +829,13 @@ edo:ActuatedValve rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#AdministrativeAttribute
-edo:AdministrativeAttribute rdf:type owl:Class ;
-                            rdfs:subClassOf edo:AttributeNature .
+edo:AdministrativeAttribute rdf:type skos:Concept ;
+                            skos:inScheme edo:DomainAttributeCategory ;
+                            dcterms:identifier "AdministrativeAttribute" ;
+                            skos:prefLabel "Administrative attribute"@en ,
+                                           "Atributo administrativo"@pt-br ;
+                            skos:definition "Attribute category related to administration, content management, provenance, status or governance metadata."@en ,
+                                            "Categoria de atributo relacionada a administração, gestão de conteúdo, proveniência, status ou metadados de governança."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Anchor
@@ -933,8 +956,9 @@ edo:AnyURIType rdf:type skos:Concept ;
 
 
 ###  https://w3id.org/energy-domain/edo#ArchitecturalEngineering
-edo:ArchitecturalEngineering rdf:type owl:Class ;
-                             rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:ArchitecturalEngineering rdf:type skos:Concept ;
+                             skos:inScheme edo:TechnicalDisciplineScheme ;
+                             skos:broader edo:TechnicalDiscipline ;
                              rdfs:label "Architectural Engineering"@en ,
                                         "Engenharia Arquitetônica"@pt-br ;
                              skos:definition "Disciplina de engenharia focada no projeto de edifícios, construção e integração de sistemas."@pt-br ,
@@ -1012,34 +1036,6 @@ edo:AttachmentPoint rdf:type owl:Class ;
                     edo:hasAttribute edo:IntendedLongitudinalPlacement .
 
 
-###  https://w3id.org/energy-domain/edo#AttributeClassification
-edo:AttributeClassification rdf:type owl:Class ;
-                            rdfs:subClassOf edo:DomainClassification ;
-                            rdfs:label "Attribute Classification"@en ,
-                                       "Classificação de Atributos"@pt-br ;
-                            skos:definition "Axis dedicated to classifying attributes, their nature, scope, value origin and datatype aspects."@en ,
-                                            "Eixo dedicado a classificar atributos, sua natureza, escopo, origem do valor e aspectos de tipo de dado."@pt-br .
-
-
-###  https://w3id.org/energy-domain/edo#AttributeDomainCategory
-edo:AttributeDomainCategory rdf:type owl:Class ;
-                            rdfs:subClassOf edo:AttributeNature ;
-                            rdfs:comment "Classifies the nature or domain of the attribute's content."@en ;
-                            rdfs:label "Attribute Domain Category"@en ,
-                                       "Categoria de Domínio do Atributo"@pt-br ;
-                            skos:definition "Classifica a natureza ou domínio do conteúdo do atributo"@pt-br ,
-                                            "Classifies the nature or domain of the attribute's content"@en .
-
-
-###  https://w3id.org/energy-domain/edo#AttributeNature
-edo:AttributeNature rdf:type owl:Class ;
-                    rdfs:subClassOf edo:AttributeClassification ;
-                    rdfs:label "Attribute Nature"@en ,
-                               "Natureza do Atributo"@pt-br ;
-                    skos:definition "High-level nature of attributes, including technical and administrative branches."@en ,
-                                    "Natureza de alto nível dos atributos, incluindo ramos técnicos e administrativos."@pt-br .
-
-
 ###  https://w3id.org/energy-domain/edo#DomainAttributeScope
 edo:DomainAttributeScope rdf:type skos:ConceptScheme ;
                          skos:definition "Controlled vocabulary for classifying whether a domain attribute applies at type, instance or batch level."@en ,
@@ -1057,13 +1053,19 @@ edo:DomainAttributeValueCardinality rdf:type skos:ConceptScheme ;
 
 
 ###  https://w3id.org/energy-domain/edo#AttributesGroup
-edo:AttributesGroup rdf:type owl:Class ;
-                    rdfs:subClassOf edo:ValueNature .
+edo:AttributesGroup rdf:type skos:Concept ;
+                    skos:inScheme edo:DomainAttributeValueStructure ;
+                    dcterms:identifier "AttributesGroup" ;
+                    skos:prefLabel "Attributes group"@en ,
+                                   "Grupo de atributos"@pt-br ;
+                    skos:definition "Value-structure category for grouping related attributes."@en ,
+                                    "Categoria de estrutura de valor para agrupar atributos relacionados."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#AutomationControlEngineering
-edo:AutomationControlEngineering rdf:type owl:Class ;
-                                 rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:AutomationControlEngineering rdf:type skos:Concept ;
+                                 skos:inScheme edo:TechnicalDisciplineScheme ;
+                                 skos:broader edo:TechnicalDiscipline ;
                                  rdfs:label "Automation & Control Engineering"@en ,
                                             "Engenharia de Automação e Controle"@pt-br ;
                                  skos:definition "Disciplina de engenharia focada em sistemas de controle automatizado e automação de processos."@pt-br ,
@@ -1290,8 +1292,9 @@ edo:BendingStiffnessTableColumn rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Biofuels
-edo:Biofuels rdf:type owl:Class ;
-             rdfs:subClassOf edo:Biomass ;
+edo:Biofuels rdf:type skos:Concept ;
+             skos:inScheme edo:IndustrialDomainScheme ;
+             skos:broader edo:Biomass ;
              dcterms:identifier "Biofuels" ;
              skos:definition "Biocombustíveis são combustíveis líquidos derivados da biomassa, como etanol, biodiesel e combustíveis renováveis avançados. São usados principalmente no setor de transporte como substitutos ou complementos aos combustíveis fósseis."@pt-br ,
                              "Biofuels are liquid fuels derived from biomass, such as bioethanol, biodiesel, and advanced renewable fuels. They are used mainly in the transport sector as a substitute or complement to fossil fuels."@en ;
@@ -1300,8 +1303,9 @@ edo:Biofuels rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Biogas
-edo:Biogas rdf:type owl:Class ;
-           rdfs:subClassOf edo:Biomass ;
+edo:Biogas rdf:type skos:Concept ;
+           skos:inScheme edo:IndustrialDomainScheme ;
+           skos:broader edo:Biomass ;
            dcterms:identifier "Biogas" ;
            skos:definition "Biogas is produced by anaerobic digestion of organic matter such as agricultural residues, sewage, and food waste. It is composed mainly of methane and can be used for electricity, heating, or upgraded to biomethane for injection into gas grids."@en ,
                            "Biogás é produzido pela digestão anaeróbica de matéria orgânica como resíduos agrícolas, esgoto e restos de alimentos. É composto principalmente por metano e pode ser usado para eletricidade, aquecimento ou purificado para biometano injetado em redes de gás."@pt-br ;
@@ -1310,8 +1314,9 @@ edo:Biogas rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Biomass
-edo:Biomass rdf:type owl:Class ;
-            rdfs:subClassOf edo:Renewable ;
+edo:Biomass rdf:type skos:Concept ;
+            skos:inScheme edo:IndustrialDomainScheme ;
+            skos:broader edo:Renewable ;
             rdfs:label "Biomass Energy"@en ,
                        "Energia de Biomassa"@pt-br ;
             skos:definition "Energia produzida a partir de materiais orgânicos como madeira, resíduos agrícolas ou lixo."@pt-br ,
@@ -1511,18 +1516,19 @@ edo:CalculatedAbsoluteBurstPressure rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#CalculatedValue
-edo:CalculatedValue rdf:type owl:Class ;
-                    rdfs:subClassOf edo:ValueOrigin ;
-                    rdfs:comment "Derived from other values."@en ;
-                    rdfs:label "Calculado"@pt-br ,
-                               "Calculated"@en ;
-                    skos:definition "Derivado de outros valores"@pt-br ,
-                                    "Derived from other values"@en .
+edo:CalculatedValue rdf:type skos:Concept ;
+                  skos:inScheme edo:DomainAttributeValueOrigin ;
+                  dcterms:identifier "CalculatedValue" ;
+                  skos:prefLabel "Calculated value"@en ,
+                                 "Valor calculado"@pt-br ;
+                  skos:definition "Value obtained by calculation or derivation from other values."@en ,
+                                  "Valor obtido por cálculo ou derivação a partir de outros valores."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#CarbonManagement
-edo:CarbonManagement rdf:type owl:Class ;
-                     rdfs:subClassOf edo:Domain ;
+edo:CarbonManagement rdf:type skos:Concept ;
+                     skos:inScheme edo:IndustrialDomainScheme ;
+                     skos:broader edo:Domain ;
                      dcterms:identifier "CarbonManagement" ;
                      skos:definition "Carbon management encompasses the strategies, processes, and technologies used to measure, monitor, reduce, and offset carbon emissions within industrial, energy, and commercial sectors. It aims to minimize the environmental impact of human activities and support decarbonization goals."@en ,
                                      "Gestão de carbono engloba as estratégias, processos e tecnologias utilizados para medir, monitorar, reduzir e compensar as emissões de carbono nos setores industrial, energético e comercial. Tem como objetivo minimizar o impacto ambiental das atividades humanas e apoiar metas de descarbonização."@pt-br ;
@@ -1600,8 +1606,9 @@ edo:ChokeValve rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#CivilEngineering
-edo:CivilEngineering rdf:type owl:Class ;
-                     rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:CivilEngineering rdf:type skos:Concept ;
+                     skos:inScheme edo:TechnicalDisciplineScheme ;
+                     skos:broader edo:TechnicalDiscipline ;
                      rdfs:label "Civil Engineering"@en ,
                                 "Engenharia Civil"@pt-br ;
                      skos:definition "Disciplina de engenharia focada no projeto e construção de infraestrutura."@pt-br ,
@@ -1924,19 +1931,25 @@ edo:ConsumableElement rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Content
 edo:Content rdf:type owl:Class ;
-            rdfs:subClassOf edo:ContentManagementAttribute ;
+            rdfs:subClassOf edo:DomainAttribute ;
             dcterms:accessRights "PUBLIC" ;
             dcterms:identifier "Content" ;
             skos:definition "Text field for capturing observations, notes, or details related to the work. It allows for unstructured information to be recorded."@en ;
             skos:prefLabel "Content"@en ;
             edo:hasAttributeScope edo:InstanceLevelAttribute ;
             edo:hasTypedValue edo:StringValue ;
-            edo:hasValueCardinality edo:SingleValue .
-
+            edo:hasValueCardinality edo:SingleValue ;
+            edo:attributeCategory edo:ContentManagementAttribute .
 
 ###  https://w3id.org/energy-domain/edo#ContentManagementAttribute
-edo:ContentManagementAttribute rdf:type owl:Class ;
-                               rdfs:subClassOf edo:AdministrativeAttribute .
+edo:ContentManagementAttribute rdf:type skos:Concept ;
+                               skos:inScheme edo:DomainAttributeCategory ;
+                               skos:broader edo:AdministrativeAttribute ;
+                               dcterms:identifier "ContentManagementAttribute" ;
+                               skos:prefLabel "Content management attribute"@en ,
+                                              "Atributo de gestão de conteúdo"@pt-br ;
+                               skos:definition "Administrative attribute category related to content, status, versioning or textual management information."@en ,
+                                               "Categoria de atributo administrativo relacionada a conteúdo, status, versionamento ou informação textual de gestão."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#ControlAndSignalLogic
@@ -1971,25 +1984,25 @@ edo:Coupling rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Creator
 edo:Creator rdf:type owl:Class ;
-            rdfs:subClassOf edo:ProvenanceAttribute ;
+            rdfs:subClassOf edo:DomainAttribute ;
             dcterms:accessRights "PUBLIC" ;
             dcterms:identifier "Creator" ;
             skos:prefLabel "Creator"@en ;
             edo:hasAttributeScope edo:InstanceLevelAttribute ;
             edo:hasTypedValue edo:StringValue ;
-            edo:hasValueCardinality edo:SingleValue .
-
+            edo:hasValueCardinality edo:SingleValue ;
+            edo:attributeCategory edo:ProvenanceAttribute .
 
 ###  https://w3id.org/energy-domain/edo#CreatorId
 edo:CreatorId rdf:type owl:Class ;
-              rdfs:subClassOf edo:ProvenanceAttribute ;
+              rdfs:subClassOf edo:DomainAttribute ;
               dcterms:accessRights "PUBLIC" ;
               dcterms:identifier "CreatorId" ;
               skos:prefLabel "Creator Id"@en ;
               edo:hasAttributeScope edo:InstanceLevelAttribute ;
               edo:hasTypedValue edo:StringValue ;
-              edo:hasValueCardinality edo:SingleValue .
-
+              edo:hasValueCardinality edo:SingleValue ;
+            edo:attributeCategory edo:ProvenanceAttribute .
 
 ###  https://w3id.org/energy-domain/edo#CriticalCurvatureOfSlipping
 edo:CriticalCurvatureOfSlipping rdf:type owl:Class ;
@@ -2135,13 +2148,13 @@ edo:DecimalValue rdf:type skos:Concept ;
 
 
 ###  https://w3id.org/energy-domain/edo#DeclaredValue
-edo:DeclaredValue rdf:type owl:Class ;
-                  rdfs:subClassOf edo:ValueOrigin ;
-                  rdfs:comment "Manually specified value."@en ;
-                  rdfs:label "Declarado"@pt-br ,
-                             "Declared"@en ;
-                  skos:definition "Manually specified value"@en ,
-                                  "Valor especificado manualmente"@pt-br .
+edo:DeclaredValue rdf:type skos:Concept ;
+                  skos:inScheme edo:DomainAttributeValueOrigin ;
+                  dcterms:identifier "DeclaredValue" ;
+                  skos:prefLabel "Declared value"@en ,
+                                 "Valor declarado"@pt-br ;
+                  skos:definition "Value specified manually or declared by an authoritative source."@en ,
+                                  "Valor especificado manualmente ou declarado por uma fonte autoritativa."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Decommissioning
@@ -2173,8 +2186,14 @@ edo:DeploymentAccessory rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#DesignConditionAttribute
-edo:DesignConditionAttribute rdf:type owl:Class ;
-                             rdfs:subClassOf edo:FunctionalAttribute .
+edo:DesignConditionAttribute rdf:type skos:Concept ;
+                              skos:inScheme edo:DomainAttributeCategory ;
+                              skos:broader edo:FunctionalAttribute ;
+                              dcterms:identifier "DesignConditionAttribute" ;
+                              skos:prefLabel "Design condition attribute"@en ,
+                                             "Atributo de condição de projeto"@pt-br ;
+                              skos:definition "Functional attribute category related to design conditions or intended operating/design assumptions."@en ,
+                                              "Categoria de atributo funcional relacionada a condições de projeto ou premissas de operação/projeto."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#DesignPhase
@@ -2462,9 +2481,42 @@ edo:DistributionModule rdf:type owl:Class ;
                                       "Módulo de distribuição"@pt-br .
 
 
+#################################################################
+#    Domain classification concept schemes
+#################################################################
+
+###  https://w3id.org/energy-domain/edo#IndustrialDomainScheme
+edo:IndustrialDomainScheme rdf:type skos:ConceptScheme ;
+                           rdfs:label "Industrial domain scheme"@en ,
+                                      "Esquema de domínio industrial"@pt-br ;
+                           skos:definition "Controlled vocabulary for high-level industrial domains and subdomains used by EDO."@en ,
+                                           "Vocabulário controlado para domínios e subdomínios industriais de alto nível usados pela EDO."@pt-br ;
+                           skos:hasTopConcept edo:Domain ;
+                           dcterms:identifier "IndustrialDomainScheme" .
+
+
+###  https://w3id.org/energy-domain/edo#TechnicalDisciplineScheme
+edo:TechnicalDisciplineScheme rdf:type skos:ConceptScheme ;
+                              rdfs:label "Technical discipline scheme"@en ,
+                                         "Esquema de disciplina técnica"@pt-br ;
+                              skos:definition "Controlled vocabulary for technical and engineering disciplines used by EDO."@en ,
+                                              "Vocabulário controlado para disciplinas técnicas e de engenharia usadas pela EDO."@pt-br ;
+                              skos:hasTopConcept edo:TechnicalDiscipline ;
+                              dcterms:identifier "TechnicalDisciplineScheme" .
+
+
+###  https://w3id.org/energy-domain/edo#LocationTypeScheme
+edo:LocationTypeScheme rdf:type skos:ConceptScheme ;
+                       rdfs:label "Location type scheme"@en ,
+                                  "Esquema de tipo de localização"@pt-br ;
+                       skos:definition "Controlled vocabulary for location-type classifications used by EDO."@en ,
+                                       "Vocabulário controlado para classificações de tipo de localização usadas pela EDO."@pt-br ;
+                       skos:hasTopConcept edo:LocationType ;
+                       dcterms:identifier "LocationTypeScheme" .
 ###  https://w3id.org/energy-domain/edo#Domain
-edo:Domain rdf:type owl:Class ;
-           rdfs:subClassOf edo:ElementClassification ;
+edo:Domain rdf:type skos:Concept ;
+           skos:inScheme edo:IndustrialDomainScheme ;
+           skos:topConceptOf edo:IndustrialDomainScheme ;
            rdfs:comment "Represents a high-level industrial domain, such as Oil & Gas, Nuclear, or Renewable Energy."@en ;
            rdfs:label "Domínio Industrial"@pt-br ,
                       "Industrial Domain"@en ;
@@ -2478,6 +2530,33 @@ edo:DomainAttribute rdf:type owl:Class ;
                                     "Represents a property or characteristic that can be assigned to domain elements, capturing specific information relevant to their design, function, or management."@en ;
                     skos:prefLabel "Atributo de Domínio"@pt-br ,
                                    "Domain Attribute"@en .
+
+
+###  https://w3id.org/energy-domain/edo#DomainAttributeCategory
+edo:DomainAttributeCategory rdf:type skos:ConceptScheme ;
+                            skos:prefLabel "Domain attribute category"@en ,
+                                           "Categoria de atributo de domínio"@pt-br ;
+                            skos:definition "Controlled vocabulary for internal EDO categories used to classify domain attributes by informational or administrative purpose."@en ,
+                                            "Vocabulário controlado para categorias internas da EDO usadas para classificar atributos de domínio por finalidade informacional ou administrativa."@pt-br ;
+                            dcterms:identifier "DomainAttributeCategory" .
+
+
+###  https://w3id.org/energy-domain/edo#DomainAttributeValueOrigin
+edo:DomainAttributeValueOrigin rdf:type skos:ConceptScheme ;
+                               skos:prefLabel "Domain attribute value origin"@en ,
+                                              "Origem de valor de atributo de domínio"@pt-br ;
+                               skos:definition "Controlled vocabulary for classifying how an attribute value is obtained or produced."@en ,
+                                               "Vocabulário controlado para classificar como um valor de atributo é obtido ou produzido."@pt-br ;
+                               dcterms:identifier "DomainAttributeValueOrigin" .
+
+
+###  https://w3id.org/energy-domain/edo#DomainAttributeValueStructure
+edo:DomainAttributeValueStructure rdf:type skos:ConceptScheme ;
+                                  skos:prefLabel "Domain attribute value structure"@en ,
+                                                 "Estrutura de valor de atributo de domínio"@pt-br ;
+                                  skos:definition "Controlled vocabulary for structural categories of attribute values that are not datatypes or cardinalities."@en ,
+                                                  "Vocabulário controlado para categorias estruturais de valores de atributos que não são tipos de dado nem cardinalidades."@pt-br ;
+                                  dcterms:identifier "DomainAttributeValueStructure" .
 
 
 ###  https://w3id.org/energy-domain/edo#DomainAttributeRole
@@ -2624,16 +2703,6 @@ edo:CapabilityAttribute rdf:type skos:Concept ;
                         dcterms:identifier "CapabilityAttribute" .
 
 
-###  https://w3id.org/energy-domain/edo#DomainClassification
-edo:DomainClassification rdf:type owl:Class ;
-                         rdfs:label "Classificação de Domínio"@pt-br ,
-                                    "Domain Classification"@en ;
-                         skos:definition "Representa um esquema para organizar elementos e atributos de domínio em categorias, facilitando a classificação, recuperação e gestão consistente da informação."@pt-br ,
-                                         "Represents a scheme for organizing domain elements and attributes into categories, facilitating consistent classification, retrieval, and management of information."@en ;
-                         skos:prefLabel "Classificação de Domínio"@pt-br ,
-                                        "Domain Classification"@en .
-
-
 ###  https://w3id.org/energy-domain/edo#DomainElement
 edo:DomainElement rdf:type owl:Class ;
                   skos:definition "Representa um bloco fundamental de um projeto ou sistema, abrangendo entidades físicas, lógicas ou informacionais que podem ser modeladas, especificadas ou referenciadas."@pt-br ,
@@ -2748,8 +2817,9 @@ edo:DoubleValue rdf:type skos:Concept ;
 
 
 ###  https://w3id.org/energy-domain/edo#Downstream
-edo:Downstream rdf:type owl:Class ;
-               rdfs:subClassOf edo:OilAndGas ;
+edo:Downstream rdf:type skos:Concept ;
+               skos:inScheme edo:IndustrialDomainScheme ;
+               skos:broader edo:OilAndGas ;
                rdfs:label "Downstream"@en ,
                           "Downstream"@pt-br ;
                skos:definition "Oil & Gas sector covering refining, processing, distribution, and retail of petroleum products."@en ,
@@ -3113,8 +3183,9 @@ edo:ElectricalCable rdf:type owl:Class ;
                       edo:classInstantiationRole edo:ProjectInstantiableClass .
 
 ###  https://w3id.org/energy-domain/edo#ElectricalEngineering
-edo:ElectricalEngineering rdf:type owl:Class ;
-                          rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:ElectricalEngineering rdf:type skos:Concept ;
+                          skos:inScheme edo:TechnicalDisciplineScheme ;
+                          skos:broader edo:TechnicalDiscipline ;
                           rdfs:label "Electrical Engineering"@en ,
                                      "Engenharia Elétrica"@pt-br ;
                           skos:definition "Disciplina de engenharia focada em sistemas elétricos, distribuição e geração de energia."@pt-br ,
@@ -3169,11 +3240,6 @@ edo:ElectronicDevice rdf:type owl:Class ;
                                     "Electronic device"@en .
 
 
-###  https://w3id.org/energy-domain/edo#ElementClassification
-edo:ElementClassification rdf:type owl:Class ;
-                          rdfs:subClassOf edo:DomainClassification .
-
-
 ###  https://w3id.org/energy-domain/edo#EndFitting
 edo:EndFitting rdf:type owl:Class ;
                rdfs:subClassOf edo:PipeTermination ;
@@ -3202,8 +3268,9 @@ edo:EndFitting rdf:type owl:Class ;
                       edo:classInstantiationRole edo:ProjectInstantiableClass .
 
 ###  https://w3id.org/energy-domain/edo#EnergyStorage
-edo:EnergyStorage rdf:type owl:Class ;
-                  rdfs:subClassOf edo:Domain ;
+edo:EnergyStorage rdf:type skos:Concept ;
+                  skos:inScheme edo:IndustrialDomainScheme ;
+                  skos:broader edo:Domain ;
                   rdfs:label "Armazenamento de Energia"@pt-br ,
                              "Energy Storage"@en ;
                   skos:definition "Technologies for storing energy, such as batteries, pumped hydro, or compressed air."@en ,
@@ -3211,8 +3278,9 @@ edo:EnergyStorage rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#EnhancedGeothermalSystems
-edo:EnhancedGeothermalSystems rdf:type owl:Class ;
-                              rdfs:subClassOf edo:Geothermal ;
+edo:EnhancedGeothermalSystems rdf:type skos:Concept ;
+                              skos:inScheme edo:IndustrialDomainScheme ;
+                              skos:broader edo:Geothermal ;
                               dcterms:identifier "EnhancedGeothermalSystems" ;
                               skos:definition "Enhanced geothermal systems (EGS) create artificial reservoirs in hot dry rock by injecting water at high pressure, enabling the extraction of geothermal energy in areas without naturally occurring hydrothermal resources."@en ,
                                               "Sistemas geotérmicos estimulados (EGS) criam reservatórios artificiais em rochas secas quentes através da injeção de água em alta pressão, possibilitando a extração de energia geotérmica em áreas sem recursos hidrotermais naturais."@pt-br ;
@@ -3231,8 +3299,9 @@ edo:Equipment rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#EquipmentEngineering
-edo:EquipmentEngineering rdf:type owl:Class ;
-                         rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:EquipmentEngineering rdf:type skos:Concept ;
+                         skos:inScheme edo:TechnicalDisciplineScheme ;
+                         skos:broader edo:TechnicalDiscipline ;
                          rdfs:label "Engenharia de Equipamentos"@pt-br ,
                                     "Equipment Engineering"@en ;
                          skos:definition "Disciplina de engenharia focada no projeto e especificação de equipamentos industriais."@pt-br ,
@@ -3492,13 +3561,13 @@ edo:Filler rdf:type owl:Class ;
                       edo:classInstantiationRole edo:ProjectInstantiableClass .
 
 ###  https://w3id.org/energy-domain/edo#FinancialAttribute
-edo:FinancialAttribute rdf:type owl:Class ;
-                       rdfs:subClassOf edo:AttributeDomainCategory ;
-                       rdfs:comment "Represents costs, prices, depreciation."@en ;
-                       rdfs:label "Atributo Financeiro"@pt-br ,
-                                  "Financial Attribute"@en ;
-                       skos:definition "Representa custos, preços, depreciação"@pt-br ,
-                                       "Represents costs, prices, depreciation"@en .
+edo:FinancialAttribute rdf:type skos:Concept ;
+                       skos:inScheme edo:DomainAttributeCategory ;
+                       dcterms:identifier "FinancialAttribute" ;
+                       skos:prefLabel "Financial attribute"@en ,
+                                      "Atributo financeiro"@pt-br ;
+                       skos:definition "Attribute category related to costs, prices, depreciation or financial information."@en ,
+                                       "Categoria de atributo relacionada a custos, preços, depreciação ou informações financeiras."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#FlangeAdapter
@@ -3938,13 +4007,13 @@ edo:FunctionLine rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#FunctionalAttribute
-edo:FunctionalAttribute rdf:type owl:Class ;
-                        rdfs:subClassOf edo:AttributeDomainCategory ;
-                        rdfs:comment "Describes how the equipment functions or performs its intended purpose."@en ;
-                        rdfs:label "Atributo Funcional"@pt-br ,
-                                   "Functional Attribute"@en ;
-                        skos:definition "Representa características operacionais e capacidades do equipamento"@pt-br ,
-                                        "Represents operational characteristics and capabilities of the equipment"@en .
+edo:FunctionalAttribute rdf:type skos:Concept ;
+                        skos:inScheme edo:DomainAttributeCategory ;
+                        dcterms:identifier "FunctionalAttribute" ;
+                        skos:prefLabel "Functional attribute"@en ,
+                                       "Atributo funcional"@pt-br ;
+                        skos:definition "Attribute category related to functional characteristics, behaviour, intended purpose or capabilities."@en ,
+                                        "Categoria de atributo relacionada a características funcionais, comportamento, finalidade pretendida ou capacidades."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#GalvanicMaterial
@@ -3962,8 +4031,9 @@ edo:GalvanicMaterial rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Geothermal
-edo:Geothermal rdf:type owl:Class ;
-               rdfs:subClassOf edo:Renewable ;
+edo:Geothermal rdf:type skos:Concept ;
+               skos:inScheme edo:IndustrialDomainScheme ;
+               skos:broader edo:Renewable ;
                rdfs:label "Energia Geotérmica"@pt-br ,
                           "Geothermal Energy"@en ;
                skos:definition "Energia derivada do calor armazenado abaixo da superfície da Terra."@pt-br ,
@@ -3971,8 +4041,9 @@ edo:Geothermal rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#GeothermalDirectUse
-edo:GeothermalDirectUse rdf:type owl:Class ;
-                        rdfs:subClassOf edo:Geothermal ;
+edo:GeothermalDirectUse rdf:type skos:Concept ;
+                        skos:inScheme edo:IndustrialDomainScheme ;
+                        skos:broader edo:Geothermal ;
                         dcterms:identifier "GeothermalDirectUse" ;
                         skos:definition "Direct use of geothermal energy takes advantage of low or medium temperature geothermal resources for heating buildings, greenhouses, aquaculture facilities, or industrial processes."@en ,
                                         "O uso direto da energia geotérmica aproveita recursos geotérmicos de baixa ou média temperatura para aquecer edifícios, estufas, instalações de aquicultura ou processos industriais."@pt-br ;
@@ -3981,8 +4052,9 @@ edo:GeothermalDirectUse rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#GeothermalElectricity
-edo:GeothermalElectricity rdf:type owl:Class ;
-                          rdfs:subClassOf edo:Geothermal ;
+edo:GeothermalElectricity rdf:type skos:Concept ;
+                          skos:inScheme edo:IndustrialDomainScheme ;
+                          skos:broader edo:Geothermal ;
                           dcterms:identifier "GeothermalElectricity" ;
                           skos:definition "A geração elétrica geotérmica utiliza recursos geotérmicos de alta entalpia para produzir vapor que aciona turbinas e gera energia renovável. É aplicada principalmente em regiões vulcânicas com reservatórios geotérmicos acessíveis."@pt-br ,
                                           "Geothermal electricity generation uses high-enthalpy geothermal resources to produce steam that drives turbines and generates renewable power. It is mainly applied in volcanic regions with accessible geothermal reservoirs."@en ;
@@ -4166,8 +4238,9 @@ edo:HPHousing rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#HVACEngineering
-edo:HVACEngineering rdf:type owl:Class ;
-                    rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:HVACEngineering rdf:type skos:Concept ;
+                    skos:inScheme edo:TechnicalDisciplineScheme ;
+                    skos:broader edo:TechnicalDiscipline ;
                     rdfs:label "Engenharia de HVAC"@pt-br ,
                                "HVAC Engineering"@en ;
                     skos:definition "Disciplina de engenharia focada em sistemas de aquecimento, ventilação e ar condicionado."@pt-br ,
@@ -4300,13 +4373,13 @@ edo:HighStrengthTape rdf:type owl:Class ;
                       edo:classInstantiationRole edo:ProjectInstantiableClass .
 
 ###  https://w3id.org/energy-domain/edo#HistoricalAttribute
-edo:HistoricalAttribute rdf:type owl:Class ;
-                        rdfs:subClassOf edo:AttributeDomainCategory ;
-                        rdfs:comment "Represents records of past events, inspections, or modifications."@en ;
-                        rdfs:label "Atributo Histórico"@pt-br ,
-                                   "Historical Attribute"@en ;
-                        skos:definition "Representa registros de eventos passados, inspeções ou modificações"@pt-br ,
-                                        "Represents records of past events, inspections, or modifications"@en .
+edo:HistoricalAttribute rdf:type skos:Concept ;
+                        skos:inScheme edo:DomainAttributeCategory ;
+                        dcterms:identifier "HistoricalAttribute" ;
+                        skos:prefLabel "Historical attribute"@en ,
+                                       "Atributo histórico"@pt-br ;
+                        skos:definition "Attribute category related to records of past events, inspections or modifications."@en ,
+                                        "Categoria de atributo relacionada a registros de eventos passados, inspeções ou modificações."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#HoldingBandage
@@ -4386,8 +4459,9 @@ edo:HubProtectionCap rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#HybridRenewables
-edo:HybridRenewables rdf:type owl:Class ;
-                     rdfs:subClassOf edo:Renewable ;
+edo:HybridRenewables rdf:type skos:Concept ;
+                     skos:inScheme edo:IndustrialDomainScheme ;
+                     skos:broader edo:Renewable ;
                      dcterms:identifier "HybridRenewables" ;
                      skos:definition "Hybrid renewables are systems that combine two or more renewable energy sources, such as solar and wind, in order to improve reliability, efficiency and land use. They represent a growing field of integration that enables more flexible and resilient energy generation."@en ,
                                      "Renováveis híbridas são sistemas que combinam duas ou mais fontes de energia renovável, como solar e eólica, com o objetivo de melhorar a confiabilidade, a eficiência e o uso do solo. Representam um campo crescente de integração que permite uma geração de energia mais flexível e resiliente."@pt-br ;
@@ -4425,8 +4499,9 @@ edo:HydraulicPowerUnit rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#HydrogenEnergy
-edo:HydrogenEnergy rdf:type owl:Class ;
-                   rdfs:subClassOf edo:Domain ;
+edo:HydrogenEnergy rdf:type skos:Concept ;
+                   skos:inScheme edo:IndustrialDomainScheme ;
+                   skos:broader edo:Domain ;
                    rdfs:label "Energia de Hidrogênio"@pt-br ,
                               "Hydrogen Energy"@en ;
                    skos:definition "Production, storage, and utilization of hydrogen as an energy carrier."@en ,
@@ -4434,8 +4509,9 @@ edo:HydrogenEnergy rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Hydropower
-edo:Hydropower rdf:type owl:Class ;
-               rdfs:subClassOf edo:Renewable ;
+edo:Hydropower rdf:type skos:Concept ;
+               skos:inScheme edo:IndustrialDomainScheme ;
+               skos:broader edo:Renewable ;
                rdfs:label "Energia Hidrelétrica"@pt-br ,
                           "Hydropower"@en ;
                skos:definition "Energia gerada a partir da água em movimento, incluindo barragens e energia das marés."@pt-br ,
@@ -4577,24 +4653,23 @@ edo:IdInUnifilarDiagram rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#IdentificationAttribute
-edo:IdentificationAttribute rdf:type owl:Class ;
-                            rdfs:subClassOf edo:AttributeDomainCategory ;
-                            rdfs:comment "Represents identifiers, codes, names."@en ;
-                            rdfs:label "Atributo de Identificação"@pt-br ,
-                                       "Identification Attribute"@en ;
-                            skos:definition "Representa identificadores, códigos, nomes"@pt-br ,
-                                            "Represents identifiers, codes, names"@en .
-
+edo:IdentificationAttribute rdf:type skos:Concept ;
+                            skos:inScheme edo:DomainAttributeCategory ;
+                            dcterms:identifier "IdentificationAttribute" ;
+                            skos:prefLabel "Identification attribute"@en ,
+                                           "Atributo de identificação"@pt-br ;
+                            skos:definition "Attribute category related to identifiers, codes, names or reference identifiers."@en ,
+                                            "Categoria de atributo relacionada a identificadores, códigos, nomes ou identificadores de referência."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#ImportedValue
-edo:ImportedValue rdf:type owl:Class ;
-                  rdfs:subClassOf edo:ValueOrigin ;
-                  rdfs:comment "Imported from another system."@en ;
-                  rdfs:label "Importado"@pt-br ,
-                             "Imported"@en ;
-                  skos:definition "Importado de outro sistema"@pt-br ,
-                                  "Imported from another system"@en .
+edo:ImportedValue rdf:type skos:Concept ;
+                  skos:inScheme edo:DomainAttributeValueOrigin ;
+                  dcterms:identifier "ImportedValue" ;
+                  skos:prefLabel "Imported value"@en ,
+                                 "Valor importado"@pt-br ;
+                  skos:definition "Value imported from another system, dataset or information source."@en ,
+                                  "Valor importado de outro sistema, conjunto de dados ou fonte de informação."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#IndividualAnodeMass
@@ -4695,10 +4770,10 @@ edo:InstanceLevelAttribute rdf:type skos:Concept ;
                                            "Attribute specific to a real-world individual instance of item"@en .
 
 
-
 ###  https://w3id.org/energy-domain/edo#InstrumentationEngineering
-edo:InstrumentationEngineering rdf:type owl:Class ;
-                               rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:InstrumentationEngineering rdf:type skos:Concept ;
+                               skos:inScheme edo:TechnicalDisciplineScheme ;
+                               skos:broader edo:TechnicalDiscipline ;
                                rdfs:label "Engenharia de Instrumentação"@pt-br ,
                                           "Instrumentation Engineering"@en ;
                                skos:definition "Disciplina de engenharia focada em sistemas de instrumentação de medição e controle."@pt-br ,
@@ -5031,8 +5106,9 @@ edo:LPHousing rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#LargeHydropower
-edo:LargeHydropower rdf:type owl:Class ;
-                    rdfs:subClassOf edo:Hydropower ;
+edo:LargeHydropower rdf:type skos:Concept ;
+                    skos:inScheme edo:IndustrialDomainScheme ;
+                    skos:broader edo:Hydropower ;
                     dcterms:identifier "LargeHydropower" ;
                     skos:definition "Large hydropower plants generate electricity by harnessing the kinetic and potential energy of rivers using large dams and reservoirs, typically above 30 MW capacity. They provide reliable energy but may cause significant environmental and social impacts."@en ,
                                     "Usinas hidrelétricas de grande porte geram eletricidade aproveitando a energia cinética e potencial dos rios por meio de grandes barragens e reservatórios, geralmente acima de 30 MW de capacidade. Fornecem energia confiável, mas podem causar impactos ambientais e sociais significativos."@pt-br ;
@@ -5548,8 +5624,9 @@ edo:Location rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#LocationType
-edo:LocationType rdf:type owl:Class ;
-                 rdfs:subClassOf edo:ElementClassification ;
+edo:LocationType rdf:type skos:Concept ;
+                 skos:inScheme edo:LocationTypeScheme ;
+                 skos:topConceptOf edo:LocationTypeScheme ;
                  rdfs:label "Location Type"@en ,
                             "Tipo de Localização"@pt-br ;
                  skos:definition "Classification of industrial activities based on their geographical location."@en ,
@@ -5771,8 +5848,9 @@ edo:ManufacturingNonConformities rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Marine
-edo:Marine rdf:type owl:Class ;
-           rdfs:subClassOf edo:Renewable ;
+edo:Marine rdf:type skos:Concept ;
+           skos:inScheme edo:IndustrialDomainScheme ;
+           skos:broader edo:Renewable ;
            dcterms:identifier "Marine" ;
            skos:definition "Energia marinha refere-se à energia renovável aproveitada dos oceanos e mares, incluindo fluxos de marés, movimento das ondas, correntes oceânicas, gradientes térmicos e diferenças de salinidade. Representa um conjunto diversificado de tecnologias em desenvolvimento que visam complementar as fontes renováveis tradicionais ao explorar o vasto e previsível potencial energético do ambiente marinho."@pt-br ,
                            "Marine energy refers to renewable energy harnessed from the oceans and seas, including tidal flows, wave motion, ocean currents, thermal gradients and salinity differences. It represents a diverse set of technologies under development that aim to complement traditional renewable energy sources by exploiting the vast and predictable energy potential of the marine environment."@en ;
@@ -6424,13 +6502,13 @@ edo:MaximumThermalExchangeCoefficient rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#MeasuredValue
-edo:MeasuredValue rdf:type owl:Class ;
-                  rdfs:subClassOf edo:ValueOrigin ;
-                  rdfs:comment "Obtained by direct measurement."@en ;
-                  rdfs:label "Measured"@en ,
-                             "Medido"@pt-br ;
-                  skos:definition "Obtained by direct measurement"@en ,
-                                  "Obtido por medição direta"@pt-br .
+edo:MeasuredValue rdf:type skos:Concept ;
+                  skos:inScheme edo:DomainAttributeValueOrigin ;
+                  dcterms:identifier "MeasuredValue" ;
+                  skos:prefLabel "Measured value"@en ,
+                                 "Valor medido"@pt-br ;
+                  skos:definition "Value obtained by direct or indirect measurement."@en ,
+                                  "Valor obtido por medição direta ou indireta."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#MetallicLayerMaterialType
@@ -6562,8 +6640,9 @@ edo:MetricStudSet rdf:type owl:Class ;
                       edo:classInstantiationRole edo:ProjectInstantiableClass .
 
 ###  https://w3id.org/energy-domain/edo#Midstream
-edo:Midstream rdf:type owl:Class ;
-              rdfs:subClassOf edo:OilAndGas ;
+edo:Midstream rdf:type skos:Concept ;
+              skos:inScheme edo:IndustrialDomainScheme ;
+              skos:broader edo:OilAndGas ;
               rdfs:label "Midstream"@en ,
                          "Midstream"@pt-br ;
               skos:definition "Oil & Gas sector covering transportation, storage, and wholesale marketing of crude or refined petroleum products."@en ,
@@ -6895,8 +6974,9 @@ edo:InstalledLength rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Nuclear
-edo:Nuclear rdf:type owl:Class ;
-            rdfs:subClassOf edo:Domain ;
+edo:Nuclear rdf:type skos:Concept ;
+            skos:inScheme edo:IndustrialDomainScheme ;
+            skos:broader edo:Domain ;
             rdfs:label "Energia Nuclear"@pt-br ,
                        "Nuclear Energy"@en ;
             skos:definition "Domínio industrial que abrange a geração de energia a partir de reações nucleares, incluindo fissão e fusão."@pt-br ,
@@ -6904,8 +6984,9 @@ edo:Nuclear rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#NuclearFuelCycle
-edo:NuclearFuelCycle rdf:type owl:Class ;
-                     rdfs:subClassOf edo:Nuclear ;
+edo:NuclearFuelCycle rdf:type skos:Concept ;
+                     skos:inScheme edo:IndustrialDomainScheme ;
+                     skos:broader edo:Nuclear ;
                      rdfs:label "Ciclo do Combustível Nuclear"@pt-br ,
                                 "Nuclear Fuel Cycle"@en ;
                      skos:definition "Processes involved in mining, processing, enrichment, and disposal of nuclear fuel."@en ,
@@ -6913,8 +6994,9 @@ edo:NuclearFuelCycle rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#NuclearPowerGeneration
-edo:NuclearPowerGeneration rdf:type owl:Class ;
-                           rdfs:subClassOf edo:Nuclear ;
+edo:NuclearPowerGeneration rdf:type skos:Concept ;
+                           skos:inScheme edo:IndustrialDomainScheme ;
+                           skos:broader edo:Nuclear ;
                            rdfs:label "Geração de Energia Nuclear"@pt-br ,
                                       "Nuclear Power Generation"@en ;
                            skos:definition "Operation and maintenance of nuclear power plants for electricity production."@en ,
@@ -6952,8 +7034,9 @@ edo:NumberOfRemoteProcessIsolationValves rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OceanCurrents
-edo:OceanCurrents rdf:type owl:Class ;
-                  rdfs:subClassOf edo:Marine ;
+edo:OceanCurrents rdf:type skos:Concept ;
+                  skos:inScheme edo:IndustrialDomainScheme ;
+                  skos:broader edo:Marine ;
                   dcterms:identifier "OceanCurrents" ;
                   skos:definition "Energia das correntes oceânicas aproveita o fluxo contínuo das massas de água do oceano impulsionado por ventos, temperatura, salinidade e rotação da Terra. Turbinas instaladas em passagens marítimas estratégicas podem capturar esse recurso constante e previsível para gerar eletricidade renovável."@pt-br ,
                                   "Ocean currents energy harnesses the continuous flow of ocean water masses driven by wind, temperature, salinity and Earth’s rotation. Turbines placed in strategic marine passages can capture this steady and predictable resource to generate renewable electricity."@en ;
@@ -6962,8 +7045,9 @@ edo:OceanCurrents rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OceanThermal
-edo:OceanThermal rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Marine ;
+edo:OceanThermal rdf:type skos:Concept ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 skos:broader edo:Marine ;
                  dcterms:identifier "OceanThermal" ;
                  skos:definition "A conversão de energia térmica oceânica (OTEC) explora a diferença de temperatura entre as águas superficiais quentes e as águas profundas frias para acionar um ciclo termodinâmico e produzir eletricidade. Oferece um vasto potencial de energia renovável ainda pouco explorado em regiões tropicais."@pt-br ,
                                  "Ocean thermal energy conversion (OTEC) exploits the temperature difference between warm surface waters and cold deep waters to drive a thermodynamic cycle and produce electricity. It offers a vast, largely untapped renewable energy potential in tropical regions."@en ;
@@ -7060,8 +7144,9 @@ edo:OffLeakPLevNomPressValRefMult rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Offshore
-edo:Offshore rdf:type owl:Class ;
-             rdfs:subClassOf edo:LocationType ;
+edo:Offshore rdf:type skos:Concept ;
+             skos:inScheme edo:LocationTypeScheme ;
+             skos:broader edo:LocationType ;
              rdfs:label "Offshore"@en ,
                         "Offshore"@pt-br ;
              skos:definition "Atividades industriais realizadas no mar, tipicamente para produção de petróleo & gás ou energia eólica."@pt-br ,
@@ -7069,8 +7154,9 @@ edo:Offshore rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OffshoreWind
-edo:OffshoreWind rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Wind ;
+edo:OffshoreWind rdf:type skos:Concept ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 skos:broader edo:Wind ;
                  dcterms:identifier "OffshoreWind" ;
                  skos:definition "Energia eólica offshore é gerada por turbinas localizadas em corpos d’água, geralmente em áreas costeiras rasas, onde os ventos são mais fortes e estáveis, permitindo a geração de energia em grande escala."@pt-br ,
                                  "Offshore wind energy is generated by turbines located in bodies of water, usually in shallow coastal areas, where winds are stronger and more stable, enabling large-scale power generation."@en ;
@@ -7079,8 +7165,9 @@ edo:OffshoreWind rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OilAndGas
-edo:OilAndGas rdf:type owl:Class ;
-              rdfs:subClassOf edo:Domain ;
+edo:OilAndGas rdf:type skos:Concept ;
+              skos:inScheme edo:IndustrialDomainScheme ;
+              skos:broader edo:Domain ;
               rdfs:label "Oil & Gas"@en ,
                          "Petróleo & Gás"@pt-br ;
               skos:definition "Domínio industrial que abrange todas as atividades relacionadas à exploração, produção, refino e distribuição de petróleo e gás."@pt-br ,
@@ -7088,8 +7175,9 @@ edo:OilAndGas rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OilAndGasDevelopment
-edo:OilAndGasDevelopment rdf:type owl:Class ;
-                         rdfs:subClassOf edo:Upstream ;
+edo:OilAndGasDevelopment rdf:type skos:Concept ;
+                         skos:inScheme edo:IndustrialDomainScheme ;
+                         skos:broader edo:Upstream ;
                          dcterms:identifier "OilAndGasDevelopment" ;
                          skos:definition "Desenvolvimento de óleo e gás refere-se ao planejamento, engenharia, construção e comissionamento de instalações para explorar recursos hidrocarbonetos descobertos. Inclui perfuração de poços de desenvolvimento, instalação de instalações de produção e estabelecimento de infraestrutura de apoio para permitir extração e processamento."@pt-br ,
                                          "Oil and gas development refers to the planning, engineering, construction, and commissioning of facilities to exploit discovered hydrocarbon resources. It includes drilling development wells, installing production facilities, and establishing supporting infrastructure to enable extraction and processing."@en ;
@@ -7098,8 +7186,9 @@ edo:OilAndGasDevelopment rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OilAndGasDistribution
-edo:OilAndGasDistribution rdf:type owl:Class ;
-                          rdfs:subClassOf edo:Downstream ;
+edo:OilAndGasDistribution rdf:type skos:Concept ;
+                          skos:inScheme edo:IndustrialDomainScheme ;
+                          skos:broader edo:Downstream ;
                           dcterms:identifier "OilAndGasDistribution" ;
                           skos:definition "Distribuição de óleo e gás abrange o transporte, armazenamento e entrega de produtos petrolíferos das unidades de processamento até os consumidores finais. Envolve dutos, terminais, navios-tanque e logística associada para garantir fornecimento seguro, confiável e eficiente de combustíveis e matérias-primas."@pt-br ,
                                           "Oil and gas distribution covers the transportation, storage, and delivery of petroleum products from processing facilities to end users. It involves pipelines, terminals, tankers, and associated logistics to ensure safe, reliable, and efficient supply of fuels and feedstocks."@en ;
@@ -7108,8 +7197,9 @@ edo:OilAndGasDistribution rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OilAndGasExploration
-edo:OilAndGasExploration rdf:type owl:Class ;
-                         rdfs:subClassOf edo:Upstream ;
+edo:OilAndGasExploration rdf:type skos:Concept ;
+                         skos:inScheme edo:IndustrialDomainScheme ;
+                         skos:broader edo:Upstream ;
                          dcterms:identifier "OilAndGasExploration" ;
                          skos:definition "Exploração de óleo e gás envolve a identificação e avaliação de potenciais reservas de hidrocarbonetos usando métodos geológicos, geofísicos e geoquímicos. As atividades incluem levantamentos sísmicos, perfuração exploratória e caracterização de reservatórios para avaliar a viabilidade da extração."@pt-br ,
                                          "Oil and gas exploration involves identifying and evaluating potential hydrocarbon reserves using geological, geophysical, and geochemical methods. Activities include seismic surveys, exploratory drilling, and reservoir characterization to assess the viability of extraction."@en ;
@@ -7118,8 +7208,9 @@ edo:OilAndGasExploration rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OilAndGasProduction
-edo:OilAndGasProduction rdf:type owl:Class ;
-                        rdfs:subClassOf edo:Upstream ;
+edo:OilAndGasProduction rdf:type skos:Concept ;
+                        skos:inScheme edo:IndustrialDomainScheme ;
+                        skos:broader edo:Upstream ;
                         dcterms:identifier "OilAndGasProduction" ;
                         skos:definition "Oil and gas production encompasses the extraction of hydrocarbons from reservoirs, including well operations, artificial lift, and initial processing to separate oil, gas, and water. It ensures the continuous supply of raw materials for downstream processing and energy generation."@en ,
                                         "Produção de óleo e gás engloba a extração de hidrocarbonetos dos reservatórios, incluindo operações de poços, elevação artificial e processamento inicial para separar óleo, gás e água. Garante o fornecimento contínuo de matérias-primas para processamento downstream e geração de energia."@pt-br ;
@@ -7128,8 +7219,9 @@ edo:OilAndGasProduction rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OilAndGasRefining
-edo:OilAndGasRefining rdf:type owl:Class ;
-                      rdfs:subClassOf edo:Downstream ;
+edo:OilAndGasRefining rdf:type skos:Concept ;
+                      skos:inScheme edo:IndustrialDomainScheme ;
+                      skos:broader edo:Downstream ;
                       dcterms:identifier "OilAndGasRefining" ;
                       skos:definition "Oil and gas refining involves the conversion of crude oil and natural gas liquids into usable products such as gasoline, diesel, jet fuel, and petrochemicals. Refining processes include distillation, cracking, reforming, and treatment to meet product specifications and environmental standards."@en ,
                                       "Refino de óleo e gás envolve a conversão de petróleo bruto e líquidos de gás natural em produtos utilizáveis, como gasolina, diesel, querosene e petroquímicos. Os processos de refino incluem destilação, craqueamento, reforma e tratamento para atender especificações de produtos e padrões ambientais."@pt-br ;
@@ -7138,8 +7230,9 @@ edo:OilAndGasRefining rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Onshore
-edo:Onshore rdf:type owl:Class ;
-            rdfs:subClassOf edo:LocationType ;
+edo:Onshore rdf:type skos:Concept ;
+            skos:inScheme edo:LocationTypeScheme ;
+            skos:broader edo:LocationType ;
             rdfs:label "Onshore"@en ,
                        "Onshore"@pt-br ;
             skos:definition "Atividades industriais realizadas em terra."@pt-br ,
@@ -7147,8 +7240,9 @@ edo:Onshore rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#OnshoreWind
-edo:OnshoreWind rdf:type owl:Class ;
-                rdfs:subClassOf edo:Wind ;
+edo:OnshoreWind rdf:type skos:Concept ;
+                skos:inScheme edo:IndustrialDomainScheme ;
+                skos:broader edo:Wind ;
                 dcterms:identifier "OnshoreWind" ;
                 skos:definition "Energia eólica onshore é produzida por turbinas eólicas instaladas em terra, geralmente em regiões com recursos eólicos elevados e consistentes. É uma das fontes de energia renovável mais maduras e economicamente viáveis."@pt-br ,
                                 "Onshore wind energy is produced by wind turbines installed on land, typically in areas with high and consistent wind resources. It is one of the most mature and cost-effective renewable energy sources."@en ;
@@ -7267,8 +7361,9 @@ edo:PLET rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#PackageEquipmentEngineering
-edo:PackageEquipmentEngineering rdf:type owl:Class ;
-                                rdfs:subClassOf edo:EquipmentEngineering ;
+edo:PackageEquipmentEngineering rdf:type skos:Concept ;
+                                skos:inScheme edo:TechnicalDisciplineScheme ;
+                                skos:broader edo:EquipmentEngineering ;
                                 rdfs:label "Engenharia de Equipamentos Modulares"@pt-br ,
                                            "Package Equipment Engineering"@en ;
                                 skos:definition "Engenharia de sistemas de equipamentos modulares ou montados em skids."@pt-br ,
@@ -7394,8 +7489,9 @@ edo:PermeabilityTable_Temperature rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Photovoltaic
-edo:Photovoltaic rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Solar ;
+edo:Photovoltaic rdf:type skos:Concept ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 skos:broader edo:Solar ;
                  dcterms:identifier "Photovoltaic" ;
                  skos:definition "Energia fotovoltaica é gerada pela conversão direta da luz solar em eletricidade usando materiais semicondutores como o silício. É uma das tecnologias renováveis de crescimento mais rápido, aplicável em escalas que variam de telhados residenciais a grandes usinas solares."@pt-br ,
                                  "Photovoltaic energy is generated by converting sunlight directly into electricity using semiconductor materials such as silicon. It is one of the fastest growing renewable technologies, applicable at scales ranging from rooftop panels to utility-scale solar farms."@en ;
@@ -7414,13 +7510,13 @@ edo:PhysicalConnection rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#PhysicalPropertyAttribute
-edo:PhysicalPropertyAttribute rdf:type owl:Class ;
-                              rdfs:subClassOf edo:AttributeDomainCategory ;
-                              rdfs:comment "Represents intrinsic physical properties such as mass, density, material."@en ;
-                              rdfs:label "Atributo de Propriedade Física"@pt-br ,
-                                         "Physical Property Attribute"@en ;
-                              skos:definition "Representa propriedades físicas intrínsecas como massa, densidade, material"@pt-br ,
-                                              "Represents intrinsic physical properties such as mass, density, material"@en .
+edo:PhysicalPropertyAttribute rdf:type skos:Concept ;
+                              skos:inScheme edo:DomainAttributeCategory ;
+                              dcterms:identifier "PhysicalPropertyAttribute" ;
+                              skos:prefLabel "Physical property attribute"@en ,
+                                             "Atributo de propriedade física"@pt-br ;
+                              skos:definition "Attribute category related to intrinsic physical properties such as mass, density or material."@en ,
+                                              "Categoria de atributo relacionada a propriedades físicas intrínsecas, como massa, densidade ou material."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Piggable
@@ -7761,8 +7857,9 @@ edo:PressureSensor rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessEngineering
-edo:ProcessEngineering rdf:type owl:Class ;
-                       rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:ProcessEngineering rdf:type skos:Concept ;
+                       skos:inScheme edo:TechnicalDisciplineScheme ;
+                       skos:broader edo:TechnicalDiscipline ;
                        rdfs:label "Engenharia de Processos"@pt-br ,
                                   "Process Engineering"@en ;
                        skos:definition "Disciplina de engenharia focada no projeto e otimização de processos industriais."@pt-br ,
@@ -7779,8 +7876,9 @@ edo:ProcessPipeSpec rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessPipingEngineering
-edo:ProcessPipingEngineering rdf:type owl:Class ;
-                             rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:ProcessPipingEngineering rdf:type skos:Concept ;
+                             skos:inScheme edo:TechnicalDisciplineScheme ;
+                             skos:broader edo:TechnicalDiscipline ;
                              rdfs:label "Engenharia de Tubulação de Processo"@pt-br ,
                                         "Process Piping Engineering"@en ;
                              skos:definition "Disciplina de engenharia focada no projeto de sistemas de tubulação para fluidos de processo."@pt-br ,
@@ -7889,8 +7987,14 @@ edo:ProtectiveSheath rdf:type owl:Class ;
                       edo:classInstantiationRole edo:ProjectInstantiableClass .
 
 ###  https://w3id.org/energy-domain/edo#ProvenanceAttribute
-edo:ProvenanceAttribute rdf:type owl:Class ;
-                        rdfs:subClassOf edo:AdministrativeAttribute .
+edo:ProvenanceAttribute rdf:type skos:Concept ;
+                         skos:inScheme edo:DomainAttributeCategory ;
+                         skos:broader edo:AdministrativeAttribute ;
+                         dcterms:identifier "ProvenanceAttribute" ;
+                         skos:prefLabel "Provenance attribute"@en ,
+                                        "Atributo de proveniência"@pt-br ;
+                         skos:definition "Administrative attribute category related to authorship, creator identity, timestamp or provenance metadata."@en ,
+                                         "Categoria de atributo administrativo relacionada a autoria, identidade do criador, registro temporal ou metadados de proveniência."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#PullInCollar
@@ -7947,8 +8051,9 @@ edo:Pump rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#PumpedStorage
-edo:PumpedStorage rdf:type owl:Class ;
-                  rdfs:subClassOf edo:Hydropower ;
+edo:PumpedStorage rdf:type skos:Concept ;
+                  skos:inScheme edo:IndustrialDomainScheme ;
+                  skos:broader edo:Hydropower ;
                   dcterms:identifier "PumpedStorage" ;
                   skos:definition "Hidrelétricas de bombeamento armazenam energia ao bombear água de um reservatório inferior para um superior em períodos de baixa demanda, liberando-a através de turbinas para gerar eletricidade em períodos de pico. Funcionam como um sistema de armazenamento de energia em larga escala."@pt-br ,
                                   "Pumped storage hydropower stores energy by pumping water from a lower reservoir to a higher one during low demand, and releasing it through turbines to generate electricity during peak demand. It acts as a large-scale energy storage system."@en ;
@@ -8062,8 +8167,9 @@ edo:ReliefValve rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Renewable
-edo:Renewable rdf:type owl:Class ;
-              rdfs:subClassOf edo:Domain ;
+edo:Renewable rdf:type skos:Concept ;
+              skos:inScheme edo:IndustrialDomainScheme ;
+              skos:broader edo:Domain ;
               rdfs:label "Energia Renovável"@pt-br ,
                          "Renewable Energy"@en ;
               skos:definition "Domínio industrial que abrange fontes de energia que são naturalmente reabastecidas, como solar, eólica e hidrelétrica."@pt-br ,
@@ -8303,8 +8409,9 @@ edo:RopeSegment rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#RotatingEquipmentEngineering
-edo:RotatingEquipmentEngineering rdf:type owl:Class ;
-                                 rdfs:subClassOf edo:EquipmentEngineering ;
+edo:RotatingEquipmentEngineering rdf:type skos:Concept ;
+                                 skos:inScheme edo:TechnicalDisciplineScheme ;
+                                 skos:broader edo:EquipmentEngineering ;
                                  rdfs:label "Engenharia de Equipamentos Rotativos"@pt-br ,
                                             "Rotating Equipment Engineering"@en ;
                                  skos:definition "Engenharia de equipamentos mecânicos com componentes rotativos como bombas, compressores e turbinas."@pt-br ,
@@ -8320,8 +8427,9 @@ edo:RotatingMachine rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#RunOfRiver
-edo:RunOfRiver rdf:type owl:Class ;
-               rdfs:subClassOf edo:Hydropower ;
+edo:RunOfRiver rdf:type skos:Concept ;
+               skos:inScheme edo:IndustrialDomainScheme ;
+               skos:broader edo:Hydropower ;
                dcterms:identifier "RunOfRiver" ;
                skos:definition "Run-of-river hydropower plants generate electricity directly from the natural flow of rivers without creating large reservoirs, minimizing flooding but making output dependent on seasonal water levels."@en ,
                                "Usinas hidrelétricas a fio d’água geram eletricidade diretamente a partir do fluxo natural dos rios, sem criar grandes reservatórios, minimizando alagamentos mas tornando a produção dependente da sazonalidade hídrica."@pt-br ;
@@ -8439,8 +8547,9 @@ edo:SafeWorkingLoad rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SafetyLossPreventionEngineering
-edo:SafetyLossPreventionEngineering rdf:type owl:Class ;
-                                    rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:SafetyLossPreventionEngineering rdf:type skos:Concept ;
+                                    skos:inScheme edo:TechnicalDisciplineScheme ;
+                                    skos:broader edo:TechnicalDiscipline ;
                                     rdfs:label "Engenharia de Segurança e Prevenção de Perdas"@pt-br ,
                                                "Safety & Loss Prevention Engineering"@en ;
                                     skos:definition "Disciplina de engenharia focada em avaliação de riscos, sistemas de segurança e prevenção de perdas."@pt-br ,
@@ -8448,8 +8557,9 @@ edo:SafetyLossPreventionEngineering rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SalinityGradient
-edo:SalinityGradient rdf:type owl:Class ;
-                     rdfs:subClassOf edo:Marine ;
+edo:SalinityGradient rdf:type skos:Concept ;
+                     skos:inScheme edo:IndustrialDomainScheme ;
+                     skos:broader edo:Marine ;
                      dcterms:identifier "SalinityGradient" ;
                      skos:definition "Energia de gradiente de salinidade, também chamada de energia azul, é obtida aproveitando a diferença de concentração de sal entre a água do mar e a água doce em estuários. Tecnologias como eletrodiálise reversa ou osmose com pressão retardada podem converter esse potencial químico em energia renovável."@pt-br ,
                                      "Salinity gradient energy, also called blue energy, is obtained by exploiting the difference in salt concentration between seawater and freshwater at estuaries. Technologies such as reverse electrodialysis or pressure-retarded osmosis can convert this chemical potential into renewable power."@en ;
@@ -8655,8 +8765,9 @@ edo:SingleValue rdf:type skos:Concept ;
 
 
 ###  https://w3id.org/energy-domain/edo#SmallHydropower
-edo:SmallHydropower rdf:type owl:Class ;
-                    rdfs:subClassOf edo:Hydropower ;
+edo:SmallHydropower rdf:type skos:Concept ;
+                    skos:inScheme edo:IndustrialDomainScheme ;
+                    skos:broader edo:Hydropower ;
                     dcterms:identifier "SmallHydropower" ;
                     skos:definition "Pequenas centrais hidrelétricas, frequentemente chamadas de PCH, possuem tipicamente capacidade abaixo de 30 MW. Utilizam o fluxo dos rios com infraestrutura reduzida, diminuindo o impacto ambiental em comparação às grandes barragens."@pt-br ,
                                     "Small hydropower plants, often called small hydro or PCH, typically have capacities below 30 MW. They use river flow with smaller infrastructure, reducing environmental impact compared to large dams."@en ;
@@ -8665,8 +8776,9 @@ edo:SmallHydropower rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SmallWind
-edo:SmallWind rdf:type owl:Class ;
-              rdfs:subClassOf edo:Wind ;
+edo:SmallWind rdf:type skos:Concept ;
+              skos:inScheme edo:IndustrialDomainScheme ;
+              skos:broader edo:Wind ;
               dcterms:identifier "SmallWind" ;
               skos:definition "Sistemas de pequena escala eólica referem-se a microturbinas projetadas para uso residencial, agrícola ou em pequenos negócios. Eles oferecem geração descentralizada de eletricidade renovável e podem operar de forma independente ou conectados à rede."@pt-br ,
                               "Small wind systems refer to microturbines designed for residential, agricultural, or small business use. They provide decentralized renewable electricity generation and can operate independently or connected to the grid."@en ;
@@ -8685,8 +8797,9 @@ edo:Socket rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Solar
-edo:Solar rdf:type owl:Class ;
-          rdfs:subClassOf edo:Renewable ;
+edo:Solar rdf:type skos:Concept ;
+          skos:inScheme edo:IndustrialDomainScheme ;
+          skos:broader edo:Renewable ;
           rdfs:label "Energia Solar"@pt-br ,
                      "Solar Energy"@en ;
           skos:definition "Energia obtida da luz solar, incluindo sistemas fotovoltaicos e térmicos."@pt-br ,
@@ -8694,8 +8807,9 @@ edo:Solar rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SolarHeatingCooling
-edo:SolarHeatingCooling rdf:type owl:Class ;
-                        rdfs:subClassOf edo:Solar ;
+edo:SolarHeatingCooling rdf:type skos:Concept ;
+                        skos:inScheme edo:IndustrialDomainScheme ;
+                        skos:broader edo:Solar ;
                         dcterms:identifier "SolarHeatingCooling" ;
                         skos:definition "Solar heating and cooling technologies capture solar radiation at low or medium temperatures to provide hot water, space heating, or cooling through solar thermal collectors and absorption systems."@en ,
                                         "Tecnologias de aquecimento e resfriamento solar capturam radiação solar em baixa ou média temperatura para fornecer água quente, aquecimento de ambientes ou resfriamento por meio de coletores solares térmicos e sistemas de absorção."@pt-br ;
@@ -8704,8 +8818,9 @@ edo:SolarHeatingCooling rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SolarThermal
-edo:SolarThermal rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Solar ;
+edo:SolarThermal rdf:type skos:Concept ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 skos:broader edo:Solar ;
                  dcterms:identifier "SolarThermal" ;
                  skos:definition "Energia solar térmica, também conhecida como concentração solar (CSP), utiliza espelhos ou lentes para concentrar a luz solar e gerar calor em alta temperatura, que depois é convertido em eletricidade por meio de um ciclo termodinâmico."@pt-br ,
                                  "Solar thermal energy, also known as concentrated solar power (CSP), uses mirrors or lenses to concentrate sunlight and produce high-temperature heat, which is then converted into electricity through a thermodynamic cycle."@en ;
@@ -8714,8 +8829,9 @@ edo:SolarThermal rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SolidBiomass
-edo:SolidBiomass rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Biomass ;
+edo:SolidBiomass rdf:type skos:Concept ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 skos:broader edo:Biomass ;
                  dcterms:identifier "SolidBiomass" ;
                  skos:definition "Energia de biomassa sólida vem da combustão ou processamento de materiais orgânicos como madeira, resíduos florestais e agrícolas. É uma das formas mais antigas de energia renovável, ainda amplamente utilizada para aquecimento e geração elétrica."@pt-br ,
                                  "Solid biomass energy comes from the combustion or processing of organic materials such as wood, forestry residues, and agricultural waste. It is one of the oldest forms of renewable energy, still widely used for heating and power generation."@en ;
@@ -8821,14 +8937,13 @@ edo:SpareQuantity rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SpatialAttribute
-edo:SpatialAttribute rdf:type owl:Class ;
-                     rdfs:subClassOf edo:AttributeDomainCategory ;
-                     rdfs:comment """Exemplos:
-Location (geográfica, coordenada, planta, offshore, subsea, etc.)
-Orientation (posição angular, direção)
-Position (posição relativa dentro de um sistema)
-Georeference (lat/long, UTM)
-Installation site (onshore, offshore, módulo de planta)"""@pt-br .
+edo:SpatialAttribute rdf:type skos:Concept ;
+                     skos:inScheme edo:DomainAttributeCategory ;
+                     dcterms:identifier "SpatialAttribute" ;
+                     skos:prefLabel "Spatial attribute"@en ,
+                                    "Atributo espacial"@pt-br ;
+                     skos:definition "Attribute category related to position, orientation, georeference, location or installation site."@en ,
+                                     "Categoria de atributo relacionada a posição, orientação, georreferência, localização ou local de instalação."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#SpecialRequirements
@@ -9039,8 +9154,9 @@ edo:SpoolingTension rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#StaticEquipmentEngineering
-edo:StaticEquipmentEngineering rdf:type owl:Class ;
-                               rdfs:subClassOf edo:EquipmentEngineering ;
+edo:StaticEquipmentEngineering rdf:type skos:Concept ;
+                               skos:inScheme edo:TechnicalDisciplineScheme ;
+                               skos:broader edo:EquipmentEngineering ;
                                rdfs:label "Engenharia de Equipamentos Estáticos"@pt-br ,
                                           "Static Equipment Engineering"@en ;
                                skos:definition "Engenharia de equipamentos industriais sem partes móveis como vasos de pressão, tanques e trocadores de calor."@pt-br ,
@@ -9060,8 +9176,8 @@ edo:StaticUmbilicalSpan rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Status
 edo:Status rdf:type owl:Class ;
-           rdfs:subClassOf edo:ContentManagementAttribute .
-
+           rdfs:subClassOf edo:DomainAttribute ;
+            edo:attributeCategory edo:ContentManagementAttribute .
 
 ###  https://w3id.org/energy-domain/edo#StiffTorsionalStiffnessAtSeaLevel
 edo:StiffTorsionalStiffnessAtSeaLevel rdf:type owl:Class ;
@@ -9387,8 +9503,9 @@ edo:StringValue rdf:type skos:Concept ;
 
 
 ###  https://w3id.org/energy-domain/edo#StructuralEngineering
-edo:StructuralEngineering rdf:type owl:Class ;
-                          rdfs:subClassOf edo:CivilEngineering ;
+edo:StructuralEngineering rdf:type skos:Concept ;
+                          skos:inScheme edo:TechnicalDisciplineScheme ;
+                          skos:broader edo:CivilEngineering ;
                           rdfs:label "Engenharia Estrutural"@pt-br ,
                                      "Structural Engineering"@en ;
                           skos:definition "Disciplina de engenharia focada na integridade estrutural e projeto de edifícios e infraestrutura."@pt-br ,
@@ -9478,8 +9595,9 @@ edo:SubseaConnectionPoint rdf:type owl:Class ;
                       edo:classInstantiationRole edo:ProjectInstantiableClass .
 
 ###  https://w3id.org/energy-domain/edo#SubseaEngineering
-edo:SubseaEngineering rdf:type owl:Class ;
-                      rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:SubseaEngineering rdf:type skos:Concept ;
+                      skos:inScheme edo:TechnicalDisciplineScheme ;
+                      skos:broader edo:TechnicalDiscipline ;
                       rdfs:label "Engenharia Submarina"@pt-br ,
                                  "Subsea Engineering"@en ;
                       skos:definition "Disciplina de engenharia focada em sistemas e equipamentos subaquáticos para operações offshore."@pt-br ,
@@ -9497,8 +9615,9 @@ edo:SubseaEquipment rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaFlexiblePipesEngineering
-edo:SubseaFlexiblePipesEngineering rdf:type owl:Class ;
-                                   rdfs:subClassOf edo:SubseaEngineering ;
+edo:SubseaFlexiblePipesEngineering rdf:type skos:Concept ;
+                                   skos:inScheme edo:TechnicalDisciplineScheme ;
+                                   skos:broader edo:SubseaEngineering ;
                                    rdfs:label "Engenharia de Tubos Flexíveis Submarinos"@pt-br ,
                                               "Subsea Flexible Pipes Engineering"@en ;
                                    skos:definition "Engenharia de sistemas de tubos flexíveis utilizados em aplicações submarinas."@pt-br ,
@@ -9515,7 +9634,9 @@ edo:SubseaLayout rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaManifoldsEngineering
-edo:SubseaManifoldsEngineering rdf:type owl:Class ;
+edo:SubseaManifoldsEngineering rdf:type skos:Concept ;
+                               skos:inScheme edo:TechnicalDisciplineScheme ;
+                               skos:broader edo:SubseaEngineering ;
                                rdfs:subClassOf edo:SubseaEngineering .
 
 
@@ -9579,8 +9700,9 @@ edo:SubseaRigidPipeSpec rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaRigidPipesEngineering
-edo:SubseaRigidPipesEngineering rdf:type owl:Class ;
-                                rdfs:subClassOf edo:SubseaEngineering ;
+edo:SubseaRigidPipesEngineering rdf:type skos:Concept ;
+                                skos:inScheme edo:TechnicalDisciplineScheme ;
+                                skos:broader edo:SubseaEngineering ;
                                 rdfs:label "Engenharia de Tubos Rígidos Submarinos"@pt-br ,
                                            "Subsea Rigid Pipes Engineering"@en ;
                                 skos:definition "Engenharia de sistemas de tubulações rígidas utilizadas em aplicações submarinas."@pt-br ,
@@ -9588,8 +9710,9 @@ edo:SubseaRigidPipesEngineering rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaStructuresEngineering
-edo:SubseaStructuresEngineering rdf:type owl:Class ;
-                                rdfs:subClassOf edo:SubseaEngineering ;
+edo:SubseaStructuresEngineering rdf:type skos:Concept ;
+                                skos:inScheme edo:TechnicalDisciplineScheme ;
+                                skos:broader edo:SubseaEngineering ;
                                 rdfs:label "Engenharia de Estruturas Submarinas"@pt-br ,
                                            "Subsea Structures Engineering"@en ;
                                 skos:definition "Engenharia de manifolds submarinos, árvores de natal e outros componentes estruturais."@pt-br ,
@@ -9606,8 +9729,9 @@ edo:SubseaUmbilical rdf:type owl:Class ;
                       edo:classInstantiationRole edo:ProjectInstantiableClass .
 
 ###  https://w3id.org/energy-domain/edo#SubseaUmbilicalsEngineering
-edo:SubseaUmbilicalsEngineering rdf:type owl:Class ;
-                                rdfs:subClassOf edo:SubseaEngineering ;
+edo:SubseaUmbilicalsEngineering rdf:type skos:Concept ;
+                                skos:inScheme edo:TechnicalDisciplineScheme ;
+                                skos:broader edo:SubseaEngineering ;
                                 rdfs:label "Engenharia de Umbilicais Submarinos"@pt-br ,
                                            "Subsea Umbilicals Engineering"@en ;
                                 skos:definition "Engenharia de sistemas de umbilicais submarinos fornecendo controle, energia e injeção química."@pt-br ,
@@ -9726,8 +9850,9 @@ edo:TapesQuantity rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#TechnicalDiscipline
-edo:TechnicalDiscipline rdf:type owl:Class ;
-                        rdfs:subClassOf edo:ElementClassification ;
+edo:TechnicalDiscipline rdf:type skos:Concept ;
+                        skos:inScheme edo:TechnicalDisciplineScheme ;
+                        skos:topConceptOf edo:TechnicalDisciplineScheme ;
                         rdfs:comment "Superclass for all technical engineering disciplines."@en ;
                         rdfs:label "Disciplina Técnica"@pt-br ,
                                    "Technical Discipline"@en ;
@@ -10070,8 +10195,9 @@ edo:ThermalExchangeCoefficientFlooded rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#ThermalPower
-edo:ThermalPower rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Domain ;
+edo:ThermalPower rdf:type skos:Concept ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 skos:broader edo:Domain ;
                  rdfs:label "Energia Térmica"@pt-br ,
                             "Thermal Power"@en ;
                  skos:definition "Energy production from fossil fuels (coal, natural gas) through thermal conversion."@en ,
@@ -10131,8 +10257,9 @@ edo:ThreadsPerInch rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Tidal
-edo:Tidal rdf:type owl:Class ;
-          rdfs:subClassOf edo:Marine ;
+edo:Tidal rdf:type skos:Concept ;
+          skos:inScheme edo:IndustrialDomainScheme ;
+          skos:broader edo:Marine ;
           dcterms:identifier "Tidal" ;
           skos:definition "Energia das marés é gerada aproveitando a previsível subida e descida das marés oceânicas, geralmente por meio de barragens, cercas de marés ou turbinas de corrente de maré. Oferece uma fonte altamente confiável de energia renovável devido aos ciclos gravitacionais naturais da Terra, da Lua e do Sol."@pt-br ,
                           "Tidal energy is generated by harnessing the predictable rise and fall of ocean tides, typically using barrages, tidal fences, or tidal stream turbines. It offers a highly reliable source of renewable energy due to the natural gravitational cycles of the Earth, Moon and Sun."@en ;
@@ -10166,15 +10293,15 @@ edo:TimeValue rdf:type skos:Concept ;
 
 ###  https://w3id.org/energy-domain/edo#Timestamp
 edo:Timestamp rdf:type owl:Class ;
-              rdfs:subClassOf edo:ProvenanceAttribute ;
+              rdfs:subClassOf edo:DomainAttribute ;
               dcterms:accessRights "PUBLIC" ;
               dcterms:identifier "Timestamp" ;
               skos:definition "Exact date and time, providing a precise reference for tracking when an event or action occurred within the system."@en ;
               skos:prefLabel "Timestamp"@en ;
               edo:hasAttributeScope edo:InstanceLevelAttribute ;
               edo:hasTypedValue edo:DateTimeValue ;
-              edo:hasValueCardinality edo:SingleValue .
-
+              edo:hasValueCardinality edo:SingleValue ;
+            edo:attributeCategory edo:ProvenanceAttribute .
 
 ###  https://w3id.org/energy-domain/edo#ToBeDeprecated
 edo:ToBeDeprecated rdf:type owl:Class ;
@@ -10541,8 +10668,9 @@ edo:UpperItubeDiameter rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Upstream
-edo:Upstream rdf:type owl:Class ;
-             rdfs:subClassOf edo:OilAndGas ;
+edo:Upstream rdf:type skos:Concept ;
+             skos:inScheme edo:IndustrialDomainScheme ;
+             skos:broader edo:OilAndGas ;
              rdfs:label "Upstream"@en ,
                         "Upstream"@pt-br ;
              skos:definition "Oil & Gas sector covering exploration, drilling, and production of hydrocarbon resources."@en ,
@@ -10550,8 +10678,9 @@ edo:Upstream rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#UtilityPipingEngineering
-edo:UtilityPipingEngineering rdf:type owl:Class ;
-                             rdfs:subClassOf edo:TechnicalDiscipline ;
+edo:UtilityPipingEngineering rdf:type skos:Concept ;
+                             skos:inScheme edo:TechnicalDisciplineScheme ;
+                             skos:broader edo:TechnicalDiscipline ;
                              rdfs:label "Engenharia de Tubulação de Utilidades"@pt-br ,
                                         "Utility Piping Engineering"@en ;
                              skos:definition "Disciplina de engenharia focada no projeto de sistemas de tubulação para serviços de utilidades."@pt-br ,
@@ -10583,21 +10712,6 @@ edo:VCM rdf:type owl:Class ;
         edo:hasDiscipline edo:WetChristmasTreesEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#ValueNature
-edo:ValueNature rdf:type owl:Class ;
-                rdfs:subClassOf edo:AttributeClassification .
-
-
-###  https://w3id.org/energy-domain/edo#ValueOrigin
-edo:ValueOrigin rdf:type owl:Class ;
-                rdfs:subClassOf edo:AttributeNature ;
-                rdfs:comment "Indicates how the value is obtained."@en ;
-                rdfs:label "Origem do Valor"@pt-br ,
-                           "Value Origin"@en ;
-                skos:definition "Indica como o valor é obtido"@pt-br ,
-                                "Indicates how the value is obtained"@en .
-
-
 ###  https://w3id.org/energy-domain/edo#Valve
 edo:Valve rdf:type owl:Class ;
           rdfs:subClassOf edo:PressureComponent ;
@@ -10608,8 +10722,8 @@ edo:Valve rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Version
 edo:Version rdf:type owl:Class ;
-            rdfs:subClassOf edo:ContentManagementAttribute .
-
+            rdfs:subClassOf edo:DomainAttribute ;
+            edo:attributeCategory edo:ContentManagementAttribute .
 
 ###  https://w3id.org/energy-domain/edo#Vessel
 edo:Vessel rdf:type owl:Class ;
@@ -10620,8 +10734,9 @@ edo:Vessel rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#WasteToEnergy
-edo:WasteToEnergy rdf:type owl:Class ;
-                  rdfs:subClassOf edo:Biomass ;
+edo:WasteToEnergy rdf:type skos:Concept ;
+                  skos:inScheme edo:IndustrialDomainScheme ;
+                  skos:broader edo:Biomass ;
                   dcterms:identifier "WasteToEnergy" ;
                   skos:definition "Energia a partir de resíduos de biomassa refere-se à conversão da fração orgânica de resíduos urbanos e industriais em energia útil por meio de processos como combustão, gaseificação ou digestão anaeróbica."@pt-br ,
                                   "Waste-to-energy from biomass refers to the conversion of the organic fraction of municipal and industrial waste into useful energy through processes such as combustion, gasification, or anaerobic digestion."@en ;
@@ -10752,8 +10867,9 @@ edo:InstalledWaterDepth rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#Wave
-edo:Wave rdf:type owl:Class ;
-         rdfs:subClassOf edo:Marine ;
+edo:Wave rdf:type skos:Concept ;
+         skos:inScheme edo:IndustrialDomainScheme ;
+         skos:broader edo:Marine ;
          dcterms:identifier "Wave" ;
          skos:definition "Energia das ondas captura a energia cinética e potencial das ondas de superfície do oceano usando dispositivos flutuantes ou submersos. É considerada uma tecnologia promissora, porém ainda emergente, capaz de fornecer eletricidade renovável de forma consistente em regiões costeiras."@pt-br ,
                          "Wave energy captures the kinetic and potential energy of surface ocean waves using floating or submerged devices. It is considered a promising but still emerging technology, capable of providing consistent renewable electricity near coastal regions."@en ;
@@ -10809,13 +10925,16 @@ edo:WetChristmasTree rdf:type owl:Class ;
 
 
 ###  https://w3id.org/energy-domain/edo#WetChristmasTreesEngineering
-edo:WetChristmasTreesEngineering rdf:type owl:Class ;
+edo:WetChristmasTreesEngineering rdf:type skos:Concept ;
+                                 skos:inScheme edo:TechnicalDisciplineScheme ;
+                                 skos:broader edo:SubseaEngineering ;
                                  rdfs:subClassOf edo:SubseaEngineering .
 
 
 ###  https://w3id.org/energy-domain/edo#Wind
-edo:Wind rdf:type owl:Class ;
-         rdfs:subClassOf edo:Renewable ;
+edo:Wind rdf:type skos:Concept ;
+         skos:inScheme edo:IndustrialDomainScheme ;
+         skos:broader edo:Renewable ;
          rdfs:label "Energia Eólica"@pt-br ,
                     "Wind Energy"@en ;
          skos:definition "Energia gerada a partir do vento usando turbinas e tecnologias relacionadas."@pt-br ,
