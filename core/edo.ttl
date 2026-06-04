@@ -711,6 +711,16 @@ edo:hasMaturityLevel rdf:type owl:AnnotationProperty ;
                      dcterms:identifier "hasMaturityLevel" .
 
 
+###  https://w3id.org/energy-domain/edo#conceptStatus
+edo:conceptStatus rdf:type owl:AnnotationProperty ;
+                  rdfs:subPropertyOf edo:DomainGovernanceAnnotation ;
+                  rdfs:label "Concept Status"@en ,
+                             "Status do Conceito"@pt-br ;
+                  skos:definition "Indica o status editorial ou de governança de um conceito da Energy Domain Ontology, como ativo, a ser depreciado, depreciado ou substituído."@pt-br ,
+                                  "Indicates the editorial or governance status of an Energy Domain Ontology concept, such as active, to be deprecated, deprecated or replaced."@en ;
+                  dcterms:identifier "conceptStatus" .
+
+
 #################################################################
 #    Datatypes
 #################################################################
@@ -1873,12 +1883,43 @@ edo:ConceptualDesign rdf:type skos:Concept ;
                                      "Initial design phase focused on feasibility, scope definition, and technology selection."@en .
 
 
-###  https://w3id.org/energy-domain/edo#ConceptualMarker
-edo:ConceptualMarker rdf:type owl:Class ;
-                     skos:definition "Representa um marcador abstrato usado para marcar ou classificar elementos para fins conceituais ou de manutenção, sem adicionar propriedades físicas ou lógicas."@pt-br ,
-                                     "Represents an abstract marker used to tag or classify elements for conceptual or maintenance purposes, without adding physical or logical properties."@en ;
-                     skos:prefLabel "Conceptual Marker"@en ,
-                                    "Marcador Conceitual"@pt-br .
+###  https://w3id.org/energy-domain/edo#ConceptStatusScheme
+edo:ConceptStatusScheme rdf:type skos:ConceptScheme ;
+                        skos:prefLabel "Concept status scheme"@en ,
+                                       "Esquema de status de conceito"@pt-br ;
+                        skos:definition "Controlled vocabulary for editorial and governance status values assigned to EDO concepts."@en ,
+                                        "Vocabulário controlado para valores de status editorial e de governança atribuídos a conceitos da EDO."@pt-br ;
+                        dcterms:identifier "ConceptStatusScheme" .
+
+
+###  https://w3id.org/energy-domain/edo#ActiveConcept
+edo:ActiveConcept rdf:type skos:Concept ;
+                  skos:inScheme edo:ConceptStatusScheme ;
+                  skos:prefLabel "Active concept"@en ,
+                                 "Conceito ativo"@pt-br ;
+                  skos:definition "Concept currently valid for use in EDO modelling, documentation and data-contract work."@en ,
+                                  "Conceito atualmente válido para uso em modelagem, documentação e contratos de dados da EDO."@pt-br ;
+                  dcterms:identifier "ActiveConcept" .
+
+
+###  https://w3id.org/energy-domain/edo#DeprecatedConcept
+edo:DeprecatedConcept rdf:type skos:Concept ;
+                      skos:inScheme edo:ConceptStatusScheme ;
+                      skos:prefLabel "Deprecated concept"@en ,
+                                     "Conceito depreciado"@pt-br ;
+                      skos:definition "Concept retained for traceability but no longer recommended for use."@en ,
+                                      "Conceito mantido para rastreabilidade, mas não mais recomendado para uso."@pt-br ;
+                      dcterms:identifier "DeprecatedConcept" .
+
+
+###  https://w3id.org/energy-domain/edo#ReplacedConcept
+edo:ReplacedConcept rdf:type skos:Concept ;
+                    skos:inScheme edo:ConceptStatusScheme ;
+                    skos:prefLabel "Replaced concept"@en ,
+                                   "Conceito substituído"@pt-br ;
+                    skos:definition "Deprecated concept that has an explicit replacement concept."@en ,
+                                    "Conceito depreciado que possui um conceito substituto explícito."@pt-br ;
+                    dcterms:identifier "ReplacedConcept" .
 
 
 ###  https://w3id.org/energy-domain/edo#ConnectionModule
@@ -10304,12 +10345,13 @@ edo:Timestamp rdf:type owl:Class ;
             edo:attributeCategory edo:ProvenanceAttribute .
 
 ###  https://w3id.org/energy-domain/edo#ToBeDeprecated
-edo:ToBeDeprecated rdf:type owl:Class ;
-                   rdfs:subClassOf edo:ConceptualMarker ;
-                   skos:definition "Representa um marcador usado para identificar elementos que estão planejados para remoção ou substituição futura, sem afetar seu uso ou propriedades atuais."@pt-br ,
-                                   "Represents a marker used to identify elements that are planned to be removed or replaced in the future, without affecting their current use or properties."@en ;
-                   skos:prefLabel "A Ser Depreciado"@pt-br ,
-                                  "To Be Deprecated"@en .
+edo:ToBeDeprecated rdf:type skos:Concept ;
+                   skos:inScheme edo:ConceptStatusScheme ;
+                   skos:prefLabel "To be deprecated"@en ,
+                                  "A ser depreciado"@pt-br ;
+                   skos:definition "Concept planned for future removal or replacement, without affecting its current use."@en ,
+                                   "Conceito planejado para remoção ou substituição futura, sem afetar seu uso atual."@pt-br ;
+                   dcterms:identifier "ToBeDeprecated" .
 
 
 ###  https://w3id.org/energy-domain/edo#TopBendStiffener
