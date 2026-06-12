@@ -56,10 +56,6 @@ owl:minCardinality rdf:type owl:AnnotationProperty .
 skos:altLabel rdf:type owl:AnnotationProperty .
 
 
-###  http://www.w3.org/2004/02/skos/core#broader
-skos:broader rdf:type owl:AnnotationProperty .
-
-
 ###  http://www.w3.org/2004/02/skos/core#definition
 skos:definition rdf:type owl:AnnotationProperty .
 
@@ -68,20 +64,8 @@ skos:definition rdf:type owl:AnnotationProperty .
 skos:example rdf:type owl:AnnotationProperty .
 
 
-###  http://www.w3.org/2004/02/skos/core#hasTopConcept
-skos:hasTopConcept rdf:type owl:AnnotationProperty .
-
-
-###  http://www.w3.org/2004/02/skos/core#inScheme
-skos:inScheme rdf:type owl:AnnotationProperty .
-
-
 ###  http://www.w3.org/2004/02/skos/core#prefLabel
 skos:prefLabel rdf:type owl:AnnotationProperty .
-
-
-###  http://www.w3.org/2004/02/skos/core#topConceptOf
-skos:topConceptOf rdf:type owl:AnnotationProperty .
 
 
 ###  https://w3id.org/energy-domain/edo#AttributeRelation
@@ -764,6 +748,26 @@ xsd:time rdf:type rdfs:Datatype .
 #################################################################
 #    Object Properties
 #################################################################
+
+###  http://www.w3.org/2004/02/skos/core#broader
+skos:broader rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#hasTopConcept
+skos:hasTopConcept rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#inScheme
+skos:inScheme rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrower
+skos:narrower rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#topConceptOf
+skos:topConceptOf rdf:type owl:ObjectProperty .
+
 
 ###  https://w3id.org/energy-domain/edo#DomainAuxiliarProperty
 edo:DomainAuxiliarProperty rdf:type owl:ObjectProperty .
@@ -2945,6 +2949,15 @@ edo:DimensionsDrawing rdf:type owl:Class ;
 edo:DimensionsTableColumn rdf:type owl:Class ;
                           rdfs:subClassOf edo:DrawingDimensionsTableAttribute ;
                           edo:attributeOntologicalNature edo:TableColumnAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#DiscretePart
+edo:DiscretePart rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainElement ;
+                 skos:definition "A discrete part is a physical element with a distinct material identity, typically used for assembly, fastening, connection, sealing, protection, or replacement, but not normally managed as an individually traceable asset. Discrete parts include items such as bolts, studs, gaskets, rings, clamps, and other non-serialized parts used in engineered systems."@en ,
+                                 "Uma peça discreta é um elemento físico com identidade material distinta, normalmente usado para montagem, fixação, conexão, vedação, proteção ou substituição, mas que normalmente não é gerenciado como um ativo individualmente rastreável. Peças discretas incluem itens como parafusos, estojos, juntas, anéis, abraçadeiras e outras peças não serializadas usadas em sistemas de engenharia."@pt-br ;
+                 skos:prefLabel "Discrete Part"@en ,
+                                "Peça Discreta"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#DisplacedVolume
@@ -6909,15 +6922,6 @@ edo:PanelHydraulicConnector rdf:type owl:Class ;
                                            "Panel Hydraulic Connector"@en .
 
 
-###  https://w3id.org/energy-domain/edo#DiscretePart
-edo:DiscretePart rdf:type owl:Class ;
-                rdfs:subClassOf edo:DomainElement ;
-                skos:definition "Uma peça discreta é um elemento físico com identidade material distinta, normalmente usado para montagem, fixação, conexão, vedação, proteção ou substituição, mas que normalmente não é gerenciado como um ativo individualmente rastreável. Peças discretas incluem itens como parafusos, estojos, juntas, anéis, abraçadeiras e outras peças não serializadas usadas em sistemas de engenharia."@pt-br ,
-                                "A discrete part is a physical element with a distinct material identity, typically used for assembly, fastening, connection, sealing, protection, or replacement, but not normally managed as an individually traceable asset. Discrete parts include items such as bolts, studs, gaskets, rings, clamps, and other non-serialized parts used in engineered systems."@en ;
-                skos:prefLabel "Peça Discreta"@pt-br ,
-                               "Discrete Part"@en .
-
-
 ###  https://w3id.org/energy-domain/edo#PartNumber
 edo:PartNumber rdf:type owl:Class ;
                rdfs:subClassOf edo:DomainAttribute ;
@@ -10429,11 +10433,11 @@ edo:WoundLayer rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#ActiveConcept
 edo:ActiveConcept rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "ActiveConcept" ;
                   skos:broader edo:ConceptStatuses ;
+                  skos:inScheme edo:ConceptStatusScheme ;
+                  dcterms:identifier "ActiveConcept" ;
                   skos:definition "Conceito atualmente válido para uso em modelagem, documentação e contratos de dados da EDO."@pt-br ,
                                   "Concept currently valid for use in EDO modelling, documentation and data-contract work."@en ;
-                  skos:inScheme edo:ConceptStatusScheme ;
                   skos:prefLabel "Active concept"@en ,
                                  "Conceito ativo"@pt-br .
 
@@ -10441,11 +10445,11 @@ edo:ActiveConcept rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#AdministrativeAttribute
 edo:AdministrativeAttribute rdf:type owl:NamedIndividual ,
                                      skos:Concept ;
-                            dcterms:identifier "AdministrativeAttribute" ;
                             skos:broader edo:AttributeCategories ;
+                            skos:inScheme edo:DomainAttributeCategory ;
+                            dcterms:identifier "AdministrativeAttribute" ;
                             skos:definition "Attribute category related to administration, content management, provenance, status or governance metadata."@en ,
                                             "Categoria de atributo relacionada a administração, gestão de conteúdo, proveniência, status ou metadados de governança."@pt-br ;
-                            skos:inScheme edo:DomainAttributeCategory ;
                             skos:prefLabel "Administrative attribute"@en ,
                                            "Atributo administrativo"@pt-br .
 
@@ -10453,38 +10457,39 @@ edo:AdministrativeAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#AnyURIType
 edo:AnyURIType rdf:type owl:NamedIndividual ,
                         skos:Concept ;
-               rdfs:comment "Expected XSD datatype for URI/IRI values."@en ;
-               rdfs:label "URI Value"@en ;
                skos:broader edo:DomainValueTypes ;
                skos:inScheme edo:DomainValueType ;
+               rdfs:comment "Expected XSD datatype for URI/IRI values."@en ;
+               rdfs:label "URI Value"@en ;
                edo:expectedXsdType xsd:anyURI .
 
 
 ###  https://w3id.org/energy-domain/edo#ArchitecturalEngineering
 edo:ArchitecturalEngineering rdf:type owl:NamedIndividual ,
                                       skos:Concept ;
+                             skos:broader edo:TechnicalDiscipline ;
+                             skos:inScheme edo:TechnicalDisciplineScheme ;
                              rdfs:label "Architectural Engineering"@en ,
                                         "Engenharia Arquitetônica"@pt-br ;
-                             skos:broader edo:TechnicalDiscipline ;
                              skos:definition "Disciplina de engenharia focada no projeto de edifícios, construção e integração de sistemas."@pt-br ,
-                                             "Engineering discipline focused on building design, construction and systems integration."@en ;
-                             skos:inScheme edo:TechnicalDisciplineScheme .
+                                             "Engineering discipline focused on building design, construction and systems integration."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#AsBuiltRole
 edo:AsBuiltRole rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                dcterms:identifier "AsBuiltRole" ;
                 skos:broader edo:AttributeRoles ;
+                skos:inScheme edo:DomainAttributeRole ;
+                dcterms:identifier "AsBuiltRole" ;
                 skos:definition "Papel de um atributo que expressa um valor as-built documentado."@pt-br ,
                                 "Role of an attribute that expresses a documented as-built value."@en ;
-                skos:inScheme edo:DomainAttributeRole ;
                 skos:prefLabel "As-built role"@en ,
                                "Papel as-built"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#AttributeCategories
 edo:AttributeCategories rdf:type owl:NamedIndividual ,
+                                 skos:Concept ,
                                  edo:DomainVocabularyConcept ;
                         skos:broader edo:AttributeConcepts ;
                         skos:prefLabel "Attribute Categories"@en ,
@@ -10493,6 +10498,7 @@ edo:AttributeCategories rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#AttributeConcepts
 edo:AttributeConcepts rdf:type owl:NamedIndividual ,
+                               skos:Concept ,
                                edo:DomainVocabularyConcept ;
                       skos:broader edo:VocabularyConcepts ;
                       skos:prefLabel "Attribute Concepts"@en ,
@@ -10502,17 +10508,18 @@ edo:AttributeConcepts rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#AttributeGroupAttribute
 edo:AttributeGroupAttribute rdf:type owl:NamedIndividual ,
                                      skos:Concept ;
-                            dcterms:identifier "AttributeGroupAttribute" ;
                             skos:broader edo:AttributeOntologicalNatures ;
+                            skos:inScheme edo:DomainAttributeOntologicalNature ;
+                            dcterms:identifier "AttributeGroupAttribute" ;
                             skos:definition "Atributo usado como agrupador ou pai organizacional de atributos de domínio relacionados, e não como valor escalar direto de propriedade."@pt-br ,
                                             "Attribute used as a grouping or organisational parent for related domain attributes, rather than as a direct scalar property value."@en ;
-                            skos:inScheme edo:DomainAttributeOntologicalNature ;
                             skos:prefLabel "Atributo de grupo de atributos"@pt-br ,
                                            "Attribute group attribute"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#AttributeNatures
 edo:AttributeNatures rdf:type owl:NamedIndividual ,
+                              skos:Concept ,
                               edo:DomainVocabularyConcept ;
                      skos:broader edo:AttributeConcepts ;
                      skos:prefLabel "Attribute Natures"@en ,
@@ -10521,6 +10528,7 @@ edo:AttributeNatures rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#AttributeOntologicalNatures
 edo:AttributeOntologicalNatures rdf:type owl:NamedIndividual ,
+                                         skos:Concept ,
                                          edo:DomainVocabularyConcept ;
                                 skos:broader edo:AttributeConcepts ;
                                 skos:prefLabel "Attribute Ontological Natures"@en ,
@@ -10529,6 +10537,7 @@ edo:AttributeOntologicalNatures rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#AttributeRoles
 edo:AttributeRoles rdf:type owl:NamedIndividual ,
+                            skos:Concept ,
                             edo:DomainVocabularyConcept ;
                    skos:broader edo:AttributeConcepts ;
                    skos:prefLabel "Attribute Roles"@en ,
@@ -10537,6 +10546,7 @@ edo:AttributeRoles rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#AttributeScopes
 edo:AttributeScopes rdf:type owl:NamedIndividual ,
+                             skos:Concept ,
                              edo:DomainVocabularyConcept ;
                     skos:broader edo:AttributeConcepts ;
                     skos:prefLabel "Attribute Scopes"@en ,
@@ -10545,6 +10555,7 @@ edo:AttributeScopes rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#AttributeValueCardinalities
 edo:AttributeValueCardinalities rdf:type owl:NamedIndividual ,
+                                         skos:Concept ,
                                          edo:DomainVocabularyConcept ;
                                 skos:broader edo:AttributeConcepts ;
                                 skos:prefLabel "Attribute Value Cardinalities"@en ,
@@ -10553,6 +10564,7 @@ edo:AttributeValueCardinalities rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#AttributeValueOrigins
 edo:AttributeValueOrigins rdf:type owl:NamedIndividual ,
+                                   skos:Concept ,
                                    edo:DomainVocabularyConcept ;
                           skos:broader edo:AttributeConcepts ;
                           skos:prefLabel "Attribute Value Origins"@en ,
@@ -10561,6 +10573,7 @@ edo:AttributeValueOrigins rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#AttributeValueStructures
 edo:AttributeValueStructures rdf:type owl:NamedIndividual ,
+                                      skos:Concept ,
                                       edo:DomainVocabularyConcept ;
                              skos:broader edo:AttributeConcepts ;
                              skos:prefLabel "Attribute Value Structures"@en ,
@@ -10570,11 +10583,11 @@ edo:AttributeValueStructures rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#AttributesGroup
 edo:AttributesGroup rdf:type owl:NamedIndividual ,
                              skos:Concept ;
-                    dcterms:identifier "AttributesGroup" ;
                     skos:broader edo:AttributeValueStructures ;
+                    skos:inScheme edo:DomainAttributeValueStructure ;
+                    dcterms:identifier "AttributesGroup" ;
                     skos:definition "Categoria de estrutura de valor para agrupar atributos relacionados."@pt-br ,
                                     "Value-structure category for grouping related attributes."@en ;
-                    skos:inScheme edo:DomainAttributeValueStructure ;
                     skos:prefLabel "Attributes group"@en ,
                                    "Grupo de atributos"@pt-br .
 
@@ -10582,32 +10595,32 @@ edo:AttributesGroup rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#AutomationControlEngineering
 edo:AutomationControlEngineering rdf:type owl:NamedIndividual ,
                                           skos:Concept ;
+                                 skos:broader edo:TechnicalDiscipline ;
+                                 skos:inScheme edo:TechnicalDisciplineScheme ;
                                  rdfs:label "Automation & Control Engineering"@en ,
                                             "Engenharia de Automação e Controle"@pt-br ;
-                                 skos:broader edo:TechnicalDiscipline ;
                                  skos:definition "Disciplina de engenharia focada em sistemas de controle automatizado e automação de processos."@pt-br ,
-                                                 "Engineering discipline focused on automated control systems and process automation."@en ;
-                                 skos:inScheme edo:TechnicalDisciplineScheme .
+                                                 "Engineering discipline focused on automated control systems and process automation."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#Base64BinaryType
 edo:Base64BinaryType rdf:type owl:NamedIndividual ,
                               skos:Concept ;
-                     rdfs:comment "Constraint for xsd:base64Binary (binary data)"@en ;
-                     rdfs:label "Base64 Binary"@en ;
                      skos:broader edo:DomainValueTypes ;
                      skos:inScheme edo:DomainValueType ;
+                     rdfs:comment "Constraint for xsd:base64Binary (binary data)"@en ;
+                     rdfs:label "Base64 Binary"@en ;
                      edo:expectedXsdType xsd:base64Binary .
 
 
 ###  https://w3id.org/energy-domain/edo#BasicDesign
 edo:BasicDesign rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                dcterms:identifier "BasicDesign" ;
                 skos:broader edo:DesignPhase ;
+                skos:inScheme edo:LifecyclePhaseScheme ;
+                dcterms:identifier "BasicDesign" ;
                 skos:definition "Fase onde são desenvolvidas especificações gerais de engenharia, layouts e listas de equipamentos principais."@pt-br ,
                                 "Phase where general engineering specifications, layouts, and main equipment lists are developed."@en ;
-                skos:inScheme edo:LifecyclePhaseScheme ;
                 skos:prefLabel "Basic Design"@en ,
                                "Projeto Básico"@pt-br .
 
@@ -10615,23 +10628,23 @@ edo:BasicDesign rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#BatchLevelAttribute
 edo:BatchLevelAttribute rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
+                        skos:broader edo:AttributeScopes ;
+                        skos:inScheme edo:DomainAttributeScope ;
                         rdfs:comment "Attribute common to a batch of equipment instances."@en ;
                         rdfs:label "Atributo de Lote"@pt-br ,
                                    "Batch Attribute"@en ;
-                        skos:broader edo:AttributeScopes ;
                         skos:definition "Atributo comum a um lote de instâncias de equipamento"@pt-br ,
-                                        "Attribute common to a batch of equipment instances"@en ;
-                        skos:inScheme edo:DomainAttributeScope .
+                                        "Attribute common to a batch of equipment instances"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#Biofuels
 edo:Biofuels rdf:type owl:NamedIndividual ,
                       skos:Concept ;
-             dcterms:identifier "Biofuels" ;
              skos:broader edo:Biomass ;
+             skos:inScheme edo:IndustrialDomainScheme ;
+             dcterms:identifier "Biofuels" ;
              skos:definition "Biocombustíveis são combustíveis líquidos derivados da biomassa, como etanol, biodiesel e combustíveis renováveis avançados. São usados principalmente no setor de transporte como substitutos ou complementos aos combustíveis fósseis."@pt-br ,
                              "Biofuels are liquid fuels derived from biomass, such as bioethanol, biodiesel, and advanced renewable fuels. They are used mainly in the transport sector as a substitute or complement to fossil fuels."@en ;
-             skos:inScheme edo:IndustrialDomainScheme ;
              skos:prefLabel "Biocombustíveis"@pt-br ,
                             "Biofuels"@en .
 
@@ -10639,11 +10652,11 @@ edo:Biofuels rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Biogas
 edo:Biogas rdf:type owl:NamedIndividual ,
                     skos:Concept ;
-           dcterms:identifier "Biogas" ;
            skos:broader edo:Biomass ;
+           skos:inScheme edo:IndustrialDomainScheme ;
+           dcterms:identifier "Biogas" ;
            skos:definition "Biogas is produced by anaerobic digestion of organic matter such as agricultural residues, sewage, and food waste. It is composed mainly of methane and can be used for electricity, heating, or upgraded to biomethane for injection into gas grids."@en ,
                            "Biogás é produzido pela digestão anaeróbica de matéria orgânica como resíduos agrícolas, esgoto e restos de alimentos. É composto principalmente por metano e pode ser usado para eletricidade, aquecimento ou purificado para biometano injetado em redes de gás."@pt-br ;
-           skos:inScheme edo:IndustrialDomainScheme ;
            skos:prefLabel "Biogas"@en ,
                           "Biogás"@pt-br .
 
@@ -10651,32 +10664,32 @@ edo:Biogas rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Biomass
 edo:Biomass rdf:type owl:NamedIndividual ,
                      skos:Concept ;
+            skos:broader edo:Renewable ;
+            skos:inScheme edo:IndustrialDomainScheme ;
             rdfs:label "Biomass Energy"@en ,
                        "Energia de Biomassa"@pt-br ;
-            skos:broader edo:Renewable ;
             skos:definition "Energia produzida a partir de materiais orgânicos como madeira, resíduos agrícolas ou lixo."@pt-br ,
-                            "Energy produced from organic materials such as wood, agricultural residues, or waste."@en ;
-            skos:inScheme edo:IndustrialDomainScheme .
+                            "Energy produced from organic materials such as wood, agricultural residues, or waste."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#BooleanValue
 edo:BooleanValue rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 rdfs:comment "Expected XSD datatype for boolean values."@en ;
-                 rdfs:label "Boolean Value"@en ;
                  skos:broader edo:DomainValueTypes ;
                  skos:inScheme edo:DomainValueType ;
+                 rdfs:comment "Expected XSD datatype for boolean values."@en ;
+                 rdfs:label "Boolean Value"@en ;
                  edo:expectedXsdType xsd:boolean .
 
 
 ###  https://w3id.org/energy-domain/edo#CalculatedValue
 edo:CalculatedValue rdf:type owl:NamedIndividual ,
                              skos:Concept ;
-                    dcterms:identifier "CalculatedValue" ;
                     skos:broader edo:AttributeValueOrigins ;
+                    skos:inScheme edo:DomainAttributeValueOrigin ;
+                    dcterms:identifier "CalculatedValue" ;
                     skos:definition "Valor obtido por cálculo ou derivação a partir de outros valores."@pt-br ,
                                     "Value obtained by calculation or derivation from other values."@en ;
-                    skos:inScheme edo:DomainAttributeValueOrigin ;
                     skos:prefLabel "Calculated value"@en ,
                                    "Valor calculado"@pt-br .
 
@@ -10684,11 +10697,11 @@ edo:CalculatedValue rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#CapabilityAttribute
 edo:CapabilityAttribute rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "CapabilityAttribute" ;
                         skos:broader edo:AttributeNatures ;
+                        skos:inScheme edo:DomainAttributeNature ;
+                        dcterms:identifier "CapabilityAttribute" ;
                         skos:definition "Attribute nature related to a capability, limit or supported condition."@en ,
                                         "Natureza de atributo relacionada a uma capacidade, limite ou condição suportada."@pt-br ;
-                        skos:inScheme edo:DomainAttributeNature ;
                         skos:prefLabel "Atributo de capacidade"@pt-br ,
                                        "Capability attribute"@en .
 
@@ -10696,11 +10709,11 @@ edo:CapabilityAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#CarbonManagement
 edo:CarbonManagement rdf:type owl:NamedIndividual ,
                               skos:Concept ;
-                     dcterms:identifier "CarbonManagement" ;
                      skos:broader edo:Domain ;
+                     skos:inScheme edo:IndustrialDomainScheme ;
+                     dcterms:identifier "CarbonManagement" ;
                      skos:definition "Carbon management encompasses the strategies, processes, and technologies used to measure, monitor, reduce, and offset carbon emissions within industrial, energy, and commercial sectors. It aims to minimize the environmental impact of human activities and support decarbonization goals."@en ,
                                      "Gestão de carbono engloba as estratégias, processos e tecnologias utilizados para medir, monitorar, reduzir e compensar as emissões de carbono nos setores industrial, energético e comercial. Tem como objetivo minimizar o impacto ambiental das atividades humanas e apoiar metas de descarbonização."@pt-br ;
-                     skos:inScheme edo:IndustrialDomainScheme ;
                      skos:prefLabel "Carbon Management"@en ,
                                     "Gestão de Carbono"@pt-br .
 
@@ -10708,11 +10721,11 @@ edo:CarbonManagement rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#CertificationDatumAttribute
 edo:CertificationDatumAttribute rdf:type owl:NamedIndividual ,
                                          skos:Concept ;
-                                dcterms:identifier "CertificationDatumAttribute" ;
                                 skos:broader edo:AttributeOntologicalNatures ;
+                                skos:inScheme edo:DomainAttributeOntologicalNature ;
+                                dcterms:identifier "CertificationDatumAttribute" ;
                                 skos:definition "Atributo que representa um valor, capacidade ou condição certificada."@pt-br ,
                                                 "Attribute that represents a certified value, capability or condition."@en ;
-                                skos:inScheme edo:DomainAttributeOntologicalNature ;
                                 skos:prefLabel "Atributo de dado certificado"@pt-br ,
                                                "Certification datum attribute"@en .
 
@@ -10720,11 +10733,11 @@ edo:CertificationDatumAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#CertifiedRole
 edo:CertifiedRole rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "CertifiedRole" ;
                   skos:broader edo:AttributeRoles ;
+                  skos:inScheme edo:DomainAttributeRole ;
+                  dcterms:identifier "CertifiedRole" ;
                   skos:definition "Papel de um atributo que expressa um valor, capacidade ou condição formalmente certificada."@pt-br ,
                                   "Role of an attribute that expresses a formally certified value, capability or condition."@en ;
-                  skos:inScheme edo:DomainAttributeRole ;
                   skos:prefLabel "Certified role"@en ,
                                  "Papel certificado"@pt-br .
 
@@ -10732,12 +10745,12 @@ edo:CertifiedRole rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#CivilEngineering
 edo:CivilEngineering rdf:type owl:NamedIndividual ,
                               skos:Concept ;
+                     skos:broader edo:TechnicalDiscipline ;
+                     skos:inScheme edo:TechnicalDisciplineScheme ;
                      rdfs:label "Civil Engineering"@en ,
                                 "Engenharia Civil"@pt-br ;
-                     skos:broader edo:TechnicalDiscipline ;
                      skos:definition "Disciplina de engenharia focada no projeto e construção de infraestrutura."@pt-br ,
-                                     "Engineering discipline focused on the design and construction of infrastructure."@en ;
-                     skos:inScheme edo:TechnicalDisciplineScheme .
+                                     "Engineering discipline focused on the design and construction of infrastructure."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#ClassInstantiationRoleScheme
@@ -10752,6 +10765,7 @@ edo:ClassInstantiationRoleScheme rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#ClassInstantiationRoles
 edo:ClassInstantiationRoles rdf:type owl:NamedIndividual ,
+                                     skos:Concept ,
                                      edo:DomainVocabularyConcept ;
                             skos:broader edo:MetamodelConcepts ;
                             skos:prefLabel "Class Instantiation Roles"@en ,
@@ -10761,11 +10775,11 @@ edo:ClassInstantiationRoles rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Commissioning
 edo:Commissioning rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "Commissioning" ;
                   skos:broader edo:ConstructionPhase ;
+                  skos:inScheme edo:LifecyclePhaseScheme ;
+                  dcterms:identifier "Commissioning" ;
                   skos:definition "Final testing and handover of the system into operational status."@en ,
                                   "Testes finais e entrega do sistema para status operacional."@pt-br ;
-                  skos:inScheme edo:LifecyclePhaseScheme ;
                   skos:prefLabel "Comissionamento"@pt-br ,
                                  "Commissioning"@en .
 
@@ -10782,6 +10796,7 @@ edo:ConceptStatusScheme rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#ConceptStatuses
 edo:ConceptStatuses rdf:type owl:NamedIndividual ,
+                             skos:Concept ,
                              edo:DomainVocabularyConcept ;
                     skos:broader edo:MetamodelConcepts ;
                     skos:prefLabel "Concept Statuses"@en ,
@@ -10791,11 +10806,11 @@ edo:ConceptStatuses rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ConceptualDesign
 edo:ConceptualDesign rdf:type owl:NamedIndividual ,
                               skos:Concept ;
-                     dcterms:identifier "ConceptualDesign" ;
                      skos:broader edo:DesignPhase ;
+                     skos:inScheme edo:LifecyclePhaseScheme ;
+                     dcterms:identifier "ConceptualDesign" ;
                      skos:definition "Fase inicial de projeto focada em viabilidade, definição de escopo e seleção de tecnologia."@pt-br ,
                                      "Initial design phase focused on feasibility, scope definition, and technology selection."@en ;
-                     skos:inScheme edo:LifecyclePhaseScheme ;
                      skos:prefLabel "Conceptual Design"@en ,
                                     "Projeto Conceitual"@pt-br .
 
@@ -10803,11 +10818,11 @@ edo:ConceptualDesign rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ConditionAttribute
 edo:ConditionAttribute rdf:type owl:NamedIndividual ,
                                 skos:Concept ;
-                       dcterms:identifier "ConditionAttribute" ;
                        skos:broader edo:AttributeOntologicalNatures ;
+                       skos:inScheme edo:DomainAttributeOntologicalNature ;
+                       dcterms:identifier "ConditionAttribute" ;
                        skos:definition "Atributo que representa um estado, condição, condição de serviço ou condição de aplicabilidade."@pt-br ,
                                        "Attribute that represents a state, condition, service condition or applicability condition."@en ;
-                       skos:inScheme edo:DomainAttributeOntologicalNature ;
                        skos:prefLabel "Atributo de condição"@pt-br ,
                                       "Condition attribute"@en .
 
@@ -10815,9 +10830,9 @@ edo:ConditionAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ConstructionPhase
 edo:ConstructionPhase rdf:type owl:NamedIndividual ,
                                skos:Concept ;
-                      dcterms:identifier "ConstructionPhase" ;
                       skos:broader edo:LifecyclePhase ;
                       skos:inScheme edo:LifecyclePhaseScheme ;
+                      dcterms:identifier "ConstructionPhase" ;
                       skos:prefLabel "Construction Phase"@en ,
                                      "Fase de Construção"@pt-br .
 
@@ -10825,11 +10840,11 @@ edo:ConstructionPhase rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ContentManagementAttribute
 edo:ContentManagementAttribute rdf:type owl:NamedIndividual ,
                                         skos:Concept ;
-                               dcterms:identifier "ContentManagementAttribute" ;
                                skos:broader edo:AdministrativeAttribute ;
+                               skos:inScheme edo:DomainAttributeCategory ;
+                               dcterms:identifier "ContentManagementAttribute" ;
                                skos:definition "Administrative attribute category related to content, status, versioning or textual management information."@en ,
                                                "Categoria de atributo administrativo relacionada a conteúdo, status, versionamento ou informação textual de gestão."@pt-br ;
-                               skos:inScheme edo:DomainAttributeCategory ;
                                skos:prefLabel "Atributo de gestão de conteúdo"@pt-br ,
                                               "Content management attribute"@en .
 
@@ -10837,11 +10852,11 @@ edo:ContentManagementAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#CurveAttribute
 edo:CurveAttribute rdf:type owl:NamedIndividual ,
                             skos:Concept ;
-                   dcterms:identifier "CurveAttribute" ;
                    skos:broader edo:AttributeOntologicalNatures ;
+                   skos:inScheme edo:DomainAttributeOntologicalNature ;
+                   dcterms:identifier "CurveAttribute" ;
                    skos:definition "Atributo que representa uma curva ou conjunto de dados similar a curva, e não um valor escalar único."@pt-br ,
                                    "Attribute that represents a curve or curve-like dataset rather than a single scalar value."@en ;
-                   skos:inScheme edo:DomainAttributeOntologicalNature ;
                    skos:prefLabel "Atributo de curva"@pt-br ,
                                   "Curve attribute"@en .
 
@@ -10849,41 +10864,41 @@ edo:CurveAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DateTimeValue
 edo:DateTimeValue rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  rdfs:comment "Expected XSD datatype for date and time values."@en ;
-                  rdfs:label "DateTime Value"@en ;
                   skos:broader edo:DomainValueTypes ;
                   skos:inScheme edo:DomainValueType ;
+                  rdfs:comment "Expected XSD datatype for date and time values."@en ;
+                  rdfs:label "DateTime Value"@en ;
                   edo:expectedXsdType xsd:dateTime .
 
 
 ###  https://w3id.org/energy-domain/edo#DateValue
 edo:DateValue rdf:type owl:NamedIndividual ,
                        skos:Concept ;
-              rdfs:comment "Expected XSD datatype for calendar date values."@en ;
-              rdfs:label "Date Value"@en ;
               skos:broader edo:DomainValueTypes ;
               skos:inScheme edo:DomainValueType ;
+              rdfs:comment "Expected XSD datatype for calendar date values."@en ;
+              rdfs:label "Date Value"@en ;
               edo:expectedXsdType xsd:date .
 
 
 ###  https://w3id.org/energy-domain/edo#DecimalValue
 edo:DecimalValue rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 rdfs:comment "Expected XSD datatype for decimal numeric values."@en ;
-                 rdfs:label "Decimal Value"@en ;
                  skos:broader edo:DomainValueTypes ;
                  skos:inScheme edo:DomainValueType ;
+                 rdfs:comment "Expected XSD datatype for decimal numeric values."@en ;
+                 rdfs:label "Decimal Value"@en ;
                  edo:expectedXsdType xsd:decimal .
 
 
 ###  https://w3id.org/energy-domain/edo#DeclaredValue
 edo:DeclaredValue rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "DeclaredValue" ;
                   skos:broader edo:AttributeValueOrigins ;
+                  skos:inScheme edo:DomainAttributeValueOrigin ;
+                  dcterms:identifier "DeclaredValue" ;
                   skos:definition "Valor especificado manualmente ou declarado por uma fonte autoritativa."@pt-br ,
                                   "Value specified manually or declared by an authoritative source."@en ;
-                  skos:inScheme edo:DomainAttributeValueOrigin ;
                   skos:prefLabel "Declared value"@en ,
                                  "Valor declarado"@pt-br .
 
@@ -10891,11 +10906,11 @@ edo:DeclaredValue rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Decommissioning
 edo:Decommissioning rdf:type owl:NamedIndividual ,
                              skos:Concept ;
-                    dcterms:identifier "Decommissioning" ;
                     skos:broader edo:DecommissioningPhase ;
+                    skos:inScheme edo:LifecyclePhaseScheme ;
+                    dcterms:identifier "Decommissioning" ;
                     skos:definition "Permanent removal of the asset from service, including dismantling and disposal."@en ,
                                     "Remoção permanente do ativo do serviço, incluindo desmontagem e descarte."@pt-br ;
-                    skos:inScheme edo:LifecyclePhaseScheme ;
                     skos:prefLabel "Decommissioning"@en ,
                                    "Descomissionamento"@pt-br .
 
@@ -10903,9 +10918,9 @@ edo:Decommissioning rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DecommissioningPhase
 edo:DecommissioningPhase rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
-                         dcterms:identifier "DecommissioningPhase" ;
                          skos:broader edo:LifecyclePhase ;
                          skos:inScheme edo:LifecyclePhaseScheme ;
+                         dcterms:identifier "DecommissioningPhase" ;
                          skos:prefLabel "Decommissioning Phase"@en ,
                                         "Fase de Descomissionamento"@pt-br .
 
@@ -10913,11 +10928,11 @@ edo:DecommissioningPhase rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DeprecatedConcept
 edo:DeprecatedConcept rdf:type owl:NamedIndividual ,
                                skos:Concept ;
-                      dcterms:identifier "DeprecatedConcept" ;
                       skos:broader edo:ConceptStatuses ;
+                      skos:inScheme edo:ConceptStatusScheme ;
+                      dcterms:identifier "DeprecatedConcept" ;
                       skos:definition "Conceito mantido para rastreabilidade, mas não mais recomendado para uso."@pt-br ,
                                       "Concept retained for traceability but no longer recommended for use."@en ;
-                      skos:inScheme edo:ConceptStatusScheme ;
                       skos:prefLabel "Conceito depreciado"@pt-br ,
                                      "Deprecated concept"@en .
 
@@ -10925,11 +10940,11 @@ edo:DeprecatedConcept rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DesignConditionAttribute
 edo:DesignConditionAttribute rdf:type owl:NamedIndividual ,
                                       skos:Concept ;
-                             dcterms:identifier "DesignConditionAttribute" ;
                              skos:broader edo:FunctionalAttribute ;
+                             skos:inScheme edo:DomainAttributeCategory ;
+                             dcterms:identifier "DesignConditionAttribute" ;
                              skos:definition "Categoria de atributo funcional relacionada a condições de projeto ou premissas de operação/projeto."@pt-br ,
                                              "Functional attribute category related to design conditions or intended operating/design assumptions."@en ;
-                             skos:inScheme edo:DomainAttributeCategory ;
                              skos:prefLabel "Atributo de condição de projeto"@pt-br ,
                                             "Design condition attribute"@en .
 
@@ -10937,9 +10952,9 @@ edo:DesignConditionAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DesignPhase
 edo:DesignPhase rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                dcterms:identifier "DesignPhase" ;
                 skos:broader edo:LifecyclePhase ;
                 skos:inScheme edo:LifecyclePhaseScheme ;
+                dcterms:identifier "DesignPhase" ;
                 skos:prefLabel "Design Phase"@en ,
                                "Fase de Projeto"@pt-br .
 
@@ -10947,11 +10962,11 @@ edo:DesignPhase rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DesignRole
 edo:DesignRole rdf:type owl:NamedIndividual ,
                         skos:Concept ;
-               dcterms:identifier "DesignRole" ;
                skos:broader edo:AttributeRoles ;
+               skos:inScheme edo:DomainAttributeRole ;
+               dcterms:identifier "DesignRole" ;
                skos:definition "Papel de um atributo que expressa um valor definido pelo projeto de engenharia."@pt-br ,
                                "Role of an attribute that expresses a value defined by engineering design."@en ;
-               skos:inScheme edo:DomainAttributeRole ;
                skos:prefLabel "Design role"@en ,
                               "Papel de projeto"@pt-br .
 
@@ -10959,11 +10974,11 @@ edo:DesignRole rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DetailedDesign
 edo:DetailedDesign rdf:type owl:NamedIndividual ,
                             skos:Concept ;
-                   dcterms:identifier "DetailedDesign" ;
                    skos:broader edo:DesignPhase ;
+                   skos:inScheme edo:LifecyclePhaseScheme ;
+                   dcterms:identifier "DetailedDesign" ;
                    skos:definition "Comprehensive engineering phase producing detailed drawings, material specifications, and construction plans."@en ,
                                    "Fase abrangente de engenharia que produz desenhos detalhados, especificações de materiais e planos de construção."@pt-br ;
-                   skos:inScheme edo:LifecyclePhaseScheme ;
                    skos:prefLabel "Detailed Design"@en ,
                                   "Projeto Detalhado"@pt-br .
 
@@ -10971,11 +10986,11 @@ edo:DetailedDesign rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DimensionalAttribute
 edo:DimensionalAttribute rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
-                         dcterms:identifier "DimensionalAttribute" ;
                          skos:broader edo:AttributeNatures ;
+                         skos:inScheme edo:DomainAttributeNature ;
+                         dcterms:identifier "DimensionalAttribute" ;
                          skos:definition "Attribute nature related to dimensions, geometry or measurable extent."@en ,
                                          "Natureza de atributo relacionada a dimensões, geometria ou extensão mensurável."@pt-br ;
-                         skos:inScheme edo:DomainAttributeNature ;
                          skos:prefLabel "Atributo dimensional"@pt-br ,
                                         "Dimensional attribute"@en .
 
@@ -10983,11 +10998,11 @@ edo:DimensionalAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DocumentReferenceAttribute
 edo:DocumentReferenceAttribute rdf:type owl:NamedIndividual ,
                                         skos:Concept ;
-                               dcterms:identifier "DocumentReferenceAttribute" ;
                                skos:broader edo:AttributeOntologicalNatures ;
+                               skos:inScheme edo:DomainAttributeOntologicalNature ;
+                               dcterms:identifier "DocumentReferenceAttribute" ;
                                skos:definition "Atributo que registra ou aponta para um documento, desenho, especificação ou outro artefato técnico."@pt-br ,
                                                "Attribute that records or points to a document, drawing, specification or other technical artefact."@en ;
-                               skos:inScheme edo:DomainAttributeOntologicalNature ;
                                skos:prefLabel "Atributo de referência documental"@pt-br ,
                                               "Document reference attribute"@en .
 
@@ -10995,14 +11010,14 @@ edo:DocumentReferenceAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Domain
 edo:Domain rdf:type owl:NamedIndividual ,
                     skos:Concept ;
+           skos:broader edo:IndustrialDomains ;
+           skos:inScheme edo:IndustrialDomainScheme ;
+           skos:topConceptOf edo:IndustrialDomainScheme ;
            rdfs:comment "Represents a high-level industrial domain, such as Oil & Gas, Nuclear, or Renewable Energy."@en ;
            rdfs:label "Domínio Industrial"@pt-br ,
                       "Industrial Domain"@en ;
-           skos:broader edo:IndustrialDomains ;
            skos:definition "A high-level industrial sector or application area."@en ,
-                           "Um setor industrial ou área de aplicação de alto nível."@pt-br ;
-           skos:inScheme edo:IndustrialDomainScheme ;
-           skos:topConceptOf edo:IndustrialDomainScheme .
+                           "Um setor industrial ou área de aplicação de alto nível."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#DomainAttributeCategory
@@ -11095,6 +11110,7 @@ edo:DomainValueConcept rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#DomainValueConcepts
 edo:DomainValueConcepts rdf:type owl:NamedIndividual ,
+                                 skos:Concept ,
                                  edo:DomainVocabularyConcept ;
                         skos:broader edo:ValueConcepts ;
                         skos:prefLabel "Conceitos de Valor de Domínio"@pt-br ,
@@ -11112,6 +11128,7 @@ edo:DomainValueType rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#DomainValueTypes
 edo:DomainValueTypes rdf:type owl:NamedIndividual ,
+                              skos:Concept ,
                               edo:DomainVocabularyConcept ;
                      skos:broader edo:ValueConcepts ;
                      skos:prefLabel "Domain Value Types"@en ,
@@ -11121,54 +11138,54 @@ edo:DomainValueTypes rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#DoubleValue
 edo:DoubleValue rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                rdfs:comment "Expected XSD datatype for double precision numeric values."@en ;
-                rdfs:label "Double Value"@en ;
                 skos:broader edo:DomainValueTypes ;
                 skos:inScheme edo:DomainValueType ;
+                rdfs:comment "Expected XSD datatype for double precision numeric values."@en ;
+                rdfs:label "Double Value"@en ;
                 edo:expectedXsdType xsd:double .
 
 
 ###  https://w3id.org/energy-domain/edo#Downstream
 edo:Downstream rdf:type owl:NamedIndividual ,
                         skos:Concept ;
+               skos:broader edo:OilAndGas ;
+               skos:inScheme edo:IndustrialDomainScheme ;
                rdfs:label "Downstream"@en ,
                           "Downstream"@pt-br ;
-               skos:broader edo:OilAndGas ;
                skos:definition "Oil & Gas sector covering refining, processing, distribution, and retail of petroleum products."@en ,
-                               "Setor de Petróleo & Gás que abrange refino, processamento, distribuição e varejo de produtos petrolíferos."@pt-br ;
-               skos:inScheme edo:IndustrialDomainScheme .
+                               "Setor de Petróleo & Gás que abrange refino, processamento, distribuição e varejo de produtos petrolíferos."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#ElectricalEngineering
 edo:ElectricalEngineering rdf:type owl:NamedIndividual ,
                                    skos:Concept ;
+                          skos:broader edo:TechnicalDiscipline ;
+                          skos:inScheme edo:TechnicalDisciplineScheme ;
                           rdfs:label "Electrical Engineering"@en ,
                                      "Engenharia Elétrica"@pt-br ;
-                          skos:broader edo:TechnicalDiscipline ;
                           skos:definition "Disciplina de engenharia focada em sistemas elétricos, distribuição e geração de energia."@pt-br ,
-                                          "Engineering discipline focused on electrical systems, power distribution and generation."@en ;
-                          skos:inScheme edo:TechnicalDisciplineScheme .
+                                          "Engineering discipline focused on electrical systems, power distribution and generation."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#EnergyStorage
 edo:EnergyStorage rdf:type owl:NamedIndividual ,
                            skos:Concept ;
+                  skos:broader edo:Domain ;
+                  skos:inScheme edo:IndustrialDomainScheme ;
                   rdfs:label "Armazenamento de Energia"@pt-br ,
                              "Energy Storage"@en ;
-                  skos:broader edo:Domain ;
                   skos:definition "Technologies for storing energy, such as batteries, pumped hydro, or compressed air."@en ,
-                                  "Tecnologias para armazenamento de energia, como baterias, hidroelétricas reversíveis ou ar comprimido."@pt-br ;
-                  skos:inScheme edo:IndustrialDomainScheme .
+                                  "Tecnologias para armazenamento de energia, como baterias, hidroelétricas reversíveis ou ar comprimido."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#EnhancedGeothermalSystems
 edo:EnhancedGeothermalSystems rdf:type owl:NamedIndividual ,
                                        skos:Concept ;
-                              dcterms:identifier "EnhancedGeothermalSystems" ;
                               skos:broader edo:Geothermal ;
+                              skos:inScheme edo:IndustrialDomainScheme ;
+                              dcterms:identifier "EnhancedGeothermalSystems" ;
                               skos:definition "Enhanced geothermal systems (EGS) create artificial reservoirs in hot dry rock by injecting water at high pressure, enabling the extraction of geothermal energy in areas without naturally occurring hydrothermal resources."@en ,
                                               "Sistemas geotérmicos estimulados (EGS) criam reservatórios artificiais em rochas secas quentes através da injeção de água em alta pressão, possibilitando a extração de energia geotérmica em áreas sem recursos hidrotermais naturais."@pt-br ;
-                              skos:inScheme edo:IndustrialDomainScheme ;
                               skos:prefLabel "Enhanced Geothermal Systems"@en ,
                                              "Sistemas Geotérmicos Estimulados"@pt-br .
 
@@ -11176,11 +11193,11 @@ edo:EnhancedGeothermalSystems rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#EnumerationAttribute
 edo:EnumerationAttribute rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
-                         dcterms:identifier "EnumerationAttribute" ;
                          skos:broader edo:AttributeOntologicalNatures ;
+                         skos:inScheme edo:DomainAttributeOntologicalNature ;
+                         dcterms:identifier "EnumerationAttribute" ;
                          skos:definition "Atributo cujo valor é selecionado a partir de uma lista controlada de valores permitidos."@pt-br ,
                                          "Attribute whose value is selected from a controlled list of allowed values."@en ;
-                         skos:inScheme edo:DomainAttributeOntologicalNature ;
                          skos:prefLabel "Atributo enumerado"@pt-br ,
                                         "Enumeration attribute"@en .
 
@@ -11188,11 +11205,11 @@ edo:EnumerationAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#EnvironmentalAttribute
 edo:EnvironmentalAttribute rdf:type owl:NamedIndividual ,
                                     skos:Concept ;
-                           dcterms:identifier "EnvironmentalAttribute" ;
                            skos:broader edo:AttributeNatures ;
+                           skos:inScheme edo:DomainAttributeNature ;
+                           dcterms:identifier "EnvironmentalAttribute" ;
                            skos:definition "Attribute nature related to environmental conditions or exposure."@en ,
                                            "Natureza de atributo relacionada a condições ambientais ou exposição."@pt-br ;
-                           skos:inScheme edo:DomainAttributeNature ;
                            skos:prefLabel "Atributo ambiental"@pt-br ,
                                           "Environmental attribute"@en .
 
@@ -11200,22 +11217,22 @@ edo:EnvironmentalAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#EquipmentEngineering
 edo:EquipmentEngineering rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
+                         skos:broader edo:TechnicalDiscipline ;
+                         skos:inScheme edo:TechnicalDisciplineScheme ;
                          rdfs:label "Engenharia de Equipamentos"@pt-br ,
                                     "Equipment Engineering"@en ;
-                         skos:broader edo:TechnicalDiscipline ;
                          skos:definition "Disciplina de engenharia focada no projeto e especificação de equipamentos industriais."@pt-br ,
-                                         "Engineering discipline focused on the design and specification of industrial equipment."@en ;
-                         skos:inScheme edo:TechnicalDisciplineScheme .
+                                         "Engineering discipline focused on the design and specification of industrial equipment."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#FEED
 edo:FEED rdf:type owl:NamedIndividual ,
                   skos:Concept ;
-         dcterms:identifier "FEED" ;
          skos:broader edo:DesignPhase ;
+         skos:inScheme edo:LifecyclePhaseScheme ;
+         dcterms:identifier "FEED" ;
          skos:definition "Fase intermediária entre o projeto conceitual e detalhado, refinando detalhes técnicos e de custo."@pt-br ,
                          "Intermediate phase between conceptual and detailed design, refining technical and cost details."@en ;
-         skos:inScheme edo:LifecyclePhaseScheme ;
          skos:prefLabel "FEED (Front-End Engineering Design)"@en ,
                         "FEED (Projeto Básico de Engenharia)"@pt-br .
 
@@ -11223,11 +11240,11 @@ edo:FEED rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Fabrication
 edo:Fabrication rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                dcterms:identifier "Fabrication" ;
                 skos:broader edo:ConstructionPhase ;
+                skos:inScheme edo:LifecyclePhaseScheme ;
+                dcterms:identifier "Fabrication" ;
                 skos:definition "Fabricação e montagem de componentes, módulos ou estruturas em oficinas ou estaleiros."@pt-br ,
                                 "Manufacturing and assembly of components, modules, or structures in workshops or yards."@en ;
-                skos:inScheme edo:LifecyclePhaseScheme ;
                 skos:prefLabel "Fabrication"@en ,
                                "Fabricação"@pt-br .
 
@@ -11235,11 +11252,11 @@ edo:Fabrication rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#FinancialAttribute
 edo:FinancialAttribute rdf:type owl:NamedIndividual ,
                                 skos:Concept ;
-                       dcterms:identifier "FinancialAttribute" ;
                        skos:broader edo:AttributeCategories ;
+                       skos:inScheme edo:DomainAttributeCategory ;
+                       dcterms:identifier "FinancialAttribute" ;
                        skos:definition "Attribute category related to costs, prices, depreciation or financial information."@en ,
                                        "Categoria de atributo relacionada a custos, preços, depreciação ou informações financeiras."@pt-br ;
-                       skos:inScheme edo:DomainAttributeCategory ;
                        skos:prefLabel "Atributo financeiro"@pt-br ,
                                       "Financial attribute"@en .
 
@@ -11247,21 +11264,21 @@ edo:FinancialAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#FloatValue
 edo:FloatValue rdf:type owl:NamedIndividual ,
                         skos:Concept ;
-               rdfs:comment "Expected XSD datatype for engineering real-number values."@en ;
-               rdfs:label "Float Value"@en ;
                skos:broader edo:DomainValueTypes ;
                skos:inScheme edo:DomainValueType ;
+               rdfs:comment "Expected XSD datatype for engineering real-number values."@en ;
+               rdfs:label "Float Value"@en ;
                edo:expectedXsdType xsd:decimal .
 
 
 ###  https://w3id.org/energy-domain/edo#FromReferencePoint
 edo:FromReferencePoint rdf:type owl:NamedIndividual ,
                                 skos:Concept ;
-                       dcterms:identifier "FromReferencePoint" ;
                        skos:broader edo:DomainValueConcepts ;
+                       skos:inScheme edo:DomainValueConcept ;
+                       dcterms:identifier "FromReferencePoint" ;
                        skos:definition "Longitudinal orientation value indicating that the placement is measured from the reference point along the applicable longitudinal direction."@en ,
                                        "Valor de orientação longitudinal que indica que o posicionamento é medido a partir do ponto de referência ao longo da direção longitudinal aplicável."@pt-br ;
-                       skos:inScheme edo:DomainValueConcept ;
                        skos:prefLabel "A partir do ponto de referência"@pt-br ,
                                       "From reference point"@en .
 
@@ -11269,11 +11286,11 @@ edo:FromReferencePoint rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#FunctionalAttribute
 edo:FunctionalAttribute rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "FunctionalAttribute" ;
                         skos:broader edo:AttributeCategories ;
+                        skos:inScheme edo:DomainAttributeCategory ;
+                        dcterms:identifier "FunctionalAttribute" ;
                         skos:definition "Attribute category related to functional characteristics, behaviour, intended purpose or capabilities."@en ,
                                         "Categoria de atributo relacionada a características funcionais, comportamento, finalidade pretendida ou capacidades."@pt-br ;
-                        skos:inScheme edo:DomainAttributeCategory ;
                         skos:prefLabel "Atributo funcional"@pt-br ,
                                        "Functional attribute"@en .
 
@@ -11281,22 +11298,22 @@ edo:FunctionalAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Geothermal
 edo:Geothermal rdf:type owl:NamedIndividual ,
                         skos:Concept ;
+               skos:broader edo:Renewable ;
+               skos:inScheme edo:IndustrialDomainScheme ;
                rdfs:label "Energia Geotérmica"@pt-br ,
                           "Geothermal Energy"@en ;
-               skos:broader edo:Renewable ;
                skos:definition "Energia derivada do calor armazenado abaixo da superfície da Terra."@pt-br ,
-                               "Energy derived from heat stored beneath the Earth's surface."@en ;
-               skos:inScheme edo:IndustrialDomainScheme .
+                               "Energy derived from heat stored beneath the Earth's surface."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#GeothermalDirectUse
 edo:GeothermalDirectUse rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "GeothermalDirectUse" ;
                         skos:broader edo:Geothermal ;
+                        skos:inScheme edo:IndustrialDomainScheme ;
+                        dcterms:identifier "GeothermalDirectUse" ;
                         skos:definition "Direct use of geothermal energy takes advantage of low or medium temperature geothermal resources for heating buildings, greenhouses, aquaculture facilities, or industrial processes."@en ,
                                         "O uso direto da energia geotérmica aproveita recursos geotérmicos de baixa ou média temperatura para aquecer edifícios, estufas, instalações de aquicultura ou processos industriais."@pt-br ;
-                        skos:inScheme edo:IndustrialDomainScheme ;
                         skos:prefLabel "Geothermal Direct Use"@en ,
                                        "Uso Direto Geotérmico"@pt-br .
 
@@ -11304,11 +11321,11 @@ edo:GeothermalDirectUse rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#GeothermalElectricity
 edo:GeothermalElectricity rdf:type owl:NamedIndividual ,
                                    skos:Concept ;
-                          dcterms:identifier "GeothermalElectricity" ;
                           skos:broader edo:Geothermal ;
+                          skos:inScheme edo:IndustrialDomainScheme ;
+                          dcterms:identifier "GeothermalElectricity" ;
                           skos:definition "A geração elétrica geotérmica utiliza recursos geotérmicos de alta entalpia para produzir vapor que aciona turbinas e gera energia renovável. É aplicada principalmente em regiões vulcânicas com reservatórios geotérmicos acessíveis."@pt-br ,
                                           "Geothermal electricity generation uses high-enthalpy geothermal resources to produce steam that drives turbines and generates renewable power. It is mainly applied in volcanic regions with accessible geothermal reservoirs."@en ;
-                          skos:inScheme edo:IndustrialDomainScheme ;
                           skos:prefLabel "Geothermal Electricity Generation"@en ,
                                          "Geração Elétrica Geotérmica"@pt-br .
 
@@ -11316,22 +11333,22 @@ edo:GeothermalElectricity rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#HVACEngineering
 edo:HVACEngineering rdf:type owl:NamedIndividual ,
                              skos:Concept ;
+                    skos:broader edo:TechnicalDiscipline ;
+                    skos:inScheme edo:TechnicalDisciplineScheme ;
                     rdfs:label "Engenharia de HVAC"@pt-br ,
                                "HVAC Engineering"@en ;
-                    skos:broader edo:TechnicalDiscipline ;
                     skos:definition "Disciplina de engenharia focada em sistemas de aquecimento, ventilação e ar condicionado."@pt-br ,
-                                    "Engineering discipline focused on heating, ventilation and air conditioning systems."@en ;
-                    skos:inScheme edo:TechnicalDisciplineScheme .
+                                    "Engineering discipline focused on heating, ventilation and air conditioning systems."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#HistoricalAttribute
 edo:HistoricalAttribute rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "HistoricalAttribute" ;
                         skos:broader edo:AttributeCategories ;
+                        skos:inScheme edo:DomainAttributeCategory ;
+                        dcterms:identifier "HistoricalAttribute" ;
                         skos:definition "Attribute category related to records of past events, inspections or modifications."@en ,
                                         "Categoria de atributo relacionada a registros de eventos passados, inspeções ou modificações."@pt-br ;
-                        skos:inScheme edo:DomainAttributeCategory ;
                         skos:prefLabel "Atributo histórico"@pt-br ,
                                        "Historical attribute"@en .
 
@@ -11339,11 +11356,11 @@ edo:HistoricalAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#HybridRenewables
 edo:HybridRenewables rdf:type owl:NamedIndividual ,
                               skos:Concept ;
-                     dcterms:identifier "HybridRenewables" ;
                      skos:broader edo:Renewable ;
+                     skos:inScheme edo:IndustrialDomainScheme ;
+                     dcterms:identifier "HybridRenewables" ;
                      skos:definition "Hybrid renewables are systems that combine two or more renewable energy sources, such as solar and wind, in order to improve reliability, efficiency and land use. They represent a growing field of integration that enables more flexible and resilient energy generation."@en ,
                                      "Renováveis híbridas são sistemas que combinam duas ou mais fontes de energia renovável, como solar e eólica, com o objetivo de melhorar a confiabilidade, a eficiência e o uso do solo. Representam um campo crescente de integração que permite uma geração de energia mais flexível e resiliente."@pt-br ;
-                     skos:inScheme edo:IndustrialDomainScheme ;
                      skos:prefLabel "Hybrid Renewables"@en ,
                                     "Renováveis Híbridas"@pt-br .
 
@@ -11351,33 +11368,33 @@ edo:HybridRenewables rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#HydrogenEnergy
 edo:HydrogenEnergy rdf:type owl:NamedIndividual ,
                             skos:Concept ;
+                   skos:broader edo:Domain ;
+                   skos:inScheme edo:IndustrialDomainScheme ;
                    rdfs:label "Energia de Hidrogênio"@pt-br ,
                               "Hydrogen Energy"@en ;
-                   skos:broader edo:Domain ;
                    skos:definition "Production, storage, and utilization of hydrogen as an energy carrier."@en ,
-                                   "Produção, armazenamento e utilização de hidrogênio como vetor energético."@pt-br ;
-                   skos:inScheme edo:IndustrialDomainScheme .
+                                   "Produção, armazenamento e utilização de hidrogênio como vetor energético."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Hydropower
 edo:Hydropower rdf:type owl:NamedIndividual ,
                         skos:Concept ;
+               skos:broader edo:Renewable ;
+               skos:inScheme edo:IndustrialDomainScheme ;
                rdfs:label "Energia Hidrelétrica"@pt-br ,
                           "Hydropower"@en ;
-               skos:broader edo:Renewable ;
                skos:definition "Energia gerada a partir da água em movimento, incluindo barragens e energia das marés."@pt-br ,
-                               "Energy generated from moving water, including dams and tidal power."@en ;
-               skos:inScheme edo:IndustrialDomainScheme .
+                               "Energy generated from moving water, including dams and tidal power."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#IdentificationAttribute
 edo:IdentificationAttribute rdf:type owl:NamedIndividual ,
                                      skos:Concept ;
-                            dcterms:identifier "IdentificationAttribute" ;
                             skos:broader edo:AttributeCategories ;
+                            skos:inScheme edo:DomainAttributeCategory ;
+                            dcterms:identifier "IdentificationAttribute" ;
                             skos:definition "Attribute category related to identifiers, codes, names or reference identifiers."@en ,
                                             "Categoria de atributo relacionada a identificadores, códigos, nomes ou identificadores de referência."@pt-br ;
-                            skos:inScheme edo:DomainAttributeCategory ;
                             skos:prefLabel "Atributo de identificação"@pt-br ,
                                            "Identification attribute"@en .
 
@@ -11385,11 +11402,11 @@ edo:IdentificationAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#IdentifierAttribute
 edo:IdentifierAttribute rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "IdentifierAttribute" ;
                         skos:broader edo:AttributeOntologicalNatures ;
+                        skos:inScheme edo:DomainAttributeOntologicalNature ;
+                        dcterms:identifier "IdentifierAttribute" ;
                         skos:definition "Atributo que identifica, nomeia, codifica ou referencia um elemento de domínio, artefato, material, projeto ou documento."@pt-br ,
                                         "Attribute that identifies, names, codes or references a domain element, artefact, material, project or document."@en ;
-                        skos:inScheme edo:DomainAttributeOntologicalNature ;
                         skos:prefLabel "Atributo identificador"@pt-br ,
                                        "Identifier attribute"@en .
 
@@ -11397,11 +11414,11 @@ edo:IdentifierAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ImportedValue
 edo:ImportedValue rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "ImportedValue" ;
                   skos:broader edo:AttributeValueOrigins ;
+                  skos:inScheme edo:DomainAttributeValueOrigin ;
+                  dcterms:identifier "ImportedValue" ;
                   skos:definition "Valor importado de outro sistema, conjunto de dados ou fonte de informação."@pt-br ,
                                   "Value imported from another system, dataset or information source."@en ;
-                  skos:inScheme edo:DomainAttributeValueOrigin ;
                   skos:prefLabel "Imported value"@en ,
                                  "Valor importado"@pt-br .
 
@@ -11409,16 +11426,17 @@ edo:ImportedValue rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#IndustrialDomainScheme
 edo:IndustrialDomainScheme rdf:type owl:NamedIndividual ,
                                     skos:ConceptScheme ;
+                           skos:hasTopConcept edo:Domain ;
                            dcterms:identifier "IndustrialDomainScheme" ;
                            rdfs:label "Esquema de domínio industrial"@pt-br ,
                                       "Industrial domain scheme"@en ;
                            skos:definition "Controlled vocabulary for high-level industrial domains and subdomains used by EDO."@en ,
-                                           "Vocabulário controlado para domínios e subdomínios industriais de alto nível usados pela EDO."@pt-br ;
-                           skos:hasTopConcept edo:Domain .
+                                           "Vocabulário controlado para domínios e subdomínios industriais de alto nível usados pela EDO."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#IndustrialDomains
 edo:IndustrialDomains rdf:type owl:NamedIndividual ,
+                               skos:Concept ,
                                edo:DomainVocabularyConcept ;
                       skos:broader edo:VocabularyConcepts ;
                       skos:prefLabel "Domínios Industriais"@pt-br ,
@@ -11428,11 +11446,11 @@ edo:IndustrialDomains rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Installation
 edo:Installation rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 dcterms:identifier "Installation" ;
                  skos:broader edo:ConstructionPhase ;
+                 skos:inScheme edo:LifecyclePhaseScheme ;
+                 dcterms:identifier "Installation" ;
                  skos:definition "Placement and integration of equipment, piping, and structures at the site."@en ,
                                  "Posicionamento e integração de equipamentos, tubulações e estruturas no local."@pt-br ;
-                 skos:inScheme edo:LifecyclePhaseScheme ;
                  skos:prefLabel "Instalação"@pt-br ,
                                 "Installation"@en .
 
@@ -11440,11 +11458,11 @@ edo:Installation rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#InstalledRole
 edo:InstalledRole rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "InstalledRole" ;
                   skos:broader edo:AttributeRoles ;
+                  skos:inScheme edo:DomainAttributeRole ;
+                  dcterms:identifier "InstalledRole" ;
                   skos:definition "Papel de um atributo que expressa um valor ou condição factual do ativo instalado."@pt-br ,
                                   "Role of an attribute that expresses a factual value or condition of the installed asset."@en ;
-                  skos:inScheme edo:DomainAttributeRole ;
                   skos:prefLabel "Installed role"@en ,
                                  "Papel instalado"@pt-br .
 
@@ -11452,44 +11470,44 @@ edo:InstalledRole rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#InstanceLevelAttribute
 edo:InstanceLevelAttribute rdf:type owl:NamedIndividual ,
                                     skos:Concept ;
+                           skos:broader edo:AttributeScopes ;
+                           skos:inScheme edo:DomainAttributeScope ;
                            rdfs:comment "Attribute specific to a real-world individual instance of item."@en ;
                            rdfs:label "Atributo de Instância"@pt-br ,
                                       "Instance-Level Attribute"@en ;
-                           skos:broader edo:AttributeScopes ;
                            skos:definition "Atributo específico a uma instância individual no mundo real"@pt-br ,
-                                           "Attribute specific to a real-world individual instance of item"@en ;
-                           skos:inScheme edo:DomainAttributeScope .
+                                           "Attribute specific to a real-world individual instance of item"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#InstrumentationEngineering
 edo:InstrumentationEngineering rdf:type owl:NamedIndividual ,
                                         skos:Concept ;
+                               skos:broader edo:TechnicalDiscipline ;
+                               skos:inScheme edo:TechnicalDisciplineScheme ;
                                rdfs:label "Engenharia de Instrumentação"@pt-br ,
                                           "Instrumentation Engineering"@en ;
-                               skos:broader edo:TechnicalDiscipline ;
                                skos:definition "Disciplina de engenharia focada em sistemas de instrumentação de medição e controle."@pt-br ,
-                                               "Engineering discipline focused on measurement and control instrumentation systems."@en ;
-                               skos:inScheme edo:TechnicalDisciplineScheme .
+                                               "Engineering discipline focused on measurement and control instrumentation systems."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#IntValue
 edo:IntValue rdf:type owl:NamedIndividual ,
                       skos:Concept ;
-             rdfs:comment "Expected XSD datatype for integer values."@en ;
-             rdfs:label "Integer Value"@en ;
              skos:broader edo:DomainValueTypes ;
              skos:inScheme edo:DomainValueType ;
+             rdfs:comment "Expected XSD datatype for integer values."@en ;
+             rdfs:label "Integer Value"@en ;
              edo:expectedXsdType xsd:integer .
 
 
 ###  https://w3id.org/energy-domain/edo#LargeHydropower
 edo:LargeHydropower rdf:type owl:NamedIndividual ,
                              skos:Concept ;
-                    dcterms:identifier "LargeHydropower" ;
                     skos:broader edo:Hydropower ;
+                    skos:inScheme edo:IndustrialDomainScheme ;
+                    dcterms:identifier "LargeHydropower" ;
                     skos:definition "Large hydropower plants generate electricity by harnessing the kinetic and potential energy of rivers using large dams and reservoirs, typically above 30 MW capacity. They provide reliable energy but may cause significant environmental and social impacts."@en ,
                                     "Usinas hidrelétricas de grande porte geram eletricidade aproveitando a energia cinética e potencial dos rios por meio de grandes barragens e reservatórios, geralmente acima de 30 MW de capacidade. Fornecem energia confiável, mas podem causar impactos ambientais e sociais significativos."@pt-br ;
-                    skos:inScheme edo:IndustrialDomainScheme ;
                     skos:prefLabel "Hidrelétrica de Grande Porte"@pt-br ,
                                    "Large Hydropower"@en .
 
@@ -11497,14 +11515,14 @@ edo:LargeHydropower rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#LifecyclePhase
 edo:LifecyclePhase rdf:type owl:NamedIndividual ,
                             skos:Concept ;
-                   dcterms:identifier "LifecyclePhase" ;
                    skos:broader edo:LifecyclePhases ;
+                   skos:inScheme edo:LifecyclePhaseScheme ;
+                   skos:topConceptOf edo:LifecyclePhaseScheme ;
+                   dcterms:identifier "LifecyclePhase" ;
                    skos:definition "A stage in the lifecycle of an industrial asset, from conception to decommissioning."@en ,
                                    "Uma etapa no ciclo de vida de um ativo industrial, desde a concepção até a desativação."@pt-br ;
-                   skos:inScheme edo:LifecyclePhaseScheme ;
                    skos:prefLabel "Fase do ciclo de vida"@pt-br ,
-                                  "Lifecycle phase"@en ;
-                   skos:topConceptOf edo:LifecyclePhaseScheme .
+                                  "Lifecycle phase"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#LifecyclePhaseScheme
@@ -11519,6 +11537,7 @@ edo:LifecyclePhaseScheme rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#LifecyclePhases
 edo:LifecyclePhases rdf:type owl:NamedIndividual ,
+                             skos:Concept ,
                              edo:DomainVocabularyConcept ;
                     skos:broader edo:VocabularyConcepts ;
                     skos:prefLabel "Fases de Ciclo de Vida"@pt-br ,
@@ -11528,11 +11547,11 @@ edo:LifecyclePhases rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#LocationAttribute
 edo:LocationAttribute rdf:type owl:NamedIndividual ,
                                skos:Concept ;
-                      dcterms:identifier "LocationAttribute" ;
                       skos:broader edo:AttributeNatures ;
+                      skos:inScheme edo:DomainAttributeNature ;
+                      dcterms:identifier "LocationAttribute" ;
                       skos:definition "Attribute nature related to physical, spatial or installation location."@en ,
                                       "Natureza de atributo relacionada a localização física, espacial ou de instalação."@pt-br ;
-                      skos:inScheme edo:DomainAttributeNature ;
                       skos:prefLabel "Atributo de localização"@pt-br ,
                                      "Location attribute"@en .
 
@@ -11540,28 +11559,29 @@ edo:LocationAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#LocationType
 edo:LocationType rdf:type owl:NamedIndividual ,
                           skos:Concept ;
+                 skos:broader edo:LocationTypes ;
+                 skos:inScheme edo:LocationTypeScheme ;
+                 skos:topConceptOf edo:LocationTypeScheme ;
                  rdfs:label "Location Type"@en ,
                             "Tipo de Localização"@pt-br ;
-                 skos:broader edo:LocationTypes ;
                  skos:definition "Classification of industrial activities based on their geographical location."@en ,
-                                 "Classificação de atividades industriais baseada em sua localização geográfica."@pt-br ;
-                 skos:inScheme edo:LocationTypeScheme ;
-                 skos:topConceptOf edo:LocationTypeScheme .
+                                 "Classificação de atividades industriais baseada em sua localização geográfica."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#LocationTypeScheme
 edo:LocationTypeScheme rdf:type owl:NamedIndividual ,
                                 skos:ConceptScheme ;
+                       skos:hasTopConcept edo:LocationType ;
                        dcterms:identifier "LocationTypeScheme" ;
                        rdfs:label "Esquema de tipo de localização"@pt-br ,
                                   "Location type scheme"@en ;
                        skos:definition "Controlled vocabulary for location-type classifications used by EDO."@en ,
-                                       "Vocabulário controlado para classificações de tipo de localização usadas pela EDO."@pt-br ;
-                       skos:hasTopConcept edo:LocationType .
+                                       "Vocabulário controlado para classificações de tipo de localização usadas pela EDO."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#LocationTypes
 edo:LocationTypes rdf:type owl:NamedIndividual ,
+                           skos:Concept ,
                            edo:DomainVocabularyConcept ;
                   skos:broader edo:VocabularyConcepts ;
                   skos:prefLabel "Location Types"@en ,
@@ -11571,21 +11591,21 @@ edo:LocationTypes rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#LongValue
 edo:LongValue rdf:type owl:NamedIndividual ,
                        skos:Concept ;
-              rdfs:comment "Expected XSD datatype for long integer values."@en ;
-              rdfs:label "Long Value"@en ;
               skos:broader edo:DomainValueTypes ;
               skos:inScheme edo:DomainValueType ;
+              rdfs:comment "Expected XSD datatype for long integer values."@en ;
+              rdfs:label "Long Value"@en ;
               edo:expectedXsdType xsd:long .
 
 
 ###  https://w3id.org/energy-domain/edo#Maintenance
 edo:Maintenance rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                dcterms:identifier "Maintenance" ;
                 skos:broader edo:OperationPhase ;
+                skos:inScheme edo:LifecyclePhaseScheme ;
+                dcterms:identifier "Maintenance" ;
                 skos:definition "Intervenções planejadas ou corretivas para preservar a funcionalidade e segurança do ativo."@pt-br ,
                                 "Planned or corrective interventions to preserve asset functionality and safety."@en ;
-                skos:inScheme edo:LifecyclePhaseScheme ;
                 skos:prefLabel "Maintenance"@en ,
                                "Manutenção"@pt-br .
 
@@ -11593,11 +11613,11 @@ edo:Maintenance rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Marine
 edo:Marine rdf:type owl:NamedIndividual ,
                     skos:Concept ;
-           dcterms:identifier "Marine" ;
            skos:broader edo:Renewable ;
+           skos:inScheme edo:IndustrialDomainScheme ;
+           dcterms:identifier "Marine" ;
            skos:definition "Energia marinha refere-se à energia renovável aproveitada dos oceanos e mares, incluindo fluxos de marés, movimento das ondas, correntes oceânicas, gradientes térmicos e diferenças de salinidade. Representa um conjunto diversificado de tecnologias em desenvolvimento que visam complementar as fontes renováveis tradicionais ao explorar o vasto e previsível potencial energético do ambiente marinho."@pt-br ,
                            "Marine energy refers to renewable energy harnessed from the oceans and seas, including tidal flows, wave motion, ocean currents, thermal gradients and salinity differences. It represents a diverse set of technologies under development that aim to complement traditional renewable energy sources by exploiting the vast and predictable energy potential of the marine environment."@en ;
-           skos:inScheme edo:IndustrialDomainScheme ;
            skos:prefLabel "Energia Marinha"@pt-br ,
                           "Marine Energy"@en .
 
@@ -11605,11 +11625,11 @@ edo:Marine rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#MaterialCompositionAttribute
 edo:MaterialCompositionAttribute rdf:type owl:NamedIndividual ,
                                           skos:Concept ;
-                                 dcterms:identifier "MaterialCompositionAttribute" ;
                                  skos:broader edo:AttributeOntologicalNatures ;
+                                 skos:inScheme edo:DomainAttributeOntologicalNature ;
+                                 dcterms:identifier "MaterialCompositionAttribute" ;
                                  skos:definition "Atributo que representa identidade de material, família de material, composição ou designação relacionada a material."@pt-br ,
                                                  "Attribute that represents material identity, material family, composition or material-related designation."@en ;
-                                 skos:inScheme edo:DomainAttributeOntologicalNature ;
                                  skos:prefLabel "Atributo de composição material"@pt-br ,
                                                 "Material composition attribute"@en .
 
@@ -11617,11 +11637,11 @@ edo:MaterialCompositionAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#MeasuredValue
 edo:MeasuredValue rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "MeasuredValue" ;
                   skos:broader edo:AttributeValueOrigins ;
+                  skos:inScheme edo:DomainAttributeValueOrigin ;
+                  dcterms:identifier "MeasuredValue" ;
                   skos:definition "Valor obtido por medição direta ou indireta."@pt-br ,
                                   "Value obtained by direct or indirect measurement."@en ;
-                  skos:inScheme edo:DomainAttributeValueOrigin ;
                   skos:prefLabel "Measured value"@en ,
                                  "Valor medido"@pt-br .
 
@@ -11629,17 +11649,18 @@ edo:MeasuredValue rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#MechanicalAttribute
 edo:MechanicalAttribute rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "MechanicalAttribute" ;
                         skos:broader edo:AttributeNatures ;
+                        skos:inScheme edo:DomainAttributeNature ;
+                        dcterms:identifier "MechanicalAttribute" ;
                         skos:definition "Attribute nature related to mechanical behaviour, resistance, load or strength."@en ,
                                         "Natureza de atributo relacionada a comportamento mecânico, resistência, carga ou capacidade estrutural."@pt-br ;
-                        skos:inScheme edo:DomainAttributeNature ;
                         skos:prefLabel "Atributo mecânico"@pt-br ,
                                        "Mechanical attribute"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#MetamodelConcepts
 edo:MetamodelConcepts rdf:type owl:NamedIndividual ,
+                               skos:Concept ,
                                edo:DomainVocabularyConcept ;
                       skos:broader edo:VocabularyConcepts ;
                       skos:prefLabel "Conceitos de Metamodelo"@pt-br ,
@@ -11649,33 +11670,33 @@ edo:MetamodelConcepts rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Midstream
 edo:Midstream rdf:type owl:NamedIndividual ,
                        skos:Concept ;
+              skos:broader edo:OilAndGas ;
+              skos:inScheme edo:IndustrialDomainScheme ;
               rdfs:label "Midstream"@en ,
                          "Midstream"@pt-br ;
-              skos:broader edo:OilAndGas ;
               skos:definition "Oil & Gas sector covering transportation, storage, and wholesale marketing of crude or refined petroleum products."@en ,
-                              "Setor de Petróleo & Gás que abrange transporte, armazenamento e comercialização atacadista de produtos petrolíferos brutos ou refinados."@pt-br ;
-              skos:inScheme edo:IndustrialDomainScheme .
+                              "Setor de Petróleo & Gás que abrange transporte, armazenamento e comercialização atacadista de produtos petrolíferos brutos ou refinados."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#MultiValue
 edo:MultiValue rdf:type owl:NamedIndividual ,
                         skos:Concept ;
+               skos:broader edo:AttributeValueCardinalities ;
+               skos:inScheme edo:DomainAttributeValueCardinality ;
                rdfs:comment "Constraint allowing multiple values"@en ,
                             "Restrição para permitir múltiplos valores"@pt-br ;
                rdfs:label "Multiple Values"@en ,
-                          "Múltiplos Valores"@pt-bt ;
-               skos:broader edo:AttributeValueCardinalities ;
-               skos:inScheme edo:DomainAttributeValueCardinality .
+                          "Múltiplos Valores"@pt-bt .
 
 
 ###  https://w3id.org/energy-domain/edo#NonProjectInstantiableClass
 edo:NonProjectInstantiableClass rdf:type owl:NamedIndividual ,
                                          skos:Concept ;
-                                dcterms:identifier "NonProjectInstantiableClass" ;
                                 skos:broader edo:ClassInstantiationRoles ;
+                                skos:inScheme edo:ClassInstantiationRoleScheme ;
+                                dcterms:identifier "NonProjectInstantiableClass" ;
                                 skos:definition "Class not intended to be instantiated as an occurrence in project or asset information models."@en ,
                                                 "Classe não destinada a ser instanciada como ocorrência em modelos de informação de projetos ou ativos."@pt-br ;
-                                skos:inScheme edo:ClassInstantiationRoleScheme ;
                                 skos:prefLabel "Classe não instanciável em projeto"@pt-br ,
                                                "Non-project-instantiable class"@en .
 
@@ -11683,44 +11704,44 @@ edo:NonProjectInstantiableClass rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Nuclear
 edo:Nuclear rdf:type owl:NamedIndividual ,
                      skos:Concept ;
+            skos:broader edo:Domain ;
+            skos:inScheme edo:IndustrialDomainScheme ;
             rdfs:label "Energia Nuclear"@pt-br ,
                        "Nuclear Energy"@en ;
-            skos:broader edo:Domain ;
             skos:definition "Domínio industrial que abrange a geração de energia a partir de reações nucleares, incluindo fissão e fusão."@pt-br ,
-                            "Industrial domain covering the generation of energy from nuclear reactions, including fission and fusion."@en ;
-            skos:inScheme edo:IndustrialDomainScheme .
+                            "Industrial domain covering the generation of energy from nuclear reactions, including fission and fusion."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#NuclearFuelCycle
 edo:NuclearFuelCycle rdf:type owl:NamedIndividual ,
                               skos:Concept ;
+                     skos:broader edo:Nuclear ;
+                     skos:inScheme edo:IndustrialDomainScheme ;
                      rdfs:label "Ciclo do Combustível Nuclear"@pt-br ,
                                 "Nuclear Fuel Cycle"@en ;
-                     skos:broader edo:Nuclear ;
                      skos:definition "Processes involved in mining, processing, enrichment, and disposal of nuclear fuel."@en ,
-                                     "Processos envolvidos na mineração, processamento, enriquecimento e descarte de combustível nuclear."@pt-br ;
-                     skos:inScheme edo:IndustrialDomainScheme .
+                                     "Processos envolvidos na mineração, processamento, enriquecimento e descarte de combustível nuclear."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#NuclearPowerGeneration
 edo:NuclearPowerGeneration rdf:type owl:NamedIndividual ,
                                     skos:Concept ;
+                           skos:broader edo:Nuclear ;
+                           skos:inScheme edo:IndustrialDomainScheme ;
                            rdfs:label "Geração de Energia Nuclear"@pt-br ,
                                       "Nuclear Power Generation"@en ;
-                           skos:broader edo:Nuclear ;
                            skos:definition "Operation and maintenance of nuclear power plants for electricity production."@en ,
-                                           "Operação e manutenção de usinas nucleares para produção de eletricidade."@pt-br ;
-                           skos:inScheme edo:IndustrialDomainScheme .
+                                           "Operação e manutenção de usinas nucleares para produção de eletricidade."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#OceanCurrents
 edo:OceanCurrents rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "OceanCurrents" ;
                   skos:broader edo:Marine ;
+                  skos:inScheme edo:IndustrialDomainScheme ;
+                  dcterms:identifier "OceanCurrents" ;
                   skos:definition "Energia das correntes oceânicas aproveita o fluxo contínuo das massas de água do oceano impulsionado por ventos, temperatura, salinidade e rotação da Terra. Turbinas instaladas em passagens marítimas estratégicas podem capturar esse recurso constante e previsível para gerar eletricidade renovável."@pt-br ,
                                   "Ocean currents energy harnesses the continuous flow of ocean water masses driven by wind, temperature, salinity and Earth’s rotation. Turbines placed in strategic marine passages can capture this steady and predictable resource to generate renewable electricity."@en ;
-                  skos:inScheme edo:IndustrialDomainScheme ;
                   skos:prefLabel "Energia das Correntes Oceânicas"@pt-br ,
                                  "Ocean Currents Energy"@en .
 
@@ -11728,11 +11749,11 @@ edo:OceanCurrents rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OceanThermal
 edo:OceanThermal rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 dcterms:identifier "OceanThermal" ;
                  skos:broader edo:Marine ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 dcterms:identifier "OceanThermal" ;
                  skos:definition "A conversão de energia térmica oceânica (OTEC) explora a diferença de temperatura entre as águas superficiais quentes e as águas profundas frias para acionar um ciclo termodinâmico e produzir eletricidade. Oferece um vasto potencial de energia renovável ainda pouco explorado em regiões tropicais."@pt-br ,
                                  "Ocean thermal energy conversion (OTEC) exploits the temperature difference between warm surface waters and cold deep waters to drive a thermodynamic cycle and produce electricity. It offers a vast, largely untapped renewable energy potential in tropical regions."@en ;
-                 skos:inScheme edo:IndustrialDomainScheme ;
                  skos:prefLabel "Conversão de Energia Térmica Oceânica"@pt-br ,
                                 "Ocean Thermal Energy Conversion"@en .
 
@@ -11740,22 +11761,22 @@ edo:OceanThermal rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Offshore
 edo:Offshore rdf:type owl:NamedIndividual ,
                       skos:Concept ;
+             skos:broader edo:LocationType ;
+             skos:inScheme edo:LocationTypeScheme ;
              rdfs:label "Offshore"@en ,
                         "Offshore"@pt-br ;
-             skos:broader edo:LocationType ;
              skos:definition "Atividades industriais realizadas no mar, tipicamente para produção de petróleo & gás ou energia eólica."@pt-br ,
-                             "Industrial activities conducted at sea, typically for oil & gas or wind energy production."@en ;
-             skos:inScheme edo:LocationTypeScheme .
+                             "Industrial activities conducted at sea, typically for oil & gas or wind energy production."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#OffshoreWind
 edo:OffshoreWind rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 dcterms:identifier "OffshoreWind" ;
                  skos:broader edo:Wind ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 dcterms:identifier "OffshoreWind" ;
                  skos:definition "Energia eólica offshore é gerada por turbinas localizadas em corpos d’água, geralmente em áreas costeiras rasas, onde os ventos são mais fortes e estáveis, permitindo a geração de energia em grande escala."@pt-br ,
                                  "Offshore wind energy is generated by turbines located in bodies of water, usually in shallow coastal areas, where winds are stronger and more stable, enabling large-scale power generation."@en ;
-                 skos:inScheme edo:IndustrialDomainScheme ;
                  skos:prefLabel "Eólica Offshore"@pt-br ,
                                 "Offshore Wind"@en .
 
@@ -11763,22 +11784,22 @@ edo:OffshoreWind rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OilAndGas
 edo:OilAndGas rdf:type owl:NamedIndividual ,
                        skos:Concept ;
+              skos:broader edo:Domain ;
+              skos:inScheme edo:IndustrialDomainScheme ;
               rdfs:label "Oil & Gas"@en ,
                          "Petróleo & Gás"@pt-br ;
-              skos:broader edo:Domain ;
               skos:definition "Domínio industrial que abrange todas as atividades relacionadas à exploração, produção, refino e distribuição de petróleo e gás."@pt-br ,
-                              "Industrial domain covering all activities related to the exploration, production, refining, and distribution of oil and gas."@en ;
-              skos:inScheme edo:IndustrialDomainScheme .
+                              "Industrial domain covering all activities related to the exploration, production, refining, and distribution of oil and gas."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#OilAndGasDevelopment
 edo:OilAndGasDevelopment rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
-                         dcterms:identifier "OilAndGasDevelopment" ;
                          skos:broader edo:Upstream ;
+                         skos:inScheme edo:IndustrialDomainScheme ;
+                         dcterms:identifier "OilAndGasDevelopment" ;
                          skos:definition "Desenvolvimento de óleo e gás refere-se ao planejamento, engenharia, construção e comissionamento de instalações para explorar recursos hidrocarbonetos descobertos. Inclui perfuração de poços de desenvolvimento, instalação de instalações de produção e estabelecimento de infraestrutura de apoio para permitir extração e processamento."@pt-br ,
                                          "Oil and gas development refers to the planning, engineering, construction, and commissioning of facilities to exploit discovered hydrocarbon resources. It includes drilling development wells, installing production facilities, and establishing supporting infrastructure to enable extraction and processing."@en ;
-                         skos:inScheme edo:IndustrialDomainScheme ;
                          skos:prefLabel "Desenvolvimento de Óleo e Gás"@pt-br ,
                                         "Oil and Gas Development"@en .
 
@@ -11786,11 +11807,11 @@ edo:OilAndGasDevelopment rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OilAndGasDistribution
 edo:OilAndGasDistribution rdf:type owl:NamedIndividual ,
                                    skos:Concept ;
-                          dcterms:identifier "OilAndGasDistribution" ;
                           skos:broader edo:Downstream ;
+                          skos:inScheme edo:IndustrialDomainScheme ;
+                          dcterms:identifier "OilAndGasDistribution" ;
                           skos:definition "Distribuição de óleo e gás abrange o transporte, armazenamento e entrega de produtos petrolíferos das unidades de processamento até os consumidores finais. Envolve dutos, terminais, navios-tanque e logística associada para garantir fornecimento seguro, confiável e eficiente de combustíveis e matérias-primas."@pt-br ,
                                           "Oil and gas distribution covers the transportation, storage, and delivery of petroleum products from processing facilities to end users. It involves pipelines, terminals, tankers, and associated logistics to ensure safe, reliable, and efficient supply of fuels and feedstocks."@en ;
-                          skos:inScheme edo:IndustrialDomainScheme ;
                           skos:prefLabel "Distribuição de Óleo e Gás"@pt-br ,
                                          "Oil and Gas Distribution"@en .
 
@@ -11798,11 +11819,11 @@ edo:OilAndGasDistribution rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OilAndGasExploration
 edo:OilAndGasExploration rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
-                         dcterms:identifier "OilAndGasExploration" ;
                          skos:broader edo:Upstream ;
+                         skos:inScheme edo:IndustrialDomainScheme ;
+                         dcterms:identifier "OilAndGasExploration" ;
                          skos:definition "Exploração de óleo e gás envolve a identificação e avaliação de potenciais reservas de hidrocarbonetos usando métodos geológicos, geofísicos e geoquímicos. As atividades incluem levantamentos sísmicos, perfuração exploratória e caracterização de reservatórios para avaliar a viabilidade da extração."@pt-br ,
                                          "Oil and gas exploration involves identifying and evaluating potential hydrocarbon reserves using geological, geophysical, and geochemical methods. Activities include seismic surveys, exploratory drilling, and reservoir characterization to assess the viability of extraction."@en ;
-                         skos:inScheme edo:IndustrialDomainScheme ;
                          skos:prefLabel "Exploração de Óleo e Gás"@pt-br ,
                                         "Oil and Gas Exploration"@en .
 
@@ -11810,11 +11831,11 @@ edo:OilAndGasExploration rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OilAndGasProduction
 edo:OilAndGasProduction rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "OilAndGasProduction" ;
                         skos:broader edo:Upstream ;
+                        skos:inScheme edo:IndustrialDomainScheme ;
+                        dcterms:identifier "OilAndGasProduction" ;
                         skos:definition "Oil and gas production encompasses the extraction of hydrocarbons from reservoirs, including well operations, artificial lift, and initial processing to separate oil, gas, and water. It ensures the continuous supply of raw materials for downstream processing and energy generation."@en ,
                                         "Produção de óleo e gás engloba a extração de hidrocarbonetos dos reservatórios, incluindo operações de poços, elevação artificial e processamento inicial para separar óleo, gás e água. Garante o fornecimento contínuo de matérias-primas para processamento downstream e geração de energia."@pt-br ;
-                        skos:inScheme edo:IndustrialDomainScheme ;
                         skos:prefLabel "Oil and Gas Production"@en ,
                                        "Produção de Óleo e Gás"@pt-br .
 
@@ -11822,11 +11843,11 @@ edo:OilAndGasProduction rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OilAndGasRefining
 edo:OilAndGasRefining rdf:type owl:NamedIndividual ,
                                skos:Concept ;
-                      dcterms:identifier "OilAndGasRefining" ;
                       skos:broader edo:Downstream ;
+                      skos:inScheme edo:IndustrialDomainScheme ;
+                      dcterms:identifier "OilAndGasRefining" ;
                       skos:definition "Oil and gas refining involves the conversion of crude oil and natural gas liquids into usable products such as gasoline, diesel, jet fuel, and petrochemicals. Refining processes include distillation, cracking, reforming, and treatment to meet product specifications and environmental standards."@en ,
                                       "Refino de óleo e gás envolve a conversão de petróleo bruto e líquidos de gás natural em produtos utilizáveis, como gasolina, diesel, querosene e petroquímicos. Os processos de refino incluem destilação, craqueamento, reforma e tratamento para atender especificações de produtos e padrões ambientais."@pt-br ;
-                      skos:inScheme edo:IndustrialDomainScheme ;
                       skos:prefLabel "Oil and Gas Refining"@en ,
                                      "Refino de Óleo e Gás"@pt-br .
 
@@ -11834,22 +11855,22 @@ edo:OilAndGasRefining rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Onshore
 edo:Onshore rdf:type owl:NamedIndividual ,
                      skos:Concept ;
+            skos:broader edo:LocationType ;
+            skos:inScheme edo:LocationTypeScheme ;
             rdfs:label "Onshore"@en ,
                        "Onshore"@pt-br ;
-            skos:broader edo:LocationType ;
             skos:definition "Atividades industriais realizadas em terra."@pt-br ,
-                            "Industrial activities conducted on land."@en ;
-            skos:inScheme edo:LocationTypeScheme .
+                            "Industrial activities conducted on land."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#OnshoreWind
 edo:OnshoreWind rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                dcterms:identifier "OnshoreWind" ;
                 skos:broader edo:Wind ;
+                skos:inScheme edo:IndustrialDomainScheme ;
+                dcterms:identifier "OnshoreWind" ;
                 skos:definition "Energia eólica onshore é produzida por turbinas eólicas instaladas em terra, geralmente em regiões com recursos eólicos elevados e consistentes. É uma das fontes de energia renovável mais maduras e economicamente viáveis."@pt-br ,
                                 "Onshore wind energy is produced by wind turbines installed on land, typically in areas with high and consistent wind resources. It is one of the most mature and cost-effective renewable energy sources."@en ;
-                skos:inScheme edo:IndustrialDomainScheme ;
                 skos:prefLabel "Eólica Onshore"@pt-br ,
                                "Onshore Wind"@en .
 
@@ -11857,11 +11878,11 @@ edo:OnshoreWind rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OperatingRole
 edo:OperatingRole rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "OperatingRole" ;
                   skos:broader edo:AttributeRoles ;
+                  skos:inScheme edo:DomainAttributeRole ;
+                  dcterms:identifier "OperatingRole" ;
                   skos:definition "Papel de um atributo que expressa um valor ou condição operacional."@pt-br ,
                                   "Role of an attribute that expresses an operating value or condition."@en ;
-                  skos:inScheme edo:DomainAttributeRole ;
                   skos:prefLabel "Operating role"@en ,
                                  "Papel operacional"@pt-br .
 
@@ -11869,11 +11890,11 @@ edo:OperatingRole rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Operation
 edo:Operation rdf:type owl:NamedIndividual ,
                        skos:Concept ;
-              dcterms:identifier "Operation" ;
               skos:broader edo:OperationPhase ;
+              skos:inScheme edo:LifecyclePhaseScheme ;
+              dcterms:identifier "Operation" ;
               skos:definition "Normal use of the asset for its intended purpose, including monitoring and control."@en ,
                               "Uso normal do ativo para seu propósito pretendido, incluindo monitoramento e controle."@pt-br ;
-              skos:inScheme edo:LifecyclePhaseScheme ;
               skos:prefLabel "Operation"@en ,
                              "Operação"@pt-br .
 
@@ -11881,9 +11902,9 @@ edo:Operation rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OperationPhase
 edo:OperationPhase rdf:type owl:NamedIndividual ,
                             skos:Concept ;
-                   dcterms:identifier "OperationPhase" ;
                    skos:broader edo:LifecyclePhase ;
                    skos:inScheme edo:LifecyclePhaseScheme ;
+                   dcterms:identifier "OperationPhase" ;
                    skos:prefLabel "Fase de Operação"@pt-br ,
                                   "Operation Phase"@en .
 
@@ -11891,11 +11912,11 @@ edo:OperationPhase rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#OperationalAttribute
 edo:OperationalAttribute rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
-                         dcterms:identifier "OperationalAttribute" ;
                          skos:broader edo:AttributeNatures ;
+                         skos:inScheme edo:DomainAttributeNature ;
+                         dcterms:identifier "OperationalAttribute" ;
                          skos:definition "Attribute nature related to operation, use or service conditions."@en ,
                                          "Natureza de atributo relacionada a operação, uso ou condições de serviço."@pt-br ;
-                         skos:inScheme edo:DomainAttributeNature ;
                          skos:prefLabel "Atributo operacional"@pt-br ,
                                         "Operational attribute"@en .
 
@@ -11903,22 +11924,22 @@ edo:OperationalAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PackageEquipmentEngineering
 edo:PackageEquipmentEngineering rdf:type owl:NamedIndividual ,
                                          skos:Concept ;
+                                skos:broader edo:EquipmentEngineering ;
+                                skos:inScheme edo:TechnicalDisciplineScheme ;
                                 rdfs:label "Engenharia de Equipamentos Modulares"@pt-br ,
                                            "Package Equipment Engineering"@en ;
-                                skos:broader edo:EquipmentEngineering ;
                                 skos:definition "Engenharia de sistemas de equipamentos modulares ou montados em skids."@pt-br ,
-                                                "Engineering of skid-mounted or modular equipment systems."@en ;
-                                skos:inScheme edo:TechnicalDisciplineScheme .
+                                                "Engineering of skid-mounted or modular equipment systems."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#PerformanceAttribute
 edo:PerformanceAttribute rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
-                         dcterms:identifier "PerformanceAttribute" ;
                          skos:broader edo:AttributeNatures ;
+                         skos:inScheme edo:DomainAttributeNature ;
+                         dcterms:identifier "PerformanceAttribute" ;
                          skos:definition "Attribute nature related to expected or observed performance."@en ,
                                          "Natureza de atributo relacionada a desempenho esperado ou observado."@pt-br ;
-                         skos:inScheme edo:DomainAttributeNature ;
                          skos:prefLabel "Atributo de desempenho"@pt-br ,
                                         "Performance attribute"@en .
 
@@ -11926,11 +11947,11 @@ edo:PerformanceAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Photovoltaic
 edo:Photovoltaic rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 dcterms:identifier "Photovoltaic" ;
                  skos:broader edo:Solar ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 dcterms:identifier "Photovoltaic" ;
                  skos:definition "Energia fotovoltaica é gerada pela conversão direta da luz solar em eletricidade usando materiais semicondutores como o silício. É uma das tecnologias renováveis de crescimento mais rápido, aplicável em escalas que variam de telhados residenciais a grandes usinas solares."@pt-br ,
                                  "Photovoltaic energy is generated by converting sunlight directly into electricity using semiconductor materials such as silicon. It is one of the fastest growing renewable technologies, applicable at scales ranging from rooftop panels to utility-scale solar farms."@en ;
-                 skos:inScheme edo:IndustrialDomainScheme ;
                  skos:prefLabel "Fotovoltaica"@pt-br ,
                                 "Photovoltaic"@en .
 
@@ -11938,11 +11959,11 @@ edo:Photovoltaic rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PhysicalPropertyAttribute
 edo:PhysicalPropertyAttribute rdf:type owl:NamedIndividual ,
                                        skos:Concept ;
-                              dcterms:identifier "PhysicalPropertyAttribute" ;
                               skos:broader edo:AttributeCategories ;
+                              skos:inScheme edo:DomainAttributeCategory ;
+                              dcterms:identifier "PhysicalPropertyAttribute" ;
                               skos:definition "Attribute category related to intrinsic physical properties such as mass, density or material."@en ,
                                               "Categoria de atributo relacionada a propriedades físicas intrínsecas, como massa, densidade ou material."@pt-br ;
-                              skos:inScheme edo:DomainAttributeCategory ;
                               skos:prefLabel "Atributo de propriedade física"@pt-br ,
                                              "Physical property attribute"@en .
 
@@ -11950,11 +11971,11 @@ edo:PhysicalPropertyAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PhysicalQuantityAttribute
 edo:PhysicalQuantityAttribute rdf:type owl:NamedIndividual ,
                                        skos:Concept ;
-                              dcterms:identifier "PhysicalQuantityAttribute" ;
                               skos:broader edo:AttributeOntologicalNatures ;
+                              skos:inScheme edo:DomainAttributeOntologicalNature ;
+                              dcterms:identifier "PhysicalQuantityAttribute" ;
                               skos:definition "Atributo que representa uma quantidade ou grandeza física mensurável associada a um elemento de domínio."@pt-br ,
                                               "Attribute that represents a measurable physical quantity or magnitude associated with a domain element."@en ;
-                              skos:inScheme edo:DomainAttributeOntologicalNature ;
                               skos:prefLabel "Atributo de quantidade física"@pt-br ,
                                              "Physical quantity attribute"@en .
 
@@ -11962,11 +11983,11 @@ edo:PhysicalQuantityAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PreCommissioning
 edo:PreCommissioning rdf:type owl:NamedIndividual ,
                               skos:Concept ;
-                     dcterms:identifier "PreCommissioning" ;
                      skos:broader edo:ConstructionPhase ;
+                     skos:inScheme edo:LifecyclePhaseScheme ;
+                     dcterms:identifier "PreCommissioning" ;
                      skos:definition "Verification and functional testing before introducing operational fluids or energy."@en ,
                                      "Verificação e testes funcionais antes da introdução de fluidos ou energia operacionais."@pt-br ;
-                     skos:inScheme edo:LifecyclePhaseScheme ;
                      skos:prefLabel "Pre-Commissioning"@en ,
                                     "Pré-Comissionamento"@pt-br .
 
@@ -11974,11 +11995,11 @@ edo:PreCommissioning rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PresenceIndicatorAttribute
 edo:PresenceIndicatorAttribute rdf:type owl:NamedIndividual ,
                                         skos:Concept ;
-                               dcterms:identifier "PresenceIndicatorAttribute" ;
                                skos:broader edo:AttributeOntologicalNatures ;
+                               skos:inScheme edo:DomainAttributeOntologicalNature ;
+                               dcterms:identifier "PresenceIndicatorAttribute" ;
                                skos:definition "Atributo que indica se uma feature, componente, opção ou condição está presente ou é aplicável."@pt-br ,
                                                "Attribute that indicates whether a feature, component, option or condition is present or applicable."@en ;
-                               skos:inScheme edo:DomainAttributeOntologicalNature ;
                                skos:prefLabel "Atributo indicador de presença"@pt-br ,
                                               "Presence indicator attribute"@en .
 
@@ -11986,33 +12007,33 @@ edo:PresenceIndicatorAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ProcessEngineering
 edo:ProcessEngineering rdf:type owl:NamedIndividual ,
                                 skos:Concept ;
+                       skos:broader edo:TechnicalDiscipline ;
+                       skos:inScheme edo:TechnicalDisciplineScheme ;
                        rdfs:label "Engenharia de Processos"@pt-br ,
                                   "Process Engineering"@en ;
-                       skos:broader edo:TechnicalDiscipline ;
                        skos:definition "Disciplina de engenharia focada no projeto e otimização de processos industriais."@pt-br ,
-                                       "Engineering discipline focused on the design and optimization of industrial processes."@en ;
-                       skos:inScheme edo:TechnicalDisciplineScheme .
+                                       "Engineering discipline focused on the design and optimization of industrial processes."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#ProcessPipingEngineering
 edo:ProcessPipingEngineering rdf:type owl:NamedIndividual ,
                                       skos:Concept ;
+                             skos:broader edo:TechnicalDiscipline ;
+                             skos:inScheme edo:TechnicalDisciplineScheme ;
                              rdfs:label "Engenharia de Tubulação de Processo"@pt-br ,
                                         "Process Piping Engineering"@en ;
-                             skos:broader edo:TechnicalDiscipline ;
                              skos:definition "Disciplina de engenharia focada no projeto de sistemas de tubulação para fluidos de processo."@pt-br ,
-                                             "Engineering discipline focused on the design of piping systems for process fluids."@en ;
-                             skos:inScheme edo:TechnicalDisciplineScheme .
+                                             "Engineering discipline focused on the design of piping systems for process fluids."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#Procurement
 edo:Procurement rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                dcterms:identifier "Procurement" ;
                 skos:broader edo:ConstructionPhase ;
+                skos:inScheme edo:LifecyclePhaseScheme ;
+                dcterms:identifier "Procurement" ;
                 skos:definition "Acquisition of materials, equipment, and services required for project execution."@en ,
                                 "Aquisição de materiais, equipamentos e serviços necessários para execução do projeto."@pt-br ;
-                skos:inScheme edo:LifecyclePhaseScheme ;
                 skos:prefLabel "Aquisição"@pt-br ,
                                "Procurement"@en .
 
@@ -12020,11 +12041,11 @@ edo:Procurement rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ProjectInstantiableClass
 edo:ProjectInstantiableClass rdf:type owl:NamedIndividual ,
                                       skos:Concept ;
-                             dcterms:identifier "ProjectInstantiableClass" ;
                              skos:broader edo:ClassInstantiationRoles ;
+                             skos:inScheme edo:ClassInstantiationRoleScheme ;
+                             dcterms:identifier "ProjectInstantiableClass" ;
                              skos:definition "Class intended to be instantiated as an occurrence in project or asset information models."@en ,
                                              "Classe destinada a ser instanciada como ocorrência em modelos de informação de projetos ou ativos."@pt-br ;
-                             skos:inScheme edo:ClassInstantiationRoleScheme ;
                              skos:prefLabel "Classe instanciável em projeto"@pt-br ,
                                             "Project-instantiable class"@en .
 
@@ -12032,11 +12053,11 @@ edo:ProjectInstantiableClass rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PropagateAttributesToRelationship
 edo:PropagateAttributesToRelationship rdf:type owl:NamedIndividual ,
                                                skos:Concept ;
-                                      dcterms:identifier "PropagateAttributesToRelationship" ;
                                       skos:broader edo:DomainValueConcepts ;
+                                      skos:inScheme edo:DomainValueConcept ;
+                                      dcterms:identifier "PropagateAttributesToRelationship" ;
                                       skos:definition "Estratégia de propagação que indica que atributos devem ser projetados para o relacionamento materializado quando ativada por um perfil de extração ou data contract."@pt-br ,
                                                       "Propagation strategy indicating that attributes should be projected to the materialised relationship when activated by an extraction profile or data contract."@en ;
-                                      skos:inScheme edo:DomainValueConcept ;
                                       skos:prefLabel "Propagar atributos para o relacionamento"@pt-br ,
                                                      "Propagate attributes to relationship"@en .
 
@@ -12044,11 +12065,11 @@ edo:PropagateAttributesToRelationship rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PropagateAttributesToSource
 edo:PropagateAttributesToSource rdf:type owl:NamedIndividual ,
                                          skos:Concept ;
-                                dcterms:identifier "PropagateAttributesToSource" ;
                                 skos:broader edo:DomainValueConcepts ;
+                                skos:inScheme edo:DomainValueConcept ;
+                                dcterms:identifier "PropagateAttributesToSource" ;
                                 skos:definition "Estratégia de propagação que indica que atributos devem ser projetados para a entidade de origem da relação contextual quando ativada por um perfil de extração ou data contract."@pt-br ,
                                                 "Propagation strategy indicating that attributes should be projected to the source entity of the contextual relation when activated by an extraction profile or data contract."@en ;
-                                skos:inScheme edo:DomainValueConcept ;
                                 skos:prefLabel "Propagar atributos para a origem"@pt-br ,
                                                "Propagate attributes to source"@en .
 
@@ -12056,11 +12077,11 @@ edo:PropagateAttributesToSource rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PropagateAttributesToTarget
 edo:PropagateAttributesToTarget rdf:type owl:NamedIndividual ,
                                          skos:Concept ;
-                                dcterms:identifier "PropagateAttributesToTarget" ;
                                 skos:broader edo:DomainValueConcepts ;
+                                skos:inScheme edo:DomainValueConcept ;
+                                dcterms:identifier "PropagateAttributesToTarget" ;
                                 skos:definition "Estratégia de propagação que indica que atributos devem ser projetados para a entidade de destino da relação contextual quando ativada por um perfil de extração ou data contract."@pt-br ,
                                                 "Propagation strategy indicating that attributes should be projected to the target entity of the contextual relation when activated by an extraction profile or data contract."@en ;
-                                skos:inScheme edo:DomainValueConcept ;
                                 skos:prefLabel "Propagar atributos para o destino"@pt-br ,
                                                "Propagate attributes to target"@en .
 
@@ -12068,14 +12089,14 @@ edo:PropagateAttributesToTarget rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ProvenanceAttribute
 edo:ProvenanceAttribute rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "ProvenanceAttribute" ;
                         skos:broader edo:AdministrativeAttribute ;
+                        skos:inScheme edo:DomainAttributeCategory ,
+                                      edo:DomainAttributeOntologicalNature ;
+                        dcterms:identifier "ProvenanceAttribute" ;
                         skos:definition "Administrative attribute category related to authorship, creator identity, timestamp or provenance metadata."@en ,
                                         "Atributo que registra metadados de proveniência, autoria, criação, revisão ou rastreabilidade."@pt-br ,
                                         "Attribute that records provenance, authorship, creation, revision or traceability metadata."@en ,
                                         "Categoria de atributo administrativo relacionada a autoria, identidade do criador, registro temporal ou metadados de proveniência."@pt-br ;
-                        skos:inScheme edo:DomainAttributeCategory ,
-                                      edo:DomainAttributeOntologicalNature ;
                         skos:prefLabel "Atributo de proveniência"@pt-br ,
                                        "Provenance attribute"@en .
 
@@ -12083,11 +12104,11 @@ edo:ProvenanceAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#PumpedStorage
 edo:PumpedStorage rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "PumpedStorage" ;
                   skos:broader edo:Hydropower ;
+                  skos:inScheme edo:IndustrialDomainScheme ;
+                  dcterms:identifier "PumpedStorage" ;
                   skos:definition "Hidrelétricas de bombeamento armazenam energia ao bombear água de um reservatório inferior para um superior em períodos de baixa demanda, liberando-a através de turbinas para gerar eletricidade em períodos de pico. Funcionam como um sistema de armazenamento de energia em larga escala."@pt-br ,
                                   "Pumped storage hydropower stores energy by pumping water from a lower reservoir to a higher one during low demand, and releasing it through turbines to generate electricity during peak demand. It acts as a large-scale energy storage system."@en ;
-                  skos:inScheme edo:IndustrialDomainScheme ;
                   skos:prefLabel "Hidrelétrica de Bombeamento"@pt-br ,
                                  "Pumped Storage"@en .
 
@@ -12095,11 +12116,11 @@ edo:PumpedStorage rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#QualityDatumAttribute
 edo:QualityDatumAttribute rdf:type owl:NamedIndividual ,
                                    skos:Concept ;
-                          dcterms:identifier "QualityDatumAttribute" ;
                           skos:broader edo:AttributeOntologicalNatures ;
+                          skos:inScheme edo:DomainAttributeOntologicalNature ;
+                          dcterms:identifier "QualityDatumAttribute" ;
                           skos:definition "Atributo que representa um dado sobre uma qualidade, propriedade, capacidade, limite ou condição de um elemento de domínio."@pt-br ,
                                           "Attribute that represents a datum about a quality, property, capability, limit or condition of a domain element."@en ;
-                          skos:inScheme edo:DomainAttributeOntologicalNature ;
                           skos:prefLabel "Atributo de dado de qualidade"@pt-br ,
                                          "Quality datum attribute"@en .
 
@@ -12107,11 +12128,11 @@ edo:QualityDatumAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Recycling
 edo:Recycling rdf:type owl:NamedIndividual ,
                        skos:Concept ;
-              dcterms:identifier "Recycling" ;
               skos:broader edo:DecommissioningPhase ;
+              skos:inScheme edo:LifecyclePhaseScheme ;
+              dcterms:identifier "Recycling" ;
               skos:definition "Processamento e reutilização de materiais recuperados durante o descomissionamento."@pt-br ,
                               "Processing and reusing materials recovered during decommissioning."@en ;
-              skos:inScheme edo:LifecyclePhaseScheme ;
               skos:prefLabel "Reciclagem"@pt-br ,
                              "Recycling"@en .
 
@@ -12119,22 +12140,22 @@ edo:Recycling rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Renewable
 edo:Renewable rdf:type owl:NamedIndividual ,
                        skos:Concept ;
+              skos:broader edo:Domain ;
+              skos:inScheme edo:IndustrialDomainScheme ;
               rdfs:label "Energia Renovável"@pt-br ,
                          "Renewable Energy"@en ;
-              skos:broader edo:Domain ;
               skos:definition "Domínio industrial que abrange fontes de energia que são naturalmente reabastecidas, como solar, eólica e hidrelétrica."@pt-br ,
-                              "Industrial domain covering energy sources that are naturally replenished, such as solar, wind, and hydropower."@en ;
-              skos:inScheme edo:IndustrialDomainScheme .
+                              "Industrial domain covering energy sources that are naturally replenished, such as solar, wind, and hydropower."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#ReplacedConcept
 edo:ReplacedConcept rdf:type owl:NamedIndividual ,
                              skos:Concept ;
-                    dcterms:identifier "ReplacedConcept" ;
                     skos:broader edo:ConceptStatuses ;
+                    skos:inScheme edo:ConceptStatusScheme ;
+                    dcterms:identifier "ReplacedConcept" ;
                     skos:definition "Conceito depreciado que possui um conceito substituto explícito."@pt-br ,
                                     "Deprecated concept that has an explicit replacement concept."@en ;
-                    skos:inScheme edo:ConceptStatusScheme ;
                     skos:prefLabel "Conceito substituído"@pt-br ,
                                    "Replaced concept"@en .
 
@@ -12142,11 +12163,11 @@ edo:ReplacedConcept rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#RequirementDatumAttribute
 edo:RequirementDatumAttribute rdf:type owl:NamedIndividual ,
                                        skos:Concept ;
-                              dcterms:identifier "RequirementDatumAttribute" ;
                               skos:broader edo:AttributeOntologicalNatures ;
+                              skos:inScheme edo:DomainAttributeOntologicalNature ;
+                              dcterms:identifier "RequirementDatumAttribute" ;
                               skos:definition "Atributo que representa um valor ou condição requerida, contratual ou derivada de especificação."@pt-br ,
                                               "Attribute that represents a required, contractual or specification-driven value or condition."@en ;
-                              skos:inScheme edo:DomainAttributeOntologicalNature ;
                               skos:prefLabel "Atributo de dado requerido"@pt-br ,
                                              "Requirement datum attribute"@en .
 
@@ -12154,11 +12175,11 @@ edo:RequirementDatumAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#RequirementRole
 edo:RequirementRole rdf:type owl:NamedIndividual ,
                              skos:Concept ;
-                    dcterms:identifier "RequirementRole" ;
                     skos:broader edo:AttributeRoles ;
+                    skos:inScheme edo:DomainAttributeRole ;
+                    dcterms:identifier "RequirementRole" ;
                     skos:definition "Papel de um atributo que expressa um valor requerido ou contratual."@pt-br ,
                                     "Role of an attribute that expresses a required or contractual value."@en ;
-                    skos:inScheme edo:DomainAttributeRole ;
                     skos:prefLabel "Papel de requisito"@pt-br ,
                                    "Requirement role"@en .
 
@@ -12166,22 +12187,22 @@ edo:RequirementRole rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#RotatingEquipmentEngineering
 edo:RotatingEquipmentEngineering rdf:type owl:NamedIndividual ,
                                           skos:Concept ;
+                                 skos:broader edo:EquipmentEngineering ;
+                                 skos:inScheme edo:TechnicalDisciplineScheme ;
                                  rdfs:label "Engenharia de Equipamentos Rotativos"@pt-br ,
                                             "Rotating Equipment Engineering"@en ;
-                                 skos:broader edo:EquipmentEngineering ;
                                  skos:definition "Engenharia de equipamentos mecânicos com componentes rotativos como bombas, compressores e turbinas."@pt-br ,
-                                                 "Engineering of mechanical equipment with rotating components such as pumps, compressors, and turbines."@en ;
-                                 skos:inScheme edo:TechnicalDisciplineScheme .
+                                                 "Engineering of mechanical equipment with rotating components such as pumps, compressors, and turbines."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#RunOfRiver
 edo:RunOfRiver rdf:type owl:NamedIndividual ,
                         skos:Concept ;
-               dcterms:identifier "RunOfRiver" ;
                skos:broader edo:Hydropower ;
+               skos:inScheme edo:IndustrialDomainScheme ;
+               dcterms:identifier "RunOfRiver" ;
                skos:definition "Run-of-river hydropower plants generate electricity directly from the natural flow of rivers without creating large reservoirs, minimizing flooding but making output dependent on seasonal water levels."@en ,
                                "Usinas hidrelétricas a fio d’água geram eletricidade diretamente a partir do fluxo natural dos rios, sem criar grandes reservatórios, minimizando alagamentos mas tornando a produção dependente da sazonalidade hídrica."@pt-br ;
-               skos:inScheme edo:IndustrialDomainScheme ;
                skos:prefLabel "Hidrelétrica a Fio d’Água"@pt-br ,
                               "Run-of-River Hydropower"@en .
 
@@ -12189,22 +12210,22 @@ edo:RunOfRiver rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#SafetyLossPreventionEngineering
 edo:SafetyLossPreventionEngineering rdf:type owl:NamedIndividual ,
                                              skos:Concept ;
+                                    skos:broader edo:TechnicalDiscipline ;
+                                    skos:inScheme edo:TechnicalDisciplineScheme ;
                                     rdfs:label "Engenharia de Segurança e Prevenção de Perdas"@pt-br ,
                                                "Safety & Loss Prevention Engineering"@en ;
-                                    skos:broader edo:TechnicalDiscipline ;
                                     skos:definition "Disciplina de engenharia focada em avaliação de riscos, sistemas de segurança e prevenção de perdas."@pt-br ,
-                                                    "Engineering discipline focused on risk assessment, safety systems and loss prevention."@en ;
-                                    skos:inScheme edo:TechnicalDisciplineScheme .
+                                                    "Engineering discipline focused on risk assessment, safety systems and loss prevention."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SalinityGradient
 edo:SalinityGradient rdf:type owl:NamedIndividual ,
                               skos:Concept ;
-                     dcterms:identifier "SalinityGradient" ;
                      skos:broader edo:Marine ;
+                     skos:inScheme edo:IndustrialDomainScheme ;
+                     dcterms:identifier "SalinityGradient" ;
                      skos:definition "Energia de gradiente de salinidade, também chamada de energia azul, é obtida aproveitando a diferença de concentração de sal entre a água do mar e a água doce em estuários. Tecnologias como eletrodiálise reversa ou osmose com pressão retardada podem converter esse potencial químico em energia renovável."@pt-br ,
                                      "Salinity gradient energy, also called blue energy, is obtained by exploiting the difference in salt concentration between seawater and freshwater at estuaries. Technologies such as reverse electrodialysis or pressure-retarded osmosis can convert this chemical potential into renewable power."@en ;
-                     skos:inScheme edo:IndustrialDomainScheme ;
                      skos:prefLabel "Energia de Gradiente de Salinidade"@pt-br ,
                                     "Salinity Gradient Energy"@en .
 
@@ -12212,22 +12233,22 @@ edo:SalinityGradient rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#SingleValue
 edo:SingleValue rdf:type owl:NamedIndividual ,
                          skos:Concept ;
+                skos:broader edo:AttributeValueCardinalities ;
+                skos:inScheme edo:DomainAttributeValueCardinality ;
                 rdfs:comment "Constraint ensuring only one value (not a list)"@en ,
                              "Restrição assegurando apenas um valor (não uma lista)"@pt-br ;
                 rdfs:label "Single Value"@en ,
-                           "Valor Simples"@pt-br ;
-                skos:broader edo:AttributeValueCardinalities ;
-                skos:inScheme edo:DomainAttributeValueCardinality .
+                           "Valor Simples"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#SmallHydropower
 edo:SmallHydropower rdf:type owl:NamedIndividual ,
                              skos:Concept ;
-                    dcterms:identifier "SmallHydropower" ;
                     skos:broader edo:Hydropower ;
+                    skos:inScheme edo:IndustrialDomainScheme ;
+                    dcterms:identifier "SmallHydropower" ;
                     skos:definition "Pequenas centrais hidrelétricas, frequentemente chamadas de PCH, possuem tipicamente capacidade abaixo de 30 MW. Utilizam o fluxo dos rios com infraestrutura reduzida, diminuindo o impacto ambiental em comparação às grandes barragens."@pt-br ,
                                     "Small hydropower plants, often called small hydro or PCH, typically have capacities below 30 MW. They use river flow with smaller infrastructure, reducing environmental impact compared to large dams."@en ;
-                    skos:inScheme edo:IndustrialDomainScheme ;
                     skos:prefLabel "Pequena Central Hidrelétrica"@pt-br ,
                                    "Small Hydropower"@en .
 
@@ -12235,11 +12256,11 @@ edo:SmallHydropower rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#SmallWind
 edo:SmallWind rdf:type owl:NamedIndividual ,
                        skos:Concept ;
-              dcterms:identifier "SmallWind" ;
               skos:broader edo:Wind ;
+              skos:inScheme edo:IndustrialDomainScheme ;
+              dcterms:identifier "SmallWind" ;
               skos:definition "Sistemas de pequena escala eólica referem-se a microturbinas projetadas para uso residencial, agrícola ou em pequenos negócios. Eles oferecem geração descentralizada de eletricidade renovável e podem operar de forma independente ou conectados à rede."@pt-br ,
                               "Small wind systems refer to microturbines designed for residential, agricultural, or small business use. They provide decentralized renewable electricity generation and can operate independently or connected to the grid."@en ;
-              skos:inScheme edo:IndustrialDomainScheme ;
               skos:prefLabel "Eólica de Pequena Escala"@pt-br ,
                              "Small Wind"@en .
 
@@ -12247,22 +12268,22 @@ edo:SmallWind rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Solar
 edo:Solar rdf:type owl:NamedIndividual ,
                    skos:Concept ;
+          skos:broader edo:Renewable ;
+          skos:inScheme edo:IndustrialDomainScheme ;
           rdfs:label "Energia Solar"@pt-br ,
                      "Solar Energy"@en ;
-          skos:broader edo:Renewable ;
           skos:definition "Energia obtida da luz solar, incluindo sistemas fotovoltaicos e térmicos."@pt-br ,
-                          "Energy harnessed from sunlight, including photovoltaic and thermal systems."@en ;
-          skos:inScheme edo:IndustrialDomainScheme .
+                          "Energy harnessed from sunlight, including photovoltaic and thermal systems."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SolarHeatingCooling
 edo:SolarHeatingCooling rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
-                        dcterms:identifier "SolarHeatingCooling" ;
                         skos:broader edo:Solar ;
+                        skos:inScheme edo:IndustrialDomainScheme ;
+                        dcterms:identifier "SolarHeatingCooling" ;
                         skos:definition "Solar heating and cooling technologies capture solar radiation at low or medium temperatures to provide hot water, space heating, or cooling through solar thermal collectors and absorption systems."@en ,
                                         "Tecnologias de aquecimento e resfriamento solar capturam radiação solar em baixa ou média temperatura para fornecer água quente, aquecimento de ambientes ou resfriamento por meio de coletores solares térmicos e sistemas de absorção."@pt-br ;
-                        skos:inScheme edo:IndustrialDomainScheme ;
                         skos:prefLabel "Aquecimento e Resfriamento Solar"@pt-br ,
                                        "Solar Heating and Cooling"@en .
 
@@ -12270,11 +12291,11 @@ edo:SolarHeatingCooling rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#SolarThermal
 edo:SolarThermal rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 dcterms:identifier "SolarThermal" ;
                  skos:broader edo:Solar ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 dcterms:identifier "SolarThermal" ;
                  skos:definition "Energia solar térmica, também conhecida como concentração solar (CSP), utiliza espelhos ou lentes para concentrar a luz solar e gerar calor em alta temperatura, que depois é convertido em eletricidade por meio de um ciclo termodinâmico."@pt-br ,
                                  "Solar thermal energy, also known as concentrated solar power (CSP), uses mirrors or lenses to concentrate sunlight and produce high-temperature heat, which is then converted into electricity through a thermodynamic cycle."@en ;
-                 skos:inScheme edo:IndustrialDomainScheme ;
                  skos:prefLabel "Solar Thermal"@en ,
                                 "Solar Térmica"@pt-br .
 
@@ -12282,11 +12303,11 @@ edo:SolarThermal rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#SolidBiomass
 edo:SolidBiomass rdf:type owl:NamedIndividual ,
                           skos:Concept ;
-                 dcterms:identifier "SolidBiomass" ;
                  skos:broader edo:Biomass ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
+                 dcterms:identifier "SolidBiomass" ;
                  skos:definition "Energia de biomassa sólida vem da combustão ou processamento de materiais orgânicos como madeira, resíduos florestais e agrícolas. É uma das formas mais antigas de energia renovável, ainda amplamente utilizada para aquecimento e geração elétrica."@pt-br ,
                                  "Solid biomass energy comes from the combustion or processing of organic materials such as wood, forestry residues, and agricultural waste. It is one of the oldest forms of renewable energy, still widely used for heating and power generation."@en ;
-                 skos:inScheme edo:IndustrialDomainScheme ;
                  skos:prefLabel "Biomassa Sólida"@pt-br ,
                                 "Solid Biomass"@en .
 
@@ -12294,11 +12315,11 @@ edo:SolidBiomass rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#SpatialAttribute
 edo:SpatialAttribute rdf:type owl:NamedIndividual ,
                               skos:Concept ;
-                     dcterms:identifier "SpatialAttribute" ;
                      skos:broader edo:AttributeCategories ;
+                     skos:inScheme edo:DomainAttributeCategory ;
+                     dcterms:identifier "SpatialAttribute" ;
                      skos:definition "Attribute category related to position, orientation, georeference, location or installation site."@en ,
                                      "Categoria de atributo relacionada a posição, orientação, georreferência, localização ou local de instalação."@pt-br ;
-                     skos:inScheme edo:DomainAttributeCategory ;
                      skos:prefLabel "Atributo espacial"@pt-br ,
                                     "Spatial attribute"@en .
 
@@ -12306,22 +12327,22 @@ edo:SpatialAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#StaticEquipmentEngineering
 edo:StaticEquipmentEngineering rdf:type owl:NamedIndividual ,
                                         skos:Concept ;
+                               skos:broader edo:EquipmentEngineering ;
+                               skos:inScheme edo:TechnicalDisciplineScheme ;
                                rdfs:label "Engenharia de Equipamentos Estáticos"@pt-br ,
                                           "Static Equipment Engineering"@en ;
-                               skos:broader edo:EquipmentEngineering ;
                                skos:definition "Engenharia de equipamentos industriais sem partes móveis como vasos de pressão, tanques e trocadores de calor."@pt-br ,
-                                               "Engineering of non-moving industrial equipment such as pressure vessels, tanks, and heat exchangers."@en ;
-                               skos:inScheme edo:TechnicalDisciplineScheme .
+                                               "Engineering of non-moving industrial equipment such as pressure vessels, tanks, and heat exchangers."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#StatusAttribute
 edo:StatusAttribute rdf:type owl:NamedIndividual ,
                              skos:Concept ;
-                    dcterms:identifier "StatusAttribute" ;
                     skos:broader edo:AttributeOntologicalNatures ;
+                    skos:inScheme edo:DomainAttributeOntologicalNature ;
+                    dcterms:identifier "StatusAttribute" ;
                     skos:definition "Atributo que representa um status, estado ou condição editorial/operacional de um elemento ou artefato."@pt-br ,
                                     "Attribute that represents a status, state or editorial/operational condition of an element or artefact."@en ;
-                    skos:inScheme edo:DomainAttributeOntologicalNature ;
                     skos:prefLabel "Atributo de status"@pt-br ,
                                    "Status attribute"@en .
 
@@ -12329,11 +12350,11 @@ edo:StatusAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#StrategyAttribute
 edo:StrategyAttribute rdf:type owl:NamedIndividual ,
                                skos:Concept ;
-                      dcterms:identifier "StrategyAttribute" ;
                       skos:broader edo:AttributeOntologicalNatures ;
+                      skos:inScheme edo:DomainAttributeOntologicalNature ;
+                      dcterms:identifier "StrategyAttribute" ;
                       skos:definition "Atributo que descreve como valores, tabelas, curvas ou valores intermediários devem ser interpretados ou processados."@pt-br ,
                                       "Attribute that describes how values, tables, curves or intermediate values are to be interpreted or processed."@en ;
-                      skos:inScheme edo:DomainAttributeOntologicalNature ;
                       skos:prefLabel "Atributo de estratégia"@pt-br ,
                                      "Strategy attribute"@en .
 
@@ -12341,44 +12362,44 @@ edo:StrategyAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#StringValue
 edo:StringValue rdf:type owl:NamedIndividual ,
                          skos:Concept ;
-                rdfs:comment "Expected XSD datatype for text values."@en ;
-                rdfs:label "String Value"@en ;
                 skos:broader edo:DomainValueTypes ;
                 skos:inScheme edo:DomainValueType ;
+                rdfs:comment "Expected XSD datatype for text values."@en ;
+                rdfs:label "String Value"@en ;
                 edo:expectedXsdType xsd:string .
 
 
 ###  https://w3id.org/energy-domain/edo#StructuralEngineering
 edo:StructuralEngineering rdf:type owl:NamedIndividual ,
                                    skos:Concept ;
+                          skos:broader edo:CivilEngineering ;
+                          skos:inScheme edo:TechnicalDisciplineScheme ;
                           rdfs:label "Engenharia Estrutural"@pt-br ,
                                      "Structural Engineering"@en ;
-                          skos:broader edo:CivilEngineering ;
                           skos:definition "Disciplina de engenharia focada na integridade estrutural e projeto de edifícios e infraestrutura."@pt-br ,
-                                          "Engineering discipline focused on the structural integrity and design of buildings and infrastructure."@en ;
-                          skos:inScheme edo:TechnicalDisciplineScheme .
+                                          "Engineering discipline focused on the structural integrity and design of buildings and infrastructure."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaEngineering
 edo:SubseaEngineering rdf:type owl:NamedIndividual ,
                                skos:Concept ;
+                      skos:broader edo:TechnicalDiscipline ;
+                      skos:inScheme edo:TechnicalDisciplineScheme ;
                       rdfs:label "Engenharia Submarina"@pt-br ,
                                  "Subsea Engineering"@en ;
-                      skos:broader edo:TechnicalDiscipline ;
                       skos:definition "Disciplina de engenharia focada em sistemas e equipamentos subaquáticos para operações offshore."@pt-br ,
-                                      "Engineering discipline focused on underwater systems and equipment for offshore operations."@en ;
-                      skos:inScheme edo:TechnicalDisciplineScheme .
+                                      "Engineering discipline focused on underwater systems and equipment for offshore operations."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaFlexiblePipesEngineering
 edo:SubseaFlexiblePipesEngineering rdf:type owl:NamedIndividual ,
                                             skos:Concept ;
+                                   skos:broader edo:SubseaEngineering ;
+                                   skos:inScheme edo:TechnicalDisciplineScheme ;
                                    rdfs:label "Engenharia de Tubos Flexíveis Submarinos"@pt-br ,
                                               "Subsea Flexible Pipes Engineering"@en ;
-                                   skos:broader edo:SubseaEngineering ;
                                    skos:definition "Engenharia de sistemas de tubos flexíveis utilizados em aplicações submarinas."@pt-br ,
-                                                   "Engineering of flexible pipe systems used in subsea applications."@en ;
-                                   skos:inScheme edo:TechnicalDisciplineScheme .
+                                                   "Engineering of flexible pipe systems used in subsea applications."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaManifoldsEngineering
@@ -12391,44 +12412,44 @@ edo:SubseaManifoldsEngineering rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#SubseaRigidPipesEngineering
 edo:SubseaRigidPipesEngineering rdf:type owl:NamedIndividual ,
                                          skos:Concept ;
+                                skos:broader edo:SubseaEngineering ;
+                                skos:inScheme edo:TechnicalDisciplineScheme ;
                                 rdfs:label "Engenharia de Tubos Rígidos Submarinos"@pt-br ,
                                            "Subsea Rigid Pipes Engineering"@en ;
-                                skos:broader edo:SubseaEngineering ;
                                 skos:definition "Engenharia de sistemas de tubulações rígidas utilizadas em aplicações submarinas."@pt-br ,
-                                                "Engineering of rigid pipeline systems used in subsea applications."@en ;
-                                skos:inScheme edo:TechnicalDisciplineScheme .
+                                                "Engineering of rigid pipeline systems used in subsea applications."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaStructuresEngineering
 edo:SubseaStructuresEngineering rdf:type owl:NamedIndividual ,
                                          skos:Concept ;
+                                skos:broader edo:SubseaEngineering ;
+                                skos:inScheme edo:TechnicalDisciplineScheme ;
                                 rdfs:label "Engenharia de Estruturas Submarinas"@pt-br ,
                                            "Subsea Structures Engineering"@en ;
-                                skos:broader edo:SubseaEngineering ;
                                 skos:definition "Engenharia de manifolds submarinos, árvores de natal e outros componentes estruturais."@pt-br ,
-                                                "Engineering of subsea manifolds, christmas trees, and other structural components."@en ;
-                                skos:inScheme edo:TechnicalDisciplineScheme .
+                                                "Engineering of subsea manifolds, christmas trees, and other structural components."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaUmbilicalsEngineering
 edo:SubseaUmbilicalsEngineering rdf:type owl:NamedIndividual ,
                                          skos:Concept ;
+                                skos:broader edo:SubseaEngineering ;
+                                skos:inScheme edo:TechnicalDisciplineScheme ;
                                 rdfs:label "Engenharia de Umbilicais Submarinos"@pt-br ,
                                            "Subsea Umbilicals Engineering"@en ;
-                                skos:broader edo:SubseaEngineering ;
                                 skos:definition "Engenharia de sistemas de umbilicais submarinos fornecendo controle, energia e injeção química."@pt-br ,
-                                                "Engineering of subsea umbilical systems providing control, power and chemical injection."@en ;
-                                skos:inScheme edo:TechnicalDisciplineScheme .
+                                                "Engineering of subsea umbilical systems providing control, power and chemical injection."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#TableAttribute
 edo:TableAttribute rdf:type owl:NamedIndividual ,
                             skos:Concept ;
-                   dcterms:identifier "TableAttribute" ;
                    skos:broader edo:AttributeOntologicalNatures ;
+                   skos:inScheme edo:DomainAttributeOntologicalNature ;
+                   dcterms:identifier "TableAttribute" ;
                    skos:definition "Atributo que representa uma tabela ou conjunto de dados tabular."@pt-br ,
                                    "Attribute that represents a table or tabular dataset."@en ;
-                   skos:inScheme edo:DomainAttributeOntologicalNature ;
                    skos:prefLabel "Atributo de tabela"@pt-br ,
                                   "Table attribute"@en .
 
@@ -12436,11 +12457,11 @@ edo:TableAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#TableColumnAttribute
 edo:TableColumnAttribute rdf:type owl:NamedIndividual ,
                                   skos:Concept ;
-                         dcterms:identifier "TableColumnAttribute" ;
                          skos:broader edo:AttributeOntologicalNatures ;
+                         skos:inScheme edo:DomainAttributeOntologicalNature ;
+                         dcterms:identifier "TableColumnAttribute" ;
                          skos:definition "Atributo que representa uma coluna ou campo dentro de uma tabela ou conjunto de dados de curva."@pt-br ,
                                          "Attribute that represents a column or field within a table or curve dataset."@en ;
-                         skos:inScheme edo:DomainAttributeOntologicalNature ;
                          skos:prefLabel "Atributo de coluna de tabela"@pt-br ,
                                         "Table column attribute"@en .
 
@@ -12448,29 +12469,30 @@ edo:TableColumnAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#TechnicalDiscipline
 edo:TechnicalDiscipline rdf:type owl:NamedIndividual ,
                                  skos:Concept ;
+                        skos:broader edo:TechnicalDisciplines ;
+                        skos:inScheme edo:TechnicalDisciplineScheme ;
+                        skos:topConceptOf edo:TechnicalDisciplineScheme ;
                         rdfs:comment "Superclass for all technical engineering disciplines."@en ;
                         rdfs:label "Disciplina Técnica"@pt-br ,
                                    "Technical Discipline"@en ;
-                        skos:broader edo:TechnicalDisciplines ;
                         skos:definition "A specialized field of engineering or technical expertise within industrial projects."@en ,
-                                        "Um campo especializado de engenharia ou expertise técnica dentro de projetos industriais."@pt-br ;
-                        skos:inScheme edo:TechnicalDisciplineScheme ;
-                        skos:topConceptOf edo:TechnicalDisciplineScheme .
+                                        "Um campo especializado de engenharia ou expertise técnica dentro de projetos industriais."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#TechnicalDisciplineScheme
 edo:TechnicalDisciplineScheme rdf:type owl:NamedIndividual ,
                                        skos:ConceptScheme ;
+                              skos:hasTopConcept edo:TechnicalDiscipline ;
                               dcterms:identifier "TechnicalDisciplineScheme" ;
                               rdfs:label "Esquema de disciplina técnica"@pt-br ,
                                          "Technical discipline scheme"@en ;
                               skos:definition "Controlled vocabulary for technical and engineering disciplines used by EDO."@en ,
-                                              "Vocabulário controlado para disciplinas técnicas e de engenharia usadas pela EDO."@pt-br ;
-                              skos:hasTopConcept edo:TechnicalDiscipline .
+                                              "Vocabulário controlado para disciplinas técnicas e de engenharia usadas pela EDO."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#TechnicalDisciplines
 edo:TechnicalDisciplines rdf:type owl:NamedIndividual ,
+                                  skos:Concept ,
                                   edo:DomainVocabularyConcept ;
                          skos:broader edo:VocabularyConcepts ;
                          skos:prefLabel "Disciplinas Técnicas"@pt-br ,
@@ -12480,11 +12502,11 @@ edo:TechnicalDisciplines rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#TemporalAttribute
 edo:TemporalAttribute rdf:type owl:NamedIndividual ,
                                skos:Concept ;
-                      dcterms:identifier "TemporalAttribute" ;
                       skos:broader edo:AttributeOntologicalNatures ;
+                      skos:inScheme edo:DomainAttributeOntologicalNature ;
+                      dcterms:identifier "TemporalAttribute" ;
                       skos:definition "Atributo que registra uma data, hora, timestamp ou referência temporal planejada."@pt-br ,
                                       "Attribute that records a date, time, timestamp or planned temporal reference."@en ;
-                      skos:inScheme edo:DomainAttributeOntologicalNature ;
                       skos:prefLabel "Atributo temporal"@pt-br ,
                                      "Temporal attribute"@en .
 
@@ -12492,11 +12514,11 @@ edo:TemporalAttribute rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#TestRole
 edo:TestRole rdf:type owl:NamedIndividual ,
                       skos:Concept ;
-             dcterms:identifier "TestRole" ;
              skos:broader edo:AttributeRoles ;
+             skos:inScheme edo:DomainAttributeRole ;
+             dcterms:identifier "TestRole" ;
              skos:definition "Papel de um atributo que expressa um valor associado a teste ou verificação."@pt-br ,
                              "Role of an attribute that expresses a value associated with testing or verification."@en ;
-             skos:inScheme edo:DomainAttributeRole ;
              skos:prefLabel "Papel de teste"@pt-br ,
                             "Test role"@en .
 
@@ -12504,22 +12526,22 @@ edo:TestRole rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#ThermalPower
 edo:ThermalPower rdf:type owl:NamedIndividual ,
                           skos:Concept ;
+                 skos:broader edo:Domain ;
+                 skos:inScheme edo:IndustrialDomainScheme ;
                  rdfs:label "Energia Térmica"@pt-br ,
                             "Thermal Power"@en ;
-                 skos:broader edo:Domain ;
                  skos:definition "Energy production from fossil fuels (coal, natural gas) through thermal conversion."@en ,
-                                 "Produção de energia a partir de combustíveis fósseis (carvão, gás natural) através de conversão térmica."@pt-br ;
-                 skos:inScheme edo:IndustrialDomainScheme .
+                                 "Produção de energia a partir de combustíveis fósseis (carvão, gás natural) através de conversão térmica."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Tidal
 edo:Tidal rdf:type owl:NamedIndividual ,
                    skos:Concept ;
-          dcterms:identifier "Tidal" ;
           skos:broader edo:Marine ;
+          skos:inScheme edo:IndustrialDomainScheme ;
+          dcterms:identifier "Tidal" ;
           skos:definition "Energia das marés é gerada aproveitando a previsível subida e descida das marés oceânicas, geralmente por meio de barragens, cercas de marés ou turbinas de corrente de maré. Oferece uma fonte altamente confiável de energia renovável devido aos ciclos gravitacionais naturais da Terra, da Lua e do Sol."@pt-br ,
                           "Tidal energy is generated by harnessing the predictable rise and fall of ocean tides, typically using barrages, tidal fences, or tidal stream turbines. It offers a highly reliable source of renewable energy due to the natural gravitational cycles of the Earth, Moon and Sun."@en ;
-          skos:inScheme edo:IndustrialDomainScheme ;
           skos:prefLabel "Energia das Marés"@pt-br ,
                          "Tidal Energy"@en .
 
@@ -12527,21 +12549,21 @@ edo:Tidal rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#TimeValue
 edo:TimeValue rdf:type owl:NamedIndividual ,
                        skos:Concept ;
-              rdfs:comment "Expected XSD datatype for time-of-day values."@en ;
-              rdfs:label "Time Value"@en ;
               skos:broader edo:DomainValueTypes ;
               skos:inScheme edo:DomainValueType ;
+              rdfs:comment "Expected XSD datatype for time-of-day values."@en ;
+              rdfs:label "Time Value"@en ;
               edo:expectedXsdType xsd:time .
 
 
 ###  https://w3id.org/energy-domain/edo#ToBeDeprecated
 edo:ToBeDeprecated rdf:type owl:NamedIndividual ,
                             skos:Concept ;
-                   dcterms:identifier "ToBeDeprecated" ;
                    skos:broader edo:ConceptStatuses ;
+                   skos:inScheme edo:ConceptStatusScheme ;
+                   dcterms:identifier "ToBeDeprecated" ;
                    skos:definition "Conceito planejado para remoção ou substituição futura, sem afetar seu uso atual."@pt-br ,
                                    "Concept planned for future removal or replacement, without affecting its current use."@en ;
-                   skos:inScheme edo:ConceptStatusScheme ;
                    skos:prefLabel "A ser depreciado"@pt-br ,
                                   "To be deprecated"@en .
 
@@ -12549,11 +12571,11 @@ edo:ToBeDeprecated rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#TowardsReferencePoint
 edo:TowardsReferencePoint rdf:type owl:NamedIndividual ,
                                    skos:Concept ;
-                          dcterms:identifier "TowardsReferencePoint" ;
                           skos:broader edo:DomainValueConcepts ;
+                          skos:inScheme edo:DomainValueConcept ;
+                          dcterms:identifier "TowardsReferencePoint" ;
                           skos:definition "Longitudinal orientation value indicating that the placement is measured towards the reference point along the applicable longitudinal direction."@en ,
                                           "Valor de orientação longitudinal que indica que o posicionamento é medido em direção ao ponto de referência ao longo da direção longitudinal aplicável."@pt-br ;
-                          skos:inScheme edo:DomainValueConcept ;
                           skos:prefLabel "Em direção ao ponto de referência"@pt-br ,
                                          "Towards reference point"@en .
 
@@ -12561,11 +12583,11 @@ edo:TowardsReferencePoint rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Transportation
 edo:Transportation rdf:type owl:NamedIndividual ,
                             skos:Concept ;
-                   dcterms:identifier "Transportation" ;
                    skos:broader edo:ConstructionPhase ;
+                   skos:inScheme edo:LifecyclePhaseScheme ;
+                   dcterms:identifier "Transportation" ;
                    skos:definition "Logistics and transport of materials and equipment to the construction or installation site."@en ,
                                    "Logística e transporte de materiais e equipamentos para o local de construção ou instalação."@pt-br ;
-                   skos:inScheme edo:LifecyclePhaseScheme ;
                    skos:prefLabel "Transportation"@en ,
                                   "Transporte"@pt-br .
 
@@ -12573,39 +12595,40 @@ edo:Transportation rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#TypeLevelAttribute
 edo:TypeLevelAttribute rdf:type owl:NamedIndividual ,
                                 skos:Concept ;
+                       skos:broader edo:AttributeScopes ;
+                       skos:inScheme edo:DomainAttributeScope ;
                        rdfs:comment "Attribute common to all items of the same type."@en ;
                        rdfs:label "Atributo de Tipo"@pt-br ,
                                   "Type-Level Attribute"@en ;
-                       skos:broader edo:AttributeScopes ;
                        skos:definition "Atributo comum a todos os itens do mesmo tipo"@pt-br ,
-                                       "Attribute common to all items of the same type"@en ;
-                       skos:inScheme edo:DomainAttributeScope .
+                                       "Attribute common to all items of the same type"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#Upstream
 edo:Upstream rdf:type owl:NamedIndividual ,
                       skos:Concept ;
+             skos:broader edo:OilAndGas ;
+             skos:inScheme edo:IndustrialDomainScheme ;
              rdfs:label "Upstream"@en ,
                         "Upstream"@pt-br ;
-             skos:broader edo:OilAndGas ;
              skos:definition "Oil & Gas sector covering exploration, drilling, and production of hydrocarbon resources."@en ,
-                             "Setor de Petróleo & Gás que abrange exploração, perfuração e produção de recursos de hidrocarbonetos."@pt-br ;
-             skos:inScheme edo:IndustrialDomainScheme .
+                             "Setor de Petróleo & Gás que abrange exploração, perfuração e produção de recursos de hidrocarbonetos."@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#UtilityPipingEngineering
 edo:UtilityPipingEngineering rdf:type owl:NamedIndividual ,
                                       skos:Concept ;
+                             skos:broader edo:TechnicalDiscipline ;
+                             skos:inScheme edo:TechnicalDisciplineScheme ;
                              rdfs:label "Engenharia de Tubulação de Utilidades"@pt-br ,
                                         "Utility Piping Engineering"@en ;
-                             skos:broader edo:TechnicalDiscipline ;
                              skos:definition "Disciplina de engenharia focada no projeto de sistemas de tubulação para serviços de utilidades."@pt-br ,
-                                             "Engineering discipline focused on the design of piping systems for utility services."@en ;
-                             skos:inScheme edo:TechnicalDisciplineScheme .
+                                             "Engineering discipline focused on the design of piping systems for utility services."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#ValueConcepts
 edo:ValueConcepts rdf:type owl:NamedIndividual ,
+                           skos:Concept ,
                            edo:DomainVocabularyConcept ;
                   skos:broader edo:VocabularyConcepts ;
                   skos:prefLabel "Conceitos de Valor"@pt-br ,
@@ -12614,20 +12637,21 @@ edo:ValueConcepts rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/energy-domain/edo#VocabularyConcepts
 edo:VocabularyConcepts rdf:type owl:NamedIndividual ,
+                                skos:Concept ,
                                 edo:DomainVocabularyConcept ;
                        skos:definition "Root concept for EDO controlled vocabulary concepts."@en ;
                        skos:prefLabel "Conceitos de Vocabulário"@pt-br ,
-                                      "Vocabulary Concepts"@en .
+                                      "Vocabulary Concepts."@en .
 
 
 ###  https://w3id.org/energy-domain/edo#WasteToEnergy
 edo:WasteToEnergy rdf:type owl:NamedIndividual ,
                            skos:Concept ;
-                  dcterms:identifier "WasteToEnergy" ;
                   skos:broader edo:Biomass ;
+                  skos:inScheme edo:IndustrialDomainScheme ;
+                  dcterms:identifier "WasteToEnergy" ;
                   skos:definition "Energia a partir de resíduos de biomassa refere-se à conversão da fração orgânica de resíduos urbanos e industriais em energia útil por meio de processos como combustão, gaseificação ou digestão anaeróbica."@pt-br ,
                                   "Waste-to-energy from biomass refers to the conversion of the organic fraction of municipal and industrial waste into useful energy through processes such as combustion, gasification, or anaerobic digestion."@en ;
-                  skos:inScheme edo:IndustrialDomainScheme ;
                   skos:prefLabel "Energia a partir de Resíduos"@pt-br ,
                                  "Waste to Energy"@en .
 
@@ -12635,11 +12659,11 @@ edo:WasteToEnergy rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Wave
 edo:Wave rdf:type owl:NamedIndividual ,
                   skos:Concept ;
-         dcterms:identifier "Wave" ;
          skos:broader edo:Marine ;
+         skos:inScheme edo:IndustrialDomainScheme ;
+         dcterms:identifier "Wave" ;
          skos:definition "Energia das ondas captura a energia cinética e potencial das ondas de superfície do oceano usando dispositivos flutuantes ou submersos. É considerada uma tecnologia promissora, porém ainda emergente, capaz de fornecer eletricidade renovável de forma consistente em regiões costeiras."@pt-br ,
                          "Wave energy captures the kinetic and potential energy of surface ocean waves using floating or submerged devices. It is considered a promising but still emerging technology, capable of providing consistent renewable electricity near coastal regions."@en ;
-         skos:inScheme edo:IndustrialDomainScheme ;
          skos:prefLabel "Energia das Ondas"@pt-br ,
                         "Wave Energy"@en .
 
@@ -12654,12 +12678,12 @@ edo:WetChristmasTreesEngineering rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/energy-domain/edo#Wind
 edo:Wind rdf:type owl:NamedIndividual ,
                   skos:Concept ;
+         skos:broader edo:Renewable ;
+         skos:inScheme edo:IndustrialDomainScheme ;
          rdfs:label "Energia Eólica"@pt-br ,
                     "Wind Energy"@en ;
-         skos:broader edo:Renewable ;
          skos:definition "Energia gerada a partir do vento usando turbinas e tecnologias relacionadas."@pt-br ,
-                         "Energy generated from wind using turbines and related technologies."@en ;
-         skos:inScheme edo:IndustrialDomainScheme .
+                         "Energy generated from wind using turbines and related technologies."@en .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
