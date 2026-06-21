@@ -1,5 +1,7 @@
 # Energy Domain Ontology (EDO)
 
+![EDO logo](./edo-logo.png)
+
 Welcome to the official documentation of the **Energy Domain Ontology (EDO)**.
 
 EDO is a semantic framework for the structured representation, exchange, and validation of information across the full lifecycle of assets in the energy sector.
