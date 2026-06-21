@@ -10,7 +10,7 @@ EDO is a semantic framework for the structured representation, exchange, and val
 
 - [About the EDO](./site/home.html)
 - [Human-readable ontology rendering](./ontology/energy-domain-ontology.html)
-- Interactive EDO Viewer *(planned under `./ontology/viewer/`)*
+- [Interactive EDO Viewer](./ontology/viewer/architecture.html)
 - [Ontology entity templates](./development/ontology-templates.html)
 
 ## Documentation areas
