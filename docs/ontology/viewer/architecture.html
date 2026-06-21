@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EDO Semantic Architecture</title>
+  <style>
+    :root { --bg:#f7f7f8; --panel:#fff; --text:#1f2937; --muted:#667085; --border:#d0d5dd; --soft:#eaecf0; --chip:#eef2f6; --accent:#175cd3; --ido:#e0f2fe; --cfihos:#ecfdf3; --ifc:#fff7ed; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.45; }
+    header { position:sticky; top:0; z-index:5; background:rgba(247,247,248,.94); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding:18px 24px; }
+    main { padding:20px 24px 48px; display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:18px; align-items:start; }
+    h1 { margin:0; font-size:1.7rem; letter-spacing:-.03em; }
+    h2 { margin:0 0 8px; font-size:1.15rem; letter-spacing:-.02em; }
+    h3 { margin:0 0 6px; font-size:1rem; }
+    p { margin:6px 0 0; max-width:980px; }
+    a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; }
+    button { font:inherit; }
+    .muted { color:var(--muted); }
+    .topline { display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .nav { display:flex; gap:8px; flex-wrap:wrap; }
+    .nav-link, .lens-button { border:1px solid var(--border); background:#fff; border-radius:10px; padding:8px 10px; cursor:pointer; font-size:.94rem; }
+    .lens-controls { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+    .lens-button.active { border-color:var(--accent); background:#e8f0f7; color:#0b4aa2; font-weight:650; }
+    .stage { display:grid; gap:18px; }
+    .band, .detail { background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:18px; }
+    .band.native { border-top:5px solid var(--chip); } .band.ido { border-top:5px solid var(--ido); } .band.cfihos { border-top:5px solid var(--cfihos); } .band.ifc { border-top:5px solid var(--ifc); }
+    .columns { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:14px; }
+    .card { display:grid; gap:8px; align-content:start; min-height:130px; border:1px solid var(--soft); border-radius:14px; background:#fcfcfd; padding:14px; }
+    .card.ido { background:#f0f9ff; } .card.cfihos { background:#f0fdf4; } .card.ifc { background:#fff7ed; }
+    .card-title { display:flex; align-items:baseline; justify-content:space-between; gap:8px; font-weight:720; }
+    .count { color:var(--muted); font-size:.84rem; white-space:nowrap; }
+    .desc { color:var(--muted); font-size:.93rem; }
+    .list { display:grid; gap:4px; list-style:none; padding:0; margin:4px 0 0; }
+    .list button, .card-title button { border:0; background:transparent; color:var(--text); padding:3px 0; text-align:left; width:100%; cursor:pointer; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .card-title button { color:var(--accent); font-weight:720; }
+    .list button:hover, .card-title button:hover { color:var(--accent); text-decoration:underline; }
+    .detail { position:sticky; top:116px; }
+    .kind, .pill { display:inline-flex; background:var(--chip); border-radius:999px; padding:4px 10px; color:#344054; font-size:.84rem; }
+    .iri { color:var(--muted); font-size:.85rem; word-break:break-all; margin-top:8px; }
+    .detail-section { border-top:1px solid var(--soft); margin-top:12px; padding-top:12px; }
+    .detail-item { margin:8px 0; color:var(--muted); font-size:.92rem; }
+    @media (max-width:1000px) { main { grid-template-columns:1fr; } .detail { position:static; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topline">
+      <div>
+        <h1>EDO Semantic Architecture</h1>
+        <p class="muted">Column view for the architecture of EDO. Architectural concepts stay horizontal; detailed inventories become vertical lists.</p>
+      </div>
+      <div class="nav">
+        <a class="nav-link" href="./index.html">Viewer home</a>
+        <a class="nav-link" href="./explorer.html">Open Explorer</a>
+      </div>
+    </div>
+    <div class="lens-controls" aria-label="Architecture lens">
+      <button type="button" class="lens-button active" data-lens="native">Native EDO</button>
+      <button type="button" class="lens-button" data-lens="ido">IDO / ISO 15926 Lens</button>
+      <button type="button" class="lens-button" data-lens="cfihos">CFIHOS / IOGP Lens</button>
+      <button type="button" class="lens-button" data-lens="ifc">IFC Data Contract Lens</button>
+    </div>
+  </header>
+  <main>
+    <section id="stage" class="stage"></section>
+    <aside id="detail" class="detail"></aside>
+  </main>
+  <script>
+    const DATA_URL = "./data/viewer-explorer-data.json";
+    let data = null;
+    let activeLens = "native";
+    const $ = (id) => document.getElementById(id);
+    function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
+    function findNav(id,nodes=data?.navigation||[]){for(const n of nodes){if(n.id===id)return n;const f=findNav(id,n.children||[]);if(f)return f;}return null;}
+    function children(id,limit=999){return (findNav(id)?.children||[]).slice(0,limit);}
+    function count(id){return (findNav(id)?.children||[]).length;}
+    function card({id,title,description,nodes=[],lens=activeLens,countLabel=""}){const titleHtml=id&&data.nodes[id]?`<button data-node-id="${esc(id)}">${esc(title)}</button>`:`<span>${esc(title)}</span>`;return `<article class="card ${esc(lens)}"><div class="card-title">${titleHtml}<span class="count">${esc(countLabel||`${nodes.length} items`)}</span></div>${description?`<div class="desc">${esc(description)}</div>`:""}${nodes.length?`<ul class="list">${nodes.slice(0,12).map(n=>`<li><button data-node-id="${esc(n.id)}" title="${esc(n.label)}">${esc(n.label)}</button></li>`).join("")}</ul>`:""}${nodes.length>12?`<div class="muted">+ ${nodes.length-12} more</div>`:""}</article>`;}
+    function band({title,description,cards,lens=activeLens}){return `<section class="band ${esc(lens)}"><h2>${esc(title)}</h2>${description?`<div class="muted">${esc(description)}</div>`:""}<div class="columns">${cards.join("")}</div></section>`;}
+    function nativeView(){const elementRoot=children("domainElements",1)[0];const elementClasses=elementRoot?.children||[];return [band({title:"Energy Domain Ontology",description:"The top level is architectural, not an OWL dump.",lens:"native",cards:[card({id:"domainElements",title:"Engineering Constructs",description:"Domain-facing constructs used by engineers.",nodes:[{id:"domainElements",label:"Elements"},{id:"domainAttributes",label:"Attributes"},{id:"domainRelations",label:"Relations"}],countLabel:"3 groups",lens:"native"}),card({id:"controlledVocabularies",title:"Vocabulary Concepts",description:"Controlled vocabularies used to classify and govern EDO concepts.",nodes:children("controlledVocabularies",12),countLabel:`${count("controlledVocabularies")} vocabularies`,lens:"native"}),card({id:"governanceAndMetadata",title:"Metamodel Constructs",description:"Metadata and governance constructs that describe the model and alignments.",nodes:children("governanceAndMetadata",12),countLabel:`${count("governanceAndMetadata")} groups`,lens:"native"})]}),band({title:"Engineering Constructs",description:"Horizontal at small conceptual levels; vertical when nodes become inventories of concrete terms.",lens:"native",cards:[card({id:"domainElements",title:"Elements",description:"Domain things: assets, facilities, locations, specifications and other objects.",nodes:elementClasses,countLabel:`${elementClasses.length} top classes`,lens:"native"}),card({id:"domainAttributes",title:"Attributes",description:"Properties, information requirements, identifiers, curves, tables and lifecycle data.",nodes:children("domainAttributes"),countLabel:`${count("domainAttributes")} views`,lens:"native"}),card({id:"domainRelations",title:"Relations",description:"How domain elements, attributes and concepts are connected.",nodes:children("domainRelations"),countLabel:`${count("domainRelations")} relations`,lens:"native"})]})].join("");}
+    function lensView(lens){if(lens==="ido")return band({title:"IDO / ISO 15926 Lens",description:"Conceptual classification overlay. This lens asks: what kind of thing is this, ontologically?",lens:"ido",cards:[card({title:"Physical Objects",description:"Material or physical domain objects.",nodes:children("alignmentModules.ido",12),lens:"ido"}),card({id:"domainElements",title:"Elements as IDO categories",description:"Physical objects, functional objects, features and information objects.",nodes:children("domainElements",1),lens:"ido"}),card({id:"domainAttributes",title:"Attributes as qualities/data",description:"Qualities, quantities, quality data, identifiers, curves and tables.",nodes:children("domainAttributes",8),lens:"ido"})]});if(lens==="cfihos")return band({title:"CFIHOS / IOGP Lens",description:"Information-delivery overlay. This lens asks: how does this participate in handover?",lens:"cfihos",cards:[card({title:"Properties",description:"Handover properties and property-like concepts.",nodes:children("alignmentModules.cfihos",12),lens:"cfihos"}),card({id:"domainElements",title:"Asset / equipment handover",description:"Elements interpreted as assets, tags, equipment classes or information objects.",nodes:children("domainElements",1),lens:"cfihos"}),card({id:"governanceAndMetadata",title:"Handover governance metadata",description:"Review, source, confidence, maturity and delivery metadata.",nodes:children("governanceAndMetadata",8),lens:"cfihos"})]});if(lens==="ifc")return band({title:"IFC Data Contract Lens",description:"Operational overlay for IFC information delivery requirements.",lens:"ifc",cards:[card({id:"ifcDataContracts",title:"IFC Data Contracts",description:"Information delivery requirements for IFC-based data contracts.",nodes:children("ifcDataContracts"),lens:"ifc"}),card({id:"domainAttributes",title:"Attribute requirements",description:"Included, required, optional, excluded and conditional attributes.",nodes:children("domainAttributes"),lens:"ifc"}),card({id:"domainRelations",title:"Relationship requirements",description:"Included, required, optional and excluded relationships.",nodes:children("domainRelations"),lens:"ifc"})]});return nativeView();}
+    function render(){ $("stage").innerHTML = activeLens==="native"?nativeView():lensView(activeLens); document.querySelectorAll("[data-node-id]").forEach(b=>b.addEventListener("click",()=>renderDetail(b.dataset.nodeId))); }
+    function renderDetail(id="root"){const n=data.nodes[id];if(!n){$("detail").innerHTML=`<span class="kind">Architecture group</span><h2>${esc(id)}</h2><p class="muted">This is an architectural grouping node.</p>`;return;}$("detail").innerHTML=`<span class="kind">${esc(n.kind||"Node")}</span><h2>${esc(n.label||n.id)}</h2>${n.description?`<p>${esc(n.description)}</p>`:`<p class="muted">No definition available.</p>`}${n.iri?`<div class="iri">${esc(n.iri)}</div>`:""}${(n.sections||[]).slice(0,4).map(s=>`<div class="detail-section"><h3>${esc(s.label||s.id)}</h3>${(s.items||[]).slice(0,8).map(i=>`<div class="detail-item"><strong>${esc(i.label||"")}</strong>${i.value?` — ${esc(i.value)}`:""}</div>`).join("")||`<div class="detail-item">No items.</div>`}</div>`).join("")}`;}
+    async function main(){const r=await fetch(DATA_URL); if(!r.ok) throw new Error(`Could not load ${DATA_URL}`); data=await r.json(); document.querySelectorAll(".lens-button").forEach(b=>b.addEventListener("click",()=>{activeLens=b.dataset.lens;document.querySelectorAll(".lens-button").forEach(x=>x.classList.toggle("active",x===b));render();})); render(); renderDetail("root");}
+    main().catch(e=>{$("stage").innerHTML=`<section class="band"><h2>Could not load architecture data</h2><p>${esc(e.message)}</p></section>`;});
+  </script>
+</body>
+</html>
