@@ -143,6 +143,13 @@ edo:ReferenceDocument rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+**`edo:LinearLocation`** — changed superclass from `DomainElement` to `Location`
+
+```diff
+- rdfs:subClassOf edo:DomainElement ;
++ rdfs:subClassOf edo:Location ;
+```
+
 ```diff
 +                           edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
 +                                            edo:SubseaUmbilicalsEngineering ;
