@@ -66,6 +66,23 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Connection
+
+### Created
+
+**`edo:Connection`** — new class, subclass of `Component`
+
+```turtle
+###  https://w3id.org/energy-domain/edo#Connection
+edo:Connection rdf:type owl:Class ;
+                 rdfs:subClassOf edo:Component ;
+                 dcterms:identifier "Connection" ;
+                 skos:definition "The joining point between two components..."@en ,
+                                 "Conexão."@pt-br ;
+                 skos:prefLabel "Conexão"@pt-br ,
+                                "Connection"@en .
+```
+
 ## Line Component
 
 ### Created
