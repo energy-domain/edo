@@ -66,6 +66,52 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Specification
+
+### Updated
+
+**`edo:FlexiblePipeStructure`** — changed superclass from `Specification` to `DomainElement`
+
+```diff
+- rdfs:subClassOf edo:IfcInstanciableElement , edo:Specification ;
++ rdfs:subClassOf edo:IfcInstanciableElement , edo:DomainElement ;
+```
+
+### Removed
+
+**`edo:Specification`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#Specification
+edo:Specification rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainElement ;
+                   skos:definition "Represents a detailed specification or design definition..."@en ;
+                   skos:prefLabel "Especificação"@pt-br ,
+                                  "Specification"@en .
+```
+
+**`edo:ProcessPipeSpec`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#ProcessPipeSpec
+edo:ProcessPipeSpec rdf:type owl:Class ;
+                     rdfs:subClassOf edo:Specification ;
+                     skos:definition "Represents the specification for process pipes..."@en ;
+                     skos:prefLabel "Especificação de Tubo de Processo"@pt-br ,
+                                    "Process Pipe Specification"@en .
+```
+
+**`edo:SubseaRigidPipeSpec`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#SubseaRigidPipeSpec
+edo:SubseaRigidPipeSpec rdf:type owl:Class ;
+                         rdfs:subClassOf edo:Specification ;
+                         skos:definition "Represents the specification for subsea rigid pipes..."@en ;
+                         skos:prefLabel "Especificação de Tubo Rígido Submarino"@pt-br ,
+                                        "Subsea Rigid Pipe Specification"@en .
+```
+
 ## Logical Element / Connection Point
 
 ### Updated
