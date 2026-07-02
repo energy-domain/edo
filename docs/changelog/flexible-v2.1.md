@@ -75,12 +75,27 @@ edo:SupportRegion rdf:type owl:Class ;
 ```turtle
 ###  https://w3id.org/energy-domain/edo#Connection
 edo:Connection rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainElement ;
+                 rdfs:subClassOf edo:Component ;
                  dcterms:identifier "Connection" ;
                  skos:definition "The joining point between two components..."@en ,
                                  "Conexão."@pt-br ;
                  skos:prefLabel "Conexão"@pt-br ,
                                 "Connection"@en .
+```
+
+### Created
+
+**`edo:LogicalConnection`** — new class, subclass of `Connection`
+
+```turtle
+###  https://w3id.org/energy-domain/edo#LogicalConnection
+edo:LogicalConnection rdf:type owl:Class ;
+                        rdfs:subClassOf edo:Connection ;
+                        dcterms:identifier "LogicalConnection" ;
+                        skos:definition "Represents a logical/functional connection between two installation locations."@en ,
+                                        "Conexão Lógica."@pt-br ;
+                        skos:prefLabel "Conexão Lógica"@pt-br ,
+                                       "Logical Connection"@en .
 ```
 
 ## Line Component
