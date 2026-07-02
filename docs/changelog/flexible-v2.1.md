@@ -54,3 +54,28 @@ edo:SupportRegion rdf:type owl:Class ;
                   skos:prefLabel "Região de Suporte no Modelo"@pt-br ,
                                  "Support Region"@en .
 ```
+
+## Fabrication Component
+
+### Updated
+
+**`edo:FlexibleStructureLayer`** — changed superclass from `FabricationComponent` to `DomainElement`
+
+```diff
+- rdfs:subClassOf edo:FabricationComponent ;
++ rdfs:subClassOf edo:DomainElement ;
+```
+
+### Removed
+
+**`edo:FabricationComponent`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#FabricationComponent
+edo:FabricationComponent rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainElement ;
+                          skos:definition "Represents elements that are physical, non-traceable, and non-replaceable..."@en ,
+                                          "Representa elementos físicos, não rastreáveis e não substituíveis..."@pt-br ;
+                          skos:prefLabel "Componente de Fabricação"@pt-br ,
+                                         "Fabrication Component"@en .
+```
