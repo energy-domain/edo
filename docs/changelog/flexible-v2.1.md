@@ -66,6 +66,17 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Line Ancillary
+
+### Updated
+
+**`edo:LineAncillary`** — changed superclass from `Component` to `LineComponent`
+
+```diff
+- rdfs:subClassOf edo:Component ;
++ rdfs:subClassOf edo:LineComponent ;
+```
+
 ## Part Element / Consumable Element
 
 ### Updated
