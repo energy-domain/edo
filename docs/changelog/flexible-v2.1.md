@@ -66,6 +66,41 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Part Element / Consumable Element
+
+### Updated
+
+**`edo:PhysicalConnection`** — changed superclass from `ConsumableElement` to `Connection`
+
+```diff
+- rdfs:subClassOf edo:ConsumableElement ;
++ rdfs:subClassOf edo:Connection ;
+```
+
+### Removed
+
+**`edo:PartElement`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#PartElement
+edo:PartElement rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainElement ;
+                 skos:definition "Represents a physical component that is not individually traceable..."@en ;
+                 skos:prefLabel "Elemento Parte"@pt-br ,
+                                "Part Element"@en .
+```
+
+**`edo:ConsumableElement`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#ConsumableElement
+edo:ConsumableElement rdf:type owl:Class ;
+                       rdfs:subClassOf edo:PartElement ;
+                       skos:definition "Physical, non-traceable, and replaceable elements..."@en ;
+                       skos:prefLabel "Consumable Element"@en ,
+                                      "Elemento Consumível"@pt-br .
+```
+
 ## Specification
 
 ### Updated
