@@ -122,6 +122,13 @@ edo:ReferenceDocument rdf:type owl:Class ;
 
 **`edo:SubseaFlexiblePipesBsddDictionary`** — added `hasDiscipline SubseaFlexiblePipesEngineering`
 
+**`edo:Project`** — changed superclass from `Location` to `DomainElement`
+
+```diff
+- rdfs:subClassOf edo:Location ;
++ rdfs:subClassOf edo:DomainElement ;
+```
+
 ```diff
 +                           edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
 +                                            edo:SubseaUmbilicalsEngineering ;
