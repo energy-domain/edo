@@ -75,7 +75,14 @@ edo:SupportRegion rdf:type owl:Class ;
 ```diff
 + edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
 +                  edo:SubseaRigidPipesEngineering ,
-                    edo:SubseaUmbilicalsEngineering ;
+                     edo:SubseaUmbilicalsEngineering ;
+```
+
+**`edo:DimensionsDrawing`** — added `hasDiscipline SubseaFlexiblePipesEngineering`
+
+```diff
++                           edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
++                                            edo:SubseaUmbilicalsEngineering ;
 ```
 
 ## Asset / LineComponent Attributes
@@ -281,7 +288,26 @@ edo:LogicalConnection rdf:type owl:Class ;
                         skos:definition "Represents a logical/functional connection between two installation locations."@en ,
                                         "Conexão Lógica."@pt-br ;
                         skos:prefLabel "Conexão Lógica"@pt-br ,
-                                       "Logical Connection"@en .
+                                        "Logical Connection"@en .
+```
+
+### Created
+
+**`edo:DistributionConnectionPoint`** — new class, subclass of `LogicalConnection` and `IfcInstanciableElement`
+
+```turtle
+###  https://w3id.org/energy-domain/edo#DistributionConnectionPoint
+edo:DistributionConnectionPoint rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:LogicalConnection ,
+                                                 edo:IfcInstanciableElement ;
+                                 dcterms:identifier "DistributionConnectionPoint" ;
+                                 skos:definition "Location in a model that indicates the specific point where fluid distribution components are connected..."@en ;
+                                 skos:prefLabel "Ponto de Conexão de Distribuição"@pt-br ,
+                                                "Distribution Connection Point"@en ;
+                                 edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+                                 edo:ifc_equivalentClass "IfcDistributionPort" ;
+                                 edo:ifc_objectType "DistributionConnectionPoint" ;
+                                 edo:ifc_predefinedType "USERDEFINED" .
 ```
 
 ## Line Component
