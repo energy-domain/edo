@@ -120,6 +120,8 @@ edo:ReferenceDocument rdf:type owl:Class ;
 
 **`edo:RiserBalcony`** — added `hasDiscipline SubseaFlexiblePipesEngineering`
 
+**`edo:SubseaFlexiblePipesBsddDictionary`** — added `hasDiscipline SubseaFlexiblePipesEngineering`
+
 ```diff
 +                           edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
 +                                            edo:SubseaUmbilicalsEngineering ;
