@@ -136,6 +136,13 @@ edo:ReferenceDocument rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+**`edo:ReferenceDrawing`** — changed superclass from `ExternalReference` to `DomainElement`
+
+```diff
+- rdfs:subClassOf edo:ExternalReference ;
++ rdfs:subClassOf edo:DomainElement ;
+```
+
 ```diff
 +                           edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
 +                                            edo:SubseaUmbilicalsEngineering ;
