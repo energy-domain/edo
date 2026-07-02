@@ -66,6 +66,18 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Disciplines
+
+### Updated
+
+**`edo:FloatingProductionUnit`**, **`edo:SubseaOilField`**, **`edo:SubseaWell`** — added `hasDiscipline SubseaFlexiblePipesEngineering` and `SubseaRigidPipesEngineering`
+
+```diff
++ edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
++                  edo:SubseaRigidPipesEngineering ,
+                    edo:SubseaUmbilicalsEngineering ;
+```
+
 ## Asset / LineComponent Attributes
 
 ### Updated
