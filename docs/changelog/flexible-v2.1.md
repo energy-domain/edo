@@ -66,6 +66,47 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Line Component
+
+### Created
+
+**`edo:LineComponent`** — new class, subclass of `Component`
+
+```turtle
+###  https://w3id.org/energy-domain/edo#LineComponent
+edo:LineComponent rdf:type owl:Class ;
+                    rdfs:subClassOf edo:Component ;
+                    dcterms:identifier "LineComponent" ;
+                    skos:definition "A part or element that is integral to the construction or operation of a pipeline system..."@en ,
+                                    "Componente de Dutos Submarinos."@pt-br ;
+                    skos:prefLabel "Componente de Dutos Submarinos"@pt-br ,
+                                   "Line Component"@en .
+```
+
+### Updated
+
+**`edo:LineTermination`** — changed superclass from `ComponentDevice` to `LineComponent`
+
+```diff
+- rdfs:subClassOf edo:ComponentDevice ;
++ rdfs:subClassOf edo:LineComponent ;
+```
+
+### Removed
+
+**`edo:ComponentDevice`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#ComponentDevice
+edo:ComponentDevice rdf:type owl:Class ;
+                    rdfs:subClassOf edo:Component ;
+                    dcterms:identifier "ComponentDevice" ;
+                    skos:definition "Complex devices incorporated as parts of larger equipment/systems"@en ,
+                                    "Dispositivos complexos incorporados como parte de equipamentos/sistemas maiores"@pt-br ;
+                    skos:prefLabel "Component Device"@en ,
+                                   "Dispositivo Componente"@pt-br .
+```
+
 ## Material Type
 
 ### Updated
