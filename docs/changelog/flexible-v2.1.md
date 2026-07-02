@@ -66,6 +66,42 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Material Type
+
+### Updated
+
+**`edo:FlexibleStructureLayerMaterial`** — changed superclass from `MaterialType` to `DomainElement`
+
+```diff
+- rdfs:subClassOf edo:MaterialType ;
++ rdfs:subClassOf edo:DomainElement ;
+```
+
+### Removed
+
+**`edo:MaterialType`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#MaterialType
+edo:MaterialType rdf:type owl:Class ;
+                  rdfs:subClassOf edo:DomainElement ;
+                  skos:definition "Represents catalogs of materials used within projects..."@en ,
+                                  "Representa catálogos de materiais utilizados em projetos..."@pt-br ;
+                  skos:prefLabel "Material Type"@en ,
+                                 "Tipo de Material"@pt-br .
+```
+
+## Fabrication Component
+
+### Updated
+
+**`edo:FlexibleStructureLayer`** — changed superclass from `FabricationComponent` to `DomainElement`
+
+```diff
+- rdfs:subClassOf edo:FabricationComponent ;
++ rdfs:subClassOf edo:DomainElement ;
+```
+
 ### Removed
 
 **`edo:FabricationComponent`**
