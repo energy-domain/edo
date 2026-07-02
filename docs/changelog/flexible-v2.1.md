@@ -118,6 +118,8 @@ edo:ReferenceDocument rdf:type owl:Class ;
 
 **`edo:DimensionsDrawing`** — added `hasDiscipline SubseaFlexiblePipesEngineering`
 
+**`edo:RiserBalcony`** — added `hasDiscipline SubseaFlexiblePipesEngineering`
+
 ```diff
 +                           edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
 +                                            edo:SubseaUmbilicalsEngineering ;
