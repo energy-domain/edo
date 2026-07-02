@@ -66,6 +66,44 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Reference Drawing
+
+### Created
+
+**`edo:ReferenceDrawing`** — new class, subclass of `ExternalReference`
+
+```turtle
+###  https://w3id.org/energy-domain/edo#ReferenceDrawing
+edo:ReferenceDrawing rdf:type owl:Class ;
+                       dcterms:identifier "ReferenceDrawing" ;
+                       rdfs:subClassOf edo:ExternalReference ;
+                       skos:definition "A technical drawing providing detailed information about a specific component..."@en ;
+                       skos:prefLabel "Desenhos de Referência"@pt-br ,
+                                      "Reference Drawing"@en .
+```
+
+### Updated
+
+**`edo:DimensionsDrawing`** — changed superclass from `ReferenceDocument` to `ReferenceDrawing`
+
+```diff
+- rdfs:subClassOf edo:IfcInstanciableElement , edo:ReferenceDocument ;
++ rdfs:subClassOf edo:IfcInstanciableElement , edo:ReferenceDrawing ;
+```
+
+### Removed
+
+**`edo:ReferenceDocument`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#ReferenceDocument
+edo:ReferenceDocument rdf:type owl:Class ;
+                       rdfs:subClassOf edo:ExternalReference ;
+                       skos:definition "Represents a document or publication that serves as a source of information..."@en ;
+                       skos:prefLabel "Documento de Referência"@pt-br ,
+                                      "Reference Document"@en .
+```
+
 ## Disciplines
 
 ### Updated
