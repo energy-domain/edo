@@ -66,6 +66,50 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Logical Element / Connection Point
+
+### Updated
+
+**`edo:SubseaConnectionPoint`** — changed superclass from `ConnectionPoint` to `LogicalConnection`
+
+```diff
+- rdfs:subClassOf edo:ConnectionPoint ,
++ rdfs:subClassOf edo:LogicalConnection ,
+```
+
+**`edo:TopsideConnectionPoint`** — changed superclass from `ConnectionPoint` to `LogicalConnection`
+
+```diff
+- rdfs:subClassOf edo:ConnectionPoint ,
++ rdfs:subClassOf edo:LogicalConnection ,
+```
+
+### Removed
+
+**`edo:LogicalElement`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#LogicalElement
+edo:LogicalElement rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainElement ;
+                    dcterms:identifier "LogicalElement" ;
+                    skos:definition "Represents elements of a non-physical nature..."@en ;
+                    skos:prefLabel "Elemento Lógico"@pt-br ,
+                                   "Logical Element"@en .
+```
+
+**`edo:ConnectionPoint`**
+
+```turtle
+###  https://w3id.org/energy-domain/edo#ConnectionPoint
+edo:ConnectionPoint rdf:type owl:Class ;
+                     rdfs:subClassOf edo:LogicalElement ;
+                     dcterms:identifier "ConnectionPoint" ;
+                     skos:definition "Represents a point used to establish a connection..."@en ;
+                     skos:prefLabel "Connection Point"@en ,
+                                    "Ponto de Conexão"@pt-br .
+```
+
 ## Connection
 
 ### Created
