@@ -66,6 +66,31 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## HardwareItem / LineComponent Attributes
+
+### Updated
+
+**`edo:HardwareItem`** — removed all `edo:hasAttribute` declarations
+
+**`edo:LineComponent`** — added attributes moved from `HardwareItem`
+
+```turtle
+                      edo:hasAttribute edo:DisplacedVolume ,
+                                       edo:DrawingDimensionsTable_DimensionDescription ,
+                                       edo:DrawingDimensionsTable_DimensionName ,
+                                       edo:DrawingDimensionsTable_DimensionUnit ,
+                                       edo:DrawingDimensionsTable_DimensionValue ,
+                                       edo:IdInUnifilarDiagram ,
+                                       edo:InternalVolume ,
+                                       edo:ManufacturerDefinedMaterialName ,
+                                       edo:Mass ,
+                                       edo:MaterialSupplierName ,
+                                       edo:PartNumber ,
+                                       edo:ProjectDrawingCode ,
+                                       edo:ProjectDrawingRevision ,
+                                       edo:SupplierProvidedMaterialName .
+```
+
 ## Line Ancillary
 
 ### Updated
