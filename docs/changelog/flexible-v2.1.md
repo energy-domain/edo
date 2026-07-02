@@ -66,6 +66,19 @@ edo:SupportRegion rdf:type owl:Class ;
 + rdfs:subClassOf edo:DomainElement ;
 ```
 
+## Asset / LineComponent Attributes
+
+### Updated
+
+**`edo:Asset`** — removed `edo:hasAttribute edo:IsSpare , edo:SerialNumber`
+
+**`edo:LineComponent`** — added attributes `IsSpare` and `SerialNumber`
+
+```diff
++                                        edo:IsSpare ,
++                                        edo:SerialNumber .
+```
+
 ## HardwareItem / LineComponent Attributes
 
 ### Updated
