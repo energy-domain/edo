@@ -1,5 +1,46 @@
 # Changelog — Flexible v2.1
 
+## Anchoring Collar / Anode Collar Set
+
+### Updated
+
+**`edo:AnchoringCollar`** — removed all `edo:hasAttribute` declarations
+
+**`edo:AnodeCollarSet`** — added all attributes moved from `AnchoringCollar`
+
+```diff
+-                    edo:hasAttribute edo:AnodeCollarsAxialSpacing ,
+-                                     edo:AnodeCollarsQuantity ,
+-                                     edo:ClampInternalDiameter ,
+-                                     edo:ExternalDiameter ,
+-                                     edo:GalvanicMaterial ,
+-                                     edo:IndividualAnodeMass ,
+-                                     edo:MetallicStrandLength ,
+-                                     edo:MetallicStrandSpareQuantity ;
++                   edo:hasAttribute edo:AnodeCollarsAxialSpacing ,
++                                    edo:AnodeCollarsQuantity ,
++                                    edo:ClampInternalDiameter ,
++                                    edo:ExternalDiameter ,
++                                    edo:GalvanicMaterial ,
++                                    edo:IndividualAnodeMass ,
++                                    edo:MetallicStrandLength ,
++                                    edo:MetallicStrandSpareQuantity ;
+```
+
+## Bend Restrictor
+
+### Updated
+
+**`edo:BendRestrictor`** — replaced individual `BendMomentVsShearForceTable` sub-attributes with `BendMomentVsShearForceTableColumn`
+
+```diff
+-                    edo:hasAttribute edo:BendMomentVsShearForceTable ,
+-                                     edo:BendMomentVsShearForceTable_BendingMoment ,
+-                                     edo:BendMomentVsShearForceTable_Condition ,
+-                                     edo:BendMomentVsShearForceTable_ShearForce ;
++                   edo:hasAttribute edo:BendMomentVsShearForceTableColumn ;
+```
+
 ## Model Location Point
 
 ### Created
