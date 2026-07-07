@@ -511,3 +511,19 @@ edo:FabricationComponent rdf:type owl:Class ;
                           skos:prefLabel "Componente de Fabricação"@pt-br ,
                                          "Fabrication Component"@en .
 ```
+
+## MetricStudSet
+
+### Updated
+
+**`edo:MetricStudSet`** — added `edo:NominalDiameter` attribute
+
+```diff
+-                   edo:hasAttribute edo:PitchToleranceClass ,
+-                                    edo:ThreadPitch ,
+-                                    edo:ThreadStandard ;
++                   edo:hasAttribute edo:NominalDiameter ,
++                                    edo:PitchToleranceClass ,
++                                    edo:ThreadPitch ,
++                                    edo:ThreadStandard ;
+```
