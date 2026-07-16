@@ -22,14 +22,14 @@ ex:Rule_CompositeMaterial_CompositeLayerMaterialType a sh:NodeShape ;
         sh:in ( "CARBON_FIBER" "GLASS_FIBER" "ARAMID" "HYBRID_FIBER" "GRAPHENE" )
     ] .
 
-ex:Rule_FlexiblePipeSegment_EarlyLeakMaxPressTable_TensLimitValRef a sh:NodeShape ;
+ex:Rule_EarlyLeakMaxPressTable_TensLimitValRef a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment ;
     sh:property [
         sh:path edo:EarlyLeakMaxPressTable_TensLimitValRef ;
         sh:in ( "ASSOCIATED_LAYING_TENSION" )
     ] .    
 
-ex:Rule_FlexiblePipeSegment_EarlyLeakMaxPressTable_TensLimitValRef a sh:NodeShape ;
+ex:Rule_EarlyLeakNomPressTable_TensLimitValRef a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment ;
     sh:property [
         sh:path edo:EarlyLeakNomPressTable_TensLimitValRef ;
@@ -43,16 +43,46 @@ ex:Rule_FlangeFaceType a sh:NodeShape ;
         sh:in ( "RAISED_FACE" "RECESSED_FACE" "FLAT_FACE" "RING_TYPE_JOINT" )
     ] .    
 
-    
+ex:Rule_IntermediateValuesStrategy a sh:NodeShape ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:IntermediateValuesStrategy ;
+        sh:in ( "LINEAR_INTERPOLATION" "MOST_RESTRICTIVE_VALUE_BETWEEN_THE_NEIGHBOURING_VALUES" )
+    ] .
+
+
+ex:Rule_MetallicMaterial a sh:NodeShape ;
+    sh:targetClass edo:MetallicMaterial ;
+    sh:property [
+        sh:path edo:MetallicLayerMaterialType ;
+        sh:in ( "CARBON_STEEL" "STAINLESS_STEEL" "304_SS" "304L_SS" "309_SS" "316_SS" "316L_SS" "321_SS" "347_SS" "410_SS" "DUPLEX_STEEL" "TITANIUM" "ASTM_B381_F1" "ASTM_B381_F2" "ASTM_B381_F2H" "ASTM_B381_F3" "ASTM_B381_F4" "ASTM_B381_F5" "ASTM_B381_F6" "ASTM_B381_F7" "ASTM_B381_F7H" "ASTM_B381_F9" "ASTM_B381_F11" "ASTM_B381_F12" "ASTM_B381_F13" "ASTM_B381_F14" "ASTM_B381_F15" "ASTM_B381_F16" "ASTM_B381_F16H" "ASTM_B381_F17" "ASTM_B381_F18" "ASTM_B381_F19" "ASTM_B381_F20" "ASTM_B381_F21" "ASTM_B381_F22" "ASTM_B381_F23" "ASTM_B381_F24" "ASTM_B381_F25" "ASTM_B381_F26" "ASTM_B381_F26H" "ASTM_B381_F27" "ASTM_B381_F28" "ASTM_B381_F29" "ASTM_B381_F30" "ASTM_B381_F31" "ASTM_B381_F32" "ASTM_B381_F33" "ASTM_B381_F34" "ASTM_B381_F35" "ASTM_B381_F36" "ASTM_B381_F37" "ASTM_B381_F38" )
+    ] .
+
+ex:Rule_PolymericLayerMaterialType a sh:NodeShape ;
+    sh:targetClass edo:PolymericMaterial ;
+    sh:property [
+        sh:path edo:PolymericLayerMaterialType ;
+        sh:in ( "POLYAMID_11" "POLYAMID_12" "PE" "UHMWPE" "HDPE" "LDPE" "XLPE" "PP" "POM" "PTFE" )
+    ] .
+
+ex:Rule_PullingHeadType a sh:NodeShape ;
+    sh:targetClass edo:PipePullingHeadType ;
+    sh:property [
+        sh:path edo:PullingHeadType ;
+        sh:in ( "PULL-IN" "LOAD" "HANDLING_AND_TESTING" )
+    ] .    
+
+
+ex:Rule_TensileArmourAnnulusCondition a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:TensileArmourAnnulusCondition ;
+        sh:in ( "DRY" "FLOODED" )
+    ] .
 
 #################################################################
 
-ex:Rule_SafeWorkingLoad_kgf a sh:NodeShape ;
-    sh:targetClass edo:AnchoringCollar, edo:GroovePoint, edo:HangOffCollar , edo:PipePullingHead ;
-    sh:property [
-        sh:path edo:SafeWorkingLoad ;
-        edo:hasUnit unit:KiloGM_F ;
-    ] .
+
 
 ex:Rule_OpticalFiberCable_AttenuationCoefficient a sh:NodeShape ;
     sh:targetClass edo:OpticalFiberCable ;
@@ -513,12 +543,7 @@ ex:Rule_LineTermination a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_MetallicMaterial a sh:NodeShape ;
-    sh:targetClass edo:MetallicMaterial ;
-    sh:property [
-        sh:path edo:MetallicLayerMaterialType ;
-        sh:in ( "CARBON_STEEL" "STAINLESS_STEEL" "304_SS" "304L_SS" "309_SS" "316_SS" "316L_SS" "321_SS" "347_SS" "410_SS" "DUPLEX_STEEL" "TITANIUM" "ASTM_B381_F1" "ASTM_B381_F2" "ASTM_B381_F2H" "ASTM_B381_F3" "ASTM_B381_F4" "ASTM_B381_F5" "ASTM_B381_F6" "ASTM_B381_F7" "ASTM_B381_F7H" "ASTM_B381_F9" "ASTM_B381_F11" "ASTM_B381_F12" "ASTM_B381_F13" "ASTM_B381_F14" "ASTM_B381_F15" "ASTM_B381_F16" "ASTM_B381_F16H" "ASTM_B381_F17" "ASTM_B381_F18" "ASTM_B381_F19" "ASTM_B381_F20" "ASTM_B381_F21" "ASTM_B381_F22" "ASTM_B381_F23" "ASTM_B381_F24" "ASTM_B381_F25" "ASTM_B381_F26" "ASTM_B381_F26H" "ASTM_B381_F27" "ASTM_B381_F28" "ASTM_B381_F29" "ASTM_B381_F30" "ASTM_B381_F31" "ASTM_B381_F32" "ASTM_B381_F33" "ASTM_B381_F34" "ASTM_B381_F35" "ASTM_B381_F36" "ASTM_B381_F37" "ASTM_B381_F38" )
-    ] .
+
 
 ex:Rule_MetricBoltSet a sh:NodeShape ;
     sh:targetClass edo:MetricBoltSet ;
@@ -607,12 +632,7 @@ ex:Rule_PolymericMaterial_2 a sh:NodeShape ;
         sh:in ( "PLASTICIZED" "UNPLASTICED" )
     ] .
 
-ex:Rule_PolymericMaterial_3 a sh:NodeShape ;
-    sh:targetClass edo:PolymericMaterial ;
-    sh:property [
-        sh:path edo:PolymericLayerMaterialType ;
-        sh:in ( "POLYAMID_11" "POLYAMID_12" "PE" "UHMWPE" "HDPE" "LDPE" "XLPE" "PP" "POM" "PTFE" )
-    ] .
+
 
 ex:Rule_PolymericMaterial_4 a sh:NodeShape ;
     sh:targetClass edo:PolymericMaterial ;
@@ -671,7 +691,7 @@ ex:Rule_QuickConnectCoupling_3 a sh:NodeShape ;
     ] .
 
 ex:Rule_RingGasket a sh:NodeShape ;
-    sh:targetClass edo:RingGasket ;
+    sh:targetClass edo:RingGasket, edo:PipePullingHead, edo:EndFitting ;
     sh:property [
         sh:path edo:OuterDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -704,7 +724,7 @@ ex:Rule_SubseaUmbilical a sh:NodeShape ;
     ] .
 
 ex:Rule_SubseaUmbilical_2 a sh:NodeShape ;
-    sh:targetClass edo:SubseaUmbilical ;
+    sh:targetClass edo:SubseaUmbilical, edo:SubseaPipeline ;
     sh:property [
         sh:path edo:RiserConfiguration ;
         sh:in ( "FREE_CATENARY" "LAZY_WAVE" "STEEP_WAVE" "LAZY_S" "STEEP_S" "HYBRID_RISER_TOWER" )
@@ -815,12 +835,7 @@ ex:Rule_UmbilicalStructure_3 a sh:NodeShape ;
         sh:in ( "Fractional number (? 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_4 a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
-    sh:property [
-        sh:path edo:IntermediateValuesStrategy ;
-        sh:in ( "LINEAR_INTERPOLATION" "MOST_RESTRICTIVE_VALUE_BETWEEN_THE_NEIGHBOURING_VALUES" )
-    ] .
+
 
 ex:Rule_UmbilicalStructure_5 a sh:NodeShape ;
     sh:targetClass edo:FlexibleStructure ;
@@ -963,7 +978,7 @@ ex:Rule_UmbilicalStructure_26 a sh:NodeShape ;
     ] .
 
 ex:Rule_UmbilicalStructure_27 a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:TensionerPadsMaterial ;
         sh:in ( "HIGH-DENSITY_POLYURETHANE" "REINFORCED_SYNTHETIC_RUBBER" "FIBRE-REINFORCED_COMPOSITES" "REINFORCED_NYLON" "HIGH-STRENGTH_ELASTOMERS" )
