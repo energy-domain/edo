@@ -63,3 +63,29 @@
 +              edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
 +                                edo:SubseaFlexiblePipesEngineering ;
 ```
+
+## Updated (adição de disciplina)
+
+### edo:AnchorLocation (line 834)
+
+```diff
+-                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
++                   edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
++                                     edo:SubseaFlexiblePipesEngineering ;
+```
+
+### edo:MooringLayout (line 12682)
+
+```diff
+-                  edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
++                  edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
++                                    edo:SubseaFlexiblePipesEngineering ;
+```
+
+### edo:MooringLine (line 12701)
+
+```diff
+-                edo:hasDiscipline edo:SubseaRigidPipesEngineering ;
++                edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
++                                  edo:SubseaFlexiblePipesEngineering ;
+```
