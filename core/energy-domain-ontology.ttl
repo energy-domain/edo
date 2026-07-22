@@ -49,12 +49,28 @@ dcterms:title rdf:type owl:AnnotationProperty .
 qudt:conversionMultiplier rdf:type owl:AnnotationProperty .
 
 
+###  http://qudt.org/schema/qudt/conversionOffset
+qudt:conversionOffset rdf:type owl:AnnotationProperty .
+
+
 ###  http://qudt.org/schema/qudt/definedUnitOfSystem
 qudt:definedUnitOfSystem rdf:type owl:AnnotationProperty .
 
 
+###  http://qudt.org/schema/qudt/exponent
+qudt:exponent rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/hasFactorUnit
+qudt:hasFactorUnit rdf:type owl:AnnotationProperty .
+
+
 ###  http://qudt.org/schema/qudt/hasQuantityKind
 qudt:hasQuantityKind rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt/hasUnit
+qudt:hasUnit rdf:type owl:AnnotationProperty .
 
 
 ###  http://qudt.org/schema/qudt/symbol
@@ -334,8 +350,8 @@ edo:AbsoluteOutsidePressure rdf:type owl:Class ;
                             dcterms:accessRights "PUBLIC" ;
                             dcterms:identifier "AbsoluteOutsidePressure" ;
                             skos:definition "Represents the absolute external pressure exerted on a component or system. This property is essential for evaluating how the system withstands pressure from its surrounding environment, particularly in subsea applications where external pressure can be significantly higher and impact the structural integrity of the system."@en ;
-skos:prefLabel "Pressão Absoluta Externa"@pt-br ,
-                                            "Absolute Outside Pressure"@en ;
+                            skos:prefLabel "Absolute Outside Pressure"@en ,
+                                           "Pressão Absoluta Externa"@pt-br ;
                             edo:hasAttributeScope edo:TypeLevelAttribute ;
                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                             edo:hasTypedValue edo:FloatValue ;
@@ -509,8 +525,8 @@ edo:AssemblyTorque rdf:type owl:Class ;
                                   "Torque de Montagem"@pt-br ;
                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                   edo:hasUnit unit:N-M ;
                    edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:N-M ;
                    edo:hasValueCardinality edo:SingleValue .
 
 
@@ -5584,8 +5600,8 @@ edo:Service rdf:type owl:Class ;
             dcterms:identifier "Service" ;
             skos:definition "Escolha um da lista: IA (Injeção de água); IG (Injeção de Gás); LPO (Linha de Produção de Óleo); PG (Produtor de Gás); SE (Serviço); GAS (Gasoduto); UEH (Umbilical Eletro Hidráulico); CEP (Cabo Elétrico de Potência)"@pt-br ,
                             "Indicates the type of service the pipeline is designated for, specifying its operational purpose within the project. This classification is used to ensure proper management, installation, and use of the pipeline according to its intended function."@en ;
-            skos:prefLabel "Indicates the Type of Service"@en ,
-                            "Indica o Tipo de Serviço"@pt-br ;
+            skos:prefLabel "Indica o Tipo de Serviço"@pt-br ,
+                           "Indicates the Type of Service"@en ;
             edo:hasAttributeScope edo:InstanceLevelAttribute ;
             edo:hasLifecycleCreationPhase edo:BasicDesign ;
             edo:hasTypedValue edo:StringValue ;
@@ -7232,6 +7248,36 @@ edo:WoundLayer rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
+###  http://qudt.org/vocab/unit/DEG
+unit:DEG rdf:type owl:NamedIndividual ,
+                  qudt:Unit ,
+                  edo:DomainUnit ;
+         dcterms:source "QUDT Units Vocabulary"@en ;
+         qudt:conversionMultiplier 0.017453292519943295 ;
+         qudt:definedUnitOfSystem sou:SI ;
+         qudt:hasQuantityKind qudt:PlaneAngle ;
+         qudt:symbol "°" ;
+         qudt:ucumCode "DEG" ;
+         rdfs:comment "Unit of plane angle measurement"@en ;
+         rdfs:isDefinedBy unit:DEG ;
+         rdfs:label "Degree"@en .
+
+
+###  http://qudt.org/vocab/unit/J-PER-KiloGM-K
+unit:J-PER-KiloGM-K rdf:type owl:NamedIndividual ,
+                             qudt:Unit ,
+                             edo:DomainUnit ;
+                    dcterms:source "QUDT Units Vocabulary"@en ;
+                    qudt:conversionMultiplier 1.0 ;
+                    qudt:definedUnitOfSystem sou:SI ;
+                    qudt:hasQuantityKind qudt:SpecificHeatCapacity ;
+                    qudt:symbol "J/(kg·K)" ;
+                    qudt:ucumCode "J.KG-1.K-1" ;
+                    rdfs:comment "Represents energy (in joules) per unit mass (kilogram) per unit temperature (Kelvin)."@en ;
+                    rdfs:isDefinedBy unit:J-PER-KG-K ;
+                    rdfs:label "Joule per Kilogram-Kelvin"@en .
+
+
 ###  http://qudt.org/vocab/unit/K
 unit:K rdf:type owl:NamedIndividual ,
                 qudt:Unit ,
@@ -7260,6 +7306,36 @@ unit:KiloGM rdf:type owl:NamedIndividual ,
             rdfs:comment "Unit of mass in the metric system"@en ;
             rdfs:isDefinedBy unit:KG ;
             rdfs:label "Kilogram"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloGM-PER-M
+unit:KiloGM-PER-M rdf:type owl:NamedIndividual ,
+                           qudt:Unit ,
+                           edo:DomainUnit ;
+                  dcterms:source "QUDT Units Vocabulary"@en ;
+                  qudt:conversionMultiplier 1.0 ;
+                  qudt:definedUnitOfSystem sou:SI ;
+                  qudt:hasQuantityKind qudt:LinearMassDensity ;
+                  qudt:symbol "kg/m" ;
+                  qudt:ucumCode "KG.M-1" ;
+                  rdfs:comment "Unit of linear mass density"@en ;
+                  rdfs:isDefinedBy unit:KG-PER-M ;
+                  rdfs:label "Kilogram per meter"@en .
+
+
+###  http://qudt.org/vocab/unit/KiloGM-PER-M3
+unit:KiloGM-PER-M3 rdf:type owl:NamedIndividual ,
+                            qudt:Unit ,
+                            edo:DomainUnit ;
+                   dcterms:source "QUDT Units Vocabulary"@en ;
+                   qudt:conversionMultiplier 1.0 ;
+                   qudt:definedUnitOfSystem sou:SI ;
+                   qudt:hasQuantityKind qudt:MassDensity ;
+                   qudt:symbol "kg/m³" ;
+                   qudt:ucumCode "KG.M-3" ;
+                   rdfs:comment "Unit of mass density"@en ;
+                   rdfs:isDefinedBy unit:KG-PER-M3 ;
+                   rdfs:label "Kilogram per cubic meter"@en .
 
 
 ###  http://qudt.org/vocab/unit/KiloGM_F
@@ -7307,6 +7383,21 @@ unit:M2 rdf:type owl:NamedIndividual ,
         rdfs:label "Square meter"@en .
 
 
+###  http://qudt.org/vocab/unit/M2-PER-SEC
+unit:M2-PER-SEC rdf:type owl:NamedIndividual ,
+                         qudt:Unit ,
+                         edo:DomainUnit ;
+                dcterms:source "QUDT Units Vocabulary"@en ;
+                qudt:conversionMultiplier 1.0 ;
+                qudt:definedUnitOfSystem sou:SI ;
+                qudt:hasQuantityKind qudt:AreaFlux ;
+                qudt:symbol "m²/s" ;
+                qudt:ucumCode "M2.S-1" ;
+                rdfs:comment "Unit of area flux or similar rates per unit time"@en ;
+                rdfs:isDefinedBy unit:M2-PER-SEC ;
+                rdfs:label "Square meter per second"@en .
+
+
 ###  http://qudt.org/vocab/unit/M3
 unit:M3 rdf:type owl:NamedIndividual ,
                  qudt:Unit ,
@@ -7335,6 +7426,52 @@ unit:M4 rdf:type owl:NamedIndividual ,
         rdfs:comment "Derived unit for moments of area (e.g., beam bending calculations)"@en ;
         rdfs:isDefinedBy unit:M4 ;
         rdfs:label "Meter to the fourth power"@en .
+
+
+###  http://qudt.org/vocab/unit/MOL-PER-M3-PA
+unit:MOL-PER-M3-PA rdf:type owl:NamedIndividual ,
+                            qudt:Unit ,
+                            edo:DomainUnit ;
+                   dcterms:source "QUDT Units Vocabulary"@en ;
+                   qudt:conversionMultiplier 1.0 ;
+                   qudt:definedUnitOfSystem sou:SI ;
+                   qudt:hasQuantityKind qudt:MolarDensityPerPressure ;
+                   qudt:symbol "mol/(m³·Pa)" ;
+                   qudt:ucumCode "MOL.M-3.PA-1" ;
+                   rdfs:comment "Represents the amount of substance (in moles) per cubic meter per Pascal of pressure."@en ;
+                   rdfs:isDefinedBy unit:MOL-PER-M3-PA ;
+                   rdfs:label "Mole per cubic meter per Pascal"@en .
+
+
+###  http://qudt.org/vocab/unit/MPA-SQRT-Meter
+unit:MPA-SQRT-Meter rdf:type owl:NamedIndividual ,
+                             qudt:Unit ,
+                             edo:DomainUnit ;
+                    dcterms:source "QUDT Units Vocabulary (extended)"@en ;
+                    qudt:conversionMultiplier 1000000.0 ;
+                    qudt:conversionOffset 0.0 ;
+                    qudt:definedUnitOfSystem sou:SI ;
+                    qudt:hasQuantityKind quantitykind:StressIntensityFactor ;
+                    qudt:symbol "MPa·√m" ;
+                    qudt:ucumCode "MPa.m^(1/2)" ;
+                    rdfs:comment "Unit of stress intensity factor (e.g., fracture toughness K_IC)."@en ;
+                    rdfs:isDefinedBy unit:MPA-SQRT-Meter ;
+                    rdfs:label "Megapascal square root meter"@en .
+
+
+###  http://qudt.org/vocab/unit/MicroM3-PER-M3
+unit:MicroM3-PER-M3 rdf:type owl:NamedIndividual ,
+                             qudt:Unit ,
+                             edo:DomainUnit ;
+                    dcterms:source "QUDT Units Vocabulary"@en ;
+                    qudt:conversionMultiplier "1.0E-18"^^xsd:double ;
+                    qudt:definedUnitOfSystem sou:SI ;
+                    qudt:hasQuantityKind qudt:Dimensionless ;
+                    qudt:symbol "µm³/m³" ;
+                    qudt:ucumCode "UM3.M-3" ;
+                    rdfs:comment "Custom unit representing volume fraction"@en ;
+                    rdfs:isDefinedBy <https://w3id.org/energy-domain/qudt.org/vocab/unit/MicroM3-PER-M3> ;
+                    rdfs:label "Micrometre cubic per cubic meter"@en .
 
 
 ###  http://qudt.org/vocab/unit/MilliM
@@ -7367,37 +7504,6 @@ unit:N rdf:type owl:NamedIndividual ,
        rdfs:label "Newton"@en .
 
 
-###  http://qudt.org/vocab/unit/PA
-unit:PA rdf:type owl:NamedIndividual ,
-                 qudt:Unit ,
-                 edo:DomainUnit ;
-        dcterms:source "QUDT Units Vocabulary"@en ;
-        qudt:conversionMultiplier 1.0 ;
-        qudt:definedUnitOfSystem sou:SI ;
-        qudt:hasQuantityKind qudt:Pressure ;
-        qudt:symbol "Pa" ;
-        qudt:ucumCode "PA" ;
-        rdfs:comment "Unit of pressure. The SI unit of pressure, equal to one newton per square meter."@en ;
-        rdfs:isDefinedBy unit:PA ;
-        rdfs:label "Pascal"@en .
-
-
-###  http://qudt.org/vocab/unit/PERCENT
-unit:PERCENT rdf:type owl:NamedIndividual ,
-                      qudt:Unit ,
-                      edo:DomainUnit ;
-             dcterms:source "QUDT Units Vocabulary"@en ;
-             qudt:conversionMultiplier 0.01 ;
-             qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasQuantityKind qudt:Dimensionless ;
-             qudt:symbol "%" ;
-             qudt:ucumCode "%" ;
-             rdfs:comment "Unit representing a fraction of 100"@en ;
-             rdfs:isDefinedBy unit:PERCENT ;
-             rdfs:label "Percent"@en .
-
-
-###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
 ###  http://qudt.org/vocab/unit/N-M
 unit:N-M rdf:type owl:NamedIndividual ,
                   qudt:Unit ,
@@ -7412,81 +7518,21 @@ unit:N-M rdf:type owl:NamedIndividual ,
          rdfs:isDefinedBy unit:N-M ;
          rdfs:label "Newton meter"@en .
 
-###  http://qudt.org/vocab/unit/DEG
-unit:DEG rdf:type owl:NamedIndividual ,
-                  qudt:Unit ,
-                  edo:DomainUnit ;
-         dcterms:source "QUDT Units Vocabulary"@en ;
-         qudt:conversionMultiplier 0.017453292519943295 ;
-         qudt:definedUnitOfSystem sou:SI ;
-         qudt:hasQuantityKind qudt:PlaneAngle ;
-         qudt:symbol "°" ;
-         qudt:ucumCode "DEG" ;
-         rdfs:comment "Unit of plane angle measurement"@en ;
-         rdfs:isDefinedBy unit:DEG ;
-         rdfs:label "Degree"@en .         
 
-###  https://w3id.org/energy-domain/edo#M3-PER-M
-edo:M3-PER-M rdf:type owl:NamedIndividual ,
-                      edo:DomainUnit ;
-             qudt:conversionMultiplier 1.0 ;
-             qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
-                                  qudt:hasUnit unit:M
-                                ] ,
-                                [ qudt:exponent -1 ;
-                                  qudt:hasUnit unit:M
-                                ] ;
-             qudt:hasQuantityKind qudt:VolumePerLength ;
-             qudt:symbol "m³/m" ;
-             qudt:ucumCode "M3.M-1" ;
-             rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
-             rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
-             rdfs:label "Cubic meter per meter"@en .         
+###  http://qudt.org/vocab/unit/N-M2
+unit:N-M2 rdf:type owl:NamedIndividual ,
+                   qudt:Unit ,
+                   edo:DomainUnit ;
+          dcterms:source "QUDT Units Vocabulary"@en ;
+          qudt:conversionMultiplier 1.0 ;
+          qudt:definedUnitOfSystem sou:SI ;
+          qudt:hasQuantityKind qudt:Pressure ;
+          qudt:symbol "N/m²" ;
+          qudt:ucumCode "N.M-2" ;
+          rdfs:comment "Unit of pressure or stress"@en ;
+          rdfs:isDefinedBy unit:N-M2 ;
+          rdfs:label "Newton per square meter"@en .
 
-###  https://w3id.org/energy-domain/edo#MOL-PER-M-SEC-PA
-edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
-                              edo:DomainUnit ;
-                     qudt:conversionMultiplier 1.0 ;
-                     qudt:definedUnitOfSystem sou:SI ;
-                     qudt:hasFactorUnit [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:MOL
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ;
-                     qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
-                     qudt:symbol "mol/(m·s·Pa)" ;
-                     qudt:ucumCode "MOL.M-1.S-1.PA-1" ;
-                     rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
-                     rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
-                     rdfs:label "Mole per meter per second per Pascal"@en .
-
-###  http://qudt.org/vocab/unit/MOL-PER-M3-PA
-unit:MOL-PER-M3-PA rdf:type owl:NamedIndividual ,
-                            qudt:Unit ,
-                            edo:DomainUnit ;
-                   dcterms:source "QUDT Units Vocabulary"@en ;
-                   qudt:conversionMultiplier 1.0 ;
-                   qudt:definedUnitOfSystem sou:SI ;
-                   qudt:hasQuantityKind qudt:MolarDensityPerPressure ;
-                   qudt:symbol "mol/(m³·Pa)" ;
-                   qudt:ucumCode "MOL.M-3.PA-1" ;
-                   rdfs:comment "Represents the amount of substance (in moles) per cubic meter per Pascal of pressure."@en ;
-                   rdfs:isDefinedBy unit:MOL-PER-M3-PA ;
-                   rdfs:label "Mole per cubic meter per Pascal"@en .
 
 ###  http://qudt.org/vocab/unit/N-PER-M
 unit:N-PER-M rdf:type owl:NamedIndividual ,
@@ -7505,49 +7551,6 @@ unit:N-PER-M rdf:type owl:NamedIndividual ,
              rdfs:label "Newton per Meter"@en ,
                         "Newton per meter"@en .
 
-###  http://qudt.org/vocab/unit/N-M2
-unit:N-M2 rdf:type owl:NamedIndividual ,
-                   qudt:Unit ,
-                   edo:DomainUnit ;
-          dcterms:source "QUDT Units Vocabulary"@en ;
-          qudt:conversionMultiplier 1.0 ;
-          qudt:definedUnitOfSystem sou:SI ;
-          qudt:hasQuantityKind qudt:Pressure ;
-          qudt:symbol "N/m²" ;
-          qudt:ucumCode "N.M-2" ;
-          rdfs:comment "Unit of pressure or stress"@en ;
-          rdfs:isDefinedBy unit:N-M2 ;
-          rdfs:label "Newton per square meter"@en .
-
-###  https://w3id.org/energy-domain/edo#N-M2-PER-RAD
-edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
-                          edo:DomainUnit ;
-                 qudt:conversionMultiplier 1.0 ;
-                 qudt:definedUnitOfSystem sou:SI ;
-                 qudt:hasFactorUnit [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent -1 ;
-                                      qudt:hasUnit unit:RAD
-                                    ] ,
-                                    [ qudt:exponent -2 ;
-                                      qudt:hasUnit unit:M
-                                    ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ,
-                                    [ qudt:exponent 1 ;
-                                      qudt:hasUnit unit:N
-                                    ] ;
-                 qudt:hasQuantityKind qudt:StressPerAngle ;
-                 qudt:symbol "N/m²·rad" ;
-                 qudt:ucumCode "N.M-2.RAD-1" ;
-                 rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
-                 rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
-                 rdfs:label "Newton per square meter per radian"@en .
 
 ###  http://qudt.org/vocab/unit/N-PER-M3
 unit:N-PER-M3 rdf:type owl:NamedIndividual ,
@@ -7563,20 +7566,21 @@ unit:N-PER-M3 rdf:type owl:NamedIndividual ,
               rdfs:isDefinedBy unit:N-PER-M3 ;
               rdfs:label "Newton per Cubic Meter"@en .
 
-###  http://qudt.org/vocab/unit/MPA-SQRT-Meter
-unit:MPA-SQRT-Meter rdf:type owl:NamedIndividual ,
-                             qudt:Unit ,
-                             edo:DomainUnit ;
-                    dcterms:source "QUDT Units Vocabulary (extended)"@en ;
-                    qudt:conversionMultiplier 1000000.0 ;
-                    qudt:conversionOffset 0.0 ;
-                    qudt:definedUnitOfSystem sou:SI ;
-                    qudt:hasQuantityKind quantitykind:StressIntensityFactor ;
-                    qudt:symbol "MPa·√m" ;
-                    qudt:ucumCode "MPa.m^(1/2)" ;
-                    rdfs:comment "Unit of stress intensity factor (e.g., fracture toughness K_IC)."@en ;
-                    rdfs:isDefinedBy unit:MPA-SQRT-Meter ;
-                    rdfs:label "Megapascal square root meter"@en .              
+
+###  http://qudt.org/vocab/unit/PA
+unit:PA rdf:type owl:NamedIndividual ,
+                 qudt:Unit ,
+                 edo:DomainUnit ;
+        dcterms:source "QUDT Units Vocabulary"@en ;
+        qudt:conversionMultiplier 1.0 ;
+        qudt:definedUnitOfSystem sou:SI ;
+        qudt:hasQuantityKind qudt:Pressure ;
+        qudt:symbol "Pa" ;
+        qudt:ucumCode "PA" ;
+        rdfs:comment "Unit of pressure. The SI unit of pressure, equal to one newton per square meter."@en ;
+        rdfs:isDefinedBy unit:PA ;
+        rdfs:label "Pascal"@en .
+
 
 ###  http://qudt.org/vocab/unit/PA-M0dot5
 unit:PA-M0dot5 rdf:type owl:NamedIndividual ,
@@ -7590,35 +7594,8 @@ unit:PA-M0dot5 rdf:type owl:NamedIndividual ,
                qudt:ucumCode "PA.M0.5" ;
                rdfs:comment "Unit used in fracture mechanics to express stress intensity factor (Pa√m)."@en ;
                rdfs:isDefinedBy unit:PA-M0dot5 ;
-               rdfs:label "Pascal times Square Root Meter"@en .                    
+               rdfs:label "Pascal times Square Root Meter"@en .
 
-###  http://qudt.org/vocab/unit/W-PER-M-K
-unit:W-PER-M-K rdf:type owl:NamedIndividual ,
-                        qudt:Unit ,
-                        edo:DomainUnit ;
-               dcterms:source "QUDT Units Vocabulary"@en ;
-               qudt:conversionMultiplier 1.0 ;
-               qudt:definedUnitOfSystem sou:SI ;
-               qudt:hasQuantityKind qudt:ThermalConductivity ;
-               qudt:symbol "W/(m·K)" ;
-               qudt:ucumCode "W.M-1.K-1" ;
-               rdfs:comment "Unit of thermal conductivity"@en ;
-               rdfs:isDefinedBy unit:W-PER-M-K ;
-               rdfs:label "Watt per meter kelvin"@en .               
-
-###  http://qudt.org/vocab/unit/KiloGM-PER-M3
-unit:KiloGM-PER-M3 rdf:type owl:NamedIndividual ,
-                            qudt:Unit ,
-                            edo:DomainUnit ;
-                   dcterms:source "QUDT Units Vocabulary"@en ;
-                   qudt:conversionMultiplier 1.0 ;
-                   qudt:definedUnitOfSystem sou:SI ;
-                   qudt:hasQuantityKind qudt:MassDensity ;
-                   qudt:symbol "kg/m³" ;
-                   qudt:ucumCode "KG.M-3" ;
-                   rdfs:comment "Unit of mass density"@en ;
-                   rdfs:isDefinedBy unit:KG-PER-M3 ;
-                   rdfs:label "Kilogram per cubic meter"@en .               
 
 ###  http://qudt.org/vocab/unit/PER-M
 unit:PER-M rdf:type owl:NamedIndividual ,
@@ -7632,60 +7609,118 @@ unit:PER-M rdf:type owl:NamedIndividual ,
            qudt:ucumCode "1/M" ;
            rdfs:comment "Reciprocal of meter, used for quantities per unit length"@en ;
            rdfs:isDefinedBy unit:PER-M ;
-           rdfs:label "Per meter"@en .                   
+           rdfs:label "Per meter"@en .
 
-###  http://qudt.org/vocab/unit/KiloGM-PER-M
-unit:KiloGM-PER-M rdf:type owl:NamedIndividual ,
-                           qudt:Unit ,
-                           edo:DomainUnit ;
-                  dcterms:source "QUDT Units Vocabulary"@en ;
-                  qudt:conversionMultiplier 1.0 ;
-                  qudt:definedUnitOfSystem sou:SI ;
-                  qudt:hasQuantityKind qudt:LinearMassDensity ;
-                  qudt:symbol "kg/m" ;
-                  qudt:ucumCode "KG.M-1" ;
-                  rdfs:comment "Unit of linear mass density"@en ;
-                  rdfs:isDefinedBy unit:KG-PER-M ;
-                  rdfs:label "Kilogram per meter"@en .           
 
-###  http://qudt.org/vocab/unit/J-PER-KiloGM-K
-unit:J-PER-KiloGM-K rdf:type owl:NamedIndividual ,
-                             qudt:Unit ,
-                             edo:DomainUnit ;
-                    dcterms:source "QUDT Units Vocabulary"@en ;
-                    qudt:conversionMultiplier 1.0 ;
-                    qudt:definedUnitOfSystem sou:SI ;
-                    qudt:hasQuantityKind qudt:SpecificHeatCapacity ;
-                    qudt:symbol "J/(kg·K)" ;
-                    qudt:ucumCode "J.KG-1.K-1" ;
-                    rdfs:comment "Represents energy (in joules) per unit mass (kilogram) per unit temperature (Kelvin)."@en ;
-                    rdfs:isDefinedBy unit:J-PER-KG-K ;
-                    rdfs:label "Joule per Kilogram-Kelvin"@en .
+###  http://qudt.org/vocab/unit/PERCENT
+unit:PERCENT rdf:type owl:NamedIndividual ,
+                      qudt:Unit ,
+                      edo:DomainUnit ;
+             dcterms:source "QUDT Units Vocabulary"@en ;
+             qudt:conversionMultiplier 0.01 ;
+             qudt:definedUnitOfSystem sou:SI ;
+             qudt:hasQuantityKind qudt:Dimensionless ;
+             qudt:symbol "%" ;
+             qudt:ucumCode "%" ;
+             rdfs:comment "Unit representing a fraction of 100"@en ;
+             rdfs:isDefinedBy unit:PERCENT ;
+             rdfs:label "Percent"@en .
 
-###  http://qudt.org/vocab/unit/M2-PER-SEC
-unit:M2-PER-SEC rdf:type owl:NamedIndividual ,
-                         qudt:Unit ,
-                         edo:DomainUnit ;
-                dcterms:source "QUDT Units Vocabulary"@en ;
-                qudt:conversionMultiplier 1.0 ;
-                qudt:definedUnitOfSystem sou:SI ;
-                qudt:hasQuantityKind qudt:AreaFlux ;
-                qudt:symbol "m²/s" ;
-                qudt:ucumCode "M2.S-1" ;
-                rdfs:comment "Unit of area flux or similar rates per unit time"@en ;
-                rdfs:isDefinedBy unit:M2-PER-SEC ;
-                rdfs:label "Square meter per second"@en .                    
 
-###  http://qudt.org/vocab/unit/MicroM3-PER-M3
-unit:MicroM3-PER-M3 rdf:type owl:NamedIndividual ,
-                             qudt:Unit ,
-                             edo:DomainUnit ;
-                    dcterms:source "QUDT Units Vocabulary"@en ;
-                    qudt:conversionMultiplier "1.0E-18"^^xsd:double ;
-                    qudt:definedUnitOfSystem sou:SI ;
-                    qudt:hasQuantityKind qudt:Dimensionless ;
-                    qudt:symbol "µm³/m³" ;
-                    qudt:ucumCode "UM3.M-3" ;
-                    rdfs:comment "Custom unit representing volume fraction"@en ;
-                    rdfs:isDefinedBy <https://w3id.org/energy-domain/qudt.org/vocab/unit/MicroM3-PER-M3> ;
-                    rdfs:label "Micrometre cubic per cubic meter"@en .                
+###  http://qudt.org/vocab/unit/W-PER-M-K
+unit:W-PER-M-K rdf:type owl:NamedIndividual ,
+                        qudt:Unit ,
+                        edo:DomainUnit ;
+               dcterms:source "QUDT Units Vocabulary"@en ;
+               qudt:conversionMultiplier 1.0 ;
+               qudt:definedUnitOfSystem sou:SI ;
+               qudt:hasQuantityKind qudt:ThermalConductivity ;
+               qudt:symbol "W/(m·K)" ;
+               qudt:ucumCode "W.M-1.K-1" ;
+               rdfs:comment "Unit of thermal conductivity"@en ;
+               rdfs:isDefinedBy unit:W-PER-M-K ;
+               rdfs:label "Watt per meter kelvin"@en .
+
+
+###  https://w3id.org/energy-domain/edo#M3-PER-M
+edo:M3-PER-M rdf:type owl:NamedIndividual ,
+                      edo:DomainUnit ;
+             qudt:conversionMultiplier 1.0 ;
+             qudt:definedUnitOfSystem sou:SI ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                  qudt:hasUnit unit:M
+                                ] ,
+                                [ qudt:exponent 3 ;
+                                  qudt:hasUnit unit:M
+                                ] ;
+             qudt:hasQuantityKind qudt:VolumePerLength ;
+             qudt:symbol "m³/m" ;
+             qudt:ucumCode "M3.M-1" ;
+             rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
+             rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
+             rdfs:label "Cubic meter per meter"@en .
+
+
+###  https://w3id.org/energy-domain/edo#MOL-PER-M-SEC-PA
+edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
+                              edo:DomainUnit ;
+                     qudt:conversionMultiplier 1.0 ;
+                     qudt:definedUnitOfSystem sou:SI ;
+                     qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:MOL
+                                        ] ;
+                     qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
+                     qudt:symbol "mol/(m·s·Pa)" ;
+                     qudt:ucumCode "MOL.M-1.S-1.PA-1" ;
+                     rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
+                     rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
+                     rdfs:label "Mole per meter per second per Pascal"@en .
+
+
+###  https://w3id.org/energy-domain/edo#N-M2-PER-RAD
+edo:N-M2-PER-RAD rdf:type owl:NamedIndividual ,
+                          edo:DomainUnit ;
+                 qudt:conversionMultiplier 1.0 ;
+                 qudt:definedUnitOfSystem sou:SI ;
+                 qudt:hasFactorUnit [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent 1 ;
+                                      qudt:hasUnit unit:N
+                                    ] ,
+                                    [ qudt:exponent -2 ;
+                                      qudt:hasUnit unit:M
+                                    ] ,
+                                    [ qudt:exponent -1 ;
+                                      qudt:hasUnit unit:RAD
+                                    ] ;
+                 qudt:hasQuantityKind qudt:StressPerAngle ;
+                 qudt:symbol "N/m²·rad" ;
+                 qudt:ucumCode "N.M-2.RAD-1" ;
+                 rdfs:comment "Extended from QUDT model for custom Subsea domain units"@en ;
+                 rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
+                 rdfs:label "Newton per square meter per radian"@en .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
