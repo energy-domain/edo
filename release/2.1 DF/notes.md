@@ -11,3 +11,9 @@
     Exemplo:
     DisplacedVolume: validValues
     PartNumber: predefinedValues
+
+4.  ex:Rule_flange_type
+    A lista de Valid Values está atualizada, tem mais opções do que o Zenodo
+
+5.  ex:Rule_riser_configuration
+    A lista de Valid Values está atualizada, tem mais opções do que o Zenodo

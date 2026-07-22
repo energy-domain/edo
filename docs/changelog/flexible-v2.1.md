@@ -527,3 +527,25 @@ edo:FabricationComponent rdf:type owl:Class ;
 +                                    edo:ThreadPitch ,
 +                                    edo:ThreadStandard ;
 ```
+
+## Absolute Outside Pressure
+
+### Updated
+
+**`edo:AbsoluteOutsidePressure`** — fixed English `skos:prefLabel`
+
+```diff
+-                                            "Pressão absoluta (fora)"@en ;
++                                            "Absolute Outside Pressure"@en ;
+```
+
+## Service
+
+### Updated
+
+**`edo:Service`** — fixed English `skos:prefLabel`
+
+```diff
+-                            "Service"@en ;
++                            "Indicates the Type of Service"@en ;
+```

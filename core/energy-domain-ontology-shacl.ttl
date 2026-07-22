@@ -36,8 +36,56 @@ ex:Rule_EarlyLeakNomPressTable_TensLimitValRef a sh:NodeShape ;
         sh:in ( "ASSOCIATED_LAYING_TENSION" )
     ] .        
 
+ex:Rule_EarlyLeakMaxPressTable_PressIntValStrat a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:EarlyLeakMaxPressTable_PressIntValStrat ;
+        sh:in ( "LINEAR_INTERPOLATION" "MOST_RESTRICTIVE_VALUE_BETWEEN_THE_NEIGHBOURING_VALUES" )
+    ] .
+
+
+ex:Rule_EarlyLeakNomPressTable_PressIntValStrat a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:EarlyLeakNomPressTable_PressIntValStrat ;
+        sh:in ( "LINEAR_INTERPOLATION" "MOST_RESTRICTIVE_VALUE_BETWEEN_THE_NEIGHBOURING_VALUES" )
+    ] .    
+
+ex:Rule_PressureValueReference a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:EarlyLeakMaxPressTable_PressValRef, edo:EarlyLeakNomPressTable_PressValRef, edo:FatMaxPressValRef, 
+            edo:FatNomPressValRef, edo:OffLeakPLevMaxPressValRef, edo:OffLeakPLevNomPressValRef, edo:StrIntOffPLevMaxPressValRef, 
+            edo:StrIntOffPLevNomPressValRef, edo:StrIntOnNoTensMaxPressValRef, edo:StrIntOnNoTensNomPressValRef ;
+        sh:in ( "ALLOWABLE_NOMINAL_TEST_PRESSURE" "MAXIMUM_TEST_PRESSURE" "DESIGN_PRESSURE" "PEAK_RATIO" )
+    ].
+
+ex:Rule_PipeSectionApplication a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:PipeSectionApplication ;
+        sh:in ( "RISER" "RISER_TOP" "RISER_INTERMEDIATE" "RISER_BOTTOM" "FLOWLINE" )
+    ].    
+
+
+ex:Rule_metric_bolt_size a sh:NodeShape ;
+    sh:targetClass edo:MetricBoltSet , edo:MetricStudSet ;
+    sh:property [
+        sh:path edo:NominalDiameter ;
+        sh:in ( "M1" "M1.1" "M1.2" "M1.4" "M1.6" "M1.8" "M2" "M2.2" "M2.5" "M3" 
+                "M3.5" "M4" "M4.5" "M5" "M6" "M7" "M8" "M9" "M10" "M11" "M12" 
+                "M14" "M15" "M16" "M17" "M18" "M20" "M22" "M24" "M25" "M27" "M28" 
+                "M30" "M32" "M33" "M35" "M36" "M38" "M39" "M40" "M42" "M45" "M48" 
+                "M50" "M52" "M55" "M56" "M58" "M60" "M62" "M64" "M65" "M68" "M70" 
+                "M72" "M75" "M76" "M78" "M80" "M82" "M85" "M90" "M95" "M100" "M105" 
+                "M110" "M115" "M120" "M125" "M130" "M135" "M140" "M145" "M150" "M155" 
+                "M160" "M165" "M170" "M175" "M180" "M185" "M190" "M195" "M200" "M205" 
+                "M210" "M215" "M220" "M225" "M230" "M235" "M240" "M245" "M250" "M255" 
+                "M260" "M265" "M270" "M275" "M280" "M285" "M290" "M295" "M300" )
+    ] .
+
 ex:Rule_FlangeFaceType a sh:NodeShape ;
-    sh:targetClass edo:EndFittingType ;
+    sh:targetClass edo:EndFitting ;
     sh:property [
         sh:path edo:FlangeFaceType ;
         sh:in ( "RAISED_FACE" "RECESSED_FACE" "FLAT_FACE" "RING_TYPE_JOINT" )
@@ -66,7 +114,7 @@ ex:Rule_PolymericLayerMaterialType a sh:NodeShape ;
     ] .
 
 ex:Rule_PullingHeadType a sh:NodeShape ;
-    sh:targetClass edo:PipePullingHeadType ;
+    sh:targetClass edo:PipePullingHead ;
     sh:property [
         sh:path edo:PullingHeadType ;
         sh:in ( "PULL-IN" "LOAD" "HANDLING_AND_TESTING" )
@@ -80,9 +128,14 @@ ex:Rule_TensileArmourAnnulusCondition a sh:NodeShape ;
         sh:in ( "DRY" "FLOODED" )
     ] .
 
+ex:Rule_Service a sh:NodeShape ;
+    sh:targetClass edo:SubseaPipeline ;
+    sh:property [
+        sh:path edo:Service ;
+        sh:in ( "IA (INJEÇÃO DE ÁGUA)" "IG (INJEÇÃO DE GÁS)" "LPO (LINHA DE PRODUÇÃO DE ÓLEO)" "PG (PRODUTOR DE GÁS)" "SE (SERVIÇO)" "GAS (GASODUTO)" "UEH (UMBILICAL ELETRO HIDRÁULICO)" "CEP (CABO ELÉTRICO DE POTÊNCIA)" )
+    ] .    
+
 #################################################################
-
-
 
 ex:Rule_OpticalFiberCable_AttenuationCoefficient a sh:NodeShape ;
     sh:targetClass edo:OpticalFiberCable ;
@@ -622,51 +675,19 @@ ex:Rule_PolymericMaterial a sh:NodeShape ;
     sh:targetClass edo:PolymericMaterial ;
     sh:property [
         sh:path edo:PermeabilityTable_MoleculeIdentifier ;
-        sh:in ( "CO?" "H?S" "CH?" "H?O" )
-    ] .
-
-ex:Rule_PolymericMaterial_2 a sh:NodeShape ;
-    sh:targetClass edo:PolymericMaterial ;
+        sh:in ( "CO₂" "H₂S" "CH₄" "H₂O" )
+    ] ;
     sh:property [
         sh:path edo:PermeabilityTable_PolymerState ;
         sh:in ( "PLASTICIZED" "UNPLASTICED" )
-    ] .
-
-
-
-ex:Rule_PolymericMaterial_4 a sh:NodeShape ;
-    sh:targetClass edo:PolymericMaterial ;
+    ] ;
     sh:property [
         sh:path edo:SolubilityTable_MoleculeIdentifier ;
-        sh:in ( "CO?" "H?S" "CH?" "H?O" )
-    ] .
-
-ex:Rule_PolymericMaterial_5 a sh:NodeShape ;
-    sh:targetClass edo:PolymericMaterial ;
+        sh:in ( "CO₂" "H₂S" "CH₄" "H₂O" )
+    ] ;
     sh:property [
         sh:path edo:SolubilityTable_PolymerState ;
         sh:in ( "PLASTICIZED" "UNPLASTICED" )
-    ] .
-
-ex:Rule_PullInCollar a sh:NodeShape ;
-    sh:targetClass edo:PullInCollar ;
-    sh:property [
-        sh:path edo:WireRopeQuantity ;
-        sh:in ( "Integer number (? 0)" )
-    ] .
-
-ex:Rule_PullInCollar_2 a sh:NodeShape ;
-    sh:targetClass edo:PullInCollar ;
-    sh:property [
-        sh:path edo:WireRopeSlingDiameter ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] .
-
-ex:Rule_PullInCollar_3 a sh:NodeShape ;
-    sh:targetClass edo:PullInCollar ;
-    sh:property [
-        sh:path edo:WireRopeSlingLength ;
-        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_QuickConnectCoupling a sh:NodeShape ;
@@ -717,17 +738,10 @@ ex:Rule_SubseaEquipment_2 a sh:NodeShape ;
     ] .
 
 ex:Rule_SubseaUmbilical a sh:NodeShape ;
-    sh:targetClass edo:SubseaUmbilical ;
-    sh:property [
-        sh:path edo:MaxDesignAbsIntPresTable_PositionReference ;
-        sh:in ( "TOPSIDE_CONNECTION_POINT" "TOUCHDOWNPOINT" )
-    ] .
-
-ex:Rule_SubseaUmbilical_2 a sh:NodeShape ;
     sh:targetClass edo:SubseaUmbilical, edo:SubseaPipeline ;
     sh:property [
-        sh:path edo:RiserConfiguration ;
-        sh:in ( "FREE_CATENARY" "LAZY_WAVE" "STEEP_WAVE" "LAZY_S" "STEEP_S" "HYBRID_RISER_TOWER" )
+        sh:path edo:MaxDesignAbsIntPresTable_PositionReference ;
+        sh:in ( "TOPSIDE_CONNECTION_POINT" "TOUCHDOWNPOINT" "SUBSEACONNECTIONPOINT" )
     ] .
 
 ex:Rule_TransportLineSegment a sh:NodeShape ;
@@ -814,8 +828,8 @@ ex:Rule_UmbilicalSegment a sh:NodeShape ;
         sh:in ( "ONSHORE_STORAGE" "VESSEL_STORAGE" "SUBSEA_STORAGE" "LAID" "IN_OPERATION" "OUT_OF_OPERATION" "UNINSTALLED" )
     ] .
 
-ex:Rule_UmbilicalStructure a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
+ex:Rule_FlexibleStructureServicesList a sh:NodeShape ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeStructure, edo:SubseaPipeline ;
     sh:property [
         sh:path edo:FlexibleStructureServicesList ;
         sh:in ( "WATER_INJECTION" "GAS_INJECTION" "OIL_PRODUCTION_LINE" "GAS_PRODUCER" "SERVICE" "GAS_PIPELINE" )
@@ -837,8 +851,8 @@ ex:Rule_UmbilicalStructure_3 a sh:NodeShape ;
 
 
 
-ex:Rule_UmbilicalStructure_5 a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
+ex:Rule_LayingMinimumRadiusTable_TensileArmourAnnulusCondition a sh:NodeShape ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:LayingMinimumRadiusTable_TensileArmourAnnulusCondition ;
         sh:in ( "DRY" "FLOODED" )
@@ -964,7 +978,7 @@ ex:Rule_UmbilicalStructure_22 a sh:NodeShape ;
     ] .
 
 ex:Rule_UmbilicalStructure_23 a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:StructureApplicationsList ;
         sh:in ( "RISER" "RISER_TOP_SECTION" "RISER_INTERMEDIATE_SECTION" "RISER_BOTTOM_SECTION" "FLOWLINE" )
@@ -1014,20 +1028,6 @@ ex:Rule_UNSBoltSet a sh:NodeShape ;
     sh:property [
         sh:path edo:ThreadStandard ;
         sh:in ( "ISO_METRIC" "ISO_FINE" "ISO_COARSE" "ISO_228" "ISO_7-1" )
-    ] ;
-    sh:property [
-        sh:path edo:TotalStemLength ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:IN ;
-    ] ;
-    sh:property [
-        sh:path edo:ThreadedLength ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:IN ;
-    ] ;
-    sh:property [
-        sh:path edo:ThreadsPerInch ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
 ex:Rule_UNSStudSet a sh:NodeShape ;
@@ -1039,20 +1039,6 @@ ex:Rule_UNSStudSet a sh:NodeShape ;
     sh:property [
         sh:path edo:ThreadStandard ;
         sh:in ( "ISO_METRIC" "ISO_FINE" "ISO_COARSE" "ISO_228" "ISO_7-1" )
-    ] ;
-    sh:property [
-        sh:path edo:TotalLength ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:IN ;
-    ] ;
-    sh:property [
-        sh:path edo:ThreadedEndLength ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:IN ;
-    ] ;
-    sh:property [
-        sh:path edo:ThreadsPerInch ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
 ex:Rule_Asset a sh:NodeShape ;
@@ -1644,14 +1630,6 @@ ex:Rule_ProcessGateValve a sh:NodeShape ;
         sh:in ( "RISING_STEM" "NON_RISING_STEM" );
     ] .
 
-ex:Rule_AnchoringCollar a sh:NodeShape ;
-    sh:targetClass edo:AnchoringCollar ;
-    sh:property [
-        sh:path edo:SafeWorkingLoad ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-		edo:hasUnit unit:TONNE_F ;
-    ] . 
-
 ex:Rule_Pile a sh:NodeShape ;
     sh:targetClass edo:Pile ;
     sh:property [
@@ -1674,17 +1652,7 @@ ex:Rule_SuctionPile a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] . 
 
-ex:Rule_MooringAccessory a sh:NodeShape ;
-    sh:targetClass edo:MooringAccessory ;    
-    sh:property [
-        sh:path edo:MooringAccessoryGrade ;
-        sh:in ( "R3" "R3S" "R4" "R4S" "R5" "ORQ" "GRADE_6" "GRADE_8" "GRADE_10" "GRADE_12" "OTHER"  ) 
-    ] ;
-    sh:property [
-        sh:path edo:SafeWorkingLoad ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-		edo:hasUnit unit:TONNE_F ;
-    ] . 
+
 
 ex:Rule_MinimumBreakingLoad a sh:NodeShape ;
     sh:targetClass edo:MooringHardwareItem , edo:MooringLineSegment ;    
@@ -2080,14 +2048,6 @@ ex:Rule_TrianglePlate a sh:NodeShape ;
         sh:path edo:HoleDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
         edo:hasUnit unit:MilliM ;
-    ] .
-
-ex:Rule_PullingHead a sh:NodeShape ;
-    sh:targetClass edo:PullingHead ;
-    sh:property [
-        sh:path edo:SafeWorkingLoad ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-		edo:hasUnit unit:TONNE_F ;
     ] .
 
 ex:Rule_PipePullingHead a sh:NodeShape ;
@@ -2872,7 +2832,7 @@ ex:Rule_geodetic_crs a sh:NodeShape ;
     ] .  
 
 ex:Rule_riser_configuration a sh:NodeShape ;
-    sh:targetClass edo:RiserSection , edo:SubseaPipeline ;
+    sh:targetClass edo:RiserSection , edo:SubseaPipeline, edo:SubseaUmbilical ;
 	sh:property [
         sh:path edo:RiserConfiguration ;
         sh:in ( "SINGLE_CATENARY" "LAZY_WAVE" "STEEP_WAVE" "PLIANT_WAVE" "LAZY_S" "STEEP_S" "DUAL_CATENARY" "OTHER" ) ;
@@ -2897,7 +2857,7 @@ ex:Rule_metric_bolt_size a sh:NodeShape ;
 ex:Rule_uns_bolt_size a sh:NodeShape ;
     sh:targetClass edo:UNSBoltSet , edo:UNSStudSet ;
     sh:property [
-        sh:path edo:ThreadSize ;
+        sh:path edo:ThreadSize, edo:NominalDiameter ;
         sh:in ( "1/4_UNC" "5/16_UNC" "3/8_UNC" "7/16_UNC" "1/2_UNC" "9/16_UNC" "5/8_UNC" "3/4_UNC" "7/8_UNC" "1_UNC" 
                 "1_1/8_UNC" "1_1/4_UNC" "1_3/8_UNC" "1_1/2_UNC" "1_3/4_UNC" "2_UNC" "2_1/4_UNC" "2_1/2_UNC" "2_3/4_UNC" "3_UNC" 
                 "3_1/4_UNC" "3_1/2_UNC" "3_3/4_UNC" "4_UNC" "1/4_UNF" "5/16_UNF" "3/8_UNF" "7/16_UNF" "1/2_UNF" "9/16_UNF" "5/8_UNF" 
