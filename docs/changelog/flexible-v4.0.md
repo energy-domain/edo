@@ -35,3 +35,12 @@
 +                           edo:FlangeSpec ,
 +                           edo:GasketSpec ;
 ```
+
+## Updated (remoção de atributos)
+
+### edo:EndFitting (line 4668)
+
+```diff
+-                                edo:FlangeFaceType ,
+-                                edo:FlangeType ,
+```
