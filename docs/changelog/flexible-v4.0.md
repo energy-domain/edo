@@ -25,3 +25,13 @@
 ```diff
 +                       edo:hasExternalRef "DF_2.1" ;
 ```
+
+## Updated (adição de especificações)
+
+### edo:EndFitting (line 4668)
+
+```diff
++               edo:hasSpec edo:BoltingSpec ,
++                           edo:FlangeSpec ,
++                           edo:GasketSpec ;
+```
