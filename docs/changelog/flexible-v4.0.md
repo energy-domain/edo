@@ -71,3 +71,11 @@ edo:DistributionConnectionPoint rdf:type owl:Class ;
                                 edo:ifc_objectType "DistributionConnectionPoint" ;
                                 edo:ifc_predefinedType "USERDEFINED" .
 ```
+
+## Updated (adição de disciplina)
+
+### edo:SubseaConnectionPoint (line 18445)
+
+```diff
++ edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+```
