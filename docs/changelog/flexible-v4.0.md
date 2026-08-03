@@ -44,3 +44,11 @@
 -                                edo:FlangeFaceType ,
 -                                edo:FlangeType ,
 ```
+
+## Updated (adição de disciplina)
+
+### edo:DimensionsDrawing (line 3972)
+
+```diff
++ edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+```
