@@ -79,3 +79,11 @@ edo:DistributionConnectionPoint rdf:type owl:Class ;
 ```diff
 + edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
 ```
+
+## Updated (adição de disciplina)
+
+### edo:SubseaFlexiblePipesBsddDictionary (line 18483)
+
+```diff
++ edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+```
