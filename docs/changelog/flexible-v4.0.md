@@ -130,3 +130,38 @@ edo:ElevationCollar rdf:type owl:Class ;
                     edo:ifc_objectType "ElevationCollar" ;
                     edo:ifc_predefinedType "USERDEFINED" .
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#PressureRating
+edo:PressureRating rdf:type owl:Class ;
+                   rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "PressureRating" ;
+                   skos:definition "The maximum pressure it can withstand without failing. This rating is important for ensuring that the seal ring performs effectively under the operating pressures of the application."@en ;
+                   skos:prefLabel "Classificação de Pressão da Junta de Vedação"@pt-br ,
+                                  "Ring Gasket Pressure Rating"@en ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "DF_2.1" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:PA ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#RingGasketStandardEdition
+edo:RingGasketStandardEdition rdf:type owl:Class ;
+                              rdfs:subClassOf edo:_CAT-Specification ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "RingGasketStandardEdition" ;
+                              skos:definition "The edition or revision of the standard to which the ring gasket conforms. This identifies the specific version of the applicable standard used for its design, manufacture, inspection, and qualification."@en ;
+                              skos:prefLabel "Edição do Padrão da Junta de Vedação"@pt-br ,
+                                             "Ring Gasket Standard Edition"@en ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "EDO:v4" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:StringValue ;
+                              edo:hasValueCardinality edo:SingleValue .
+```
