@@ -208,3 +208,16 @@ edo:hasSpec rdf:type owl:AnnotationProperty ;
 -                  edo:RingGasketStandard ,
 -                  edo:RingGasketType ;
 ```
+
+## Updated (remoção de atributos)
+
+### edo:EndFitting (line 1906)
+
+```diff
+- edo:hasAttribute edo:RingGasketInnerDIameter ,
+-                  edo:RingGasketOuterDiameter ,
+-                  edo:RingGasketPressureRating ,
+-                  edo:RingGasketSpecification ,
+-                  edo:RingGasketStandard ,
+-                  edo:RingGasketType ;
+```
