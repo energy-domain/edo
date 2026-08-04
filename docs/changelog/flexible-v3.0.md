@@ -51,3 +51,13 @@ edo:SealingMaterial rdf:type owl:Class ;
                     edo:hasTypedValue edo:StringValue ;
                     edo:hasValueCardinality edo:SingleValue .
 ```
+
+## Updated (adição de definição)
+
+### edo:OuterDiameter (line 4688)
+
+```diff
+- skos:definition "Represents the external diameter of a component, typically measured from one outer edge to the opposite outer edge. This property is important for ensuring proper fit, compatibility, and performance within a system or assembly."@en ;
++ skos:definition "Representa o diâmetro externo de um componente, geralmente medido de uma borda externa à borda externa oposta. Esta propriedade é importante para garantir o ajuste, a compatibilidade e o desempenho adequados dentro de um sistema ou conjunto."@pt-br ,
++                 "Represents the external diameter of a component, typically measured from one outer edge to the opposite outer edge. This property is important for ensuring proper fit, compatibility, and performance within a system or assembly."@en ;
+```
