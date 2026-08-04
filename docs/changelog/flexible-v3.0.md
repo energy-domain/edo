@@ -71,3 +71,22 @@ edo:SealingMaterial rdf:type owl:Class ;
 + skos:definition "Expressão padronizada da dimensão diametral de tubos e componentes de tubulação, não correspondendo necessariamente aos seus diâmetros interno ou externo."@pt-br ,
 +                 "The standard diameter of the component or pipe, typically used for classification and specification purposes."@en ;
 ```
+
+## Updated (substituição de atributos)
+
+### edo:RingGasket (line 5328)
+
+```diff
+- edo:hasAttribute edo:RingGasketInnerDIameter ,
+-                  edo:RingGasketMaterial ,
+-                  edo:RingGasketOuterDiameter ,
+-                  edo:RingGasketPressureRating ,
+-                  edo:RingGasketSpecification ,
+-                  edo:RingGasketStandard ,
+-                  edo:RingGasketType ;
++ edo:hasAttribute edo:InnerDiameter ,
++                  edo:NominalDiameter ,
++                  edo:OuterDiameter ,
++                  edo:PressureRating ,
++                  edo:SealingMaterial ;
+```
