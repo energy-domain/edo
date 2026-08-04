@@ -165,3 +165,18 @@ edo:RingGasketStandardEdition rdf:type owl:Class ;
                               edo:hasTypedValue edo:StringValue ;
                               edo:hasValueCardinality edo:SingleValue .
 ```
+
+## Updated (adição de atributos)
+
+### edo:RingGasket (line 16004)
+
+```diff
++ edo:hasAttribute edo:PressureRating ;
+```
+
+### edo:GasketSpec (line 6459)
+
+```diff
++ edo:hasAttribute edo:RingGasketStandard ,
++                  edo:RingGasketStandardEdition ;
+```
