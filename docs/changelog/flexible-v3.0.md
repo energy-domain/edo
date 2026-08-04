@@ -194,3 +194,17 @@ edo:hasSpec rdf:type owl:AnnotationProperty ;
 + edo:EndFitting edo:hasSpec edo:GasketSpec ;
 + edo:PipePullingHead edo:hasSpec edo:GasketSpec ;
 ```
+
+## Updated (remoção de atributos)
+
+### edo:PipePullingHead (line 4911)
+
+```diff
+- edo:hasAttribute edo:RingGasketInnerDIameter ,
+-                  edo:RingGasketMaterial ,
+-                  edo:RingGasketOuterDiameter ,
+-                  edo:RingGasketPressureRating ,
+-                  edo:RingGasketSpecification ,
+-                  edo:RingGasketStandard ,
+-                  edo:RingGasketType ;
+```
