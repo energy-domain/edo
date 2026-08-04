@@ -61,3 +61,13 @@ edo:SealingMaterial rdf:type owl:Class ;
 + skos:definition "Representa o diâmetro externo de um componente, geralmente medido de uma borda externa à borda externa oposta. Esta propriedade é importante para garantir o ajuste, a compatibilidade e o desempenho adequados dentro de um sistema ou conjunto."@pt-br ,
 +                 "Represents the external diameter of a component, typically measured from one outer edge to the opposite outer edge. This property is important for ensuring proper fit, compatibility, and performance within a system or assembly."@en ;
 ```
+
+## Updated (adição de definição)
+
+### edo:NominalDiameter (line 4345)
+
+```diff
+- skos:definition "The standard diameter of the component or pipe, typically used for classification and specification purposes."@en ;
++ skos:definition "Expressão padronizada da dimensão diametral de tubos e componentes de tubulação, não correspondendo necessariamente aos seus diâmetros interno ou externo."@pt-br ,
++                 "The standard diameter of the component or pipe, typically used for classification and specification purposes."@en ;
+```
