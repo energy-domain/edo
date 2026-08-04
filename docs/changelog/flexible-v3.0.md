@@ -144,3 +144,24 @@ edo:RingGasketProfileCode rdf:type owl:Class ;
                           edo:hasTypedValue edo:StringValue ;
                           edo:hasValueCardinality edo:SingleValue .
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#Spec
+edo:Spec rdf:type owl:Class ;
+         rdfs:subClassOf edo:DomainElement ;
+         skos:prefLabel "Objetos de Especificação"@pt-br ,
+                        "Specification Objects"@en .
+
+
+###  https://w3id.org/energy-domain/edo#GasketSpec
+edo:GasketSpec rdf:type owl:Class ;
+               rdfs:subClassOf edo:Spec ;
+               skos:prefLabel "Especificação de Anel de Vedação"@pt-br ,
+                              "Ring Gasket Specification"@en ;
+               edo:hasAttribute edo:RingGasketDesignationNumber ,
+                                edo:RingGasketProfileCode ,
+                                edo:RingGasketStandard ,
+                                edo:RingGasketStandardEdition .
+```
