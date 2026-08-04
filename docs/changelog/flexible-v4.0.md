@@ -180,3 +180,19 @@ edo:RingGasketStandardEdition rdf:type owl:Class ;
 + edo:hasAttribute edo:RingGasketStandard ,
 +                  edo:RingGasketStandardEdition ;
 ```
+
+## Renamed
+
+### Classes and references
+
+```diff
+- edo:RingGasketNumber
++ edo:RingGasketDesignationNumber
+
+- edo:RingGasketProfile
++ edo:RingGasketProfileCode
+```
+
+The corresponding `dcterms:identifier`, `edo:GasketSpec` attribute references,
+SHACL paths, and SHACL rule identifiers were updated. Existing `skos:prefLabel`
+values were preserved.
