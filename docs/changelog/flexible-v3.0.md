@@ -165,3 +165,32 @@ edo:GasketSpec rdf:type owl:Class ;
                                 edo:RingGasketStandard ,
                                 edo:RingGasketStandardEdition .
 ```
+
+## Created (propriedades de anotação)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#hasContext
+edo:hasContext rdf:type owl:AnnotationProperty ;
+               rdfs:label "Has context"@en ,
+                          "Possui contexto"@pt-br ;
+               skos:definition "Relaciona um elemento de domínio a um nó contextual que organiza especificações e atributos aplicáveis a um determinado papel, cenário ou condição."@pt-br ,
+                               "Relates a domain element to a contextual node that organizes specifications and attributes applicable to a given role, scenario, or condition."@en ;
+               rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#hasSpec
+edo:hasSpec rdf:type owl:AnnotationProperty ;
+            rdfs:label "Has specification"@en ,
+                       "Possui especificação"@pt-br ;
+            skos:definition "Indica especificação(ões) que a entidade possui."@pt-br ,
+                            "Indicates specification(s) that the entity has."@en ;
+            rdfs:subPropertyOf edo:hasContext .
+```
+
+## Updated (adição de especificação)
+
+```diff
++ edo:RingGasket edo:hasSpec edo:GasketSpec ;
++ edo:EndFitting edo:hasSpec edo:GasketSpec ;
++ edo:PipePullingHead edo:hasSpec edo:GasketSpec ;
+```
