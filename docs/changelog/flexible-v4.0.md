@@ -95,3 +95,38 @@ edo:DistributionConnectionPoint rdf:type owl:Class ;
 ```diff
 + edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#OverboardingCollar
+edo:OverboardingCollar rdf:type owl:Class ;
+                       rdfs:subClassOf edo:IfcInstanciableElement ,
+                                       edo:LineAncillary ;
+                       dcterms:identifier "OverboardingCollar" ;
+                       skos:prefLabel "Colar de transbordo"@pt-br ,
+                                      "Overboarding collar"@en ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                         edo:SubseaUmbilicalsEngineering ;
+                       edo:hasExternalRef "MDA:OverboardingCollar" ;
+                       edo:ifc_equivalentClass "IfcPipeFitting" ;
+                       edo:ifc_objectType "OverboardingCollar" ;
+                       edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#ElevationCollar
+edo:ElevationCollar rdf:type owl:Class ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ,
+                                    edo:LineAncillary ;
+                    dcterms:identifier "ElevationCollar" ;
+                    skos:prefLabel "Colar de elevação"@pt-br ,
+                                   "Elevation collar"@en ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                      edo:SubseaUmbilicalsEngineering ;
+                    edo:hasExternalRef "MDA:ElevationCollar" ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "ElevationCollar" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
+```
