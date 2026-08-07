@@ -525,7 +525,8 @@ edo:AbrasionProtector rdf:type owl:Class ;
                                       "Componente aplicado sobre cabos ou dutos flexíveis para reduzir desgaste por atrito e contato com superfícies, aumentando a vida útil do sistema."@pt-br ;
                       skos:prefLabel "Abrasion Protector"@en ,
                                      "Protetor Anti-Abrasivo"@pt-br ;
-                      edo:hasDiscipline edo:SubseaRigidPipesEngineering ,
+                      edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                        edo:SubseaRigidPipesEngineering ,
                                         edo:SubseaUmbilicalsEngineering ;
                       edo:hasExternalRef "MDA:AbrasionProtector" ;
                       edo:ifc_equivalentClass "IfcDiscreteAccessory" ;
@@ -3140,7 +3141,7 @@ edo:ConsumableRingGasket rdf:type owl:Class ;
                          edo:hasAttribute edo:InnerDiameter ,
                                           edo:NominalDiameter ,
                                           edo:OuterDiameter ,
-                                          edo:RingGasketInnerDIameter ,
+                                          edo:RingGasketInnerDiameter ,
                                           edo:RingGasketMaterial ,
                                           edo:RingGasketOuterDiameter ,
                                           edo:RingGasketPressureRating ,
@@ -6459,8 +6460,10 @@ edo:GasketSpec rdf:type owl:Class ;
                rdfs:subClassOf edo:Spec ;
                skos:prefLabel "Especificação de Anel de Vedação"@pt-br ,
                               "Ring Gasket Specification"@en ;
-               edo:hasAttribute edo:RingGasketNumber ,
-                                edo:RingGasketProfile .
+               edo:hasAttribute edo:RingGasketDesignationNumber ,
+                                edo:RingGasketProfileCode ,
+                                edo:RingGasketStandard ,
+                                edo:RingGasketStandardEdition .
 
 
 ###  https://w3id.org/energy-domain/edo#GateType
@@ -16017,13 +16020,7 @@ edo:RingGasket rdf:type owl:Class ;
                edo:hasAttribute edo:InnerDiameter ,
                                 edo:NominalDiameter ,
                                 edo:OuterDiameter ,
-                                edo:RingGasketInnerDIameter ,
-                                edo:RingGasketMaterial ,
-                                edo:RingGasketOuterDiameter ,
-                                edo:RingGasketPressureRating ,
-                                edo:RingGasketSpecification ,
-                                edo:RingGasketStandard ,
-                                edo:RingGasketType ,
+                                edo:PressureRating ,
                                 edo:SealingMaterial ;
                edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                  edo:SubseaRigidPipesEngineering ,
@@ -16041,11 +16038,11 @@ edo:RingGasketAttribute rdf:type owl:Class ;
                         rdfs:label "Ring Gasket"@en .
 
 
-###  https://w3id.org/energy-domain/edo#RingGasketInnerDIameter
-edo:RingGasketInnerDIameter rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#RingGasketInnerDiameter
+edo:RingGasketInnerDiameter rdf:type owl:Class ;
                             rdfs:subClassOf edo:RingGasketAttribute ;
                             dcterms:accessRights "PUBLIC" ;
-                            dcterms:identifier "RingGasketInnerDIameter" ;
+                            dcterms:identifier "RingGasketInnerDiameter" ;
                             skos:definition "The internal diameter, which determines the size of the bore it fits into. This dimension is crucial for ensuring a proper fit and effective sealing."@en ;
                             skos:prefLabel "Diâmetro Interno da Junta de Vedação"@pt-br ,
                                            "Ring Gasket Inner Diameter"@en ;
@@ -16071,21 +16068,21 @@ edo:RingGasketMaterial rdf:type owl:Class ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#RingGasketNumber
-edo:RingGasketNumber rdf:type owl:Class ;
-                     rdfs:subClassOf edo:_CAT-Specification ;
-                     dcterms:accessRights "PUBLIC" ;
-                     dcterms:identifier "RingGasketNumber" ;
-                     skos:definition "Número da designação do anel."@pt-br ,
-                                     "Ring designation number."@en ;
-                     skos:prefLabel "Número"@pt-br ,
-                                    "Ring Gasket Number"@en ;
-                     edo:entityStatus "NEW" ;
-                     edo:hasAttributeScope edo:TypeLevelAttribute ;
-                     edo:hasExternalRef "MDA:gasket_spec.number" ;
-                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                     edo:hasTypedValue edo:IntValue ;
-                     edo:hasValueCardinality edo:SingleValue .
+###  https://w3id.org/energy-domain/edo#RingGasketDesignationNumber
+edo:RingGasketDesignationNumber rdf:type owl:Class ;
+                                rdfs:subClassOf edo:_CAT-Specification ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "RingGasketDesignationNumber" ;
+                                skos:definition "Número da designação do anel."@pt-br ,
+                                                "Ring designation number."@en ;
+                                skos:prefLabel "Número"@pt-br ,
+                                               "Ring Gasket Number"@en ;
+                                edo:entityStatus "NEW" ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasExternalRef "MDA:gasket_spec.number" ;
+                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                edo:hasTypedValue edo:IntValue ;
+                                edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#RingGasketOuterDiameter
@@ -16118,22 +16115,22 @@ edo:RingGasketPressureRating rdf:type owl:Class ;
                              edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#RingGasketProfile
-edo:RingGasketProfile rdf:type owl:Class ;
-                      rdfs:subClassOf edo:_CAT-Specification ;
-                      dcterms:accessRights "PUBLIC" ;
-                      dcterms:identifier "RingGasketProfile" ;
-                      rdfs:comment "Descriptions Generated by IA." ;
-                      skos:definition "Indica o perfil geométrico da seção transversal (ex: R, RX, BX) de uma junta de vedação metálica em anel usada para vedação de alta pressão."@pt-br ,
-                                      "Indicates the cross-sectional geometry profile (e.g., R, RX, BX) of a metallic ring joint gasket used for high-pressure sealing."@en ;
-                      skos:prefLabel "Perfil"@pt-br ,
-                                     "Ring Gasket Profile"@en ;
-                      edo:entityStatus "NEW" ;
-                      edo:hasAttributeScope edo:TypeLevelAttribute ;
-                      edo:hasExternalRef "MDA:gasket_spec.profile" ;
-                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                      edo:hasTypedValue edo:StringValue ;
-                      edo:hasValueCardinality edo:SingleValue .
+###  https://w3id.org/energy-domain/edo#RingGasketProfileCode
+edo:RingGasketProfileCode rdf:type owl:Class ;
+                          rdfs:subClassOf edo:_CAT-Specification ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "RingGasketProfileCode" ;
+                          rdfs:comment "Descriptions Generated by IA." ;
+                          skos:definition "Indica o perfil geométrico da seção transversal (ex: R, RX, BX) de uma junta de vedação metálica em anel usada para vedação de alta pressão."@pt-br ,
+                                          "Indicates the cross-sectional geometry profile (e.g., R, RX, BX) of a metallic ring joint gasket used for high-pressure sealing."@en ;
+                          skos:prefLabel "Perfil"@pt-br ,
+                                         "Ring Gasket Profile"@en ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:gasket_spec.profile" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:StringValue ;
+                          edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#RingGasketSpecification
@@ -16161,6 +16158,7 @@ edo:RingGasketStandard rdf:type owl:Class ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:StringValue ;
+                       edo:hasExternalRef "DF_2.1" ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
@@ -22671,6 +22669,70 @@ edo:Weight edo:hasUnit unit:KiloGM .
 
 
 edo:WeightWithoutEndTerminationIn_Air edo:hasUnit unit:KiloGM .
+
+
+###  https://w3id.org/energy-domain/edo#OverboardingCollar
+edo:OverboardingCollar rdf:type owl:Class ;
+                       rdfs:subClassOf edo:IfcInstanciableElement ,
+                                       edo:LineAncillary ;
+                       dcterms:identifier "OverboardingCollar" ;
+                       skos:prefLabel "Colar de transbordo"@pt-br ,
+                                      "Overboarding collar"@en ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                         edo:SubseaUmbilicalsEngineering ;
+                       edo:hasExternalRef "MDA:OverboardingCollar" ;
+                       edo:ifc_equivalentClass "IfcPipeFitting" ;
+                       edo:ifc_objectType "OverboardingCollar" ;
+                       edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#ElevationCollar
+edo:ElevationCollar rdf:type owl:Class ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ,
+                                    edo:LineAncillary ;
+                    dcterms:identifier "ElevationCollar" ;
+                    skos:prefLabel "Colar de elevação"@pt-br ,
+                                   "Elevation collar"@en ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                                      edo:SubseaUmbilicalsEngineering ;
+                    edo:hasExternalRef "MDA:ElevationCollar" ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "ElevationCollar" ;
+                    edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#PressureRating
+edo:PressureRating rdf:type owl:Class ;
+                   rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "PressureRating" ;
+                   skos:definition "The maximum pressure it can withstand without failing. This rating is important for ensuring that the seal ring performs effectively under the operating pressures of the application."@en ;
+                   skos:prefLabel "Classificação de Pressão da Junta de Vedação"@pt-br ,
+                                  "Ring Gasket Pressure Rating"@en ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "DF_2.1" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:PA ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#RingGasketStandardEdition
+edo:RingGasketStandardEdition rdf:type owl:Class ;
+                              rdfs:subClassOf edo:RingGasketAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "RingGasketStandardEdition" ;
+                              skos:definition "The edition or revision of the standard to which the ring gasket conforms. This identifies the specific version of the applicable standard used for its design, manufacture, inspection, and qualification."@en ;
+                              skos:prefLabel "Edição do Padrão da Junta de Vedação"@pt-br ,
+                                             "Ring Gasket Standard Edition"@en ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "EDO:v4" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:StringValue ;
+                              edo:hasValueCardinality edo:SingleValue .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
