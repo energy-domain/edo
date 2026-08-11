@@ -1,0 +1,29 @@
+name: One-shot threaded fastener taxonomy refactor
+on:
+  push:
+    branches: [automation/threaded-fastener-taxonomy]
+    paths: ['.github/workflows/one-shot-threaded-fastener-taxonomy.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python .github/scripts/refactor_threaded_fasteners.py
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          g=Graph(); g.parse('core/edo.ttl',format='turtle'); print('Turtle OK',len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/threaded-fastener-taxonomy-result
+          git add core/edo.ttl
+          git commit -m 'Refactor threaded fastener taxonomy'
+          git push --force origin automation/threaded-fastener-taxonomy-result
