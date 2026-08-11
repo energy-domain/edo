@@ -1499,20 +1499,44 @@ edo:BlockValve rdf:type owl:Class ;
                               "Válvula de bloqueio"@pt-br .
 
 
-###  https://w3id.org/energy-domain/edo#BoltSet
-edo:BoltSet rdf:type owl:Class ;
-            rdfs:subClassOf edo:PhysicalConnection ;
-            dcterms:identifier "BoltSet" ;
-            skos:definition "A collection of bolts and nuts, and washers designed for fastening components in subsea systems. Bolt sets are critical for ensuring structural integrity and are selected based on size, material, and application requirements."@en ;
-            skos:prefLabel "Bolt Set"@en ,
-                           "Conjunto de Parafusos"@pt-br ;
-            edo:hasAttribute edo:AssemblyTorque ,
-                             edo:FullyThreaded ,
-                             edo:Lubricant ,
-                             edo:LubricantFrictionFactor ,
-                             edo:NominalLength ,
-                             edo:Quantity ,
-                             edo:SpareQuantity .
+###  https://w3id.org/energy-domain/edo#ThreadedFastenerSet
+edo:ThreadedFastenerSet rdf:type owl:Class ;
+    rdfs:subClassOf edo:PhysicalConnection ;
+    dcterms:identifier "ThreadedFastenerSet" ;
+    skos:definition "A physical connection set based on threaded fastening elements, encompassing both headed bolts and headless studs together with associated fastening hardware."@en ,
+                    "Conjunto de conexão física baseado em elementos de fixação roscados, abrangendo parafusos com cabeça e estojos sem cabeça, juntamente com os elementos de fixação associados."@pt-br ;
+    skos:prefLabel "Threaded Fastener Set"@en , "Conjunto de Fixadores Roscados"@pt-br ;
+    edo:hasAttribute edo:NominalDiameter ,
+                     edo:PitchToleranceClass ,
+                     edo:ThreadStandard ;
+    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                      edo:SubseaUmbilicalsEngineering.
+
+
+###  https://w3id.org/energy-domain/edo#MetricThreadedFastenerSet
+edo:MetricThreadedFastenerSet rdf:type owl:Class ;
+    rdfs:subClassOf edo:ThreadedFastenerSet ;
+    dcterms:identifier "MetricThreadedFastenerSet" ;
+    skos:definition "A threaded fastener set specified according to a metric thread system, in which thread spacing is expressed by pitch."@en ,
+                    "Conjunto de fixadores roscados especificado segundo um sistema de rosca métrico, no qual o espaçamento da rosca é expresso pelo passo."@pt-br ;
+    skos:prefLabel "Metric Threaded Fastener Set"@en , "Conjunto de Fixadores Roscados Métrico"@pt-br ;
+    edo:classInstantiationRole edo:ProjectInstantiableClass ;
+    edo:hasAttribute edo:ThreadPitch ;
+    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                      edo:SubseaUmbilicalsEngineering.
+
+
+###  https://w3id.org/energy-domain/edo#UNSThreadedFastenerSet
+edo:UNSThreadedFastenerSet rdf:type owl:Class ;
+    rdfs:subClassOf edo:ThreadedFastenerSet ;
+    dcterms:identifier "UNSThreadedFastenerSet" ;
+    skos:definition "A threaded fastener set specified according to the Unified Special thread series, in which thread density is expressed as threads per inch."@en ,
+                    "Conjunto de fixadores roscados especificado segundo a série Unified Special (UNS), na qual a densidade da rosca é expressa em fios por polegada."@pt-br ;
+    skos:prefLabel "UNS Threaded Fastener Set"@en , "Conjunto de Fixadores Roscados UNS"@pt-br ;
+    edo:classInstantiationRole edo:ProjectInstantiableClass ;
+    edo:hasAttribute edo:ThreadsPerInch ;
+    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
+                      edo:SubseaUmbilicalsEngineering.
 
 
 ###  https://w3id.org/energy-domain/edo#BoreDiameter
@@ -6415,37 +6439,8 @@ edo:MetallicTubing rdf:type owl:Class ;
                    edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#MetricBoltSet
-edo:MetricBoltSet rdf:type owl:Class ;
-                  rdfs:subClassOf edo:BoltSet ;
-                  dcterms:identifier "MetricBoltSet" ;
-                  skos:definition "A set of bolts and accompanying hardware sized using the metric measurement system, commonly used in subsea applications for international compatibility and standardization."@en ;
-                  skos:prefLabel "Conjunto de Parafusos Métrico"@pt-br ,
-                                 "Metric Bolt Set"@en ;
-                  edo:classInstantiationRole edo:ProjectInstantiableClass ;
-                  edo:hasAttribute edo:NominalDiameter ,
-                                   edo:PitchToleranceClass ,
-                                   edo:ThreadPitch ,
-                                   edo:ThreadStandard ;
-                  edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
-                                    edo:SubseaUmbilicalsEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#MetricStudSet
-edo:MetricStudSet rdf:type owl:Class ;
-                  rdfs:subClassOf edo:StudSet ;
-                  dcterms:identifier "MetricStudSet" ;
-                  skos:altLabel "Metric Stud"@en ,
-                                "Metric Threaded Rod"@en ;
-                  skos:definition "Metric studs are crucial fastening components for subsea oil and gas components, designed specifically to secure equipment parts. Each set includes bolts, nuts, and washers in metric sizing, made from high-strength, corrosion-resistant materials to withstand the demanding subsea environment. These components offer dependable fastening, ensuring structural integrity and leak prevention in end fittings. Metric stud sets are engineered to endure high pressure and extreme temperatures, making them essential for the safety and durability of subsea interconnections."@en ;
-                  skos:prefLabel "Conjunto de Estojos Métrico"@pt-br ,
-                                 "Metric Stud Set"@en ;
-                  edo:classInstantiationRole edo:ProjectInstantiableClass ;
-                  edo:hasAttribute edo:PitchToleranceClass ,
-                                   edo:ThreadPitch ,
-                                   edo:ThreadStandard ;
-                  edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
-                                    edo:SubseaUmbilicalsEngineering .
 
 
 ###  https://w3id.org/energy-domain/edo#MinimumBendingRadius
@@ -9279,22 +9274,6 @@ edo:StructureCode rdf:type owl:Class ;
                   edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#StudSet
-edo:StudSet rdf:type owl:Class ;
-            rdfs:subClassOf edo:PhysicalConnection ;
-            dcterms:identifier "StudSet" ;
-            skos:altLabel "Stud"@en ,
-                          "Threaded Rod"@en ;
-            skos:definition "Stud sets are essential fastening components used in subsea oil and gas interconnection end fittings to securely assemble and connect various parts of the equipment. Each set typically includes bolts, nuts, and washers, all made from high-strength, corrosion-resistant materials to endure the harsh subsea environment. These components are designed to provide reliable mechanical fastening, ensuring the structural integrity and leak-proof performance of the end fittings. The stud sets are carefully engineered to withstand high pressure and extreme temperatures, making them critical for maintaining the operational safety and longevity of subsea interconnections."@en ;
-            skos:prefLabel "Estojos"@pt-br ,
-                           "Stud Set"@en ;
-            edo:hasAttribute edo:AssemblyTorque ,
-                             edo:FullyThreaded ,
-                             edo:Lubricant ,
-                             edo:LubricantFrictionFactor ,
-                             edo:NominalDiameter ,
-                             edo:Quantity ,
-                             edo:SpareQuantity .
 
 
 ###  https://w3id.org/energy-domain/edo#SubProjectId
@@ -10027,35 +10006,8 @@ edo:TubingHangerRunningTool rdf:type owl:Class ;
                                            "Tubing hanger running tool"@en .
 
 
-###  https://w3id.org/energy-domain/edo#UNSBoltSet
-edo:UNSBoltSet rdf:type owl:Class ;
-               rdfs:subClassOf edo:BoltSet ;
-               dcterms:identifier "UNSBoltSet" ;
-               skos:definition "A set of bolts conforming to the Unified Numbering System (UNS) standard, ensuring material consistency and reliability in subsea applications."@en ;
-               skos:prefLabel "Conjunto de Parafusos UNS"@pt-br ,
-                              "UNS Bolt Set"@en ;
-               edo:classInstantiationRole edo:ProjectInstantiableClass ;
-               edo:hasAttribute edo:NominalDiameter ,
-                                edo:PitchToleranceClass ,
-                                edo:ThreadStandard ,
-                                edo:ThreadsPerInch ;
-               edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
-                                 edo:SubseaUmbilicalsEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#UNSStudSet
-edo:UNSStudSet rdf:type owl:Class ;
-               rdfs:subClassOf edo:StudSet ;
-               dcterms:identifier "UNSStudSet" ;
-               skos:definition "UNS stud sets are essential fastening components for subsea oil and gas components, tailored to securely join equipment parts. Each set comprises bolts, nuts, and washers, all in UNS sizing and crafted from high-strength, corrosion-resistant materials to endure the challenging subsea environment. These components provide robust fastening, ensuring structural integrity and leak prevention in end fittings. UNS stud sets are engineered to withstand high pressure and extreme temperatures, playing a vital role in the safety and longevity of subsea interconnections."@en ;
-               skos:prefLabel "Conjunto de Estojos UNS"@pt-br ,
-                              "UNS Stud Set"@en ;
-               edo:classInstantiationRole edo:ProjectInstantiableClass ;
-               edo:hasAttribute edo:PitchToleranceClass ,
-                                edo:ThreadStandard ,
-                                edo:ThreadsPerInch ;
-               edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
-                                 edo:SubseaUmbilicalsEngineering .
 
 
 ###  https://w3id.org/energy-domain/edo#UTA
