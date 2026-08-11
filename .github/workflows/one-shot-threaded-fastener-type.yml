@@ -1,0 +1,46 @@
+name: One-shot threaded fastener type
+on:
+  push:
+    branches: [automation/threaded-fastener-type]
+    paths: ['.github/workflows/one-shot-threaded-fastener-type.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('core/edo.ttl')
+          s=p.read_text(encoding='utf-8')
+          marker='###  https://w3id.org/energy-domain/edo#ThreadedFastenerSet\n'
+          if 'edo:ThreadedFastenerType rdf:type owl:Class' in s:
+              raise SystemExit('ThreadedFastenerType already exists')
+          block='''###  https://w3id.org/energy-domain/edo#ThreadedFastenerType\nedo:ThreadedFastenerType rdf:type owl:Class ;\n    rdfs:subClassOf edo:DomainAttribute ;\n    dcterms:accessRights "PUBLIC" ;\n    dcterms:identifier "ThreadedFastenerType" ;\n    skos:definition "Type of threaded fastening element used in the set."@en ,\n                    "Tipo de elemento de fixação roscado utilizado no conjunto."@pt-br ;\n    skos:prefLabel "Threaded Fastener Type"@en ,\n                   "Tipo de Fixador Roscado"@pt-br ;\n    edo:hasTypedValue edo:StringValue ;\n    edo:hasValueCardinality edo:SingleValue ;\n    edo:validValues "BOLT" ;\n    edo:validValues "STUD" .\n\n\n'''
+          if marker not in s:
+              raise SystemExit('ThreadedFastenerSet marker not found')
+          s=s.replace(marker,block+marker,1)
+          old='''    edo:hasAttribute edo:NominalDiameter ,\n                     edo:PitchToleranceClass ,\n                     edo:ThreadStandard ;'''
+          new='''    edo:hasAttribute edo:NominalDiameter ,\n                     edo:PitchToleranceClass ,\n                     edo:ThreadStandard ,\n                     edo:ThreadedFastenerType ;'''
+          if old not in s:
+              raise SystemExit('ThreadedFastenerSet attribute block not found')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          g=Graph(); g.parse('core/edo.ttl',format='turtle'); print('Turtle OK',len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/threaded-fastener-type-result
+          git add core/edo.ttl
+          git commit -m 'Add threaded fastener type attribute'
+          git push --force origin automation/threaded-fastener-type-result
