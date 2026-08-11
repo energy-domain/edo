@@ -2309,8 +2309,8 @@ edo:Content rdf:type owl:Class ;
 edo:ControlAndSignalLogic rdf:type owl:Class ;
                           rdfs:subClassOf edo:LogicalElement ;
                           dcterms:identifier "ControlAndSignalLogic" ;
-                          skos:definition "Representa elementos que implementam lógica de controle ou sinal dentro de um sistema, definindo comportamentos e relações entre componentes."@pt-br ,
-                                          "Represents elements that implement control or signal logic within a system, defining behaviors and relationships between components."@en ;
+                          skos:definition "A logical element that defines control or signal behaviour and functional relationships within a system, independently of the physical devices that implement it."@en ,
+                                          "Elemento lógico que define comportamento de controle ou sinal e relações funcionais em um sistema, independentemente dos dispositivos físicos que o implementam."@pt-br ;
                           skos:prefLabel "Control and Signal Logic"@en ,
                                          "Lógica de Controle e Sinal"@pt-br .
 
@@ -2319,8 +2319,8 @@ edo:ControlAndSignalLogic rdf:type owl:Class ;
 edo:ControlLoop rdf:type owl:Class ;
                 rdfs:subClassOf edo:ControlAndSignalLogic ;
                 dcterms:identifier "ControlLoop" ;
-                skos:definition "Representa um loop de controle que implementa lógica automatizada, incluindo mecanismos de feedback e regulação."@pt-br ,
-                                "Represents a control loop implementing automated control logic, including feedback and regulation mechanisms."@en ;
+                skos:definition "A logical control structure that defines a feedback or regulation loop within a system, independently of the physical instruments and control devices that implement it."@en ,
+                                "Estrutura lógica de controle que define uma malha de realimentação ou regulação em um sistema, independentemente dos instrumentos e dispositivos físicos de controle que a implementam."@pt-br ;
                 skos:prefLabel "Control Loop"@en ,
                                "Loop de Controle"@pt-br .
 
@@ -3566,7 +3566,7 @@ edo:ExternalDiameter rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ExternalReference
 edo:ExternalReference rdf:type owl:Class ;
-                      rdfs:subClassOf edo:DomainElement ;
+                      rdfs:subClassOf edo:InformationArtifact ;
                       skos:definition "Representa entidades que funcionam como referências externas dentro de um projeto ou modelo. Não são elementos físicos nem lógicos em si, mas fornecem vínculos para informações de apoio, como documentos, dicionários de dados ou normas. Seu propósito é conectar o modelo a fontes externas de conhecimento, garantindo rastreabilidade, conformidade e compreensão contextual."@pt-br ,
                                       "Represents entities that serve as external references within a project or model. They are not physical or logical elements themselves but provide links to supporting information such as documents, data dictionaries, or standards. Their purpose is to connect the model to external sources of knowledge, ensuring traceability, compliance, and contextual understanding."@en ;
                       skos:prefLabel "External Reference"@en ,
@@ -4008,9 +4008,19 @@ edo:FlexibleStructureServicesList rdf:type owl:Class ;
                                   edo:hasValueCardinality edo:MultiValue .
 
 
+###  https://w3id.org/energy-domain/edo#FunctionalAsset
+edo:FunctionalAsset rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainElement ;
+                    dcterms:identifier "FunctionalAsset" ;
+                    skos:definition "A functionally identified and managed domain element that aggregates or represents the physical elements required to perform a function, and may retain its identity across changes in physical composition and deliveries from different contracts or suppliers."@en ,
+                                    "Elemento de domínio identificado e gerenciado funcionalmente que agrega ou representa os elementos físicos necessários à realização de uma função, podendo manter sua identidade ao longo de mudanças em sua composição física e de entregas provenientes de diferentes contratos ou fornecedores."@pt-br ;
+                    skos:prefLabel "Functional Asset"@en ,
+                                   "Ativo Funcional"@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#FloatingProductionUnit
 edo:FloatingProductionUnit rdf:type owl:Class ;
-                           rdfs:subClassOf edo:Location ;
+                           rdfs:subClassOf edo:FunctionalAsset ;
                            dcterms:identifier "FloatingProductionUnit" ;
                            skos:altLabel "FLNG"@en ,
                                          "FPSO"@en ,
@@ -4855,12 +4865,22 @@ edo:IntendedLongitudinalPlacement rdf:type owl:Class ;
                                   edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
+###  https://w3id.org/energy-domain/edo#InformationArtifact
+edo:InformationArtifact rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainElement ;
+                        dcterms:identifier "InformationArtifact" ;
+                        skos:definition "A domain element of informational nature that records, defines, specifies, references, or organises information about domain elements, activities, or contexts."@en ,
+                                        "Elemento de domínio de natureza informacional que registra, define, especifica, referencia ou organiza informação sobre elementos, atividades ou contextos do domínio."@pt-br ;
+                        skos:prefLabel "Information Artifact"@en ,
+                                       "Artefato Informacional"@pt-br .
+
+
 ###  https://w3id.org/energy-domain/edo#Interconnection
 edo:Interconnection rdf:type owl:Class ;
-                    rdfs:subClassOf edo:LinearLocation ;
+                    rdfs:subClassOf edo:FunctionalAsset ;
                     dcterms:identifier "Interconnection" ;
-                    skos:definition "Local que contém toda a extensão de uma interligação, com seus diversos trechos, terminações, equipamentos inline, etc."@pt-br ,
-                                    "Location that contains the entire length of an interconnection, with its various sections, terminations, inline equipment, etc."@en ;
+                    skos:definition "A functional asset representing a complete engineered interconnection between endpoints, aggregating the spans, terminations, inline equipment and other elements that together provide the required transport, power, control or communication function."@en ,
+                                    "Ativo funcional que representa uma interligação de engenharia completa entre pontos terminais, agregando os trechos, terminações, equipamentos inline e demais elementos que, em conjunto, realizam a função requerida de transporte, potência, controle ou comunicação."@pt-br ;
                     skos:prefLabel "Interconnection"@en ,
                                    "Interligação"@pt-br .
 
@@ -5576,10 +5596,8 @@ edo:LogicCap rdf:type owl:Class ;
 edo:LogicalElement rdf:type owl:Class ;
                    rdfs:subClassOf edo:DomainElement ;
                    dcterms:identifier "LogicalElement" ;
-                   skos:definition "Representa elementos de natureza não física, descrevendo aspectos funcionais, lógicos ou informacionais de um projeto ou sistema, apoiando projeto, operação e análise."@pt-br ,
-                                   "Representa elementos de natureza não física, descrevendo aspectos funcionais, lógicos ou informacionais de um projeto ou sistema."@pt-br ,
-                                   "Represents elements of a non-physical nature, describing functional, logical, or informational aspects of a project or system."@en ,
-                                   "Represents elements that are non-physical, describing functional, logical, or informational aspects of a project or system, supporting design, operation, and analysis."@en ;
+                   skos:definition "A non-physical domain element representing functional, control, signal, or behavioural logic within an engineered system, independent of its physical implementation and distinct from informational documentation."@en ,
+                                   "Elemento de domínio não físico que representa lógica funcional, de controle, de sinal ou de comportamento em um sistema de engenharia, independentemente de sua implementação física e distinto de documentação informacional."@pt-br ;
                    skos:prefLabel "Elemento Lógico"@pt-br ,
                                   "Logical Element"@en .
 
@@ -5868,7 +5886,7 @@ edo:MaterialSupplierName rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#MaterialType
 edo:MaterialType rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainElement ;
+                 rdfs:subClassOf edo:InformationArtifact ;
                  skos:definition "Representa catálogos de materiais utilizados em projetos, fornecendo referências padrão para composição, propriedades e classificação."@pt-br ,
                                  "Represents catalogs of materials used within projects, providing standard references for composition, properties, and classification."@en ;
                  skos:prefLabel "Material Type"@en ,
@@ -7151,8 +7169,8 @@ edo:PipeTermination rdf:type owl:Class ;
 edo:PipelineSpan rdf:type owl:Class ;
                  rdfs:subClassOf edo:LineSpan ;
                  dcterms:identifier "PipelineSpan" ;
-                 skos:definition "Local que representa um duto de escoamento de fluidos completo"@pt-br ,
-                                 "Location representing a complete pipeline for fluid transport"@en ;
+                 skos:definition "A linear installation location representing a defined spatial span along a pipeline route, used to locate and organise the physical pipeline elements installed within that span."@en ,
+                                 "Localização linear de instalação que representa um trecho espacial definido ao longo da rota de um duto, utilizada para localizar e organizar os elementos físicos do duto instalados nesse trecho."@pt-br ;
                  skos:prefLabel "Pipeline span"@en ,
                                 "Trecho de duto"@pt-br .
 
@@ -7420,16 +7438,6 @@ edo:ProcessingModule rdf:type owl:Class ;
                                      "Módulo instalado como parte de um equipamento maior e projetado para produzir mudanças físicas ou químicas sobre fluidos"@pt-br ;
                      skos:prefLabel "Módulo de processamento"@pt-br ,
                                     "Processing module"@en .
-
-
-###  https://w3id.org/energy-domain/edo#Project
-edo:Project rdf:type owl:Class ;
-            rdfs:subClassOf edo:Location ;
-            dcterms:identifier "Project" ;
-            skos:definition "A broad concept that encompasses the design, development, and planning of various components or systems."@en ;
-            skos:prefLabel "Project"@en ,
-                           "Projeto"@pt-br ;
-            edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
 
 
 ###  https://w3id.org/energy-domain/edo#ProjectAcronym
@@ -9267,16 +9275,17 @@ edo:SubseaEquipment rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SubseaLayout
 edo:SubseaLayout rdf:type owl:Class ;
-                 rdfs:subClassOf edo:Location ;
+                 rdfs:subClassOf edo:InformationArtifact ;
                  dcterms:identifier "SubseaLayout" ;
-                 skos:definition "The arrangement or map of components and systems within a subsea environment, including pipelines, risers, manifolds, and other infrastructure."@en ;
+                 skos:definition "An information artifact documenting the spatial arrangement of subsea infrastructure, such as pipelines, risers, manifolds, wells and other equipment within a defined subsea area."@en ,
+                                 "Artefato informacional que documenta o arranjo espacial da infraestrutura submarina, como dutos, risers, manifolds, poços e outros equipamentos em uma área submarina definida."@pt-br ;
                  skos:prefLabel "Arranjo Submarino"@pt-br ,
                                 "Subsea Layout"@en .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaOilField
 edo:SubseaOilField rdf:type owl:Class ;
-                   rdfs:subClassOf edo:SubseaLayout ;
+                   rdfs:subClassOf edo:Location ;
                    dcterms:identifier "SubseaOilField" ;
                    skos:altLabel "Subsea Hydrocarbon Field"@en ,
                                  "Subsea Oil Reservoir"@en ,
@@ -9347,7 +9356,7 @@ edo:SubseaUmbilical rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SubseaWell
 edo:SubseaWell rdf:type owl:Class ;
-               rdfs:subClassOf edo:EquipmentLocation ;
+               rdfs:subClassOf edo:FunctionalAsset ;
                dcterms:identifier "SubseaWell" ;
                skos:definition "A Subsea Well is a well located on the seafloor from which hydrocarbons such as oil and gas are extracted. Positioned underwater, it typically involves a wellhead assembly that includes valves, controls, and monitoring equipment to manage the extraction process. The Subsea Well is connected to surface facilities via pipelines and umbilicals, which facilitate the transport of extracted resources and the provision of necessary services like power and communication. Designed to operate under high pressure and harsh marine conditions, the subsea well is a critical component of offshore oil and gas production systems."@en ;
                skos:prefLabel "Poço"@pt-br ,
@@ -9383,7 +9392,7 @@ edo:SupplierProvidedMaterialName rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SupportPoint
 edo:SupportPoint rdf:type owl:Class ;
-                 rdfs:subClassOf edo:LogicalElement ;
+                 rdfs:subClassOf edo:Feature ;
                  dcterms:identifier "SupportPoint" ;
                  skos:definition "Representa um ponto utilizado para apoiar, levantar ou posicionar elementos dentro de um projeto."@pt-br ,
                                  "Represents a point used to support, lift, or position elements within a project."@en ;
@@ -9443,7 +9452,7 @@ edo:TapesQuantity rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#TechnicalArtifact
 edo:TechnicalArtifact rdf:type owl:Class ;
-                      rdfs:subClassOf edo:DomainElement ;
+                      rdfs:subClassOf edo:InformationArtifact ;
                       skos:definition "Artefato técnico reutilizável que participa da definição, configuração ou governança de elementos de domínio, sem representar necessariamente um objeto físico."@pt-br ,
                                       "Reusable technical artifact that participates in the definition, configuration or governance of domain elements, without necessarily representing a physical object."@en ;
                       skos:prefLabel "Artefato Técnico"@pt-br ,
@@ -10079,7 +10088,7 @@ edo:UmbilicalComponent rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#UmbilicalLocation
 edo:UmbilicalLocation rdf:type owl:Class ;
-                      rdfs:subClassOf edo:Interconnection ;
+                      rdfs:subClassOf edo:LinearLocation ;
                       dcterms:identifier "UmbilicalLocation" ;
                       skos:prefLabel "Local de umbilical"@pt-br ,
                                      "Umbilical location"@en ;
