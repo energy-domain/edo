@@ -91,32 +91,32 @@ jobs:
           if 'edo:FunctionalAsset rdf:type owl:Class' in text:
               raise RuntimeError('FunctionalAsset already exists')
           functional = '''###  https://w3id.org/energy-domain/edo#FunctionalAsset
-          edo:FunctionalAsset rdf:type owl:Class ;
-                              rdfs:subClassOf edo:DomainElement ;
-                              dcterms:identifier "FunctionalAsset" ;
-                              skos:definition "A functionally identified and managed domain element that aggregates or represents the physical elements required to perform a function, and may retain its identity across changes in physical composition and deliveries from different contracts or suppliers."@en ,
-                                              "Elemento de domínio identificado e gerenciado funcionalmente que agrega ou representa os elementos físicos necessários à realização de uma função, podendo manter sua identidade ao longo de mudanças em sua composição física e de entregas provenientes de diferentes contratos ou fornecedores."@pt-br ;
-                              skos:prefLabel "Functional Asset"@en ,
-                                             "Ativo Funcional"@pt-br .
+edo:FunctionalAsset rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainElement ;
+                    dcterms:identifier "FunctionalAsset" ;
+                    skos:definition "A functionally identified and managed domain element that aggregates or represents the physical elements required to perform a function, and may retain its identity across changes in physical composition and deliveries from different contracts or suppliers."@en ,
+                                    "Elemento de domínio identificado e gerenciado funcionalmente que agrega ou representa os elementos físicos necessários à realização de uma função, podendo manter sua identidade ao longo de mudanças em sua composição física e de entregas provenientes de diferentes contratos ou fornecedores."@pt-br ;
+                    skos:prefLabel "Functional Asset"@en ,
+                                   "Ativo Funcional"@pt-br .
 
 
-          '''
+'''
           m=get('FloatingProductionUnit')
           text=text[:m.start()]+functional+text[m.start():]
 
           if 'edo:InformationArtifact rdf:type owl:Class' in text:
               raise RuntimeError('InformationArtifact already exists')
           informational = '''###  https://w3id.org/energy-domain/edo#InformationArtifact
-          edo:InformationArtifact rdf:type owl:Class ;
-                                  rdfs:subClassOf edo:DomainElement ;
-                                  dcterms:identifier "InformationArtifact" ;
-                                  skos:definition "A domain element of informational nature that records, defines, specifies, references, or organises information about domain elements, activities, or contexts."@en ,
-                                                  "Elemento de domínio de natureza informacional que registra, define, especifica, referencia ou organiza informação sobre elementos, atividades ou contextos do domínio."@pt-br ;
-                                  skos:prefLabel "Information Artifact"@en ,
-                                                 "Artefato Informacional"@pt-br .
+edo:InformationArtifact rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainElement ;
+                        dcterms:identifier "InformationArtifact" ;
+                        skos:definition "A domain element of informational nature that records, defines, specifies, references, or organises information about domain elements, activities, or contexts."@en ,
+                                        "Elemento de domínio de natureza informacional que registra, define, especifica, referencia ou organiza informação sobre elementos, atividades ou contextos do domínio."@pt-br ;
+                        skos:prefLabel "Information Artifact"@en ,
+                                       "Artefato Informacional"@pt-br .
 
 
-          '''
+'''
           m=get('Interconnection')
           text=text[:m.start()]+informational+text[m.start():]
 
@@ -189,4 +189,4 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add core/edo.ttl
           git commit -m "Refactor DomainElement taxonomy"
-          git push --force-with-lease origin HEAD:"$RESULT_BRANCH"
+          git push --force-with-lease origin HEAD:"refs/heads/$RESULT_BRANCH"
