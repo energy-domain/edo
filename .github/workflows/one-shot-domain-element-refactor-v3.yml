@@ -1,0 +1,40 @@
+name: One-shot DomainElement refactor v3
+
+on:
+  push:
+    branches:
+      - automation/domain-element-refactor-runner
+
+permissions:
+  contents: write
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply refactor to exact main base
+        env:
+          BASE_SHA: 82f09ca23a5a81f5c1abc8cc0fa32a4f9c32d7a7
+          RESULT_BRANCH: automation/domain-element-refactor-result
+        run: |
+          git show origin/automation/domain-element-refactor-runner:tools/one_shot_domain_element_refactor.py > /tmp/refactor.py
+          git checkout --detach "$BASE_SHA"
+          python /tmp/refactor.py
+          python -m pip install --quiet rdflib
+          python - <<'PY'
+          from rdflib import Graph
+          g = Graph()
+          g.parse('core/edo.ttl', format='turtle')
+          print(f'Turtle validation OK: {len(g)} triples')
+          PY
+          git diff --check
+          git status --short
+          git config user.name "ChatGPT EDO Refactor"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add core/edo.ttl
+          git commit -m "Refactor DomainElement taxonomy"
+          git push origin HEAD:"refs/heads/$RESULT_BRANCH"
