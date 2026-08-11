@@ -1,0 +1,40 @@
+name: One-shot commissioning refactor
+
+on:
+  push:
+    branches:
+      - automation/commissioning-refactor-runner
+
+permissions:
+  contents: write
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refactor exact main ontology and validate
+        env:
+          BASE_SHA: 8810049743f5fc104525095f940b7c6905f7d159
+          RESULT_BRANCH: automation/commissioning-refactor-result
+        run: |
+          cp .github/scripts/refactor_commissioning.py /tmp/refactor_commissioning.py
+          git checkout --detach "$BASE_SHA"
+          python /tmp/refactor_commissioning.py
+          python -m pip install --quiet rdflib
+          python - <<'PY'
+          from rdflib import Graph
+          g = Graph()
+          g.parse('core/edo.ttl', format='turtle')
+          print(f'Turtle validation OK: {len(g)} triples')
+          PY
+          git diff --check
+          git status --short
+          git config user.name "ChatGPT EDO Refactor"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add core/edo.ttl
+          git commit -m "Refactor commissioning domain model"
+          git push --force-with-lease origin HEAD:"refs/heads/$RESULT_BRANCH"
