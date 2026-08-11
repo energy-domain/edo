@@ -16,6 +16,7 @@ jobs:
       - name: Refactor material specification taxonomy and validate
         shell: bash
         run: |
+          python -m pip install rdflib
           python - <<'PY'
           from pathlib import Path
           import re
@@ -31,8 +32,6 @@ jobs:
                   raise SystemExit(f'Block not found: {name}')
               return m.group(0), m.span()
 
-          # Remove the old generic MaterialType block. The richer
-          # FlexibleStructureLayerMaterial block becomes the generic specification.
           material_type_block, span = get_block(s, 'MaterialType')
           s = s[:span[0]] + s[span[1]:]
 
@@ -96,18 +95,13 @@ jobs:
                   flags=re.S,
               )
               s = s[:span[0]] + b + s[span[1]:]
-
-              # Update references to the class IRI elsewhere, without touching
-              # attributes such as MetallicLayerMaterialType.
               s = re.sub(rf'edo:{re.escape(old)}\b', f'edo:{new}', s)
 
-          # Any remaining reference to the removed intermediary is invalid.
           if 'edo:FlexibleStructureLayerMaterial' in s or '#FlexibleStructureLayerMaterial' in s:
               raise SystemExit('FlexibleStructureLayerMaterial reference remains')
           if re.search(r'edo:MaterialType\b|#MaterialType\b', s):
               raise SystemExit('MaterialType reference remains')
 
-          # Explicitly keep the three LayerMaterialType attributes untouched for later review.
           for name in ('MetallicLayerMaterialType','PolymericLayerMaterialType','CompositeLayerMaterialType'):
               if f'edo:{name}' not in s:
                   raise SystemExit(f'Expected attribute missing: {name}')
