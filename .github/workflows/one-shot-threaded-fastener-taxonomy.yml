@@ -11,9 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: automation/threaded-fastener-taxonomy
           fetch-depth: 0
       - run: |
+          git checkout origin/main -- core/edo.ttl
           python .github/scripts/refactor_threaded_fasteners.py
           python -m pip install rdflib >/dev/null
           python - <<'PY'
@@ -23,7 +24,9 @@ jobs:
           git diff --check
           git config user.name 'ChatGPT EDO Refactor'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git checkout -B automation/threaded-fastener-taxonomy-result
+          git checkout -B automation/threaded-fastener-taxonomy-result origin/main
+          git checkout automation/threaded-fastener-taxonomy -- .github/scripts/refactor_threaded_fasteners.py
+          python .github/scripts/refactor_threaded_fasteners.py
           git add core/edo.ttl
           git commit -m 'Refactor threaded fastener taxonomy'
           git push --force origin automation/threaded-fastener-taxonomy-result
