@@ -1,0 +1,54 @@
+name: One-shot attribute relation cleanup
+on:
+  push:
+    branches: [automation/attribute-relation-cleanup]
+    paths: ['.github/workflows/one-shot-attribute-relation-cleanup.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('core/edo.ttl')
+          s=p.read_text(encoding='utf-8')
+
+          # Remove AttributeRelation declaration block.
+          pat=r'###  https://w3id.org/energy-domain/edo#AttributeRelation\nedo:AttributeRelation rdf:type owl:AnnotationProperty ;.*?rdfs:subPropertyOf edo:DomainRelation \.\n\n\n'
+          s,n=re.subn(pat,'',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit('AttributeRelation block not found exactly once')
+
+          # Reparent metamodel relations.
+          s,n=re.subn(r'(###  https://w3id.org/energy-domain/edo#hasAttribute\nedo:hasAttribute rdf:type owl:AnnotationProperty ;.*?rdfs:subPropertyOf )edo:AttributeRelation( \.)',r'\1edo:DomainAttributeStructureAnnotation\2',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit('hasAttribute reparent failed')
+          s,n=re.subn(r'(###  https://w3id.org/energy-domain/edo#specializesAttribute\nedo:specializesAttribute rdf:type owl:AnnotationProperty ;.*?rdfs:subPropertyOf )edo:AttributeRelation( \.)',r'\1edo:DomainAttributeStructureAnnotation\2',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit('specializesAttribute reparent failed')
+
+          # Add Quantity to ThreadedFastenerSet footprint if absent.
+          marker='''    edo:hasAttribute edo:NominalDiameter ,\n                     edo:PitchToleranceClass ,\n                     edo:ThreadStandard ,\n                     edo:ThreadedFastenerType ;'''
+          repl='''    edo:hasAttribute edo:NominalDiameter ,\n                     edo:PitchToleranceClass ,\n                     edo:Quantity ,\n                     edo:ThreadStandard ,\n                     edo:ThreadedFastenerType ;'''
+          if marker not in s: raise SystemExit('ThreadedFastenerSet footprint marker not found')
+          s=s.replace(marker,repl,1)
+
+          if 'edo:AttributeRelation' in s: raise SystemExit('AttributeRelation reference remains')
+          p.write_text(s,encoding='utf-8')
+          PY
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          g=Graph(); g.parse('core/edo.ttl',format='turtle'); print('Turtle OK',len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/attribute-relation-cleanup-result
+          git add core/edo.ttl
+          git commit -m 'Refine attribute metamodel relations'
+          git push --force origin automation/attribute-relation-cleanup-result
