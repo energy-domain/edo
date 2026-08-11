@@ -465,6 +465,56 @@ edo:hasConnectionPoint rdf:type owl:AnnotationProperty ;
                        rdfs:subPropertyOf edo:InterfaceRelation .
 
 
+###  https://w3id.org/energy-domain/edo#hasTask
+edo:hasTask rdf:type owl:AnnotationProperty ;
+            dcterms:identifier "hasTask" ;
+            rdfs:label "Has Task"@en ,
+                       "Tem Tarefa"@pt-br ;
+            skos:definition "Associates a process with a task that composes or participates in that process."@en ,
+                            "Associa um processo a uma tarefa que o compõe ou dele participa."@pt-br ;
+            rdfs:subPropertyOf edo:PartWholeRelation .
+
+
+###  https://w3id.org/energy-domain/edo#hasSubject
+edo:hasSubject rdf:type owl:AnnotationProperty ;
+               dcterms:identifier "hasSubject" ;
+               rdfs:label "Has Subject"@en ,
+                          "Tem Objeto"@pt-br ;
+               skos:definition "Associates an activity or information artifact with the domain element that is its subject or object of attention."@en ,
+                               "Associa uma atividade ou artefato informacional ao elemento do domínio que constitui seu objeto de atenção."@pt-br ;
+               rdfs:subPropertyOf edo:DomainRelation .
+
+
+###  https://w3id.org/energy-domain/edo#hasEvidence
+edo:hasEvidence rdf:type owl:AnnotationProperty ;
+                dcterms:identifier "hasEvidence" ;
+                rdfs:label "Has Evidence"@en ,
+                           "Tem Evidência"@pt-br ;
+                skos:definition "Associates an activity or task with an information artifact that provides evidence of its execution, condition or result."@en ,
+                                "Associa uma atividade ou tarefa a um artefato informacional que fornece evidência de sua execução, condição ou resultado."@pt-br ;
+                rdfs:subPropertyOf edo:InformationRelation .
+
+
+###  https://w3id.org/energy-domain/edo#hasIssue
+edo:hasIssue rdf:type owl:AnnotationProperty ;
+             dcterms:identifier "hasIssue" ;
+             rdfs:label "Has Issue"@en ,
+                        "Tem Pendência"@pt-br ;
+             skos:definition "Associates an activity or task with an issue recorded in its context."@en ,
+                             "Associa uma atividade ou tarefa a uma pendência registrada em seu contexto."@pt-br ;
+             rdfs:subPropertyOf edo:InformationRelation .
+
+
+###  https://w3id.org/energy-domain/edo#hasResponsibleAgent
+edo:hasResponsibleAgent rdf:type owl:AnnotationProperty ;
+                        dcterms:identifier "hasResponsibleAgent" ;
+                        rdfs:label "Has Responsible Agent"@en ,
+                                   "Tem Agente Responsável"@pt-br ;
+                        skos:definition "Associates a domain entity with the agent responsible for an activity, task, deliverable or decision."@en ,
+                                        "Associa uma entidade do domínio ao agente responsável por uma atividade, tarefa, entrega ou decisão."@pt-br ;
+                        rdfs:subPropertyOf edo:OrganizationalRelation .
+
+
 ###  https://w3id.org/energy-domain/edo#hasDiscipline
 edo:hasDiscipline rdf:type owl:AnnotationProperty ;
                   rdfs:label "Has Discipline"@en ,
@@ -2034,131 +2084,146 @@ edo:CollarInternalDiameter rdf:type owl:Class ;
                            edo:specializesAttribute edo:Diameter .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningActivity
-edo:CommissioningActivity rdf:type owl:Class ;
-                          rdfs:subClassOf edo:CommissioningElement ;
-                          dcterms:identifier "CommissioningActivity" ;
-                          skos:prefLabel "Atividade de Comissionamento"@pt-br ,
-                                         "Commissioning Activity"@en ;
-                          edo:hasAttribute edo:Planned_Start_Timestamp .
+###  https://w3id.org/energy-domain/edo#Activity
+edo:Activity rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainElement ;
+             dcterms:identifier "Activity" ;
+             skos:definition "A domain element representing work or an occurrence performed over time in order to achieve an intended outcome."@en ,
+                             "Elemento de domínio que representa trabalho ou uma ocorrência realizada ao longo do tempo com o objetivo de alcançar um resultado pretendido."@pt-br ;
+             skos:prefLabel "Activity"@en ,
+                            "Atividade"@pt-br ;
+             edo:hasDiscipline edo:CommissioningEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningContract
-edo:CommissioningContract rdf:type owl:Class ;
-                          rdfs:subClassOf edo:CommissioningElement ;
-                          dcterms:identifier "CommissioningContract" ;
-                          skos:prefLabel "Commissioning Contract"@en ,
-                                         "Contrato de Comissionamento"@pt-br .
+###  https://w3id.org/energy-domain/edo#Process
+edo:Process rdf:type owl:Class ;
+            rdfs:subClassOf edo:Activity ;
+            dcterms:identifier "Process" ;
+            skos:definition "A structured activity composed of coordinated tasks, and potentially other process elements, organised to achieve a defined outcome."@en ,
+                            "Atividade estruturada composta por tarefas coordenadas e, potencialmente, outros elementos de processo, organizados para alcançar um resultado definido."@pt-br ;
+            skos:prefLabel "Process"@en ,
+                           "Processo"@pt-br ;
+            edo:hasAttribute edo:Planned_Start_Timestamp ;
+            edo:hasDiscipline edo:CommissioningEngineering ;
+            edo:hasTask edo:Task .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningDigitalProcessStep
-edo:CommissioningDigitalProcessStep rdf:type owl:Class ;
-                                    rdfs:subClassOf edo:CommissioningElement ;
-                                    dcterms:identifier "CommissioningDigitalProcessStep" ;
-                                    skos:prefLabel "Commissioning Digital Process Step"@en ,
-                                                   "Passo do Processo Digital"@pt-br .
+###  https://w3id.org/energy-domain/edo#CheckProcess
+edo:CheckProcess rdf:type owl:Class ;
+                 rdfs:subClassOf edo:Process ;
+                 dcterms:identifier "CheckProcess" ;
+                 skos:definition "A process composed of tasks performed to verify the condition, state, conformity or expected behaviour of a domain element or system."@en ,
+                                 "Processo composto por tarefas realizadas para verificar a condição, o estado, a conformidade ou o comportamento esperado de um elemento ou sistema do domínio."@pt-br ;
+                 skos:prefLabel "Check Process"@en ,
+                                "Processo de Verificação"@pt-br ;
+                 edo:hasDiscipline edo:CommissioningEngineering ;
+                 edo:hasSubject edo:DomainElement .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningElement
-edo:CommissioningElement rdf:type owl:Class ;
-                         rdfs:subClassOf edo:DomainElement ;
-                         dcterms:identifier "CommissioningObject"@en ;
-                         skos:definition "Representa elementos físicos ou lógicos utilizados em atividades de comissionamento, como dispositivos temporários, bancadas de teste ou ferramentas de calibração, apoiando processos de teste, validação e preservação."@pt-br ,
-                                         "Represents physical or logical elements used during commissioning activities, such as temporary fixtures, test rigs, or calibration tools, supporting testing, validation, and preservation processes."@en ;
-                         skos:prefLabel "Commissioning Object"@en ,
-                                        "Objeto de Comissionamento"@pt-br .
+###  https://w3id.org/energy-domain/edo#Task
+edo:Task rdf:type owl:Class ;
+         rdfs:subClassOf edo:Activity ;
+         dcterms:identifier "Task" ;
+         skos:definition "An activity representing a defined unit of work to be planned, assigned, executed and tracked within a process."@en ,
+                         "Atividade que representa uma unidade definida de trabalho a ser planejada, atribuída, executada e acompanhada dentro de um processo."@pt-br ;
+         skos:prefLabel "Task"@en ,
+                        "Tarefa"@pt-br ;
+         edo:hasAttribute edo:Content ,
+                          edo:Creator ,
+                          edo:CreatorId ,
+                          edo:Timestamp ;
+         edo:hasDiscipline edo:CommissioningEngineering ;
+         edo:hasEvidence edo:Evidence ;
+         edo:hasIssue edo:Issue ;
+         edo:hasResponsibleAgent edo:Agent .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningEvidence
-edo:CommissioningEvidence rdf:type owl:Class ;
-                          rdfs:subClassOf edo:CommissioningElement ;
-                          dcterms:identifier "CommissioningEvidence" ;
-                          skos:prefLabel "Commissioning Evidence"@en ,
-                                         "Evidência de Comissionamento"@pt-br .
+###  https://w3id.org/energy-domain/edo#Agent
+edo:Agent rdf:type owl:Class ;
+          rdfs:subClassOf edo:DomainElement ;
+          dcterms:identifier "Agent" ;
+          skos:definition "A domain element capable of participating in activities and assuming roles, responsibilities or authorship."@en ,
+                          "Elemento de domínio capaz de participar de atividades e assumir papéis, responsabilidades ou autoria."@pt-br ;
+          skos:prefLabel "Agent"@en ,
+                         "Agente"@pt-br ;
+          edo:hasDiscipline edo:CommissioningEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningIssue
-edo:CommissioningIssue rdf:type owl:Class ;
-                       rdfs:subClassOf edo:CommissioningElement ;
-                       dcterms:identifier "CommissioningIssue" ;
-                       skos:prefLabel "Commissioning Issue"@en ,
-                                      "Pendência de Comissionamento"@pt-br .
+###  https://w3id.org/energy-domain/edo#Person
+edo:Person rdf:type owl:Class ;
+           rdfs:subClassOf edo:Agent ;
+           dcterms:identifier "Person" ;
+           skos:definition "An individual human agent that may participate in domain activities and assume responsibilities or authorship."@en ,
+                           "Agente humano individual que pode participar de atividades do domínio e assumir responsabilidades ou autoria."@pt-br ;
+           skos:prefLabel "Person"@en ,
+                          "Pessoa"@pt-br ;
+           edo:hasDiscipline edo:CommissioningEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningItemCheck
-edo:CommissioningItemCheck rdf:type owl:Class ;
-                           rdfs:subClassOf edo:CommissioningElement ;
-                           dcterms:identifier "CommissioningItemCheck" ;
-                           skos:prefLabel "Commissioning Item Check"@en ,
-                                          "Verificação de Item Comissionável"@pt-br .
+###  https://w3id.org/energy-domain/edo#Group
+edo:Group rdf:type owl:Class ;
+          rdfs:subClassOf edo:Agent ;
+          dcterms:identifier "Group" ;
+          skos:definition "An agent representing an organised group of people that may collectively participate in activities or assume responsibilities."@en ,
+                          "Agente que representa um grupo organizado de pessoas que pode participar coletivamente de atividades ou assumir responsabilidades."@pt-br ;
+          skos:prefLabel "Group"@en ,
+                         "Grupo"@pt-br ;
+          edo:hasDiscipline edo:CommissioningEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningLoopCheck
-edo:CommissioningLoopCheck rdf:type owl:Class ;
-                           rdfs:subClassOf edo:CommissioningElement ;
-                           dcterms:identifier "CommissioningLoopCheck" ;
-                           skos:prefLabel "Commissioning Loop Check"@en ,
-                                          "Verificação de Malha"@pt-br .
+###  https://w3id.org/energy-domain/edo#Evidence
+edo:Evidence rdf:type owl:Class ;
+             rdfs:subClassOf edo:InformationArtifact ;
+             dcterms:identifier "Evidence" ;
+             skos:definition "An information artifact used to demonstrate the execution, condition or result of an activity or task, including images, video, audio, documents or other records."@en ,
+                             "Artefato informacional utilizado para comprovar a execução, a condição ou o resultado de uma atividade ou tarefa, incluindo imagens, vídeo, áudio, documentos ou outros registros."@pt-br ;
+             skos:prefLabel "Evidence"@en ,
+                            "Evidência"@pt-br ;
+             edo:hasDiscipline edo:CommissioningEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningPerson
-edo:CommissioningPerson rdf:type owl:Class ;
-                        rdfs:subClassOf edo:CommissioningElement ;
-                        dcterms:identifier "CommissioningPerson" ;
-                        skos:prefLabel "Commissioning Person"@en ,
-                                       "Pessoa"@pt-br .
+###  https://w3id.org/energy-domain/edo#Issue
+edo:Issue rdf:type owl:Class ;
+          rdfs:subClassOf edo:InformationArtifact ;
+          dcterms:identifier "Issue" ;
+          skos:definition "An information artifact recording a pending matter, problem, deviation or condition that requires evaluation, tracking or resolution in the context of an activity or task."@en ,
+                          "Artefato informacional que registra uma pendência, problema, desvio ou condição que requer avaliação, acompanhamento ou resolução no contexto de uma atividade ou tarefa."@pt-br ;
+          skos:prefLabel "Issue"@en ,
+                         "Pendência"@pt-br ;
+          edo:hasDiscipline edo:CommissioningEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningPreservationOrder
-edo:CommissioningPreservationOrder rdf:type owl:Class ;
-                                   rdfs:subClassOf edo:CommissioningElement ;
-                                   dcterms:identifier "CommissioningPreservationOrder" ;
-                                   skos:prefLabel "Commissioning Preservation Order"@en ,
-                                                  "Ordem de Preservação"@pt-br .
+###  https://w3id.org/energy-domain/edo#Contract
+edo:Contract rdf:type owl:Class ;
+             rdfs:subClassOf edo:InformationArtifact ;
+             dcterms:identifier "Contract" ;
+             skos:definition "An information artifact representing a formal agreement that establishes obligations, responsibilities, scope or conditions between participating parties."@en ,
+                             "Artefato informacional que representa um acordo formal que estabelece obrigações, responsabilidades, escopo ou condições entre as partes participantes."@pt-br ;
+             skos:prefLabel "Contract"@en ,
+                            "Contrato"@pt-br ;
+             edo:hasDiscipline edo:CommissioningEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningProgram
-edo:CommissioningProgram rdf:type owl:Class ;
-                         rdfs:subClassOf edo:CommissioningElement ;
-                         dcterms:identifier "CommissioningProgram" ;
-                         skos:prefLabel "Commissioning Program"@en ,
-                                        "Programa de Comissionamento"@pt-br .
+###  https://w3id.org/energy-domain/edo#Program
+edo:Program rdf:type owl:Class ;
+            rdfs:subClassOf edo:InformationArtifact ;
+            dcterms:identifier "Program" ;
+            skos:definition "An information artifact that organises a coordinated set of processes, activities, tasks, milestones or responsibilities oriented towards a defined objective."@en ,
+                            "Artefato informacional que organiza um conjunto coordenado de processos, atividades, tarefas, marcos ou responsabilidades orientados a um objetivo definido."@pt-br ;
+            skos:prefLabel "Program"@en ,
+                           "Programa"@pt-br ;
+            edo:hasDiscipline edo:CommissioningEngineering .
 
 
-###  https://w3id.org/energy-domain/edo#CommissioningProject
-edo:CommissioningProject rdf:type owl:Class ;
-                         rdfs:subClassOf edo:CommissioningElement ;
-                         dcterms:identifier "CommissioningProject" ;
-                         skos:prefLabel "Commissioning Project"@en ,
-                                        "Projeto de Comissionamento"@pt-br .
-
-
-###  https://w3id.org/energy-domain/edo#CommissioningResponsibleActor
-edo:CommissioningResponsibleActor rdf:type owl:Class ;
-                                  rdfs:subClassOf edo:CommissioningElement ;
-                                  dcterms:identifier "CommissioningResponsibleActor" ;
-                                  skos:prefLabel "Ator Responsável"@pt-br ,
-                                                 "Commissioning Responsible Actor"@en .
-
-
-###  https://w3id.org/energy-domain/edo#CommissioningResponsibleGroup
-edo:CommissioningResponsibleGroup rdf:type owl:Class ;
-                                  rdfs:subClassOf edo:CommissioningElement ;
-                                  dcterms:identifier "CommissioningResponsibleGroup" ;
-                                  skos:prefLabel "Commissioning Responsible Group"@en ,
-                                                 "Grupo Responsável"@pt-br .
-
-
-###  https://w3id.org/energy-domain/edo#CommissioningTask
-edo:CommissioningTask rdf:type owl:Class ;
-                      rdfs:subClassOf edo:CommissioningElement ;
-                      dcterms:identifier "CommissioningTask" ;
-                      skos:prefLabel "Commissioning Task"@en ,
-                                     "Tarefa de Comissionamento"@pt-br ;
-                      edo:hasAttribute edo:Content ,
-                                       edo:Creator ,
-                                       edo:CreatorId ,
-                                       edo:Timestamp .
+###  https://w3id.org/energy-domain/edo#PreservationOrder
+edo:PreservationOrder rdf:type owl:Class ;
+                      rdfs:subClassOf edo:InformationArtifact ;
+                      dcterms:identifier "PreservationOrder" ;
+                      skos:definition "An information artifact specifying one or more preservation actions to be performed on a domain element in order to maintain its required condition."@en ,
+                                      "Artefato informacional que especifica uma ou mais ações de preservação a serem executadas sobre um elemento do domínio para manter sua condição requerida."@pt-br ;
+                      skos:prefLabel "Preservation Order"@en ,
+                                     "Ordem de Preservação"@pt-br ;
+                      edo:hasDiscipline edo:CommissioningEngineering .
 
 
 ###  https://w3id.org/energy-domain/edo#CompactObject
@@ -10779,6 +10844,18 @@ edo:ClassInstantiationRoles rdf:type owl:NamedIndividual ,
                             skos:broader edo:MetamodelConcepts ;
                             skos:prefLabel "Class Instantiation Roles"@en ,
                                            "Papéis de Instanciação de Classe"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#CommissioningEngineering
+edo:CommissioningEngineering rdf:type owl:NamedIndividual ,
+                                      skos:Concept ;
+                             skos:broader edo:TechnicalDiscipline ;
+                             skos:inScheme edo:TechnicalDisciplineScheme ;
+                             dcterms:identifier "CommissioningEngineering" ;
+                             skos:definition "Technical discipline concerned with planning, coordinating, verifying, documenting and demonstrating that systems and assets are ready to be placed into service and handed over for operation."@en ,
+                                             "Disciplina técnica dedicada ao planejamento, coordenação, verificação, documentação e demonstração de que sistemas e ativos estão aptos a entrar em serviço e ser entregues à operação."@pt-br ;
+                             skos:prefLabel "Commissioning Engineering"@en ,
+                                            "Engenharia de Comissionamento"@pt-br .
 
 
 ###  https://w3id.org/energy-domain/edo#Commissioning
