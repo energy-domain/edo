@@ -1,0 +1,129 @@
+name: One-shot material specification refactor
+on:
+  push:
+    branches: [automation/material-specification-refactor]
+    paths: ['.github/workflows/one-shot-material-specification-refactor.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Refactor material specification taxonomy and validate
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          from rdflib import Graph
+
+          p = Path('core/edo.ttl')
+          s = p.read_text(encoding='utf-8')
+
+          def get_block(text, name):
+              pat = rf'###  https://w3id.org/energy-domain/edo#{re.escape(name)}\n.*?(?=\n\n###  https://w3id.org/energy-domain/edo#|\n\n#################################################################|\Z)'
+              m = re.search(pat, text, flags=re.S)
+              if not m:
+                  raise SystemExit(f'Block not found: {name}')
+              return m.group(0), m.span()
+
+          # Remove the old generic MaterialType block. The richer
+          # FlexibleStructureLayerMaterial block becomes the generic specification.
+          material_type_block, span = get_block(s, 'MaterialType')
+          s = s[:span[0]] + s[span[1]:]
+
+          flex_block, span = get_block(s, 'FlexibleStructureLayerMaterial')
+          new_block = flex_block
+          new_block = new_block.replace('#FlexibleStructureLayerMaterial', '#MaterialSpecification', 1)
+          new_block = new_block.replace('edo:FlexibleStructureLayerMaterial rdf:type owl:Class ;', 'edo:MaterialSpecification rdf:type owl:Class ;', 1)
+          new_block = new_block.replace('rdfs:subClassOf edo:MaterialType ;', 'rdfs:subClassOf edo:InformationArtifact ;', 1)
+          new_block = new_block.replace('dcterms:identifier "FlexibleStructureLayerMaterial" ;', 'dcterms:identifier "MaterialSpecification" ;', 1)
+          new_block = re.sub(
+              r'skos:definition .*? ;\n\s*skos:prefLabel .*? ;(?=\n\s*edo:)',
+              'skos:definition "Information artifact that specifies a material through its identity, composition and relevant physical, mechanical, thermal or other engineering properties."@en ,\n'
+              '                                "Artefato informacional que especifica um material por meio de sua identidade, composição e propriedades físicas, mecânicas, térmicas ou outras propriedades de engenharia relevantes."@pt-br ;\n'
+              '                  skos:prefLabel "Material Specification"@en ,\n'
+              '                                 "Especificação de Material"@pt-br ;',
+              new_block,
+              count=1,
+              flags=re.S,
+          )
+          s = s[:span[0]] + new_block + s[span[1]:]
+
+          specs = {
+              'MetallicMaterial': (
+                  'MetallicMaterialSpecification',
+                  'Metallic Material Specification',
+                  'Especificação de Material Metálico',
+                  'A material specification for a material whose principal constituent or structural phase is metallic.',
+                  'Especificação de material cujo constituinte principal ou fase estrutural é metálica.'
+              ),
+              'PolymericMaterial': (
+                  'PolymericMaterialSpecification',
+                  'Polymeric Material Specification',
+                  'Especificação de Material Polimérico',
+                  'A material specification for a material whose principal constituent is a polymer.',
+                  'Especificação de material cujo constituinte principal é um polímero.'
+              ),
+              'CompositeMaterial': (
+                  'CompositeMaterialSpecification',
+                  'Composite Material Specification',
+                  'Especificação de Material Compósito',
+                  'A material specification for a material composed of two or more distinct constituent materials, typically including a matrix and a reinforcement phase.',
+                  'Especificação de material composto por dois ou mais materiais constituintes distintos, tipicamente incluindo uma matriz e uma fase de reforço.'
+              ),
+          }
+
+          for old, (new, en_label, pt_label, en_def, pt_def) in specs.items():
+              block, span = get_block(s, old)
+              b = block
+              b = b.replace(f'#{old}', f'#{new}', 1)
+              b = b.replace(f'edo:{old} rdf:type owl:Class ;', f'edo:{new} rdf:type owl:Class ;', 1)
+              b = b.replace('rdfs:subClassOf edo:FlexibleStructureLayerMaterial ;', 'rdfs:subClassOf edo:MaterialSpecification ;', 1)
+              b = re.sub(rf'dcterms:identifier "{re.escape(old)}" ;', f'dcterms:identifier "{new}" ;', b, count=1)
+              b = re.sub(
+                  r'skos:definition .*? ;\n\s*skos:prefLabel .*? ;(?=\n\s*edo:)',
+                  f'skos:definition "{en_def}"@en ,\n'
+                  f'                                     "{pt_def}"@pt-br ;\n'
+                  f'                     skos:prefLabel "{en_label}"@en ,\n'
+                  f'                                    "{pt_label}"@pt-br ;',
+                  b,
+                  count=1,
+                  flags=re.S,
+              )
+              s = s[:span[0]] + b + s[span[1]:]
+
+              # Update references to the class IRI elsewhere, without touching
+              # attributes such as MetallicLayerMaterialType.
+              s = re.sub(rf'edo:{re.escape(old)}\b', f'edo:{new}', s)
+
+          # Any remaining reference to the removed intermediary is invalid.
+          if 'edo:FlexibleStructureLayerMaterial' in s or '#FlexibleStructureLayerMaterial' in s:
+              raise SystemExit('FlexibleStructureLayerMaterial reference remains')
+          if re.search(r'edo:MaterialType\b|#MaterialType\b', s):
+              raise SystemExit('MaterialType reference remains')
+
+          # Explicitly keep the three LayerMaterialType attributes untouched for later review.
+          for name in ('MetallicLayerMaterialType','PolymericLayerMaterialType','CompositeLayerMaterialType'):
+              if f'edo:{name}' not in s:
+                  raise SystemExit(f'Expected attribute missing: {name}')
+
+          p.write_text(s, encoding='utf-8')
+
+          g = Graph()
+          g.parse(str(p), format='turtle')
+          print(f'Turtle OK: {len(g)} triples')
+          PY
+
+          git diff --check
+          git diff -- core/edo.ttl
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/material-specification-refactor-result
+          git add core/edo.ttl
+          git commit -m 'Refactor material specification taxonomy'
+          git push --force origin automation/material-specification-refactor-result
