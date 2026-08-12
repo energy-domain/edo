@@ -196,3 +196,11 @@ edo:RingGasketStandardEdition rdf:type owl:Class ;
 The corresponding `dcterms:identifier`, `edo:GasketSpec` attribute references,
 SHACL paths, and SHACL rule identifiers were updated. Existing `skos:prefLabel`
 values were preserved.
+
+## Updated (adição de disciplina)
+
+### edo:VIVStrake
+
+```diff
++ edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+```
