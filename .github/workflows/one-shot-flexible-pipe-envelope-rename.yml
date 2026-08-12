@@ -1,0 +1,60 @@
+name: One-shot flexible pipe envelope rename
+on:
+  push:
+    branches: [automation/flexible-pipe-envelope-rename]
+    paths: ['.github/workflows/one-shot-flexible-pipe-envelope-rename.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('core/edo.ttl')
+          s=p.read_text(encoding='utf-8')
+
+          # Rename Envelope class and its identifier/labels.
+          if 'edo:Envelope rdf:type owl:Class' not in s:
+              raise SystemExit('Envelope class not found')
+          if 'edo:FlexiblePipeEnvelope rdf:type owl:Class' in s:
+              raise SystemExit('FlexiblePipeEnvelope already exists')
+          s=s.replace('###  https://w3id.org/energy-domain/edo#Envelope\nedo:Envelope rdf:type owl:Class ;',
+                      '###  https://w3id.org/energy-domain/edo#FlexiblePipeEnvelope\nedo:FlexiblePipeEnvelope rdf:type owl:Class ;',1)
+          s=s.replace('dcterms:identifier "Envelope" ;','dcterms:identifier "FlexiblePipeEnvelope" ;',1)
+          s=s.replace('skos:prefLabel "Envelope"@en ,\n                   "Envoltória"@pt-br ;',
+                      'skos:prefLabel "Flexible Pipe Envelope"@en ,\n                   "Envoltória de Duto Flexível"@pt-br ;',1)
+
+          # Improve FlexiblePipeStructure definition wording without changing semantics/hierarchy/footprint.
+          pat=r'(###  https://w3id.org/energy-domain/edo#FlexiblePipeStructure\nedo:FlexiblePipeStructure rdf:type owl:Class ;.*?skos:definition )(.+?)( ;\n\s*skos:prefLabel)'
+          m=re.search(pat,s,flags=re.S)
+          if not m:
+              raise SystemExit('FlexiblePipeStructure definition not found')
+          newdef='''"A reusable configured system for flexible pipes that represents an ordered arrangement of layers and their associated specifications and engineering properties, intended to be referenced by multiple physical flexible pipe occurrences that share the same structure."@en ,\n                                          "Sistema configurado reutilizável de duto flexível que representa um arranjo ordenado de camadas e suas especificações e propriedades de engenharia associadas, destinado a ser referenciado por múltiplas ocorrências físicas de duto flexível que compartilham a mesma estrutura."@pt-br'''
+          s=s[:m.start(2)]+newdef+s[m.end(2):]
+
+          # Replace any remaining references to the old class IRI.
+          s=s.replace('edo:Envelope','edo:FlexiblePipeEnvelope')
+          if 'edo:Envelope' in s:
+              raise SystemExit('Old Envelope IRI remains')
+
+          p.write_text(s,encoding='utf-8')
+          PY
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          g=Graph(); g.parse('core/edo.ttl',format='turtle'); print('Turtle OK',len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/flexible-pipe-envelope-rename-result
+          git add core/edo.ttl
+          git commit -m 'Rename flexible pipe envelope specification'
+          git push --force origin automation/flexible-pipe-envelope-rename-result
