@@ -1,0 +1,50 @@
+name: One-shot flexible envelope specification
+on:
+  push:
+    branches: [automation/flexible-envelope-spec]
+    paths: ['.github/workflows/one-shot-flexible-envelope-spec.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('core/edo.ttl')
+          s=p.read_text(encoding='utf-8')
+
+          # Refine FlexiblePipeStructure definition only, preserving hierarchy and footprint.
+          pat=r'(###  https://w3id.org/energy-domain/edo#FlexiblePipeStructure\nedo:FlexiblePipeStructure rdf:type owl:Class ;.*?skos:definition )(.+?)( ;\n\s*skos:prefLabel)'
+          m=re.search(pat,s,flags=re.S)
+          if not m: raise SystemExit('FlexiblePipeStructure block not found')
+          newdef='''"Configured system that defines a reusable flexible pipe construction configuration as an ordered arrangement of layers and their associated specifications and engineering properties, intended to be referenced by multiple physical flexible pipe occurrences that share the same structure."@en ,\n                    "Sistema configurado que define uma configuração construtiva reutilizável de duto flexível como um arranjo ordenado de camadas e suas especificações e propriedades de engenharia associadas, destinada a ser referenciada por múltiplas ocorrências físicas de duto flexível que compartilham a mesma estrutura."@pt-br'''
+          s=s[:m.start(2)]+newdef+s[m.end(2):]
+
+          # Add Envelope specification before ProcessPipeSpec.
+          if 'edo:Envelope rdf:type owl:Class' in s:
+              raise SystemExit('Envelope already exists')
+          marker='###  https://w3id.org/energy-domain/edo#ProcessPipeSpec\n'
+          if marker not in s: raise SystemExit('ProcessPipeSpec marker not found')
+          block='''###  https://w3id.org/energy-domain/edo#Envelope\nedo:Envelope rdf:type owl:Class ;\n    rdfs:subClassOf edo:Specification ;\n    dcterms:identifier "Envelope" ;\n    skos:definition "A flexible pipe specification that defines the required design conditions, limits and technical requirements that constrain the development or selection of a flexible pipe structure."@en ,\n                    "Especificação de duto flexível que define as condições de projeto, limites e requisitos técnicos requeridos que condicionam o desenvolvimento ou a seleção de uma estrutura de duto flexível."@pt-br ;\n    skos:prefLabel "Envelope"@en ,\n                   "Envoltória"@pt-br ;\n    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering .\n\n\n'''
+          s=s.replace(marker,block+marker,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          g=Graph(); g.parse('core/edo.ttl',format='turtle'); print('Turtle OK',len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/flexible-envelope-spec-result
+          git add core/edo.ttl
+          git commit -m 'Add flexible pipe envelope specification'
+          git push --force origin automation/flexible-envelope-spec-result
