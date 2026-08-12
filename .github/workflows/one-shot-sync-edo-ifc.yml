@@ -1,0 +1,127 @@
+name: One-shot sync EDO-IFC
+on:
+  push:
+    branches: [automation/sync-edo-ifc-flexible-model]
+    paths: ['.github/workflows/one-shot-sync-edo-ifc.yml']
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, subprocess
+
+          core_path=Path('core/edo.ttl')
+          map_path=Path('mappings/ifc/edo-ifc.ttl')
+          core=core_path.read_text(encoding='utf-8')
+          mapping=map_path.read_text(encoding='utf-8')
+
+          # Latest historical core commit known to still carry IFC class mapping annotations.
+          hist_sha='418986468282df41a36548ddb0e3eb50d6f939ba'
+          hist=''
+          for oldpath in ('core/energy-domain-ontology.ttl','core/edo.ttl'):
+              r=subprocess.run(['git','show',f'{hist_sha}:{oldpath}'],capture_output=True,text=True)
+              if r.returncode==0 and r.stdout.strip():
+                  hist=r.stdout
+                  break
+          if not hist:
+              raise SystemExit('Could not load historical IFC-annotated EDO core')
+
+          current_classes=set(re.findall(r'^edo:([A-Za-z0-9_]+)\s+rdf:type\s+owl:Class\s*;',core,re.M))
+
+          # Extract class-level legacy IFC annotations from historical blocks, but only for classes still current.
+          legacy={}
+          block_re=re.compile(r'^###\s+https://w3id\.org/energy-domain/edo#([A-Za-z0-9_]+)\n(edo:\1\s+rdf:type\s+owl:Class\s*;.*?)(?=\n\n###\s+https://w3id\.org/energy-domain/edo#|\Z)',re.M|re.S)
+          for m in block_re.finditer(hist):
+              cls,block=m.group(1),m.group(2)
+              if cls not in current_classes:
+                  continue
+              eq=re.search(r'edo:ifc_equivalentClass\s+"([^"]+)"',block)
+              ot=re.search(r'edo:ifc_objectType\s+"([^"]+)"',block)
+              pt=re.search(r'edo:ifc_predefinedType\s+"([^"]+)"',block)
+              if eq:
+                  legacy[cls]=(eq.group(1),ot.group(1) if ot else None,pt.group(1) if pt else None)
+
+          # Explicit final decisions override historical mappings.
+          legacy['FlexiblePipeSegment']=('IfcPipeSegment','FlexiblePipeSegment','USERDEFINED')
+          legacy['FlexiblePipeStructure']=('IfcPipeSegmentType','FlexiblePipeStructure','USERDEFINED')
+          legacy['FlexiblePipeEnvelope']=('IfcGroup','FlexiblePipeEnvelope',None)
+
+          # Annotation properties needed for class materialisation and relationship Name.
+          insert_after='''edo-ifc:ifc_invertedDirection\n    rdf:type owl:AnnotationProperty ;'''
+          if 'edo-ifc:ifc_objectType\n' not in mapping:
+              marker='######################################################################\n# 4) IFC mapping rule annotations\n######################################################################\n'
+              props='''edo-ifc:ifc_objectType\n    rdf:type owl:AnnotationProperty ;\n    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;\n    rdfs:label "IFC Object Type"@en ;\n    rdfs:label "Tipo de Objeto IFC"@pt-br ;\n    skos:definition "Stores the ObjectType value used when an EDO class is materialised through a generic or USERDEFINED IFC entity."@en ;\n    skos:definition "Armazena o valor de ObjectType usado quando uma classe EDO é materializada por uma entidade IFC genérica ou USERDEFINED."@pt-br ;\n    dcterms:identifier "ifc_objectType" .\n\n\nedo-ifc:ifc_predefinedType\n    rdf:type owl:AnnotationProperty ;\n    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;\n    rdfs:label "IFC Predefined Type"@en ;\n    rdfs:label "Tipo Predefinido IFC"@pt-br ;\n    skos:definition "Stores the PredefinedType value used to materialise an EDO class in IFC."@en ;\n    skos:definition "Armazena o valor de PredefinedType usado para materializar uma classe EDO em IFC."@pt-br ;\n    dcterms:identifier "ifc_predefinedType" .\n\n\nedo-ifc:ifc_relationshipName\n    rdf:type owl:AnnotationProperty ;\n    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;\n    rdfs:label "IFC Relationship Name"@en ;\n    rdfs:label "Nome do Relacionamento IFC"@pt-br ;\n    skos:definition "Stores the value to be written to IfcRelationship.Name when materialising an EDO relationship, preserving the EDO relationship semantics in provisional IFC mappings."@en ;\n    skos:definition "Armazena o valor a ser escrito em IfcRelationship.Name ao materializar um relacionamento EDO, preservando a semântica da relação EDO em mapeamentos IFC provisórios."@pt-br ;\n    dcterms:identifier "ifc_relationshipName" .\n\n'''
+              mapping=mapping.replace(marker,props+marker,1)
+
+          # Controlled IFC entities required by current/final class mappings.
+          existing_entities=set(re.findall(r'^edo-ifc:(Ifc[A-Za-z0-9_]+)\s*\n\s*rdf:type owl:NamedIndividual',mapping,re.M))
+          rel_names={'IfcRelAggregates','IfcRelNests','IfcRelAssociatesDocument','IfcRelAssociatesClassification','IfcRelAssociatesMaterial','IfcRelAssignsToGroup','IfcRelAssignsToProduct','IfcRelConnectsPorts','IfcRelConnectsElements','IfcRelConnectsWithRealizingElements','IfcRelDefinesByType'}
+          needed_entities={v[0] for v in legacy.values()}
+          needed_entities.add('IfcRelDefinesByType')
+          additions=[]
+          for name in sorted(needed_entities-existing_entities):
+              kind='IFCRelationshipEntity' if name.startswith('IfcRel') else 'IFCObjectEntity'
+              url=f'https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/{name}.htm'
+              additions.append(f'''edo-ifc:{name}\n    rdf:type owl:NamedIndividual ;\n    rdf:type edo-ifc:{kind} ;\n    rdfs:label "{name}"@en ;\n    edo-ifc:ifcEntityName "{name}" ;\n    rdfs:seeAlso <{url}> ;\n    dcterms:identifier "{name}" .\n''')
+          if additions:
+              marker='######################################################################\n# 9) Controlled IFC attribute roles\n######################################################################\n'
+              mapping=mapping.replace(marker,'\n'.join(additions)+'\n\n'+marker,1)
+
+          # RelatingType role for IfcRelDefinesByType.
+          if 'edo-ifc:RelatingType\n' not in mapping:
+              marker='######################################################################\n# 10) Controlled concepts for realizing element requirement\n######################################################################\n'
+              role='''edo-ifc:RelatingType\n    rdf:type owl:NamedIndividual ;\n    rdf:type edo-ifc:IFCAttributeRole ;\n    rdfs:label "RelatingType"@en ;\n    edo-ifc:ifcAttributeName "RelatingType" ;\n    dcterms:identifier "RelatingType" .\n\n'''
+              mapping=mapping.replace(marker,role+marker,1)
+
+          # Remove previously generated synchronized class section if rerun.
+          mapping=re.sub(r'\n######################################################################\n# 11A\) Synchronized IFC class mappings.*?(?=\n######################################################################\n# 12\))','',mapping,flags=re.S)
+
+          lines=['######################################################################',
+                 '# 11A) Synchronized IFC class mappings',
+                 '#',
+                 f'# Legacy class mappings migrated from {hist_sha[:12]} only when the',
+                 '# EDO class still exists in the current core. Explicit current decisions',
+                 '# for flexible pipes override legacy values.',
+                 '######################################################################','']
+          for cls,(eq,ot,pt) in sorted(legacy.items()):
+              lines.append(f'edo:{cls}')
+              lines.append(f'    edo-ifc:ifc_equivalentClass edo-ifc:{eq}' + (' ;' if (ot or pt) else ' .'))
+              if ot:
+                  lines.append(f'    edo-ifc:ifc_objectType "{ot}"' + (' ;' if pt else ' .'))
+              if pt:
+                  lines.append(f'    edo-ifc:ifc_predefinedType "{pt}" .')
+              lines.append('')
+          class_section='\n'.join(lines)+'\n'
+          marker='######################################################################\n# 12) Conditional IFC materialisation rules for edo:isConnectedTo'
+          mapping=mapping.replace(marker,class_section+'\n'+marker,1)
+
+          # Add direct typing/specification mappings if absent.
+          direct_marker='######################################################################\n# 12) Conditional IFC materialisation rules for edo:isConnectedTo'
+          extra='''\n# Occurrence -> reusable technical type.\nedo:isDefinedByCatalogItem\n    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelDefinesByType ;\n    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;\n    edo-ifc:ifc_objectRole edo-ifc:RelatingType ;\n    edo-ifc:ifc_relationshipName "isDefinedByCatalogItem" .\n\n# Specification mapping. For the current flexible-pipe implementation,\n# FlexiblePipeStructure is a RelatedObject and FlexiblePipeEnvelope is the RelatingGroup.\n# The IFC relationship Name preserves the EDO relation name, making the provisional\n# grouping semantics explicit to viewers and downstream translators.\nedo:hasSpec\n    edo-ifc:ifc_mappingRule [\n        edo-ifc:sourceIfcEquivalentClass edo-ifc:IfcPipeSegmentType ;\n        edo-ifc:targetIfcEquivalentClass edo-ifc:IfcGroup ;\n        edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssignsToGroup ;\n        edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;\n        edo-ifc:ifc_objectRole edo-ifc:RelatingGroup ;\n        edo-ifc:ifc_relationshipName "hasSpec"\n    ] .\n\n'''
+          if 'edo:isDefinedByCatalogItem\n    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelDefinesByType' not in mapping:
+              mapping=mapping.replace(direct_marker,extra+direct_marker,1)
+
+          map_path.write_text(mapping,encoding='utf-8')
+          print(f'Migrated {len(legacy)} current class mappings')
+          PY
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          for f in ['core/edo.ttl','mappings/ifc/edo-ifc.ttl']:
+              g=Graph(); g.parse(f,format='turtle'); print(f, 'Turtle OK', len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/sync-edo-ifc-flexible-model-result
+          git add mappings/ifc/edo-ifc.ttl
+          git commit -m 'Synchronize EDO IFC mappings'
+          git push --force origin automation/sync-edo-ifc-flexible-model-result
