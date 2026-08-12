@@ -178,6 +178,26 @@ edo:DomainValidationAnnotation rdf:type owl:AnnotationProperty ;
                                rdfs:subPropertyOf edo:DomainMetamodelAnnotation .
 
 
+###  https://w3id.org/energy-domain/edo#FunctionalRelation
+edo:FunctionalRelation rdf:type owl:AnnotationProperty ;
+                       dcterms:identifier "FunctionalRelation" ;
+                       rdfs:label "Functional Relation"@en ,
+                                  "Relação Funcional"@pt-br ;
+                       skos:definition "Categoria de relacionamentos usada para expressar vínculos funcionais entre entidades do domínio sem implicar composição física ou contenção espacial."@pt-br ,
+                                       "Category of relationships used to express functional links between domain entities without implying physical composition or spatial containment."@en ;
+                       rdfs:subPropertyOf edo:DomainRelation .
+
+
+###  https://w3id.org/energy-domain/edo#SpatialRelation
+edo:SpatialRelation rdf:type owl:AnnotationProperty ;
+                    dcterms:identifier "SpatialRelation" ;
+                    rdfs:label "Spatial Relation"@en ,
+                               "Relação Espacial"@pt-br ;
+                    skos:definition "Categoria de relacionamentos usada para expressar contenção, localização ou organização espacial entre entidades do domínio."@pt-br ,
+                                    "Category of relationships used to express containment, location or spatial organisation between domain entities."@en ;
+                    rdfs:subPropertyOf edo:DomainRelation .
+
+
 ###  https://w3id.org/energy-domain/edo#InformationRelation
 edo:InformationRelation rdf:type owl:AnnotationProperty ;
                         dcterms:identifier "InformationRelation" ;
@@ -628,6 +648,46 @@ edo:hasSpec rdf:type owl:AnnotationProperty ;
             skos:definition "Associa uma entidade do domínio a uma especificação, requisito ou artefato técnico que define, limita ou governa sua seleção e compatibilidade."@pt-br ,
                             "Associates a domain entity with a specification, requirement or technical artefact that defines, limits or governs its selection and compatibility."@en ;
             rdfs:subPropertyOf edo:TechnicalDefinitionRelation .
+
+
+###  https://w3id.org/energy-domain/edo#spatiallyContains
+edo:spatiallyContains rdf:type owl:AnnotationProperty ;
+                      dcterms:identifier "spatiallyContains" ;
+                      rdfs:label "Spatially Contains"@en ,
+                                 "Contém Espacialmente"@pt-br ;
+                      skos:definition "Associa um elemento espacial ou localização a um elemento do domínio cuja localização primária está contida naquele contexto espacial."@pt-br ,
+                                      "Associates a spatial element or location with a domain element whose primary location is contained within that spatial context."@en ;
+                      rdfs:subPropertyOf edo:SpatialRelation .
+
+
+###  https://w3id.org/energy-domain/edo#serves
+edo:serves rdf:type owl:AnnotationProperty ;
+           dcterms:identifier "serves" ;
+           rdfs:label "Serves"@en ,
+                      "Atende"@pt-br ;
+           skos:definition "Associa um elemento funcional à entidade que ele atende no desempenho de sua função, sem implicar relação parte-todo."@pt-br ,
+                           "Associates a functional element with the entity it serves in performing its function, without implying a part-whole relationship."@en ;
+           rdfs:subPropertyOf edo:FunctionalRelation .
+
+
+###  https://w3id.org/energy-domain/edo#hasInterconnection
+edo:hasInterconnection rdf:type owl:AnnotationProperty ;
+                       dcterms:identifier "hasInterconnection" ;
+                       rdfs:label "Has Interconnection"@en ,
+                                  "Tem Interligação"@pt-br ;
+                       skos:definition "Associa uma entidade do domínio a uma interligação funcional que parte dela, chega a ela ou a conecta a outra entidade, sem implicar que a interligação seja sua parte física."@pt-br ,
+                                       "Associates a domain entity with a functional interconnection that originates from it, terminates at it or connects it to another entity, without implying that the interconnection is its physical part."@en ;
+                       rdfs:subPropertyOf edo:FunctionalRelation .
+
+
+###  https://w3id.org/energy-domain/edo#hosts
+edo:hosts rdf:type owl:AnnotationProperty ;
+          dcterms:identifier "hosts" ;
+          rdfs:label "Hosts"@en ,
+                     "Abriga"@pt-br ;
+          skos:definition "Associa uma entidade do domínio a um elemento funcionalmente instalado, suportado ou organizado sob ela, sem afirmar composição física entre ambos."@pt-br ,
+                          "Associates a domain entity with an element functionally installed, supported or organised under it, without asserting physical composition between them."@en ;
+          rdfs:subPropertyOf edo:FunctionalRelation .
 
 
 ###  https://w3id.org/energy-domain/edo#hasSubDomain
@@ -2346,7 +2406,8 @@ edo:ConnectionModule rdf:type owl:Class ;
                      skos:definition "Equipamento de terminação de linha que permite sua ancoragem e conexão a um hub correspondente"@pt-br ,
                                      "Line termination equipment enabling anchoring and connection to a matching hub"@en ;
                      skos:prefLabel "Connection module"@en ,
-                                    "Módulo de conexão"@pt-br .
+                                    "Módulo de conexão"@pt-br ;
+                    edo:hasOrderedPart edo:ConnectionPoint .
 
 
 ###  https://w3id.org/energy-domain/edo#ConnectionPoint
@@ -4129,7 +4190,8 @@ edo:FloatingProductionUnit rdf:type owl:Class ;
                            skos:prefLabel "Floating Production Unit"@en ,
                                           "Unidade de Produção Flutuante (UEP)"@pt-br ;
                            edo:classInstantiationRole edo:ProjectInstantiableClass ;
-                           edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
+                           edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                    edo:hasPart edo:RiserBalcony .
 
 
 ###  https://w3id.org/energy-domain/edo#FlowBase
@@ -8299,7 +8361,8 @@ edo:RiserBalcony rdf:type owl:Class ;
                  skos:definition "Installation location for supports and accessories on the riser balcony of the production unit."@en ,
                                  "Local de instalação para suportes e acessórios no riser balcony da unidade de produção"@pt-br ;
                  skos:prefLabel "Plataforma do Riser"@pt-br ,
-                                "Riser Balcony"@en .
+                                "Riser Balcony"@en ;
+                    edo:hasPart edo:RiserSupport .
 
 
 ###  https://w3id.org/energy-domain/edo#RiserConfiguration
@@ -8336,7 +8399,8 @@ edo:RiserSupport rdf:type owl:Class ;
                  skos:definition "Interface at the production unit for coupling and support of a riser"@en ,
                                  "Interface na unidade de produção para acoplamento e suporte de um riser"@pt-br ;
                  skos:prefLabel "Riser support"@en ,
-                                "Suporte de riser"@pt-br .
+                                "Suporte de riser"@pt-br ;
+                    edo:hasOrderedPart edo:ConnectionPoint .
 
 
 ###  https://w3id.org/energy-domain/edo#RiserSupportBuoy
@@ -9353,7 +9417,8 @@ edo:SubseaOilField rdf:type owl:Class ;
                    skos:prefLabel "Campo de Petróleo Submarino"@pt-br ,
                                   "Subsea Oil Field"@en ;
                    edo:classInstantiationRole edo:ProjectInstantiableClass ;
-                   edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
+                   edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                    edo:spatiallyContains edo:FloatingProductionUnit .
 
 
 ###  https://w3id.org/energy-domain/edo#SubseaPipeline
@@ -9420,7 +9485,10 @@ edo:SubseaWell rdf:type owl:Class ;
                skos:prefLabel "Poço"@pt-br ,
                               "Subsea Well"@en ;
                edo:classInstantiationRole edo:ProjectInstantiableClass ;
-               edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
+               edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                    edo:serves edo:FloatingProductionUnit ;
+                    edo:hasInterconnection edo:Interconnection ;
+                    edo:hosts edo:WetChristmasTree .
 
 
 ###  https://w3id.org/energy-domain/edo#SuctionPile
@@ -10370,7 +10438,8 @@ edo:WetChristmasTree rdf:type owl:Class ;
                                      "Piece of equipment containing valves and instrumentation allowing direct control of flow from/to a well"@en ;
                      skos:prefLabel "Wet Christmas tree"@en ,
                                     "Árvore de Natal molhada"@pt-br ;
-                     edo:hasDiscipline edo:WetChristmasTreesEngineering .
+                     edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                    edo:hasPart edo:ConnectionModule .
 
 
 ###  https://w3id.org/energy-domain/edo#WireLayer
