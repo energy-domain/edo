@@ -1,0 +1,296 @@
+name: One-shot IFC hierarchy H01-H07
+on:
+  push:
+    branches: [automation/ifc-hierarchy-relations-h01-h07]
+    paths: ['.github/workflows/one-shot-ifc-hierarchy-h01-h07.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          core_path=Path('core/edo.ttl')
+          map_path=Path('mappings/ifc/edo-ifc.ttl')
+          core=core_path.read_text(encoding='utf-8')
+          mapping=map_path.read_text(encoding='utf-8')
+
+          def insert_before(text, marker, content):
+              if content.strip() in text:
+                  return text
+              if marker not in text:
+                  raise SystemExit(f'Marker not found: {marker[:80]}')
+              return text.replace(marker, content.rstrip()+"\n\n\n"+marker, 1)
+
+          def add_predicate_to_class(text, cls, pred, obj):
+              pattern=rf'(###  https://w3id\.org/energy-domain/edo#{re.escape(cls)}\n(edo:{re.escape(cls)}\s+rdf:type\s+owl:Class\s*;.*?))(?=\n\n###  https://w3id\.org/energy-domain/edo#|\Z)'
+              m=re.search(pattern,text,re.S)
+              if not m:
+                  raise SystemExit(f'Class block not found: {cls}')
+              block=m.group(1)
+              triple=f'{pred} {obj}'
+              if triple in block:
+                  return text
+              # Replace final period of class statement with new predicate.
+              pos=block.rfind(' .')
+              if pos < 0:
+                  raise SystemExit(f'Final period not found in {cls}')
+              newblock=block[:pos]+' ;\n'+' ' * 20+triple+block[pos:]
+              return text[:m.start(1)]+newblock+text[m.end(1):]
+
+          # ------------------------------------------------------------------
+          # EDO CORE: relation categories and engineering relationships.
+          # ------------------------------------------------------------------
+          functional_cat='''###  https://w3id.org/energy-domain/edo#FunctionalRelation
+          edo:FunctionalRelation rdf:type owl:AnnotationProperty ;
+                                 dcterms:identifier "FunctionalRelation" ;
+                                 rdfs:label "Functional Relation"@en ,
+                                            "Relação Funcional"@pt-br ;
+                                 skos:definition "Categoria de relacionamentos usada para expressar vínculos funcionais entre entidades do domínio sem implicar composição física ou contenção espacial."@pt-br ,
+                                                 "Category of relationships used to express functional links between domain entities without implying physical composition or spatial containment."@en ;
+                                 rdfs:subPropertyOf edo:DomainRelation .'''
+          spatial_cat='''###  https://w3id.org/energy-domain/edo#SpatialRelation
+          edo:SpatialRelation rdf:type owl:AnnotationProperty ;
+                              dcterms:identifier "SpatialRelation" ;
+                              rdfs:label "Spatial Relation"@en ,
+                                         "Relação Espacial"@pt-br ;
+                              skos:definition "Categoria de relacionamentos usada para expressar contenção, localização ou organização espacial entre entidades do domínio."@pt-br ,
+                                              "Category of relationships used to express containment, location or spatial organisation between domain entities."@en ;
+                              rdfs:subPropertyOf edo:DomainRelation .'''
+          marker='###  https://w3id.org/energy-domain/edo#InformationRelation'
+          core=insert_before(core, marker, functional_cat+'\n\n\n'+spatial_cat)
+
+          rels='''###  https://w3id.org/energy-domain/edo#spatiallyContains
+          edo:spatiallyContains rdf:type owl:AnnotationProperty ;
+                                dcterms:identifier "spatiallyContains" ;
+                                rdfs:label "Spatially Contains"@en ,
+                                           "Contém Espacialmente"@pt-br ;
+                                skos:definition "Associa um elemento espacial ou localização a um elemento do domínio cuja localização primária está contida naquele contexto espacial."@pt-br ,
+                                                "Associates a spatial element or location with a domain element whose primary location is contained within that spatial context."@en ;
+                                rdfs:subPropertyOf edo:SpatialRelation .
+
+
+          ###  https://w3id.org/energy-domain/edo#serves
+          edo:serves rdf:type owl:AnnotationProperty ;
+                     dcterms:identifier "serves" ;
+                     rdfs:label "Serves"@en ,
+                                "Atende"@pt-br ;
+                     skos:definition "Associa um elemento funcional à entidade que ele atende no desempenho de sua função, sem implicar relação parte-todo."@pt-br ,
+                                     "Associates a functional element with the entity it serves in performing its function, without implying a part-whole relationship."@en ;
+                     rdfs:subPropertyOf edo:FunctionalRelation .
+
+
+          ###  https://w3id.org/energy-domain/edo#hasInterconnection
+          edo:hasInterconnection rdf:type owl:AnnotationProperty ;
+                                 dcterms:identifier "hasInterconnection" ;
+                                 rdfs:label "Has Interconnection"@en ,
+                                            "Tem Interligação"@pt-br ;
+                                 skos:definition "Associa uma entidade do domínio a uma interligação funcional que parte dela, chega a ela ou a conecta a outra entidade, sem implicar que a interligação seja sua parte física."@pt-br ,
+                                                 "Associates a domain entity with a functional interconnection that originates from it, terminates at it or connects it to another entity, without implying that the interconnection is its physical part."@en ;
+                                 rdfs:subPropertyOf edo:FunctionalRelation .
+
+
+          ###  https://w3id.org/energy-domain/edo#hosts
+          edo:hosts rdf:type owl:AnnotationProperty ;
+                    dcterms:identifier "hosts" ;
+                    rdfs:label "Hosts"@en ,
+                               "Abriga"@pt-br ;
+                    skos:definition "Associa uma entidade do domínio a um elemento funcionalmente instalado, suportado ou organizado sob ela, sem afirmar composição física entre ambos."@pt-br ,
+                                    "Associates a domain entity with an element functionally installed, supported or organised under it, without asserting physical composition between them."@en ;
+                    rdfs:subPropertyOf edo:FunctionalRelation .'''
+          marker='###  https://w3id.org/energy-domain/edo#hasSubDomain'
+          core=insert_before(core, marker, rels)
+
+          # H02-H07 and H03 domain statements.
+          core=add_predicate_to_class(core,'SubseaOilField','edo:spatiallyContains','edo:FloatingProductionUnit')
+          core=add_predicate_to_class(core,'SubseaWell','edo:serves','edo:FloatingProductionUnit')
+          core=add_predicate_to_class(core,'SubseaWell','edo:hasInterconnection','edo:Interconnection')
+          core=add_predicate_to_class(core,'SubseaWell','edo:hosts','edo:WetChristmasTree')
+          core=add_predicate_to_class(core,'WetChristmasTree','edo:hasPart','edo:ConnectionModule')
+          core=add_predicate_to_class(core,'ConnectionModule','edo:hasOrderedPart','edo:ConnectionPoint')
+          core=add_predicate_to_class(core,'FloatingProductionUnit','edo:hasPart','edo:RiserBalcony')
+          core=add_predicate_to_class(core,'RiserBalcony','edo:hasPart','edo:RiserSupport')
+          core=add_predicate_to_class(core,'RiserSupport','edo:hasOrderedPart','edo:ConnectionPoint')
+
+          # ------------------------------------------------------------------
+          # EDO-IFC: H01 parser rule, class carriers, relationship mappings.
+          # ------------------------------------------------------------------
+          attach_prop='''edo-ifc:ifc_attachToProject
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:range xsd:boolean ;
+              rdfs:label "Attach to IFC Project"@en ;
+              rdfs:label "Anexar ao Projeto IFC"@pt-br ;
+              skos:definition "Indicates that the materialised IFC object shall be aggregated directly below the mandatory IfcProject generated by the IFC writer."@en ;
+              skos:definition "Indica que o objeto IFC materializado deve ser agregado diretamente abaixo do IfcProject obrigatório gerado pelo escritor IFC."@pt-br ;
+              dcterms:identifier "ifc_attachToProject" .'''
+          marker='######################################################################\n# 4) IFC mapping rule annotations'
+          if 'edo-ifc:ifc_attachToProject\n' not in mapping:
+              mapping=mapping.replace(marker,attach_prop+'\n\n'+marker,1)
+
+          # Add controlled IFC relationship and roles needed by spatial containment.
+          if 'edo-ifc:IfcRelContainedInSpatialStructure\n' not in mapping:
+              entity='''edo-ifc:IfcRelContainedInSpatialStructure
+              rdf:type owl:NamedIndividual ;
+              rdf:type edo-ifc:IFCRelationshipEntity ;
+              rdfs:label "IfcRelContainedInSpatialStructure"@en ;
+              edo-ifc:ifcEntityName "IfcRelContainedInSpatialStructure" ;
+              rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelContainedInSpatialStructure.htm> ;
+              dcterms:identifier "IfcRelContainedInSpatialStructure" .'''
+              marker='######################################################################\n# 9) Controlled IFC attribute roles'
+              mapping=mapping.replace(marker,entity+'\n\n'+marker,1)
+
+          for role in ('RelatingStructure','RelatedElements'):
+              if f'edo-ifc:{role}\n' not in mapping:
+                  roleblock=f'''edo-ifc:{role}
+              rdf:type owl:NamedIndividual ;
+              rdf:type edo-ifc:IFCAttributeRole ;
+              rdfs:label "{role}"@en ;
+              edo-ifc:ifcAttributeName "{role}" ;
+              dcterms:identifier "{role}" .'''
+                  marker='######################################################################\n# 10) Controlled concepts for realizing element requirement'
+                  mapping=mapping.replace(marker,roleblock+'\n\n'+marker,1)
+
+          # Helper for synchronized class mappings.
+          def set_class_mapping(text, cls, eq, object_type=None, predefined='USERDEFINED'):
+              pattern=rf'(edo:{re.escape(cls)}\n\s+edo-ifc:ifc_equivalentClass edo-ifc:)(Ifc[A-Za-z0-9_]+)(\s*;)'
+              m=re.search(pattern,text)
+              if m:
+                  text=text[:m.start(2)]+eq+text[m.end(2):]
+                  # Existing object type/predefined values are kept unless explicitly added below.
+                  return text
+              # Insert before section 12.
+              block=f'edo:{cls}\n    edo-ifc:ifc_equivalentClass edo-ifc:{eq}'
+              if object_type or predefined:
+                  block+=' ;\n'
+                  if object_type:
+                      block+=f'    edo-ifc:ifc_objectType "{object_type}"'
+                      block+=' ;\n' if predefined else ' .\n'
+                  if predefined:
+                      block+=f'    edo-ifc:ifc_predefinedType "{predefined}" .\n'
+              else:
+                  block+=' .\n'
+              marker='######################################################################\n# 12) Conditional IFC materialisation rules for edo:isConnectedTo'
+              return text.replace(marker,block+'\n'+marker,1)
+
+          # User-approved carrier changes. SubseaPipeline already used IfcElementAssembly;
+          # set it explicitly to keep the decision canonical.
+          mapping=set_class_mapping(mapping,'FloatingProductionUnit','IfcElementAssembly','FloatingProductionUnit')
+          mapping=set_class_mapping(mapping,'SubseaWell','IfcElementAssembly','SubseaWell')
+          mapping=set_class_mapping(mapping,'SubseaPipeline','IfcElementAssembly','SubseaPipeline')
+          mapping=set_class_mapping(mapping,'WetChristmasTree','IfcElementAssembly','WetChristmasTree')
+
+          # H06/H07 carriers required to materialise the new generic connection-point model.
+          mapping=set_class_mapping(mapping,'ConnectionModule','IfcElementAssembly','ConnectionModule')
+          mapping=set_class_mapping(mapping,'RiserSupport','IfcElementAssembly','RiserSupport')
+          mapping=set_class_mapping(mapping,'ConnectionPoint','IfcDistributionPort','ConnectionPoint')
+
+          # H01: no edo:Project class; parser creates mandatory IfcProject and attaches the field.
+          if 'edo:SubseaOilField\n    edo-ifc:ifc_attachToProject true' not in mapping:
+              marker='edo:SubseaOilField\n'
+              idx=mapping.find(marker)
+              if idx < 0:
+                  raise SystemExit('SubseaOilField mapping not found')
+              # Add property into existing mapping block before its final period.
+              next_idx=mapping.find('\n\nedo:',idx)
+              if next_idx < 0:
+                  next_idx=mapping.find('\n######################################################################',idx)
+              block=mapping[idx:next_idx]
+              if 'ifc_attachToProject' not in block:
+                  pos=block.rfind(' .')
+                  if pos < 0:
+                      raise SystemExit('SubseaOilField mapping block period not found')
+                  block=block[:pos]+' ;\n    edo-ifc:ifc_attachToProject true'+block[pos:]
+                  mapping=mapping[:idx]+block+mapping[next_idx:]
+
+          # Give generic part/ordered-part mappings an explicit IFC Name preserving EDO semantics.
+          for rel,name in [('hasPart','hasPart'),('hasOrderedPart','hasOrderedPart')]:
+              pattern=rf'(edo:{rel}\n.*?)(?=\n\nedo:|\n######################################################################)'
+              m=re.search(pattern,mapping,re.S)
+              if m and 'ifc_relationshipName' not in m.group(1):
+                  block=m.group(1).rstrip()
+                  if block.endswith('.'):
+                      block=block[:-1].rstrip()+' ;\n    edo-ifc:ifc_relationshipName "'+name+'" .'
+                  mapping=mapping[:m.start(1)]+block+mapping[m.end(1):]
+
+          # New EDO relationship materialisations.
+          new_maps='''# H03: field spatially contains the platform. With SubseaOilField→IfcSite and
+          # FloatingProductionUnit→IfcElementAssembly this is valid IfcRelContainedInSpatialStructure.
+          edo:spatiallyContains
+              edo-ifc:ifc_equivalentClass edo-ifc:IfcRelContainedInSpatialStructure ;
+              edo-ifc:ifc_subjectRole edo-ifc:RelatingStructure ;
+              edo-ifc:ifc_objectRole edo-ifc:RelatedElements ;
+              edo-ifc:ifc_relationshipName "spatiallyContains" .
+
+          # H02: the well serves the production unit, while the IFC tree is intentionally
+          # inverted so the production unit is the aggregate parent of the well.
+          edo:serves
+              edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAggregates ;
+              edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+              edo-ifc:ifc_objectRole edo-ifc:RelatingObject ;
+              edo-ifc:ifc_relationshipName "serves" .
+
+          # H04: functional interconnections are organised below the well in the IFC tree.
+          edo:hasInterconnection
+              edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAggregates ;
+              edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
+              edo-ifc:ifc_objectRole edo-ifc:RelatedObjects ;
+              edo-ifc:ifc_relationshipName "hasInterconnection" .
+
+          # H05: with SubseaWell and WetChristmasTree both materialised as IfcElementAssembly,
+          # hierarchy is carried by IfcRelAggregates; physical WCT↔Wellhead connectivity remains separate.
+          edo:hosts
+              edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAggregates ;
+              edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
+              edo-ifc:ifc_objectRole edo-ifc:RelatedObjects ;
+              edo-ifc:ifc_relationshipName "hosts" .
+          '''
+          if 'edo:spatiallyContains\n    edo-ifc:ifc_equivalentClass' not in mapping:
+              marker='######################################################################\n# 12) Conditional IFC materialisation rules for edo:isConnectedTo'
+              mapping=mapping.replace(marker,new_maps+'\n'+marker,1)
+
+          # Sanity checks for decisions requested in this round.
+          checks=[
+              ('core',core,'edo:SubseaOilField rdf:type owl:Class'),
+              ('core',core,'edo:spatiallyContains edo:FloatingProductionUnit'),
+              ('core',core,'edo:serves edo:FloatingProductionUnit'),
+              ('core',core,'edo:hasInterconnection edo:Interconnection'),
+              ('core',core,'edo:hosts edo:WetChristmasTree'),
+              ('core',core,'edo:hasPart edo:ConnectionModule'),
+              ('core',core,'edo:hasOrderedPart edo:ConnectionPoint'),
+              ('map',mapping,'edo-ifc:ifc_attachToProject true'),
+              ('map',mapping,'edo:spatiallyContains'),
+              ('map',mapping,'edo-ifc:IfcRelContainedInSpatialStructure'),
+              ('map',mapping,'edo:FloatingProductionUnit\n    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly'),
+              ('map',mapping,'edo:SubseaWell\n    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly'),
+              ('map',mapping,'edo:WetChristmasTree\n    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly'),
+          ]
+          for label,text,needle in checks:
+              if needle not in text:
+                  raise SystemExit(f'Check failed ({label}): {needle}')
+
+          core_path.write_text(core,encoding='utf-8')
+          map_path.write_text(mapping,encoding='utf-8')
+          PY
+
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          for f in ['core/edo.ttl','mappings/ifc/edo-ifc.ttl']:
+              g=Graph(); g.parse(f,format='turtle'); print(f,'Turtle OK',len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/ifc-hierarchy-relations-h01-h07-result
+          git add core/edo.ttl mappings/ifc/edo-ifc.ttl
+          git commit -m 'Model IFC hierarchy relations H01-H07'
+          git push --force origin automation/ifc-hierarchy-relations-h01-h07-result
