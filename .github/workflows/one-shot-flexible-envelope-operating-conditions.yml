@@ -1,0 +1,237 @@
+name: One-shot flexible envelope operating conditions
+on:
+  push:
+    branches: [automation/flexible-envelope-operating-conditions]
+    paths: ['.github/workflows/one-shot-flexible-envelope-operating-conditions.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          cp=Path('core/edo.ttl'); mp=Path('mappings/ifc/edo-ifc.ttl')
+          core=cp.read_text(encoding='utf-8'); mapping=mp.read_text(encoding='utf-8')
+
+          def block(text, cls):
+              p=rf'(###  https://w3id\.org/energy-domain/edo#{re.escape(cls)}\n.*?)(?=\n\n###  https://w3id\.org/energy-domain/edo#|\Z)'
+              m=re.search(p,text,re.S)
+              if not m: raise SystemExit(f'class not found {cls}')
+              return m
+
+          def add_pred(text, cls, pred, obj):
+              m=block(text,cls); b=m.group(1)
+              if f'{pred} {obj}' in b: return text
+              pos=b.rfind(' .')
+              if pos<0: raise SystemExit(f'no final period {cls}')
+              b=b[:pos]+' ;\n    '+pred+' '+obj+b[pos:]
+              return text[:m.start(1)]+b+text[m.end(1):]
+
+          def add_attrs(text, cls, attrs):
+              m=block(text,cls); b=m.group(1)
+              hm=re.search(r'edo:hasAttribute\s+(.*?);',b,re.S)
+              cur=re.findall(r'edo:([A-Za-z0-9_]+)',hm.group(1)) if hm else []
+              merged=[]
+              for a in cur+attrs:
+                  if a not in merged: merged.append(a)
+              val='edo:hasAttribute '+(' ,\n                     ').join('edo:'+a for a in merged)+' ;'
+              if hm: b=b[:hm.start()]+val+b[hm.end():]
+              else:
+                  pos=b.rfind(' .'); b=b[:pos]+' ;\n    '+val+b[pos:]
+              return text[:m.start(1)]+b+text[m.end(1):]
+
+          # Relations
+          rels='''###  https://w3id.org/energy-domain/edo#hasOperatingCondition
+          edo:hasOperatingCondition rdf:type owl:AnnotationProperty ;
+                                    dcterms:identifier "hasOperatingCondition" ;
+                                    rdfs:label "Has Operating Condition"@en ,
+                                               "Tem Condição Operacional"@pt-br ;
+                                    skos:definition "Associates a specification with a required design operating condition that forms part of its technical definition."@en ,
+                                                    "Associa uma especificação a uma condição operacional de projeto requerida que integra sua definição técnica."@pt-br ;
+                                    rdfs:subPropertyOf edo:TechnicalDefinitionRelation .
+
+
+          ###  https://w3id.org/energy-domain/edo#hasOperatingState
+          edo:hasOperatingState rdf:type owl:AnnotationProperty ;
+                                dcterms:identifier "hasOperatingState" ;
+                                rdfs:label "Has Operating State"@en ,
+                                           "Tem Estado Operacional"@pt-br ;
+                                skos:definition "Associates a design operating condition with a required state defined for a position or reference point along the engineered line."@en ,
+                                                "Associa uma condição operacional de projeto a um estado requerido definido para uma posição ou ponto de referência ao longo da linha de engenharia."@pt-br ;
+                                rdfs:subPropertyOf edo:TechnicalDefinitionRelation .'''
+          if 'edo:hasOperatingCondition rdf:type owl:AnnotationProperty' not in core:
+              marker='###  https://w3id.org/energy-domain/edo#hasSpec'
+              core=core.replace(marker,rels+'\n\n\n'+marker,1)
+
+          # Generic helper for requirement attributes.
+          def req(name, parent='DomainAttribute', dtype='StringValue', card='SingleValue', en='', pt=''):
+              return f'''###  https://w3id.org/energy-domain/edo#{name}\n'''+f'''edo:{name} rdf:type owl:Class ;
+              rdfs:subClassOf edo:{parent} ;
+              dcterms:accessRights "PUBLIC" ;
+              dcterms:identifier "{name}" ;
+              skos:definition "{en}"@en ,
+                              "{pt}"@pt-br ;
+              skos:prefLabel "{name}"@en ;
+              edo:attributeOntologicalNature edo:RequirementDatumAttribute ;
+              edo:hasAttributeScope edo:TypeLevelAttribute ;
+              edo:hasLifecycleCreationPhase edo:BasicDesign ;
+              edo:hasTypedValue edo:{dtype} ;
+              edo:hasValueCardinality edo:{card} ;
+              edo:lifecycleRole edo:RequirementRole''' + (f''' ;
+              edo:specializesAttribute edo:{parent}''' if parent!='DomainAttribute' else '') + ' .'
+
+          attrs={
+            'RequiredOperatingConditionId':('DomainAttribute','StringValue','SingleValue','Identifier of a required operating condition within a specification.','Identificador de uma condição operacional requerida dentro de uma especificação.'),
+            'RequiredInternalFluid':('DomainAttribute','StringValue','SingleValue','Internal fluid required for the design operating condition.','Fluido interno requerido para a condição operacional de projeto.'),
+            'RequiredFlowRegime':('DomainAttribute','StringValue','SingleValue','Flow regime required for the design operating condition.','Regime de escoamento requerido para a condição operacional de projeto.'),
+            'RequiredOperation':('DomainAttribute','StringValue','MultiValue','Operation or operations represented by the required design operating condition.','Operação ou operações representadas pela condição operacional de projeto requerida.'),
+            'RequiredOperatingDuration':('DomainAttribute','StringValue','SingleValue','Required duration or recurrence of the operating condition.','Duração ou recorrência requerida da condição operacional.'),
+            'RequiredMaxCO2MolarFraction':('DomainAttribute','FloatValue','SingleValue','Maximum carbon dioxide molar fraction required for the operating condition.','Fração molar máxima de dióxido de carbono requerida para a condição operacional.'),
+            'RequiredMaxH2SVolumeConcentration':('DomainAttribute','FloatValue','SingleValue','Maximum hydrogen sulfide volume concentration required for the operating condition.','Concentração volumétrica máxima de sulfeto de hidrogênio requerida para a condição operacional.'),
+            'RequiredMaxO2VolumeConcentration':('DomainAttribute','FloatValue','SingleValue','Maximum oxygen volume concentration required for the operating condition.','Concentração volumétrica máxima de oxigênio requerida para a condição operacional.'),
+            'RequiredMaxWaterVaporConcentration':('DomainAttribute','FloatValue','SingleValue','Maximum water vapour concentration required for a gaseous operating condition.','Concentração máxima de vapor de água requerida para uma condição operacional gasosa.'),
+            'RequiredMaxWaterCut':('DomainAttribute','FloatValue','SingleValue','Maximum water cut required for a multiphase or liquid operating condition.','Water cut máximo requerido para uma condição operacional multifásica ou líquida.'),
+            'RequiredHydrocarbonMolarComposition':('DomainAttribute','StringValue','SingleValue','Required hydrocarbon molar composition or reference to its structured composition definition.','Composição molar de hidrocarbonetos requerida ou referência à sua definição estruturada.'),
+            'RequiredChlorideConcentration':('DomainAttribute','FloatValue','SingleValue','Required chloride concentration for the operating fluid.','Concentração de cloreto requerida para o fluido operacional.'),
+            'RequiredBicarbonateConcentration':('DomainAttribute','FloatValue','SingleValue','Required bicarbonate concentration for the operating fluid.','Concentração de bicarbonato requerida para o fluido operacional.'),
+            'RequiredAcetateConcentration':('DomainAttribute','FloatValue','SingleValue','Required acetate concentration for the operating fluid.','Concentração de acetato requerida para o fluido operacional.'),
+            'RequiredPH':('DomainAttribute','StringValue','SingleValue','Required pH value or engineering rule for determining pH under the operating condition.','Valor de pH requerido ou regra de engenharia para determinar o pH na condição operacional.'),
+            'RequiredVolumetricFlowRate':('DomainAttribute','FloatValue','SingleValue','Required volumetric flow rate for the operating condition.','Vazão volumétrica requerida para a condição operacional.'),
+            'RequiredFlowReferencePressure':('Pressure','FloatValue','SingleValue','Reference pressure associated with a required volumetric flow rate.','Pressão de referência associada a uma vazão volumétrica requerida.'),
+            'RequiredFlowReferenceTemperature':('Temperature','FloatValue','SingleValue','Reference temperature associated with a required volumetric flow rate.','Temperatura de referência associada a uma vazão volumétrica requerida.'),
+            'RequiredPositionReference':('DomainAttribute','StringValue','SingleValue','Required position or engineering reference point used to qualify an operating state, such as Top, Intermediate, TDP or Flowline.','Posição ou ponto de referência de engenharia usado para qualificar um estado operacional, como Topo, Intermediário, TDP ou Flowline.'),
+            'RequiredOperatingPressure':('OperatingPressure','FloatValue','SingleValue','Operating pressure required by the owner at the specified operating state.','Pressão operacional requerida pelo owner no estado operacional especificado.'),
+            'RequiredOperatingTemperature':('OperatingTemperature','FloatValue','SingleValue','Operating temperature required by the owner at the specified operating state.','Temperatura operacional requerida pelo owner no estado operacional especificado.'),
+            'RequiredFluidDensity':('DomainAttribute','FloatValue','SingleValue','Fluid density required or specified for the operating state.','Massa específica do fluido requerida ou especificada para o estado operacional.'),
+          }
+          new=[]
+          for n,(p,dt,ca,en,pt) in attrs.items():
+              if f'edo:{n} rdf:type owl:Class' not in core: new.append(req(n,p,dt,ca,en,pt))
+
+          structures='''###  https://w3id.org/energy-domain/edo#DesignOperatingCondition
+          edo:DesignOperatingCondition rdf:type owl:Class ;
+              rdfs:subClassOf edo:Specification ;
+              dcterms:identifier "DesignOperatingCondition" ;
+              skos:definition "Structured owner-required operating condition established during basic design, grouping fluid, composition, operation and other condition-level requirements without representing an observed operational state."@en ,
+                              "Condição operacional estruturada requerida pelo owner e estabelecida no projeto básico, agrupando requisitos de fluido, composição, operação e demais requisitos da condição sem representar um estado operacional observado."@pt-br ;
+              skos:prefLabel "Design Operating Condition"@en ,
+                             "Condição Operacional de Projeto"@pt-br ;
+              edo:hasDiscipline edo:SubseaFlexiblePipesEngineering .
+
+
+          ###  https://w3id.org/energy-domain/edo#DesignOperatingState
+          edo:DesignOperatingState rdf:type owl:Class ;
+              rdfs:subClassOf edo:Specification ;
+              dcterms:identifier "DesignOperatingState" ;
+              skos:definition "Position-qualified state within a design operating condition, used to group required pressure, temperature, density and related values at a specific engineering reference position."@en ,
+                              "Estado qualificado por posição dentro de uma condição operacional de projeto, usado para agrupar pressão, temperatura, massa específica e valores relacionados requeridos em uma posição de referência de engenharia específica."@pt-br ;
+              skos:prefLabel "Design Operating State"@en ,
+                             "Estado Operacional de Projeto"@pt-br ;
+              edo:hasDiscipline edo:SubseaFlexiblePipesEngineering .'''
+          if 'edo:DesignOperatingCondition rdf:type owl:Class' not in core:
+              new.append(structures)
+          marker='###  https://w3id.org/energy-domain/edo#FlexiblePipeEnvelope'
+          if new: core=core.replace(marker,'\n\n'.join(new)+'\n\n\n'+marker,1)
+
+          condattrs=['RequiredOperatingConditionId','RequiredInternalFluid','RequiredFlowRegime','RequiredOperation','RequiredOperatingDuration','RequiredMaxCO2MolarFraction','RequiredMaxH2SVolumeConcentration','RequiredMaxO2VolumeConcentration','RequiredMaxWaterVaporConcentration','RequiredMaxWaterCut','RequiredHydrocarbonMolarComposition','RequiredChlorideConcentration','RequiredBicarbonateConcentration','RequiredAcetateConcentration','RequiredPH','RequiredVolumetricFlowRate','RequiredFlowReferencePressure','RequiredFlowReferenceTemperature']
+          stateattrs=['RequiredPositionReference','RequiredOperatingPressure','RequiredOperatingTemperature','RequiredFluidDensity']
+          core=add_attrs(core,'DesignOperatingCondition',condattrs)
+          core=add_pred(core,'DesignOperatingCondition','edo:hasOperatingState','edo:DesignOperatingState')
+          core=add_attrs(core,'DesignOperatingState',stateattrs)
+          core=add_pred(core,'FlexiblePipeEnvelope','edo:hasOperatingCondition','edo:DesignOperatingCondition')
+
+          # IFC flattening metadata for nested structures.
+          props='''edo-ifc:ifc_psetNameTemplate
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:label "IFC Property Set Name Template"@en ;
+              rdfs:label "Modelo de Nome de Property Set IFC"@pt-br ;
+              skos:definition "Template used by an IFC translator to name a property set generated while flattening a non-materialised structured EDO entity."@en ;
+              skos:definition "Modelo usado por um tradutor IFC para nomear um property set gerado ao achatar uma entidade EDO estruturada não materializada."@pt-br ;
+              dcterms:identifier "ifc_psetNameTemplate" .
+
+          edo-ifc:projectNestedStructures
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:range xsd:boolean ;
+              rdfs:label "Project Nested Structures"@en ;
+              rdfs:label "Projetar Estruturas Aninhadas"@pt-br ;
+              skos:definition "Indicates that nested structured entities reachable from a projected specification are recursively flattened onto the same IFC carrier."@en ;
+              skos:definition "Indica que entidades estruturadas aninhadas alcançáveis a partir de uma especificação projetada são achatadas recursivamente sobre o mesmo portador IFC."@pt-br ;
+              dcterms:identifier "projectNestedStructures" .'''
+          marker='######################################################################\n# 4) IFC mapping rule annotations'
+          if 'edo-ifc:ifc_psetNameTemplate\n' not in mapping:
+              mapping=mapping.replace(marker,props+'\n\n'+marker,1)
+
+          classmaps='''edo:DesignOperatingCondition
+              edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly ;
+              edo-ifc:ifc_psetNameTemplate "Pset_FlexiblePipeEnvelope_OperatingCondition_{index}" .
+
+          edo:DesignOperatingState
+              edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly ;
+              edo-ifc:ifc_psetNameTemplate "Pset_FlexiblePipeEnvelope_OperatingCondition_{conditionIndex}_{position}" .'''
+          if 'edo:DesignOperatingCondition\n    edo-ifc:ifc_materializationMode' not in mapping:
+              marker='edo:FlexiblePipeEnvelope\n'
+              mapping=mapping.replace(marker,classmaps+'\n\n'+marker,1)
+
+          # Extend hasSpec projection to recurse into condition/state structures.
+          target='edo-ifc:projectInheritedAttributes true'
+          if target in mapping and 'edo-ifc:projectNestedStructures true' not in mapping:
+              mapping=mapping.replace(target,target+' ;\n        edo-ifc:projectNestedStructures true',1)
+
+          # Record nested relationship semantics for the flattening engine.
+          nested='''edo:hasOperatingCondition
+              edo-ifc:ifc_attributeProjectionRule [
+                  edo-ifc:sourceEDOClass edo:FlexiblePipeEnvelope ;
+                  edo-ifc:targetEDOClass edo:DesignOperatingCondition ;
+                  edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+                  edo-ifc:projectInheritedAttributes true ;
+                  edo-ifc:projectNestedStructures true
+              ] .
+
+          edo:hasOperatingState
+              edo-ifc:ifc_attributeProjectionRule [
+                  edo-ifc:sourceEDOClass edo:DesignOperatingCondition ;
+                  edo-ifc:targetEDOClass edo:DesignOperatingState ;
+                  edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+                  edo-ifc:projectInheritedAttributes true
+              ] .'''
+          if 'edo:hasOperatingCondition\n    edo-ifc:ifc_attributeProjectionRule' not in mapping:
+              marker='######################################################################\n# 12) Conditional IFC materialisation rules for edo:isConnectedTo'
+              mapping=mapping.replace(marker,nested+'\n\n'+marker,1)
+
+          checks=[
+            (core,'edo:FlexiblePipeEnvelope rdf:type owl:Class'),
+            (core,'edo:hasOperatingCondition edo:DesignOperatingCondition'),
+            (core,'edo:DesignOperatingCondition rdf:type owl:Class'),
+            (core,'edo:hasOperatingState edo:DesignOperatingState'),
+            (core,'edo:RequiredOperatingPressure rdf:type owl:Class'),
+            (mapping,'Pset_FlexiblePipeEnvelope_OperatingCondition_{index}'),
+            (mapping,'edo-ifc:projectNestedStructures true'),
+          ]
+          for text,n in checks:
+              if n not in text: raise SystemExit('check failed '+n)
+
+          cp.write_text(core,encoding='utf-8'); mp.write_text(mapping,encoding='utf-8')
+          PY
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          for f in ['core/edo.ttl','mappings/ifc/edo-ifc.ttl']:
+              g=Graph(); g.parse(f,format='turtle'); print(f,'Turtle OK',len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/flexible-envelope-operating-conditions-result
+          git add core/edo.ttl mappings/ifc/edo-ifc.ttl
+          git commit -m 'Model flexible envelope operating conditions'
+          git push --force origin automation/flexible-envelope-operating-conditions-result
