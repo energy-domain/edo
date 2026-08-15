@@ -1,0 +1,364 @@
+name: One-shot flexible envelope owner requirements
+on:
+  push:
+    branches: [automation/flexible-pipe-envelope-owner-requirements]
+    paths: ['.github/workflows/one-shot-flexible-envelope-owner-requirements.yml']
+permissions:
+  contents: write
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          core_path=Path('core/edo.ttl')
+          map_path=Path('mappings/ifc/edo-ifc.ttl')
+          core=core_path.read_text(encoding='utf-8')
+          mapping=map_path.read_text(encoding='utf-8')
+
+          # ------------------------------------------------------------
+          # Helpers
+          # ------------------------------------------------------------
+          def class_block(text, cls):
+              pat=rf'(###  https://w3id\.org/energy-domain/edo#{re.escape(cls)}\n(?:.|\n)*?)(?=\n\n###  https://w3id\.org/energy-domain/edo#|\Z)'
+              m=re.search(pat,text)
+              if not m:
+                  raise SystemExit(f'class not found: {cls}')
+              return m
+
+          def add_has_attributes(text, cls, attrs):
+              m=class_block(text,cls)
+              block=m.group(1)
+              existing=set(re.findall(r'edo:hasAttribute\s+([^;]+);',block,re.S))
+              # Easier and deterministic: collect every edo:X after hasAttribute if present.
+              current=[]
+              hm=re.search(r'edo:hasAttribute\s+(.*?);',block,re.S)
+              if hm:
+                  current=re.findall(r'edo:([A-Za-z0-9_]+)',hm.group(1))
+              merged=[]
+              for x in current+attrs:
+                  if x not in merged:
+                      merged.append(x)
+              if hm:
+                  indent=' ' * 21
+                  replacement='edo:hasAttribute '+(' ,\n'+indent).join('edo:'+x for x in merged)+' ;'
+                  block=block[:hm.start()]+replacement+block[hm.end():]
+              else:
+                  pos=block.rfind(' .')
+                  if pos<0: raise SystemExit(f'no final period: {cls}')
+                  indent=' ' * 21
+                  pred='edo:hasAttribute '+(' ,\n'+indent).join('edo:'+x for x in merged)
+                  block=block[:pos]+' ;\n    '+pred+block[pos:]
+              return text[:m.start(1)]+block+text[m.end(1):]
+
+          def insert_before_classes(text, content):
+              marker='#################################################################\n#    Classes'
+              if marker not in text:
+                  raise SystemExit('Classes marker not found')
+              # Insert declarations immediately before class section only if absent.
+              return text.replace(marker,content.rstrip()+'\n\n'+marker,1)
+
+          def append_attribute_classes(text, content):
+              # Put new classes immediately before FlexiblePipeEnvelope so they remain near the domain object they feed.
+              marker='###  https://w3id.org/energy-domain/edo#FlexiblePipeEnvelope'
+              if marker not in text: raise SystemExit('FlexiblePipeEnvelope marker not found')
+              return text.replace(marker,content.rstrip()+'\n\n\n'+marker,1)
+
+          # ------------------------------------------------------------
+          # EDO core: owner requirement attributes for FlexiblePipeEnvelope
+          # ------------------------------------------------------------
+          new_attr_blocks=[]
+          defs={
+          'RequiredService':'''###  https://w3id.org/energy-domain/edo#RequiredService
+          edo:RequiredService rdf:type owl:Class ;
+                              rdfs:subClassOf edo:Service ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "RequiredService" ;
+                              skos:definition "Serviço ou conjunto de serviços que o owner requer que a solução seja capaz de desempenhar."@pt-br ,
+                                              "Service or set of services that the owner requires the solution to be capable of performing."@en ;
+                              skos:prefLabel "Serviço Requerido"@pt-br ,
+                                             "Required Service"@en ;
+                              edo:attributeOntologicalNature edo:RequirementDatumAttribute ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                              edo:hasTypedValue edo:StringValue ;
+                              edo:hasValueCardinality edo:MultiValue ;
+                              edo:lifecycleRole edo:RequirementRole ;
+                              edo:specializesAttribute edo:Service .''',
+          'RequiredInternalDiameter':'''###  https://w3id.org/energy-domain/edo#RequiredInternalDiameter
+          edo:RequiredInternalDiameter rdf:type owl:Class ;
+                                       rdfs:subClassOf edo:InternalDiameter ;
+                                       dcterms:accessRights "PUBLIC" ;
+                                       dcterms:identifier "RequiredInternalDiameter" ;
+                                       skos:definition "Diâmetro interno requerido pelo owner para a solução de duto flexível."@pt-br ,
+                                                       "Internal diameter required by the owner for the flexible pipe solution."@en ;
+                                       skos:prefLabel "Diâmetro Interno Requerido"@pt-br ,
+                                                      "Required Internal Diameter"@en ;
+                                       edo:attributeOntologicalNature edo:RequirementDatumAttribute ;
+                                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                       edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                                       edo:hasTypedValue edo:FloatValue ;
+                                       edo:hasValueCardinality edo:SingleValue ;
+                                       edo:lifecycleRole edo:RequirementRole ;
+                                       edo:specializesAttribute edo:InternalDiameter .''',
+          'RequiredBoreType':'''###  https://w3id.org/energy-domain/edo#RequiredBoreType
+          edo:RequiredBoreType rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "RequiredBoreType" ;
+                               skos:definition "Tipo de bore requerido pelo owner para a configuração da passagem interna do duto flexível, por exemplo rough bore ou smooth bore."@pt-br ,
+                                               "Bore type required by the owner for the internal passage configuration of the flexible pipe, for example rough bore or smooth bore."@en ;
+                               skos:prefLabel "Tipo de Bore Requerido"@pt-br ,
+                                              "Required Bore Type"@en ;
+                               edo:attributeOntologicalNature edo:RequirementDatumAttribute ,
+                                                            edo:EnumerationAttribute ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                               edo:hasTypedValue edo:StringValue ;
+                               edo:hasValueCardinality edo:SingleValue ;
+                               edo:lifecycleRole edo:RequirementRole .''',
+          'RequiredPipeSectionApplication':'''###  https://w3id.org/energy-domain/edo#RequiredPipeSectionApplication
+          edo:RequiredPipeSectionApplication rdf:type owl:Class ;
+                                             rdfs:subClassOf edo:PipeSectionApplication ;
+                                             dcterms:accessRights "PUBLIC" ;
+                                             dcterms:identifier "RequiredPipeSectionApplication" ;
+                                             skos:definition "Aplicação ou conjunto de aplicações requeridas pelo owner para a solução, como riser ou flowline."@pt-br ,
+                                                             "Application or set of applications required by the owner for the solution, such as riser or flowline."@en ;
+                                             skos:prefLabel "Aplicação do Tramo Requerida"@pt-br ,
+                                                            "Required Pipe Section Application"@en ;
+                                             edo:attributeOntologicalNature edo:RequirementDatumAttribute ;
+                                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                             edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                                             edo:hasTypedValue edo:StringValue ;
+                                             edo:hasValueCardinality edo:MultiValue ;
+                                             edo:lifecycleRole edo:RequirementRole ;
+                                             edo:specializesAttribute edo:PipeSectionApplication .''',
+          'RequiredMinWaterDepth':'''###  https://w3id.org/energy-domain/edo#RequiredMinWaterDepth
+          edo:RequiredMinWaterDepth rdf:type owl:Class ;
+                                    rdfs:subClassOf edo:WaterDepth ;
+                                    dcterms:accessRights "PUBLIC" ;
+                                    dcterms:identifier "RequiredMinWaterDepth" ;
+                                    skos:definition "Profundidade d'água mínima requerida pelo projeto, contrato ou requisito do owner, representando o limite inferior de aplicabilidade da solução."@pt-br ,
+                                                    "Minimum water depth required by the project, contract or owner requirement, representing the lower applicability limit of the solution."@en ;
+                                    skos:prefLabel "Profundidade d'água mínima requerida"@pt-br ,
+                                                   "Required Minimum Water Depth"@en ;
+                                    edo:attributeOntologicalNature edo:RequirementDatumAttribute ;
+                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                    edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                                    edo:hasTypedValue edo:FloatValue ;
+                                    edo:hasUnit unit:M ;
+                                    edo:hasValueCardinality edo:SingleValue ;
+                                    edo:lifecycleRole edo:RequirementRole ;
+                                    edo:specializesAttribute edo:WaterDepth .''',
+          'RequiredRiserConfiguration':'''###  https://w3id.org/energy-domain/edo#RequiredRiserConfiguration
+          edo:RequiredRiserConfiguration rdf:type owl:Class ;
+                                         rdfs:subClassOf edo:RiserConfiguration ;
+                                         dcterms:accessRights "PUBLIC" ;
+                                         dcterms:identifier "RequiredRiserConfiguration" ;
+                                         skos:definition "Configuração ou conjunto de configurações de riser requeridas ou admitidas pelo owner para a solução."@pt-br ,
+                                                         "Riser configuration or set of riser configurations required or admitted by the owner for the solution."@en ;
+                                         skos:prefLabel "Configuração de Riser Requerida"@pt-br ,
+                                                        "Required Riser Configuration"@en ;
+                                         edo:attributeOntologicalNature edo:RequirementDatumAttribute ;
+                                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                         edo:hasLifecycleCreationPhase edo:BasicDesign ;
+                                         edo:hasTypedValue edo:StringValue ;
+                                         edo:hasValueCardinality edo:MultiValue ;
+                                         edo:lifecycleRole edo:RequirementRole ;
+                                         edo:specializesAttribute edo:RiserConfiguration .'''
+          }
+          for name,block in defs.items():
+              if f'edo:{name} rdf:type owl:Class' not in core:
+                  new_attr_blocks.append(block)
+          if new_attr_blocks:
+              core=append_attribute_classes(core,'\n\n'.join(new_attr_blocks))
+
+          # The first implemented footprint is deliberately limited to attributes whose
+          # semantics are already unambiguous in the source spreadsheet and/or EDO.
+          envelope_attrs=[
+              'RequiredService',
+              'RequiredInternalDiameter',
+              'RequiredBoreType',
+              'RequiredPipeSectionApplication',
+              'RequiredDesignLife',
+              'RequiredMaxWaterDepth',
+              'RequiredMinWaterDepth',
+              'RequiredRiserConfiguration',
+              'RequiredMaximumTemperature',
+              'RequiredMinimumTemperature',
+          ]
+          core=add_has_attributes(core,'FlexiblePipeEnvelope',envelope_attrs)
+
+          # ------------------------------------------------------------
+          # EDO-IFC: do not materialise the Envelope. Project its attributes
+          # onto the IFC carrier of FlexiblePipeStructure via hasSpec.
+          # ------------------------------------------------------------
+          generic_props='''edo-ifc:ifc_materializationMode
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:range edo-ifc:IFCMaterializationMode ;
+              rdfs:label "IFC Materialization Mode"@en ;
+              rdfs:label "Modo de Materialização IFC"@pt-br ;
+              skos:definition "Controls whether an EDO entity is materialised as its own IFC object or represented only through projection of its data onto another IFC carrier."@en ;
+              skos:definition "Controla se uma entidade EDO é materializada como objeto IFC próprio ou representada apenas pela projeção de seus dados sobre outro portador IFC."@pt-br ;
+              dcterms:identifier "ifc_materializationMode" .
+
+          edo-ifc:ifc_attributeProjectionRule
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:label "IFC Attribute Projection Rule"@en ;
+              rdfs:label "Regra de Projeção de Atributos IFC"@pt-br ;
+              skos:definition "Defines how attributes of an EDO entity that is not independently materialised are projected onto the IFC carrier of a related EDO entity."@en ;
+              skos:definition "Define como os atributos de uma entidade EDO que não é materializada independentemente são projetados sobre o portador IFC de uma entidade EDO relacionada."@pt-br ;
+              dcterms:identifier "ifc_attributeProjectionRule" .
+
+          edo-ifc:sourceEDOClass
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:label "Source EDO Class"@en ;
+              rdfs:label "Classe EDO de Origem"@pt-br ;
+              dcterms:identifier "sourceEDOClass" .
+
+          edo-ifc:targetEDOClass
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:label "Target EDO Class"@en ;
+              rdfs:label "Classe EDO de Destino"@pt-br ;
+              dcterms:identifier "targetEDOClass" .
+
+          edo-ifc:attributeProjectionDirection
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:range edo-ifc:IFCAttributeProjectionDirection ;
+              rdfs:label "Attribute Projection Direction"@en ;
+              rdfs:label "Direção da Projeção de Atributos"@pt-br ;
+              dcterms:identifier "attributeProjectionDirection" .
+
+          edo-ifc:projectInheritedAttributes
+              rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+              rdfs:range xsd:boolean ;
+              rdfs:label "Project Inherited Attributes"@en ;
+              rdfs:label "Projetar Atributos Herdados"@pt-br ;
+              dcterms:identifier "projectInheritedAttributes" .'''
+          marker='######################################################################\n# 4) IFC mapping rule annotations'
+          if 'edo-ifc:ifc_materializationMode\n' not in mapping:
+              mapping=mapping.replace(marker,generic_props+'\n\n'+marker,1)
+
+          controlled='''edo-ifc:IFCMaterializationMode
+              rdf:type owl:Class ;
+              rdfs:label "IFC Materialization Mode"@en ;
+              rdfs:label "Modo de Materialização IFC"@pt-br ;
+              dcterms:identifier "IFCMaterializationMode" .
+
+          edo-ifc:DirectObjectMaterialization
+              rdf:type owl:NamedIndividual ;
+              rdf:type edo-ifc:IFCMaterializationMode ;
+              rdfs:label "Direct Object Materialization"@en ;
+              dcterms:identifier "DirectObjectMaterialization" .
+
+          edo-ifc:AttributeProjectionOnly
+              rdf:type owl:NamedIndividual ;
+              rdf:type edo-ifc:IFCMaterializationMode ;
+              rdfs:label "Attribute Projection Only"@en ;
+              rdfs:label "Somente Projeção de Atributos"@pt-br ;
+              skos:definition "The EDO entity is not emitted as an IFC object; its applicable attributes are projected onto the IFC carrier selected by a projection rule."@en ;
+              skos:definition "A entidade EDO não é emitida como objeto IFC; seus atributos aplicáveis são projetados sobre o portador IFC selecionado por uma regra de projeção."@pt-br ;
+              dcterms:identifier "AttributeProjectionOnly" .
+
+          edo-ifc:IFCAttributeProjectionDirection
+              rdf:type owl:Class ;
+              rdfs:label "IFC Attribute Projection Direction"@en ;
+              dcterms:identifier "IFCAttributeProjectionDirection" .
+
+          edo-ifc:ObjectToSubject
+              rdf:type owl:NamedIndividual ;
+              rdf:type edo-ifc:IFCAttributeProjectionDirection ;
+              rdfs:label "Object to Subject"@en ;
+              skos:definition "Projects attributes from the object of an EDO relationship onto the IFC carrier of its subject."@en ;
+              dcterms:identifier "ObjectToSubject" .'''
+          marker='######################################################################\n# 7) Controlled IFC object entities'
+          if 'edo-ifc:AttributeProjectionOnly\n' not in mapping:
+              mapping=mapping.replace(marker,controlled+'\n\n'+marker,1)
+
+          # Remove the old FlexiblePipeEnvelope -> IfcGroup carrier block.
+          mapping=re.sub(
+              r'\nedo:FlexiblePipeEnvelope\n\s+edo-ifc:ifc_equivalentClass edo-ifc:IfcGroup\s*;\n\s+edo-ifc:ifc_objectType "FlexiblePipeEnvelope"\s*\.\n',
+              '\n',mapping,count=1)
+
+          # Declare non-independent materialisation.
+          envelope_map='''edo:FlexiblePipeEnvelope
+              edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly .'''
+          if 'edo:FlexiblePipeEnvelope\n    edo-ifc:ifc_materializationMode' not in mapping:
+              marker='edo:FlexiblePipeSegment\n'
+              if marker not in mapping: raise SystemExit('FlexiblePipeSegment mapping marker not found')
+              mapping=mapping.replace(marker,envelope_map+'\n\n'+marker,1)
+
+          # Remove the old hasSpec -> IfcRelAssignsToGroup rule (Envelope as IfcGroup).
+          old_pat=r'# Specification mapping\. For the current flexible-pipe implementation,.*?edo:hasSpec\n\s+edo-ifc:ifc_mappingRule \[.*?\] \.\n'
+          mapping,n=re.subn(old_pat,'',mapping,count=1,flags=re.S)
+          if n==0:
+              # fallback narrower removal if comments have changed
+              mapping=re.sub(
+                  r'edo:hasSpec\n\s+edo-ifc:ifc_mappingRule \[\n\s+edo-ifc:sourceIfcEquivalentClass edo-ifc:IfcPipeSegmentType ;\n\s+edo-ifc:targetIfcEquivalentClass edo-ifc:IfcGroup ;.*?\] \.\n',
+                  '',mapping,count=1,flags=re.S)
+
+          projection='''# Specification attribute projection. FlexiblePipeEnvelope remains a first-class
+          # EDO specification but is deliberately not materialised as an IFC object in the
+          # current Petrobras delivery. Its requirement attributes are projected onto the
+          # IfcPipeSegmentType carrier of FlexiblePipeStructure. They can then be exposed to
+          # FlexiblePipeSegment occurrences through native IfcRelDefinesByType semantics.
+          edo:hasSpec
+              edo-ifc:ifc_attributeProjectionRule [
+                  edo-ifc:sourceEDOClass edo:FlexiblePipeStructure ;
+                  edo-ifc:targetEDOClass edo:FlexiblePipeEnvelope ;
+                  edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+                  edo-ifc:projectInheritedAttributes true
+              ] .'''
+          if 'edo-ifc:targetEDOClass edo:FlexiblePipeEnvelope' not in mapping:
+              marker='######################################################################\n# 12) Conditional IFC materialisation rules for edo:isConnectedTo'
+              if marker not in mapping: raise SystemExit('mapping section marker not found')
+              mapping=mapping.replace(marker,projection+'\n\n'+marker,1)
+
+          # Checks
+          for needle in [
+              'edo:FlexiblePipeEnvelope rdf:type owl:Class',
+              'edo:hasAttribute edo:RequiredService',
+              'edo:RequiredInternalDiameter rdf:type owl:Class',
+              'edo:RequiredMinWaterDepth rdf:type owl:Class',
+              'edo:RequiredRiserConfiguration rdf:type owl:Class',
+          ]:
+              if needle not in core: raise SystemExit('core check failed: '+needle)
+          for needle in [
+              'edo:FlexiblePipeEnvelope\n    edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly',
+              'edo-ifc:targetEDOClass edo:FlexiblePipeEnvelope',
+              'edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject',
+          ]:
+              if needle not in mapping: raise SystemExit('map check failed: '+needle)
+          if re.search(r'edo:FlexiblePipeEnvelope\n\s+edo-ifc:ifc_equivalentClass',mapping):
+              raise SystemExit('Envelope still has independent IFC equivalent class')
+
+          core_path.write_text(core,encoding='utf-8')
+          map_path.write_text(mapping,encoding='utf-8')
+          PY
+
+          python -m pip install rdflib >/dev/null
+          python - <<'PY'
+          from rdflib import Graph
+          for f in ['core/edo.ttl','mappings/ifc/edo-ifc.ttl']:
+              g=Graph(); g.parse(f,format='turtle'); print(f,'Turtle OK',len(g))
+          PY
+          git diff --check
+          git config user.name 'ChatGPT EDO Refactor'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/flexible-pipe-envelope-owner-requirements-result
+          git add core/edo.ttl mappings/ifc/edo-ifc.ttl
+          git commit -m 'Model flexible pipe envelope owner requirements'
+          git push --force origin automation/flexible-pipe-envelope-owner-requirements-result
