@@ -155,6 +155,55 @@ edo-ifc:ifc_attachToProject
     skos:definition "Indica que o objeto IFC materializado deve ser agregado diretamente abaixo do IfcProject obrigatório gerado pelo escritor IFC."@pt-br ;
     dcterms:identifier "ifc_attachToProject" .
 
+edo-ifc:ifc_materializationMode
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCMaterializationMode ;
+    rdfs:label "IFC Materialization Mode"@en ;
+    rdfs:label "Modo de Materialização IFC"@pt-br ;
+    skos:definition "Controls whether an EDO entity is materialised as its own IFC object or represented only through projection of its data onto another IFC carrier."@en ;
+    skos:definition "Controla se uma entidade EDO é materializada como objeto IFC próprio ou representada apenas pela projeção de seus dados sobre outro portador IFC."@pt-br ;
+    dcterms:identifier "ifc_materializationMode" .
+
+edo-ifc:ifc_attributeProjectionRule
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "IFC Attribute Projection Rule"@en ;
+    rdfs:label "Regra de Projeção de Atributos IFC"@pt-br ;
+    skos:definition "Defines how attributes of an EDO entity that is not independently materialised are projected onto the IFC carrier of a related EDO entity."@en ;
+    skos:definition "Define como os atributos de uma entidade EDO que não é materializada independentemente são projetados sobre o portador IFC de uma entidade EDO relacionada."@pt-br ;
+    dcterms:identifier "ifc_attributeProjectionRule" .
+
+edo-ifc:sourceEDOClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "Source EDO Class"@en ;
+    rdfs:label "Classe EDO de Origem"@pt-br ;
+    dcterms:identifier "sourceEDOClass" .
+
+edo-ifc:targetEDOClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "Target EDO Class"@en ;
+    rdfs:label "Classe EDO de Destino"@pt-br ;
+    dcterms:identifier "targetEDOClass" .
+
+edo-ifc:attributeProjectionDirection
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCAttributeProjectionDirection ;
+    rdfs:label "Attribute Projection Direction"@en ;
+    rdfs:label "Direção da Projeção de Atributos"@pt-br ;
+    dcterms:identifier "attributeProjectionDirection" .
+
+edo-ifc:projectInheritedAttributes
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "Project Inherited Attributes"@en ;
+    rdfs:label "Projetar Atributos Herdados"@pt-br ;
+    dcterms:identifier "projectInheritedAttributes" .
+
 ######################################################################
 # 4) IFC mapping rule annotations
 ######################################################################
@@ -1061,9 +1110,9 @@ edo:FlangeConnection
     edo-ifc:ifc_objectType "FlangeConnection" ;
     edo-ifc:ifc_predefinedType "USERDEFINED" .
 
+
 edo:FlexiblePipeEnvelope
-    edo-ifc:ifc_equivalentClass edo-ifc:IfcGroup ;
-    edo-ifc:ifc_objectType "FlexiblePipeEnvelope" .
+    edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly .
 
 edo:FlexiblePipeSegment
     edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
@@ -1654,19 +1703,6 @@ edo:isDefinedByCatalogItem
     edo-ifc:ifc_objectRole edo-ifc:RelatingType ;
     edo-ifc:ifc_relationshipName "isDefinedByCatalogItem" .
 
-# Specification mapping. For the current flexible-pipe implementation,
-# FlexiblePipeStructure is a RelatedObject and FlexiblePipeEnvelope is the RelatingGroup.
-# The IFC relationship Name preserves the EDO relation name, making the provisional
-# grouping semantics explicit to viewers and downstream translators.
-edo:hasSpec
-    edo-ifc:ifc_mappingRule [
-        edo-ifc:sourceIfcEquivalentClass edo-ifc:IfcPipeSegmentType ;
-        edo-ifc:targetIfcEquivalentClass edo-ifc:IfcGroup ;
-        edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssignsToGroup ;
-        edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
-        edo-ifc:ifc_objectRole edo-ifc:RelatingGroup ;
-        edo-ifc:ifc_relationshipName "hasSpec"
-    ] .
 
 edo:ConnectionModule
     edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly ;
@@ -1713,6 +1749,19 @@ edo:hosts
     edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
     edo-ifc:ifc_objectRole edo-ifc:RelatedObjects ;
     edo-ifc:ifc_relationshipName "hosts" .
+
+# Specification attribute projection. FlexiblePipeEnvelope remains a first-class
+# EDO specification but is deliberately not materialised as an IFC object in the
+# current Petrobras delivery. Its requirement attributes are projected onto the
+# IfcPipeSegmentType carrier of FlexiblePipeStructure. They can then be exposed to
+# FlexiblePipeSegment occurrences through native IfcRelDefinesByType semantics.
+edo:hasSpec
+    edo-ifc:ifc_attributeProjectionRule [
+        edo-ifc:sourceEDOClass edo:FlexiblePipeStructure ;
+        edo-ifc:targetEDOClass edo:FlexiblePipeEnvelope ;
+        edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+        edo-ifc:projectInheritedAttributes true
+    ] .
 
 ######################################################################
 # 12) Conditional IFC materialisation rules for edo:isConnectedTo
