@@ -204,6 +204,25 @@ edo-ifc:projectInheritedAttributes
     rdfs:label "Projetar Atributos Herdados"@pt-br ;
     dcterms:identifier "projectInheritedAttributes" .
 
+edo-ifc:ifc_psetNameTemplate
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "IFC Property Set Name Template"@en ;
+    rdfs:label "Modelo de Nome de Property Set IFC"@pt-br ;
+    skos:definition "Template used by an IFC translator to name a property set generated while flattening a non-materialised structured EDO entity."@en ;
+    skos:definition "Modelo usado por um tradutor IFC para nomear um property set gerado ao achatar uma entidade EDO estruturada não materializada."@pt-br ;
+    dcterms:identifier "ifc_psetNameTemplate" .
+
+edo-ifc:projectNestedStructures
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "Project Nested Structures"@en ;
+    rdfs:label "Projetar Estruturas Aninhadas"@pt-br ;
+    skos:definition "Indicates that nested structured entities reachable from a projected specification are recursively flattened onto the same IFC carrier."@en ;
+    skos:definition "Indica que entidades estruturadas aninhadas alcançáveis a partir de uma especificação projetada são achatadas recursivamente sobre o mesmo portador IFC."@pt-br ;
+    dcterms:identifier "projectNestedStructures" .
+
 ######################################################################
 # 4) IFC mapping rule annotations
 ######################################################################
@@ -1111,6 +1130,14 @@ edo:FlangeConnection
     edo-ifc:ifc_predefinedType "USERDEFINED" .
 
 
+edo:DesignOperatingCondition
+    edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly ;
+    edo-ifc:ifc_psetNameTemplate "Pset_FlexiblePipeEnvelope_OperatingCondition_{index}" .
+
+edo:DesignOperatingState
+    edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly ;
+    edo-ifc:ifc_psetNameTemplate "Pset_FlexiblePipeEnvelope_OperatingCondition_{conditionIndex}_{position}" .
+
 edo:FlexiblePipeEnvelope
     edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly .
 
@@ -1759,6 +1786,24 @@ edo:hasSpec
     edo-ifc:ifc_attributeProjectionRule [
         edo-ifc:sourceEDOClass edo:FlexiblePipeStructure ;
         edo-ifc:targetEDOClass edo:FlexiblePipeEnvelope ;
+        edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+        edo-ifc:projectInheritedAttributes true ;
+        edo-ifc:projectNestedStructures true
+    ] .
+
+edo:hasOperatingCondition
+    edo-ifc:ifc_attributeProjectionRule [
+        edo-ifc:sourceEDOClass edo:FlexiblePipeEnvelope ;
+        edo-ifc:targetEDOClass edo:DesignOperatingCondition ;
+        edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+        edo-ifc:projectInheritedAttributes true ;
+        edo-ifc:projectNestedStructures true
+    ] .
+
+edo:hasOperatingState
+    edo-ifc:ifc_attributeProjectionRule [
+        edo-ifc:sourceEDOClass edo:DesignOperatingCondition ;
+        edo-ifc:targetEDOClass edo:DesignOperatingState ;
         edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
         edo-ifc:projectInheritedAttributes true
     ] .
