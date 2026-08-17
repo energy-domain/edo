@@ -6,6 +6,7 @@ on:
     paths:
       - core/edo.ttl
       - tools/generate_edo_object_relations.py
+      - tools/add_flexible_pipe_crimped_joint.py
       - .github/workflows/generate-object-relations.yml
   workflow_dispatch:
 
@@ -22,6 +23,7 @@ jobs:
           python-version: '3.12'
       - run: pip install rdflib
       - run: python tools/generate_edo_object_relations.py
+      - run: python tools/add_flexible_pipe_crimped_joint.py
       - name: Validate generated Turtle
         run: python -c "from rdflib import Graph; g=Graph(); g.parse('core/edo-object-relations.ttl', format='turtle'); print(f'validated {len(g)} triples')"
       - name: Commit generated ontology
