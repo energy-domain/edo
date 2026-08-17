@@ -72,10 +72,28 @@ def qcard(cls, prop, target, n, pred=OWL.qualifiedCardinality):
     return r
 
 
+def remove_restrictions_on_class(cls_name, target_name):
+    cls = U(cls_name)
+    target = U(target_name)
+    removed = 0
+    for r in list(g.objects(cls, RDFS.subClassOf)):
+        if (r, RDF.type, OWL.Restriction) in g and (r, OWL.onClass, target) in g:
+            g.remove((cls, RDFS.subClassOf, r))
+            for triple in list(g.triples((r, None, None))):
+                g.remove(triple)
+            removed += 1
+    return removed
+
+
 # AttachmentPoint already exists in core EDO and is the correct generic feature for
-# a mounting/installation mark. Keep it generic: it may belong to a flexible pipe,
-# an end fitting, or another host or accessory.
+# an installation/mounting mark. Keep it generic: it may belong to a flexible pipe,
+# an end fitting, an accessory, or another host element.
 assert (U("AttachmentPoint"), RDFS.subClassOf, U("Feature")) in g
+
+# The legacy structured placement attribute remains available for compatibility,
+# but the new experimental semantics make datum and longitudinal coordinate explicit.
+# Therefore AttachmentPoint must not require both positioning models simultaneously.
+remove_restrictions_on_class("AttachmentPoint", "IntendedLongitudinalPlacement")
 
 # Explicit ownership of attachment points.
 add_objprop(
@@ -93,9 +111,9 @@ add_objprop(
 g.add((U("hasAttachmentPoint"), OWL.inverseOf, U("isAttachmentPointOf")))
 qcard("AttachmentPoint", "isAttachmentPointOf", "DomainElement", 1)
 
-# A selected datum is a role played by any suitable Feature. The ontology does not
-# prescribe whether it is a crimped point, flange face/port, dedicated ReferencePoint,
-# or another feature; owner rules or designer choice determine that locally.
+# A datum is a role played by any suitable Feature. EDO does not prescribe whether
+# it is a crimped point, a flange connection/face, a dedicated ReferencePoint, or
+# another feature. Owner rules or designer choice determine that locally.
 add_objprop(
     "hasReferenceDatum", "InterfaceRelation", "AttachmentPoint", "Feature",
     label_en="Has Reference Datum", label_pt="Tem Datum de Referência",
@@ -105,8 +123,8 @@ add_objprop(
 qcard("AttachmentPoint", "hasReferenceDatum", "Feature", 1)
 
 # Required longitudinal coordinate of the attachment point. This replaces the
-# pipe-specific semantics of PipeMountPosition in the domain model: it applies to
-# mounting points on any longitudinal host, including flexible pipes and end fittings.
+# pipe-specific semantics of PipeMountPosition in the domain model and applies to
+# points on any longitudinal host, including flexible pipes and end fittings.
 required_pos = add_class(
     "RequiredLongitudinalPosition", "Position",
     "Required Longitudinal Position", "Posição Longitudinal Requerida",
@@ -117,13 +135,12 @@ g.add((required_pos, U("hasAttributeScope"), U("InstanceLevelAttribute")))
 g.add((required_pos, U("hasLifecycleCreationPhase"), U("DetailedDesign")))
 g.add((required_pos, U("hasTypedValue"), U("FloatValue")))
 g.add((required_pos, U("hasValueCardinality"), U("SingleValue")))
-# Reuse the same engineering unit convention already used by PipeMountPosition.
 for unit in g.objects(U("PipeMountPosition"), U("hasUnit")):
     g.add((required_pos, U("hasUnit"), unit))
 qcard("AttachmentPoint", "hasAttribute", "RequiredLongitudinalPosition", 1)
 
-# Geometry can independently state that the attachment point on the host and the
-# corresponding point on the accessory occupy the same intended location.
+# Geometry can independently state that the point on the host and the corresponding
+# point on the accessory occupy the same intended location.
 add_objprop(
     "isCoincidentWith", "InterfaceRelation", "Feature", "Feature",
     label_en="Is Coincident With", label_pt="É Coincidente Com",
@@ -132,20 +149,19 @@ add_objprop(
     symmetric=True, irreflexive=True,
 )
 
-# The old pipe-specific attribute remains in the source ontology for compatibility,
-# but must not be asserted intrinsically on the accessory classes in the experimental
-# object-relations model. Remove only restrictions that target PipeMountPosition.
-for cls in (U("BuoyancyModule"), U("SplitCollar")):
-    for r in list(g.objects(cls, RDFS.subClassOf)):
-        if (r, RDF.type, OWL.Restriction) in g and (r, OWL.onClass, U("PipeMountPosition")) in g:
-            for triple in list(g.triples((r, None, None))):
-                g.remove(triple)
-            g.remove((cls, RDFS.subClassOf, r))
+# PipeMountPosition remains as a legacy/source-compatibility attribute, but mounting
+# position is no longer intrinsic to the accessory class in the experimental model.
+for cls_name in ("BuoyancyModule", "SplitCollar"):
+    remove_restrictions_on_class(cls_name, "PipeMountPosition")
 
 # Guardrails.
 assert (U("AttachmentPoint"), RDFS.subClassOf, U("Feature")) in g
 assert (U("RequiredLongitudinalPosition"), RDFS.subClassOf, U("Position")) in g
 assert (U("hasReferenceDatum"), RDFS.range, U("Feature")) in g
+assert not any(
+    (r, RDF.type, OWL.Restriction) in g and (r, OWL.onClass, U("IntendedLongitudinalPlacement")) in g
+    for r in g.objects(U("AttachmentPoint"), RDFS.subClassOf)
+)
 
 for r in set(g.subjects(RDF.type, OWL.Restriction)):
     assert len(list(g.objects(r, OWL.onProperty))) == 1
