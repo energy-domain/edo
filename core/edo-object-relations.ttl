@@ -2265,26 +2265,31 @@ edo:FlangeType a owl:Class ;
     edo:hasTypedValue edo:StringValue ;
     edo:hasValueCardinality edo:SingleValue .
 
-edo:FlexiblePipeCrimpedJoint a owl:Class ;
-    dcterms:identifier "FlexiblePipeCrimpedJoint" ;
+edo:FlangedJoint a owl:Class ;
+    dcterms:identifier "FlangedJoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:EndFittingCrimpedConnection ;
-            owl:onProperty edo:connectsPoint ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FlexiblePipeCrimpedConnection ;
-            owl:onProperty edo:connectsPoint ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( edo:FlexiblePipeCrimpedConnection edo:EndFittingCrimpedConnection ) ] ;
+            owl:allValuesFrom edo:FlangeConnection ;
             owl:onProperty edo:connectsPoint ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:N0beeb4c50f87405aa38d436e67342d91 ;
+            owl:onProperty edo:hasConnectionMechanism ],
+        [ a owl:Restriction ;
+            owl:onClass edo:BoltedClamping ;
+            owl:onProperty edo:hasConnectionMechanism ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:FlangeConnection ;
+            owl:onProperty edo:connectsPoint ;
+            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:GasketSealing ;
+            owl:onProperty edo:hasConnectionMechanism ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PhysicalConnection ;
-    owl:disjointWith edo:FlangedJoint ;
-    skos:definition "Permanent structural and pressure-containing physical connection formed by crimping an end fitting onto a flexible pipe segment."@en,
-        "Conexão física permanente, estrutural e de contenção de pressão, formada pela crimpagem de um end fitting em um tramo de duto flexível."@pt-br ;
-    skos:prefLabel "Flexible Pipe Crimped Joint"@en,
-        "Junta Crimpada de Duto Flexível"@pt-br .
+    owl:disjointWith edo:FlexiblePipeCrimpedJoint,
+        edo:WeldedJoint ;
+    skos:prefLabel "Flanged Joint"@en,
+        "Junta Flangeada"@pt-br .
 
 edo:FlexiblePipeEnvelope a owl:Class ;
     dcterms:identifier "FlexiblePipeEnvelope" ;
@@ -2302,12 +2307,12 @@ edo:FlexiblePipeSegment a owl:Class ;
             owl:allValuesFrom edo:FlexiblePipeCrimpedConnection ;
             owl:onProperty edo:hasConnectionPoint ],
         [ a owl:Restriction ;
+            owl:allValuesFrom edo:Nc045d46ef13e4d888e8addf3f235dd19 ;
+            owl:onProperty edo:hasPart ],
+        [ a owl:Restriction ;
             owl:onClass edo:FlexiblePipeStructure ;
             owl:onProperty edo:isDefinedByType ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:N9ad49d7e96f848609c528d389bf9ce21 ;
-            owl:onProperty edo:hasPart ],
         edo:PipeSegment ;
     skos:altLabel "Flexible Line Section"@en,
         "Flexible Pipe Section"@en,
@@ -2341,13 +2346,13 @@ edo:FlowBase a owl:Class ;
 edo:FlowConnector a owl:Class ;
     dcterms:identifier "FlowConnector" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-            owl:onClass edo:FluidPort ;
-            owl:onProperty edo:hasConnectionPoint ],
-        [ a owl:Restriction ;
             owl:onClass edo:FlowConnectorMatingConnection ;
             owl:onProperty edo:hasConnectionPoint ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:FluidPort ;
+            owl:onProperty edo:hasConnectionPoint ],
         edo:PressureComponent ;
     skos:definition "Major connector for subsea tie-in to a corresponding hub"@en,
         "Conector de grande porte para acoplamento submarino com um hub/mandril correspondente"@pt-br ;
@@ -8060,23 +8065,15 @@ edo:hosts a owl:ObjectProperty ;
         "Associa uma entidade do domínio a um elemento funcionalmente instalado, suportado ou organizado sob ela, sem afirmar composição física entre ambos."@pt-br .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AnchoringCollar> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SafeWorkingLoad> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#IndividualAnodeMass> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AnodeCollarsQuantity> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ClampInternalDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MetallicStrandLength> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ExternalDiameter> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SafeWorkingLoad> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8084,7 +8081,15 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ExternalDiameter> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AnodeCollarsQuantity> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#IndividualAnodeMass> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MetallicStrandLength> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8116,7 +8121,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendRestrictor> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_BendingMoment> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8124,16 +8129,24 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_ShearForce> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_BendingMoment> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_ShearForce> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BuoyancyModule> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NominalFloatDensity> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PipeMountPosition> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ShortTermFloatDensity> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8141,23 +8154,15 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ShortTermFloatVolume> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LongTermFloatDensity> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ShortTermFloatVolume> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LongTermFloatVolume> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NominalFloatDensity> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ShortTermFloatDensity> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
@@ -8171,15 +8176,11 @@ edo:hosts a owl:ObjectProperty ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#CompositeMaterialSpecification> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UltTensStrAlongFibers> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#CompositeLayerMaterialType> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UltTensStrPerpendFibers> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RuptDefPerpendFibers> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8187,24 +8188,16 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UltTensStrAlongFibers> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RuptDefPerpendFibers> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UltTensStrPerpendFibers> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DesignOperatingCondition> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxH2SVolumeConcentration> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperatingDuration> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredFlowReferenceTemperature> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredVolumetricFlowRate> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredFlowRegime> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8212,27 +8205,15 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxCO2MolarFraction> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredBicarbonateConcentration> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxWaterCut> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredFlowReferencePressure> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxWaterVaporConcentration> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperation> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxO2VolumeConcentration> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredFlowRegime> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperatingConditionId> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8244,11 +8225,31 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperatingConditionId> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxWaterCut> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredBicarbonateConcentration> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredHydrocarbonMolarComposition> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredFlowReferenceTemperature> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxH2SVolumeConcentration> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperatingDuration> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperation> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxWaterVaporConcentration> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8256,20 +8257,20 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredFlowReferencePressure> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredVolumetricFlowRate> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredHydrocarbonMolarComposition> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxCO2MolarFraction> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxO2VolumeConcentration> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DesignOperatingState> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperatingPressure> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredFluidDensity> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperatingTemperature> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8277,36 +8278,16 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperatingTemperature> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredOperatingPressure> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredFluidDensity> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EndFitting> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HasModaSensor> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BoreDiameter> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlangeType> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketType> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketSpecification> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketPressureRating> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketOuterDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8314,7 +8295,11 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HasFaceORing> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketStandard> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketType> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8322,16 +8307,36 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketStandard> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HasN2InjectionPort> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HasN2InjectionPort> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketSpecification> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketOuterDiameter> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlangeType> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketPressureRating> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HasFaceORing> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HasModaSensor> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlexiblePipeEnvelope> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxWaterDepth> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMinimumTemperature> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8339,27 +8344,15 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredBoreType> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredService> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredRiserConfiguration> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaximumTemperature> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredDesignLife> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMinimumTemperature> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaxWaterDepth> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredMaximumTemperature> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8369,166 +8362,22 @@ edo:hosts a owl:ObjectProperty ;
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredPipeSectionApplication> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredBoreType> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredRiserConfiguration> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RequiredService> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlexiblePipeSegment> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatNomPressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPressValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatMaxPress> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ManufacturingNonConformities> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_TensLimit> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPressValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_TensLimit> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevNomPress> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_Press> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPress> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevMaxPressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevNomPressValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_TensLimitValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevNomPressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevNomPressValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SpecialRequirements> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevNomPressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOnNoTensNomPressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevNomPress> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ManufacturingDate> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NominalLength> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPress> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatMaxPressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_TensLimitValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevMaxPress> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressIntValStrat> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatNomPressValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PipeSectionApplication> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevMaxPressValRef> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPressValRefMult> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#IdInUnifilarDiagram> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_Press> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressIntValStrat> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AssemblyShouldObeyModelPolarity> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxLengthTolerance> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8536,7 +8385,99 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevMaxPress> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevNomPressValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevNomPress> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatMaxPress> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatNomPressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#IdInUnifilarDiagram> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatMaxPressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ManufacturingDate> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressIntValStrat> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_TensLimitValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatNomPress> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPress> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_TensLimit> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPressValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_TensLimit> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ManufacturingNonConformities> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatMaxPressValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevNomPressValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevMaxPressValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevNomPressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressValRef> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8544,80 +8485,76 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatMaxPressValRef> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FatNomPressValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AssemblyShouldObeyModelPolarity> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SpecialRequirements> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevNomPress> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevNomPressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_PressIntValStrat> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_Press> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPressValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakNomPressTable_TensLimitValRef> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOffPLevMaxPressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_PressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOnNoTensNomPressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NominalLength> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OffLeakPLevMaxPressValRefMult> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrIntOnNoTensMaxPress> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxLengthTolerance> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EarlyLeakMaxPressTable_Press> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlexiblePipeStructure> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DamagingPullInStraightLine> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAmbientTemperature> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PostSlippingBendingStiffness> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LimpTorsionalStiffnessAtSeaLevel> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StructureCode> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AxialStiffnessUnderCompressionAtSeaLevel> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendingMomentTable_BendingMoment> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_SectionSupportedByRigidSupport> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensionerPadsMaterial> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OuterDiameter> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensionerPadsShape> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ErosionalVelocity> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_Compression> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AxialStiffnessUnderTensionAtSeaLevel> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PreSlippingBendingStiffness> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TestConditions> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_MinimumAllowableBendingRadius> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InsideTemperature> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8625,51 +8562,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensileArmourAnnulusCondition> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTensionTable_PulleyRadius> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FrictionCoefficientTighteningTable_CoefficientOfFriction> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SpoolingTension> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignPressure> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensileArmourFreeAnnulusVolume> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FrictionCoefficientTighteningTable_TighteningPerTrack> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensionerTracksQuantity> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlexibleStructureServicesList> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTighteningTable_AxialLoad> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_AbsoluteExternalPressure> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LinearMass> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OuterDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8677,23 +8570,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#CalculatedAbsoluteBurstPressure> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTighteningTable_TighteningPerTrack> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StiffTorsionalStiffnessAtSeaLevel> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StructureApplicationsList> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_TensileArmourAnnulusCondition> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlexibleStructureServicesList> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8701,39 +8578,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensionerPadsOpeningAngle> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ThermalExchangeCoefficientFlooded> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalDiameter> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UtilizationFactor> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OutsideTemperature> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTensionTable_MaximumAllowableTensile> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AbsoluteOutsidePressure> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendingMomentTable_Curvature> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AbsoluteInsidePressure> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8741,7 +8586,79 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ErosionalVelocity> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTighteningTable_TighteningPerTrack> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensionerPadsShape> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StiffTorsionalStiffnessAtSeaLevel> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTensionTable_PulleyRadius> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTensileForStraightLine> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DamagingPullInStraightLine> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensionerPadsMaterial> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_AbsoluteExternalPressure> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAmbientTemperature> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensileArmourAnnulusCondition> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StructureApplicationsList> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#CalculatedAbsoluteBurstPressure> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendingMomentTable_BendingMoment> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FrictionCoefBetweenPipeAndTensioner> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AxialStiffnessUnderCompressionAtSeaLevel> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SpoolingTension> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AbsoluteInsidePressure> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BendingMomentTable_Curvature> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8749,7 +8666,23 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DimensioningCriteria> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TestConditions> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensionerPadsOpeningAngle> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AxialStiffnessUnderTensionAtSeaLevel> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StructureCode> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InsideTemperature> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8757,52 +8690,19 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FrictionCoefBetweenPipeAndTensioner> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
-
-<https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlexibleStructureLayer> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryCrossSection> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ThermalExchangeCoefficientFlooded> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryThickness> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PreSlippingBendingStiffness> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerWatertight> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#AbsoluteOutsidePressure> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerThickness> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerAnnular> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerAnnularType> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerWatertightLowerLayerInternalFreeVolume> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryManufacturer> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryInertiaY> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryProfileWidth> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryProfileThickness> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DimensioningCriteria> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8810,7 +8710,68 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalDiameter> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignPressure> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PostSlippingBendingStiffness> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#OutsideTemperature> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FrictionCoefficientTighteningTable_CoefficientOfFriction> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_SectionSupportedByRigidSupport> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTensionTable_MaximumAllowableTensile> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensionerTracksQuantity> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LimpTorsionalStiffnessAtSeaLevel> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_Compression> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumAllowableTighteningTable_AxialLoad> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TensileArmourFreeAnnulusVolume> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_MinimumAllowableBendingRadius> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FrictionCoefficientTighteningTable_TighteningPerTrack> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayingMinimumRadiusTable_TensileArmourAnnulusCondition> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
+
+<https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlexibleStructureLayer> rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerWatertight> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryProfileWidth> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8818,20 +8779,64 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryThickness> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryName> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryInertiaY> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryManufacturer> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalDiameter> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerAnnularType> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryCrossSection> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryProfileThickness> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerAnnular> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerWatertightLowerLayerInternalFreeVolume> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerThickness> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LayerGeometryInertiaX> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#LinearMass> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlowControlEquipment> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HasThermalInsulation> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NumberOfChokeValves> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Piggable> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HasThermalInsulation> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8839,24 +8844,12 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NumberOfChokeValves> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Piggable> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GroovePoint> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrooveMinimumSupportArea> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrooveDiameter> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrvCntrPntDstnceFrmTermFlange> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrooveHeight> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TechnicalNotes> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8864,24 +8857,32 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TechnicalNotes> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrooveSupportSurfaceDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrooveHeight> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrooveMinimumSupportArea> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrvCntrPntDstnceFrmTermFlange> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SafeWorkingLoad> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#GrooveDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HangOffCollar> rdfs:subClassOf [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FlangeType> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SafeWorkingLoad> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8893,44 +8894,16 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SafeWorkingLoad> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#CollarInternalDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HardwareItem> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ProjectDrawingRevision> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionName> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionValue> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DisplacedVolume> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PartNumber> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SupplierProvidedMaterialName> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionDescription> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Mass> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalVolume> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ManufacturerDefinedMaterialName> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -8938,44 +8911,68 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Mass> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DisplacedVolume> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionDescription> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionName> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalVolume> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SupplierProvidedMaterialName> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PartNumber> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionValue> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#IdInUnifilarDiagram> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ManufacturerDefinedMaterialName> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ProjectDrawingCode> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ProjectDrawingRevision> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DrawingDimensionsTable_DimensionUnit> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ProjectDrawingCode> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#HoldingBandage> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StressAtDesignPressure> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ModulusOfElasticity> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#TapesQuantity> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StressAtDesignPressure> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaterialSpecification> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SpecificHeatCapacity> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaterialComposition> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SpecificWeight> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -8988,20 +8985,28 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ThermalConductivityCoefficient> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaterialComposition> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PoissonRatioAt23Degrees> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ThermalConductivityCoefficient> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SpecificHeatCapacity> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MetallicMaterialSpecification> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FractureToughness> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MetallicLayerMaterialType> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MetallicLayerMaterialType> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#FractureToughness> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9010,15 +9015,15 @@ edo:hosts a owl:ObjectProperty ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MetallicStrandSet> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrandsTable_StrandsLength> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrandsTable_SpareQuantity> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrandsTable_StrandsQuantity> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#StrandsTable_StrandsLength> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
@@ -9028,31 +9033,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PipePullingHead> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketOuterDiameter> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketSpecification> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PullingHeadType> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SafeWorkingLoad> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketPressureRating> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketInnerDIameter> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketMaterial> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9060,28 +9041,44 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketType> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketInnerDIameter> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketSpecification> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketPressureRating> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketOuterDiameter> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketMaterial> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketStandard> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketType> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PullingHeadType> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PolymericMaterialSpecification> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PolymericLayerMaterialType> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SolubilityTable_PolymerState> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxPermissibleDeformationDynamic> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable_Temperature> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable_PermeabilityCoefficient> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9089,19 +9086,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable_MoleculeIdentifier> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DiffusionTable> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EModVsTempTable_ElasticityModulus> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DiffusionTable_DiffusionCoefficient> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SolubilityTable_Temperature> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9113,19 +9098,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PolymericLayerMaterialType> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable_PolymerState> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SolubilityTable_Temperature> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DiffusionTable_Temperature> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SolubilityTable_PolymerState> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9137,19 +9110,51 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SolubilityTable> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable_PermeabilityCoefficient> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DiffusionTable_PolymerState> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable_MoleculeIdentifier> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DiffusionTable> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EModVsTempTable_Temperature> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#EModVsTempTable_ElasticityModulus> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable_Temperature> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DiffusionTable_DiffusionCoefficient> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#DiffusionTable_Temperature> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PermeabilityTable_PolymerState> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxPermissibleDeformationDynamic> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SolubilityTable> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
@@ -9159,7 +9164,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PullInCollar> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#WireRopeSlingLength> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#WireRopeSlingDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9167,7 +9172,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#WireRopeSlingDiameter> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#WireRopeSlingLength> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
@@ -9176,7 +9181,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketInnerDIameter> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketOuterDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9184,7 +9189,11 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketSpecification> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketStandard> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketInnerDIameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9192,11 +9201,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketOuterDiameter> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketStandard> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RingGasketSpecification> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
@@ -9205,15 +9210,15 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#WorkingLoadLimit> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ShackleOpeningWidth> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ShackleOuterDiameter> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#WorkingLoadLimit> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9227,83 +9232,7 @@ edo:hosts a owl:ObjectProperty ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SubseaPipeline> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SubProjectId> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RiserConfiguration> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UnifilarDiagramRev> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ProjectAcronym> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumThermalExchangeCoefficient> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NominalLength> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalDiameter> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_Pressure> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable_PositionReference> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ExecutiveProjectRevision> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UnifilarDiagram> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BasicProjectRevision> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable_Pressure> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumTemperature> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ProjectCode> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MinimumThermalExchangeCoefficient> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_VPosWRTWaterline> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#CO2VolumePercentage> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9311,15 +9240,43 @@ edo:hosts a owl:ObjectProperty ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ExecutiveProjectRevision> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MinimumThermalExchangeCoefficient> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ProjectAcronym> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#RiserConfiguration> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#H2SVolumeConcentration> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_PositionReference> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ProjectCode> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Service> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable_Pressure> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable_PositionReference> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_Pressure> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumTemperature> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9329,22 +9286,70 @@ edo:hosts a owl:ObjectProperty ;
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable_VPosWRTWaterline> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
-
-<https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Task> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Creator> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaxDesignAbsIntPresTable> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UnifilarDiagram> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#UnifilarDiagramRev> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Service> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalDiameter> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_VPosWRTWaterline> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#MaximumThermalExchangeCoefficient> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#SubProjectId> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#InternalIncidentalPressureTable_PositionReference> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#BasicProjectRevision> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NominalLength> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#CO2VolumePercentage> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
+
+<https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Task> rdfs:subClassOf [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Content> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Timestamp> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Creator> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#CreatorId> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#Timestamp> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
@@ -9358,19 +9363,19 @@ edo:hosts a owl:ObjectProperty ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
 <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ThreadedFastenerSet> rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ThreadStandard> ;
-            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#NominalDiameter> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PitchToleranceClass> ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ThreadStandard> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#ThreadedFastenerType> ;
+            owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#PitchToleranceClass> ;
             owl:onProperty <https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#hasAttribute> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -9614,14 +9619,14 @@ edo:EModVsTempCurveAttribute a owl:Class ;
 edo:EndFitting a owl:Class ;
     dcterms:identifier "EndFitting" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:FlangeConnection ;
-            owl:onProperty edo:hasConnectionPoint ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:Nd9213ef04c7241e2843878e65f275aaa ;
+            owl:allValuesFrom edo:Na7d60fce821e40af8ff3e999060a9597 ;
             owl:onProperty edo:hasConnectionPoint ],
         [ a owl:Restriction ;
             owl:onClass edo:EndFittingCrimpedConnection ;
+            owl:onProperty edo:hasConnectionPoint ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:FlangeConnection ;
             owl:onProperty edo:hasConnectionPoint ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PipeTermination ;
@@ -9652,29 +9657,26 @@ edo:Evidence a owl:Class ;
         "Evidência"@pt-br ;
     edo:hasDiscipline edo:CommissioningEngineering .
 
-edo:FlangedJoint a owl:Class ;
-    dcterms:identifier "FlangedJoint" ;
+edo:FlexiblePipeCrimpedJoint a owl:Class ;
+    dcterms:identifier "FlexiblePipeCrimpedJoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:FlangeConnection ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( edo:FlexiblePipeCrimpedConnection edo:EndFittingCrimpedConnection ) ] ;
             owl:onProperty edo:connectsPoint ],
         [ a owl:Restriction ;
-            owl:allValuesFrom edo:N45fd7ae02958474989ac681530995142 ;
-            owl:onProperty edo:hasConnectionMechanism ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FlangeConnection ;
+            owl:onClass edo:FlexiblePipeCrimpedConnection ;
             owl:onProperty edo:connectsPoint ;
-            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:GasketSealing ;
-            owl:onProperty edo:hasConnectionMechanism ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:BoltedClamping ;
-            owl:onProperty edo:hasConnectionMechanism ;
+            owl:onClass edo:EndFittingCrimpedConnection ;
+            owl:onProperty edo:connectsPoint ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PhysicalConnection ;
-    skos:prefLabel "Flanged Joint"@en,
-        "Junta Flangeada"@pt-br .
+    owl:disjointWith edo:WeldedJoint ;
+    skos:definition "Permanent structural and pressure-containing physical connection formed by crimping an end fitting onto a flexible pipe segment."@en,
+        "Conexão física permanente, estrutural e de contenção de pressão, formada pela crimpagem de um end fitting em um tramo de duto flexível."@pt-br ;
+    skos:prefLabel "Flexible Pipe Crimped Joint"@en,
+        "Junta Crimpada de Duto Flexível"@pt-br .
 
 edo:FlexiblePipeStructure a owl:Class ;
     dcterms:identifier "FlexiblePipeStructure" ;
@@ -10145,12 +10147,12 @@ edo:BendingStiffnessTableColumn a owl:Class ;
 edo:BoltedClamping a owl:Class ;
     dcterms:identifier "BoltedClamping" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:StudSet ;
-            owl:onProperty edo:hasPart ],
-        [ a owl:Restriction ;
             owl:onClass edo:StudSet ;
             owl:onProperty edo:hasPart ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:StudSet ;
+            owl:onProperty edo:hasPart ],
         edo:ConnectionMechanism ;
     owl:disjointWith edo:GasketSealing ;
     skos:prefLabel "Bolted Clamping"@en,
@@ -10322,11 +10324,11 @@ edo:FlangeAttribute a owl:Class ;
 
 edo:FlexibleStructure a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-            owl:onClass edo:FlexibleStructureLayer ;
+            owl:allValuesFrom edo:FlexibleStructureLayer ;
             owl:onProperty edo:hasOrderedPart ],
         [ a owl:Restriction ;
-            owl:allValuesFrom edo:FlexibleStructureLayer ;
+            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:FlexibleStructureLayer ;
             owl:onProperty edo:hasOrderedPart ],
         edo:ConfiguredSystem ;
     skos:definition "The Flexible Structure is the layered configuration of a flexible system designed to provide strength, protection, and adaptability in demanding environments. It consists of multiple layers or components, each performing a specific function such as reinforcement, pressure containment, insulation, or communication. Engineered to accommodate movement, pressure variations, and mechanical loads, the flexible structure ensures reliability, durability and performance across different applications, including subsea pipelines and umbilicals."@en,
@@ -10761,6 +10763,21 @@ edo:Valve a owl:Class ;
     skos:prefLabel "Valve"@en,
         "Válvula"@pt-br .
 
+edo:WeldedJoint a owl:Class ;
+    dcterms:identifier "WeldedJoint" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:WeldedConnection ;
+            owl:onProperty edo:connectsPoint ],
+        [ a owl:Restriction ;
+            owl:onClass edo:WeldedConnection ;
+            owl:onProperty edo:connectsPoint ;
+            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        edo:PhysicalConnection ;
+    skos:definition "Permanent physical connection formed by welding two welded fluid-port connection points."@en,
+        "Conexão física permanente formada pela soldagem de dois pontos de conexão de porta de fluido do tipo soldado."@pt-br ;
+    skos:prefLabel "Welded Joint"@en,
+        "Junta Soldada"@pt-br .
+
 edo:WoundLayer a owl:Class ;
     dcterms:identifier "WoundLayer" ;
     rdfs:subClassOf edo:FlexibleStructureLayer ;
@@ -10922,12 +10939,12 @@ edo:FunctionalRelation a owl:ObjectProperty ;
 edo:GasketSealing a owl:Class ;
     dcterms:identifier "GasketSealing" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:RingGasket ;
-            owl:onProperty edo:hasPart ],
-        [ a owl:Restriction ;
             owl:onClass edo:RingGasket ;
             owl:onProperty edo:hasPart ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:RingGasket ;
+            owl:onProperty edo:hasPart ],
         edo:ConnectionMechanism ;
     skos:prefLabel "Gasket Sealing"@en,
         "Vedação por Junta"@pt-br .
@@ -11105,17 +11122,6 @@ edo:Upstream a owl:NamedIndividual,
     skos:definition "Oil & Gas sector covering exploration, drilling, and production of hydrocarbon resources."@en,
         "Setor de Petróleo & Gás que abrange exploração, perfuração e produção de recursos de hidrocarbonetos."@pt-br ;
     skos:inScheme edo:IndustrialDomainScheme .
-
-edo:WeldedConnection a owl:Class ;
-    dcterms:identifier "WeldedConnection" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:WeldedConnection ;
-            owl:onProperty edo:isConnectedTo ],
-        edo:FluidPort ;
-    skos:definition "Represents a fluid port connection achieved by welding, forming a permanent joint. It also defines the logical location within a model where fluid distribution components are joined, ensuring proper alignment and functionality during assembly and operation. This logical connection is essential for defining the interface between fluid distribution elements in subsea systems or other fluid handling applications."@en,
-        "Representa uma conexão de porta de fluido realizada por soldagem, formando uma junta permanente. Também define a localização lógica em um modelo onde os componentes de distribuição de fluido são unidos, garantindo o alinhamento e a funcionalidade corretos durante a montagem e a operação. Essa conexão lógica é essencial para definir a interface entre elementos de distribuição de fluido em sistemas submarinos ou outros sistemas de manuseio de fluido."@pt-br ;
-    skos:prefLabel "Welded Connection"@en,
-        "Conexão Soldada"@pt-br .
 
 edo:Wind a owl:NamedIndividual,
         skos:Concept ;
@@ -11453,7 +11459,7 @@ edo:EarlyLeakNomPressTableColumn a owl:Class ;
 edo:HubMatingConnection a owl:Class ;
     dcterms:identifier "HubMatingConnection" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:N6d84cd3c9c654e1b959ab7fc5022c77a ;
+            owl:allValuesFrom edo:N263599c21ffb4414a27784b4a6cc1e37 ;
             owl:onProperty edo:isConnectedTo ],
         edo:FluidPort ;
     skos:prefLabel "Hub Mating Connection"@en,
@@ -11511,6 +11517,17 @@ edo:TechnicalDefinitionRelation a owl:ObjectProperty ;
     rdfs:subPropertyOf edo:DomainRelation ;
     skos:definition "Category of relationships used to associate domain entities with specifications, types or technical artefacts that define their configuration or compatibility."@en,
         "Categoria de relacionamentos usada para associar entidades do domínio a especificações, tipos ou artefatos técnicos que definem sua configuração ou compatibilidade."@pt-br .
+
+edo:WeldedConnection a owl:Class ;
+    dcterms:identifier "WeldedConnection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:WeldedConnection ;
+            owl:onProperty edo:isConnectedTo ],
+        edo:FluidPort ;
+    skos:definition "Represents a fluid port connection achieved by welding, forming a permanent joint. It also defines the logical location within a model where fluid distribution components are joined, ensuring proper alignment and functionality during assembly and operation. This logical connection is essential for defining the interface between fluid distribution elements in subsea systems or other fluid handling applications."@en,
+        "Representa uma conexão de porta de fluido realizada por soldagem, formando uma junta permanente. Também define a localização lógica em um modelo onde os componentes de distribuição de fluido são unidos, garantindo o alinhamento e a funcionalidade corretos durante a montagem e a operação. Essa conexão lógica é essencial para definir a interface entre elementos de distribuição de fluido em sistemas submarinos ou outros sistemas de manuseio de fluido."@pt-br ;
+    skos:prefLabel "Welded Connection"@en,
+        "Conexão Soldada"@pt-br .
 
 edo:ConstructionPhase a owl:NamedIndividual,
         skos:Concept ;
@@ -11798,15 +11815,6 @@ edo:VocabularyConcepts a owl:NamedIndividual,
     skos:prefLabel "Vocabulary Concepts."@en,
         "Conceitos de Vocabulário"@pt-br .
 
-edo:connectsPoint a owl:ObjectProperty ;
-    rdfs:label "Connects Point"@en,
-        "Conecta Ponto"@pt-br ;
-    dcterms:identifier "connectsPoint" ;
-    rdfs:domain edo:PhysicalConnection ;
-    rdfs:range edo:ConnectionPoint ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:connectionRealizedBy .
-
 edo:AsBuiltRole a owl:NamedIndividual,
         skos:Concept ;
     dcterms:identifier "AsBuiltRole" ;
@@ -11911,18 +11919,6 @@ edo:MinimumBendingRadius a owl:Class ;
     edo:hasValueCardinality edo:SingleValue ;
     edo:specializesAttribute edo:BendingRadius .
 
-edo:PhysicalConnection a owl:Class ;
-    dcterms:identifier "PhysicalConnection" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-            owl:onClass edo:ConnectionPoint ;
-            owl:onProperty edo:connectsPoint ],
-        edo:PartElement ;
-    skos:definition "A Physical Connection refers to the actual link or interface between two or more components, such as pipes, equipment, or systems, that allows for the transfer of fluids, energy, or data."@en,
-        "Representa uma conexão entre dois ativos físicos"@pt-br ;
-    skos:prefLabel "Physical Connection"@en,
-        "Conexão Física"@pt-br .
-
 edo:Pressure a owl:Class ;
     dcterms:accessRights "PUBLIC" ;
     dcterms:identifier "Pressure" ;
@@ -11986,6 +11982,18 @@ edo:OperationalAttribute a owl:NamedIndividual,
     skos:prefLabel "Operational attribute"@en,
         "Atributo operacional"@pt-br .
 
+edo:PhysicalConnection a owl:Class ;
+    dcterms:identifier "PhysicalConnection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:ConnectionPoint ;
+            owl:onProperty edo:connectsPoint ],
+        edo:PartElement ;
+    skos:definition "A Physical Connection refers to the actual link or interface between two or more components, such as pipes, equipment, or systems, that allows for the transfer of fluids, energy, or data."@en,
+        "Representa uma conexão entre dois ativos físicos"@pt-br ;
+    skos:prefLabel "Physical Connection"@en,
+        "Conexão Física"@pt-br .
+
 edo:ProvenanceAttribute a owl:NamedIndividual,
         skos:Concept ;
     dcterms:identifier "ProvenanceAttribute" ;
@@ -11998,6 +12006,15 @@ edo:ProvenanceAttribute a owl:NamedIndividual,
         edo:DomainAttributeOntologicalNature ;
     skos:prefLabel "Provenance attribute"@en,
         "Atributo de proveniência"@pt-br .
+
+edo:connectsPoint a owl:ObjectProperty ;
+    rdfs:label "Connects Point"@en,
+        "Conecta Ponto"@pt-br ;
+    dcterms:identifier "connectsPoint" ;
+    rdfs:domain edo:PhysicalConnection ;
+    rdfs:range edo:ConnectionPoint ;
+    rdfs:subPropertyOf edo:InterfaceRelation ;
+    owl:inverseOf edo:connectionRealizedBy .
 
 edo:BurstPressure a owl:Class ;
     dcterms:identifier "BurstPressure" ;
@@ -12361,13 +12378,13 @@ edo:AttributeOntologicalNatures a owl:NamedIndividual,
 edo:ConnectionPoint a owl:Class ;
     dcterms:identifier "ConnectionPoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:DomainElement ;
-            owl:onProperty edo:isConnectionPointOf ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:ConnectionPoint ;
             owl:onProperty edo:isConnectedTo ],
+        [ a owl:Restriction ;
+            owl:onClass edo:DomainElement ;
+            owl:onProperty edo:isConnectionPointOf ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:Feature ;
     skos:definition "Represents a point used to establish a connection between elements, either physically or logically."@en,
         "Representa um ponto utilizado para estabelecer conexão entre elementos, seja fisicamente ou logicamente."@pt-br ;
@@ -12707,8 +12724,8 @@ edo:SingleValue a owl:NamedIndividual,
     owl:unionOf ( edo:FlowConnectorMatingConnection edo:ConnectionModuleMatingConnection edo:HubBlockCapMatingConnection edo:HubProtectionCapMatingConnection ) .
 
 [] a owl:Class ;
-    owl:unionOf ( edo:EndFitting edo:LineAncillary ) .
+    owl:unionOf ( edo:EndFittingCrimpedConnection edo:FlangeConnection ) .
 
 [] a owl:Class ;
-    owl:unionOf ( edo:EndFittingCrimpedConnection edo:FlangeConnection ) .
+    owl:unionOf ( edo:EndFitting edo:LineAncillary ) .
 
