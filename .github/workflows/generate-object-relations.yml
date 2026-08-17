@@ -9,6 +9,8 @@ on:
       - tools/fix_generated_object_relation_uris.py
       - tools/add_physical_joints.py
       - tools/add_attachment_positioning.py
+      - tools/generalize_connection_interfaces.py
+      - tools/add_clamped_joint.py
       - .github/workflows/generate-object-relations.yml
   workflow_dispatch:
 
@@ -28,6 +30,8 @@ jobs:
       - run: python tools/fix_generated_object_relation_uris.py
       - run: python tools/add_physical_joints.py
       - run: python tools/add_attachment_positioning.py
+      - run: python tools/generalize_connection_interfaces.py
+      - run: python tools/add_clamped_joint.py
       - name: Validate generated Turtle
         run: |
           python -c "from rdflib import Graph; g=Graph(); g.parse('core/edo-object-relations.ttl', format='turtle'); print(f'validated {len(g)} triples')"
