@@ -6,7 +6,9 @@ on:
     paths:
       - core/edo.ttl
       - tools/generate_edo_object_relations.py
+      - tools/fix_generated_object_relation_uris.py
       - tools/add_physical_joints.py
+      - tools/add_attachment_positioning.py
       - .github/workflows/generate-object-relations.yml
   workflow_dispatch:
 
@@ -23,9 +25,16 @@ jobs:
           python-version: '3.12'
       - run: pip install rdflib
       - run: python tools/generate_edo_object_relations.py
+      - run: python tools/fix_generated_object_relation_uris.py
       - run: python tools/add_physical_joints.py
+      - run: python tools/add_attachment_positioning.py
       - name: Validate generated Turtle
-        run: python -c "from rdflib import Graph; g=Graph(); g.parse('core/edo-object-relations.ttl', format='turtle'); print(f'validated {len(g)} triples')"
+        run: |
+          python -c "from rdflib import Graph; g=Graph(); g.parse('core/edo-object-relations.ttl', format='turtle'); print(f'validated {len(g)} triples')"
+          if grep -q 'https://w3id.org/energy-domain/edo#https://w3id.org/energy-domain/edo#' core/edo-object-relations.ttl; then
+            echo 'Malformed duplicated EDO IRI found.'
+            exit 1
+          fi
       - name: Commit generated ontology
         run: |
           if git diff --quiet -- core/edo-object-relations.ttl && git ls-files --error-unmatch core/edo-object-relations.ttl >/dev/null 2>&1; then
