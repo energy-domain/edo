@@ -1,9 +1,8 @@
 === EDO CONNECTION TOPOLOGY AUDIT ===
-candidate_classes=42
+candidate_classes=41
 CLASS ActuatedValve parents=Valve hasConnectionPoint=[Valve:min 2 FluidPort]
 CLASS AnchoringCollar parents=SplitCollar hasConnectionInterface=[SplitCollar:exactly 1 CollarClampingSurface]
 CLASS AnodeCollar parents=SplitCollar hasConnectionInterface=[SplitCollar:exactly 1 CollarClampingSurface] hasMountingPoint=[AnodeCollar:exactly 1 MountingPoint]
-CLASS ArmorPot parents=LineTermination hasConnectionPoint=[LineTermination:min 2 ConnectionPoint]
 CLASS BlockValve parents=ActuatedValve hasConnectionPoint=[Valve:min 2 FluidPort]
 CLASS ChainSegment parents=LinearObject hasEnd=[LinearObject:exactly 2 LinearEnd] hasConnectionPoint=[ChainSegment:only MechanicalConnectionPoint]
 CLASS CheckValve parents=Valve hasConnectionPoint=[Valve:min 2 FluidPort]
@@ -14,11 +13,11 @@ CLASS ElectricalJumper parents=Jumper hasEnd=[LinearObject:exactly 2 LinearEnd] 
 CLASS ElectricalJumperConnector parents=JumperConnector hasConnectionPoint=[Connector:min 2 ConnectionPoint; ElectricalJumperConnector:only ElectricPort]
 CLASS ElectricalPowerJumper parents=Jumper hasEnd=[LinearObject:exactly 2 LinearEnd] hasConnectionPoint=[ElectricalPowerJumper:only ElectricPort; Jumper:only Port]
 CLASS ElectricalPowerJumperConnector parents=JumperConnector hasConnectionPoint=[Connector:min 2 ConnectionPoint; ElectricalPowerJumperConnector:only ElectricPort]
-CLASS EndFitting parents=PipeTermination hasConnectionPoint=[EndFitting:exactly 1 EndFittingCrimpedConnection; EndFitting:exactly 1 FlangeConnection; EndFitting:only N4c294e08e6b64286879cb3476ee46a89; LineTermination:min 2 ConnectionPoint; PipeTermination:min 2 FluidPort]
+CLASS EndFitting parents=PipeTermination hasConnectionPoint=[EndFitting:exactly 1 EndFittingCrimpedConnection; EndFitting:exactly 1 FlangeConnection; EndFitting:only N160d302c548d449a93c3c90855b0ba60; LineTermination:min 2 ConnectionPoint; PipeTermination:min 2 FluidPort]
 CLASS FiberOpticJumper parents=LinearObject hasEnd=[LinearObject:exactly 2 LinearEnd] hasConnectionPoint=[FiberOpticJumper:only DataPort]
 CLASS FiberRopeSegment parents=RopeSegment hasEnd=[LinearObject:exactly 2 LinearEnd] hasConnectionPoint=[RopeSegment:only MechanicalConnectionPoint]
 CLASS FlangeAdapter parents=PressureComponent hasConnectionPoint=[FlangeAdapter:exactly 2 FlangeConnection; FlangeAdapter:only FlangeConnection]
-CLASS FlexiblePipeSegment parents=PipeSegment hasEnd=[FlexiblePipeSegment:exactly 2 FlexiblePipeEnd; FlexiblePipeSegment:only FlexiblePipeEnd; LinearObject:exactly 2 LinearEnd] hasConnectionPoint=[FlexiblePipeSegment:exactly 2 FlexiblePipeCrimpedConnection; FlexiblePipeSegment:only FlexiblePipeCrimpedConnection; PipeSegment:only FluidPort]
+CLASS FlexiblePipeSegment parents=PipeSegment hasEnd=[FlexiblePipeSegment:exactly 2 FlexiblePipeSegmentEnd; FlexiblePipeSegment:only FlexiblePipeSegmentEnd; LinearObject:exactly 2 LinearEnd] hasConnectionPoint=[PipeSegment:only FluidPort]
 CLASS HandlingCollar parents=SplitCollar hasConnectionInterface=[SplitCollar:exactly 1 CollarClampingSurface]
 CLASS HangOffCollar parents=LineAncillary hasConnectionInterface=[HangOffCollar:exactly 1 CollarClampingSurface] hasMountingPoint=[HangOffCollar:exactly 1 MountingPoint]
 CLASS HotStab parents=HydraulicJumperConnector hasConnectionPoint=[Connector:min 2 ConnectionPoint; HotStab:exactly 1 HotStabMatingConnection; HydraulicJumperConnector:only FluidPort]
@@ -39,7 +38,7 @@ CLASS RopeSegment parents=LinearObject hasEnd=[LinearObject:exactly 2 LinearEnd]
 CLASS SplitCollar parents=LineAncillary hasConnectionInterface=[SplitCollar:exactly 1 CollarClampingSurface]
 CLASS StopperCollar parents=SplitCollar hasConnectionInterface=[SplitCollar:exactly 1 CollarClampingSurface] hasMountingPoint=[StopperCollar:exactly 1 MountingPoint]
 CLASS TransportLineSegment parents=LinearObject hasEnd=[LinearObject:exactly 2 LinearEnd]
-CLASS UmbilicalSegment parents=TransportLineSegment hasEnd=[LinearObject:exactly 2 LinearEnd]
+CLASS UmbilicalSegment parents=TransportLineSegment hasEnd=[LinearObject:exactly 2 LinearEnd; UmbilicalSegment:exactly 2 UmbilicalEnd; UmbilicalSegment:only UmbilicalEnd]
 CLASS Valve parents=PressureComponent hasConnectionPoint=[Valve:min 2 FluidPort]
 CLASS WireRopeSegment parents=RopeSegment hasEnd=[LinearObject:exactly 2 LinearEnd] hasConnectionPoint=[RopeSegment:only MechanicalConnectionPoint]
 === TOPOLOGY GAPS ===
@@ -50,8 +49,8 @@ LINEAR ElectricalJumper exact2ends=yes exact2points=no pointOnly=Jumper->Port,El
 LINEAR ElectricalPowerJumper exact2ends=yes exact2points=no pointOnly=Jumper->Port,ElectricalPowerJumper->ElectricPort
 LINEAR FiberOpticJumper exact2ends=yes exact2points=no pointOnly=FiberOpticJumper->DataPort
 LINEAR FiberRopeSegment exact2ends=yes exact2points=no pointOnly=RopeSegment->MechanicalConnectionPoint
-LINEAR FlexiblePipeSegment exact2ends=yes exact2points=yes pointOnly=PipeSegment->FluidPort,FlexiblePipeSegment->FlexiblePipeCrimpedConnection
-LINEAR HydraulicJumper exact2ends=yes exact2points=no pointOnly=HydraulicJumper->FluidPort,Jumper->Port
+LINEAR FlexiblePipeSegment exact2ends=yes exact2points=no pointOnly=PipeSegment->FluidPort
+LINEAR HydraulicJumper exact2ends=yes exact2points=no pointOnly=Jumper->Port,HydraulicJumper->FluidPort
 LINEAR Jumper exact2ends=yes exact2points=no pointOnly=Jumper->Port
 LINEAR LinearObject exact2ends=yes exact2points=no pointOnly=-
 LINEAR PipeSegment exact2ends=yes exact2points=no pointOnly=PipeSegment->FluidPort
@@ -59,7 +58,45 @@ LINEAR RopeSegment exact2ends=yes exact2points=no pointOnly=RopeSegment->Mechani
 LINEAR TransportLineSegment exact2ends=yes exact2points=no pointOnly=-
 LINEAR UmbilicalSegment exact2ends=yes exact2points=no pointOnly=-
 LINEAR WireRopeSegment exact2ends=yes exact2points=no pointOnly=RopeSegment->MechanicalConnectionPoint
-=== FLEXIBLE PIPE CHECK ===
-FlexiblePipeSegment exact2FlexiblePipeEnd=yes
-FlexiblePipeSegment exact2FlexiblePipeCrimpedConnection=yes
+=== FLEXIBLE PIPE ASSEMBLY CHECK ===
+FlexiblePipeSegment exact1FlexiblePipeBody=yes
+FlexiblePipeSegment exact2EndFitting=yes
+FlexiblePipeSegment exact2FlexiblePipeSegmentEnd=yes
+FlexiblePipeSegmentEnd exact1FlangeConnection=yes
+FlexiblePipeSegment ownsConnectionPoints=no
+FlexiblePipeBody exact2FlexiblePipeBodyEnd=yes
+FlexiblePipeBody exact2FlexiblePipeCrimpedConnection=yes
+FlexiblePipeBody exact1FlexiblePipeStructure=yes
+=== UMBILICAL CHECK ===
+UmbilicalSegment exact2UmbilicalEnd=yes
+UmbilicalSegment min1FunctionLine=yes
+UmbilicalSegment fixedConnectionPointCardinality=no
+FunctionLine exact2FunctionLineEnd=yes
+FunctionLineEnd min1ConnectionInterface=yes
+Tubing exact2TubingEnd=yes
+ElectricalCable exact2ElectricalCableEnd=yes
+OpticalFiberCable exact2OpticalFiberCableEnd=yes
+=== UMBILICAL TERMINATION ROLE CHECK ===
+ArmorPot parentComponentDevice=yes
+ArmorPot parentLineTermination=no
+UTA exact1UmbilicalEnd=yes
+UTA min1TerminalHardware=yes
+UTM remainsLineTerminationModule=yes
+UTA_UTM equivalent=no
+=== FUNCTION-LINE TERMINATION CHECK ===
+FunctionLineEnd min1TerminalHardware=yes
+UmbilicalEnd min1ExposedServiceInterface=yes
+TubingEnd min1TubingCoupling=yes
+TubingCoupling exact2FluidPort=yes
+IntrinsicInternalExternalInterfaceTypes=no
+=== CONNECTION INTERFACE SPECIFICATION CHECK ===
+ConnectionInterfaceSpecification subclassSpecification=yes
+ConnectionInterface exact1InterfaceSpecification=yes
+hasInterfaceSpecification subPropertyOfHasSpec=yes
+isMatingCompatibleWith symmetric=yes transitive=no
+isInterfaceCompatibleWith symmetric=yes transitive=no
+isInterfaceConnectedTo subPropertyOfCompatible=yes
+sameSpecification compatibilityChain=yes
+declaredSpecificationCompatibility chain=yes
+isInterfaceCompatibleWith cardinalityRestriction=no
 audit_status=ok
