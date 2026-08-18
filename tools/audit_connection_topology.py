@@ -89,6 +89,23 @@ def has_min(cls, prop, target, n):
 def direct_positive_cardinality(cls, prop):
     return any(kind in ("exactly", "min") and value is not None and value > 0 for kind, value, _ in direct_restrictions(cls, prop))
 
+
+def rdf_list_values(head):
+    out = []
+    seen = set()
+    cur = head
+    while cur != RDF.nil:
+        if cur in seen:
+            raise AssertionError("Cycle in RDF list")
+        seen.add(cur)
+        first = next(iter(g.objects(cur, RDF.first)), None)
+        rest = next(iter(g.objects(cur, RDF.rest)), None)
+        if first is None or rest is None:
+            raise AssertionError("Malformed RDF list")
+        out.append(first)
+        cur = rest
+    return out
+
 props = [EDO.hasEnd, EDO.hasConnectionPoint, EDO.hasConnectionInterface, EDO.hasMountingPoint, EDO.hasInstallationPoint]
 roots = [EDO.LinearObject, EDO.Connector, EDO.Jumper, EDO.LineTermination, EDO.PipeSegment, EDO.Valve, EDO.SplitCollar, EDO.HangOffCollar, EDO.EndFitting, EDO.FlangeAdapter]
 
@@ -188,15 +205,38 @@ emit(f"UTA_UTM equivalent={'yes' if uta_utm_equivalent else 'no'}")
 
 emit("=== FUNCTION-LINE TERMINATION CHECK ===")
 func_end_min_hw = has_min(EDO.FunctionLineEnd, EDO.isTerminatedBy, EDO.DomainElement, 1)
-umb_end_min_exposed = has_min(EDO.UmbilicalEnd, EDO.hasExposedInterface, EDO.ConnectionInterface, 1)
+umb_end_min_exposed = has_min(EDO.UmbilicalEnd, EDO.exposesServiceInterface, EDO.ConnectionInterface, 1)
 tubing_end_term_coupling = has_min(EDO.TubingEnd, EDO.isTerminatedBy, EDO.TubingCoupling, 1)
 tubing_coupling_two_ports = has_exact(EDO.TubingCoupling, EDO.hasConnectionPoint, EDO.FluidPort, 2)
 internal_external_intrinsic_types = EDO.InternalConnectionInterface in classes or EDO.ExternalConnectionInterface in classes
 emit(f"FunctionLineEnd min1TerminalHardware={'yes' if func_end_min_hw else 'no'}")
-emit(f"UmbilicalEnd min1ExposedInterface={'yes' if umb_end_min_exposed else 'no'}")
+emit(f"UmbilicalEnd min1ExposedServiceInterface={'yes' if umb_end_min_exposed else 'no'}")
 emit(f"TubingEnd min1TubingCoupling={'yes' if tubing_end_term_coupling else 'no'}")
 emit(f"TubingCoupling exact2FluidPort={'yes' if tubing_coupling_two_ports else 'no'}")
 emit(f"IntrinsicInternalExternalInterfaceTypes={'yes' if internal_external_intrinsic_types else 'no'}")
+
+emit("=== CONNECTION INTERFACE SPECIFICATION CHECK ===")
+spec_is_specification = (EDO.ConnectionInterfaceSpecification, RDFS.subClassOf, EDO.Specification) in g
+interface_one_spec = has_exact(EDO.ConnectionInterface, EDO.hasInterfaceSpecification, EDO.ConnectionInterfaceSpecification, 1)
+interface_spec_sub_has_spec = (EDO.hasInterfaceSpecification, RDFS.subPropertyOf, EDO.hasSpec) in g
+spec_compat_symmetric = (EDO.isMatingCompatibleWith, RDF.type, OWL.SymmetricProperty) in g
+interface_compat_symmetric = (EDO.isInterfaceCompatibleWith, RDF.type, OWL.SymmetricProperty) in g
+spec_compat_transitive = (EDO.isMatingCompatibleWith, RDF.type, OWL.TransitiveProperty) in g
+interface_compat_transitive = (EDO.isInterfaceCompatibleWith, RDF.type, OWL.TransitiveProperty) in g
+connected_sub_compatible = (EDO.isInterfaceConnectedTo, RDFS.subPropertyOf, EDO.isInterfaceCompatibleWith) in g
+chains = [rdf_list_values(h) for h in g.objects(EDO.isInterfaceCompatibleWith, OWL.propertyChainAxiom)]
+same_spec_chain = [EDO.hasInterfaceSpecification, EDO.isInterfaceSpecificationOf] in chains
+compatible_spec_chain = [EDO.hasInterfaceSpecification, EDO.isMatingCompatibleWith, EDO.isInterfaceSpecificationOf] in chains
+compat_cardinality = any((r, RDF.type, OWL.Restriction) in g for r in g.subjects(OWL.onProperty, EDO.isInterfaceCompatibleWith))
+emit(f"ConnectionInterfaceSpecification subclassSpecification={'yes' if spec_is_specification else 'no'}")
+emit(f"ConnectionInterface exact1InterfaceSpecification={'yes' if interface_one_spec else 'no'}")
+emit(f"hasInterfaceSpecification subPropertyOfHasSpec={'yes' if interface_spec_sub_has_spec else 'no'}")
+emit(f"isMatingCompatibleWith symmetric={'yes' if spec_compat_symmetric else 'no'} transitive={'yes' if spec_compat_transitive else 'no'}")
+emit(f"isInterfaceCompatibleWith symmetric={'yes' if interface_compat_symmetric else 'no'} transitive={'yes' if interface_compat_transitive else 'no'}")
+emit(f"isInterfaceConnectedTo subPropertyOfCompatible={'yes' if connected_sub_compatible else 'no'}")
+emit(f"sameSpecification compatibilityChain={'yes' if same_spec_chain else 'no'}")
+emit(f"declaredSpecificationCompatibility chain={'yes' if compatible_spec_chain else 'no'}")
+emit(f"isInterfaceCompatibleWith cardinalityRestriction={'yes' if compat_cardinality else 'no'}")
 
 assert EDO.ConnectionPoint in classes and EDO.ConnectionInterface in classes and EDO.LinearEnd in classes
 assert EDO.FlexiblePipeBody in classes and EDO.UmbilicalEnd in classes and EDO.FunctionLineEnd in classes
@@ -208,6 +248,11 @@ assert armor_is_component_device and not armor_is_line_termination
 assert uta_one_end and uta_min_hw and utm_is_module and not uta_utm_equivalent
 assert func_end_min_hw and umb_end_min_exposed and tubing_end_term_coupling and tubing_coupling_two_ports
 assert not internal_external_intrinsic_types, "Internal/external are contextual interface roles, not intrinsic interface classes"
+assert spec_is_specification and interface_one_spec and interface_spec_sub_has_spec
+assert spec_compat_symmetric and interface_compat_symmetric
+assert not spec_compat_transitive and not interface_compat_transitive
+assert connected_sub_compatible and same_spec_chain and compatible_spec_chain
+assert not compat_cardinality, "Chain-derived interface compatibility must not carry cardinality restrictions"
 emit("audit_status=ok")
 
 REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
