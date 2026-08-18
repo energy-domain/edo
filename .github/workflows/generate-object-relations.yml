@@ -46,14 +46,16 @@ jobs:
             echo 'Malformed duplicated EDO IRI found.'
             exit 1
           fi
-      - name: Commit generated ontology
+      - name: Commit generated ontology and audit
         run: |
-          if git diff --quiet -- core/edo-object-relations.ttl && git ls-files --error-unmatch core/edo-object-relations.ttl >/dev/null 2>&1; then
+          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt && \
+             git ls-files --error-unmatch core/edo-object-relations.ttl >/dev/null 2>&1 && \
+             git ls-files --error-unmatch core/edo-connection-topology-audit.txt >/dev/null 2>&1; then
             echo 'No generated changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add core/edo-object-relations.ttl
-          git commit -m 'Generate object-relations ontology'
+          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt
+          git commit -m 'Generate object-relations ontology and topology audit'
           git push
