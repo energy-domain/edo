@@ -20,7 +20,9 @@ on:
       - tools/refine_umbilical_termination_model.py
       - tools/complete_function_line_termination.py
       - tools/add_connection_interface_specification.py
+      - tools/add_flange_interface_specification.py
       - tools/audit_connection_topology.py
+      - tools/audit_interface_specifications.py
       - .github/workflows/generate-object-relations.yml
   workflow_dispatch:
 
@@ -51,8 +53,11 @@ jobs:
       - run: python tools/refine_umbilical_termination_model.py
       - run: python tools/complete_function_line_termination.py
       - run: python tools/add_connection_interface_specification.py
+      - run: python tools/add_flange_interface_specification.py
       - name: Audit connection topology
         run: python tools/audit_connection_topology.py
+      - name: Audit interface specifications
+        run: python tools/audit_interface_specifications.py
       - name: Validate generated Turtle
         run: |
           python -c "from rdflib import Graph; g=Graph(); g.parse('core/edo-object-relations.ttl', format='turtle'); print(f'validated {len(g)} triples')"
@@ -60,16 +65,17 @@ jobs:
             echo 'Malformed duplicated EDO IRI found.'
             exit 1
           fi
-      - name: Commit generated ontology and audit
+      - name: Commit generated ontology and audits
         run: |
-          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt && \
+          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt && \
              git ls-files --error-unmatch core/edo-object-relations.ttl >/dev/null 2>&1 && \
-             git ls-files --error-unmatch core/edo-connection-topology-audit.txt >/dev/null 2>&1; then
+             git ls-files --error-unmatch core/edo-connection-topology-audit.txt >/dev/null 2>&1 && \
+             git ls-files --error-unmatch core/edo-interface-specification-audit.txt >/dev/null 2>&1; then
             echo 'No generated changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt
-          git commit -m 'Generate object-relations ontology and topology audit'
+          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt
+          git commit -m 'Generate object-relations ontology and audits'
           git push
