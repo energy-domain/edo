@@ -59,13 +59,7 @@ def all_values(cls, prop, target):
     return r
 
 
-# ---------------------------------------------------------------------------
 # External service interfaces are contextual exposures, not interface ownership.
-# ---------------------------------------------------------------------------
-# A terminal interface physically belongs to its connector/coupling/terminal hardware
-# through hasConnectionInterface. The aggregate UmbilicalEnd merely exposes that
-# interface to the outside world, exactly as FlexiblePipeSegmentEnd exposes the flange
-# interface owned by its EndFitting.
 add_objprop(
     "exposesServiceInterface", "hasEndInterface", "LinearEnd", "ConnectionInterface",
     inverse="isServiceInterfaceExposedAt",
@@ -82,34 +76,26 @@ add_objprop(
 )
 g.add((U("exposesServiceInterface"), OWL.inverseOf, U("isServiceInterfaceExposedAt")))
 
-# A finished umbilical end exposes one or more service interfaces, but their total
-# count and service mix are configuration-dependent and therefore deliberately open.
+# A finished umbilical end exposes one or more service interfaces; their total count
+# and service mix remain configuration-dependent.
 qcard("UmbilicalEnd", "exposesServiceInterface", "ConnectionInterface", 1, OWL.minQualifiedCardinality)
 
-# Each functional-line end is physically terminated by at least one terminal hardware
-# element. Do not force exactly one: breakout/transition arrangements can involve more
-# than one physical terminal element.
+# Every functional-line end has terminal hardware, but breakout/transition arrangements
+# may involve more than one physical terminal element.
 qcard("FunctionLineEnd", "isTerminatedBy", "DomainElement", 1, OWL.minQualifiedCardinality)
 
-
-# ---------------------------------------------------------------------------
-# Intrinsic topology of the existing TubingCoupling class.
-# ---------------------------------------------------------------------------
-# Unlike "internal" vs "external", being a two-sided fluid coupling is intrinsic.
-# Orientation is contextual: either of the two FluidPorts may face the functional line
-# or the external system depending on the assembly.
+# TubingCoupling has intrinsic two-sided fluid topology. Internal/external orientation
+# remains contextual to the assembly.
 qcard("TubingCoupling", "hasConnectionPoint", "FluidPort", 2)
 all_values("TubingCoupling", "hasConnectionPoint", "FluidPort")
 
-# Existing Connector subclasses already carry generic min-two connection-point rules
-# and service-specific closures (for example electrical and hydraulic connector
-# classes). No new optical connector class is invented here because core EDO does not
-# yet contain a supported terminal-hardware class for that service.
+# For the currently supported hydraulic case, every TubingEnd is terminated by at
+# least one TubingCoupling. Do not close isTerminatedBy to TubingCoupling only: other
+# transition hardware may coexist in a real termination assembly.
+qcard("TubingEnd", "isTerminatedBy", "TubingCoupling", 1, OWL.minQualifiedCardinality)
 
 
-# ---------------------------------------------------------------------------
-# Guardrails
-# ---------------------------------------------------------------------------
+# Guardrails.
 def has_exact(cls, prop, target, n):
     return any(
         (r, RDF.type, OWL.Restriction) in g
@@ -129,17 +115,18 @@ def has_min(cls, prop, target, n):
         for r in g.objects(U(cls), RDFS.subClassOf)
     )
 
+
 assert (U("isTerminatedBy"), RDF.type, OWL.ObjectProperty) in g
 assert (U("hasTerminalHardware"), RDF.type, OWL.ObjectProperty) in g
 assert (U("exposesServiceInterface"), RDFS.subPropertyOf, U("hasEndInterface")) in g
 assert has_min("UmbilicalEnd", "exposesServiceInterface", "ConnectionInterface", 1)
 assert has_min("FunctionLineEnd", "isTerminatedBy", "DomainElement", 1)
 assert has_exact("TubingCoupling", "hasConnectionPoint", "FluidPort", 2)
+assert has_min("TubingEnd", "isTerminatedBy", "TubingCoupling", 1)
 
-# Do not create intrinsic internal/external port classes or fixed total interface count
-# on UmbilicalEnd; those are contextual/configuration-dependent.
-assert (U("InternalTerminationInterface"), RDF.type, OWL.Class) not in g
-assert (U("ExternalTerminationInterface"), RDF.type, OWL.Class) not in g
+# Internal/external are contextual roles, not intrinsic interface types.
+assert (U("InternalConnectionInterface"), RDF.type, OWL.Class) not in g
+assert (U("ExternalConnectionInterface"), RDF.type, OWL.Class) not in g
 
 for r in set(g.subjects(RDF.type, OWL.Restriction)):
     assert len(list(g.objects(r, OWL.onProperty))) == 1
