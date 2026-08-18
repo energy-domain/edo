@@ -31,6 +31,7 @@ on:
       - tools/add_connectorized_electrical_cable_end.py
       - tools/add_electrical_splice_termination.py
       - tools/add_optical_interface_model.py
+      - tools/add_optical_connector_termination.py
       - tools/audit_connection_topology.py
       - tools/audit_interface_specifications.py
       - tools/audit_electrical_interface_specification_attributes.py
@@ -40,6 +41,7 @@ on:
       - tools/audit_connectorized_electrical_cable_end.py
       - tools/audit_electrical_splice_termination.py
       - tools/audit_optical_interfaces.py
+      - tools/audit_optical_connector_termination.py
       - .github/workflows/generate-object-relations.yml
   workflow_dispatch:
 
@@ -81,6 +83,7 @@ jobs:
       - run: python tools/add_connectorized_electrical_cable_end.py
       - run: python tools/add_electrical_splice_termination.py
       - run: python tools/add_optical_interface_model.py
+      - run: python tools/add_optical_connector_termination.py
       - name: Audit connection topology
         run: python tools/audit_connection_topology.py
       - name: Audit interface specifications
@@ -99,6 +102,8 @@ jobs:
         run: python tools/audit_electrical_splice_termination.py
       - name: Audit optical interfaces
         run: python tools/audit_optical_interfaces.py
+      - name: Audit optical connector termination
+        run: python tools/audit_optical_connector_termination.py
       - name: Validate generated Turtle
         run: |
           python -c "from rdflib import Graph; g=Graph(); g.parse('core/edo-object-relations.ttl', format='turtle'); print(f'validated {len(g)} triples')"
@@ -108,7 +113,7 @@ jobs:
           fi
       - name: Commit generated ontology and audits
         run: |
-          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt core/edo-panel-electrical-connector-audit.txt core/edo-connectorized-electrical-cable-end-audit.txt core/edo-electrical-splice-termination-audit.txt core/edo-optical-interface-audit.txt && \
+          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt core/edo-panel-electrical-connector-audit.txt core/edo-connectorized-electrical-cable-end-audit.txt core/edo-electrical-splice-termination-audit.txt core/edo-optical-interface-audit.txt core/edo-optical-connector-termination-audit.txt && \
              git ls-files --error-unmatch core/edo-object-relations.ttl >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-connection-topology-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-interface-specification-audit.txt >/dev/null 2>&1 && \
@@ -118,12 +123,13 @@ jobs:
              git ls-files --error-unmatch core/edo-panel-electrical-connector-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-connectorized-electrical-cable-end-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-electrical-splice-termination-audit.txt >/dev/null 2>&1 && \
-             git ls-files --error-unmatch core/edo-optical-interface-audit.txt >/dev/null 2>&1; then
+             git ls-files --error-unmatch core/edo-optical-interface-audit.txt >/dev/null 2>&1 && \
+             git ls-files --error-unmatch core/edo-optical-connector-termination-audit.txt >/dev/null 2>&1; then
             echo 'No generated changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt core/edo-panel-electrical-connector-audit.txt core/edo-connectorized-electrical-cable-end-audit.txt core/edo-electrical-splice-termination-audit.txt core/edo-optical-interface-audit.txt
+          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt core/edo-panel-electrical-connector-audit.txt core/edo-connectorized-electrical-cable-end-audit.txt core/edo-electrical-splice-termination-audit.txt core/edo-optical-interface-audit.txt core/edo-optical-connector-termination-audit.txt
           git commit -m 'Generate object-relations ontology and audits'
           git push
