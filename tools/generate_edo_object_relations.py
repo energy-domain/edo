@@ -16,6 +16,12 @@ def U(name):
     return EDO[name]
 
 
+def as_edo_term(term):
+    # rdflib URIRef and BNode are subclasses of str. Only plain Python strings denote
+    # local EDO names; existing RDF terms must pass through unchanged.
+    return U(term) if type(term) is str else term
+
+
 def add_class(name, parent=None, label_en=None, label_pt=None, def_en=None, def_pt=None):
     c = U(name)
     g.add((c, RDF.type, OWL.Class))
@@ -66,19 +72,19 @@ def add_objprop(name, parent=None, domain=None, range_=None, inverse=None,
 def qcard(cls, prop, target, n, pred=OWL.qualifiedCardinality):
     r = BNode()
     g.add((r, RDF.type, OWL.Restriction))
-    g.add((r, OWL.onProperty, U(prop) if isinstance(prop, str) else prop))
-    g.add((r, OWL.onClass, U(target) if isinstance(target, str) else target))
+    g.add((r, OWL.onProperty, as_edo_term(prop)))
+    g.add((r, OWL.onClass, as_edo_term(target)))
     g.add((r, pred, Literal(n, datatype=XSD.nonNegativeInteger)))
-    g.add((U(cls) if isinstance(cls, str) else cls, RDFS.subClassOf, r))
+    g.add((as_edo_term(cls), RDFS.subClassOf, r))
     return r
 
 
 def all_values(cls, prop, target):
     r = BNode()
     g.add((r, RDF.type, OWL.Restriction))
-    g.add((r, OWL.onProperty, U(prop) if isinstance(prop, str) else prop))
-    g.add((r, OWL.allValuesFrom, U(target) if isinstance(target, str) else target))
-    g.add((U(cls) if isinstance(cls, str) else cls, RDFS.subClassOf, r))
+    g.add((r, OWL.onProperty, as_edo_term(prop)))
+    g.add((r, OWL.allValuesFrom, as_edo_term(target)))
+    g.add((as_edo_term(cls), RDFS.subClassOf, r))
     return r
 
 
@@ -263,7 +269,7 @@ all_values("FlangedJoint", "connectsPoint", "FlangeConnection")
 
 # A flanged joint has two distinct functional mechanisms.
 add_class("ConnectionMechanism", "DomainElement", "Connection Mechanism", "Mecanismo de Conexão")
-add_class("BoltedClamping", "ConnectionMechanism", "Bolted Clamping", "Aperto Aparafusado")
+add_class("BoltedClamping", "ConnectionMechanism", "Aperto Aparafusado", "Aperto Aparafusado")
 add_class("GasketSealing", "ConnectionMechanism", "Gasket Sealing", "Vedação por Junta")
 disjoint(["BoltedClamping", "GasketSealing"])
 add_objprop("hasConnectionMechanism", "ConnectionRelation", "PhysicalConnection", "ConnectionMechanism", "isConnectionMechanismOf",
