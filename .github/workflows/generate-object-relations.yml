@@ -36,6 +36,7 @@ on:
       - tools/migrate_structural_domain_relations.py
       - tools/migrate_process_domain_relations.py
       - tools/migrate_operational_domain_relations.py
+      - tools/fix_owl_structural_property_roles.py
       - tools/audit_connection_topology.py
       - tools/audit_interface_specifications.py
       - tools/audit_electrical_interface_specification_attributes.py
@@ -51,6 +52,7 @@ on:
       - tools/audit_structural_domain_relation_migration.py
       - tools/audit_process_domain_relations.py
       - tools/audit_operational_domain_relation_migration.py
+      - tools/audit_owl_structural_property_roles.py
       - tools/audit_domain_relation_migration.py
       - .github/workflows/generate-object-relations.yml
   workflow_dispatch:
@@ -98,6 +100,7 @@ jobs:
       - run: python tools/migrate_structural_domain_relations.py
       - run: python tools/migrate_process_domain_relations.py
       - run: python tools/migrate_operational_domain_relations.py
+      - run: python tools/fix_owl_structural_property_roles.py
       - name: Audit connection topology
         run: python tools/audit_connection_topology.py
       - name: Audit interface specifications
@@ -128,6 +131,8 @@ jobs:
         run: python tools/audit_process_domain_relations.py
       - name: Audit operational DomainRelation migration
         run: python tools/audit_operational_domain_relation_migration.py
+      - name: Audit OWL structural property roles
+        run: python tools/audit_owl_structural_property_roles.py
       - name: Audit DomainRelation migration inventory
         run: python tools/audit_domain_relation_migration.py
       - name: Validate generated Turtle
@@ -139,7 +144,7 @@ jobs:
           fi
       - name: Commit generated ontology and audits
         run: |
-          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt core/edo-panel-electrical-connector-audit.txt core/edo-connectorized-electrical-cable-end-audit.txt core/edo-electrical-splice-termination-audit.txt core/edo-optical-interface-audit.txt core/edo-optical-connector-termination-audit.txt core/edo-optical-splice-termination-audit.txt core/edo-umbilical-connection-audit.txt core/edo-structural-domain-relation-audit.txt core/edo-process-domain-relation-audit.txt core/edo-operational-domain-relation-audit.txt core/edo-domain-relation-migration-audit.txt && \
+          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt core/edo-panel-electrical-connector-audit.txt core/edo-connectorized-electrical-cable-end-audit.txt core/edo-electrical-splice-termination-audit.txt core/edo-optical-interface-audit.txt core/edo-optical-connector-termination-audit.txt core/edo-optical-splice-termination-audit.txt core/edo-umbilical-connection-audit.txt core/edo-structural-domain-relation-audit.txt core/edo-process-domain-relation-audit.txt core/edo-operational-domain-relation-audit.txt core/edo-owl-structural-property-role-audit.txt core/edo-domain-relation-migration-audit.txt && \
              git ls-files --error-unmatch core/edo-object-relations.ttl >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-connection-topology-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-interface-specification-audit.txt >/dev/null 2>&1 && \
@@ -156,12 +161,13 @@ jobs:
              git ls-files --error-unmatch core/edo-structural-domain-relation-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-process-domain-relation-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-operational-domain-relation-audit.txt >/dev/null 2>&1 && \
+             git ls-files --error-unmatch core/edo-owl-structural-property-role-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-domain-relation-migration-audit.txt >/dev/null 2>&1; then
             echo 'No generated changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt core/edo-panel-electrical-connector-audit.txt core/edo-connectorized-electrical-cable-end-audit.txt core/edo-electrical-splice-termination-audit.txt core/edo-optical-interface-audit.txt core/edo-optical-connector-termination-audit.txt core/edo-optical-splice-termination-audit.txt core/edo-umbilical-connection-audit.txt core/edo-structural-domain-relation-audit.txt core/edo-process-domain-relation-audit.txt core/edo-operational-domain-relation-audit.txt core/edo-domain-relation-migration-audit.txt
+          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt core/edo-panel-electrical-connector-audit.txt core/edo-connectorized-electrical-cable-end-audit.txt core/edo-electrical-splice-termination-audit.txt core/edo-optical-interface-audit.txt core/edo-optical-connector-termination-audit.txt core/edo-optical-splice-termination-audit.txt core/edo-umbilical-connection-audit.txt core/edo-structural-domain-relation-audit.txt core/edo-process-domain-relation-audit.txt core/edo-operational-domain-relation-audit.txt core/edo-owl-structural-property-role-audit.txt core/edo-domain-relation-migration-audit.txt
           git commit -m 'Generate object-relations ontology and audits'
           git push
