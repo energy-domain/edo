@@ -90,6 +90,41 @@ def rdf_list(items):
     return head
 
 
+def rdf_list_values(head):
+    values = []
+    seen = set()
+    cur = head
+    while cur != RDF.nil:
+        if cur in seen:
+            raise AssertionError("Cycle in RDF list")
+        seen.add(cur)
+        first = next(iter(g.objects(cur, RDF.first)), None)
+        rest = next(iter(g.objects(cur, RDF.rest)), None)
+        if first is None or rest is None:
+            raise AssertionError("Malformed RDF list")
+        values.append(first)
+        cur = rest
+    return values
+
+
+def remove_rdf_list(head):
+    seen = set()
+    cur = head
+    while cur != RDF.nil and cur not in seen:
+        seen.add(cur)
+        rest = next(iter(g.objects(cur, RDF.rest)), RDF.nil)
+        g.remove((cur, None, None))
+        g.remove((None, None, cur))
+        cur = rest
+
+
+def remove_property_chain(prop, items):
+    for head in list(g.objects(prop, OWL.propertyChainAxiom)):
+        if rdf_list_values(head) == items:
+            g.remove((prop, OWL.propertyChainAxiom, head))
+            remove_rdf_list(head)
+
+
 # ---------------------------------------------------------------------------
 # Consolidated technical contract for one connection interface.
 # ---------------------------------------------------------------------------
@@ -129,8 +164,8 @@ add_objprop(
     "isMatingCompatibleWith", "TechnicalDefinitionRelation",
     "ConnectionInterfaceSpecification", "ConnectionInterfaceSpecification",
     label_en="Is Mating Compatible With", label_pt="É Compatível para Acoplamento Com",
-    def_en="Indicates that two connection-interface specifications permit direct mating without an intervening adapter. Compatibility is symmetric but is not assumed to be transitive.",
-    def_pt="Indica que duas especificações de interface de conexão permitem acoplamento direto sem adaptador intermediário. A compatibilidade é simétrica, mas não é considerada transitiva.",
+    def_en="Indicates that two connection-interface specifications permit direct mating without an intervening adapter. Compatibility is symmetric but is not assumed to be transitive or reflexive.",
+    def_pt="Indica que duas especificações de interface de conexão permitem acoplamento direto sem adaptador intermediário. A compatibilidade é simétrica, mas não é considerada transitiva nem reflexiva.",
     symmetric=True,
 )
 
@@ -138,8 +173,8 @@ add_objprop(
     "isInterfaceCompatibleWith", "ConnectionRelation",
     "ConnectionInterface", "ConnectionInterface",
     label_en="Is Interface Compatible With", label_pt="Interface É Compatível Com",
-    def_en="Indicates that two connection interfaces are compatible for direct mating according to their effective interface specifications. Compatibility expresses possibility, not an actual installed connection.",
-    def_pt="Indica que duas interfaces de conexão são compatíveis para acoplamento direto conforme suas especificações efetivas de interface. Compatibilidade expressa possibilidade, não uma conexão efetivamente instalada.",
+    def_en="Indicates that two connection interfaces are compatible for direct mating according to an explicit mating-compatibility relation between their effective interface specifications. Compatibility expresses possibility, not an actual installed connection.",
+    def_pt="Indica que duas interfaces de conexão são compatíveis para acoplamento direto conforme uma relação explícita de compatibilidade de acoplamento entre suas especificações efetivas de interface. Compatibilidade expressa possibilidade, não uma conexão efetivamente instalada.",
     symmetric=True,
 )
 
@@ -148,22 +183,25 @@ add_objprop(
 # restrictions also preserves the simplicity requirements of isInterfaceConnectedTo.
 g.add((U("isInterfaceConnectedTo"), RDFS.subPropertyOf, U("isInterfaceCompatibleWith")))
 
-# Same consolidated specification => compatible interfaces.
-g.add((
-    U("isInterfaceCompatibleWith"),
-    OWL.propertyChainAxiom,
-    rdf_list([U("hasInterfaceSpecification"), U("isInterfaceSpecificationOf")]),
-))
+same_spec_chain = [U("hasInterfaceSpecification"), U("isInterfaceSpecificationOf")]
+compatible_spec_chain = [
+    U("hasInterfaceSpecification"),
+    U("isMatingCompatibleWith"),
+    U("isInterfaceSpecificationOf"),
+]
 
-# Different specifications explicitly declared mating-compatible => compatible interfaces.
+# Same specification does NOT imply mating compatibility in general: complementary
+# interfaces such as male/female may intentionally use different specifications, while
+# two interfaces sharing a female specification may be incompatible. Remove the former
+# inference explicitly, including from a previously generated snapshot.
+remove_property_chain(U("isInterfaceCompatibleWith"), same_spec_chain)
+
+# Keep exactly one canonical chain for explicitly declared specification compatibility.
+remove_property_chain(U("isInterfaceCompatibleWith"), compatible_spec_chain)
 g.add((
     U("isInterfaceCompatibleWith"),
     OWL.propertyChainAxiom,
-    rdf_list([
-        U("hasInterfaceSpecification"),
-        U("isMatingCompatibleWith"),
-        U("isInterfaceSpecificationOf"),
-    ]),
+    rdf_list(compatible_spec_chain),
 ))
 
 
@@ -189,8 +227,9 @@ assert (U("isInterfaceConnectedTo"), RDFS.subPropertyOf, U("isInterfaceCompatibl
 assert (U("isMatingCompatibleWith"), RDF.type, OWL.TransitiveProperty) not in g
 assert (U("isInterfaceCompatibleWith"), RDF.type, OWL.TransitiveProperty) not in g
 
-chains = list(g.objects(U("isInterfaceCompatibleWith"), OWL.propertyChainAxiom))
-assert len(chains) >= 2
+chains = [rdf_list_values(h) for h in g.objects(U("isInterfaceCompatibleWith"), OWL.propertyChainAxiom)]
+assert same_spec_chain not in chains
+assert chains.count(compatible_spec_chain) == 1
 
 # The chain-derived compatibility property must not be used in cardinality restrictions.
 for r in g.subjects(OWL.onProperty, U("isInterfaceCompatibleWith")):
@@ -204,4 +243,4 @@ g.bind("edo", EDO)
 g.bind("skos", SKOS)
 g.bind("dcterms", DCT)
 g.serialize(destination=PATH, format="turtle")
-print(f"Added connection-interface specifications and compatibility; ontology now has {len(g)} triples")
+print(f"Refined connection-interface specification compatibility; ontology now has {len(g)} triples")
