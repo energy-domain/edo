@@ -19,7 +19,6 @@ def local(term):
 def named_parents(cls):
     return {p for p in g.objects(cls, RDFS.subClassOf) if isinstance(p, URIRef) and str(p).startswith(str(EDO))}
 
-
 parents = defaultdict(set)
 children = defaultdict(set)
 classes = set(g.subjects(RDF.type, OWL.Class))
@@ -30,26 +29,22 @@ for c in classes:
 
 
 def ancestors(cls):
-    seen = set()
-    q = deque([cls])
+    seen = set(); q = deque([cls])
     while q:
         cur = q.popleft()
         for p in parents.get(cur, ()):
             if p not in seen:
-                seen.add(p)
-                q.append(p)
+                seen.add(p); q.append(p)
     return seen
 
 
 def descendants(cls):
-    seen = set()
-    q = deque([cls])
+    seen = set(); q = deque([cls])
     while q:
         cur = q.popleft()
         for ch in children.get(cur, ()):
             if ch not in seen:
-                seen.add(ch)
-                q.append(ch)
+                seen.add(ch); q.append(ch)
     return seen
 
 
@@ -78,10 +73,8 @@ def effective_restrictions(cls, prop):
 
 
 def fmt_target(t):
-    if t is None:
-        return "-"
-    if isinstance(t, URIRef):
-        return local(t)
+    if t is None: return "-"
+    if isinstance(t, URIRef): return local(t)
     return "[anonymous class]"
 
 
@@ -93,19 +86,20 @@ def has_min(cls, prop, target, n):
     return any(kind == "min" and value == n and t == target for _, kind, value, t in effective_restrictions(cls, prop))
 
 
+def direct_positive_cardinality(cls, prop):
+    return any(kind in ("exactly", "min") and value is not None and value > 0 for kind, value, _ in direct_restrictions(cls, prop))
+
 props = [EDO.hasEnd, EDO.hasConnectionPoint, EDO.hasConnectionInterface, EDO.hasMountingPoint, EDO.hasInstallationPoint]
 roots = [EDO.LinearObject, EDO.Connector, EDO.Jumper, EDO.LineTermination, EDO.PipeSegment, EDO.Valve, EDO.SplitCollar, EDO.HangOffCollar, EDO.EndFitting, EDO.FlangeAdapter]
 
 candidates = set()
 for root in roots:
     if root in classes:
-        candidates.add(root)
-        candidates |= descendants(root)
+        candidates.add(root); candidates |= descendants(root)
 
 lines = []
 def emit(text=""):
-    lines.append(text)
-    print(text)
+    lines.append(text); print(text)
 
 emit("=== EDO CONNECTION TOPOLOGY AUDIT ===")
 emit(f"candidate_classes={len(candidates)}")
@@ -140,8 +134,7 @@ for cls in sorted({EDO.LinearObject} | descendants(EDO.LinearObject), key=local)
     exact_two_points = any(kind == "exactly" and n == 2 for _, kind, n, _ in point_rules)
     only_points = [(source, target) for source, kind, _, target in point_rules if kind == "only"]
     emit(f"LINEAR {local(cls)} exact2ends={'yes' if exact_two_ends else 'no'} exact2points={'yes' if exact_two_points else 'no'} pointOnly=" + (",".join(f"{local(s)}->{fmt_target(t)}" for s, t in only_points) or "-"))
-    if not exact_two_ends:
-        linear_failures.append(cls)
+    if not exact_two_ends: linear_failures.append(cls)
 
 emit("=== FLEXIBLE PIPE ASSEMBLY CHECK ===")
 segment_two_ends = has_exact(EDO.FlexiblePipeSegment, EDO.hasEnd, EDO.FlexiblePipeSegmentEnd, 2)
@@ -150,13 +143,13 @@ segment_two_efs = has_exact(EDO.FlexiblePipeSegment, EDO.hasPart, EDO.EndFitting
 body_two_ends = has_exact(EDO.FlexiblePipeBody, EDO.hasEnd, EDO.FlexiblePipeBodyEnd, 2)
 body_two_crimps = has_exact(EDO.FlexiblePipeBody, EDO.hasConnectionPoint, EDO.FlexiblePipeCrimpedConnection, 2)
 body_one_structure = has_exact(EDO.FlexiblePipeBody, EDO.isDefinedByType, EDO.FlexiblePipeStructure, 1)
-segment_has_crimps = bool(effective_restrictions(EDO.FlexiblePipeSegment, EDO.hasConnectionPoint))
+segment_owns_points = direct_positive_cardinality(EDO.FlexiblePipeSegment, EDO.hasConnectionPoint)
 segment_end_one_flange = has_exact(EDO.FlexiblePipeSegmentEnd, EDO.hasEndInterface, EDO.FlangeConnection, 1)
 emit(f"FlexiblePipeSegment exact1FlexiblePipeBody={'yes' if segment_one_body else 'no'}")
 emit(f"FlexiblePipeSegment exact2EndFitting={'yes' if segment_two_efs else 'no'}")
 emit(f"FlexiblePipeSegment exact2FlexiblePipeSegmentEnd={'yes' if segment_two_ends else 'no'}")
 emit(f"FlexiblePipeSegmentEnd exact1FlangeConnection={'yes' if segment_end_one_flange else 'no'}")
-emit(f"FlexiblePipeSegment ownsConnectionPoints={'yes' if segment_has_crimps else 'no'}")
+emit(f"FlexiblePipeSegment ownsConnectionPoints={'yes' if segment_owns_points else 'no'}")
 emit(f"FlexiblePipeBody exact2FlexiblePipeBodyEnd={'yes' if body_two_ends else 'no'}")
 emit(f"FlexiblePipeBody exact2FlexiblePipeCrimpedConnection={'yes' if body_two_crimps else 'no'}")
 emit(f"FlexiblePipeBody exact1FlexiblePipeStructure={'yes' if body_one_structure else 'no'}")
@@ -193,19 +186,28 @@ emit(f"UTA min1TerminalHardware={'yes' if uta_min_hw else 'no'}")
 emit(f"UTM remainsLineTerminationModule={'yes' if utm_is_module else 'no'}")
 emit(f"UTA_UTM equivalent={'yes' if uta_utm_equivalent else 'no'}")
 
-assert EDO.ConnectionPoint in classes
-assert EDO.ConnectionInterface in classes
-assert EDO.LinearEnd in classes
-assert EDO.FlexiblePipeBody in classes
-assert EDO.UmbilicalEnd in classes
-assert EDO.FunctionLineEnd in classes
+emit("=== FUNCTION-LINE TERMINATION CHECK ===")
+func_end_min_hw = has_min(EDO.FunctionLineEnd, EDO.isTerminatedBy, EDO.DomainElement, 1)
+umb_end_min_exposed = has_min(EDO.UmbilicalEnd, EDO.hasExposedInterface, EDO.ConnectionInterface, 1)
+tubing_end_term_coupling = has_min(EDO.TubingEnd, EDO.isTerminatedBy, EDO.TubingCoupling, 1)
+tubing_coupling_two_ports = has_exact(EDO.TubingCoupling, EDO.hasConnectionPoint, EDO.FluidPort, 2)
+internal_external_intrinsic_types = EDO.InternalConnectionInterface in classes or EDO.ExternalConnectionInterface in classes
+emit(f"FunctionLineEnd min1TerminalHardware={'yes' if func_end_min_hw else 'no'}")
+emit(f"UmbilicalEnd min1ExposedInterface={'yes' if umb_end_min_exposed else 'no'}")
+emit(f"TubingEnd min1TubingCoupling={'yes' if tubing_end_term_coupling else 'no'}")
+emit(f"TubingCoupling exact2FluidPort={'yes' if tubing_coupling_two_ports else 'no'}")
+emit(f"IntrinsicInternalExternalInterfaceTypes={'yes' if internal_external_intrinsic_types else 'no'}")
+
+assert EDO.ConnectionPoint in classes and EDO.ConnectionInterface in classes and EDO.LinearEnd in classes
+assert EDO.FlexiblePipeBody in classes and EDO.UmbilicalEnd in classes and EDO.FunctionLineEnd in classes
 assert not linear_failures
-assert segment_one_body and segment_two_efs and segment_two_ends and segment_end_one_flange and not segment_has_crimps and body_two_ends and body_two_crimps and body_one_structure
+assert segment_one_body and segment_two_efs and segment_two_ends and segment_end_one_flange and not segment_owns_points and body_two_ends and body_two_crimps and body_one_structure
 assert umb_two_ends and umb_min_lines and func_two_ends and func_end_min_interface and tubing_two and elec_two and optic_two
 assert not umb_fixed_points, "UmbilicalSegment must not have a fixed total connection-point cardinality"
 assert armor_is_component_device and not armor_is_line_termination
-assert uta_one_end and uta_min_hw
-assert utm_is_module and not uta_utm_equivalent
+assert uta_one_end and uta_min_hw and utm_is_module and not uta_utm_equivalent
+assert func_end_min_hw and umb_end_min_exposed and tubing_end_term_coupling and tubing_coupling_two_ports
+assert not internal_external_intrinsic_types, "Internal/external are contextual interface roles, not intrinsic interface classes"
 emit("audit_status=ok")
 
 REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
