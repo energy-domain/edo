@@ -179,6 +179,20 @@ emit(f"Tubing exact2TubingEnd={'yes' if tubing_two else 'no'}")
 emit(f"ElectricalCable exact2ElectricalCableEnd={'yes' if elec_two else 'no'}")
 emit(f"OpticalFiberCable exact2OpticalFiberCableEnd={'yes' if optic_two else 'no'}")
 
+emit("=== UMBILICAL TERMINATION ROLE CHECK ===")
+armor_is_component_device = (EDO.ArmorPot, RDFS.subClassOf, EDO.ComponentDevice) in g
+armor_is_line_termination = (EDO.ArmorPot, RDFS.subClassOf, EDO.LineTermination) in g
+uta_one_end = has_exact(EDO.UTA, EDO.terminatesEnd, EDO.UmbilicalEnd, 1)
+uta_min_hw = has_min(EDO.UTA, EDO.hasTerminalHardware, EDO.DomainElement, 1)
+utm_is_module = (EDO.UTM, RDFS.subClassOf, EDO.LineTerminationModule) in g
+uta_utm_equivalent = (EDO.UTA, OWL.equivalentClass, EDO.UTM) in g or (EDO.UTM, OWL.equivalentClass, EDO.UTA) in g
+emit(f"ArmorPot parentComponentDevice={'yes' if armor_is_component_device else 'no'}")
+emit(f"ArmorPot parentLineTermination={'yes' if armor_is_line_termination else 'no'}")
+emit(f"UTA exact1UmbilicalEnd={'yes' if uta_one_end else 'no'}")
+emit(f"UTA min1TerminalHardware={'yes' if uta_min_hw else 'no'}")
+emit(f"UTM remainsLineTerminationModule={'yes' if utm_is_module else 'no'}")
+emit(f"UTA_UTM equivalent={'yes' if uta_utm_equivalent else 'no'}")
+
 assert EDO.ConnectionPoint in classes
 assert EDO.ConnectionInterface in classes
 assert EDO.LinearEnd in classes
@@ -189,6 +203,9 @@ assert not linear_failures
 assert segment_one_body and segment_two_efs and segment_two_ends and segment_end_one_flange and not segment_has_crimps and body_two_ends and body_two_crimps and body_one_structure
 assert umb_two_ends and umb_min_lines and func_two_ends and func_end_min_interface and tubing_two and elec_two and optic_two
 assert not umb_fixed_points, "UmbilicalSegment must not have a fixed total connection-point cardinality"
+assert armor_is_component_device and not armor_is_line_termination
+assert uta_one_end and uta_min_hw
+assert utm_is_module and not uta_utm_equivalent
 emit("audit_status=ok")
 
 REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
