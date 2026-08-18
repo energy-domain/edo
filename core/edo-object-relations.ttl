@@ -82,7 +82,7 @@ edo:ActiveConcept a owl:NamedIndividual,
 edo:AnchoringCollar a owl:Class ;
     dcterms:identifier "AnchoringCollar" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:ExternalDiameter ;
+            owl:onClass edo:ClampInternalDiameter ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -90,7 +90,7 @@ edo:AnchoringCollar a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ClampInternalDiameter ;
+            owl:onClass edo:ExternalDiameter ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:SplitCollar ;
@@ -109,19 +109,19 @@ edo:AnchoringCollar a owl:Class ;
 edo:AnodeCollarSet a owl:Class ;
     dcterms:identifier "AnodeCollarSet" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:MetallicStrandSpareQuantity ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:AnodeCollarsQuantity ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:AnodeCollar ;
             owl:onProperty edo:hasPart ],
         [ a owl:Restriction ;
+            owl:onClass edo:MetallicStrandSpareQuantity ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:AnodeCollarsAxialSpacing ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:AnodeCollarsQuantity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:LineAncillary ;
@@ -385,11 +385,7 @@ edo:BatchLevelAttribute a owl:NamedIndividual,
 edo:BendRestrictor a owl:Class ;
     dcterms:identifier "BendRestrictor" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:BendMomentVsShearForceTable_BendingMoment ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:BendMomentVsShearForceTable_Condition ;
+            owl:onClass edo:BendMomentVsShearForceTable ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -397,7 +393,11 @@ edo:BendRestrictor a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:BendMomentVsShearForceTable ;
+            owl:onClass edo:BendMomentVsShearForceTable_Condition ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:BendMomentVsShearForceTable_BendingMoment ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:LineAncillary ;
@@ -449,7 +449,11 @@ edo:BuoyancyModule a owl:Class ;
             owl:onProperty edo:hasMountingPoint ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:LongTermFloatVolume ;
+            owl:onClass edo:ShortTermFloatVolume ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LongTermFloatDensity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -457,19 +461,15 @@ edo:BuoyancyModule a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ShortTermFloatVolume ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:NominalFloatVolume ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:NominalFloatDensity ;
+            owl:onClass edo:LongTermFloatVolume ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:LongTermFloatDensity ;
+            owl:onClass edo:NominalFloatDensity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:LineAncillary ;
@@ -827,13 +827,15 @@ edo:ChainSegment a owl:Class ;
 
 edo:CheckProcess a owl:Class ;
     dcterms:identifier "CheckProcess" ;
-    rdfs:subClassOf edo:Process ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty edo:hasSubject ;
+            owl:someValuesFrom edo:DomainElement ],
+        edo:Process ;
     skos:definition "A process composed of tasks performed to verify the condition, state, conformity or expected behaviour of a domain element or system."@en,
         "Processo composto por tarefas realizadas para verificar a condição, o estado, a conformidade ou o comportamento esperado de um elemento ou sistema do domínio."@pt-br ;
     skos:prefLabel "Check Process"@en,
         "Processo de Verificação"@pt-br ;
-    edo:hasDiscipline edo:CommissioningEngineering ;
-    edo:hasSubject edo:DomainElement .
+    edo:hasDiscipline edo:CommissioningEngineering .
 
 edo:ChemicalInjectionUnit a owl:Class ;
     dcterms:identifier "ChemicalInjectionUnit" ;
@@ -879,15 +881,7 @@ edo:ComponentElement a owl:Class ;
 edo:CompositeMaterialSpecification a owl:Class ;
     dcterms:identifier "CompositeMaterialSpecification" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:UltTensStrAlongFibers ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:UltTensStrPerpendFibers ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RuptDefAlongFibers ;
+            owl:onClass edo:RuptDefPerpendFibers ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -895,7 +889,15 @@ edo:CompositeMaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RuptDefPerpendFibers ;
+            owl:onClass edo:UltTensStrPerpendFibers ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:UltTensStrAlongFibers ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RuptDefAlongFibers ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:MaterialSpecification ;
@@ -920,12 +922,12 @@ edo:ConceptualDesign a owl:NamedIndividual,
 edo:ConnectorizedElectricalCableEnd a owl:Class ;
     dcterms:identifier "ConnectorizedElectricalCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:ElectricalConnectorPort ;
+            owl:onProperty edo:hasEndInterface ],
+        [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:Connector ;
             owl:onProperty edo:isTerminatedBy ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:ElectricalConnectorPort ;
-            owl:onProperty edo:hasEndInterface ],
         edo:ElectricalCableEnd ;
     skos:definition "Electrical cable end whose exposed service interface is provided through connector-based electrical mating hardware. It is a specialization for connectorized termination and does not imply that every electrical cable end is connectorized."@en,
         "Extremidade de cabo elétrico cuja interface de serviço exposta é fornecida por hardware de acoplamento elétrico baseado em conector. É uma especialização para terminação com conector e não implica que toda extremidade de cabo elétrico seja connectorizada."@pt-br ;
@@ -935,12 +937,12 @@ edo:ConnectorizedElectricalCableEnd a owl:Class ;
 edo:ConnectorizedOpticalFiberCableEnd a owl:Class ;
     dcterms:identifier "ConnectorizedOpticalFiberCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:OpticalConnectorPort ;
-            owl:onProperty edo:hasEndInterface ],
-        [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:Connector ;
             owl:onProperty edo:isTerminatedBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:OpticalConnectorPort ;
+            owl:onProperty edo:hasEndInterface ],
         edo:OpticalFiberCableEnd ;
     skos:definition "Optical-fiber cable end whose exposed service interface is provided through detachable connector-based optical mating hardware. It is a specialization for connectorized termination and does not imply that every optical-fiber cable end is connectorized."@en,
         "Extremidade de cabo de fibra óptica cuja interface de serviço exposta é fornecida por hardware óptico de acoplamento baseado em conector destacável. É uma especialização para terminação com conector e não implica que toda extremidade de cabo de fibra óptica seja connectorizada."@pt-br ;
@@ -1649,12 +1651,12 @@ edo:FinancialAttribute a owl:NamedIndividual,
 edo:FlangeAdapter a owl:Class ;
     dcterms:identifier "FlangeAdapter" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:FlangeConnection ;
-            owl:onProperty edo:hasConnectionPoint ],
-        [ a owl:Restriction ;
             owl:onClass edo:FlangeConnection ;
             owl:onProperty edo:hasConnectionPoint ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:FlangeConnection ;
+            owl:onProperty edo:hasConnectionPoint ],
         edo:PressureComponent ;
     skos:definition "Component enabling connection between two different flanges."@en,
         "Peça que permite a conexão entre dois flanges diferentes."@pt-br ;
@@ -1676,19 +1678,7 @@ edo:FlexiblePipeEnd a owl:Class ;
 edo:FlexiblePipeEnvelope a owl:Class ;
     dcterms:identifier "FlexiblePipeEnvelope" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:RequiredRiserConfiguration ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:RequiredDesignLife ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredService ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredPipeSectionApplication ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -1696,15 +1686,23 @@ edo:FlexiblePipeEnvelope a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RequiredMaximumTemperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:RequiredBoreType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RequiredMaxWaterDepth ;
+            owl:onClass edo:RequiredMinimumTemperature ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredRiserConfiguration ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredService ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredMaximumTemperature ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -1712,7 +1710,11 @@ edo:FlexiblePipeEnvelope a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RequiredMinimumTemperature ;
+            owl:onClass edo:RequiredPipeSectionApplication ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredMaxWaterDepth ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:Specification ;
@@ -1726,31 +1728,7 @@ edo:FlexiblePipeEnvelope a owl:Class ;
 edo:FlexiblePipeSegment a owl:Class ;
     dcterms:identifier "FlexiblePipeSegment" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:StrIntOffPLevNomPress ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:StrIntOnNoTensMaxPressValRef ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FatNomPress ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:StrIntOnNoTensNomPress ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FatMaxPressValRef ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaxLengthTolerance ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:ManufacturingNonConformities ;
+            owl:onClass edo:FatMaxPressValRefMult ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -1758,15 +1736,15 @@ edo:FlexiblePipeSegment a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:OffLeakPLevNomPressValRefMult ;
+            owl:onClass edo:EarlyLeakMaxPressTable_TensLimitValRef ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:StrIntOffPLevNomPressValRef ;
+            owl:onClass edo:ManufacturingNonConformities ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:FatNomPressValRefMult ;
+            owl:onClass edo:NominalLength ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -1774,15 +1752,27 @@ edo:FlexiblePipeSegment a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ManufacturingDate ;
+            owl:onClass edo:EarlyLeakMaxPressTable_PressValRef ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:StrIntOnNoTensMaxPressValRefMult ;
+            owl:onClass edo:OffLeakPLevMaxPress ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:StrIntOffPLevMaxPressValRef ;
+            owl:onClass edo:StrIntOnNoTensMaxPress ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaxLengthTolerance ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StrIntOnNoTensNomPress ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StrIntOffPLevNomPress ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -1794,19 +1784,11 @@ edo:FlexiblePipeSegment a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:OffLeakPLevNomPressValRef ;
+            owl:onClass edo:FatNomPress ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:NominalLength ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:EarlyLeakMaxPressTable_PressValRef ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:StrIntOnNoTensNomPressValRef ;
+            owl:onClass edo:StrIntOnNoTensMaxPressValRef ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -1814,23 +1796,11 @@ edo:FlexiblePipeSegment a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:OffLeakPLevMaxPressValRef ;
+            owl:onClass edo:FatNomPressValRef ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:AssemblyShouldObeyModelPolarity ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:OffLeakPLevMaxPress ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FatMaxPress ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:OffLeakPLevMaxPressValRefMult ;
+            owl:onClass edo:EarlyLeakNomPressTable_TensLimit ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -1838,17 +1808,84 @@ edo:FlexiblePipeSegment a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:FatNomPressValRefMult ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:FatMaxPressValRef ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:ManufacturingDate ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:EarlyLeakMaxPressTable_PressValRefMult ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:EarlyLeakMaxPressTable_Press ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StrIntOffPLevMaxPressValRef ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:EarlyLeakMaxPressTable_PressIntValStrat ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:OffLeakPLevNomPressValRefMult ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:EarlyLeakNomPressTable_TensLimitValRef ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StrIntOnNoTensMaxPressValRefMult ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StrIntOffPLevNomPressValRef ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:SpecialRequirements ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:OffLeakPLevMaxPressValRef ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StrIntOnNoTensNomPressValRefMult ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:EarlyLeakNomPressTable_PressValRefMult ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StrIntOnNoTensNomPressValRef ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:OffLeakPLevNomPress ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:StrIntOffPLevMaxPress ;
+            owl:onClass edo:AssemblyShouldObeyModelPolarity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:StrIntOffPLevNomPressValRefMult ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+            owl:allValuesFrom edo:FlexiblePipeSegmentEnd ;
+            owl:onProperty edo:hasEnd ],
+        [ a owl:Restriction ;
+            owl:onClass edo:EndFitting ;
+            owl:onProperty edo:hasPart ;
+            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:unionOf ( edo:FlexiblePipeBody edo:EndFitting edo:LineAncillary ) ] ;
@@ -1858,54 +1895,15 @@ edo:FlexiblePipeSegment a owl:Class ;
             owl:onProperty edo:hasEnd ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:allValuesFrom edo:FlexiblePipeSegmentEnd ;
-            owl:onProperty edo:hasEnd ],
-        [ a owl:Restriction ;
             owl:onClass edo:FlexiblePipeBody ;
             owl:onProperty edo:hasPart ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:EndFitting ;
-            owl:onProperty edo:hasPart ;
-            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:StrIntOnNoTensMaxPress ;
+            owl:onClass edo:StrIntOffPLevMaxPress ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:FatMaxPressValRefMult ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:SpecialRequirements ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:StrIntOnNoTensNomPressValRefMult ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:EarlyLeakMaxPressTable_PressValRefMult ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:EarlyLeakNomPressTable_TensLimitValRef ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:EarlyLeakMaxPressTable_PressIntValStrat ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:EarlyLeakNomPressTable_TensLimit ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:EarlyLeakMaxPressTable_TensLimitValRef ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:EarlyLeakMaxPressTable_Press ;
+            owl:onClass edo:OffLeakPLevMaxPressValRefMult ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -1913,11 +1911,15 @@ edo:FlexiblePipeSegment a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:FatNomPressValRef ;
+            owl:onClass edo:FatMaxPress ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:EarlyLeakNomPressTable_PressValRefMult ;
+            owl:onClass edo:OffLeakPLevNomPressValRef ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StrIntOffPLevNomPressValRefMult ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PipeSegment ;
@@ -1940,13 +1942,13 @@ edo:FlowBase a owl:Class ;
 edo:FlowConnector a owl:Class ;
     dcterms:identifier "FlowConnector" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:FlowConnectorMatingConnection ;
-            owl:onProperty edo:hasConnectionPoint ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
             owl:onClass edo:FluidPort ;
             owl:onProperty edo:hasConnectionPoint ],
+        [ a owl:Restriction ;
+            owl:onClass edo:FlowConnectorMatingConnection ;
+            owl:onProperty edo:hasConnectionPoint ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PressureComponent ;
     skos:definition "Major connector for subsea tie-in to a corresponding hub"@en,
         "Conector de grande porte para acoplamento submarino com um hub/mandril correspondente"@pt-br ;
@@ -1994,11 +1996,10 @@ edo:FullyThreaded a owl:Class ;
 edo:GalvanicConnection a owl:Class ;
     dcterms:identifier "GalvanicConnection" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:AnodeGalvanicConnectionPoint ;
-            owl:onProperty edo:connectsInterface ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+            owl:allValuesFrom edo:MetallicStrandSet ;
+            owl:onProperty edo:hasPart ],
         [ a owl:Restriction ;
-            owl:onClass edo:ProtectedStructureGalvanicConnectionPoint ;
+            owl:onClass edo:AnodeGalvanicConnectionPoint ;
             owl:onProperty edo:connectsInterface ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -2006,11 +2007,12 @@ edo:GalvanicConnection a owl:Class ;
                     owl:unionOf ( edo:AnodeGalvanicConnectionPoint edo:ProtectedStructureGalvanicConnectionPoint ) ] ;
             owl:onProperty edo:connectsInterface ],
         [ a owl:Restriction ;
+            owl:onClass edo:ProtectedStructureGalvanicConnectionPoint ;
+            owl:onProperty edo:connectsInterface ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:MetallicStrandSet ;
-            owl:onProperty edo:hasPart ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:MetallicStrandSet ;
             owl:onProperty edo:hasPart ],
         edo:PhysicalConnection ;
     owl:disjointWith edo:ClampedJoint,
@@ -2057,7 +2059,15 @@ edo:GroovePoint a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:GrvCntrPntDstnceFrmTermFlange ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:SafeWorkingLoad ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:GrooveHeight ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -2065,15 +2075,7 @@ edo:GroovePoint a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:GrvCntrPntDstnceFrmTermFlange ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:GrooveMinimumSupportArea ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:GrooveHeight ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:SupportRegion ;
@@ -2168,19 +2170,19 @@ edo:HangOffCollar a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:UpperItubeDiameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:CollarInternalDiameter ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:SafeWorkingLoad ;
+            owl:onClass edo:MaxDynamicLoad ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MaxDynamicLoad ;
+            owl:onClass edo:UpperItubeDiameter ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:SafeWorkingLoad ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:LineAncillary ;
@@ -2218,11 +2220,11 @@ edo:HistoricalAttribute a owl:NamedIndividual,
 edo:HoldingBandage a owl:Class ;
     dcterms:identifier "HoldingBandage" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:TapesQuantity ;
+            owl:onClass edo:ModulusOfElasticity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ModulusOfElasticity ;
+            owl:onClass edo:TapesQuantity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3096,11 +3098,7 @@ edo:PipeMountPosition a owl:Class ;
 edo:PipePullingHead a owl:Class ;
     dcterms:identifier "PipePullingHead" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:RingGasketType ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RingGasketSpecification ;
+            owl:onClass edo:SafeWorkingLoad ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3108,19 +3106,27 @@ edo:PipePullingHead a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RingGasketOuterDiameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:RingGasketMaterial ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:SafeWorkingLoad ;
+            owl:onClass edo:RingGasketPressureRating ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RingGasketPressureRating ;
+            owl:onClass edo:RingGasketSpecification ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RingGasketOuterDiameter ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RingGasketType ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:PullingHeadType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3129,10 +3135,6 @@ edo:PipePullingHead a owl:Class ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass edo:RingGasketInnerDIameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:PullingHeadType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PullingHead ;
@@ -3170,11 +3172,7 @@ edo:PlasticHose a owl:Class ;
 edo:PolymericMaterialSpecification a owl:Class ;
     dcterms:identifier "PolymericMaterialSpecification" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:EModVsTempTable_Temperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaxPermissibleDeformationStatic ;
+            owl:onClass edo:DiffusionTable_MoleculeIdentifier ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3182,43 +3180,11 @@ edo:PolymericMaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:SolubilityTable_SolubilityCoefficient ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:DiffusionTable_Temperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MinimumTemperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:EModVsTempTable_ElasticityModulus ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:PermeabilityTable ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:DiffusionTable_DiffusionCoefficient ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:PermeabilityTable_MoleculeIdentifier ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:PermeabilityTable_PermeabilityCoefficient ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:PolymericLayerMaterialType ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:PermeabilityTable_PolymerState ;
+            owl:onClass edo:SolubilityTable_SolubilityCoefficient ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3226,15 +3192,23 @@ edo:PolymericMaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:PermeabilityTable_MoleculeIdentifier ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:SolubilityTable ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:PermeabilityTable ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:PermeabilityTable_PermeabilityCoefficient ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:PermeabilityTable_Temperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:DiffusionTable_MoleculeIdentifier ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:DiffusionTable_PolymerState ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3242,15 +3216,43 @@ edo:PolymericMaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:EModVsTempTable_Temperature ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MinimumTemperature ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:PolymericLayerMaterialType ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:MaxPermissibleDeformationDynamic ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:DiffusionTable ;
+            owl:onClass edo:EModVsTempTable_ElasticityModulus ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:SolubilityTable ;
+            owl:onClass edo:DiffusionTable_Temperature ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:PermeabilityTable_PolymerState ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:DiffusionTable_PolymerState ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaxPermissibleDeformationStatic ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:DiffusionTable ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:MaterialSpecification ;
@@ -3400,11 +3402,11 @@ edo:ProtectiveSheath a owl:Class ;
 edo:PullInCollar a owl:Class ;
     dcterms:identifier "PullInCollar" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:WireRopeQuantity ;
+            owl:onClass edo:WireRopeSlingLength ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:WireRopeSlingLength ;
+            owl:onClass edo:WireRopeQuantity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3918,11 +3920,11 @@ edo:SeparatorVessel a owl:Class ;
 edo:Shackle a owl:Class ;
     dcterms:identifier "Shackle" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:WorkingLoadLimit ;
+            owl:onClass edo:ShackleThickness ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ShackleOuterDiameter ;
+            owl:onClass edo:WorkingLoadLimit ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3930,11 +3932,11 @@ edo:Shackle a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ShackleThickness ;
+            owl:onClass edo:ShackleOpeningWidth ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ShackleOpeningWidth ;
+            owl:onClass edo:ShackleOuterDiameter ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:MooringAccessory ;
@@ -4056,12 +4058,12 @@ edo:SpatialAttribute a owl:NamedIndividual,
 edo:SplicedElectricalCableEnd a owl:Class ;
     dcterms:identifier "SplicedElectricalCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:ElectricalSplicePort ;
-            owl:onProperty edo:hasEndInterface ],
-        [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:ElectricalSpliceBox ;
             owl:onProperty edo:isTerminatedBy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:ElectricalSplicePort ;
+            owl:onProperty edo:hasEndInterface ],
         edo:ElectricalCableEnd ;
     skos:definition "Electrical cable end whose termination strategy is an electrical splice rather than a detachable connector. It exposes electrical splice interfaces and is terminated by electrical splice-box hardware, without implying that every electrical cable end is spliced."@en,
         "Extremidade de cabo elétrico cuja estratégia de terminação é uma emenda elétrica em vez de um conector destacável. Expõe interfaces elétricas de emenda e é terminada por hardware de caixa de emenda elétrica, sem implicar que toda extremidade de cabo elétrico seja emendada."@pt-br ;
@@ -4194,55 +4196,7 @@ edo:SubseaOilField a owl:Class ;
 edo:SubseaPipeline a owl:Class ;
     dcterms:identifier "SubseaPipeline" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:UnifilarDiagramRev ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InternalIncidentalPressureTable_PositionReference ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:H2SVolumeConcentration ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:NominalLength ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InternalIncidentalPressureTable_VPosWRTWaterline ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaxDesignAbsIntPresTable ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:BasicProjectRevision ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaxDesignAbsIntPresTable_PositionReference ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InternalDiameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaxDesignAbsIntPresTable_Pressure ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RiserConfiguration ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:CO2VolumePercentage ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InternalIncidentalPressureTable ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -4250,15 +4204,11 @@ edo:SubseaPipeline a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MaterialRequest ;
+            owl:onClass edo:MaximumThermalExchangeCoefficient ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MaximumTemperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaxDesignAbsIntPresTable_VPosWRTWaterline ;
+            owl:onClass edo:InternalIncidentalPressureTable_VPosWRTWaterline ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -4266,23 +4216,15 @@ edo:SubseaPipeline a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:Service ;
+            owl:onClass edo:MaxDesignAbsIntPresTable_PositionReference ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ExecutiveProjectRevision ;
+            owl:onClass edo:MaxDesignAbsIntPresTable ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MaximumThermalExchangeCoefficient ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InternalIncidentalPressureTable_Pressure ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:UnifilarDiagram ;
+            owl:onClass edo:MaterialRequest ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -4290,11 +4232,71 @@ edo:SubseaPipeline a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:UnifilarDiagram ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:BasicProjectRevision ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaximumTemperature ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:MaterialRequestRev ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:ExecutiveProjectRevision ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaxDesignAbsIntPresTable_Pressure ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:InternalIncidentalPressureTable_Pressure ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:InternalIncidentalPressureTable ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:MinimumThermalExchangeCoefficient ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RiserConfiguration ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:InternalIncidentalPressureTable_PositionReference ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:InternalDiameter ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:Service ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:H2SVolumeConcentration ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaxDesignAbsIntPresTable_VPosWRTWaterline ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:CO2VolumePercentage ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:UnifilarDiagramRev ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:Interconnection ;
@@ -4555,16 +4557,16 @@ edo:UNSThreadedFastenerSet a owl:Class ;
 edo:UTA a owl:Class ;
     dcterms:identifier "UTA" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass edo:UmbilicalEnd ;
+            owl:onProperty edo:terminatesEnd ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:allValuesFrom edo:UmbilicalEnd ;
             owl:onProperty edo:terminatesEnd ],
         [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:DomainElement ;
             owl:onProperty edo:hasTerminalHardware ],
-        [ a owl:Restriction ;
-            owl:onClass edo:UmbilicalEnd ;
-            owl:onProperty edo:terminatesEnd ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:SubseaEquipment ;
     skos:definition "Subsea equipment forming an umbilical termination and anchoring assembly, aggregating the structural and service-specific terminal hardware required at one umbilical end."@en,
         "Equipamento submarino que constitui um conjunto de terminação e ancoragem de umbilical, agregando o hardware terminal estrutural e específico de cada serviço requerido em uma extremidade do umbilical."@pt-br ;
@@ -4848,14 +4850,6 @@ edo:hasDomain a owl:AnnotationProperty ;
     skos:definition "Belongs to one or more domains"@en,
         "Associa a entidade a um ou mais domínios"@pt-br .
 
-edo:hasEvidence a owl:ObjectProperty ;
-    rdfs:label "Has Evidence"@en,
-        "Tem Evidência"@pt-br ;
-    dcterms:identifier "hasEvidence" ;
-    rdfs:subPropertyOf edo:InformationRelation ;
-    skos:definition "Associates an activity or task with an information artifact that provides evidence of its execution, condition or result."@en,
-        "Associa uma atividade ou tarefa a um artefato informacional que fornece evidência de sua execução, condição ou resultado."@pt-br .
-
 edo:hasInstallationPoint a owl:ObjectProperty ;
     rdfs:label "Has Installation Point"@en,
         "Tem Ponto de Instalação"@pt-br ;
@@ -4873,14 +4867,6 @@ edo:hasInterconnection a owl:ObjectProperty ;
     rdfs:subPropertyOf edo:FunctionalRelation ;
     skos:definition "Associates a domain entity with a functional interconnection that originates from it, terminates at it or connects it to another entity, without implying that the interconnection is its physical part."@en,
         "Associa uma entidade do domínio a uma interligação funcional que parte dela, chega a ela ou a conecta a outra entidade, sem implicar que a interligação seja sua parte física."@pt-br .
-
-edo:hasIssue a owl:ObjectProperty ;
-    rdfs:label "Has Issue"@en,
-        "Tem Pendência"@pt-br ;
-    dcterms:identifier "hasIssue" ;
-    rdfs:subPropertyOf edo:InformationRelation ;
-    skos:definition "Associates an activity or task with an issue recorded in its context."@en,
-        "Associa uma atividade ou tarefa a uma pendência registrada em seu contexto."@pt-br .
 
 edo:hasLifecycleCreationPhase a owl:AnnotationProperty ;
     rdfs:label "has lifecycle creation phase"@en,
@@ -4927,14 +4913,6 @@ edo:hasOperatingState a owl:ObjectProperty ;
     skos:definition "Associates a design operating condition with a required state defined for a position or reference point along the engineered line."@en,
         "Associa uma condição operacional de projeto a um estado requerido definido para uma posição ou ponto de referência ao longo da linha de engenharia."@pt-br .
 
-edo:hasResponsibleAgent a owl:ObjectProperty ;
-    rdfs:label "Has Responsible Agent"@en,
-        "Tem Agente Responsável"@pt-br ;
-    dcterms:identifier "hasResponsibleAgent" ;
-    rdfs:subPropertyOf edo:OrganizationalRelation ;
-    skos:definition "Associates a domain entity with the agent responsible for an activity, task, deliverable or decision."@en,
-        "Associa uma entidade do domínio ao agente responsável por uma atividade, tarefa, entrega ou decisão."@pt-br .
-
 edo:hasSparePart a owl:ObjectProperty ;
     rdfs:label "Has Spare Part"@en,
         "Tem Sobressalente"@pt-br ;
@@ -4953,22 +4931,6 @@ edo:hasSubDomain a owl:AnnotationProperty ;
     rdfs:subPropertyOf edo:DomainClassificationAnnotation ;
     skos:definition "Belongs to one or more subdomains"@en,
         "Associa a entidade a um ou mais subdomínios"@pt-br .
-
-edo:hasSubject a owl:ObjectProperty ;
-    rdfs:label "Has Subject"@en,
-        "Tem Objeto"@pt-br ;
-    dcterms:identifier "hasSubject" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
-    skos:definition "Associates an activity or information artifact with the domain element that is its subject or object of attention."@en,
-        "Associa uma atividade ou artefato informacional ao elemento do domínio que constitui seu objeto de atenção."@pt-br .
-
-edo:hasTask a owl:ObjectProperty ;
-    rdfs:label "Has Task"@en,
-        "Tem Tarefa"@pt-br ;
-    dcterms:identifier "hasTask" ;
-    rdfs:subPropertyOf edo:PartWholeRelation ;
-    skos:definition "Associates a process with a task that composes or participates in that process."@en,
-        "Associa um processo a uma tarefa que o compõe ou dele participa."@pt-br .
 
 edo:hasTypedValue a owl:AnnotationProperty ;
     rdfs:label "Has Typed Value"@en,
@@ -5364,15 +5326,15 @@ edo:CivilEngineering a owl:NamedIndividual,
 edo:ClampedJoint a owl:Class ;
     dcterms:identifier "ClampedJoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass edo:CollarClampingSurface ;
+            owl:onProperty edo:connectsInterface ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:unionOf ( edo:CollarClampingSurface edo:PipeClampingSurface ) ] ;
             owl:onProperty edo:connectsInterface ],
         [ a owl:Restriction ;
             owl:onClass edo:PipeClampingSurface ;
-            owl:onProperty edo:connectsInterface ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:CollarClampingSurface ;
             owl:onProperty edo:connectsInterface ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PhysicalConnection ;
@@ -5520,47 +5482,7 @@ edo:DamagingPullInStraightLine a owl:Class ;
 edo:DesignOperatingCondition a owl:Class ;
     dcterms:identifier "DesignOperatingCondition" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:RequiredMaxCO2MolarFraction ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredInternalFluid ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredFlowReferencePressure ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredFlowRegime ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:RequiredMaxWaterCut ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredVolumetricFlowRate ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredPH ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredHydrocarbonMolarComposition ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredOperatingConditionId ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredFlowReferenceTemperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RequiredOperatingDuration ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -5568,19 +5490,31 @@ edo:DesignOperatingCondition a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RequiredOperation ;
+            owl:onClass edo:RequiredHydrocarbonMolarComposition ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RequiredMaxO2VolumeConcentration ;
+            owl:onClass edo:RequiredFlowReferencePressure ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RequiredBicarbonateConcentration ;
+            owl:onClass edo:RequiredVolumetricFlowRate ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredInternalFluid ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredFlowReferenceTemperature ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass edo:RequiredChlorideConcentration ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredBicarbonateConcentration ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -5589,6 +5523,34 @@ edo:DesignOperatingCondition a owl:Class ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass edo:RequiredMaxH2SVolumeConcentration ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredOperation ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredMaxCO2MolarFraction ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredOperatingConditionId ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredPH ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredMaxO2VolumeConcentration ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredOperatingDuration ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredFlowRegime ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:Specification ;
@@ -5602,19 +5564,19 @@ edo:DesignOperatingCondition a owl:Class ;
 edo:DesignOperatingState a owl:Class ;
     dcterms:identifier "DesignOperatingState" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:RequiredOperatingTemperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:RequiredFluidDensity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RequiredOperatingPressure ;
+            owl:onClass edo:RequiredPositionReference ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RequiredPositionReference ;
+            owl:onClass edo:RequiredOperatingTemperature ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RequiredOperatingPressure ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:Specification ;
@@ -5985,12 +5947,12 @@ edo:ElasticityModulusAt23Degrees a owl:Class ;
 edo:ElectricalControlCable a owl:Class ;
     dcterms:identifier "ElectricalControlCable" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:ElectricalControlCableEnd ;
-            owl:onProperty edo:hasEnd ],
-        [ a owl:Restriction ;
             owl:onClass edo:ElectricalControlCableEnd ;
             owl:onProperty edo:hasEnd ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:ElectricalControlCableEnd ;
+            owl:onProperty edo:hasEnd ],
         edo:ElectricalCable ;
     skos:definition "Electrical cable used for signal, control, instrumentation, electrical communication or low-power auxiliary supply functions within an umbilical or related subsea system."@en,
         "Cabo elétrico usado para funções de sinal, controle, instrumentação, comunicação elétrica ou alimentação auxiliar de baixa potência em um umbilical ou sistema submarino relacionado."@pt-br ;
@@ -6009,12 +5971,12 @@ edo:ElectricalControlConnectorPort a owl:Class ;
 edo:ElectricalPowerCable a owl:Class ;
     dcterms:identifier "ElectricalPowerCable" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:ElectricalPowerCableEnd ;
-            owl:onProperty edo:hasEnd ],
-        [ a owl:Restriction ;
             owl:onClass edo:ElectricalPowerCableEnd ;
             owl:onProperty edo:hasEnd ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:ElectricalPowerCableEnd ;
+            owl:onProperty edo:hasEnd ],
         edo:ElectricalCable ;
     skos:definition "Electrical cable used primarily for transmission of electrical power to supply electrical loads, without defining the cable by an arbitrary voltage or current threshold."@en,
         "Cabo elétrico usado principalmente para transmissão de potência elétrica destinada à alimentação de cargas, sem definir o cabo por um limiar arbitrário de tensão ou corrente."@pt-br ;
@@ -6033,11 +5995,11 @@ edo:ElectricalPowerConnectorPort a owl:Class ;
 edo:ElectricalSpliceBox a owl:Class ;
     dcterms:identifier "ElectricalSpliceBox" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:ElectricalSplicePort ;
-            owl:onProperty edo:hasConnectionPoint ],
-        [ a owl:Restriction ;
             owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
             owl:onClass edo:ElectricalSplicePort ;
+            owl:onProperty edo:hasConnectionPoint ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:ElectricalSplicePort ;
             owl:onProperty edo:hasConnectionPoint ],
         edo:SpliceBox ;
     skos:definition "Splice box providing enclosed electrical splice termination for two or more electrical splice interfaces. The class specializes the generic splice-box concept without preventing other splice-box technologies, such as optical splice boxes, from being represented separately."@en,
@@ -6194,119 +6156,7 @@ edo:FlangeInterfaceSpecification a owl:Class ;
 edo:FlexiblePipeStructure a owl:Class ;
     dcterms:identifier "FlexiblePipeStructure" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:LayingMinimumRadiusTable_MinimumAllowableBendingRadius ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayingMinimumRadiusTable_Compression ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:HydrostaticCollapseAbsPressDry ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:OutsideTemperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:TensionerPadsOpeningAngle ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:TensileArmourAnnulusCondition ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaximumAllowableTensileForStraightLine ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:DamagingPullInStraightLine ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FrictionCoefficientTighteningTable_CoefficientOfFriction ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:ThermalExchangeCoefficientFlooded ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InternalDiameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaxDesignPressure ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:IntermediateValuesStrategy ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:CriticalCurvatureOfSlipping ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:UtilizationFactor ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaximumAllowableTighteningTable_TighteningPerTrack ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:DimensioningCriteria ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FlexibleStructureServicesList ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:BendingMomentTable_Curvature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:OuterDiameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MinimumBendingRadiusForStorage ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaximumAllowableTensionTable_PulleyRadius ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LinearMass ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayingMinimumRadiusTable_AbsoluteInternalPressure ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:AxialStiffnessUnderCompressionAtSeaLevel ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:PostSlippingBendingStiffness ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:SpoolingTension ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaximumAllowableTighteningTable_AxialLoad ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:TensionerPadsMaterial ;
+            owl:onClass edo:InsideTemperature ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -6314,67 +6164,15 @@ edo:FlexiblePipeStructure a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ErosionalVelocity ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InsideTemperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:TensionerPadsShape ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:AxialStiffnessUnderTensionAtSeaLevel ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayingMinimumRadiusTable_SectionSupportedByRigidSupport ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LimpTorsionalStiffnessAtSeaLevel ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:AbsoluteOutsidePressure ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FrictionCoefficientTighteningTable_TighteningPerTrack ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:CalculatedAbsoluteBurstPressure ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:AbsoluteInsidePressure ;
+            owl:onClass edo:LinearMass ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:BendingMomentTable_BendingMoment ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:StiffTorsionalStiffnessAtSeaLevel ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:TestConditions ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaximumAllowableTensionTable_MaximumAllowableTensile ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:StructureApplicationsList ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MaximumAllowableTensionTable_PulleyVAngle ;
+            owl:onClass edo:AxialStiffnessUnderCompressionAtSeaLevel ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -6382,19 +6180,35 @@ edo:FlexiblePipeStructure a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:AbsoluteOutsidePressure ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:AxialStiffnessUnderTensionAtSeaLevel ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:DimensioningCriteria ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaximumAllowableTensionTable_MaximumAllowableTensile ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayingMinimumRadiusTable_AbsoluteInternalPressure ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:ThermalExchangeCoefficientFlooded ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:StructureCode ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:TensileArmourFreeAnnulusVolume ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayingMinimumRadiusTable_TensileArmourAnnulusCondition ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayingMinimumRadiusTable_AbsoluteExternalPressure ;
+            owl:onClass edo:LayingMinimumRadiusTable_MinimumAllowableBendingRadius ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -6402,7 +6216,155 @@ edo:FlexiblePipeStructure a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:BendingMomentTable_Curvature ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:FrictionCoefficientTighteningTable_CoefficientOfFriction ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:CriticalCurvatureOfSlipping ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:SpoolingTension ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:TensionerTracksQuantity ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:IntermediateValuesStrategy ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayingMinimumRadiusTable_SectionSupportedByRigidSupport ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:TensionerPadsOpeningAngle ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:TensionerPadsShape ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:UtilizationFactor ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StiffTorsionalStiffnessAtSeaLevel ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:AbsoluteInsidePressure ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:StructureApplicationsList ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:InternalDiameter ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaximumAllowableTensionTable_PulleyVAngle ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:TestConditions ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:TensileArmourAnnulusCondition ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayingMinimumRadiusTable_AbsoluteExternalPressure ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaxDesignPressure ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaximumAllowableTighteningTable_AxialLoad ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:FlexibleStructureServicesList ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaximumAllowableTensileForStraightLine ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LimpTorsionalStiffnessAtSeaLevel ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaximumAllowableTighteningTable_TighteningPerTrack ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayingMinimumRadiusTable_TensileArmourAnnulusCondition ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:FrictionCoefficientTighteningTable_TighteningPerTrack ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:OuterDiameter ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:PostSlippingBendingStiffness ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:HydrostaticCollapseAbsPressDry ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaximumAllowableTensionTable_PulleyRadius ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:BendingMomentTable_BendingMoment ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:OutsideTemperature ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:TensileArmourFreeAnnulusVolume ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:DamagingPullInStraightLine ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:ErosionalVelocity ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:TensionerPadsMaterial ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MinimumBendingRadiusForStorage ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayingMinimumRadiusTable_Compression ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:FlexibleStructure ;
@@ -7837,12 +7799,12 @@ edo:OpticalConnectorSpecification a owl:Class ;
 edo:OpticalFiberCable a owl:Class ;
     dcterms:identifier "OpticalFiberCable" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:OpticalFiberCableEnd ;
+            owl:onProperty edo:hasEnd ],
+        [ a owl:Restriction ;
             owl:onClass edo:OpticalFiberCableEnd ;
             owl:onProperty edo:hasEnd ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:OpticalFiberCableEnd ;
-            owl:onProperty edo:hasEnd ],
         edo:FunctionLine ;
     skos:definition "Represents an optical fiber cable within a function line, transmitting optical signals for communication or sensing purposes."@en,
         "Representa um cabo de fibra óptica dentro de uma linha funcional, transmitindo sinais ópticos para comunicação ou monitoramento."@pt-br ;
@@ -7856,11 +7818,11 @@ edo:OpticalFiberCable a owl:Class ;
 edo:OpticalSpliceBox a owl:Class ;
     dcterms:identifier "OpticalSpliceBox" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-            owl:onClass edo:OpticalSplicePort ;
+            owl:allValuesFrom edo:OpticalSplicePort ;
             owl:onProperty edo:hasConnectionPoint ],
         [ a owl:Restriction ;
-            owl:allValuesFrom edo:OpticalSplicePort ;
+            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:OpticalSplicePort ;
             owl:onProperty edo:hasConnectionPoint ],
         edo:SpliceBox ;
     skos:definition "Splice box providing enclosed optical splice termination for two or more optical splice interfaces. The class specializes the generic splice-box concept without constraining electrical or other splice-box technologies."@en,
@@ -8116,6 +8078,13 @@ edo:PreSlippingBendingStiffness a owl:Class ;
 edo:Process a owl:Class ;
     dcterms:identifier "Process" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:Task ;
+            owl:onProperty edo:hasTask ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:Task ;
+            owl:onProperty edo:hasTask ],
+        [ a owl:Restriction ;
             owl:onClass edo:Planned_Start_Timestamp ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -8124,8 +8093,7 @@ edo:Process a owl:Class ;
         "Atividade estruturada composta por tarefas coordenadas e, potencialmente, outros elementos de processo, organizados para alcançar um resultado definido."@pt-br ;
     skos:prefLabel "Process"@en,
         "Processo"@pt-br ;
-    edo:hasDiscipline edo:CommissioningEngineering ;
-    edo:hasTask edo:Task .
+    edo:hasDiscipline edo:CommissioningEngineering .
 
 edo:ProcessingModule a owl:Class ;
     dcterms:identifier "ProcessingModule" ;
@@ -9298,34 +9266,6 @@ edo:SupplierProvidedMaterialName a owl:Class ;
     edo:hasTypedValue edo:StringValue ;
     edo:hasValueCardinality edo:SingleValue .
 
-edo:Task a owl:Class ;
-    dcterms:identifier "Task" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:Creator ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:CreatorId ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:Timestamp ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:Content ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        edo:Activity ;
-    skos:definition "An activity representing a defined unit of work to be planned, assigned, executed and tracked within a process."@en,
-        "Atividade que representa uma unidade definida de trabalho a ser planejada, atribuída, executada e acompanhada dentro de um processo."@pt-br ;
-    skos:prefLabel "Task"@en,
-        "Tarefa"@pt-br ;
-    edo:hasDiscipline edo:CommissioningEngineering ;
-    edo:hasEvidence edo:Evidence ;
-    edo:hasIssue edo:Issue ;
-    edo:hasResponsibleAgent edo:Agent .
-
 edo:TechnicalDisciplines a owl:NamedIndividual,
         skos:Concept,
         edo:DomainVocabularyConcept ;
@@ -9634,16 +9574,16 @@ edo:UltimateTensileStress a owl:Class ;
 edo:UmbilicalSegment a owl:Class ;
     dcterms:identifier "UmbilicalSegment" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass edo:FunctionLine ;
-            owl:onProperty edo:hasPart ],
-        [ a owl:Restriction ;
             owl:allValuesFrom edo:UmbilicalEnd ;
             owl:onProperty edo:hasEnd ],
         [ a owl:Restriction ;
             owl:onClass edo:UmbilicalEnd ;
             owl:onProperty edo:hasEnd ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:FunctionLine ;
+            owl:onProperty edo:hasPart ],
         edo:TransportLineSegment ;
     skos:prefLabel "Umbilical Segment"@en,
         "Tramo de Umbilical"@pt-br ;
@@ -9827,6 +9767,22 @@ edo:hasElectricalContactSpecification a owl:ObjectProperty ;
     skos:definition "Associates an electrical connector specification with an optional detailed specification of one of its contact positions. No minimum is imposed so aggregate-only connector specifications remain valid."@en,
         "Associa uma especificação de conector elétrico a uma especificação detalhada opcional de uma de suas posições de contato. Nenhum mínimo é imposto, de modo que especificações apenas agregadas permaneçam válidas."@pt-br .
 
+edo:hasEvidence a owl:ObjectProperty ;
+    rdfs:label "Has Evidence"@en,
+        "Tem Evidência"@pt-br ;
+    dcterms:identifier "hasEvidence" ;
+    rdfs:subPropertyOf edo:InformationRelation ;
+    skos:definition "Associates an activity or task with an information artifact that provides evidence of its execution, condition or result."@en,
+        "Associa uma atividade ou tarefa a um artefato informacional que fornece evidência de sua execução, condição ou resultado."@pt-br .
+
+edo:hasIssue a owl:ObjectProperty ;
+    rdfs:label "Has Issue"@en,
+        "Tem Pendência"@pt-br ;
+    dcterms:identifier "hasIssue" ;
+    rdfs:subPropertyOf edo:InformationRelation ;
+    skos:definition "Associates an activity or task with an issue recorded in its context."@en,
+        "Associa uma atividade ou tarefa a uma pendência registrada em seu contexto."@pt-br .
+
 edo:hasMaterial a owl:ObjectProperty ;
     rdfs:label "Has Material"@en,
         "Tem Material"@pt-br ;
@@ -9839,6 +9795,14 @@ edo:hasMaterial a owl:ObjectProperty ;
     skos:definition "Associates a domain element with the material it is made of, without prescribing a specific modelling pattern for material definitions."@en,
         "Associa um elemento do domínio ao material do qual é feito, sem impor um padrão específico de modelagem para definições de material."@pt-br .
 
+edo:hasResponsibleAgent a owl:ObjectProperty ;
+    rdfs:label "Has Responsible Agent"@en,
+        "Tem Agente Responsável"@pt-br ;
+    dcterms:identifier "hasResponsibleAgent" ;
+    rdfs:subPropertyOf edo:OrganizationalRelation ;
+    skos:definition "Associates a domain entity with the agent responsible for an activity, task, deliverable or decision."@en,
+        "Associa uma entidade do domínio ao agente responsável por uma atividade, tarefa, entrega ou decisão."@pt-br .
+
 edo:hasSpec a owl:ObjectProperty ;
     rdfs:label "Has Specification"@en,
         "Tem Especificação"@pt-br ;
@@ -9848,6 +9812,14 @@ edo:hasSpec a owl:ObjectProperty ;
     rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
     skos:definition "Associates a domain entity with a specification, requirement or technical artefact that defines, limits or governs its selection and compatibility."@en,
         "Associa uma entidade do domínio a uma especificação, requisito ou artefato técnico que define, limita ou governa sua seleção e compatibilidade."@pt-br .
+
+edo:hasSubject a owl:ObjectProperty ;
+    rdfs:label "Has Subject"@en,
+        "Tem Objeto"@pt-br ;
+    dcterms:identifier "hasSubject" ;
+    rdfs:subPropertyOf edo:DomainRelation ;
+    skos:definition "Associates an activity or information artifact with the domain element that is its subject or object of attention."@en,
+        "Associa uma atividade ou artefato informacional ao elemento do domínio que constitui seu objeto de atenção."@pt-br .
 
 edo:isConnectionMechanismOf a owl:ObjectProperty ;
     rdfs:label "Is Connection Mechanism Of"@en,
@@ -9978,20 +9950,20 @@ edo:AnodeCollar a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:ClampInternalDiameter ;
+            owl:onClass edo:GalvanicMaterial ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MountingPoint ;
-            owl:onProperty edo:hasMountingPoint ;
+            owl:onClass edo:ClampInternalDiameter ;
+            owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass edo:IndividualAnodeMass ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:GalvanicMaterial ;
-            owl:onProperty edo:hasAttribute ;
+            owl:onClass edo:MountingPoint ;
+            owl:onProperty edo:hasMountingPoint ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:SplitCollar ;
     skos:altLabel "Anode Clamp"@en,
@@ -10047,11 +10019,11 @@ edo:BoltedClamping a owl:Class ;
 edo:CarcassLayer a owl:Class ;
     dcterms:identifier "CarcassLayer" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:MetallicLayerPitch ;
+            owl:onClass edo:StressAtDesignPressure ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:StressAtDesignPressure ;
+            owl:onClass edo:MetallicLayerPitch ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:ArmourLayer ;
@@ -10240,11 +10212,11 @@ edo:ElectricalInterfaceSpecification a owl:Class ;
 edo:ElectricalPowerCableEnd a owl:Class ;
     dcterms:identifier "ElectricalPowerCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:ElectricalPowerCable ;
-            owl:onProperty edo:isEndOf ],
-        [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalPowerPort ;
             owl:onProperty edo:hasEndInterface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:ElectricalPowerCable ;
+            owl:onProperty edo:isEndOf ],
         edo:ElectricalCableEnd ;
     skos:definition "Terminal end of an electrical power cable, exposing one or more electrical power interfaces for the functions carried by the cable."@en,
         "Extremidade terminal de um cabo elétrico de potência, apresentando uma ou mais interfaces elétricas de potência para as funções transportadas pelo cabo."@pt-br ;
@@ -10285,23 +10257,23 @@ edo:FlangeAttribute a owl:Class ;
 edo:FlangedJoint a owl:Class ;
     dcterms:identifier "FlangedJoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:FlangeConnection ;
-            owl:onProperty edo:connectsPoint ],
-        [ a owl:Restriction ;
             owl:onClass edo:GasketSealing ;
             owl:onProperty edo:hasConnectionMechanism ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:Na42e7c95d1884160b64faeea70840f68 ;
+            owl:onProperty edo:hasConnectionMechanism ],
         [ a owl:Restriction ;
             owl:onClass edo:BoltedClamping ;
             owl:onProperty edo:hasConnectionMechanism ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:allValuesFrom edo:FlangeConnection ;
+            owl:onProperty edo:connectsPoint ],
+        [ a owl:Restriction ;
             owl:onClass edo:FlangeConnection ;
             owl:onProperty edo:connectsPoint ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:Nfd59a9078e994a33b2628f8fb16de6df ;
-            owl:onProperty edo:hasConnectionMechanism ],
         edo:PhysicalConnection ;
     owl:disjointWith edo:FlexiblePipeCrimpedJoint,
         edo:WeldedJoint ;
@@ -10311,23 +10283,23 @@ edo:FlangedJoint a owl:Class ;
 edo:FlexiblePipeBody a owl:Class ;
     dcterms:identifier "FlexiblePipeBody" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:FlexiblePipeCrimpedConnection ;
-            owl:onProperty edo:hasConnectionPoint ],
+            owl:onClass edo:FlexiblePipeBodyEnd ;
+            owl:onProperty edo:hasEnd ;
+            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:FlexiblePipeBodyEnd ;
             owl:onProperty edo:hasEnd ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FlexiblePipeCrimpedConnection ;
-            owl:onProperty edo:hasConnectionPoint ;
-            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass edo:FlexiblePipeStructure ;
             owl:onProperty edo:isDefinedByType ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:FlexiblePipeBodyEnd ;
-            owl:onProperty edo:hasEnd ;
+            owl:onClass edo:FlexiblePipeCrimpedConnection ;
+            owl:onProperty edo:hasConnectionPoint ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:FlexiblePipeCrimpedConnection ;
+            owl:onProperty edo:hasConnectionPoint ],
         edo:ConstituentComponent ;
     skos:definition "Multilayer tubular constituent of a flexible pipe segment, extending between the two end fittings and defined by a flexible pipe structure."@en,
         "Constituinte tubular multicamada de um tramo de duto flexível, estendendo-se entre os dois end fittings e definido por uma estrutura de duto flexível."@pt-br ;
@@ -10353,11 +10325,11 @@ edo:FlexiblePipeSegmentEnd a owl:Class ;
 
 edo:FlexibleStructure a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-            owl:onClass edo:FlexibleStructureLayer ;
+            owl:allValuesFrom edo:FlexibleStructureLayer ;
             owl:onProperty edo:hasOrderedPart ],
         [ a owl:Restriction ;
-            owl:allValuesFrom edo:FlexibleStructureLayer ;
+            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:FlexibleStructureLayer ;
             owl:onProperty edo:hasOrderedPart ],
         edo:ConfiguredSystem ;
     skos:definition "The Flexible Structure is the layered configuration of a flexible system designed to provide strength, protection, and adaptability in demanding environments. It consists of multiple layers or components, each performing a specific function such as reinforcement, pressure containment, insulation, or communication. Engineered to accommodate movement, pressure variations, and mechanical loads, the flexible structure ensures reliability, durability and performance across different applications, including subsea pipelines and umbilicals."@en,
@@ -10549,7 +10521,7 @@ edo:MetallicStrandSet a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:StrandsTable_StrandsQuantity ;
+            owl:onClass edo:StrandsTable_StrandsLength ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -10557,7 +10529,7 @@ edo:MetallicStrandSet a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:StrandsTable_StrandsLength ;
+            owl:onClass edo:StrandsTable_StrandsQuantity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PartElement ;
@@ -10739,11 +10711,7 @@ edo:ReferenceDocument a owl:Class ;
 edo:RingGasket a owl:Class ;
     dcterms:identifier "RingGasket" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:RingGasketInnerDIameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RingGasketMaterial ;
+            owl:onClass edo:RingGasketType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -10751,7 +10719,7 @@ edo:RingGasket a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RingGasketType ;
+            owl:onClass edo:RingGasketInnerDIameter ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -10759,11 +10727,15 @@ edo:RingGasket a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:RingGasketOuterDiameter ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:RingGasketSpecification ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RingGasketOuterDiameter ;
+            owl:onClass edo:RingGasketMaterial ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:ConsumableElement ;
@@ -10856,6 +10828,40 @@ edo:TapesQuantity a owl:Class ;
     edo:hasTypedValue edo:IntValue ;
     edo:hasValueCardinality edo:SingleValue .
 
+edo:Task a owl:Class ;
+    dcterms:identifier "Task" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:Agent ;
+            owl:onProperty edo:hasResponsibleAgent ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:Issue ;
+            owl:onProperty edo:hasIssue ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:Evidence ;
+            owl:onProperty edo:hasEvidence ],
+        [ a owl:Restriction ;
+            owl:onClass edo:Creator ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:Timestamp ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:CreatorId ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:Content ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        edo:Activity ;
+    skos:definition "An activity representing a defined unit of work to be planned, assigned, executed and tracked within a process."@en,
+        "Atividade que representa uma unidade definida de trabalho a ser planejada, atribuída, executada e acompanhada dentro de um processo."@pt-br ;
+    skos:prefLabel "Task"@en,
+        "Tarefa"@pt-br ;
+    edo:hasDiscipline edo:CommissioningEngineering .
+
 edo:TechnicalNotes a owl:Class ;
     dcterms:accessRights "PUBLIC" ;
     dcterms:identifier "TechnicalNotes" ;
@@ -10873,14 +10879,6 @@ edo:TechnicalNotes a owl:Class ;
 edo:ThreadedFastenerSet a owl:Class ;
     dcterms:identifier "ThreadedFastenerSet" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:NominalDiameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:ThreadStandard ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:PitchToleranceClass ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -10889,7 +10887,15 @@ edo:ThreadedFastenerSet a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:ThreadStandard ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:ThreadedFastenerType ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:NominalDiameter ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PhysicalConnection ;
@@ -11000,6 +11006,14 @@ edo:hasOrderedPart a owl:ObjectProperty ;
         "Parte Sequencial"@pt-br ;
     skos:definition "Indicates a part–whole relationship in which the parts participate in an explicit sequence, where the order of the parts is semantically relevant in the domain schema."@en,
         "Indica uma relação parte–todo na qual as partes participam de uma sequência explícita, em que a ordem das partes é semanticamente relevante no schema do domínio."@pt-br .
+
+edo:hasTask a owl:ObjectProperty ;
+    rdfs:label "Has Task"@en,
+        "Tem Tarefa"@pt-br ;
+    dcterms:identifier "hasTask" ;
+    rdfs:subPropertyOf edo:PartWholeRelation ;
+    skos:definition "Associates a process with a task that composes or participates in that process."@en,
+        "Associa um processo a uma tarefa que o compõe ou dele participa."@pt-br .
 
 edo:hasTerminalHardware a owl:ObjectProperty ;
     rdfs:label "Has Terminal Hardware"@en,
@@ -11126,11 +11140,11 @@ edo:AnodeGalvanicConnectionPoint a owl:Class ;
 edo:Asset a owl:Class ;
     dcterms:identifier "Asset" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:IsSpare ;
+            owl:onClass edo:SerialNumber ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:SerialNumber ;
+            owl:onClass edo:IsSpare ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:DomainElement ;
@@ -11230,12 +11244,12 @@ edo:DomainLifecycleAnnotation a owl:AnnotationProperty ;
 edo:ElectricalCable a owl:Class ;
     dcterms:identifier "ElectricalCable" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:ElectricalCableEnd ;
+            owl:onProperty edo:hasEnd ],
+        [ a owl:Restriction ;
             owl:onClass edo:ElectricalCableEnd ;
             owl:onProperty edo:hasEnd ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:ElectricalCableEnd ;
-            owl:onProperty edo:hasEnd ],
         edo:FunctionLine ;
     skos:definition "Represents an electrical cable within a function line, transmitting electrical power or signals."@en,
         "Representa um cabo elétrico dentro de uma linha funcional, transmitindo energia elétrica ou sinais."@pt-br ;
@@ -11271,6 +11285,9 @@ edo:ElectronicDevice a owl:Class ;
 edo:EndFitting a owl:Class ;
     dcterms:identifier "EndFitting" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:Nbc3e33883a0d4b58acd445aad62efbbb ;
+            owl:onProperty edo:hasConnectionPoint ],
+        [ a owl:Restriction ;
             owl:onClass edo:EndFittingCrimpedConnection ;
             owl:onProperty edo:hasConnectionPoint ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -11279,14 +11296,7 @@ edo:EndFitting a owl:Class ;
             owl:onProperty edo:hasConnectionPoint ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:allValuesFrom edo:Nd7adc338043145fc8a5f7e2af0363684 ;
-            owl:onProperty edo:hasConnectionPoint ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RingGasketType ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RingGasketInnerDIameter ;
+            owl:onClass edo:FlangeType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -11294,27 +11304,7 @@ edo:EndFitting a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:RingGasketOuterDiameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RingGasketPressureRating ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:RingGasketStandard ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FlangeType ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:HasFaceORing ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:RingGasketSpecification ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -11322,11 +11312,35 @@ edo:EndFitting a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:HasModaSensor ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RingGasketType ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RingGasketPressureRating ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RingGasketOuterDiameter ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:HasN2InjectionPort ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:HasModaSensor ;
+            owl:onClass edo:RingGasketSpecification ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:RingGasketInnerDIameter ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:HasFaceORing ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PipeTermination ;
@@ -11373,15 +11387,15 @@ edo:FlangeType a owl:Class ;
 edo:FlexiblePipeCrimpedJoint a owl:Class ;
     dcterms:identifier "FlexiblePipeCrimpedJoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:FlexiblePipeCrimpedConnection ;
-            owl:onProperty edo:connectsPoint ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:unionOf ( edo:FlexiblePipeCrimpedConnection edo:EndFittingCrimpedConnection ) ] ;
             owl:onProperty edo:connectsPoint ],
         [ a owl:Restriction ;
             owl:onClass edo:EndFittingCrimpedConnection ;
+            owl:onProperty edo:connectsPoint ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:FlexiblePipeCrimpedConnection ;
             owl:onProperty edo:connectsPoint ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:PhysicalConnection ;
@@ -11402,12 +11416,12 @@ edo:FunctionalAsset a owl:Class ;
 edo:GasketSealing a owl:Class ;
     dcterms:identifier "GasketSealing" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:RingGasket ;
-            owl:onProperty edo:hasPart ],
-        [ a owl:Restriction ;
             owl:onClass edo:RingGasket ;
             owl:onProperty edo:hasPart ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:RingGasket ;
+            owl:onProperty edo:hasPart ],
         edo:ConnectionMechanism ;
     skos:prefLabel "Gasket Sealing"@en,
         "Vedação por Junta"@pt-br .
@@ -11424,27 +11438,11 @@ edo:Geothermal a owl:NamedIndividual,
 edo:HardwareItem a owl:Class ;
     dcterms:identifier "HardwareItem" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:DrawingDimensionsTable_DimensionDescription ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InternalVolume ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:Mass ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:ManufacturerDefinedMaterialName ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:DrawingDimensionsTable_DimensionName ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:ProjectDrawingRevision ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaterialSupplierName ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -11452,7 +11450,7 @@ edo:HardwareItem a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:SupplierProvidedMaterialName ;
+            owl:onClass edo:Mass ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -11460,7 +11458,19 @@ edo:HardwareItem a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:PartNumber ;
+            owl:onClass edo:DrawingDimensionsTable_DimensionName ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:InternalVolume ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:SupplierProvidedMaterialName ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:ManufacturerDefinedMaterialName ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -11476,7 +11486,11 @@ edo:HardwareItem a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MaterialSupplierName ;
+            owl:onClass edo:DrawingDimensionsTable_DimensionDescription ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:PartNumber ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:Component ;
@@ -11556,15 +11570,11 @@ edo:MaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:SpecificHeatCapacity ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:ElasticityModulusAt23Degrees ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:SpecificWeight ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:TechnicalNotes ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -11572,11 +11582,15 @@ edo:MaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MaterialComposition ;
+            owl:onClass edo:ElasticityModulusAt23Degrees ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:TechnicalNotes ;
+            owl:onClass edo:SpecificHeatCapacity ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:MaterialComposition ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:InformationArtifact ;
@@ -12072,12 +12086,12 @@ edo:ElectricalPowerPort a owl:Class ;
 edo:FlexiblePipeBodyEnd a owl:Class ;
     dcterms:identifier "FlexiblePipeBodyEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:FlexiblePipeCrimpedConnection ;
+            owl:onProperty edo:hasEndInterface ],
+        [ a owl:Restriction ;
             owl:onClass edo:FlexiblePipeCrimpedConnection ;
             owl:onProperty edo:hasEndInterface ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:FlexiblePipeCrimpedConnection ;
-            owl:onProperty edo:hasEndInterface ],
         edo:LinearEnd ;
     skos:definition "End of the multilayer flexible pipe body exposing the crimped interface used to permanently attach an end fitting."@en,
         "Extremidade do corpo multicamada do duto flexível que apresenta a interface crimpada usada para fixar permanentemente um end fitting."@pt-br ;
@@ -12087,15 +12101,23 @@ edo:FlexiblePipeBodyEnd a owl:Class ;
 edo:FlexibleStructureLayer a owl:Class ;
     dcterms:identifier "FlexibleStructureLayer" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:LayerGeometryProfileThickness ;
+            owl:onClass edo:LayerGeometryInertiaY ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:LayerAnnular ;
+            owl:onClass edo:LayerContinuity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:LayerWatertightLowerLayerInternalFreeVolume ;
+            owl:onClass edo:LayerGeometryCrossSection ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayerThickness ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayerWatertight ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -12103,15 +12125,23 @@ edo:FlexibleStructureLayer a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
+            owl:onClass edo:LayerGeometryProfileThickness ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayerAnnularType ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayerWatertightLowerLayerInternalFreeVolume ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:LayerAnnular ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:LayerGeometryManufacturer ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:InternalDiameter ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayerContinuity ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -12123,7 +12153,7 @@ edo:FlexibleStructureLayer a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:LayerGeometryProfileWidth ;
+            owl:onClass edo:InternalDiameter ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -12131,23 +12161,7 @@ edo:FlexibleStructureLayer a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:LayerWatertight ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayerThickness ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayerAnnularType ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayerGeometryCrossSection ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:LayerGeometryInertiaY ;
+            owl:onClass edo:LayerGeometryProfileWidth ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -12309,12 +12323,12 @@ edo:TableAttribute a owl:NamedIndividual,
 edo:WeldedJoint a owl:Class ;
     dcterms:identifier "WeldedJoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom edo:WeldedConnection ;
+            owl:onProperty edo:connectsPoint ],
+        [ a owl:Restriction ;
             owl:onClass edo:WeldedConnection ;
             owl:onProperty edo:connectsPoint ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:WeldedConnection ;
-            owl:onProperty edo:connectsPoint ],
         edo:PhysicalConnection ;
     skos:definition "Permanent physical connection formed by welding two welded fluid-port connection points."@en,
         "Conexão física permanente formada pela soldagem de dois pontos de conexão de porta de fluido do tipo soldado."@pt-br ;
@@ -12408,12 +12422,12 @@ edo:EarlyLeakNomPressTableColumn a owl:Class ;
 edo:ElectricalContactSpecification a owl:Class ;
     dcterms:identifier "ElectricalContactSpecification" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:ElectricalConnectorSpecification ;
-            owl:onProperty edo:isElectricalContactSpecificationOf ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:ContactIdentifier ;
             owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:ElectricalConnectorSpecification ;
+            owl:onProperty edo:isElectricalContactSpecificationOf ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:Specification ;
     skos:definition "Reusable specification of one contact position within an electrical connector specification. It defines contact-level mating or electrical criteria without representing a physical contact occurrence."@en,
@@ -12424,12 +12438,12 @@ edo:ElectricalContactSpecification a owl:Class ;
 edo:FunctionLine a owl:Class ;
     dcterms:identifier "FunctionLine" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:FunctionLineEnd ;
-            owl:onProperty edo:hasEnd ],
-        [ a owl:Restriction ;
             owl:onClass edo:FunctionLineEnd ;
             owl:onProperty edo:hasEnd ;
             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:FunctionLineEnd ;
+            owl:onProperty edo:hasEnd ],
         edo:UmbilicalComponent ;
     skos:definition "Represents a line within an umbilical component that carries a specific function, such as electrical, optical, or fluid transmission."@en,
         "Representa uma linha dentro de um componente umbilical que desempenha uma função específica, como transmissão elétrica, óptica ou de fluido."@pt-br ;
@@ -12449,7 +12463,7 @@ edo:FunctionalRelation a owl:ObjectProperty ;
 edo:HubMatingConnection a owl:Class ;
     dcterms:identifier "HubMatingConnection" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:Nea450f7fe4f142d3a25c2136d5063628 ;
+            owl:allValuesFrom edo:Nb5f9c268db3145df9b0d2391c3a97fc2 ;
             owl:onProperty edo:isConnectedTo ],
         edo:FluidPort ;
     skos:prefLabel "Hub Mating Connection"@en,
@@ -12718,11 +12732,11 @@ edo:OpticalFiberCableEnd a owl:Class ;
             owl:allValuesFrom edo:OpticalPort ;
             owl:onProperty edo:hasEndInterface ],
         [ a owl:Restriction ;
-            owl:allValuesFrom edo:OpticalFiberCable ;
-            owl:onProperty edo:isEndOf ],
-        [ a owl:Restriction ;
             owl:allValuesFrom edo:DataPort ;
             owl:onProperty edo:hasEndInterface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:OpticalFiberCable ;
+            owl:onProperty edo:isEndOf ],
         edo:FunctionLineEnd ;
     skos:definition "Terminal end of an umbilical optical-fibre cable, exposing data or optical-signal connection interfaces."@en,
         "Extremidade terminal de um cabo de fibra óptica de um umbilical, apresentando interfaces de conexão de dados ou sinal óptico."@pt-br ;
@@ -12827,11 +12841,11 @@ edo:DomainAttributeRole a owl:NamedIndividual,
 edo:ElectricalCableEnd a owl:Class ;
     dcterms:identifier "ElectricalCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:ElectricPort ;
-            owl:onProperty edo:hasEndInterface ],
-        [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalCable ;
             owl:onProperty edo:isEndOf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:ElectricPort ;
+            owl:onProperty edo:hasEndInterface ],
         edo:FunctionLineEnd ;
     owl:disjointWith edo:OpticalFiberCableEnd ;
     skos:definition "Terminal end of an umbilical electrical cable, exposing electrical connection interfaces for power, signal or other electrical functions represented by the cable."@en,
@@ -13001,12 +13015,12 @@ edo:ElectricalContact a owl:Class ;
             owl:onClass edo:ElectricalContactSpecification ;
             owl:onProperty edo:isDefinedByElectricalContactSpecification ],
         [ a owl:Restriction ;
-            owl:onClass edo:ContactIdentifier ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:ElectricPort ;
             owl:onProperty edo:isElectricalContactOf ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onClass edo:ContactIdentifier ;
+            owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:Feature ;
     skos:definition "Detailed electrical contact feature belonging to one electric port and representing one electrically distinguishable contact position or conductive path within that aggregate mating interface. Connector mating remains represented by the owning electric port."@en,
@@ -13136,10 +13150,6 @@ edo:FunctionLineEnd a owl:Class ;
             owl:onClass edo:DomainElement ;
             owl:onProperty edo:isTerminatedBy ],
         [ a owl:Restriction ;
-            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass edo:ConnectionInterface ;
-            owl:onProperty edo:hasEndInterface ],
-        [ a owl:Restriction ;
             owl:allValuesFrom edo:FunctionLine ;
             owl:onProperty edo:isEndOf ],
         [ a owl:Restriction ;
@@ -13149,6 +13159,10 @@ edo:FunctionLineEnd a owl:Class ;
         [ a owl:Restriction ;
             owl:allValuesFrom edo:UmbilicalEnd ;
             owl:onProperty edo:isConstituentEndOf ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:ConnectionInterface ;
+            owl:onProperty edo:hasEndInterface ],
         edo:LinearEnd ;
     skos:definition "Terminal feature of a functional line within an umbilical, exposing one or more connection interfaces appropriate to the function carried by that line."@en,
         "Feature terminal de uma linha funcional dentro de um umbilical, apresentando uma ou mais interfaces de conexão apropriadas à função transportada por essa linha."@pt-br ;
@@ -13569,13 +13583,13 @@ edo:Mass a owl:Class ;
 edo:ConnectionPoint a owl:Class ;
     dcterms:identifier "ConnectionPoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass edo:ConnectionPoint ;
-            owl:onProperty edo:isConnectedTo ],
-        [ a owl:Restriction ;
             owl:onClass edo:DomainElement ;
             owl:onProperty edo:isConnectionPointOf ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:ConnectionPoint ;
+            owl:onProperty edo:isConnectedTo ],
         edo:ConnectionInterface ;
     skos:definition "Represents a point used to establish a connection between elements, either physically or logically."@en,
         "Representa um ponto utilizado para estabelecer conexão entre elementos, seja fisicamente ou logicamente."@pt-br ;
@@ -13763,12 +13777,12 @@ edo:StrategyAttribute a owl:NamedIndividual,
 edo:ConnectionInterface a owl:Class ;
     dcterms:identifier "ConnectionInterface" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:ConnectionInterfaceSpecification ;
-            owl:onProperty edo:hasInterfaceSpecification ],
-        [ a owl:Restriction ;
             owl:onClass edo:ConnectionInterfaceSpecification ;
             owl:onProperty edo:hasInterfaceSpecification ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom edo:ConnectionInterfaceSpecification ;
+            owl:onProperty edo:hasInterfaceSpecification ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:LinearEnd ;
@@ -14095,14 +14109,14 @@ edo:SingleValue a owl:NamedIndividual,
     skos:inScheme edo:DomainAttributeValueCardinality .
 
 [] a owl:Class ;
-    owl:unionOf ( edo:EndFitting edo:LineAncillary ) .
+    owl:unionOf ( edo:BoltedClamping edo:GasketSealing ) .
 
 [] a owl:Class ;
-    owl:unionOf ( edo:EndFittingCrimpedConnection edo:FlangeConnection ) .
+    owl:unionOf ( edo:EndFitting edo:LineAncillary ) .
 
 [] a owl:Class ;
     owl:unionOf ( edo:FlowConnectorMatingConnection edo:ConnectionModuleMatingConnection edo:HubBlockCapMatingConnection edo:HubProtectionCapMatingConnection ) .
 
 [] a owl:Class ;
-    owl:unionOf ( edo:BoltedClamping edo:GasketSealing ) .
+    owl:unionOf ( edo:EndFittingCrimpedConnection edo:FlangeConnection ) .
 
