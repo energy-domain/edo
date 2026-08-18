@@ -64,16 +64,24 @@ emit("=== EDO INTERFACE SPECIFICATION AUDIT ===")
 spec_class = (U("ConnectionInterfaceSpecification"), RDFS.subClassOf, U("Specification")) in g
 fluid_spec_class = (U("FluidInterfaceSpecification"), RDFS.subClassOf, U("ConnectionInterfaceSpecification")) in g
 flange_spec_class = (U("FlangeInterfaceSpecification"), RDFS.subClassOf, U("FluidInterfaceSpecification")) in g
+hydraulic_spec_class = (U("HydraulicConnectorSpecification"), RDFS.subClassOf, U("FluidInterfaceSpecification")) in g
 has_spec_sub = (U("hasInterfaceSpecification"), RDFS.subPropertyOf, U("hasSpec")) in g
 interface_exact1 = has_exact(U("ConnectionInterface"), U("hasInterfaceSpecification"), U("ConnectionInterfaceSpecification"), 1)
 flange_only = has_only(U("FlangeConnection"), U("hasInterfaceSpecification"), U("FlangeInterfaceSpecification"))
+hot_stab_only = has_only(U("HotStabMatingConnection"), U("hasInterfaceSpecification"), U("HydraulicConnectorSpecification"))
+receptacle_only = has_only(U("HotStabReceptacleMatingConnection"), U("hasInterfaceSpecification"), U("HydraulicConnectorSpecification"))
+fluid_port_overclosed = has_only(U("FluidPort"), U("hasInterfaceSpecification"), U("HydraulicConnectorSpecification"))
 
 emit(f"ConnectionInterfaceSpecification subclassSpecification={'yes' if spec_class else 'no'}")
 emit(f"FluidInterfaceSpecification subclassConnectionInterfaceSpecification={'yes' if fluid_spec_class else 'no'}")
 emit(f"FlangeInterfaceSpecification subclassFluidInterfaceSpecification={'yes' if flange_spec_class else 'no'}")
+emit(f"HydraulicConnectorSpecification subclassFluidInterfaceSpecification={'yes' if hydraulic_spec_class else 'no'}")
 emit(f"hasInterfaceSpecification subPropertyOfHasSpec={'yes' if has_spec_sub else 'no'}")
 emit(f"ConnectionInterface exact1InterfaceSpecification={'yes' if interface_exact1 else 'no'}")
 emit(f"FlangeConnection onlyFlangeInterfaceSpecification={'yes' if flange_only else 'no'}")
+emit(f"HotStabMatingConnection onlyHydraulicConnectorSpecification={'yes' if hot_stab_only else 'no'}")
+emit(f"HotStabReceptacleMatingConnection onlyHydraulicConnectorSpecification={'yes' if receptacle_only else 'no'}")
+emit(f"FluidPort globallyClosedToHydraulicConnectorSpecification={'yes' if fluid_port_overclosed else 'no'}")
 
 spec_compat_symmetric = (U("isMatingCompatibleWith"), RDF.type, OWL.SymmetricProperty) in g
 spec_compat_transitive = (U("isMatingCompatibleWith"), RDF.type, OWL.TransitiveProperty) in g
@@ -103,19 +111,22 @@ emit(f"sameSpecificationImpliesCompatibility={'yes' if same_spec_inference else 
 emit(f"explicitSpecificationCompatibilityChain count={explicit_compat_count}")
 emit(f"isInterfaceCompatibleWith cardinalityRestriction={'yes' if compat_cardinality else 'no'}")
 
-# The core contains controlled-vocabulary individuals, but these specification schema
-# classes must remain TBox entities. Concrete catalogue/project specifications belong
-# in an external ABox/data layer.
+# The core contains controlled-vocabulary individuals, but specification schema classes
+# must remain TBox entities. Concrete catalogue/project specifications belong in an
+# external ABox/data layer.
 forbidden_named_individuals = [
     U("ConnectionInterfaceSpecification"),
     U("FluidInterfaceSpecification"),
     U("FlangeInterfaceSpecification"),
+    U("HydraulicConnectorSpecification"),
 ]
 tbox_classes_as_individuals = [x for x in forbidden_named_individuals if (x, RDF.type, OWL.NamedIndividual) in g]
 emit(f"specificationSchemaClassesAsNamedIndividuals={len(tbox_classes_as_individuals)}")
 
-assert spec_class and fluid_spec_class and flange_spec_class
+assert spec_class and fluid_spec_class and flange_spec_class and hydraulic_spec_class
 assert has_spec_sub and interface_exact1 and flange_only
+assert hot_stab_only and receptacle_only
+assert not fluid_port_overclosed, "FluidPort must remain broader than hydraulic connector mating interfaces"
 assert spec_compat_symmetric and interface_compat_symmetric
 assert not spec_compat_transitive and not interface_compat_transitive
 assert connected_sub_compatible
