@@ -63,7 +63,6 @@ for pred in object_property_axiom_predicates:
 for p, head in g.subject_objects(OWL.propertyChainAxiom):
     if p not in object_props:
         violations["propertyChainHeadNonObjectProperty"].append(p)
-    # Traverse RDF list conservatively.
     current = head
     seen = set()
     while current and current != RDF.nil and current not in seen:
@@ -113,6 +112,19 @@ for c in classes:
     if name.startswith("Error") and name[5:].isdigit():
         violations["syntheticErrorClassPersisted"].append(c)
 
+# Anonymous class expressions are valid when referenced by an OWL axiom/expression. A blank-node
+# owl:Class with no incoming edge is an orphan root and appears in Protégé as an N... top-level class.
+orphan_anonymous_classes = sorted(
+    [
+        c
+        for c in classes
+        if isinstance(c, BNode) and not list(g.triples((None, None, c)))
+    ],
+    key=str,
+)
+for c in orphan_anonymous_classes:
+    violations["orphanAnonymousClassExpression"].append(c)
+
 # Class/individual punning is legal in OWL 2 DL and occurs intentionally in some models, so report only.
 class_individual_punning = sorted(classes & individuals, key=str)
 
@@ -136,6 +148,7 @@ checks = {
     ),
     "reservedVocabularyClean": not violations["reservedVocabularyRedeclaredAsProperty"],
     "syntheticErrorClassesAbsent": not violations["syntheticErrorClassPersisted"],
+    "orphanAnonymousClassExpressionsAbsent": not violations["orphanAnonymousClassExpression"],
 }
 
 lines = ["=== EDO PROTEGE / OWL READINESS AUDIT ==="]
@@ -145,6 +158,7 @@ lines.append(f"object_properties={len(object_props)}")
 lines.append(f"datatype_properties={len(data_props)}")
 lines.append(f"annotation_properties={len(annotation_props)}")
 lines.append(f"restrictions={len(restrictions)}")
+lines.append(f"orphan_anonymous_class_expressions={len(orphan_anonymous_classes)}")
 for label, ok in checks.items():
     lines.append(f"{label}={'yes' if ok else 'no'}")
 lines.append(f"class_individual_punning_count={len(class_individual_punning)}")
