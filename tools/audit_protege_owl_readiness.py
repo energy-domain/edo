@@ -1,10 +1,12 @@
 from pathlib import Path
 from collections import defaultdict
+import re
 from rdflib import Graph, Namespace, RDF, RDFS, OWL, URIRef, BNode
 
 PATH = Path("core/edo-object-relations.ttl")
 REPORT = Path("core/edo-protege-owl-readiness-audit.txt")
 EDO = Namespace("https://w3id.org/energy-domain/edo#")
+SYNTHETIC_BNODE_IRI = re.compile(r"^N[0-9a-fA-F]{32}$")
 
 g = Graph()
 g.parse(PATH, format="turtle")
@@ -14,6 +16,14 @@ def local(node):
     s = str(node)
     prefix = str(EDO)
     return s[len(prefix):] if s.startswith(prefix) else s
+
+
+def is_synthetic_bnode_iri(node):
+    if not isinstance(node, URIRef):
+        return False
+    s = str(node)
+    prefix = str(EDO)
+    return s.startswith(prefix) and bool(SYNTHETIC_BNODE_IRI.fullmatch(s[len(prefix):]))
 
 
 annotation_props = set(g.subjects(RDF.type, OWL.AnnotationProperty))
@@ -112,6 +122,21 @@ for c in classes:
     if name.startswith("Error") and name[5:].isdigit():
         violations["syntheticErrorClassPersisted"].append(c)
 
+# rdflib BNode identifiers have the form N<32 hex>. A historical helper treated BNode and URIRef
+# as ordinary strings and accidentally minted EDO IRIs from those internal identifiers. Such IRIs
+# are never legitimate named EDO vocabulary and must be rejected globally.
+synthetic_bnode_iris = sorted(
+    {
+        term
+        for triple in g
+        for term in triple
+        if is_synthetic_bnode_iri(term)
+    },
+    key=str,
+)
+for term in synthetic_bnode_iris:
+    violations["syntheticBNodeIRI"] .append(term)
+
 # Anonymous class expressions are valid when referenced by an OWL axiom/expression. A blank-node
 # owl:Class with no incoming edge is an orphan root and appears in Protégé as an N... top-level class.
 orphan_anonymous_classes = sorted(
@@ -148,6 +173,7 @@ checks = {
     ),
     "reservedVocabularyClean": not violations["reservedVocabularyRedeclaredAsProperty"],
     "syntheticErrorClassesAbsent": not violations["syntheticErrorClassPersisted"],
+    "syntheticBNodeIRIsAbsent": not violations["syntheticBNodeIRI"],
     "orphanAnonymousClassExpressionsAbsent": not violations["orphanAnonymousClassExpression"],
 }
 
@@ -158,6 +184,7 @@ lines.append(f"object_properties={len(object_props)}")
 lines.append(f"datatype_properties={len(data_props)}")
 lines.append(f"annotation_properties={len(annotation_props)}")
 lines.append(f"restrictions={len(restrictions)}")
+lines.append(f"synthetic_bnode_iris={len(synthetic_bnode_iris)}")
 lines.append(f"orphan_anonymous_class_expressions={len(orphan_anonymous_classes)}")
 for label, ok in checks.items():
     lines.append(f"{label}={'yes' if ok else 'no'}")
