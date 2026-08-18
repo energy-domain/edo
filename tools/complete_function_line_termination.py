@@ -1,0 +1,152 @@
+from pathlib import Path
+from rdflib import Graph, Namespace, BNode, Literal, RDF, RDFS, OWL, XSD
+
+PATH = Path("core/edo-object-relations.ttl")
+EDO = Namespace("https://w3id.org/energy-domain/edo#")
+SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
+DCT = Namespace("http://purl.org/dc/terms/")
+
+
+g = Graph()
+g.parse(PATH, format="turtle")
+
+
+def U(name):
+    return EDO[name]
+
+
+def add_objprop(name, parent=None, domain=None, range_=None, inverse=None,
+                label_en=None, label_pt=None, def_en=None, def_pt=None):
+    p = U(name)
+    g.remove((p, RDF.type, OWL.AnnotationProperty))
+    g.add((p, RDF.type, OWL.ObjectProperty))
+    if parent:
+        g.add((p, RDFS.subPropertyOf, U(parent)))
+    if domain:
+        g.add((p, RDFS.domain, U(domain)))
+    if range_:
+        g.add((p, RDFS.range, U(range_)))
+    if inverse:
+        g.add((p, OWL.inverseOf, U(inverse)))
+    g.add((p, DCT.identifier, Literal(name)))
+    if label_en:
+        g.add((p, RDFS.label, Literal(label_en, lang="en")))
+    if label_pt:
+        g.add((p, RDFS.label, Literal(label_pt, lang="pt-br")))
+    if def_en:
+        g.add((p, SKOS.definition, Literal(def_en, lang="en")))
+    if def_pt:
+        g.add((p, SKOS.definition, Literal(def_pt, lang="pt-br")))
+    return p
+
+
+def qcard(cls, prop, target, n, pred=OWL.qualifiedCardinality):
+    r = BNode()
+    g.add((r, RDF.type, OWL.Restriction))
+    g.add((r, OWL.onProperty, U(prop)))
+    g.add((r, OWL.onClass, U(target)))
+    g.add((r, pred, Literal(n, datatype=XSD.nonNegativeInteger)))
+    g.add((U(cls), RDFS.subClassOf, r))
+    return r
+
+
+def all_values(cls, prop, target):
+    r = BNode()
+    g.add((r, RDF.type, OWL.Restriction))
+    g.add((r, OWL.onProperty, U(prop)))
+    g.add((r, OWL.allValuesFrom, U(target)))
+    g.add((U(cls), RDFS.subClassOf, r))
+    return r
+
+
+# ---------------------------------------------------------------------------
+# External service interfaces are contextual exposures, not interface ownership.
+# ---------------------------------------------------------------------------
+# A terminal interface physically belongs to its connector/coupling/terminal hardware
+# through hasConnectionInterface. The aggregate UmbilicalEnd merely exposes that
+# interface to the outside world, exactly as FlexiblePipeSegmentEnd exposes the flange
+# interface owned by its EndFitting.
+add_objprop(
+    "exposesServiceInterface", "hasEndInterface", "LinearEnd", "ConnectionInterface",
+    inverse="isServiceInterfaceExposedAt",
+    label_en="Exposes Service Interface", label_pt="Expõe Interface de Serviço",
+    def_en="Associates an aggregate terminal end with a connection interface of its terminal hardware that is externally available for service connection, without implying ownership of that interface by the end.",
+    def_pt="Associa uma extremidade terminal agregada a uma interface de conexão de seu hardware terminal que fica externamente disponível para conexão de serviço, sem implicar que a extremidade seja proprietária dessa interface.",
+)
+add_objprop(
+    "isServiceInterfaceExposedAt", "InterfaceRelation", "ConnectionInterface", "LinearEnd",
+    inverse="exposesServiceInterface",
+    label_en="Is Service Interface Exposed At", label_pt="É Interface de Serviço Exposta em",
+    def_en="Relates a connection interface owned by terminal hardware to the aggregate terminal end at which that interface is externally exposed.",
+    def_pt="Relaciona uma interface de conexão pertencente ao hardware terminal à extremidade terminal agregada na qual essa interface é externamente exposta.",
+)
+g.add((U("exposesServiceInterface"), OWL.inverseOf, U("isServiceInterfaceExposedAt")))
+
+# A finished umbilical end exposes one or more service interfaces, but their total
+# count and service mix are configuration-dependent and therefore deliberately open.
+qcard("UmbilicalEnd", "exposesServiceInterface", "ConnectionInterface", 1, OWL.minQualifiedCardinality)
+
+# Each functional-line end is physically terminated by at least one terminal hardware
+# element. Do not force exactly one: breakout/transition arrangements can involve more
+# than one physical terminal element.
+qcard("FunctionLineEnd", "isTerminatedBy", "DomainElement", 1, OWL.minQualifiedCardinality)
+
+
+# ---------------------------------------------------------------------------
+# Intrinsic topology of the existing TubingCoupling class.
+# ---------------------------------------------------------------------------
+# Unlike "internal" vs "external", being a two-sided fluid coupling is intrinsic.
+# Orientation is contextual: either of the two FluidPorts may face the functional line
+# or the external system depending on the assembly.
+qcard("TubingCoupling", "hasConnectionPoint", "FluidPort", 2)
+all_values("TubingCoupling", "hasConnectionPoint", "FluidPort")
+
+# Existing Connector subclasses already carry generic min-two connection-point rules
+# and service-specific closures (for example electrical and hydraulic connector
+# classes). No new optical connector class is invented here because core EDO does not
+# yet contain a supported terminal-hardware class for that service.
+
+
+# ---------------------------------------------------------------------------
+# Guardrails
+# ---------------------------------------------------------------------------
+def has_exact(cls, prop, target, n):
+    return any(
+        (r, RDF.type, OWL.Restriction) in g
+        and (r, OWL.onProperty, U(prop)) in g
+        and (r, OWL.onClass, U(target)) in g
+        and (r, OWL.qualifiedCardinality, Literal(n, datatype=XSD.nonNegativeInteger)) in g
+        for r in g.objects(U(cls), RDFS.subClassOf)
+    )
+
+
+def has_min(cls, prop, target, n):
+    return any(
+        (r, RDF.type, OWL.Restriction) in g
+        and (r, OWL.onProperty, U(prop)) in g
+        and (r, OWL.onClass, U(target)) in g
+        and (r, OWL.minQualifiedCardinality, Literal(n, datatype=XSD.nonNegativeInteger)) in g
+        for r in g.objects(U(cls), RDFS.subClassOf)
+    )
+
+assert (U("isTerminatedBy"), RDF.type, OWL.ObjectProperty) in g
+assert (U("hasTerminalHardware"), RDF.type, OWL.ObjectProperty) in g
+assert (U("exposesServiceInterface"), RDFS.subPropertyOf, U("hasEndInterface")) in g
+assert has_min("UmbilicalEnd", "exposesServiceInterface", "ConnectionInterface", 1)
+assert has_min("FunctionLineEnd", "isTerminatedBy", "DomainElement", 1)
+assert has_exact("TubingCoupling", "hasConnectionPoint", "FluidPort", 2)
+
+# Do not create intrinsic internal/external port classes or fixed total interface count
+# on UmbilicalEnd; those are contextual/configuration-dependent.
+assert (U("InternalTerminationInterface"), RDF.type, OWL.Class) not in g
+assert (U("ExternalTerminationInterface"), RDF.type, OWL.Class) not in g
+
+for r in set(g.subjects(RDF.type, OWL.Restriction)):
+    assert len(list(g.objects(r, OWL.onProperty))) == 1
+
+
+g.bind("edo", EDO)
+g.bind("skos", SKOS)
+g.bind("dcterms", DCT)
+g.serialize(destination=PATH, format="turtle")
+print(f"Completed functional-line termination topology; ontology now has {len(g)} triples")
