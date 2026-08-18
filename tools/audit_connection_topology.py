@@ -251,7 +251,9 @@ assert not internal_external_intrinsic_types, "Internal/external are contextual 
 assert spec_is_specification and interface_one_spec and interface_spec_sub_has_spec
 assert spec_compat_symmetric and interface_compat_symmetric
 assert not spec_compat_transitive and not interface_compat_transitive
-assert connected_sub_compatible and same_spec_chain and compatible_spec_chain
+assert connected_sub_compatible
+assert not same_spec_chain, "Sharing one specification must not by itself imply mating compatibility"
+assert compatible_spec_chain
 assert not compat_cardinality, "Chain-derived interface compatibility must not carry cardinality restrictions"
 emit("audit_status=ok")
 
