@@ -93,6 +93,7 @@ def fmt_target(t):
 
 
 props = [
+    EDO.hasEnd,
     EDO.hasConnectionPoint,
     EDO.hasConnectionInterface,
     EDO.hasMountingPoint,
@@ -143,9 +144,14 @@ for cls in sorted(candidates, key=local):
     parent_text = ",".join(sorted(local(p) for p in parents.get(cls, ()))) or "-"
     emit(f"CLASS {local(cls)} parents={parent_text} " + (" ".join(entries) if entries else "NO_TOPOLOGY_RESTRICTION"))
 
+# A class has topology when it has intrinsic ends or direct connection interfaces.
+# This deliberately allows an UmbilicalSegment to be bi-terminal without pretending
+# that the whole segment exposes only two connection points.
 gaps = []
 for cls in candidates:
-    if not effective_restrictions(cls, EDO.hasConnectionPoint) and not effective_restrictions(cls, EDO.hasConnectionInterface):
+    if not effective_restrictions(cls, EDO.hasEnd) and \
+       not effective_restrictions(cls, EDO.hasConnectionPoint) and \
+       not effective_restrictions(cls, EDO.hasConnectionInterface):
         gaps.append(cls)
 
 emit("=== TOPOLOGY GAPS ===")
@@ -154,17 +160,37 @@ for cls in sorted(gaps, key=local):
 emit(f"gap_count={len(gaps)}")
 
 emit("=== LINEAR OBJECT CHECK ===")
+linear_failures = []
 for cls in sorted({EDO.LinearObject} | descendants(EDO.LinearObject), key=local):
+    end_rules = effective_restrictions(cls, EDO.hasEnd)
     point_rules = effective_restrictions(cls, EDO.hasConnectionPoint)
-    exact_two = any(kind == "exactly" and n == 2 for _, kind, n, _ in point_rules)
-    only_rules = [(source, target) for source, kind, _, target in point_rules if kind == "only"]
+    exact_two_ends = any(kind == "exactly" and n == 2 for _, kind, n, _ in end_rules)
+    exact_two_points = any(kind == "exactly" and n == 2 for _, kind, n, _ in point_rules)
+    only_points = [(source, target) for source, kind, _, target in point_rules if kind == "only"]
     emit(
-        f"LINEAR {local(cls)} exact2={'yes' if exact_two else 'no'} "
-        f"only=" + (",".join(f"{local(s)}->{fmt_target(t)}" for s, t in only_rules) or "-")
+        f"LINEAR {local(cls)} exact2ends={'yes' if exact_two_ends else 'no'} "
+        f"exact2points={'yes' if exact_two_points else 'no'} "
+        f"pointOnly=" + (",".join(f"{local(s)}->{fmt_target(t)}" for s, t in only_points) or "-")
     )
+    if not exact_two_ends:
+        linear_failures.append(cls)
+
+emit("=== FLEXIBLE PIPE CHECK ===")
+flex_end_rules = effective_restrictions(EDO.FlexiblePipeSegment, EDO.hasEnd)
+flex_point_rules = effective_restrictions(EDO.FlexiblePipeSegment, EDO.hasConnectionPoint)
+flex_exact_two_ends = any(kind == "exactly" and n == 2 and target == EDO.FlexiblePipeEnd
+                          for _, kind, n, target in flex_end_rules)
+flex_exact_two_crimps = any(kind == "exactly" and n == 2 and target == EDO.FlexiblePipeCrimpedConnection
+                            for _, kind, n, target in flex_point_rules)
+emit(f"FlexiblePipeSegment exact2FlexiblePipeEnd={'yes' if flex_exact_two_ends else 'no'}")
+emit(f"FlexiblePipeSegment exact2FlexiblePipeCrimpedConnection={'yes' if flex_exact_two_crimps else 'no'}")
 
 assert EDO.ConnectionPoint in classes
 assert EDO.ConnectionInterface in classes
+assert EDO.LinearEnd in classes
+assert not linear_failures, "Every LinearObject descendant must inherit exactly two LinearEnd features"
+assert flex_exact_two_ends
+assert flex_exact_two_crimps
 emit("audit_status=ok")
 
 REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
