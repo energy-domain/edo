@@ -92,6 +92,13 @@ def fmt_target(t):
     return "[anonymous class]"
 
 
+def has_exact(cls, prop, target, n):
+    return any(
+        kind == "exactly" and value == n and t == target
+        for _, kind, value, t in effective_restrictions(cls, prop)
+    )
+
+
 props = [
     EDO.hasEnd,
     EDO.hasConnectionPoint,
@@ -145,8 +152,6 @@ for cls in sorted(candidates, key=local):
     emit(f"CLASS {local(cls)} parents={parent_text} " + (" ".join(entries) if entries else "NO_TOPOLOGY_RESTRICTION"))
 
 # A class has topology when it has intrinsic ends or direct connection interfaces.
-# This deliberately allows an UmbilicalSegment to be bi-terminal without pretending
-# that the whole segment exposes only two connection points.
 gaps = []
 for cls in candidates:
     if not effective_restrictions(cls, EDO.hasEnd) and \
@@ -175,22 +180,38 @@ for cls in sorted({EDO.LinearObject} | descendants(EDO.LinearObject), key=local)
     if not exact_two_ends:
         linear_failures.append(cls)
 
-emit("=== FLEXIBLE PIPE CHECK ===")
-flex_end_rules = effective_restrictions(EDO.FlexiblePipeSegment, EDO.hasEnd)
-flex_point_rules = effective_restrictions(EDO.FlexiblePipeSegment, EDO.hasConnectionPoint)
-flex_exact_two_ends = any(kind == "exactly" and n == 2 and target == EDO.FlexiblePipeEnd
-                          for _, kind, n, target in flex_end_rules)
-flex_exact_two_crimps = any(kind == "exactly" and n == 2 and target == EDO.FlexiblePipeCrimpedConnection
-                            for _, kind, n, target in flex_point_rules)
-emit(f"FlexiblePipeSegment exact2FlexiblePipeEnd={'yes' if flex_exact_two_ends else 'no'}")
-emit(f"FlexiblePipeSegment exact2FlexiblePipeCrimpedConnection={'yes' if flex_exact_two_crimps else 'no'}")
+emit("=== FLEXIBLE PIPE ASSEMBLY CHECK ===")
+segment_two_ends = has_exact(EDO.FlexiblePipeSegment, EDO.hasEnd, EDO.FlexiblePipeSegmentEnd, 2)
+segment_one_body = has_exact(EDO.FlexiblePipeSegment, EDO.hasPart, EDO.FlexiblePipeBody, 1)
+segment_two_efs = has_exact(EDO.FlexiblePipeSegment, EDO.hasPart, EDO.EndFitting, 2)
+body_two_ends = has_exact(EDO.FlexiblePipeBody, EDO.hasEnd, EDO.FlexiblePipeBodyEnd, 2)
+body_two_crimps = has_exact(EDO.FlexiblePipeBody, EDO.hasConnectionPoint, EDO.FlexiblePipeCrimpedConnection, 2)
+body_one_structure = has_exact(EDO.FlexiblePipeBody, EDO.isDefinedByType, EDO.FlexiblePipeStructure, 1)
+segment_has_crimps = bool(effective_restrictions(EDO.FlexiblePipeSegment, EDO.hasConnectionPoint))
+segment_end_one_flange = has_exact(EDO.FlexiblePipeSegmentEnd, EDO.hasEndInterface, EDO.FlangeConnection, 1)
+
+emit(f"FlexiblePipeSegment exact1FlexiblePipeBody={'yes' if segment_one_body else 'no'}")
+emit(f"FlexiblePipeSegment exact2EndFitting={'yes' if segment_two_efs else 'no'}")
+emit(f"FlexiblePipeSegment exact2FlexiblePipeSegmentEnd={'yes' if segment_two_ends else 'no'}")
+emit(f"FlexiblePipeSegmentEnd exact1FlangeConnection={'yes' if segment_end_one_flange else 'no'}")
+emit(f"FlexiblePipeSegment ownsConnectionPoints={'yes' if segment_has_crimps else 'no'}")
+emit(f"FlexiblePipeBody exact2FlexiblePipeBodyEnd={'yes' if body_two_ends else 'no'}")
+emit(f"FlexiblePipeBody exact2FlexiblePipeCrimpedConnection={'yes' if body_two_crimps else 'no'}")
+emit(f"FlexiblePipeBody exact1FlexiblePipeStructure={'yes' if body_one_structure else 'no'}")
 
 assert EDO.ConnectionPoint in classes
 assert EDO.ConnectionInterface in classes
 assert EDO.LinearEnd in classes
+assert EDO.FlexiblePipeBody in classes
 assert not linear_failures, "Every LinearObject descendant must inherit exactly two LinearEnd features"
-assert flex_exact_two_ends
-assert flex_exact_two_crimps
+assert segment_one_body
+assert segment_two_efs
+assert segment_two_ends
+assert segment_end_one_flange
+assert not segment_has_crimps, "Finished segment must not own body crimp points"
+assert body_two_ends
+assert body_two_crimps
+assert body_one_structure
 emit("audit_status=ok")
 
 REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
