@@ -31,6 +31,7 @@ on:
       - tools/audit_interface_specifications.py
       - tools/audit_electrical_interface_specification_attributes.py
       - tools/audit_electrical_contacts.py
+      - tools/audit_electrical_connector_ports.py
       - .github/workflows/generate-object-relations.yml
   workflow_dispatch:
 
@@ -76,6 +77,8 @@ jobs:
         run: python tools/audit_electrical_interface_specification_attributes.py
       - name: Audit electrical contacts
         run: python tools/audit_electrical_contacts.py
+      - name: Audit electrical connector ports
+        run: python tools/audit_electrical_connector_ports.py
       - name: Validate generated Turtle
         run: |
           python -c "from rdflib import Graph; g=Graph(); g.parse('core/edo-object-relations.ttl', format='turtle'); print(f'validated {len(g)} triples')"
@@ -85,17 +88,18 @@ jobs:
           fi
       - name: Commit generated ontology and audits
         run: |
-          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt && \
+          if git diff --quiet -- core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt && \
              git ls-files --error-unmatch core/edo-object-relations.ttl >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-connection-topology-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-interface-specification-audit.txt >/dev/null 2>&1 && \
              git ls-files --error-unmatch core/edo-electrical-interface-specification-audit.txt >/dev/null 2>&1 && \
-             git ls-files --error-unmatch core/edo-electrical-contact-audit.txt >/dev/null 2>&1; then
+             git ls-files --error-unmatch core/edo-electrical-contact-audit.txt >/dev/null 2>&1 && \
+             git ls-files --error-unmatch core/edo-electrical-connector-port-audit.txt >/dev/null 2>&1; then
             echo 'No generated changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt
+          git add core/edo-object-relations.ttl core/edo-connection-topology-audit.txt core/edo-interface-specification-audit.txt core/edo-electrical-interface-specification-audit.txt core/edo-electrical-contact-audit.txt core/edo-electrical-connector-port-audit.txt
           git commit -m 'Generate object-relations ontology and audits'
           git push
