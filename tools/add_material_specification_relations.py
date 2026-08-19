@@ -120,6 +120,22 @@ remove_restrictions_on_property("FlexibleStructureLayer", "hasMaterialSpecificat
 qcard("FlexibleStructureLayer", "hasMaterialSpecification", "MaterialSpecification", 1)
 all_values("FlexibleStructureLayer", "hasMaterialSpecification", "MaterialSpecification")
 
+# ---------------------------------------------------------------------------
+# Attribute relations are a first-class DomainRelation category.
+# ---------------------------------------------------------------------------
+add_objprop(
+    "AttributeRelation",
+    parent="DomainRelation",
+    label_en="Attribute Relation",
+    label_pt="Relação de Atributo",
+    def_en="Category of relationships used to associate domain elements with the attributes that characterize them.",
+    def_pt="Categoria de relacionamentos usada para associar elementos do domínio aos atributos que os caracterizam.",
+)
+
+# hasAttribute is the concrete relation between a DomainElement and a DomainAttribute.
+# Preserve its existing domain/range and classify it under AttributeRelation.
+g.add((U("hasAttribute"), RDFS.subPropertyOf, U("AttributeRelation")))
+
 
 # ---------------------------------------------------------------------------
 # Guardrails
@@ -147,10 +163,15 @@ assert (U("isMaterialSpecificationOf"), RDFS.subPropertyOf, U("TechnicalDefiniti
 assert (U("hasMaterialSpecification"), OWL.inverseOf, U("isMaterialSpecificationOf")) in g
 assert (U("isMaterialSpecificationOf"), OWL.inverseOf, U("hasMaterialSpecification")) in g
 assert has_exact("FlexibleStructureLayer", "hasMaterialSpecification", "MaterialSpecification", 1)
+assert (U("AttributeRelation"), RDF.type, OWL.ObjectProperty) in g
+assert (U("AttributeRelation"), RDFS.subPropertyOf, U("DomainRelation")) in g
+assert (U("hasAttribute"), RDFS.subPropertyOf, U("AttributeRelation")) in g
+assert (U("hasAttribute"), RDFS.domain, U("DomainElement")) in g
+assert (U("hasAttribute"), RDFS.range, U("DomainAttribute")) in g
 
 
 g.bind("edo", EDO)
 g.bind("skos", SKOS)
 g.bind("dcterms", DCT)
 g.serialize(destination=PATH, format="turtle")
-print(f"Added material-specification relations; ontology now has {len(g)} triples")
+print(f"Added material-specification and attribute relations; ontology now has {len(g)} triples")
