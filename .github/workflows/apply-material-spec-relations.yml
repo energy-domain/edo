@@ -1,0 +1,38 @@
+name: Apply material specification relations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/apply-material-spec-relations.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install rdflib
+      - name: Apply material specification model
+        run: |
+          python tools/add_material_specification_relations.py
+      - name: Validate Turtle
+        run: |
+          python -c "from rdflib import Graph; g=Graph(); g.parse('core/edo-object-relations.ttl', format='turtle'); print(f'validated {len(g)} triples')"
+      - name: Commit generated ontology
+        run: |
+          if git diff --quiet -- core/edo-object-relations.ttl; then
+            echo 'No changes.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add core/edo-object-relations.ttl
+          git commit -m 'Model material specifications in object-relations ontology'
+          git push
