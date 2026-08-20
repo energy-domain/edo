@@ -683,3 +683,11 @@ values were preserved.
 ```diff
 + edo:hasExternalRef "MDA:min_length" ;
 ```
+
+## Updated (adição de especificação)
+
+### edo:BendRestrictor
+
+```diff
++ edo:hasSpec edo:BoltingSpec ;
+```
