@@ -627,3 +627,59 @@ values were preserved.
 + edo:hasDiscipline edo:SubseaManifoldsEngineering ,
 +                   edo:ValveEngineering ;
 ```
+
+## Updated (adição de referência externa)
+
+### edo:ArcAngle
+
+```diff
++ edo:hasExternalRef "MDA:arc_angle" ;
+```
+
+### edo:LockedLength
+
+```diff
++ edo:hasExternalRef "MDA:locked_length" ;
+```
+
+### edo:MaximumBendingMoment
+
+```diff
++ edo:hasExternalRef "MDA:max_bending_moment" ;
+```
+
+### edo:MaximumBendingMomentLongTerm
+
+```diff
++ edo:hasExternalRef "MDA:max_long_term_bending_moment" ;
+```
+
+### edo:MaximumLength
+
+```diff
++ edo:hasExternalRef "MDA:max_length" ;
+```
+
+### edo:MaximumShearForce
+
+```diff
++ edo:hasExternalRef "MDA:max_shear_force" ;
+```
+
+### edo:MaximumShearForceLongTerm
+
+```diff
++ edo:hasExternalRef "MDA:max_long_term_shear_force" ;
+```
+
+### edo:MinBendingRadius
+
+```diff
++ edo:hasExternalRef "MDA:mbr" ;
+```
+
+### edo:MinimumLength
+
+```diff
++ edo:hasExternalRef "MDA:min_length" ;
+```
