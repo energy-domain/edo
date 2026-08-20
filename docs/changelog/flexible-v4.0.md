@@ -948,3 +948,11 @@ edo:RearConeLength rdf:type owl:Class ;
 +                  edo:RearConeDiameter ,
 +                  edo:RearConeLength ;
 ```
+
+## Updated (adição de atributo)
+
+### edo:HangOffCollar
+
+```diff
++ edo:hasAttribute edo:InnerDiameter ;
+```
