@@ -627,3 +627,370 @@ values were preserved.
 + edo:hasDiscipline edo:SubseaManifoldsEngineering ,
 +                   edo:ValveEngineering ;
 ```
+
+## Updated (adição de referência externa)
+
+### edo:ArcAngle
+
+```diff
++ edo:hasExternalRef "MDA:arc_angle" ;
+```
+
+### edo:LockedLength
+
+```diff
++ edo:hasExternalRef "MDA:locked_length" ;
+```
+
+### edo:MaximumBendingMoment
+
+```diff
++ edo:hasExternalRef "MDA:max_bending_moment" ;
+```
+
+### edo:MaximumBendingMomentLongTerm
+
+```diff
++ edo:hasExternalRef "MDA:max_long_term_bending_moment" ;
+```
+
+### edo:MaximumLength
+
+```diff
++ edo:hasExternalRef "MDA:max_length" ;
+```
+
+### edo:MaximumShearForce
+
+```diff
++ edo:hasExternalRef "MDA:max_shear_force" ;
+```
+
+### edo:MaximumShearForceLongTerm
+
+```diff
++ edo:hasExternalRef "MDA:max_long_term_shear_force" ;
+```
+
+### edo:MinBendingRadius
+
+```diff
++ edo:hasExternalRef "MDA:mbr" ;
+```
+
+### edo:MinimumLength
+
+```diff
++ edo:hasExternalRef "MDA:min_length" ;
+```
+
+## Updated (adição de especificação)
+
+### edo:BendRestrictor
+
+```diff
++ edo:hasSpec edo:BoltingSpec ;
+```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#AnnulusFloodDetectionModes
+edo:AnnulusFloodDetectionModes rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "AnnulusFloodDetectionModes" ;
+                               skos:definition "Specifies annulus flood detection methods included in end fitting design"@en ,
+                                               "Especifica os métodos de detecção de alagamento do anular previstos no projeto do conector"@pt-br ;
+                               skos:prefLabel "Annulus flood detection modes"@en ,
+                                              "Modos de detecção de alagamento do anular"@pt-br ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasExternalRef "MDA:annulus_flood_detection_modes" ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:StringValue ;
+                               edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#ArmorMonitoringType
+edo:ArmorMonitoringType rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "ArmorMonitoringType" ;
+                        skos:definition "Specifies the type of armor monitoring system included in the connector"@en ,
+                                        "Especifica o tipo de sistema de monitoramento das armaduras presente no conector"@pt-br ;
+                        skos:prefLabel "Armor monitoring type"@en ,
+                                       "Tipo de monitoramento das armaduras"@pt-br ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:armor_monitoring_type" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:StringValue ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#ExternalCoating
+edo:ExternalCoating rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "ExternalCoating" ;
+                    skos:prefLabel "External coating"@en ,
+                                   "Revestimento externo"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "MDA:external_coating" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:StringValue ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#FlangeFaceCoating
+edo:FlangeFaceCoating rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "FlangeFaceCoating" ;
+                      skos:prefLabel "Flange face coating"@en ,
+                                     "Revestimento da face do flange"@pt-br ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:flange_face_coating" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:StringValue ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#FrontConeAngle
+edo:FrontConeAngle rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "FrontConeAngle" ;
+                   skos:prefLabel "Front cone angle"@en ,
+                                  "Ângulo do cone dianteiro"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:front_cone_angle" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#FrontConeDiameter
+edo:FrontConeDiameter rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "FrontConeDiameter" ;
+                      skos:prefLabel "Front cone diameter"@en ,
+                                     "Diâmetro do cone dianteiro"@pt-br ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:front_cone_diameter" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#FrontConeLength
+edo:FrontConeLength rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "FrontConeLength" ;
+                    skos:prefLabel "Front cone length"@en ,
+                                   "Comprimento do cone dianteiro"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "MDA:front_cone_length" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#InternalCoating
+edo:InternalCoating rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "InternalCoating" ;
+                    skos:prefLabel "Internal coating"@en ,
+                                   "Revestimento interno"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "MDA:internal_coating" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:StringValue ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MaxTerminationDiameter
+edo:MaxTerminationDiameter rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "MaxTerminationDiameter" ;
+                           skos:prefLabel "Maximum termination diameter"@en ,
+                                          "Diâmetro máximo da terminação"@pt-br ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "MDA:max_termination_diameter" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MountingTemplateRadius
+edo:MountingTemplateRadius rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "MountingTemplateRadius" ;
+                           skos:definition "Radius of armor wire bending template for end fitting assembly"@en ,
+                                           "Raio do gabarito para dobra dos arames da armadura para montagem do conector"@pt-br ;
+                           skos:prefLabel "Mounting template radius"@en ,
+                                          "Raio do gabarito de montagem"@pt-br ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "MDA:mounting_template_radius" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#OuterCasingDiameter
+edo:OuterCasingDiameter rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "OuterCasingDiameter" ;
+                        skos:prefLabel "Outer casing diameter"@en ,
+                                       "Diâmetro da jaqueta"@pt-br ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "MDA:outer_casing_diameter" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#OuterCasingLength
+edo:OuterCasingLength rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "OuterCasingLength" ;
+                      skos:prefLabel "Outer casing length"@en ,
+                                     "Comprimento da jaqueta"@pt-br ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:outer_casing_length" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#RearConeAngle
+edo:RearConeAngle rdf:type owl:Class ;
+                  rdfs:subClassOf edo:DomainAttribute ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "RearConeAngle" ;
+                  skos:prefLabel "Rear cone angle"@en ,
+                                 "Ângulo do cone traseiro"@pt-br ;
+                  edo:entityStatus "NEW" ;
+                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                  edo:hasExternalRef "MDA:rear_cone_angle" ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:FloatValue ;
+                  edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#RearConeDiameter
+edo:RearConeDiameter rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "RearConeDiameter" ;
+                     skos:prefLabel "Rear cone diameter"@en ,
+                                    "Diâmetro do cone traseiro"@pt-br ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:rear_cone_diameter" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:FloatValue ;
+                     edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#RearConeLength
+edo:RearConeLength rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "RearConeLength" ;
+                   skos:prefLabel "Rear cone length"@en ,
+                                  "Comprimento do cone traseiro"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:rear_cone_length" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:EndFitting
+
+```diff
++ edo:hasAttribute edo:AnnulusFloodDetectionModes ,
++                  edo:ArmorMonitoringType ,
++                  edo:ExternalCoating ,
++                  edo:FlangeFaceCoating ,
++                  edo:FrontConeAngle ,
++                  edo:FrontConeDiameter ,
++                  edo:FrontConeLength ,
++                  edo:InternalCoating ,
++                  edo:MaxTerminationDiameter ,
++                  edo:MountingTemplateRadius ,
++                  edo:N2TestPortType ,
++                  edo:OuterCasingDiameter ,
++                  edo:OuterCasingLength ,
++                  edo:RearConeAngle ,
++                  edo:RearConeDiameter ,
++                  edo:RearConeLength ;
+```
+
+## Updated (adição de atributo)
+
+### edo:HangOffCollar
+
+```diff
++ edo:hasAttribute edo:InnerDiameter ;
+```
+
+## Updated (adição de referência externa)
+
+### edo:WireRopeQuantity
+
+```diff
++ edo:hasExternalRef "MDA:num_wire_ropes" ;
+```
+
+### edo:WireRopeSlingDiameter
+
+```diff
++ edo:hasExternalRef "MDA:wire_rope_sling_diameter" ;
+```
+
+### edo:WireRopeSlingLength
+
+```diff
++ edo:hasExternalRef "MDA:wire_rope_sling_length" ;
+```
+
+### edo:BellmouthDiameter
+
+```diff
++ edo:hasExternalRef "MDA:bellmouth_diameter" ;
+```
+
+## Updated (remoção de atributos)
+
+### edo:HandlingCollar
+
+```diff
+- edo:hasAttribute edo:FlangeType ,
+-                  edo:InternalDiameter ,
+-                  edo:MaxDynamicLoad ,
+-                  edo:SafeWorkingLoad ,
+-                  edo:UpperItubeDiameter ;
+```
