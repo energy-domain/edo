@@ -976,3 +976,9 @@ edo:RearConeLength rdf:type owl:Class ;
 ```diff
 + edo:hasExternalRef "MDA:wire_rope_sling_length" ;
 ```
+
+### edo:BellmouthDiameter
+
+```diff
++ edo:hasExternalRef "MDA:bellmouth_diameter" ;
+```
