@@ -237,3 +237,11 @@ edo:hasSpec rdf:type owl:AnnotationProperty ;
 ```diff
 - edo:hasAttribute edo:MaterialManufacturerAttribute ;
 ```
+
+## Updated (remoção de atributo)
+
+### edo:LineComponent
+
+```diff
+- edo:hasAttribute edo:InternalVolume ;
+```
