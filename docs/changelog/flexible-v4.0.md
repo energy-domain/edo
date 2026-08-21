@@ -994,3 +994,27 @@ edo:RearConeLength rdf:type owl:Class ;
 -                  edo:SafeWorkingLoad ,
 -                  edo:UpperItubeDiameter ;
 ```
+
+## Updated (remoção de atributo)
+
+### edo:Asset
+
+```diff
+- edo:hasAttribute edo:DisplacedVolume ;
+```
+
+## Updated (remoção de atributo)
+
+### edo:Asset
+
+```diff
+- edo:hasAttribute edo:InternalVolume ;
+```
+
+## Updated (remoção de atributo)
+
+### edo:CompactObject
+
+```diff
+- edo:hasAttribute edo:DrawingDimensionsTableAttribute ;
+```
