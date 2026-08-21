@@ -221,3 +221,11 @@ edo:hasSpec rdf:type owl:AnnotationProperty ;
 -                  edo:RingGasketStandard ,
 -                  edo:RingGasketType ;
 ```
+
+## Updated (remoção de atributo)
+
+### edo:LineComponent
+
+```diff
+- edo:hasAttribute edo:DisplacedVolume ;
+```
