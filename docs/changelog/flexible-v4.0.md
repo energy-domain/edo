@@ -1010,3 +1010,11 @@ edo:RearConeLength rdf:type owl:Class ;
 ```diff
 - edo:hasAttribute edo:InternalVolume ;
 ```
+
+## Updated (remoção de atributo)
+
+### edo:CompactObject
+
+```diff
+- edo:hasAttribute edo:DrawingDimensionsTableAttribute ;
+```
