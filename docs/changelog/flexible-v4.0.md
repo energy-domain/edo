@@ -982,3 +982,15 @@ edo:RearConeLength rdf:type owl:Class ;
 ```diff
 + edo:hasExternalRef "MDA:bellmouth_diameter" ;
 ```
+
+## Updated (remoção de atributos)
+
+### edo:HandlingCollar
+
+```diff
+- edo:hasAttribute edo:FlangeType ,
+-                  edo:InternalDiameter ,
+-                  edo:MaxDynamicLoad ,
+-                  edo:SafeWorkingLoad ,
+-                  edo:UpperItubeDiameter ;
+```
