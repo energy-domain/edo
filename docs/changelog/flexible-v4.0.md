@@ -1107,3 +1107,50 @@ edo:StandardEnvelope rdf:type owl:Class ;
 ```diff
 + edo:hasExternalRef "MDA:structural_params.linear_weight_filled_submerged" ;
 ```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:CrushingLoad ;
++ edo:hasAttribute edo:DamagingTension ;
++ edo:hasAttribute edo:SpecificMass ;
++ edo:hasAttribute edo:WorkingTension ;
+```
+
+## Updated (complementação de atributos de domínio)
+
+### edo:CrushingLoad
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.crushing_load" ;
+```
+
+### edo:WorkingTension
+
+```diff
++ edo:entityStatus "NEW" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:structural_params.working_tension" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++ edo:hasValueCardinality edo:SingleValue ;
+```
+
+### edo:DamagingTension
+
+```diff
++ edo:entityStatus "NEW" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:structural_params.damaging_tension" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++ edo:hasTypedValue edo:FloatValue ;
++ edo:hasValueCardinality edo:SingleValue ;
+```
+
+### edo:SpoolingTension
+
+```diff
++ edo:entityStatus "NEW" ;
++ edo:hasExternalRef "MDA:structural_params.spooling_tension" ;
+```
