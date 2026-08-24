@@ -1063,3 +1063,47 @@ edo:StandardEnvelope rdf:type owl:Class ;
 ```diff
 + edo:hasExternalRef "MDA:structure_application" ;
 ```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:OuterArea ;
++ edo:hasAttribute edo:LinearWeight ;
++ edo:hasAttribute edo:LinearWeightFilled ;
++ edo:hasAttribute edo:LinearWeightSubmerged ;
++ edo:hasAttribute edo:LinearWeightFilledSubmerged ;
+```
+
+## Updated (adição de referências externas)
+
+### edo:OuterArea
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.outer_area" ;
+```
+
+### edo:LinearWeight
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.linear_weight" ;
+```
+
+### edo:LinearWeightFilled
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.linear_weight_filled" ;
+```
+
+### edo:LinearWeightSubmerged
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.linear_weight_submerged" ;
+```
+
+### edo:LinearWeightFilledSubmerged
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.linear_weight_filled_submerged" ;
+```
