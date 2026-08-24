@@ -1207,3 +1207,84 @@ edo:StandardEnvelope rdf:type owl:Class ;
 ```diff
 + edo:hasExternalRef "MDA:structural_params.friction_coeff_sheath_armor" ;
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#StructuralParams.annulusArea
+edo:StructuralParams.annulusArea rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:DomainAttribute ;
+                                 dcterms:accessRights "PUBLIC" ;
+                                 dcterms:identifier "StructuralParams.annulusArea" ;
+                                 skos:definition "Free volume available between fluid containment layers per unit length"@en ,
+                                                 "Volume livre disponível entre as camadas de contenção de fluidos por unidade de comprimento"@pt-br ;
+                                 skos:prefLabel "Annulus free area"@en ,
+                                                "Área livre do espaço anular"@pt-br ;
+                                 edo:entityStatus "NEW" ;
+                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                 edo:hasExternalRef "MDA:structural_params.annulus_area" ;
+                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                 edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#StructuralParams.innerArea
+edo:StructuralParams.innerArea rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "StructuralParams.innerArea" ;
+                               skos:definition "Inner bore free volume plus caracass interstitial gaps"@en ,
+                                               "Volume livre da passagem interna mais espaços intersticiais da carcaça"@pt-br ;
+                               skos:prefLabel "Inner section (bore) area"@en ,
+                                              "Área da seção interna (bore)"@pt-br ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasExternalRef "MDA:structural_params.inner_area" ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#StructuralParams.maxRiserDepth
+edo:StructuralParams.maxRiserDepth rdf:type owl:Class ;
+                                   rdfs:subClassOf edo:DomainAttribute ;
+                                   dcterms:accessRights "PUBLIC" ;
+                                   dcterms:identifier "StructuralParams.maxRiserDepth" ;
+                                   skos:definition "For structures employed as risers: total water depth of complete riser configuration for which structure has been designed"@en ,
+                                                   "Para estruturas usadas como riser: LDA total da configuração de riser completa para a qual a estrutura foi projetada"@pt-br ;
+                                   skos:prefLabel "Maximum riser configuration water depth"@en ,
+                                                  "Profundidade máxima da configuração de riser"@pt-br ;
+                                   edo:entityStatus "NEW" ;
+                                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                   edo:hasExternalRef "MDA:structural_params.max_riser_depth" ;
+                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                   edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de referências externas)
+
+### edo:MaxDragCoeff
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.max_drag_coeff" ;
+```
+
+### edo:MinDragCoeff
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.min_drag_coeff" ;
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:BoreType ;
++ edo:hasAttribute edo:MaxDragCoeff ;
++ edo:hasAttribute edo:MinDragCoeff ;
++ edo:hasAttribute edo:StructuralParams.annulusArea ;
++ edo:hasAttribute edo:StructuralParams.innerArea ;
++ edo:hasAttribute edo:StructuralParams.maxRiserDepth ;
+```
