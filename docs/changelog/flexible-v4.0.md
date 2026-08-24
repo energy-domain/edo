@@ -1288,3 +1288,118 @@ edo:StructuralParams.maxRiserDepth rdf:type owl:Class ;
 + edo:hasAttribute edo:StructuralParams.innerArea ;
 + edo:hasAttribute edo:StructuralParams.maxRiserDepth ;
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#AccidentalOverpressure
+edo:AccidentalOverpressure rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "AccidentalOverpressure" ;
+                           skos:prefLabel "Accidental overpressure"@en ,
+                                          "Sobrepressão acidental"@pt-br ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "MDA:structural_params.accidental_overpressure" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:MPa ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#CollapsePressureFlooded
+edo:CollapsePressureFlooded rdf:type owl:Class ;
+                            rdfs:subClassOf edo:DomainAttribute ;
+                            dcterms:accessRights "PUBLIC" ;
+                            dcterms:identifier "CollapsePressureFlooded" ;
+                            skos:definition "Hydrostatic collapse pressure for straight pipe and flooded annulus"@en ,
+                                            "Pressão de colapso hidrostático para duto reto e anular alagado"@pt-br ;
+                            skos:prefLabel "Hydrostatic collapse pressure, straight, flooded annulus"@en ,
+                                           "Pressão de colapso hidrostático, reto, anular alagado"@pt-br ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasAttributeScope edo:TypeLevelAttribute ;
+                            edo:hasExternalRef "MDA:structural_params.collapse_pressure_flooded" ;
+                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                            edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:MPa ;
+                            edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#CollapsePressureIntact
+edo:CollapsePressureIntact rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "CollapsePressureIntact" ;
+                           skos:definition "Hydrostatic collapse pressure for straight pipe and intact (unflooded) annulus"@en ,
+                                           "Pressão de colapso hidrostático para duto reto e anular intacto (seco)"@pt-br ;
+                           skos:prefLabel "Hydrostatic collapse pressure, straight, intact annulus"@en ,
+                                          "Pressão de colapso hidrostático, reto, anular intacto"@pt-br ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "MDA:structural_params.collapse_pressure_intact" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:MPa ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MaxDiffPressure
+edo:MaxDiffPressure rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "MaxDiffPressure" ;
+                    skos:prefLabel "Maximum operating differential pressure"@en ,
+                                   "Pressão diferencial máxima de operação"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "MDA:structural_params.max_diff_pressure" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:MPa ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinPressure
+edo:MinPressure rdf:type owl:Class ;
+                rdfs:subClassOf edo:DomainAttribute ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "MinPressure" ;
+                skos:prefLabel "Minimum design pressure"@en ,
+                               "Pressão mínima de projeto"@pt-br ;
+                edo:entityStatus "NEW" ;
+                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasExternalRef "MDA:structural_params.min_pressure" ;
+                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:MPa ;
+                edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:AccidentalOverpressure ;
++ edo:hasAttribute edo:BurstPressure ;
++ edo:hasAttribute edo:CollapsePressureFlooded ;
++ edo:hasAttribute edo:CollapsePressureIntact ;
++ edo:hasAttribute edo:MaxDiffPressure ;
++ edo:hasAttribute edo:MinPressure ;
++ edo:hasAttribute edo:TestPressure ;
+```
+
+## Updated (adição de referências externas)
+
+### edo:TestPressure
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.test_pressure" ;
+```
+
+### edo:BurstPressure
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.burst_pressure" ;
+```
