@@ -1403,3 +1403,108 @@ edo:MinPressure rdf:type owl:Class ;
 ```diff
 + edo:hasExternalRef "MDA:structural_params.burst_pressure" ;
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#AxialStiffnessCompression
+edo:AxialStiffnessCompression rdf:type owl:Class ;
+                              rdfs:subClassOf edo:DomainAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "AxialStiffnessCompression" ;
+                              skos:definition "Stiffness presented by structure under pure axial compression"@en ,
+                                              "Rigidez apresentada pela estrutura sob compressão axial pura"@pt-br ;
+                              skos:prefLabel "Axial stiffness, compression"@en ,
+                                             "Rigidez axial, compressão"@pt-br ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "MDA:structural_params.axial_stiffness_compression" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:KiloN ;
+                              edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#AxialStiffnessTension
+edo:AxialStiffnessTension rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "AxialStiffnessTension" ;
+                          skos:definition "Stiffness presented by structure under pure axial tension"@en ,
+                                          "Rigidez apresentada pela estrutura sob tração axial pura"@pt-br ;
+                          skos:prefLabel "Axial stiffness, tension"@en ,
+                                         "Rigidez axial, tração"@pt-br ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:structural_params.axial_stiffness_tension" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:KiloN ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#PermissibleCompressionEmptyBottom
+edo:PermissibleCompressionEmptyBottom rdf:type owl:Class ;
+                                      rdfs:subClassOf edo:DomainAttribute ;
+                                      dcterms:accessRights "PUBLIC" ;
+                                      dcterms:identifier "PermissibleCompressionEmptyBottom" ;
+                                      skos:definition "Allowed tension at maximum water depth temperature and pressure outside and atmospheric pressure inside"@en ,
+                                                      "Compressão axial permitida com temperatura e pressão da LDA máxima no exterior e pressão atmosférica no interior"@pt-br ;
+                                      skos:prefLabel "Permissible axial compression, empty, bottom"@en ,
+                                                     "Compressão axial permitida, vazio, fundo"@pt-br ;
+                                      edo:entityStatus "NEW" ;
+                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                      edo:hasExternalRef "MDA:structural_params.permissible_compression_empty_bottom" ;
+                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                      edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:KiloN ;
+                                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#PermissibleTensionMbr
+edo:PermissibleTensionMbr rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "PermissibleTensionMbr" ;
+                          skos:definition "Allowed tension while bent to minimum operating radius and without internal pressure"@en ,
+                                          "Tração permitida flexionado no raio mínimo de operação e sem pressão interna"@pt-br ;
+                          skos:prefLabel "Permissible tension, empty, minimum operating radius"@en ,
+                                         "Tração permitida, vazio, raio mínimo de operação"@pt-br ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:structural_params.permissible_tension_mbr" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:KiloN ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#PermissibleTensionStraight
+edo:PermissibleTensionStraight rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "PermissibleTensionStraight" ;
+                               skos:definition "Allowed tension in a straight line and without internal pressure"@en ,
+                                               "Tração permitida em linha reta e sem pressão interna"@pt-br ;
+                               skos:prefLabel "Permissible tension, empty, straight"@en ,
+                                              "Tração permitida, vazio, reto"@pt-br ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasExternalRef "MDA:structural_params.permissible_tension_straight" ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:KiloN ;
+                               edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:AxialStiffnessCompression ;
++ edo:hasAttribute edo:AxialStiffnessTension ;
++ edo:hasAttribute edo:PermissibleCompressionEmptyBottom ;
++ edo:hasAttribute edo:PermissibleTensionMbr ;
++ edo:hasAttribute edo:PermissibleTensionStraight ;
+```
