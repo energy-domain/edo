@@ -1018,3 +1018,48 @@ edo:RearConeLength rdf:type owl:Class ;
 ```diff
 - edo:hasAttribute edo:DrawingDimensionsTableAttribute ;
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#StandardEnvelope
+edo:StandardEnvelope rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "StandardEnvelope" ;
+                     skos:definition "Specifies the standardized set of operating conditions (application envelope) for which pipe is designed, if applicable"@en ,
+                                     "Especifica o conjunto padronizado de condições de operação (envoltória de aplicação) para o qual o duto é projetado, se aplicável"@pt-br ;
+                     skos:prefLabel "Standardized envelope"@en ,
+                                    "Envoltória padronizada"@pt-br ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:standard_envelope" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:StringValue ;
+                     edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeSegment
+
+```diff
++ edo:hasAttribute edo:MainDesignNorm ;
++ edo:hasAttribute edo:FlexibleSegmentStatus ;
++ edo:hasAttribute edo:StructureApplication ;
++ edo:hasAttribute edo:StandardEnvelope ;
+```
+
+## Updated (adição de referências externas)
+
+### edo:FlexibleSegmentStatus
+
+```diff
++ edo:hasExternalRef "MDA:status" ;
+```
+
+### edo:StructureApplication
+
+```diff
++ edo:hasExternalRef "MDA:structure_application" ;
+```
