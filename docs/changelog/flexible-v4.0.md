@@ -1154,3 +1154,56 @@ edo:StandardEnvelope rdf:type owl:Class ;
 + edo:entityStatus "NEW" ;
 + edo:hasExternalRef "MDA:structural_params.spooling_tension" ;
 ```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:BendingStiffnessStorage ;
++ edo:hasAttribute edo:FrictionCoeffSheathArmor ;
++ edo:hasAttribute edo:FrictionCoeffSheathTensioner ;
++ edo:hasAttribute edo:TorsionalStiffnessHigherStorage ;
++ edo:hasAttribute edo:TorsionalStiffnessLowerStorage ;
+```
+
+`edo:MinBendingRadiusForStorage` já estava associado a
+`edo:FlexiblePipeStructure`; nenhuma associação duplicada foi adicionada.
+
+## Updated (adição de referências externas)
+
+### edo:BendingStiffnessStorage
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.bending_stiffness_storage" ;
+```
+
+### edo:TorsionalStiffnessLowerStorage
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.torsional_stiffness_lower_storage" ;
+```
+
+### edo:TorsionalStiffnessHigherStorage
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.torsional_stiffness_higher_storage" ;
+```
+
+### edo:MinBendingRadiusForStorage
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.mbr_storage" ;
+```
+
+### edo:FrictionCoeffSheathTensioner
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.friction_coeff_sheath_tensioner" ;
+```
+
+### edo:FrictionCoeffSheathArmor
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.friction_coeff_sheath_armor" ;
+```
