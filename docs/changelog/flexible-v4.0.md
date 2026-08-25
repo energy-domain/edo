@@ -1680,3 +1680,70 @@ edo:TorsionalStiffnessHigherBottom rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:TorsionalStiffnessHigherBottom ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:TorsionalStiffnessLowerBottom ;
 ```
+
+## Created (thermal exchange coefficients)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#TecStorage
+edo:TecStorage rdf:type owl:Class ;
+               rdfs:subClassOf edo:DomainAttribute ;
+               dcterms:accessRights "PUBLIC" ;
+               dcterms:identifier "TecStorage" ;
+               skos:definition "Thermal exchange coefficient between inner bore and external environment, under storage conditions"@en ,
+                               "Coeficiente de troca térmica entre a passagem interior (bore) e o meio externo, nas condições de estocagem"@pt-br ;
+               skos:prefLabel "Thermal exchange coefficient, storage"@en ,
+                              "Coeficiente de troca térmica, estocagem"@pt-br ;
+               edo:entityStatus "NEW" ;
+               edo:hasAttributeScope edo:TypeLevelAttribute ;
+               edo:hasExternalRef "MDA:structural_params.tec_storage" ;
+               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+               edo:hasTypedValue edo:FloatValue ;
+               edo:hasUnit unit:W-PER-M-K ;
+               edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TecIntact
+edo:TecIntact rdf:type owl:Class ;
+              rdfs:subClassOf edo:DomainAttribute ;
+              dcterms:accessRights "PUBLIC" ;
+              dcterms:identifier "TecIntact" ;
+              skos:definition "Thermal exchange coefficient between inner bore and external environment, under operating conditions and intact (unflooded) annulus"@en ,
+                              "Coeficiente de troca térmica entre a passagem interior (bore) e o meio externo, nas condições de operação e com anular intacto (não alagado)"@pt-br ;
+              skos:prefLabel "Thermal exchange coefficient, operation, intact annulus"@en ,
+                             "Coeficiente de troca térmica, operação, anular intacto"@pt-br ;
+              edo:entityStatus "NEW" ;
+              edo:hasAttributeScope edo:TypeLevelAttribute ;
+              edo:hasExternalRef "MDA:structural_params.tec_intact" ;
+              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+              edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:W-PER-M-K ;
+              edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TecFlooded
+edo:TecFlooded rdf:type owl:Class ;
+               rdfs:subClassOf edo:DomainAttribute ;
+               dcterms:accessRights "PUBLIC" ;
+               dcterms:identifier "TecFlooded" ;
+               skos:definition "Thermal exchange coefficient between inner bore and external environment, under operating conditions and flooded annular space"@en ,
+                               "Coeficiente de troca térmica entre a passagem interior (bore) e o meio externo, nas condições de operação e com espaço anular alagado"@pt-br ;
+               skos:prefLabel "Thermal exchange coefficient, operation, flooded annulus"@en ,
+                              "Coeficiente de troca térmica, operação, anular alagado"@pt-br ;
+               edo:entityStatus "NEW" ;
+               edo:hasAttributeScope edo:TypeLevelAttribute ;
+               edo:hasExternalRef "MDA:structural_params.tec_flooded" ;
+               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+               edo:hasTypedValue edo:FloatValue ;
+               edo:hasUnit unit:W-PER-M-K ;
+               edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de atributos de troca térmica)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TecFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TecIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TecStorage ;
+```
