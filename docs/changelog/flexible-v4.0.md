@@ -1929,3 +1929,59 @@ edo:NbrOperation rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:NbrOperation ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:NbrRest ;
 ```
+
+## Created (friction coefficients by material pair)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#FrictionCoeffSteel
+edo:FrictionCoeffSteel rdf:type owl:Class ;
+                       rdfs:subClassOf edo:DomainAttribute ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "FrictionCoeffSteel" ;
+                       skos:prefLabel "Friction coefficient, steel vs. steel"@en ,
+                                      "Coeficiente de atrito, aço vs. aço"@pt-br ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:structural_params.friction_coeff_steel" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#FrictionCoeffSteelPolymer
+edo:FrictionCoeffSteelPolymer rdf:type owl:Class ;
+                              rdfs:subClassOf edo:DomainAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "FrictionCoeffSteelPolymer" ;
+                              skos:prefLabel "Friction coefficient, steel vs. polymer"@en ,
+                                             "Coeficiente de atrito, aço vs. polímero"@pt-br ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "MDA:structural_params.friction_coeff_steel_polymer" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:FloatValue ;
+                              edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#FrictionCoeffPolymer
+edo:FrictionCoeffPolymer rdf:type owl:Class ;
+                         rdfs:subClassOf edo:DomainAttribute ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "FrictionCoeffPolymer" ;
+                         skos:prefLabel "Friction coefficient, polymer vs. polymer"@en ,
+                                        "Coeficiente de atrito, polímero vs. polímero"@pt-br ;
+                         edo:entityStatus "NEW" ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasExternalRef "MDA:structural_params.friction_coeff_polymer" ;
+                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                         edo:hasTypedValue edo:FloatValue ;
+                         edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de coeficientes de atrito por par de materiais)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:FrictionCoeffPolymer ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:FrictionCoeffSteel ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:FrictionCoeffSteelPolymer ;
+```
