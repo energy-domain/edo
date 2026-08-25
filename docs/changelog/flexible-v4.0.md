@@ -1018,3 +1018,1029 @@ edo:RearConeLength rdf:type owl:Class ;
 ```diff
 - edo:hasAttribute edo:DrawingDimensionsTableAttribute ;
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#StandardEnvelope
+edo:StandardEnvelope rdf:type owl:Class ;
+                     rdfs:subClassOf edo:DomainAttribute ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "StandardEnvelope" ;
+                     skos:definition "Specifies the standardized set of operating conditions (application envelope) for which pipe is designed, if applicable"@en ,
+                                     "Especifica o conjunto padronizado de condições de operação (envoltória de aplicação) para o qual o duto é projetado, se aplicável"@pt-br ;
+                     skos:prefLabel "Standardized envelope"@en ,
+                                    "Envoltória padronizada"@pt-br ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:standard_envelope" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:StringValue ;
+                     edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeSegment
+
+```diff
++ edo:hasAttribute edo:MainDesignNorm ;
++ edo:hasAttribute edo:FlexibleSegmentStatus ;
++ edo:hasAttribute edo:StructureApplication ;
++ edo:hasAttribute edo:StandardEnvelope ;
+```
+
+## Updated (adição de referências externas)
+
+### edo:FlexibleSegmentStatus
+
+```diff
++ edo:hasExternalRef "MDA:status" ;
+```
+
+### edo:StructureApplication
+
+```diff
++ edo:hasExternalRef "MDA:structure_application" ;
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:OuterArea ;
++ edo:hasAttribute edo:LinearWeight ;
++ edo:hasAttribute edo:LinearWeightFilled ;
++ edo:hasAttribute edo:LinearWeightSubmerged ;
++ edo:hasAttribute edo:LinearWeightFilledSubmerged ;
+```
+
+## Updated (adição de referências externas)
+
+### edo:OuterArea
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.outer_area" ;
+```
+
+### edo:LinearWeight
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.linear_weight" ;
+```
+
+### edo:LinearWeightFilled
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.linear_weight_filled" ;
+```
+
+### edo:LinearWeightSubmerged
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.linear_weight_submerged" ;
+```
+
+### edo:LinearWeightFilledSubmerged
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.linear_weight_filled_submerged" ;
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:CrushingLoad ;
++ edo:hasAttribute edo:DamagingTension ;
++ edo:hasAttribute edo:SpecificMass ;
++ edo:hasAttribute edo:WorkingTension ;
+```
+
+## Updated (complementação de atributos de domínio)
+
+### edo:CrushingLoad
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.crushing_load" ;
+```
+
+### edo:WorkingTension
+
+```diff
++ edo:entityStatus "NEW" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:structural_params.working_tension" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++ edo:hasValueCardinality edo:SingleValue ;
+```
+
+### edo:DamagingTension
+
+```diff
++ edo:entityStatus "NEW" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:structural_params.damaging_tension" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++ edo:hasTypedValue edo:FloatValue ;
++ edo:hasValueCardinality edo:SingleValue ;
+```
+
+### edo:SpoolingTension
+
+```diff
++ edo:entityStatus "NEW" ;
++ edo:hasExternalRef "MDA:structural_params.spooling_tension" ;
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:BendingStiffnessStorage ;
++ edo:hasAttribute edo:FrictionCoeffSheathArmor ;
++ edo:hasAttribute edo:FrictionCoeffSheathTensioner ;
++ edo:hasAttribute edo:TorsionalStiffnessHigherStorage ;
++ edo:hasAttribute edo:TorsionalStiffnessLowerStorage ;
+```
+
+`edo:MinBendingRadiusForStorage` já estava associado a
+`edo:FlexiblePipeStructure`; nenhuma associação duplicada foi adicionada.
+
+## Updated (adição de referências externas)
+
+### edo:BendingStiffnessStorage
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.bending_stiffness_storage" ;
+```
+
+### edo:TorsionalStiffnessLowerStorage
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.torsional_stiffness_lower_storage" ;
+```
+
+### edo:TorsionalStiffnessHigherStorage
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.torsional_stiffness_higher_storage" ;
+```
+
+### edo:MinBendingRadiusForStorage
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.mbr_storage" ;
+```
+
+### edo:FrictionCoeffSheathTensioner
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.friction_coeff_sheath_tensioner" ;
+```
+
+### edo:FrictionCoeffSheathArmor
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.friction_coeff_sheath_armor" ;
+```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#StructuralParams.annulusArea
+edo:StructuralParams.annulusArea rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:DomainAttribute ;
+                                 dcterms:accessRights "PUBLIC" ;
+                                 dcterms:identifier "StructuralParams.annulusArea" ;
+                                 skos:definition "Free volume available between fluid containment layers per unit length"@en ,
+                                                 "Volume livre disponível entre as camadas de contenção de fluidos por unidade de comprimento"@pt-br ;
+                                 skos:prefLabel "Annulus free area"@en ,
+                                                "Área livre do espaço anular"@pt-br ;
+                                 edo:entityStatus "NEW" ;
+                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                 edo:hasExternalRef "MDA:structural_params.annulus_area" ;
+                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                 edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#StructuralParams.innerArea
+edo:StructuralParams.innerArea rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "StructuralParams.innerArea" ;
+                               skos:definition "Inner bore free volume plus caracass interstitial gaps"@en ,
+                                               "Volume livre da passagem interna mais espaços intersticiais da carcaça"@pt-br ;
+                               skos:prefLabel "Inner section (bore) area"@en ,
+                                              "Área da seção interna (bore)"@pt-br ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasExternalRef "MDA:structural_params.inner_area" ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#StructuralParams.maxRiserDepth
+edo:StructuralParams.maxRiserDepth rdf:type owl:Class ;
+                                   rdfs:subClassOf edo:DomainAttribute ;
+                                   dcterms:accessRights "PUBLIC" ;
+                                   dcterms:identifier "StructuralParams.maxRiserDepth" ;
+                                   skos:definition "For structures employed as risers: total water depth of complete riser configuration for which structure has been designed"@en ,
+                                                   "Para estruturas usadas como riser: LDA total da configuração de riser completa para a qual a estrutura foi projetada"@pt-br ;
+                                   skos:prefLabel "Maximum riser configuration water depth"@en ,
+                                                  "Profundidade máxima da configuração de riser"@pt-br ;
+                                   edo:entityStatus "NEW" ;
+                                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                   edo:hasExternalRef "MDA:structural_params.max_riser_depth" ;
+                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                   edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de referências externas)
+
+### edo:MaxDragCoeff
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.max_drag_coeff" ;
+```
+
+### edo:MinDragCoeff
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.min_drag_coeff" ;
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:BoreType ;
++ edo:hasAttribute edo:MaxDragCoeff ;
++ edo:hasAttribute edo:MinDragCoeff ;
++ edo:hasAttribute edo:StructuralParams.annulusArea ;
++ edo:hasAttribute edo:StructuralParams.innerArea ;
++ edo:hasAttribute edo:StructuralParams.maxRiserDepth ;
+```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#AccidentalOverpressure
+edo:AccidentalOverpressure rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "AccidentalOverpressure" ;
+                           skos:prefLabel "Accidental overpressure"@en ,
+                                          "Sobrepressão acidental"@pt-br ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "MDA:structural_params.accidental_overpressure" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:MPa ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#CollapsePressureFlooded
+edo:CollapsePressureFlooded rdf:type owl:Class ;
+                            rdfs:subClassOf edo:DomainAttribute ;
+                            dcterms:accessRights "PUBLIC" ;
+                            dcterms:identifier "CollapsePressureFlooded" ;
+                            skos:definition "Hydrostatic collapse pressure for straight pipe and flooded annulus"@en ,
+                                            "Pressão de colapso hidrostático para duto reto e anular alagado"@pt-br ;
+                            skos:prefLabel "Hydrostatic collapse pressure, straight, flooded annulus"@en ,
+                                           "Pressão de colapso hidrostático, reto, anular alagado"@pt-br ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasAttributeScope edo:TypeLevelAttribute ;
+                            edo:hasExternalRef "MDA:structural_params.collapse_pressure_flooded" ;
+                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                            edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:MPa ;
+                            edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#CollapsePressureIntact
+edo:CollapsePressureIntact rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "CollapsePressureIntact" ;
+                           skos:definition "Hydrostatic collapse pressure for straight pipe and intact (unflooded) annulus"@en ,
+                                           "Pressão de colapso hidrostático para duto reto e anular intacto (seco)"@pt-br ;
+                           skos:prefLabel "Hydrostatic collapse pressure, straight, intact annulus"@en ,
+                                          "Pressão de colapso hidrostático, reto, anular intacto"@pt-br ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "MDA:structural_params.collapse_pressure_intact" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasUnit unit:MPa ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MaxDiffPressure
+edo:MaxDiffPressure rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "MaxDiffPressure" ;
+                    skos:prefLabel "Maximum operating differential pressure"@en ,
+                                   "Pressão diferencial máxima de operação"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "MDA:structural_params.max_diff_pressure" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:MPa ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MinPressure
+edo:MinPressure rdf:type owl:Class ;
+                rdfs:subClassOf edo:DomainAttribute ;
+                dcterms:accessRights "PUBLIC" ;
+                dcterms:identifier "MinPressure" ;
+                skos:prefLabel "Minimum design pressure"@en ,
+                               "Pressão mínima de projeto"@pt-br ;
+                edo:entityStatus "NEW" ;
+                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                edo:hasExternalRef "MDA:structural_params.min_pressure" ;
+                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:MPa ;
+                edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:AccidentalOverpressure ;
++ edo:hasAttribute edo:BurstPressure ;
++ edo:hasAttribute edo:CollapsePressureFlooded ;
++ edo:hasAttribute edo:CollapsePressureIntact ;
++ edo:hasAttribute edo:MaxDiffPressure ;
++ edo:hasAttribute edo:MinPressure ;
++ edo:hasAttribute edo:TestPressure ;
+```
+
+## Updated (adição de referências externas)
+
+### edo:TestPressure
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.test_pressure" ;
+```
+
+### edo:BurstPressure
+
+```diff
++ edo:hasExternalRef "MDA:structural_params.burst_pressure" ;
+```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#AxialStiffnessCompression
+edo:AxialStiffnessCompression rdf:type owl:Class ;
+                              rdfs:subClassOf edo:DomainAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "AxialStiffnessCompression" ;
+                              skos:definition "Stiffness presented by structure under pure axial compression"@en ,
+                                              "Rigidez apresentada pela estrutura sob compressão axial pura"@pt-br ;
+                              skos:prefLabel "Axial stiffness, compression"@en ,
+                                             "Rigidez axial, compressão"@pt-br ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "MDA:structural_params.axial_stiffness_compression" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:KiloN ;
+                              edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#AxialStiffnessTension
+edo:AxialStiffnessTension rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "AxialStiffnessTension" ;
+                          skos:definition "Stiffness presented by structure under pure axial tension"@en ,
+                                          "Rigidez apresentada pela estrutura sob tração axial pura"@pt-br ;
+                          skos:prefLabel "Axial stiffness, tension"@en ,
+                                         "Rigidez axial, tração"@pt-br ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:structural_params.axial_stiffness_tension" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:KiloN ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#PermissibleCompressionEmptyBottom
+edo:PermissibleCompressionEmptyBottom rdf:type owl:Class ;
+                                      rdfs:subClassOf edo:DomainAttribute ;
+                                      dcterms:accessRights "PUBLIC" ;
+                                      dcterms:identifier "PermissibleCompressionEmptyBottom" ;
+                                      skos:definition "Allowed tension at maximum water depth temperature and pressure outside and atmospheric pressure inside"@en ,
+                                                      "Compressão axial permitida com temperatura e pressão da LDA máxima no exterior e pressão atmosférica no interior"@pt-br ;
+                                      skos:prefLabel "Permissible axial compression, empty, bottom"@en ,
+                                                     "Compressão axial permitida, vazio, fundo"@pt-br ;
+                                      edo:entityStatus "NEW" ;
+                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                      edo:hasExternalRef "MDA:structural_params.permissible_compression_empty_bottom" ;
+                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                      edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:KiloN ;
+                                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#PermissibleTensionMbr
+edo:PermissibleTensionMbr rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "PermissibleTensionMbr" ;
+                          skos:definition "Allowed tension while bent to minimum operating radius and without internal pressure"@en ,
+                                          "Tração permitida flexionado no raio mínimo de operação e sem pressão interna"@pt-br ;
+                          skos:prefLabel "Permissible tension, empty, minimum operating radius"@en ,
+                                         "Tração permitida, vazio, raio mínimo de operação"@pt-br ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasExternalRef "MDA:structural_params.permissible_tension_mbr" ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:FloatValue ;
+                          edo:hasUnit unit:KiloN ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#PermissibleTensionStraight
+edo:PermissibleTensionStraight rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "PermissibleTensionStraight" ;
+                               skos:definition "Allowed tension in a straight line and without internal pressure"@en ,
+                                               "Tração permitida em linha reta e sem pressão interna"@pt-br ;
+                               skos:prefLabel "Permissible tension, empty, straight"@en ,
+                                              "Tração permitida, vazio, reto"@pt-br ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasExternalRef "MDA:structural_params.permissible_tension_straight" ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:KiloN ;
+                               edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:FlexiblePipeStructure
+
+```diff
++ edo:hasAttribute edo:AxialStiffnessCompression ;
++ edo:hasAttribute edo:AxialStiffnessTension ;
++ edo:hasAttribute edo:PermissibleCompressionEmptyBottom ;
++ edo:hasAttribute edo:PermissibleTensionMbr ;
++ edo:hasAttribute edo:PermissibleTensionStraight ;
+```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#BendingStiffnessEmptyBottom
+edo:BendingStiffnessEmptyBottom rdf:type owl:Class ;
+                                rdfs:subClassOf edo:DomainAttribute ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "BendingStiffnessEmptyBottom" ;
+                                skos:definition "Bending stiffness at temperature of maximum depth, atmospheric pressure inside and maximum water depth pressure outside"@en ,
+                                                "Rigidez flexional na temperatura da LDA máxima, pressão atmosférica no interior e pressão da LDA máxima no exterior"@pt-br ;
+                                skos:prefLabel "Bending stiffness, empty, bottom"@en ,
+                                               "Rigidez flexional, vazio, no fundo"@pt-br ;
+                                edo:entityStatus "NEW" ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasExternalRef "MDA:structural_params.bending_stiffness_empty_bottom" ;
+                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:KiloN-M2 ;
+                                edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#BendingStiffnessEquilibriumBottom
+edo:BendingStiffnessEquilibriumBottom rdf:type owl:Class ;
+                                      rdfs:subClassOf edo:DomainAttribute ;
+                                      dcterms:accessRights "PUBLIC" ;
+                                      dcterms:identifier "BendingStiffnessEquilibriumBottom" ;
+                                      skos:definition "Bending stiffness at temperature of maximum depth and maximum water depth pressure inside and outside"@en ,
+                                                      "Rigidez flexional na temperatura da LDA máxima e pressão da LDA máxima no interior e exterior"@pt-br ;
+                                      skos:prefLabel "Bending stiffness, equilibrium, bottom"@en ,
+                                                     "Rigidez flexional, equilíbrio, no fundo"@pt-br ;
+                                      edo:entityStatus "NEW" ;
+                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                      edo:hasExternalRef "MDA:structural_params.bending_stiffness_equilibrium_bottom" ;
+                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                      edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:KiloN-M2 ;
+                                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#BendingStiffnessOperation
+edo:BendingStiffnessOperation rdf:type owl:Class ;
+                              rdfs:subClassOf edo:DomainAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "BendingStiffnessOperation" ;
+                              skos:definition "Bending stiffness at operating pressure and temperature inside, and maximum depth pressure and temperature outside"@en ,
+                                              "Rigidez flexional com pressão e temperatura de operação no interior, e pressão e temperatura da LDA máxima no exterior"@pt-br ;
+                              skos:prefLabel "Bending stiffness, operation"@en ,
+                                             "Rigidez flexional, operação"@pt-br ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "MDA:structural_params.bending_stiffness_operation" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:KiloN-M2 ;
+                              edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#BendingStiffnessPressurizedBottom
+edo:BendingStiffnessPressurizedBottom rdf:type owl:Class ;
+                                     rdfs:subClassOf edo:DomainAttribute ;
+                                     dcterms:accessRights "PUBLIC" ;
+                                     dcterms:identifier "BendingStiffnessPressurizedBottom" ;
+                                     skos:definition "Bending stiffness at temperature of maximum depth, maximum operating pressure inside and maximum water depth pressure outside"@en ,
+                                                     "Rigidez flexional na temperatura da LDA máxima, pressão máxima de operação no interior e pressão da LDA máxima no exterior"@pt-br ;
+                                     skos:prefLabel "Bending stiffness, pressurized, bottom"@en ,
+                                                    "Rigidez flexional, pressurizado, no fundo"@pt-br ;
+                                     edo:entityStatus "NEW" ;
+                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                     edo:hasExternalRef "MDA:structural_params.bending_stiffness_pressurized_bottom" ;
+                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                     edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:KiloN-M2 ;
+                                     edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#BendingStiffnessPressurizedStorage
+edo:BendingStiffnessPressurizedStorage rdf:type owl:Class ;
+                                      rdfs:subClassOf edo:DomainAttribute ;
+                                      dcterms:accessRights "PUBLIC" ;
+                                      dcterms:identifier "BendingStiffnessPressurizedStorage" ;
+                                      skos:definition "Bending stiffness at operating pressure and temperature inside, and temperature of maximum depth and atmospheric pressure outside"@en ,
+                                                      "Rigidez flexional com pressão e temperatura de operação no interior, e temperatura da LDA máxima e pressão atmosférica no exterior"@pt-br ;
+                                      skos:prefLabel "Bending stiffness, pressurized, storage"@en ,
+                                                     "Rigidez flexional, pressurizado, estoque"@pt-br ;
+                                      edo:entityStatus "NEW" ;
+                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                      edo:hasExternalRef "MDA:structural_params.bending_stiffness_pressurized_storage" ;
+                                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                      edo:hasTypedValue edo:FloatValue ;
+                                      edo:hasUnit unit:KiloN-M2 ;
+                                      edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#BendingStiffnessStorageBottomTemp
+edo:BendingStiffnessStorageBottomTemp rdf:type owl:Class ;
+                                     rdfs:subClassOf edo:DomainAttribute ;
+                                     dcterms:accessRights "PUBLIC" ;
+                                     dcterms:identifier "BendingStiffnessStorageBottomTemp" ;
+                                     skos:definition "Bending stiffness at temperature of maximum depth and atmospheric pressure inside and outside"@en ,
+                                                     "Rigidez flexional na temperatura da LDA máxima e pressão atmosférica no interior e exterior"@pt-br ;
+                                     skos:prefLabel "Bending stiffness, storage, bottom temperature"@en ,
+                                                    "Rigidez flexional, estoque, temperatura de fundo"@pt-br ;
+                                     edo:entityStatus "NEW" ;
+                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                     edo:hasExternalRef "MDA:structural_params.bending_stiffness_storage_bottom_temp" ;
+                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                     edo:hasTypedValue edo:FloatValue ;
+                                     edo:hasUnit unit:KiloN-M2 ;
+                                     edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:BendingStiffnessEmptyBottom ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:BendingStiffnessEquilibriumBottom ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:BendingStiffnessOperation ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:BendingStiffnessPressurizedBottom ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:BendingStiffnessPressurizedStorage ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:BendingStiffnessStorageBottomTemp ;
+```
+
+## Created (torsional stiffness at bottom temperature)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#TorsionalStiffnessLowerBottom
+edo:TorsionalStiffnessLowerBottom rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:DomainAttribute ;
+                                  dcterms:accessRights "PUBLIC" ;
+                                  dcterms:identifier "TorsionalStiffnessLowerBottom" ;
+                                  skos:definition "Lower torsional stiffness value (in a particular twist direction) at temperature corresponding to maximum immersion depth"@en ,
+                                                  "Valor menor da rigidez torsional (em um sentido particular de torção) na temperatura correspondente à máxima profundidade de imersão"@pt-br ;
+                                  skos:prefLabel "Torsional stiffness, lower value, bottom temperature"@en ,
+                                                 "Rigidez torsional, valor menor, temperatura de fundo"@pt-br ;
+                                  edo:entityStatus "NEW" ;
+                                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                  edo:hasExternalRef "MDA:structural_params.torsional_stiffness_lower_bottom" ;
+                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                  edo:hasTypedValue edo:FloatValue ;
+                                  edo:hasUnit edo:N-M2-PER-RAD ;
+                                  edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TorsionalStiffnessHigherBottom
+edo:TorsionalStiffnessHigherBottom rdf:type owl:Class ;
+                                   rdfs:subClassOf edo:DomainAttribute ;
+                                   dcterms:accessRights "PUBLIC" ;
+                                   dcterms:identifier "TorsionalStiffnessHigherBottom" ;
+                                   skos:definition "Higher torsional stiffness value (in a particular twist direction) at temperature corresponding to maximum immersion depth"@en ,
+                                                   "Valor maior da rigidez torsional (em um sentido particular de torção) na temperatura correspondente à máxima profundidade de imersão"@pt-br ;
+                                   skos:prefLabel "Torsional stiffness, higher value, bottom temperature"@en ,
+                                                  "Rigidez torsional, valor maior, temperatura de fundo"@pt-br ;
+                                   edo:entityStatus "NEW" ;
+                                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                   edo:hasExternalRef "MDA:structural_params.torsional_stiffness_higher_bottom" ;
+                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                   edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasUnit edo:N-M2-PER-RAD ;
+                                   edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de atributos)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TorsionalStiffnessHigherBottom ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TorsionalStiffnessLowerBottom ;
+```
+
+## Created (thermal exchange coefficients)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#TecStorage
+edo:TecStorage rdf:type owl:Class ;
+               rdfs:subClassOf edo:DomainAttribute ;
+               dcterms:accessRights "PUBLIC" ;
+               dcterms:identifier "TecStorage" ;
+               skos:definition "Thermal exchange coefficient between inner bore and external environment, under storage conditions"@en ,
+                               "Coeficiente de troca térmica entre a passagem interior (bore) e o meio externo, nas condições de estocagem"@pt-br ;
+               skos:prefLabel "Thermal exchange coefficient, storage"@en ,
+                              "Coeficiente de troca térmica, estocagem"@pt-br ;
+               edo:entityStatus "NEW" ;
+               edo:hasAttributeScope edo:TypeLevelAttribute ;
+               edo:hasExternalRef "MDA:structural_params.tec_storage" ;
+               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+               edo:hasTypedValue edo:FloatValue ;
+               edo:hasUnit unit:W-PER-M-K ;
+               edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TecIntact
+edo:TecIntact rdf:type owl:Class ;
+              rdfs:subClassOf edo:DomainAttribute ;
+              dcterms:accessRights "PUBLIC" ;
+              dcterms:identifier "TecIntact" ;
+              skos:definition "Thermal exchange coefficient between inner bore and external environment, under operating conditions and intact (unflooded) annulus"@en ,
+                              "Coeficiente de troca térmica entre a passagem interior (bore) e o meio externo, nas condições de operação e com anular intacto (não alagado)"@pt-br ;
+              skos:prefLabel "Thermal exchange coefficient, operation, intact annulus"@en ,
+                             "Coeficiente de troca térmica, operação, anular intacto"@pt-br ;
+              edo:entityStatus "NEW" ;
+              edo:hasAttributeScope edo:TypeLevelAttribute ;
+              edo:hasExternalRef "MDA:structural_params.tec_intact" ;
+              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+              edo:hasTypedValue edo:FloatValue ;
+              edo:hasUnit unit:W-PER-M-K ;
+              edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TecFlooded
+edo:TecFlooded rdf:type owl:Class ;
+               rdfs:subClassOf edo:DomainAttribute ;
+               dcterms:accessRights "PUBLIC" ;
+               dcterms:identifier "TecFlooded" ;
+               skos:definition "Thermal exchange coefficient between inner bore and external environment, under operating conditions and flooded annular space"@en ,
+                               "Coeficiente de troca térmica entre a passagem interior (bore) e o meio externo, nas condições de operação e com espaço anular alagado"@pt-br ;
+               skos:prefLabel "Thermal exchange coefficient, operation, flooded annulus"@en ,
+                              "Coeficiente de troca térmica, operação, anular alagado"@pt-br ;
+               edo:entityStatus "NEW" ;
+               edo:hasAttributeScope edo:TypeLevelAttribute ;
+               edo:hasExternalRef "MDA:structural_params.tec_flooded" ;
+               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+               edo:hasTypedValue edo:FloatValue ;
+               edo:hasUnit unit:W-PER-M-K ;
+               edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de atributos de troca térmica)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TecFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TecIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TecStorage ;
+```
+
+## Created (minimum bending radii by operating condition)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#MbrInstallationEmptyIntact
+edo:MbrInstallationEmptyIntact rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "MbrInstallationEmptyIntact" ;
+                               skos:prefLabel "Minimum bending radius, installation, empty, intact annulus"@en ,
+                                              "Raio de curvatura mínimo, instalação, vazio, anular intacto"@pt-br ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasExternalRef "MDA:structural_params.mbr_installation_empty_intact" ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:M ;
+                               edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrInstallationEmptyFlooded
+edo:MbrInstallationEmptyFlooded rdf:type owl:Class ;
+                                rdfs:subClassOf edo:DomainAttribute ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "MbrInstallationEmptyFlooded" ;
+                                skos:prefLabel "Minimum bending radius, installation, empty, flooded annulus"@en ,
+                                               "Raio de curvatura mínimo, instalação, vazio, anular alagado"@pt-br ;
+                                edo:entityStatus "NEW" ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasExternalRef "MDA:structural_params.mbr_installation_empty_flooded" ;
+                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:M ;
+                                edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrInstallationFilledIntact
+edo:MbrInstallationFilledIntact rdf:type owl:Class ;
+                                rdfs:subClassOf edo:DomainAttribute ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "MbrInstallationFilledIntact" ;
+                                skos:prefLabel "Minimum bending radius, installation, filled, intact annulus"@en ,
+                                               "Raio de curvatura mínimo, instalação, cheio, anular intacto"@pt-br ;
+                                edo:entityStatus "NEW" ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasExternalRef "MDA:structural_params.mbr_installation_filled_intact" ;
+                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:M ;
+                                edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrInstallationFilledFlooded
+edo:MbrInstallationFilledFlooded rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:DomainAttribute ;
+                                 dcterms:accessRights "PUBLIC" ;
+                                 dcterms:identifier "MbrInstallationFilledFlooded" ;
+                                 skos:prefLabel "Minimum bending radius, installation, filled, flooded annulus"@en ,
+                                                "Raio de curvatura mínimo, instalação, cheio, anular alagado"@pt-br ;
+                                 edo:entityStatus "NEW" ;
+                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                 edo:hasExternalRef "MDA:structural_params.mbr_installation_filled_flooded" ;
+                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                 edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:M ;
+                                 edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrOperationEmptyIntact
+edo:MbrOperationEmptyIntact rdf:type owl:Class ;
+                            rdfs:subClassOf edo:DomainAttribute ;
+                            dcterms:accessRights "PUBLIC" ;
+                            dcterms:identifier "MbrOperationEmptyIntact" ;
+                            skos:prefLabel "Minimum bending radius, operation, empty, intact annulus"@en ,
+                                           "Raio de curvatura mínimo, operação, vazio, anular intacto"@pt-br ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasAttributeScope edo:TypeLevelAttribute ;
+                            edo:hasExternalRef "MDA:structural_params.mbr_operation_empty_intact" ;
+                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                            edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:M ;
+                            edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrOperationEmptyFlooded
+edo:MbrOperationEmptyFlooded rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "MbrOperationEmptyFlooded" ;
+                             skos:prefLabel "Minimum bending radius, operation, empty, flooded annulus"@en ,
+                                            "Raio de curvatura mínimo, operação, vazio, anular alagado"@pt-br ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                             edo:hasExternalRef "MDA:structural_params.mbr_operation_empty_flooded" ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:M ;
+                             edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrOperationFilledIntact
+edo:MbrOperationFilledIntact rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "MbrOperationFilledIntact" ;
+                             skos:prefLabel "Minimum bending radius, operation, filled, intact annulus"@en ,
+                                            "Raio de curvatura mínimo, operação, cheio, anular intacto"@pt-br ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                             edo:hasExternalRef "MDA:structural_params.mbr_operation_filled_intact" ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:M ;
+                             edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrOperationFilledFlooded
+edo:MbrOperationFilledFlooded rdf:type owl:Class ;
+                              rdfs:subClassOf edo:DomainAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "MbrOperationFilledFlooded" ;
+                              skos:prefLabel "Minimum bending radius, operation, filled, flooded annulus"@en ,
+                                             "Raio de curvatura mínimo, operação, cheio, anular alagado"@pt-br ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "MDA:structural_params.mbr_operation_filled_flooded" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:M ;
+                              edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de atributos MBR por condição operacional)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationEmptyFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationEmptyIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationFilledFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationFilledIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationEmptyFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationEmptyIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledIntact ;
+```
+
+## Created (natural bending radii)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#NbrRest
+edo:NbrRest rdf:type owl:Class ;
+            rdfs:subClassOf edo:DomainAttribute ;
+            dcterms:accessRights "PUBLIC" ;
+            dcterms:identifier "NbrRest" ;
+            skos:prefLabel "Natural bending radius, rest"@en ,
+                           "Raio de curvatura natural, repouso"@pt-br ;
+            edo:entityStatus "NEW" ;
+            edo:hasAttributeScope edo:TypeLevelAttribute ;
+            edo:hasExternalRef "MDA:structural_params.nbr_rest" ;
+            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+            edo:hasTypedValue edo:FloatValue ;
+            edo:hasUnit unit:M ;
+            edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#NbrOperation
+edo:NbrOperation rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "NbrOperation" ;
+                 skos:prefLabel "Natural bending radius, operation"@en ,
+                                "Raio de curvatura natural, operação"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:structural_params.nbr_operation" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:M ;
+                 edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de atributos de raio de curvatura natural)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:NbrOperation ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:NbrRest ;
+```
+
+## Created (friction coefficients by material pair)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#FrictionCoeffSteel
+edo:FrictionCoeffSteel rdf:type owl:Class ;
+                       rdfs:subClassOf edo:DomainAttribute ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "FrictionCoeffSteel" ;
+                       skos:prefLabel "Friction coefficient, steel vs. steel"@en ,
+                                      "Coeficiente de atrito, aço vs. aço"@pt-br ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:structural_params.friction_coeff_steel" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#FrictionCoeffSteelPolymer
+edo:FrictionCoeffSteelPolymer rdf:type owl:Class ;
+                              rdfs:subClassOf edo:DomainAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "FrictionCoeffSteelPolymer" ;
+                              skos:prefLabel "Friction coefficient, steel vs. polymer"@en ,
+                                             "Coeficiente de atrito, aço vs. polímero"@pt-br ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "MDA:structural_params.friction_coeff_steel_polymer" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:FloatValue ;
+                              edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#FrictionCoeffPolymer
+edo:FrictionCoeffPolymer rdf:type owl:Class ;
+                         rdfs:subClassOf edo:DomainAttribute ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "FrictionCoeffPolymer" ;
+                         skos:prefLabel "Friction coefficient, polymer vs. polymer"@en ,
+                                        "Coeficiente de atrito, polímero vs. polímero"@pt-br ;
+                         edo:entityStatus "NEW" ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasExternalRef "MDA:structural_params.friction_coeff_polymer" ;
+                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                         edo:hasTypedValue edo:FloatValue ;
+                         edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de coeficientes de atrito por par de materiais)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:FrictionCoeffPolymer ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:FrictionCoeffSteel ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:FrictionCoeffSteelPolymer ;
+```
+
+## Created (design depth, erosional speed, and design-temperature time)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#MinDepth
+edo:MinDepth rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "MinDepth" ;
+             skos:prefLabel "Minimum design depth"@en ,
+                            "Profundidade mínima de projeto"@pt-br ;
+             edo:entityStatus "NEW" ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasExternalRef "MDA:structural_params.min_depth" ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:M ;
+             edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#ErosionalSpeed
+edo:ErosionalSpeed rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "ErosionalSpeed" ;
+                   skos:prefLabel "Erosional speed"@en ,
+                                  "Velocidade de erosão"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:structural_params.erosional_speed" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:M-PER-SEC ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MaxDesignTemperatureTime
+edo:MaxDesignTemperatureTime rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "MaxDesignTemperatureTime" ;
+                             skos:prefLabel "Maximum time in operation at design temperature"@en ,
+                                            "Tempo máximo de operação na temperatura de projeto"@pt-br ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                             edo:hasExternalRef "MDA:structural_params.max_design_temperature_time" ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:YR_Common ;
+                             edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de profundidade, velocidade erosional e tempo em temperatura)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:ErosionalSpeed ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MaxDesignTemperatureTime ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MinDepth ;
+```

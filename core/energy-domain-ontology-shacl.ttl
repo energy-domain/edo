@@ -30,8 +30,8 @@ ex:Rule_AxialStiffness a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_BendingStiffnessStorage a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:BendingStiffnessStorage a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:BendingStiffnessStorage ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -48,13 +48,6 @@ ex:Rule_UmbilicalStructure_BreakingTension a sh:NodeShape ;
     sh:targetClass edo:UmbilicalStructure ;
     sh:property [
         sh:path edo:BreakingTension ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] .
-
-ex:Rule_Tubing_BurstPressure a sh:NodeShape ;
-    sh:targetClass edo:Tubing ;
-    sh:property [
-        sh:path edo:BurstPressure ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
@@ -93,15 +86,15 @@ ex:Rule_OpticalFiberCable_CoreDiameter a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_CrushingLoad a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_CrushingLoad a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:CrushingLoad ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_DamagingTension a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_DamagingTension a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:DamagingTension ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -692,20 +685,19 @@ ex:Rule_Tubing a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path edo:LinearWeightEmptySubmerged ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] ;
     sh:property [
         sh:path edo:LinearWeightFilledAir ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_LinearWeightFilledSubmerged a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:Tubing, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:LinearWeightFilledSubmerged ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] ;
-    sh:property [
-        sh:path edo:TestPressure ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] .
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
 
 ex:Rule_UmbilicalBundle a sh:NodeShape ;
     sh:targetClass edo:UmbilicalBundle ;
@@ -728,18 +720,18 @@ ex:Rule_UmbilicalBundle_3 a sh:NodeShape ;
         sh:in ( "Fractional number (? 0.0)" )
     ] .
 
-ex:Rule_UmbilicalComponent a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalComponent ;
+ex:Rule_LinearWeight a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalComponent, edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:LinearWeight ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_UmbilicalComponent_2 a sh:NodeShape ;
     sh:targetClass edo:UmbilicalComponent ;
     sh:property [
         sh:path edo:LinearWeightSeawater ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_UmbilicalComponent_3 a sh:NodeShape ;
@@ -763,19 +755,26 @@ ex:Rule_UmbilicalStructure a sh:NodeShape ;
         sh:in ( "WATER_INJECTION" "GAS_INJECTION" "OIL_PRODUCTION_LINE" "GAS_PRODUCER" "SERVICE" "GAS_PIPELINE" )
     ] .
 
-ex:Rule_UmbilicalStructure_2 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_FrictionCoeffSheathArmor a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:FrictionCoeffSheathArmor ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_3 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_FrictionCoeffSheathTensioner a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:FrictionCoeffSheathTensioner ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
+
+ex:Rule_MinBendingRadiusForStorage a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:MinBendingRadiusForStorage ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
 
 ex:Rule_UmbilicalStructure_4 a sh:NodeShape ;
     sh:targetClass edo:FlexibleStructure ;
@@ -791,39 +790,29 @@ ex:Rule_UmbilicalStructure_5 a sh:NodeShape ;
         sh:in ( "DRY" "FLOODED" )
     ] .
 
-ex:Rule_UmbilicalStructure_6 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
-    sh:property [
-        sh:path edo:LinearWeight ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] .
 
-ex:Rule_UmbilicalStructure_7 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+
+ex:Rule_LinearWeightFilled a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:LinearWeightFilled ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_8 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
-    sh:property [
-        sh:path edo:LinearWeightFilledSubmerged ;
-        sh:in ( "Fractional number (? 0.0)" )
-    ] .
+
 
 ex:Rule_UmbilicalStructure_9 a sh:NodeShape ;
     sh:targetClass edo:UmbilicalStructure ;
     sh:property [
         sh:path edo:LinearWeightFilledSubmergedFlooded ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_10 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_LinearWeightSubmerged a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:LinearWeightSubmerged ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_umbilical_design_norm a sh:NodeShape ;
@@ -833,11 +822,11 @@ ex:Rule_umbilical_design_norm a sh:NodeShape ;
         sh:in ( "API_17E" "ISO_13628_5" "OTHER" )
     ] .
 
-ex:Rule_UmbilicalStructure_12 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_MaxDragCoeff a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:MaxDragCoeff ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_UmbilicalStructure_13 a sh:NodeShape ;
@@ -875,8 +864,8 @@ ex:Rule_UmbilicalStructure_17 a sh:NodeShape ;
         sh:in ( "Fractional number (? 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_18 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_OuterArea a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:OuterArea ;
         sh:in ( "Fractional number (? 0.0)" )
@@ -889,8 +878,8 @@ ex:Rule_UmbilicalStructure_19 a sh:NodeShape ;
         sh:in ( "Fractional number (? 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_20 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_SpoolingTension a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:SpoolingTension ;
         sh:in ( "Fractional number (? 0.0)" )
@@ -931,25 +920,25 @@ ex:Rule_UmbilicalStructure_27 a sh:NodeShape ;
         sh:in ( "HIGH-DENSITY_POLYURETHANE" "REINFORCED_SYNTHETIC_RUBBER" "FIBRE-REINFORCED_COMPOSITES" "REINFORCED_NYLON" "HIGH-STRENGTH_ELASTOMERS" )
     ] .
 
-ex:Rule_UmbilicalStructure_28 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_TorsionalStiffnessHigherStorage a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:TorsionalStiffnessHigherStorage ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_29 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_TorsionalStiffnessLowerStorage a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:TorsionalStiffnessLowerStorage ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_30 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalStructure ;
+ex:Rule_WorkingTension a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:WorkingTension ;
-        sh:in ( "Fractional number (? 0.0)" )
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_UNSBoltSet a sh:NodeShape ;
@@ -2578,7 +2567,7 @@ ex:Rule_AbrasiveWearAstmD4060 a sh:NodeShape ;
     ] . 
 
 ex:Rule_SpecificMass a sh:NodeShape ;
-    sh:targetClass edo:ExternalConcreteCoating , edo:ExternalPolymericCoating , edo:InternalMetallicLiner , edo:InternalPolymericLiner , edo:InternalCladding , edo:FlowCoating , edo:FieldJointCoating , edo:ExternalConcreteCoatingMaterial , edo:ExternalPolymericCoatingMaterial , edo:FieldJointCoatingMaterial , edo:FlowCoatingMaterial , edo:InternalCladdingMaterial , edo:InternalMetallicLinerMaterial , edo:InternalPolymericLinerMaterial ;
+    sh:targetClass edo:ExternalConcreteCoating , edo:ExternalPolymericCoating , edo:InternalMetallicLiner , edo:InternalPolymericLiner , edo:InternalCladding , edo:FlowCoating , edo:FieldJointCoating , edo:ExternalConcreteCoatingMaterial , edo:ExternalPolymericCoatingMaterial , edo:FieldJointCoatingMaterial , edo:FlowCoatingMaterial , edo:InternalCladdingMaterial , edo:InternalMetallicLinerMaterial , edo:InternalPolymericLinerMaterial, edo:FlexiblePipeStructure ;
     sh:property [
         sh:path edo:SpecificMass ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -3382,4 +3371,160 @@ ex:Rule_flexible_pipe_design_norm a sh:NodeShape ;
     sh:property [
         sh:path edo:MainDesignNorm ;
         sh:in ( "API_17J" "NI_2409" "OTHER" )
+    ] .
+
+ex:Rule_flexible_segment_status a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:FlexibleSegmentStatus ;
+        sh:in ( "ONSHORE_STORAGE" "VESSEL_STORAGE" "SUBSEA_STORAGE" "LAID" "IN_OPERATION" "OUT_OF_OPERATION" "UNINSTALLED" )
+    ] .
+
+ex:Rule_flexible_pipe_application a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:StructureApplication ;
+        sh:in ( "FLOWLINE" "RISER" "BOTTOM_RISER" "INTERMEDIATE_RISER" "TOP_RISER" "ANY" )
+    ] .
+
+ex:Rule_pb_std_flexible_pipe_envelope a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:StandardEnvelope ;
+        sh:in ( "E-1.01" "E-1.02" "E-1.03" "E-1.04" "E-1.05" "E-1.06" "E-1.07" "E-1.08" "E-1.09" "E-1.10" 
+                "E-1.11" "E-1.12" "E-2.01" "E-2.01.1" "E-2.02" "E-2.03" "E-2.04" "E-2.04.1" "E-2.04.2" "E-2.05" "E-2.06" 
+                "E-2.06.1" "E-2.07" "E-2.08" "E-2.08.1" "E-2.09" "E-2.10" "E-3.01" "E-3.01.1" "E-3.02" "E-3.03" "E-3.04" 
+                "E-3.04.1" "E-3.05" "E-3.06" "E-3.07" "E-3.08" "E-3.09" "E-3.10"  )
     ] .    
+
+ex:Rule_flexible_pipe_bore_type a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:BoreType ;
+        sh:in ( "SMOOTH" "ROUGH"  )
+    ] .    
+
+ex:Rule_AnnulusArea a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:AnnulusArea ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_InnerArea a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:InnerArea ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_MaxRiserDepth a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:MaxRiserDepth ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
+
+ex:Rule_MinDragCoeff a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:MinDragCoeff ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_CollapsePressureIntact a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:CollapsePressureIntact ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
+
+ex:Rule_CollapsePressureFlooded a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:CollapsePressureFlooded ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
+
+ex:Rule_MaxDiffPressure a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:MaxDiffPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .            
+
+ex:Rule_TestPressure a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure, edo:Tubing;
+    sh:property [
+        sh:path edo:TestPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_AccidentalOverpressure a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:AccidentalOverpressure ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_BurstPressure a sh:NodeShape ;
+    sh:targetClass edo:Tubing, edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:BurstPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
+
+ex:Rule_MinPressure a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:MinPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .    
+
+ex:Rule_PermissibleTensionStraight a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:PermissibleTensionStraight ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_PermissibleTensionMbr a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:PermissibleTensionMbr ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_PermissibleCompressionEmptyBottom a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:PermissibleCompressionEmptyBottom ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_AxialStiffnessTension a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:AxialStiffnessTension ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_AxialStiffnessCompression a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:AxialStiffnessCompression ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] . 
+
+ex:Rule_FlexiblePipeStructure_FractionalNumber a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:BendingStiffnessStorageBottomTemp, edo:BendingStiffnessEmptyBottom, edo:BendingStiffnessEquilibriumBottom, edo:BendingStiffnessPressurizedBottom, edo:BendingStiffnessPressurizedStorage, edo:BendingStiffnessOperation ,
+                edo:TorsionalStiffnessLowerBottom, edo:TorsionalStiffnessHigherBottom, 
+                edo:TecStorage, edo:TecIntact, edo:TecFlooded, 
+                edo:MbrInstallationEmptyIntact, edo:MbrInstallationEmptyFlooded, edo:MbrInstallationFilledIntact, edo:MbrInstallationFilledFlooded, edo:MbrOperationEmptyIntact, edo:MbrOperationEmptyFlooded, edo:MbrOperationFilledIntact, edo:MbrOperationFilledFlooded,
+                edo:NbrRest, edo:NbrOperation ,
+                edo:FrictionCoeffPolymer, edo:FrictionCoeffSteel, edo:FrictionCoeffSteelPolymer ,
+                edo:MinDepth, edo:ErosionalSpeed, edo:MaxDesignTemperatureTime ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] . 
