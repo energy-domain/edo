@@ -1747,3 +1747,142 @@ edo:TecFlooded rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:TecIntact ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:TecStorage ;
 ```
+
+## Created (minimum bending radii by operating condition)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#MbrInstallationEmptyIntact
+edo:MbrInstallationEmptyIntact rdf:type owl:Class ;
+                               rdfs:subClassOf edo:DomainAttribute ;
+                               dcterms:accessRights "PUBLIC" ;
+                               dcterms:identifier "MbrInstallationEmptyIntact" ;
+                               skos:prefLabel "Minimum bending radius, installation, empty, intact annulus"@en ,
+                                              "Raio de curvatura mínimo, instalação, vazio, anular intacto"@pt-br ;
+                               edo:entityStatus "NEW" ;
+                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                               edo:hasExternalRef "MDA:structural_params.mbr_installation_empty_intact" ;
+                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                               edo:hasTypedValue edo:FloatValue ;
+                               edo:hasUnit unit:M ;
+                               edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrInstallationEmptyFlooded
+edo:MbrInstallationEmptyFlooded rdf:type owl:Class ;
+                                rdfs:subClassOf edo:DomainAttribute ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "MbrInstallationEmptyFlooded" ;
+                                skos:prefLabel "Minimum bending radius, installation, empty, flooded annulus"@en ,
+                                               "Raio de curvatura mínimo, instalação, vazio, anular alagado"@pt-br ;
+                                edo:entityStatus "NEW" ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasExternalRef "MDA:structural_params.mbr_installation_empty_flooded" ;
+                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:M ;
+                                edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrInstallationFilledIntact
+edo:MbrInstallationFilledIntact rdf:type owl:Class ;
+                                rdfs:subClassOf edo:DomainAttribute ;
+                                dcterms:accessRights "PUBLIC" ;
+                                dcterms:identifier "MbrInstallationFilledIntact" ;
+                                skos:prefLabel "Minimum bending radius, installation, filled, intact annulus"@en ,
+                                               "Raio de curvatura mínimo, instalação, cheio, anular intacto"@pt-br ;
+                                edo:entityStatus "NEW" ;
+                                edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                edo:hasExternalRef "MDA:structural_params.mbr_installation_filled_intact" ;
+                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                edo:hasTypedValue edo:FloatValue ;
+                                edo:hasUnit unit:M ;
+                                edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrInstallationFilledFlooded
+edo:MbrInstallationFilledFlooded rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:DomainAttribute ;
+                                 dcterms:accessRights "PUBLIC" ;
+                                 dcterms:identifier "MbrInstallationFilledFlooded" ;
+                                 skos:prefLabel "Minimum bending radius, installation, filled, flooded annulus"@en ,
+                                                "Raio de curvatura mínimo, instalação, cheio, anular alagado"@pt-br ;
+                                 edo:entityStatus "NEW" ;
+                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                 edo:hasExternalRef "MDA:structural_params.mbr_installation_filled_flooded" ;
+                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                 edo:hasTypedValue edo:FloatValue ;
+                                 edo:hasUnit unit:M ;
+                                 edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrOperationEmptyIntact
+edo:MbrOperationEmptyIntact rdf:type owl:Class ;
+                            rdfs:subClassOf edo:DomainAttribute ;
+                            dcterms:accessRights "PUBLIC" ;
+                            dcterms:identifier "MbrOperationEmptyIntact" ;
+                            skos:prefLabel "Minimum bending radius, operation, empty, intact annulus"@en ,
+                                           "Raio de curvatura mínimo, operação, vazio, anular intacto"@pt-br ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasAttributeScope edo:TypeLevelAttribute ;
+                            edo:hasExternalRef "MDA:structural_params.mbr_operation_empty_intact" ;
+                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                            edo:hasTypedValue edo:FloatValue ;
+                            edo:hasUnit unit:M ;
+                            edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrOperationEmptyFlooded
+edo:MbrOperationEmptyFlooded rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "MbrOperationEmptyFlooded" ;
+                             skos:prefLabel "Minimum bending radius, operation, empty, flooded annulus"@en ,
+                                            "Raio de curvatura mínimo, operação, vazio, anular alagado"@pt-br ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                             edo:hasExternalRef "MDA:structural_params.mbr_operation_empty_flooded" ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:M ;
+                             edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrOperationFilledIntact
+edo:MbrOperationFilledIntact rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "MbrOperationFilledIntact" ;
+                             skos:prefLabel "Minimum bending radius, operation, filled, intact annulus"@en ,
+                                            "Raio de curvatura mínimo, operação, cheio, anular intacto"@pt-br ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                             edo:hasExternalRef "MDA:structural_params.mbr_operation_filled_intact" ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:M ;
+                             edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MbrOperationFilledFlooded
+edo:MbrOperationFilledFlooded rdf:type owl:Class ;
+                              rdfs:subClassOf edo:DomainAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "MbrOperationFilledFlooded" ;
+                              skos:prefLabel "Minimum bending radius, operation, filled, flooded annulus"@en ,
+                                             "Raio de curvatura mínimo, operação, cheio, anular alagado"@pt-br ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "MDA:structural_params.mbr_operation_filled_flooded" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:FloatValue ;
+                              edo:hasUnit unit:M ;
+                              edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de atributos MBR por condição operacional)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationEmptyFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationEmptyIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationFilledFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationFilledIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationEmptyFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationEmptyIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledIntact ;
+```
