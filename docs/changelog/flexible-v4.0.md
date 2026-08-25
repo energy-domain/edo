@@ -1886,3 +1886,46 @@ edo:MbrOperationFilledFlooded rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledFlooded ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledIntact ;
 ```
+
+## Created (natural bending radii)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#NbrRest
+edo:NbrRest rdf:type owl:Class ;
+            rdfs:subClassOf edo:DomainAttribute ;
+            dcterms:accessRights "PUBLIC" ;
+            dcterms:identifier "NbrRest" ;
+            skos:prefLabel "Natural bending radius, rest"@en ,
+                           "Raio de curvatura natural, repouso"@pt-br ;
+            edo:entityStatus "NEW" ;
+            edo:hasAttributeScope edo:TypeLevelAttribute ;
+            edo:hasExternalRef "MDA:structural_params.nbr_rest" ;
+            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+            edo:hasTypedValue edo:FloatValue ;
+            edo:hasUnit unit:M ;
+            edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#NbrOperation
+edo:NbrOperation rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "NbrOperation" ;
+                 skos:prefLabel "Natural bending radius, operation"@en ,
+                                "Raio de curvatura natural, operação"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:structural_params.nbr_operation" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:M ;
+                 edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de atributos de raio de curvatura natural)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:NbrOperation ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:NbrRest ;
+```
