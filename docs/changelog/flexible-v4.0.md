@@ -1985,3 +1985,62 @@ edo:FrictionCoeffPolymer rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:FrictionCoeffSteel ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:FrictionCoeffSteelPolymer ;
 ```
+
+## Created (design depth, erosional speed, and design-temperature time)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#MinDepth
+edo:MinDepth rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "MinDepth" ;
+             skos:prefLabel "Minimum design depth"@en ,
+                            "Profundidade mínima de projeto"@pt-br ;
+             edo:entityStatus "NEW" ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasExternalRef "MDA:structural_params.min_depth" ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:FloatValue ;
+             edo:hasUnit unit:M ;
+             edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#ErosionalSpeed
+edo:ErosionalSpeed rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "ErosionalSpeed" ;
+                   skos:prefLabel "Erosional speed"@en ,
+                                  "Velocidade de erosão"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "MDA:structural_params.erosional_speed" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:M-PER-SEC ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#MaxDesignTemperatureTime
+edo:MaxDesignTemperatureTime rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "MaxDesignTemperatureTime" ;
+                             skos:prefLabel "Maximum time in operation at design temperature"@en ,
+                                            "Tempo máximo de operação na temperatura de projeto"@pt-br ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                             edo:hasExternalRef "MDA:structural_params.max_design_temperature_time" ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:FloatValue ;
+                             edo:hasUnit unit:YR_Common ;
+                             edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de profundidade, velocidade erosional e tempo em temperatura)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:ErosionalSpeed ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MaxDesignTemperatureTime ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MinDepth ;
+```
