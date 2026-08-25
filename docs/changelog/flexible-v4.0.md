@@ -2044,3 +2044,144 @@ edo:MaxDesignTemperatureTime rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:MaxDesignTemperatureTime ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:MinDepth ;
 ```
+
+## Modified (adição da categoria CollarSupportAttribute)
+
+### CntrPntDstnceFrmTermFlange
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SafeWorkingLoad
+
+```diff
+- rdfs:subClassOf edo:_CAT-Specification ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:_CAT-Specification ;
+```
+
+### SupportRegionDiameter
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SupportRegionMinimumArea
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SupportSurfaceDiameter
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SupportSurfaceFilletRadius
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### TechnicalNotes
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+## Modified (adição das categorias GrooveSupportAttribute e RearSupportAttribute)
+
+### CntrPntDstnceFrmTermFlange
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### GrooveHeight
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:GrooveSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SafeWorkingLoad
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:_CAT-Specification ;
+```
+
+### SupportRegionDiameter
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### SupportRegionMinimumArea
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### SupportSurfaceDiameter
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### SupportSurfaceFilletRadius
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### TechnicalNotes
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+## Modified (adição de categorias de suporte ao EndFitting)
+
+### EndFitting
+
+```diff
++ edo:EndFitting edo:hasAttribute edo:CollarSupportAttribute ;
++ edo:EndFitting edo:hasAttribute edo:GrooveSupportAttribute ;
++ edo:EndFitting edo:hasAttribute edo:RearSupportAttribute ;
+```
