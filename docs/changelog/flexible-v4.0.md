@@ -1632,3 +1632,51 @@ edo:BendingStiffnessStorageBottomTemp rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:BendingStiffnessPressurizedStorage ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:BendingStiffnessStorageBottomTemp ;
 ```
+
+## Created (torsional stiffness at bottom temperature)
+
+```turtle
+###  https://w3id.org/energy-domain/edo#TorsionalStiffnessLowerBottom
+edo:TorsionalStiffnessLowerBottom rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:DomainAttribute ;
+                                  dcterms:accessRights "PUBLIC" ;
+                                  dcterms:identifier "TorsionalStiffnessLowerBottom" ;
+                                  skos:definition "Lower torsional stiffness value (in a particular twist direction) at temperature corresponding to maximum immersion depth"@en ,
+                                                  "Valor menor da rigidez torsional (em um sentido particular de torção) na temperatura correspondente à máxima profundidade de imersão"@pt-br ;
+                                  skos:prefLabel "Torsional stiffness, lower value, bottom temperature"@en ,
+                                                 "Rigidez torsional, valor menor, temperatura de fundo"@pt-br ;
+                                  edo:entityStatus "NEW" ;
+                                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                  edo:hasExternalRef "MDA:structural_params.torsional_stiffness_lower_bottom" ;
+                                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                  edo:hasTypedValue edo:FloatValue ;
+                                  edo:hasUnit edo:N-M2-PER-RAD ;
+                                  edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TorsionalStiffnessHigherBottom
+edo:TorsionalStiffnessHigherBottom rdf:type owl:Class ;
+                                   rdfs:subClassOf edo:DomainAttribute ;
+                                   dcterms:accessRights "PUBLIC" ;
+                                   dcterms:identifier "TorsionalStiffnessHigherBottom" ;
+                                   skos:definition "Higher torsional stiffness value (in a particular twist direction) at temperature corresponding to maximum immersion depth"@en ,
+                                                   "Valor maior da rigidez torsional (em um sentido particular de torção) na temperatura correspondente à máxima profundidade de imersão"@pt-br ;
+                                   skos:prefLabel "Torsional stiffness, higher value, bottom temperature"@en ,
+                                                  "Rigidez torsional, valor maior, temperatura de fundo"@pt-br ;
+                                   edo:entityStatus "NEW" ;
+                                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                   edo:hasExternalRef "MDA:structural_params.torsional_stiffness_higher_bottom" ;
+                                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                                   edo:hasTypedValue edo:FloatValue ;
+                                   edo:hasUnit edo:N-M2-PER-RAD ;
+                                   edo:hasValueCardinality edo:SingleValue .
+```
+
+## Modified (adição de atributos)
+
+### FlexiblePipeStructure
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TorsionalStiffnessHigherBottom ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:TorsionalStiffnessLowerBottom ;
+```
