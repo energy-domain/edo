@@ -2302,3 +2302,11 @@ edo:NumFunctions rdf:type owl:Class ;
 ```diff
 + edo:hasAttribute edo:WeightInWater ;
 ```
+
+## Updated (adição de atributo)
+
+### edo:SubseaPipeline
+
+```diff
++ edo:hasAttribute edo:CorrosionInhibitor ;
+```
