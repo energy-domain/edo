@@ -2294,3 +2294,11 @@ edo:NumFunctions rdf:type owl:Class ;
 ```diff
 + edo:hasExternalRef "MDA:reinforcement_outer_diameter" ;
 ```
+
+## Updated (adição de atributo)
+
+### edo:OverboardingCollar
+
+```diff
++ edo:hasAttribute edo:WeightInWater ;
+```
