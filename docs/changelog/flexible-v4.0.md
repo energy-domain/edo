@@ -2272,3 +2272,25 @@ edo:NumFunctions rdf:type owl:Class ;
 + edo:hasAttribute edo:IsParkingPlace ,
 +                  edo:NumFunctions ;
 ```
+
+## Updated (adição de especificação)
+
+### edo:BendStiffener
+
+```diff
++ edo:hasSpec edo:BoltingSpec ;
+```
+
+## Updated (adição de referências externas)
+
+### edo:ReinforcementLength
+
+```diff
++ edo:hasExternalRef "MDA:reinforcement_length" ;
+```
+
+### edo:ReinforcementOuterDiameter
+
+```diff
++ edo:hasExternalRef "MDA:reinforcement_outer_diameter" ;
+```
