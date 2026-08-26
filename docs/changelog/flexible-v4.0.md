@@ -2310,3 +2310,15 @@ edo:NumFunctions rdf:type owl:Class ;
 ```diff
 + edo:hasAttribute edo:CorrosionInhibitor ;
 ```
+
+## Updated (complementação de metadados)
+
+### edo:BendingStiffnessCurveAttribute
+
+```diff
++ dcterms:accessRights "PUBLIC" ;
++ dcterms:identifier "BendingStiffnessCurveAttribute" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:DF_2.1" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+```
