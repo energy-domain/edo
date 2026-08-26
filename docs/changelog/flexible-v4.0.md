@@ -2185,3 +2185,29 @@ edo:MaxDesignTemperatureTime rdf:type owl:Class ;
 + edo:EndFitting edo:hasAttribute edo:GrooveSupportAttribute ;
 + edo:EndFitting edo:hasAttribute edo:RearSupportAttribute ;
 ```
+
+## Updated (adição de referência externa)
+
+As seguintes classes receberam a referência externa `MDA:DF_2.1`:
+
+- `edo:AnodeCollarsAxialSpacing`
+- `edo:AnodeCollarsQuantity`
+- `edo:ClampInternalDiameter`
+- `edo:ExternalDiameter`
+- `edo:GalvanicMaterial`
+- `edo:IndividualAnodeMass`
+- `edo:MetallicStrandLength`
+- `edo:MetallicStrandSpareQuantity`
+
+```diff
++ edo:hasExternalRef "MDA:DF_2.1" ;
+```
+
+## Updated (adição de atributos)
+
+### edo:ElevationCollar
+
+```diff
++ edo:hasAttribute edo:SafeWorkingLoad ,
++                  edo:WeightInWater ;
+```
