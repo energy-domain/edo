@@ -2211,3 +2211,64 @@ As seguintes classes receberam a referência externa `MDA:DF_2.1`:
 + edo:hasAttribute edo:SafeWorkingLoad ,
 +                  edo:WeightInWater ;
 ```
+
+## Updated (complementação de atributo)
+
+### edo:IsDummy
+
+```diff
++ edo:entityStatus "NEW" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:is_dummy" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++ edo:hasValueCardinality edo:SingleValue ;
+```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#NumFunctions
+edo:NumFunctions rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "NumFunctions" ;
+                 skos:prefLabel "Number of functions"@en ,
+                                "Número de funções"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:num_functions" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:IntValue ;
+                 edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:HotStab
+
+```diff
++ edo:hasAttribute edo:IsDummy ,
++                  edo:NumFunctions ;
+```
+
+## Updated (complementação de atributo)
+
+### edo:IsParkingPlace
+
+```diff
++ skos:definition "Especifica se este receptáculo é meramente para estacionamento mecânico de um hot stab"@pt-br ;
++ edo:entityStatus "NEW" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:is_parking_place" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++ edo:hasValueCardinality edo:SingleValue ;
+```
+
+## Updated (adição de atributos)
+
+### edo:HotStabReceptacle
+
+```diff
++ edo:hasAttribute edo:IsParkingPlace ,
++                  edo:NumFunctions ;
+```
