@@ -2380,3 +2380,12 @@ edo:RingGasketStandardEdition rdf:type owl:Class ;
 +                  edo:MinDensityGeometryAttribute ,
 +                  edo:NominalGeometryAttribute ;
 ```
+
+## Updated (adição de atributos)
+
+### edo:DynamicUmbilicalSection
+
+```diff
++ edo:hasAttribute edo:RiserAzimuth ,
++                  edo:RiserConfiguration ;
+```
