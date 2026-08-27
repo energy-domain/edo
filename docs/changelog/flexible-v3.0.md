@@ -477,3 +477,33 @@ edo:PipeTestHandlingHead rdf:type owl:Class ;
                          edo:ifc_objectType "PipeTestHandlingHead" ;
                          edo:ifc_predefinedType "USERDEFINED" .
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#WeightInWater
+edo:WeightInWater rdf:type owl:Class ;
+                  rdfs:subClassOf edo:DomainAttribute ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "WeightInWater" ;
+                  rdfs:comment "Peso efetivo quando submerso, descontando-se o empuxo"@pt-br ;
+                  skos:definition "Effective weight when submerged, subtracting upthrust."@en ,
+                                  "Peso efetivo quando submerso, descontando-se o empuxo."@pt-br ;
+                  skos:prefLabel "Peso na Água"@pt-br ,
+                                 "Weight in Water"@en ;
+                  edo:hasAttributeScope edo:TypeLevelAttribute ;
+                  edo:hasExternalRef "MDA:weight_in_water" ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:KiloGM_F ;
+                  edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributo)
+
+```diff
++ edo:BendRestrictor edo:hasAttribute edo:WeightInWater ;
++ edo:BendStiffener edo:hasAttribute edo:WeightInWater ;
++ edo:PullingHead edo:hasAttribute edo:WeightInWater ;
++ edo:SplitCollar edo:hasAttribute edo:WeightInWater ;
+```
