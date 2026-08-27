@@ -294,3 +294,12 @@ edo:ThreadSize rdf:type owl:Class ;
 + edo:UNSBoltSet edo:hasAttribute edo:ThreadSize ;
 + edo:UNSStudSet edo:hasAttribute edo:ThreadSize ;
 ```
+
+## Updated (remoção de atributo)
+
+```diff
+- edo:MetricBoltSet edo:hasAttribute edo:NominalDiameter ;
+- edo:MetricStudSet edo:hasAttribute edo:NominalDiameter ;
+- edo:UNSBoltSet edo:hasAttribute edo:NominalDiameter ;
+- edo:UNSStudSet edo:hasAttribute edo:NominalDiameter ;
+```
