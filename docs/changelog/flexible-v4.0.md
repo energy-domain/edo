@@ -2360,3 +2360,13 @@ edo:RingGasketStandardEdition rdf:type owl:Class ;
 ```diff
 - edo:hasAttribute edo:RingGasketStandardEdition ;
 ```
+
+## Updated (adição de atributos e especificação)
+
+### edo:ArmorPot
+
+```diff
++ edo:hasAttribute edo:GrooveSupportAttribute ,
++                  edo:RearSupportAttribute ;
++ edo:hasSpec edo:BoltingSpec ;
+```
