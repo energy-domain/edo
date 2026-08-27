@@ -313,3 +313,30 @@ edo:ThreadSize rdf:type owl:Class ;
 + skos:definition "The applicable standard or specification for the ring gasket, including the standard identification and its corresponding edition or revision. Both the standard and the specific edition or revision shall be provided, indicating the edition or revision used for the design, manufacture, inspection, and qualification of the ring gasket."@en ,
 +                 "Norma ou especificação aplicável à junta de vedação, incluindo a identificação da norma e sua respectiva edição ou revisão. Devem ser informados ambos os dados, indicando especificamente a edição ou revisão utilizada no projeto, fabricação, inspeção e qualificação da junta de vedação."@pt-br ;
 ```
+
+## Removed
+
+```turtle
+###  https://w3id.org/energy-domain/edo#RingGasketStandardEdition
+edo:RingGasketStandardEdition rdf:type owl:Class ;
+                              rdfs:subClassOf edo:RingGasketAttribute ;
+                              dcterms:accessRights "PUBLIC" ;
+                              dcterms:identifier "RingGasketStandardEdition" ;
+                              skos:definition "The edition or revision of the standard to which the ring gasket conforms. This identifies the specific version of the applicable standard used for its design, manufacture, inspection, and qualification."@en ;
+                              skos:prefLabel "Edição do Padrão da Junta de Vedação"@pt-br ,
+                                             "Ring Gasket Standard Edition"@en ;
+                              edo:entityStatus "NEW" ;
+                              edo:hasAttributeScope edo:TypeLevelAttribute ;
+                              edo:hasExternalRef "EDO:v4" ;
+                              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                              edo:hasTypedValue edo:StringValue ;
+                              edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (remoção de atributo)
+
+### edo:GasketSpec
+
+```diff
+- edo:hasAttribute edo:RingGasketStandardEdition ;
+```
