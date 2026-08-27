@@ -2370,3 +2370,13 @@ edo:RingGasketStandardEdition rdf:type owl:Class ;
 +                  edo:RearSupportAttribute ;
 + edo:hasSpec edo:BoltingSpec ;
 ```
+
+## Updated (adição de atributos)
+
+### edo:DynamicUmbilicalSection
+
+```diff
++ edo:hasAttribute edo:MaxDensityGeometryAttribute ,
++                  edo:MinDensityGeometryAttribute ,
++                  edo:NominalGeometryAttribute ;
+```
