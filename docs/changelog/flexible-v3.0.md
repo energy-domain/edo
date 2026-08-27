@@ -379,3 +379,36 @@ edo:TemporaryPipeEndAccessory rdf:type owl:Class ;
 
 - edo:hasAttribute edo:PullingHeadType ;
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#TestFluidPortQuantity
+edo:TestFluidPortQuantity rdf:type owl:Class ;
+                          rdfs:subClassOf edo:DomainAttribute ;
+                          dcterms:accessRights "PUBLIC" ;
+                          dcterms:identifier "TestFluidPortQuantity" ;
+                          skos:definition "Quantidade de portas disponíveis na cabeça para introdução, retirada, circulação, pressurização, drenagem, ventilação ou controle dos fluidos utilizados durante os ensaios."@pt-br ,
+                                          "Number of ports provided on the head for introducing, removing, circulating, pressurising, draining, venting or controlling fluids used during testing."@en ;
+                          skos:prefLabel "Quantidade de Portas de Fluido de Teste"@pt-br ,
+                                         "Test Fluid Port Quantity"@en ;
+                          edo:hasAttributeScope edo:TypeLevelAttribute ;
+                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                          edo:hasTypedValue edo:IntValue ;
+                          edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#TestFluidPortDescription
+edo:TestFluidPortDescription rdf:type owl:Class ;
+                             rdfs:subClassOf edo:DomainAttribute ;
+                             dcterms:accessRights "PUBLIC" ;
+                             dcterms:identifier "TestFluidPortDescription" ;
+                             skos:definition "Descrição da configuração das portas destinadas aos fluidos de teste, podendo informar sua função, fluido associado, tipo de conexão, dimensão, classificação de pressão e demais características necessárias à definição da interface de teste."@pt-br ,
+                                             "Description of the configuration of ports intended for test fluids, including where applicable their function, associated fluid, connection type, size, pressure rating and other characteristics required to define the test interface."@en ;
+                             skos:prefLabel "Descrição das Portas de Fluido de Teste"@pt-br ,
+                                            "Test Fluid Port Description"@en ;
+                             edo:hasAttributeScope edo:TypeLevelAttribute ;
+                             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                             edo:hasTypedValue edo:StringValue ;
+                             edo:hasValueCardinality edo:SingleValue .
+```
