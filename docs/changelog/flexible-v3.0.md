@@ -437,3 +437,43 @@ edo:PipeTestHead rdf:type owl:Class ;
                  edo:ifc_objectType "PipeTestHead" ;
                  edo:ifc_predefinedType "USERDEFINED" .
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#PipeHandlingHead
+edo:PipeHandlingHead rdf:type owl:Class ;
+                     rdfs:subClassOf edo:IfcInstanciableElement ,
+                                     edo:TemporaryPipeEndAccessory ;
+                     dcterms:identifier "PipeHandlingHead" ;
+                     skos:definition "Cabeça temporária instalada na extremidade de um tramo de duto para fornecer uma interface estrutural destinada ao içamento e manuseio do tramo. É projetada para transmitir cargas de manuseio e não possui, como parte de sua função caracterizadora, portas destinadas à circulação ou introdução de fluidos de teste."@pt-br ,
+                                     "Temporary head fitted to the end of a pipe section to provide a structural interface for lifting and handling the pipe section. It is designed to transfer handling loads and does not, as part of its defining function, provide ports for the circulation or introduction of test fluids."@en ;
+                     skos:prefLabel "Cabeça de Manuseio do Duto"@pt-br ,
+                                    "Pipe Handling Head"@en ;
+                     edo:hasAttribute edo:FlangeType ,
+                                      edo:SafeWorkingLoad ;
+                     edo:hasSpec edo:GasketSpec ;
+                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+                     edo:ifc_equivalentClass "IfcPipeFitting" ;
+                     edo:ifc_objectType "PipeHandlingHead" ;
+                     edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#PipeTestHandlingHead
+edo:PipeTestHandlingHead rdf:type owl:Class ;
+                         rdfs:subClassOf edo:PipeTestHead ,
+                                         edo:PipeHandlingHead ;
+                         dcterms:identifier "PipeTestHandlingHead" ;
+                         skos:altLabel "Test and Handling Head"@en ,
+                                       "Testing and Handling Head"@en ,
+                                       "Cabeça de Teste e Manuseio"@pt-br ;
+                         skos:definition "Cabeça temporária que combina as funções de fechamento e vedação do tramo para ensaios pressurizados com a capacidade estrutural necessária ao seu içamento e manuseio. Herda as características aplicáveis tanto à Cabeça de Teste do Duto quanto à Cabeça de Manuseio do Duto."@pt-br ,
+                                         "Temporary head combining the functions of closing and sealing a pipe section for pressurised testing with the structural capability required for lifting and handling. It inherits the applicable characteristics of both the Pipe Test Head and the Pipe Handling Head."@en ;
+                         skos:prefLabel "Cabeça de Teste e Manuseio do Duto"@pt-br ,
+                                        "Pipe Test Handling Head"@en ;
+                         edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
+                         edo:hasSpec edo:GasketSpec ;
+                         edo:ifc_equivalentClass "IfcPipeFitting" ;
+                         edo:ifc_objectType "PipeTestHandlingHead" ;
+                         edo:ifc_predefinedType "USERDEFINED" .
+```
