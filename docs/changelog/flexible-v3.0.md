@@ -285,3 +285,12 @@ edo:ThreadSize rdf:type owl:Class ;
                edo:hasTypedValue edo:StringValue ;
                edo:hasValueCardinality edo:SingleValue .
 ```
+
+## Updated (adição de atributo)
+
+```diff
++ edo:MetricBoltSet edo:hasAttribute edo:ThreadSize ;
++ edo:MetricStudSet edo:hasAttribute edo:ThreadSize ;
++ edo:UNSBoltSet edo:hasAttribute edo:ThreadSize ;
++ edo:UNSStudSet edo:hasAttribute edo:ThreadSize ;
+```
