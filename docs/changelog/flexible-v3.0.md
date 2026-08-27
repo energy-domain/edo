@@ -340,3 +340,17 @@ edo:RingGasketStandardEdition rdf:type owl:Class ;
 ```diff
 - edo:hasAttribute edo:RingGasketStandardEdition ;
 ```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#TemporaryPipeEndAccessory
+edo:TemporaryPipeEndAccessory rdf:type owl:Class ;
+                              rdfs:subClassOf edo:PullingHead ;
+                              dcterms:identifier "TemporaryPipeEndAccessory" ;
+                              skos:definition "Acessório destinado à conexão temporária a uma extremidade de um tramo de duto para apoiar atividades de fabricação, ensaio, manuseio, transporte ou instalação, sem constituir parte do tramo em sua configuração operacional."@pt-br ,
+                                              "Accessory intended to be temporarily connected to an end of a pipe section to support manufacturing, testing, handling, transportation or installation activities, without constituting part of the pipe section in its operational configuration."@en ;
+                              skos:prefLabel "Acessório Temporário de Extremidade de Duto"@pt-br ,
+                                             "Temporary Pipe End Accessory"@en ;
+                              edo:hasDiscipline edo:SubseaFlexiblePipesEngineering .
+```
