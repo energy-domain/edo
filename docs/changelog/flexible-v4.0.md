@@ -2044,3 +2044,281 @@ edo:MaxDesignTemperatureTime rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:MaxDesignTemperatureTime ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:MinDepth ;
 ```
+
+## Modified (adição da categoria CollarSupportAttribute)
+
+### CntrPntDstnceFrmTermFlange
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SafeWorkingLoad
+
+```diff
+- rdfs:subClassOf edo:_CAT-Specification ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:_CAT-Specification ;
+```
+
+### SupportRegionDiameter
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SupportRegionMinimumArea
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SupportSurfaceDiameter
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SupportSurfaceFilletRadius
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### TechnicalNotes
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+## Modified (adição das categorias GrooveSupportAttribute e RearSupportAttribute)
+
+### CntrPntDstnceFrmTermFlange
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### GrooveHeight
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:GrooveSupportAttribute ,
++                 edo:DomainAttribute ;
+```
+
+### SafeWorkingLoad
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:_CAT-Specification ;
+```
+
+### SupportRegionDiameter
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### SupportRegionMinimumArea
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### SupportSurfaceDiameter
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### SupportSurfaceFilletRadius
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+### TechnicalNotes
+
+```diff
+  rdfs:subClassOf edo:CollarSupportAttribute ,
++                 edo:GrooveSupportAttribute ,
++                 edo:RearSupportAttribute ,
+                  edo:DomainAttribute ;
+```
+
+## Modified (adição de categorias de suporte ao EndFitting)
+
+### EndFitting
+
+```diff
++ edo:EndFitting edo:hasAttribute edo:CollarSupportAttribute ;
++ edo:EndFitting edo:hasAttribute edo:GrooveSupportAttribute ;
++ edo:EndFitting edo:hasAttribute edo:RearSupportAttribute ;
+```
+
+## Updated (adição de referência externa)
+
+As seguintes classes receberam a referência externa `MDA:DF_2.1`:
+
+- `edo:AnodeCollarsAxialSpacing`
+- `edo:AnodeCollarsQuantity`
+- `edo:ClampInternalDiameter`
+- `edo:ExternalDiameter`
+- `edo:GalvanicMaterial`
+- `edo:IndividualAnodeMass`
+- `edo:MetallicStrandLength`
+- `edo:MetallicStrandSpareQuantity`
+
+```diff
++ edo:hasExternalRef "MDA:DF_2.1" ;
+```
+
+## Updated (adição de atributos)
+
+### edo:ElevationCollar
+
+```diff
++ edo:hasAttribute edo:SafeWorkingLoad ,
++                  edo:WeightInWater ;
+```
+
+## Updated (complementação de atributo)
+
+### edo:IsDummy
+
+```diff
++ edo:entityStatus "NEW" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:is_dummy" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++ edo:hasValueCardinality edo:SingleValue ;
+```
+
+## Created
+
+```turtle
+###  https://w3id.org/energy-domain/edo#NumFunctions
+edo:NumFunctions rdf:type owl:Class ;
+                 rdfs:subClassOf edo:DomainAttribute ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "NumFunctions" ;
+                 skos:prefLabel "Number of functions"@en ,
+                                "Número de funções"@pt-br ;
+                 edo:entityStatus "NEW" ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:num_functions" ;
+                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                 edo:hasTypedValue edo:IntValue ;
+                 edo:hasValueCardinality edo:SingleValue .
+```
+
+## Updated (adição de atributos)
+
+### edo:HotStab
+
+```diff
++ edo:hasAttribute edo:IsDummy ,
++                  edo:NumFunctions ;
+```
+
+## Updated (complementação de atributo)
+
+### edo:IsParkingPlace
+
+```diff
++ skos:definition "Especifica se este receptáculo é meramente para estacionamento mecânico de um hot stab"@pt-br ;
++ edo:entityStatus "NEW" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:is_parking_place" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
++ edo:hasValueCardinality edo:SingleValue ;
+```
+
+## Updated (adição de atributos)
+
+### edo:HotStabReceptacle
+
+```diff
++ edo:hasAttribute edo:IsParkingPlace ,
++                  edo:NumFunctions ;
+```
+
+## Updated (adição de especificação)
+
+### edo:BendStiffener
+
+```diff
++ edo:hasSpec edo:BoltingSpec ;
+```
+
+## Updated (adição de referências externas)
+
+### edo:ReinforcementLength
+
+```diff
++ edo:hasExternalRef "MDA:reinforcement_length" ;
+```
+
+### edo:ReinforcementOuterDiameter
+
+```diff
++ edo:hasExternalRef "MDA:reinforcement_outer_diameter" ;
+```
+
+## Updated (adição de atributo)
+
+### edo:OverboardingCollar
+
+```diff
++ edo:hasAttribute edo:WeightInWater ;
+```
+
+## Updated (adição de atributo)
+
+### edo:SubseaPipeline
+
+```diff
++ edo:hasAttribute edo:CorrosionInhibitor ;
+```
+
+## Updated (complementação de metadados)
+
+### edo:BendingStiffnessCurveAttribute
+
+```diff
++ dcterms:accessRights "PUBLIC" ;
++ dcterms:identifier "BendingStiffnessCurveAttribute" ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
++ edo:hasExternalRef "MDA:DF_2.1" ;
++ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+```
