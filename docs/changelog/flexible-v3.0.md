@@ -253,3 +253,14 @@ edo:hasSpec rdf:type owl:AnnotationProperty ;
 ```diff
 - edo:hasAttribute edo:DimensionsTableColumn ;
 ```
+
+## Updated (alteração de escopo e tipo de valor)
+
+### edo:NominalDiameter
+
+```diff
+- edo:hasAttributeScope edo:InstanceLevelAttribute ;
++ edo:hasAttributeScope edo:TypeLevelAttribute ;
+- edo:hasTypedValue edo:StringValue ;
++ edo:hasTypedValue edo:FloatValue ;
+```
