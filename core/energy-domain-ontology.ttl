@@ -7050,7 +7050,7 @@ edo:GateType rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#Gender
 edo:Gender rdf:type owl:Class ;
-           rdfs:subClassOf edo:HoseFittingSpecTableColumn ;
+           rdfs:subClassOf edo:DomainAttribute ;
            dcterms:accessRights "PUBLIC" ;
            dcterms:identifier "Gender" ;
            skos:prefLabel "Gender"@en ,
@@ -7743,15 +7743,10 @@ edo:Hook rdf:type owl:Class ;
          edo:ifc_predefinedType "USERDEFINED" .
 
 
-###  https://w3id.org/energy-domain/edo#HoseFittingSpecTableAttribute
-edo:HoseFittingSpecTableAttribute rdf:type owl:Class ;
-                                  rdfs:subClassOf edo:DomainAttribute ;
-                                  rdfs:label "Hose Fitting Spec Table" .
-
-
-###  https://w3id.org/energy-domain/edo#HoseFittingSpecTableColumn
-edo:HoseFittingSpecTableColumn rdf:type owl:Class ;
-                               rdfs:subClassOf edo:HoseFittingSpecTableAttribute .
+###  https://w3id.org/energy-domain/edo#HoseFittingSpec
+edo:HoseFittingSpec rdf:type owl:Class ;
+                    rdfs:subClassOf edo:Spec ;
+                    rdfs:label "Hose Fitting Spec Table" .
 
 
 ###  https://w3id.org/energy-domain/edo#HotPassAttribute
@@ -14013,7 +14008,7 @@ edo:NumFibers rdf:type owl:Class ;
                              "Número de Fibras"@pt-br ;
               edo:hasAttributeScope edo:TypeLevelAttribute ;
               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-              edo:hasTypedValue edo:StringValue ;
+              edo:hasTypedValue edo:IntValue ;
               edo:hasValueCardinality edo:SingleValue .
 
 
@@ -16515,8 +16510,7 @@ edo:QuickConnectCoupling rdf:type owl:Class ;
                                          "Quick connect coupling used to connect or disconnect fluid or gas lines in a practical and safe way, ensuring sealing and minimising leakage during operation."@en ;
                          skos:prefLabel "Engate Rápido"@pt-br ,
                                         "Quick Connect Coupling"@en ;
-                         edo:hasAttribute edo:HoseFittingSpecTableAttribute ,
-                                          edo:StandardType ;
+                         edo:hasAttribute edo:StandardType ;
                          edo:hasDiscipline edo:SubseaManifoldsEngineering ,
                                            edo:SubseaUmbilicalsEngineering ,
                                            edo:ValveEngineering ,
@@ -20924,7 +20918,7 @@ edo:ThreadStandard rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#ThreadType
 edo:ThreadType rdf:type owl:Class ;
-               rdfs:subClassOf edo:HoseFittingSpecTableColumn ;
+               rdfs:subClassOf edo:DomainAttribute ;
                dcterms:accessRights "PUBLIC" ;
                dcterms:identifier "ThreadType" ;
                skos:prefLabel "Thread Type"@en ,
@@ -20963,7 +20957,6 @@ edo:ThreadedFitting rdf:type owl:Class ;
                     skos:prefLabel "Engate Rosqueado"@pt-br ,
                                    "Threaded Fitting"@en ;
                     edo:entityStatus "NEW" ;
-                    edo:hasAttribute edo:HoseFittingSpecTableAttribute ;
                     edo:hasDiscipline edo:SubseaManifoldsEngineering ,
                                       edo:SubseaUmbilicalsEngineering ,
                                       edo:ValveEngineering ,
@@ -24113,3 +24106,43 @@ edo:WeightWithoutEndTerminationIn_Air edo:hasUnit unit:KiloGM .
 edo:BundleDiameter edo:entityStatus "NEW" .
 edo:BundleDiameter edo:hasExternalRef "MDA:bundle_diameter" .
 edo:BundleDiameter edo:hasUnit unit:MilliM .
+
+edo:NumFibers edo:entityStatus "NEW" .
+edo:NumFibers edo:hasExternalRef "MDA:num_fibers" .
+edo:FiberType edo:entityStatus "NEW" .
+edo:FiberType edo:hasExternalRef "MDA:fiber_type" .
+edo:CoreDiameter edo:hasLifecycleCreationPhase edo:DetailedDesign .
+edo:CoreDiameter edo:hasTypedValue edo:FloatValue .
+edo:CoreDiameter edo:hasValueCardinality edo:SingleValue .
+edo:CoreDiameter edo:entityStatus "NEW" .
+edo:CoreDiameter edo:hasExternalRef "MDA:core_diameter" .
+edo:CladdingDiameter edo:hasLifecycleCreationPhase edo:DetailedDesign .
+edo:CladdingDiameter edo:hasTypedValue edo:FloatValue .
+edo:CladdingDiameter edo:hasValueCardinality edo:SingleValue .
+edo:CladdingDiameter edo:entityStatus "NEW" .
+edo:CladdingDiameter edo:hasExternalRef "MDA:cladding_diameter" .
+edo:AttenuationCoefficient edo:hasLifecycleCreationPhase edo:DetailedDesign .
+edo:AttenuationCoefficient edo:hasTypedValue edo:FloatValue .
+edo:AttenuationCoefficient edo:hasValueCardinality edo:SingleValue .
+edo:AttenuationCoefficient edo:entityStatus "NEW" .
+edo:AttenuationCoefficient edo:hasExternalRef "MDA:attenuation_coeff" .
+
+edo:HoseFittingSpec dcterms:identifier "HoseFittingSpec" .
+edo:HoseFittingSpec skos:definition "Specifies the type of the rear fitting for installing on a hose endpoint"@en .
+edo:HoseFittingSpec skos:definition "Especifica o tipo de engate traseiro para instalação na extremidade de uma mangueira"@pt-br .
+edo:HoseFittingSpec skos:prefLabel "Hose fitting specification"@en .
+edo:HoseFittingSpec skos:prefLabel "Especificação do engate para mangueira"@pt-br .
+edo:HoseFittingSpec edo:hasExternalRef "MDA:hose_fitting_spec" .
+
+edo:HoseFittingSpec edo:hasAttribute edo:ThreadType .
+edo:HoseFittingSpec edo:hasAttribute edo:Gender .
+edo:QuickConnectCoupling  edo:hasSpec edo:HoseFittingSpec .
+
+edo:StandardType edo:entityStatus "NEW" .
+edo:StandardType edo:hasExternalRef "MDA:standard_type" .
+
+edo:ThreadType edo:entityStatus "NEW" .
+edo:ThreadType edo:hasExternalRef "MDA:hose_fitting_spec.thread_type" .
+
+edo:Gender edo:entityStatus "NEW" .
+edo:Gender edo:hasExternalRef "MDA:hose_fitting_spec.gender" .
