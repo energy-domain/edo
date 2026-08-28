@@ -213,8 +213,8 @@ ex:Rule_BuoyancyModule a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_CompactObject a sh:NodeShape ;
-    sh:targetClass edo:CompactObject, edo:LinePipe ;
+ex:Rule_Mass_FractionalNumber a sh:NodeShape ;
+    sh:targetClass edo:CompactObject, edo:LinePipe, edo:Jumper ;
     sh:property [
         sh:path edo:Mass ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -431,25 +431,18 @@ ex:Rule_HydraulicJumper_2 a sh:NodeShape ;
         sh:in ( "Integer number (? 0)" )
     ] .
 
-ex:Rule_HydraulicJumperConnector a sh:NodeShape ;
-    sh:targetClass edo:HydraulicJumperConnector ;
-    sh:property [
-        sh:path edo:MaxPressure ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] .
-
 ex:Rule_Jumper_8 a sh:NodeShape ;
     sh:targetClass edo:Jumper ;
     sh:property [
         sh:path edo:NumRovHandles ;
-        sh:in ( "Integer number (? 0)" )
+        sh:in ( "Integer number (≥ 0)" )
     ] .
 
 ex:Rule_Jumper_9 a sh:NodeShape ;
     sh:targetClass edo:Jumper ;
     sh:property [
         sh:path edo:NumWays ;
-        sh:in ( "Integer number (? 1)" )
+        sh:in ( "Integer number (≥ 1)" )
     ] .
 
 ex:Rule_IsDummy a sh:NodeShape ;
@@ -539,13 +532,6 @@ ex:Rule_IsParkingPlace a sh:NodeShape ;
     sh:property [
         sh:path edo:IsParkingPlace ;
         sh:in ( "Boolean (yes/no)" )
-    ] .
-
-ex:Rule_PanelHydraulicConnector a sh:NodeShape ;
-    sh:targetClass edo:PanelHydraulicConnector ;
-    sh:property [
-        sh:path edo:MaxPressure ;
-        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_PolymericMaterial a sh:NodeShape ;
@@ -1222,7 +1208,7 @@ ex:Rule_FlexibleJoint a sh:NodeShape ;
     ] .    
 
 ex:Rule_WeightInWater a sh:NodeShape ;
-    sh:targetClass edo:LineSegmentTermination, edo:OverboardingCollar, edo:BendStiffener, edo:ElevationCollar, edo:SplitCollar, edo:SubseaEquipment, edo:HangOffAdaptor, edo:Anchor , edo:RigidRiserTopConnector , edo:AnodeSled , edo:LineTermination , edo:PullingHead , edo:ProcessValve , edo:BraceletAnode , edo:MudMat , edo:FlowConnector , edo:LineSupport ;
+    sh:targetClass edo:HydraulicJumper, edo:LineSegmentTermination, edo:OverboardingCollar, edo:BendStiffener, edo:ElevationCollar, edo:SplitCollar, edo:SubseaEquipment, edo:HangOffAdaptor, edo:Anchor , edo:RigidRiserTopConnector , edo:AnodeSled , edo:LineTermination , edo:PullingHead , edo:ProcessValve , edo:BraceletAnode , edo:MudMat , edo:FlowConnector , edo:LineSupport ;
     sh:property [
         sh:path edo:WeightInWater ;
         sh:in ( "Fractional number" )
@@ -1513,13 +1499,6 @@ ex:Rule_chain_resistance_grade a sh:NodeShape ;
         sh:path edo:ResistanceGrade ;
         sh:in ( "R3" "R3S" "R4" "R4S" "R5" "ORQ" ) 
     ] .
-
-ex:Rule_MaxPressure_BAR a sh:NodeShape ;
-    sh:targetClass edo:PipingComponent ;
-    sh:property [
-        sh:path edo:MaxPressure ;
-		edo:hasUnit unit:BAR ;
-    ] .    
 
 ex:Rule_FlowConnector a sh:NodeShape ;
     sh:targetClass edo:FlowConnector ;
@@ -2030,20 +2009,6 @@ ex:Rule_InnerDiameter_IN a sh:NodeShape ;
         edo:hasUnit unit:IN ;
     ] .
 
-ex:Rule_MaxPressure_MPa a sh:NodeShape ;
-    sh:targetClass edo:PipeSegmentTermination, edo:HangOffAdaptor , edo:RigidRiserTopConnector , edo:PipeTermination , edo:PipeSegment , edo:Tubing ;
-    sh:property [
-        sh:path edo:MaxPressure ;
-        edo:hasUnit unit:MPa ;
-    ] .
-
-ex:Rule_MaxPressure a sh:NodeShape ;
-    sh:targetClass edo:Wellhead , edo:HydraulicActuator , edo:PressureEquipment , edo:TubingCoupling , edo:WearBushing , edo:PressureComponent , edo:HangOffAdaptor , edo:RigidRiserTopConnector , edo:PipeTermination , edo:PipeSegment , edo:Tubing , edo:PipingComponent ;
-    sh:property [
-        sh:path edo:MaxPressure ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] .
-
 ex:Rule_pb_std_itube_type a sh:NodeShape ;
     sh:targetClass edo:HangOffAdaptor ;
     sh:property [
@@ -2071,20 +2036,6 @@ ex:Rule_InnerDiameter_IN a sh:NodeShape ;
         sh:path edo:InnerDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
         edo:hasUnit unit:IN ;
-    ] .
-
-ex:Rule_MaxPressure_MPa a sh:NodeShape ;
-    sh:targetClass edo:HangOffAdaptor , edo:RigidRiserTopConnector , edo:PipeTermination , edo:PipeSegment , edo:Tubing ;
-    sh:property [
-        sh:path edo:MaxPressure ;
-        edo:hasUnit unit:MPa ;
-    ] .
-
-ex:Rule_MaxPressure a sh:NodeShape ;
-    sh:targetClass edo:Wellhead , edo:HydraulicActuator , edo:PressureEquipment , edo:TubingCoupling , edo:WearBushing , edo:PressureComponent , edo:HangOffAdaptor , edo:RigidRiserTopConnector , edo:PipeTermination , edo:PipeSegment , edo:Tubing , edo:PipingComponent ;
-    sh:property [
-        sh:path edo:MaxPressure ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
 ex:Rule_pb_std_itube_type a sh:NodeShape ;
@@ -3548,21 +3499,21 @@ ex:Rule_NumFunctions_IntegerNumber a sh:NodeShape ;
     ] .    
 
 ex:Rule_MaximumLineVoltage_FractionalNumber a sh:NodeShape ;
-    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable ;
+    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
     sh:property [
         sh:path edo:MaximumLineVoltage ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .    
 
 ex:Rule_MaximumPhaseVoltage_FractionalNumber a sh:NodeShape ;
-    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable ;
+    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
     sh:property [
         sh:path edo:MaximumPhaseVoltage ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .    
 
 ex:Rule_MaximumSystemVoltage_FractionalNumber a sh:NodeShape ;
-    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable ;
+    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
     sh:property [
         sh:path edo:MaximumSystemVoltage ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -3576,9 +3527,85 @@ ex:Rule_AbandonmentCap_FractionalNumber a sh:NodeShape ;
     ] .    
 
 ex:Rule_MinBendingRadius_mm a sh:NodeShape ;
-    sh:targetClass edo:FunctionLine;
+    sh:targetClass edo:HydraulicJumper, edo:FunctionLine;
     sh:property [
         sh:path edo:MinBendingRadius ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
         edo:hasUnit unit:MilliM ;
+    ] .    
+
+ex:Rule_jumper_assembly_type a sh:NodeShape ;
+    sh:targetClass edo:ElectricalJumper, edo:ElectricalPowerJumper ;
+    sh:property [
+        sh:path edo:AssemblyType ;
+        sh:in ( "SIMPLE_CABLE" "FLUID_FILLED" "OTHER" )
+    ] .    
+
+ex:Rule_iec61886_temperature_class a sh:NodeShape ;
+    sh:targetClass edo:ElectricalJumper, edo:ElectricalPowerJumper ;
+    sh:property [
+        sh:path edo:TemperatureClass ;
+        sh:in ( "I" "II" "III" "IV" "NONE" )
+    ] .    
+
+ex:Rule_MaxCurrent_FractionalNumber a sh:NodeShape ;
+    sh:targetClass edo:ElectricalJumper ;
+    sh:property [
+        sh:path edo:MaxCurrent ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] . 
+
+ex:Rule_num_electrical_phases a sh:NodeShape ;
+    sh:targetClass edo:ElectricalPowerJumper ;
+    sh:property [
+        sh:path edo:NumPhases ;
+        sh:in ( "SINGLE_PHASE" "THREE_PHASE" )
+    ] .
+
+ex:Rule_PowerRating_FractionalNumber a sh:NodeShape ;
+    sh:targetClass edo:ElectricalPowerJumper ;
+    sh:property [
+        sh:path edo:PowerRating ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] . 
+
+ex:Rule_MaxPressure_BAR a sh:NodeShape ;
+    sh:targetClass edo:PipingComponent ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+		edo:hasUnit unit:BAR ;
+    ] .    
+	
+ex:Rule_MaxPressure_MPa a sh:NodeShape ;
+    sh:targetClass edo:PipeSegmentTermination, edo:HangOffAdaptor , edo:RigidRiserTopConnector , edo:PipeTermination , edo:PipeSegment , edo:Tubing ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        edo:hasUnit unit:MPa ;
+    ] .
+	
+ex:Rule_HydraulicJumperConnector a sh:NodeShape ;
+    sh:targetClass edo:HydraulicJumperConnector,    
+				edo:PanelHydraulicConnector ,
+				edo:Wellhead , 
+				edo:HydraulicActuator , 
+				edo:PressureEquipment , 
+				edo:TubingCoupling , 
+				edo:WearBushing , 
+				edo:PressureComponent , 
+				edo:HangOffAdaptor , 
+				edo:RigidRiserTopConnector , 
+				edo:PipeTermination , 
+				edo:PipeSegment , 
+				edo:Tubing , 
+				edo:PipingComponent ;
+    sh:property [
+        sh:path edo:MaxPressure ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_BundleDiameter_FractionalNumber a sh:NodeShape ;
+    sh:targetClass edo:HydraulicJumper ;
+    sh:property [
+        sh:path edo:BundleDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .    
