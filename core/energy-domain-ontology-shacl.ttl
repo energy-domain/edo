@@ -1550,17 +1550,24 @@ ex:Rule_Pile a sh:NodeShape ;
 		edo:hasUnit unit:METER ;
     ] . 
 
+ex:Rule_BodyDiameter a sh:NodeShape ;
+    sh:targetClass edo:TorpedoPile, edo:SuctionPile, edo:EndFitting, edo:ArmorPot ;
+    sh:property [
+        sh:path edo:BodyDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
 ex:Rule_TorpedoPile a sh:NodeShape ;
     sh:targetClass edo:TorpedoPile ;
     sh:property [
-        sh:path edo:BodyDiameter, edo:BodyWallThickness, edo:MaxLoadValue, edo:MaxLoadAngle ;
+        sh:path edo:BodyWallThickness, edo:MaxLoadValue, edo:MaxLoadAngle ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_SuctionPile a sh:NodeShape ;
     sh:targetClass edo:SuctionPile ;
     sh:property [
-        sh:path edo:MinSelfPenetrationDepth, edo:MaxSelfPenetrationDepth, edo:MaxLandingSpeed, edo:MinInstallationPressure, edo:MaxInstallationPressure, edo:MinRetrievalPressure, edo:MaxRetrievalPressure, edo:MinBreakOutPressure, edo:MaxBreakOutPressure, edo:BodyDiameter, edo:BodyWallThickness, edo:BodyLength, edo:StickUp, edo:MaxLoadFx, edo:MaxLoadFy, edo:MaxLoadFz ;
+        sh:path edo:MinSelfPenetrationDepth, edo:MaxSelfPenetrationDepth, edo:MaxLandingSpeed, edo:MinInstallationPressure, edo:MaxInstallationPressure, edo:MinRetrievalPressure, edo:MaxRetrievalPressure, edo:MinBreakOutPressure, edo:MaxBreakOutPressure, edo:BodyWallThickness, edo:BodyLength, edo:StickUp, edo:MaxLoadFx, edo:MaxLoadFy, edo:MaxLoadFz ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] . 
 
@@ -2606,7 +2613,7 @@ ex:Rule_ConnSize a sh:NodeShape ;
     ] .
 
 ex:Rule_api17d_material_class a sh:NodeShape ;
-    sh:targetClass edo:FlowConnector ;
+    sh:targetClass edo:FlowConnector, edo:Flowbase ;
     sh:property [
         sh:path edo:Metallurgy ;
         sh:in ( "NONE" "AA" "BB" "CC" "DD" "EE" "FF" "HH" ) ;
@@ -2663,21 +2670,21 @@ ex:Rule_fluid_corrosiveness a sh:NodeShape ;
     ] .
 
 ex:Rule_fluid_corrosiveness_tolerance a sh:NodeShape ;
-    sh:targetClass edo:PipeSegment, edo:ProcessValve ;
+    sh:targetClass edo:Flowbase, edo:PipeSegment, edo:ProcessValve ;
     sh:property [
         sh:path edo:CorrosivenessTolerance ;
         sh:in ( "NEUTRAL" "SWEET" "SOUR" )
     ] .    
 
 ex:Rule_AllowableCo2Content a sh:NodeShape ;
-    sh:targetClass edo:PipeSegment, edo:Pipeline, edo:ProcessValve , edo:SubseaPipeline ;
+    sh:targetClass edo:Flowbase, edo:PipeSegment, edo:Pipeline, edo:ProcessValve , edo:SubseaPipeline ;
     sh:property [
         sh:path edo:AllowableCo2Content ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
 ex:Rule_AllowableH2sContent a sh:NodeShape ;
-    sh:targetClass edo:PipeSegment, edo:ProcessValve , edo:SubseaPipeline ;
+    sh:targetClass edo:Flowbase, edo:PipeSegment, edo:ProcessValve , edo:SubseaPipeline ;
     sh:property [
         sh:path edo:AllowableH2sContent ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -2705,7 +2712,7 @@ ex:Rule_Sand a sh:NodeShape ;
     ] .
 
 ex:Rule_SandTolerance a sh:NodeShape ;
-    sh:targetClass edo:PipeSegment, edo:ProcessValve ;
+    sh:targetClass edo:Flowbase, edo:PipeSegment, edo:ProcessValve ;
     sh:property [
         sh:path edo:SandTolerance ;
         sh:in ( "Boolean (yes/no)" )
@@ -3266,7 +3273,7 @@ ex:Rule_threaded_fitting_type_N2TestPortType a sh:NodeShape ;
     ] .
 
 ex:Rule_threaded_fitting_type_ThreadType a sh:NodeShape ;
-    sh:targetClass edo:QuickConnectCoupling, edo:ThreadedFitting ;
+    sh:targetClass edo:QuickConnectCoupling, edo:ThreadedFitting, edo:InstrumentationValve ;
     sh:property [
         sh:path edo:ThreadType ;
         sh:in ( "NONE" "NPT_1/16" "NPT_1/8" "NPT_1/4" "NPT_3/8" "NPT_1/2" "NPT_3/4" "NPT_1" "NPT_1_1/4" "NPT_1_1/2" "NPT_2"
@@ -3618,7 +3625,7 @@ ex:Rule_BundleDiameter_FractionalNumber a sh:NodeShape ;
     ] .    
 
 ex:Rule_thread_gender a sh:NodeShape ;
-    sh:targetClass edo:QuickConnectCoupling, edo:ThreadedFitting ;
+    sh:targetClass edo:QuickConnectCoupling, edo:ThreadedFitting, edo:InstrumentationValve ;
     sh:property [
         sh:path edo:Gender ;
         sh:in ( "MALE" "FEMALE" )
@@ -3658,3 +3665,68 @@ ex:Rule_MinBendingRadius_FractionalNumber a sh:NodeShape ;
         sh:path edo:MinBendingRadius, edo:MbrStaticOperation, edo:MbrDynamicOperation ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
+
+ex:Rule_pb_tree_interface_spec a sh:NodeShape ;
+    sh:targetClass edo:Flowbase ;
+    sh:property [
+        sh:path edo:InterfaceStandardSpec ;
+        sh:in ( "ET-3000.00-1516-619-PPC-001" "ET-3000.00-1516-619-PPC-002" "ET-3000.00-1516-619-PPC-003" )
+    ] .
+
+ex:Rule_annulus_isolation_method a sh:NodeShape ;
+    sh:targetClass edo:Flowbase ;
+    sh:property [
+        sh:path edo:AnnulusIsolationMethod ;
+        sh:in ( "AI_VALVES" "TH_VALVE" "PLUG" )
+    ] .
+
+ex:Rule_wellhead_diameter a sh:NodeShape ;
+    sh:targetClass edo:Flowbase ;
+    sh:property [
+        sh:path edo:ConnectorDiameter ;
+        sh:in ( "13_5/8" "16_3/4" "18_3/4" "20_3/4_21_1/4" "21_1/4" "30" "OTHER" )
+    ] .
+
+ex:Rule_NumLines a sh:NodeShape ;
+    sh:targetClass edo:Flowbase ;
+    sh:property [
+        sh:path edo:NumLines ;
+        sh:in ( "Integer number (≥ 1)" )
+    ] .    
+
+ex:Rule_DrillThroughDiameter_FractionalNumber a sh:NodeShape ;
+    sh:targetClass edo:Flowbase;
+    sh:property [
+        sh:path edo:DrillThroughDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_flowbase_hub_order a sh:NodeShape ;
+    sh:targetClass edo:Flowbase ;
+    sh:property [
+        sh:path edo:HubOrder ;
+        sh:in ( "PUA" "PAU" "APU" "AUP" "UPA" "UAP" "OTHER" )
+    ] .    
+
+ex:Rule_hanger_orientation_mechanism a sh:NodeShape ;
+    sh:targetClass edo:Flowbase ;
+    sh:property [
+        sh:path edo:TubingHangerOrientationMechanism ;
+        sh:in ( "SIMPLE_HELIX" "DOUBLE_HELIX" "KEY" "OTHER" )
+    ] .
+
+ex:Rule_NumAiValves a sh:NodeShape ;
+    sh:targetClass edo:Flowbase ;
+    sh:property [
+        sh:path edo:NumAiValves ;
+        sh:in ( "Integer number (≥ 1)" )
+    ] .    
+
+ex:Rule_HasPxoValve a sh:NodeShape ;
+    sh:targetClass edo:Flowbase ;
+    sh:property [
+        sh:path edo:HasPxoValve ;
+        sh:in ( "Boolean (yes/no)" )
+    ] .    
+
+
