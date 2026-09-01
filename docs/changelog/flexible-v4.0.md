@@ -2389,3 +2389,486 @@ edo:RingGasketStandardEdition rdf:type owl:Class ;
 + edo:hasAttribute edo:RiserAzimuth ,
 +                  edo:RiserConfiguration ;
 ```
+
+## Created classes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```turtle
+edo:ElectricalConnector rdf:type owl:Class ;
+                        rdfs:subClassOf edo:Connector ;
+                        dcterms:identifier "ElectricalConnector" ;
+                        skos:prefLabel "Electrical connector"@en ;
+                        skos:prefLabel "Conector elétrico"@pt-br ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasExternalRef "MDA:ElectricalConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```turtle
+edo:ElectricalPowerConnector rdf:type owl:Class ;
+                             rdfs:subClassOf edo:Connector ;
+                             dcterms:identifier "ElectricalPowerConnector" ;
+                             skos:prefLabel "Electrical power connector"@en ;
+                             skos:prefLabel "Conector elétrico de potência"@pt-br ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasExternalRef "MDA:ElectricalPowerConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```turtle
+edo:OpticalConnector rdf:type owl:Class ;
+                     rdfs:subClassOf edo:Connector ;
+                     dcterms:identifier "OpticalConnector" ;
+                     skos:prefLabel "Optical connector"@en ;
+                     skos:prefLabel "Conector ótico"@pt-br ;
+                     edo:entityStatus "NEW" ;
+                     edo:hasExternalRef "MDA:OpticalConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#HubPressureCap
+
+```turtle
+edo:HubPressureCap rdf:type owl:Class ;
+                   rdfs:subClassOf edo:PressureEquipment ;
+                   dcterms:identifier "HubPressureCap" ;
+                   skos:definition "Cap that may be installed and locked onto a subsea hub and is able to withstand internal operation/test pressures"@en ;
+                   skos:definition "Capa que pode ser instalada e travada sobre um hub/mandril submarino e é capaz de resistir às pressões internas de operação/teste"@pt-br ;
+                   skos:prefLabel "Hub pressure cap"@en ;
+                   skos:prefLabel "Capa de pressão de hub"@pt-br ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasExternalRef "MDA:HubPressureCap" .
+```
+
+### https://w3id.org/energy-domain/edo#FlowMeter
+
+```turtle
+edo:FlowMeter rdf:type owl:Class ;
+              rdfs:subClassOf edo:PressureComponent ;
+              dcterms:identifier "FlowMeter" ;
+              skos:prefLabel "Flow meter"@en ;
+              skos:prefLabel "Medidor de vazão"@pt-br ;
+              edo:entityStatus "NEW" ;
+              edo:hasExternalRef "MDA:FlowMeter" .
+```
+
+### https://w3id.org/energy-domain/edo#HydraulicConnector
+
+```turtle
+edo:HydraulicConnector rdf:type owl:Class ;
+                       rdfs:subClassOf edo:Connector ;
+                       dcterms:identifier "HydraulicConnector" ;
+                       skos:prefLabel "Hydraulic connector"@en ;
+                       skos:prefLabel "Conector hidráulico"@pt-br ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasExternalRef "MDA:HydraulicConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#FreeHydraulicConnector
+
+```turtle
+edo:FreeHydraulicConnector rdf:type owl:Class ;
+                           rdfs:subClassOf edo:HydraulicConnector ;
+                           dcterms:identifier "FreeHydraulicConnector" ;
+                           skos:definition "Hydraulic connector handled by ROV or manually"@en ;
+                           skos:definition "Conector hidráulico manuseado por ROV ou manualmente"@pt-br ;
+                           skos:prefLabel "Free hydraulic connector"@en ;
+                           skos:prefLabel "Conector hidráulico livre"@pt-br ;
+                           edo:entityStatus "NEW" ;
+                           edo:hasExternalRef "MDA:FreeHydraulicConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#FixedHydraulicConnector
+
+```turtle
+edo:FixedHydraulicConnector rdf:type owl:Class ;
+                            rdfs:subClassOf edo:HydraulicConnector ;
+                            dcterms:identifier "FixedHydraulicConnector" ;
+                            skos:definition "Stationary hydraulic connector"@en ;
+                            skos:definition "Conector hidráulico estacionário"@pt-br ;
+                            skos:prefLabel "Fixed hydraulic connector"@en ;
+                            skos:prefLabel "Conector hidráulico fixo"@pt-br ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasExternalRef "MDA:FixedHydraulicConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#ExternalTreeCap
+
+```turtle
+edo:ExternalTreeCap rdf:type owl:Class ;
+                    rdfs:subClassOf edo:FlowControlModule ;
+                    dcterms:identifier "ExternalTreeCap" ;
+                    skos:prefLabel "External tree cap"@en ;
+                    skos:prefLabel "Capa de árvore externa"@pt-br ;
+                    edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "ExternalTreeCap" ;
+                    edo:ifc_predefinedType "USERDEFINED" ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasExternalRef "MDA:ExternalTreeCap" .
+```
+
+### https://w3id.org/energy-domain/edo#FishingTool
+
+```turtle
+edo:FishingTool rdf:type owl:Class ;
+                rdfs:subClassOf edo:ActuatedEquipment ;
+                dcterms:identifier "FishingTool" ;
+                skos:definition "Tool for recovery of items lost downhole"@en ;
+                skos:definition "Ferramenta para recuperação de itens em poço"@pt-br ;
+                skos:prefLabel "Fishing tool"@en ;
+                skos:prefLabel "Ferramenta de pescaria"@pt-br ;
+                edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                rdfs:subClassOf edo:IfcInstanciableElement ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "FishingTool" ;
+                edo:ifc_predefinedType "USERDEFINED" ;
+                edo:entityStatus "NEW" ;
+                edo:hasExternalRef "MDA:FishingTool" .
+```
+
+### https://w3id.org/energy-domain/edo#FixedElectricalConnector
+
+```turtle
+edo:FixedElectricalConnector rdf:type owl:Class ;
+                             rdfs:subClassOf edo:ElectricalConnector ;
+                             dcterms:identifier "FixedElectricalConnector" ;
+                             skos:definition "Stationary signal/low-current electrical connector"@en ;
+                             skos:definition "Conector elétrico estacionário de sinal/baixa corrente"@pt-br ;
+                             skos:prefLabel "Fixed electrical connector"@en ;
+                             skos:prefLabel "Conector elétrico fixo"@pt-br ;
+                             edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                             rdfs:subClassOf edo:IfcInstanciableElement ;
+                             edo:ifc_equivalentClass "IfcPipeFitting" ;
+                             edo:ifc_objectType "FixedElectricalConnector" ;
+                             edo:ifc_predefinedType "USERDEFINED" ;
+                             edo:entityStatus "NEW" ;
+                             edo:hasExternalRef "MDA:FixedElectricalConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#FixedElectricalPowerConnector
+
+```turtle
+edo:FixedElectricalPowerConnector rdf:type owl:Class ;
+                                  rdfs:subClassOf edo:ElectricalPowerConnector ;
+                                  dcterms:identifier "FixedElectricalPowerConnector" ;
+                                  skos:definition "Stationary high voltage/current electrical connector"@en ;
+                                  skos:definition "Conector elétrico estacionário de alta tensão/corrente"@pt-br ;
+                                  skos:prefLabel "Fixed electrical power connector"@en ;
+                                  skos:prefLabel "Conector elétrico de potência fixo"@pt-br ;
+                                  edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                                  rdfs:subClassOf edo:IfcInstanciableElement ;
+                                  edo:ifc_equivalentClass "IfcPipeFitting" ;
+                                  edo:ifc_objectType "FixedElectricalPowerConnector" ;
+                                  edo:ifc_predefinedType "USERDEFINED" ;
+                                  edo:entityStatus "NEW" ;
+                                  edo:hasExternalRef "MDA:FixedElectricalPowerConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#FixedOpticalConnector
+
+```turtle
+edo:FixedOpticalConnector rdf:type owl:Class ;
+                          rdfs:subClassOf edo:OpticalConnector ;
+                          dcterms:identifier "FixedOpticalConnector" ;
+                          skos:definition "Stationary optical connector"@en ;
+                          skos:definition "Conector ótico estacionário"@pt-br ;
+                          skos:prefLabel "Fixed optical connector"@en ;
+                          skos:prefLabel "Conector ótico fixo"@pt-br ;
+                          edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                          rdfs:subClassOf edo:IfcInstanciableElement ;
+                          edo:ifc_equivalentClass "IfcPipeFitting" ;
+                          edo:ifc_objectType "FixedOpticalConnector" ;
+                          edo:ifc_predefinedType "USERDEFINED" ;
+                          edo:entityStatus "NEW" ;
+                          edo:hasExternalRef "MDA:FixedOpticalConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#FreeElectricalConnector
+
+```turtle
+edo:FreeElectricalConnector rdf:type owl:Class ;
+                            rdfs:subClassOf edo:ElectricalConnector ;
+                            dcterms:identifier "FreeElectricalConnector" ;
+                            skos:definition "Signal/low-current electrical connector handled by ROV or manually"@en ;
+                            skos:definition "Conector elétrico de sinal/baixa corrente, manuseado por ROV ou manualmente"@pt-br ;
+                            skos:prefLabel "Free electrical connector"@en ;
+                            skos:prefLabel "Conector elétrico livre"@pt-br ;
+                            edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                            rdfs:subClassOf edo:IfcInstanciableElement ;
+                            edo:ifc_equivalentClass "IfcPipeFitting" ;
+                            edo:ifc_objectType "FreeElectricalConnector" ;
+                            edo:ifc_predefinedType "USERDEFINED" ;
+                            edo:entityStatus "NEW" ;
+                            edo:hasExternalRef "MDA:FreeElectricalConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#FreeElectricalPowerConnector
+
+```turtle
+edo:FreeElectricalPowerConnector rdf:type owl:Class ;
+                                 rdfs:subClassOf edo:ElectricalPowerConnector ;
+                                 dcterms:identifier "FreeElectricalPowerConnector" ;
+                                 skos:definition "High voltage/current electrical connector handled by ROV or manually"@en ;
+                                 skos:definition "Conector elétrico de alta tensão/corrente, manuseado por ROV ou manualmente"@pt-br ;
+                                 skos:prefLabel "Free electrical power connector"@en ;
+                                 skos:prefLabel "Conector elétrico de potência livre"@pt-br ;
+                                 edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                                 rdfs:subClassOf edo:IfcInstanciableElement ;
+                                 edo:ifc_equivalentClass "IfcPipeFitting" ;
+                                 edo:ifc_objectType "FreeElectricalPowerConnector" ;
+                                 edo:ifc_predefinedType "USERDEFINED" ;
+                                 edo:entityStatus "NEW" ;
+                                 edo:hasExternalRef "MDA:FreeElectricalPowerConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#FreeOpticalConnector
+
+```turtle
+edo:FreeOpticalConnector rdf:type owl:Class ;
+                         rdfs:subClassOf edo:OpticalConnector ;
+                         dcterms:identifier "FreeOpticalConnector" ;
+                         skos:definition "Optical connector handled by ROV or manually"@en ;
+                         skos:definition "Conector ótico manuseado por ROV ou manualmente"@pt-br ;
+                         skos:prefLabel "Free optical connector"@en ;
+                         skos:prefLabel "Conector ótico livre"@pt-br ;
+                         edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                         rdfs:subClassOf edo:IfcInstanciableElement ;
+                         edo:ifc_equivalentClass "IfcPipeFitting" ;
+                         edo:ifc_objectType "FreeOpticalConnector" ;
+                         edo:ifc_predefinedType "USERDEFINED" ;
+                         edo:entityStatus "NEW" ;
+                         edo:hasExternalRef "MDA:FreeOpticalConnector" .
+```
+
+### https://w3id.org/energy-domain/edo#Funnel
+
+```turtle
+edo:Funnel rdf:type owl:Class ;
+           rdfs:subClassOf edo:Component ;
+           dcterms:identifier "Funnel" ;
+           skos:definition "Structure for aligning and orienting subsea-installable modules/equipment; also used directly as a receptacle for installation of certain modules (e.g. UTMs, IMUXes, etc.)"@en ;
+           skos:definition "Estrutura para alinhamento e orientação de módulos/equipamentos instaláveis em ambiente submarino; também usado diretamente como receptáculo para acoplamento de certos módulos (ex.: MTUs, IMUXes, etc.)"@pt-br ;
+           skos:prefLabel "Funnel"@en ;
+           skos:prefLabel "Funil"@pt-br ;
+           edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+           rdfs:subClassOf edo:IfcInstanciableElement ;
+           edo:ifc_equivalentClass "IfcPipeFitting" ;
+           edo:ifc_objectType "Funnel" ;
+           edo:ifc_predefinedType "USERDEFINED" ;
+           edo:entityStatus "NEW" ;
+           edo:hasExternalRef "MDA:Funnel" .
+```
+
+### https://w3id.org/energy-domain/edo#HubTestCap
+
+```turtle
+edo:HubTestCap rdf:type owl:Class ;
+               rdfs:subClassOf edo:HubPressureCap ;
+               dcterms:identifier "HubTestCap" ;
+               skos:prefLabel "Hub test cap"@en ;
+               skos:prefLabel "Capa de teste de hub"@pt-br ;
+               edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+               rdfs:subClassOf edo:IfcInstanciableElement ;
+               edo:ifc_equivalentClass "IfcPipeFitting" ;
+               edo:ifc_objectType "HubTestCap" ;
+               edo:ifc_predefinedType "USERDEFINED" ;
+               edo:entityStatus "NEW" ;
+               edo:hasExternalRef "MDA:HubTestCap" .
+```
+
+### https://w3id.org/energy-domain/edo#InternalTreeCap
+
+```turtle
+edo:InternalTreeCap rdf:type owl:Class ;
+                    rdfs:subClassOf edo:PressureEquipment ;
+                    dcterms:identifier "InternalTreeCap" ;
+                    skos:definition "Reduced tree cap, generally installable by ROV"@en ;
+                    skos:definition "Capa de árvore reduzida, geralmente instalável por ROV"@pt-br ;
+                    skos:prefLabel "Internal tree cap"@en ;
+                    skos:prefLabel "Capa de árvore interna"@pt-br ;
+                    edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "InternalTreeCap" ;
+                    edo:ifc_predefinedType "USERDEFINED" ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasExternalRef "MDA:InternalTreeCap" .
+```
+
+### https://w3id.org/energy-domain/edo#LinearLockoutTool
+
+```turtle
+edo:LinearLockoutTool rdf:type owl:Class ;
+                      rdfs:subClassOf edo:ROVTool ;
+                      dcterms:identifier "LinearLockoutTool" ;
+                      skos:prefLabel "Linear lockout tool"@en ;
+                      skos:prefLabel "Ferramenta de travamento linear"@pt-br ;
+                      edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                      rdfs:subClassOf edo:IfcInstanciableElement ;
+                      edo:ifc_equivalentClass "IfcPipeFitting" ;
+                      edo:ifc_objectType "LinearLockoutTool" ;
+                      edo:ifc_predefinedType "USERDEFINED" ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasExternalRef "MDA:LinearLockoutTool" .
+```
+
+### https://w3id.org/energy-domain/edo#LinearOverrideTool
+
+```turtle
+edo:LinearOverrideTool rdf:type owl:Class ;
+                       rdfs:subClassOf edo:OverrideTool ;
+                       dcterms:identifier "LinearOverrideTool" ;
+                       skos:prefLabel "Linear override tool"@en ;
+                       skos:prefLabel "Ferramenta de override linear"@pt-br ;
+                       edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                       rdfs:subClassOf edo:IfcInstanciableElement ;
+                       edo:ifc_equivalentClass "IfcPipeFitting" ;
+                       edo:ifc_objectType "LinearOverrideTool" ;
+                       edo:ifc_predefinedType "USERDEFINED" ;
+                       edo:entityStatus "NEW" ;
+                       edo:hasExternalRef "MDA:LinearOverrideTool" .
+```
+
+### https://w3id.org/energy-domain/edo#MultiPhaseFlowMeter
+
+```turtle
+edo:MultiPhaseFlowMeter rdf:type owl:Class ;
+                        rdfs:subClassOf edo:FlowMeter ;
+                        dcterms:identifier "MultiPhaseFlowMeter" ;
+                        skos:prefLabel "Single-phase flow meter"@en ;
+                        skos:prefLabel "Medidor de vazão multifásica"@pt-br ;
+                        edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                        rdfs:subClassOf edo:IfcInstanciableElement ;
+                        edo:ifc_equivalentClass "IfcPipeFitting" ;
+                        edo:ifc_objectType "MultiPhaseFlowMeter" ;
+                        edo:ifc_predefinedType "USERDEFINED" ;
+                        edo:entityStatus "NEW" ;
+                        edo:hasExternalRef "MDA:MultiPhaseFlowMeter" .
+```
+
+### https://w3id.org/energy-domain/edo#OpticalJumper
+
+```turtle
+edo:OpticalJumper rdf:type owl:Class ;
+                  rdfs:subClassOf edo:Jumper ;
+                  dcterms:identifier "OpticalJumper" ;
+                  skos:prefLabel "Optical jumper"@en ;
+                  skos:prefLabel "Jumper ótico"@pt-br ;
+                  edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                  rdfs:subClassOf edo:IfcInstanciableElement ;
+                  edo:ifc_equivalentClass "IfcPipeFitting" ;
+                  edo:ifc_objectType "OpticalJumper" ;
+                  edo:ifc_predefinedType "USERDEFINED" ;
+                  edo:entityStatus "NEW" ;
+                  edo:hasExternalRef "MDA:OpticalJumper" .
+```
+
+### https://w3id.org/energy-domain/edo#OutboardMQC
+
+```turtle
+edo:OutboardMQC rdf:type owl:Class ;
+                rdfs:subClassOf edo:FreeHydraulicConnector ;
+                dcterms:identifier "OutboardMQC" ;
+                skos:definition "Connector for making multiple hydraulic connections simultaneously"@en ;
+                skos:definition "Conector para realização de múltiplas conexões hidráulicas simultaneamente"@pt-br ;
+                skos:prefLabel "Outboard MQC connector"@en ;
+                skos:prefLabel "Conector MQC outboard"@pt-br ;
+                edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                rdfs:subClassOf edo:IfcInstanciableElement ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "OutboardMQC" ;
+                edo:ifc_predefinedType "USERDEFINED" ;
+                edo:entityStatus "NEW" ;
+                edo:hasExternalRef "MDA:OutboardMQC" .
+```
+
+### https://w3id.org/energy-domain/edo#SinglePhaseFlowMeter
+
+```turtle
+edo:SinglePhaseFlowMeter rdf:type owl:Class ;
+                         rdfs:subClassOf edo:FlowMeter ;
+                         dcterms:identifier "SinglePhaseFlowMeter" ;
+                         skos:prefLabel "Single-phase flow meter"@en ;
+                         skos:prefLabel "Medidor de vazão monofásica"@pt-br ;
+                         edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                         rdfs:subClassOf edo:IfcInstanciableElement ;
+                         edo:ifc_equivalentClass "IfcPipeFitting" ;
+                         edo:ifc_objectType "SinglePhaseFlowMeter" ;
+                         edo:ifc_predefinedType "USERDEFINED" ;
+                         edo:entityStatus "NEW" ;
+                         edo:hasExternalRef "MDA:SinglePhaseFlowMeter" .
+```
+
+### https://w3id.org/energy-domain/edo#StabPlate
+
+```turtle
+edo:StabPlate rdf:type owl:Class ;
+              rdfs:subClassOf edo:FixedHydraulicConnector ;
+              dcterms:identifier "StabPlate" ;
+              skos:definition "Interface for simultaneous mating of multiple hydraulic couplings, including inboard MQCs"@en ;
+              skos:definition "Interface para conexão simultânea de múltiplos acoplamentos hidráulicos, incluindo MQCs inboard"@pt-br ;
+              skos:prefLabel "Stab plate"@en ;
+              skos:prefLabel "Placa hidráulica"@pt-br ;
+              edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+              rdfs:subClassOf edo:IfcInstanciableElement ;
+              edo:ifc_equivalentClass "IfcPipeFitting" ;
+              edo:ifc_objectType "StabPlate" ;
+              edo:ifc_predefinedType "USERDEFINED" ;
+              edo:entityStatus "NEW" ;
+              edo:hasExternalRef "MDA:StabPlate" .
+```
+
+### https://w3id.org/energy-domain/edo#TestHandlingCap
+
+```turtle
+edo:TestHandlingCap rdf:type owl:Class ;
+                    rdfs:subClassOf edo:Accessory ;
+                    dcterms:identifier "TestHandlingCap" ;
+                    skos:prefLabel "Test/handling cap"@en ;
+                    skos:prefLabel "Capa de teste/manuseio"@pt-br ;
+                    edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "TestHandlingCap" ;
+                    edo:ifc_predefinedType "USERDEFINED" ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasExternalRef "MDA:TestHandlingCap" .
+```
+
+### https://w3id.org/energy-domain/edo#WetGasFlowMeter
+
+```turtle
+edo:WetGasFlowMeter rdf:type owl:Class ;
+                    rdfs:subClassOf edo:FlowMeter ;
+                    dcterms:identifier "WetGasFlowMeter" ;
+                    skos:prefLabel "Wet gas flow meter"@en ;
+                    skos:prefLabel "Medidor de vazão de gás úmido"@pt-br ;
+                    edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                    rdfs:subClassOf edo:IfcInstanciableElement ;
+                    edo:ifc_equivalentClass "IfcPipeFitting" ;
+                    edo:ifc_objectType "WetGasFlowMeter" ;
+                    edo:ifc_predefinedType "USERDEFINED" ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasExternalRef "MDA:WetGasFlowMeter" .
+```
+
+### https://w3id.org/energy-domain/edo#WorkoverBOP
+
+```turtle
+edo:WorkoverBOP rdf:type owl:Class ;
+                rdfs:subClassOf edo:BOP ;
+                dcterms:identifier "WorkoverBOP" ;
+                skos:prefLabel "Workover BOP"@en ;
+                skos:prefLabel "BOP de workover"@pt-br ;
+                edo:hasDiscipline edo:WetChristmasTreesEngineering ;
+                rdfs:subClassOf edo:IfcInstanciableElement ;
+                edo:ifc_equivalentClass "IfcPipeFitting" ;
+                edo:ifc_objectType "WorkoverBOP" ;
+                edo:ifc_predefinedType "USERDEFINED" ;
+                edo:entityStatus "NEW" ;
+                edo:hasExternalRef "MDA:WorkoverBOP" .
+```
