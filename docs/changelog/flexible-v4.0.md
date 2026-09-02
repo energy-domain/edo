@@ -3095,3 +3095,13 @@ classes.
 ```diff
 + edo:hasAttribute edo:MaxContactResistance ;
 ```
+
+## Electrical power connector rating attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:MaxCurrent ;
++ edo:hasAttribute edo:TemperatureClass ;
++ edo:hasAttribute edo:VoltageRatingAttribute ;
+```
