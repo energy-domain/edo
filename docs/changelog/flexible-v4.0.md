@@ -2981,3 +2981,23 @@ classes.
 + edo:hasAttribute edo:CableExitAngle ,
 +                  edo:ElectricalConnectorFunction ;
 ```
+
+## Connector mechanical-gender attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:MechanicalGender ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:MechanicalGender ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:MechanicalGender ;
+```
