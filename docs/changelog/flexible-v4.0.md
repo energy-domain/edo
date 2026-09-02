@@ -3047,3 +3047,23 @@ classes.
 ```diff
 + edo:hasExternalRef "MDA:mating_environment" ;
 ```
+
+## Connector mating-mode attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:MatingMode ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:MatingMode ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:MatingMode ;
+```
