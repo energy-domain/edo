@@ -3105,3 +3105,53 @@ classes.
 + edo:hasAttribute edo:TemperatureClass ;
 + edo:hasAttribute edo:VoltageRatingAttribute ;
 ```
+
+## Flexible-layer DF references
+
+### https://w3id.org/energy-domain/edo#InternalDiameter
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerAnnular
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerAnnularType
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerContinuity
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerGeometryAttribute
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerThickness
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerWatertight
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerWatertightLowerLayerInternalFreeVolume
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
