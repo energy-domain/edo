@@ -2872,3 +2872,80 @@ edo:WorkoverBOP rdf:type owl:Class ;
                 edo:entityStatus "NEW" ;
                 edo:hasExternalRef "MDA:WorkoverBOP" .
 ```
+
+## Interface standard attributes
+
+The `InterfaceStandardAttribute` attribute was added to the following classes.
+`Flowbase` already had this attribute and was left unchanged.
+
+### https://w3id.org/energy-domain/edo#ExternalTreeCap
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#InternalTreeCap
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#QuickDisconnectionTool
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#TreeRunningTool
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#TubingHanger
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#TubingHangerRunningTool
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#UTM
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#VCM
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#WearBushing
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#WearBushingRunningTool
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#WetChristmasTree
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#WorkoverBOP
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
