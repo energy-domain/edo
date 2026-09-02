@@ -3087,3 +3087,11 @@ classes.
 ```diff
 + edo:hasAttribute edo:NumMatingCycles ;
 ```
+
+## Electrical connector contact-resistance attribute
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:MaxContactResistance ;
+```
