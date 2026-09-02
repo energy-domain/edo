@@ -2949,3 +2949,26 @@ The `InterfaceStandardAttribute` attribute was added to the following classes.
 ```diff
 + edo:hasAttribute edo:InterfaceStandardAttribute ;
 ```
+
+## Parking-place attributes
+
+The `IsParkingPlace` attribute was added to the following fixed connector
+classes.
+
+### https://w3id.org/energy-domain/edo#FixedElectricalConnector
+
+```diff
++ edo:hasAttribute edo:IsParkingPlace ;
+```
+
+### https://w3id.org/energy-domain/edo#FixedElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:IsParkingPlace ;
+```
+
+### https://w3id.org/energy-domain/edo#FixedOpticalConnector
+
+```diff
++ edo:hasAttribute edo:IsParkingPlace ;
+```
