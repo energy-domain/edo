@@ -3067,3 +3067,23 @@ classes.
 ```diff
 + edo:hasAttribute edo:MatingMode ;
 ```
+
+## Connector mating-cycle attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:NumMatingCycles ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:NumMatingCycles ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:NumMatingCycles ;
+```
