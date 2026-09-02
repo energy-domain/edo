@@ -3001,3 +3001,23 @@ classes.
 ```diff
 + edo:hasAttribute edo:MechanicalGender ;
 ```
+
+## Connector number-of-ways attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:NumWays ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:NumWays ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:NumWays ;
+```
