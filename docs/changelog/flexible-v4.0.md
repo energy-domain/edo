@@ -3021,3 +3021,29 @@ classes.
 ```diff
 + edo:hasAttribute edo:NumWays ;
 ```
+
+## Connector mating-environment attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:MatingEnvironment ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:MatingEnvironment ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:MatingEnvironment ;
+```
+
+### https://w3id.org/energy-domain/edo#MatingEnvironment
+
+```diff
++ edo:hasExternalRef "MDA:mating_environment" ;
+```
