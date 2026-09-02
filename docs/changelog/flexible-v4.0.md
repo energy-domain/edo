@@ -2972,3 +2972,12 @@ classes.
 ```diff
 + edo:hasAttribute edo:IsParkingPlace ;
 ```
+
+## Free electrical connector attributes
+
+### https://w3id.org/energy-domain/edo#FreeElectricalConnector
+
+```diff
++ edo:hasAttribute edo:CableExitAngle ,
++                  edo:ElectricalConnectorFunction ;
+```
