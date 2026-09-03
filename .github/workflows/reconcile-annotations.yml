@@ -6,6 +6,7 @@ on:
       - reconcile-edo-develop-annotations
     paths:
       - tools/reconcile_annotations.py
+      - tools/validate_annotation_reconciliation.py
       - .github/workflows/reconcile-annotations.yml
 
 permissions:
@@ -20,6 +21,7 @@ jobs:
       TARGET_CORE: core/energy-domain-ontology.ttl
       EDO_IFC: mappings/ifc/edo-ifc.ttl
       SOURCE_CORE: /tmp/pinned-edo.ttl
+      BASELINE_CORE: /tmp/baseline-develop.ttl
     steps:
       - name: Checkout reconciliation branch
         uses: actions/checkout@v4
@@ -27,10 +29,11 @@ jobs:
           fetch-depth: 0
           ref: reconcile-edo-develop-annotations
 
-      - name: Load pinned normative sources
+      - name: Load frozen baseline and pinned normative sources
         shell: bash
         run: |
           set -euo pipefail
+          cp "${TARGET_CORE}" "${BASELINE_CORE}"
           git fetch origin "${PINNED_MAIN}"
           git show "${PINNED_MAIN}:core/edo.ttl" > "${SOURCE_CORE}"
           mkdir -p mappings/ifc
@@ -84,10 +87,14 @@ jobs:
           git diff --cached --check
           git commit -m "Migrate develop IFC annotations to EDO-IFC vocabulary"
 
-      - name: Validate final Turtle and invariants
+      - name: Validate final Turtle and baseline invariants
         run: |
           set -euo pipefail
-          python tools/reconcile_annotations.py validate --source-core "${SOURCE_CORE}" --target-core "${TARGET_CORE}" --edo-ifc "${EDO_IFC}"
+          python tools/validate_annotation_reconciliation.py \
+            --baseline-core "${BASELINE_CORE}" \
+            --source-core "${SOURCE_CORE}" \
+            --target-core "${TARGET_CORE}" \
+            --edo-ifc "${EDO_IFC}"
           git diff --check "${GITHUB_SHA}..HEAD"
 
       - name: Push validated commits
