@@ -115,73 +115,8 @@ skos:definition rdf:type owl:AnnotationProperty .
 skos:prefLabel rdf:type owl:AnnotationProperty .
 
 
-###  https://w3id.org/energy-domain/edo#DomainAnnotation
-edo:DomainAnnotation rdf:type owl:AnnotationProperty .
-
-
-###  https://w3id.org/energy-domain/edo#DomainRelationship
-edo:DomainRelationship rdf:type owl:AnnotationProperty ;
-                       rdfs:subPropertyOf edo:DomainAnnotation .
-
-
-###  https://w3id.org/energy-domain/edo#SingleValue_VERIFICAR
-edo:SingleValue_VERIFICAR rdf:type owl:AnnotationProperty .
-
-
-###  https://w3id.org/energy-domain/edo#entityStatus
-edo:entityStatus rdf:type owl:AnnotationProperty ;
-                 rdfs:label "Entity Status"@en ;
-                 skos:definition "Anotação para identificar o status da entidade que pode ser: NOVO, ANALISANDO e APROVADO."@pt ,
-                                 "Note to identify the entity's status, which can be: NEW, REVIEW, and APPROVED."@en ;
-                 rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
-
-
 ###  https://w3id.org/energy-domain/edo#hasAtrribute
 edo:hasAtrribute rdf:type owl:AnnotationProperty .
-
-
-###  https://w3id.org/energy-domain/edo#hasContext
-edo:hasContext rdf:type owl:AnnotationProperty ;
-               rdfs:label "Has context"@en ,
-                          "Possui contexto"@pt-br ;
-               skos:definition "Relaciona um elemento de domínio a um nó contextual que organiza especificações e atributos aplicáveis a um determinado papel, cenário ou condição."@pt-br ,
-                               "Relates a domain element to a contextual node that organizes specifications and attributes applicable to a given role, scenario, or condition."@en ;
-               rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
-
-
-###  https://w3id.org/energy-domain/edo#hasCurve
-edo:hasCurve rdf:type owl:AnnotationProperty ;
-             rdfs:label "Has stiffness curve"@en ,
-                        "Possui curva de rigidez"@pt-br ;
-             skos:definition "Associa um elemento de domínio a uma curva de rigidez."@pt-br ,
-                             "Associates a domain element with a stiffness curve."@en ;
-             rdfs:subPropertyOf edo:hasContext .
-
-
-###  https://w3id.org/energy-domain/edo#hasEnd
-edo:hasEnd rdf:type owl:AnnotationProperty ;
-           rdfs:label "Has end"@en ,
-                      "Possui extremidade"@pt-br ;
-           skos:definition "Relaciona uma entidade a uma de suas extremidades funcionais de conexão."@pt-br ,
-                           "Relates an entity to one of its functional connection ends."@en ;
-           rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
-
-
-###  https://w3id.org/energy-domain/edo#hasExternalRef
-edo:hasExternalRef rdf:type owl:AnnotationProperty ;
-                   rdfs:label "Has External Reference"@en ;
-                   skos:definition "Annotation property used to indicate the reference or equivalent name of this entity in an external data dictionary or standard."@en ,
-                                   "Propriedade de anotação usada para indicar a referência ou o nome equivalente desta entidade em um dicionário de dados ou norma externa."@pt ;
-                   rdfs:subPropertyOf edo:DomainAuxiliarAnnotation .
-
-
-###  https://w3id.org/energy-domain/edo#hasLoad
-edo:hasLoad rdf:type owl:AnnotationProperty ;
-            rdfs:label "Has load case"@en ,
-                       "Possui caso de carregamento"@pt-br ;
-            skos:definition "Associa um elemento de domínio a um cenário específico de carregamento."@pt-br ,
-                            "Associates a domain element with a specific loading scenario."@en ;
-            rdfs:subPropertyOf edo:hasContext .
 
 
 ###  https://w3id.org/energy-domain/edo#ifc_equivalentClass
@@ -994,6 +929,85 @@ edo:valueOrigin rdf:type owl:AnnotationProperty ;
                 skos:definition "Indica a origem ou modo de obtenção de um valor associado a um atributo de domínio."@pt-br ,
                                 "Indicates the origin or acquisition mode of a value associated with a domain attribute."@en ;
                 rdfs:subPropertyOf edo:DomainAttributeStructureAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#LegacyAnnotation
+edo:LegacyAnnotation rdf:type owl:AnnotationProperty ;
+                     rdfs:label "Legacy Annotation"@en ,
+                                "Anotação Legada"@pt-br ;
+                     skos:definition "Temporary root for legacy or team-specific annotation metadata preserved during migration and intentionally kept separate from the normative current EDO annotation roots."@en ,
+                                     "Raiz temporária para metadados de anotação legados ou específicos da equipe preservados durante a migração e mantidos intencionalmente separados das raízes normativas atuais de anotação da EDO."@pt-br ;
+                     dcterms:identifier "LegacyAnnotation" .
+
+
+###  https://w3id.org/energy-domain/edo#DomainAnnotation
+edo:DomainAnnotation rdf:type owl:AnnotationProperty ;
+                     rdfs:subPropertyOf edo:LegacyAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#DomainRelationship
+edo:DomainRelationship rdf:type owl:AnnotationProperty ;
+                       rdfs:subPropertyOf edo:DomainAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#SingleValue_VERIFICAR
+edo:SingleValue_VERIFICAR rdf:type owl:AnnotationProperty ;
+                          rdfs:subPropertyOf edo:LegacyAnnotation ;
+                          owl:deprecated "true"^^xsd:boolean ;
+                          rdfs:label "SingleValue (legacy - review)"@en ,
+                                     "SingleValue (legado - revisar)"@pt-br .
+
+
+###  https://w3id.org/energy-domain/edo#hasContext
+edo:hasContext rdf:type owl:AnnotationProperty ;
+               rdfs:label "Has context"@en ,
+                          "Possui contexto"@pt-br ;
+               skos:definition "Relaciona um elemento de domínio a um nó contextual que organiza especificações e atributos aplicáveis a um determinado papel, cenário ou condição."@pt-br ,
+                               "Relates a domain element to a contextual node that organizes specifications and attributes applicable to a given role, scenario, or condition."@en ;
+               rdfs:subPropertyOf edo:LegacyAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#hasCurve
+edo:hasCurve rdf:type owl:AnnotationProperty ;
+             rdfs:label "Has stiffness curve"@en ,
+                        "Possui curva de rigidez"@pt-br ;
+             skos:definition "Associa um elemento de domínio a uma curva de rigidez."@pt-br ,
+                             "Associates a domain element with a stiffness curve."@en ;
+             rdfs:subPropertyOf edo:hasContext .
+
+
+###  https://w3id.org/energy-domain/edo#hasLoad
+edo:hasLoad rdf:type owl:AnnotationProperty ;
+            rdfs:label "Has load case"@en ,
+                       "Possui caso de carregamento"@pt-br ;
+            skos:definition "Associa um elemento de domínio a um cenário específico de carregamento."@pt-br ,
+                            "Associates a domain element with a specific loading scenario."@en ;
+            rdfs:subPropertyOf edo:hasContext .
+
+
+###  https://w3id.org/energy-domain/edo#entityStatus
+edo:entityStatus rdf:type owl:AnnotationProperty ;
+                 rdfs:label "Entity Status"@en ;
+                 skos:definition "Anotação para identificar o status da entidade que pode ser: NOVO, ANALISANDO e APROVADO."@pt ,
+                                 "Note to identify the entity's status, which can be: NEW, REVIEW, and APPROVED."@en ;
+                 rdfs:subPropertyOf edo:LegacyAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#hasExternalRef
+edo:hasExternalRef rdf:type owl:AnnotationProperty ;
+                   rdfs:label "Has External Reference"@en ;
+                   skos:definition "Annotation property used to indicate the reference or equivalent name of this entity in an external data dictionary or standard."@en ,
+                                   "Propriedade de anotação usada para indicar a referência ou o nome equivalente desta entidade em um dicionário de dados ou norma externa."@pt ;
+                   rdfs:subPropertyOf edo:LegacyAnnotation .
+
+
+###  https://w3id.org/energy-domain/edo#hasEnd
+edo:hasEnd rdf:type owl:AnnotationProperty ;
+           rdfs:label "Has end"@en ,
+                      "Possui extremidade"@pt-br ;
+           skos:definition "Relaciona uma entidade a uma de suas extremidades funcionais de conexão."@pt-br ,
+                           "Relates an entity to one of its functional connection ends."@en ;
+           rdfs:subPropertyOf edo:LegacyAnnotation .
 
 
 #################################################################
