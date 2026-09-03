@@ -561,3 +561,45 @@ edo:WeightInWater rdf:type owl:Class ;
 - edo:StrIntOnNoTensNomPressValRefMult rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
 + edo:StrIntOnNoTensNomPressValRefMult rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
 ```
+
+## Updated (`skos:definition` e `skos:prefLabel`)
+
+Valores em inglês e português sincronizados com `tmp/definicoes-testeHYdrostatic.xlsx` para as seguintes classes:
+
+```text
+EarlyLeakMaxPressTable_PressIntValStrat
+EarlyLeakMaxPressTable_PressValRef
+EarlyLeakMaxPressTable_PressValRefMult
+EarlyLeakMaxPressTable_TensLimit
+EarlyLeakMaxPressTable_TensLimitValRef
+EarlyLeakNomPressTable_Press
+EarlyLeakNomPressTable_PressIntValStrat
+EarlyLeakNomPressTable_PressValRef
+EarlyLeakNomPressTable_PressValRefMult
+EarlyLeakNomPressTable_TensLimit
+EarlyLeakNomPressTable_TensLimitValRef
+FatMaxPress
+FatMaxPressValRef
+FatMaxPressValRefMult
+FatNomPress
+FatNomPressValRef
+FatNomPressValRefMult
+OffLeakPLevMaxPress
+OffLeakPLevMaxPressValRef
+OffLeakPLevMaxPressValRefMult
+OffLeakPLevNomPress
+OffLeakPLevNomPressValRef
+OffLeakPLevNomPressValRefMult
+StrIntOffPLevMaxPress
+StrIntOffPLevMaxPressValRef
+StrIntOffPLevMaxPressValRefMult
+StrIntOffPLevNomPress
+StrIntOffPLevNomPressValRef
+StrIntOffPLevNomPressValRefMult
+StrIntOnNoTensMaxPress
+StrIntOnNoTensMaxPressValRef
+StrIntOnNoTensMaxPressValRefMult
+StrIntOnNoTensNomPress
+StrIntOnNoTensNomPressValRef
+StrIntOnNoTensNomPressValRefMult
+```
