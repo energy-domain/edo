@@ -1,12 +1,12 @@
-# TTL Change Plan — Approval Gate
+# TTL Change Plan — Approval Gate and Implementation Record
 
-## Purpose
+## Status
 
-This Phase-6 document is the operation-level plan required before any ontology TTL is edited.
+**APPROVED AND IMPLEMENTED.**
 
-It consolidates the approved reconciliation matrix, usage audit and IFC mapping migration analysis into an executable sequence.
+This Phase-6 document was the operation-level approval gate before ontology TTL changes. The approved sequence was implemented on `reconcile-edo-develop-annotations` and subsequently passed Phase-8 RDF validation.
 
-No TTL is modified by this document.
+Detailed validation results are in `validation-report.md`.
 
 ## Frozen references
 
@@ -17,34 +17,44 @@ No TTL is modified by this document.
 
 ## Target architecture
 
-The reconciled develop ontology will use:
+The reconciled develop ontology uses:
 
-1. the complete current EDO AnnotationProperty layer from the pinned `edo.ttl`;
+1. the complete pinned EDO AnnotationProperty layer;
 2. a separate transitional `edo:LegacyAnnotation` branch for explicitly approved legacy metadata;
 3. EDO-IFC predicates and controlled resources for IFC mapping assertions;
 4. no legacy IFC mapping AnnotationProperty declarations in the `edo:` namespace.
 
 The EDO and EDO-IFC vocabularies remain architecturally separate.
 
-## Important composition rule
+## Composition rule
 
-Do **not** add `owl:imports <https://w3id.org/energy-domain/edo/mappings/ifc>` to the develop ontology merely to use EDO-IFC terms.
+Do **not** add:
 
-Reason: the EDO-IFC ontology itself imports the canonical EDO ontology URI. Making develop import EDO-IFC could therefore cause a loader to pull the canonical EDO alongside the develop variant and unintentionally mix the two ontology versions.
+```turtle
+owl:imports <https://w3id.org/energy-domain/edo/mappings/ifc>
+```
 
-Instead:
+to the develop ontology merely to use EDO-IFC terms.
 
-- add the `edo-ifc:` prefix to develop;
+Reason: EDO-IFC imports the canonical EDO ontology URI. Develop importing EDO-IFC could therefore cause a loader to pull canonical EDO alongside the develop variant and mix ontology versions.
+
+Implemented approach:
+
+- add/use the `edo-ifc:` prefix in develop;
 - use EDO-IFC IRIs in mapping assertions;
-- load/compose develop and EDO-IFC explicitly in consuming applications when both are required.
+- compose develop and EDO-IFC explicitly in consuming applications.
 
-## Commit 1 — Extend the controlled IFC vocabulary
+Phase-8 validation confirmed no EDO-IFC import was introduced into develop.
+
+## Commit 1 — Extend controlled IFC vocabulary
 
 ### File
 
 `mappings/ifc/edo-ifc.ttl`
 
-### Add six `IFCObjectEntity` individuals
+Because the working branch originated from `edo_develop`, this file did not exist on the branch. Implementation therefore brought the exact pinned normative EDO-IFC file from `main` into the working branch and extended that branch copy.
+
+### Added as `IFCObjectEntity`
 
 - `edo-ifc:IfcCovering`
 - `edo-ifc:IfcActuator`
@@ -53,20 +63,7 @@ Instead:
 - `edo-ifc:IfcJunctionBox`
 - `edo-ifc:IfcFastener`
 
-Each declaration shall follow the existing controlled-resource pattern:
-
-```turtle
-edo-ifc:IfcX
-    rdf:type owl:NamedIndividual ;
-    rdf:type edo-ifc:IFCObjectEntity ;
-    rdfs:label "IfcX"@en ;
-    edo-ifc:ifcEntityName "IfcX" ;
-    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcX> ;
-    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcX.htm> ;
-    dcterms:identifier "IfcX" .
-```
-
-### Add five direct `IFCEntity` individuals
+### Added as direct `IFCEntity`
 
 - `edo-ifc:IfcMaterial`
 - `edo-ifc:IfcClassificationReference`
@@ -74,67 +71,29 @@ edo-ifc:IfcX
 - `edo-ifc:IfcProject`
 - `edo-ifc:IfcPerson`
 
-These shall use the same pattern except:
+Each resource follows the controlled-resource pattern with `owl:NamedIndividual`, controlled EDO-IFC type, label, `ifcEntityName`, buildingSMART reference and identifier.
 
-```turtle
-rdf:type edo-ifc:IFCEntity
-```
+Implemented commit: `918652f`.
 
-rather than `IFCObjectEntity`.
-
-### Scope guard
-
-Do not redesign existing EDO-IFC controlled-resource taxonomy in this commit. In particular, the pre-existing typing of `IfcDocumentInformation` is not changed as part of this migration.
-
-### Validation
-
-- all 11 IRIs exist exactly once;
-- all are `owl:NamedIndividual`;
-- all are instances of `IFCEntity` directly or through `IFCObjectEntity`;
-- `ifcEntityName`, label and identifier exactly match the IFC entity name;
-- no relation-mapping rules are otherwise changed.
-
-## Commit 2 — Replace/add the EDO annotation taxonomy in develop
+## Commit 2 — Replace/add normative EDO annotation taxonomy
 
 ### File
 
 `core/energy-domain-ontology.ttl`
 
-### Add all 59 current EDO AnnotationProperties absent from develop
+Implemented operations:
 
-Copy their complete declarations verbatim from pinned `core/edo.ttl`.
+- add all 59 current EDO AnnotationProperties absent from develop;
+- replace all 20 overlapping legacy declarations with the complete pinned normative declarations;
+- do not rewrite body data merely because an annotation parent/taxonomy changed.
 
-### Replace all 20 overlapping EDO AnnotationProperty declarations
+Expected and validated normative set: **79 AnnotationProperties**.
 
-Replace each legacy declaration with the complete normative declaration from pinned `core/edo.ttl`.
+Implemented commit: `15bc023`.
 
-Body predicate uses are **not** rewritten merely because a property's parent or metadata changed.
+## Commit 3 — Create approved legacy compatibility branch
 
-Examples:
-
-- `hasAttribute` → `DomainAttributeStructureAnnotation`;
-- `hasAttributeScope` → `DomainAttributeStructureAnnotation`;
-- `hasTypedValue` → `DomainAttributeStructureAnnotation`;
-- `hasUnit` → `DomainAttributeStructureAnnotation`;
-- `hasLifecycleCreationPhase` → `DomainLifecycleAnnotation`;
-- `hasDiscipline` → `DomainClassificationAnnotation`;
-- `hasSpec` → `TechnicalDefinitionRelation`.
-
-### Expected normative set
-
-After this operation, all **79** current EDO AnnotationProperty IRIs shall be present with declarations matching the pinned normative EDO source.
-
-## Commit 3 — Create the approved legacy compatibility branch
-
-### Add root
-
-```turtle
-edo:LegacyAnnotation rdf:type owl:AnnotationProperty .
-```
-
-The complete declaration should clearly state that this branch preserves legacy/team metadata during transition and is not part of either normative current EDO annotation root.
-
-### Preserve beneath it
+Implemented hierarchy:
 
 ```text
 LegacyAnnotation
@@ -149,171 +108,169 @@ LegacyAnnotation
 └── hasEnd
 ```
 
-### Rules
+Rules implemented:
 
-- `LegacyAnnotation` is independent of `DomainMetamodelAnnotation` and `DomainRelation`;
-- no current normative EDO annotation becomes a descendant of `LegacyAnnotation`;
-- preserve existing semantic metadata of the legacy properties where useful;
-- mark `SingleValue_VERIFICAR` explicitly as a legacy/review candidate;
-- preserve all existing body uses of `entityStatus`, `hasExternalRef` and `hasEnd` unchanged.
+- `LegacyAnnotation` independent of `DomainMetamodelAnnotation` and `DomainRelation`;
+- no normative current EDO annotation moved beneath it;
+- useful legacy semantic metadata retained;
+- `SingleValue_VERIFICAR` marked as deprecated/review candidate;
+- live `entityStatus`, `hasExternalRef` and `hasEnd` RDF data preserved exactly.
 
-### Expected final EDO-namespace AnnotationProperty count
+Final EDO-namespace AnnotationProperty count: **89 = 79 normative + 10 legacy compatibility**.
 
-- 79 normative current EDO properties;
-- 10 legacy compatibility properties including the new `LegacyAnnotation` root;
-- total expected EDO-namespace AnnotationProperties: **89**.
+Implemented commit: `39ac0f0`.
 
-This count excludes external vocabularies such as DCTERMS, SKOS and QUDT.
+## Commit 4 — Fix legacy typo
 
-## Commit 4 — Fix the legacy typo
-
-Replace the one live predicate use:
+Implemented transformation:
 
 ```turtle
 edo:hasAtrribute edo:Identification
 ```
 
-with:
+→
 
 ```turtle
 edo:hasAttribute edo:Identification
 ```
 
-Then remove the `edo:hasAtrribute` AnnotationProperty declaration.
+The typo declaration was removed.
 
-Validation target:
+Phase-8 RDF validation established:
 
-- zero occurrences of `edo:hasAtrribute` anywhere in develop.
+- baseline `hasAttribute`: 878 triples;
+- baseline `hasAtrribute`: 1 triple;
+- target `hasAttribute`: 879 triples;
+- target `hasAtrribute`: zero occurrences.
 
-## Commit 5 — Migrate IFC mapping predicates in develop
+Implemented commit: `ebf51e1`.
+
+## Commit 5 — Migrate IFC mapping predicates
 
 ### Namespace
 
-Add:
+Develop references:
 
 ```turtle
 @prefix edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#> .
 ```
 
-Do not add an EDO-IFC `owl:imports` statement to develop.
+without importing EDO-IFC.
 
 ### `ifc_objectType`
 
-For all **270** predicate uses:
+270 RDF triples migrated:
 
 ```text
 edo:ifc_objectType → edo-ifc:ifc_objectType
 ```
 
-Literal values remain unchanged.
+Literal values retained unchanged.
 
 ### `ifc_predefinedType`
 
-For all **268** predicate uses:
+268 RDF triples migrated:
 
 ```text
 edo:ifc_predefinedType → edo-ifc:ifc_predefinedType
 ```
 
-Literal values remain unchanged.
+Literal values retained unchanged.
 
 ### `ifc_equivalentClass`
 
-For **273** valid IFC-name mappings:
+Baseline: 274 RDF triples.
+
+- 273 valid IFC-name mappings became controlled-resource assertions;
+- the one `"-"` placeholder was removed with no replacement.
+
+Transformation shape:
 
 ```turtle
 edo:ifc_equivalentClass "IfcX"
 ```
 
-becomes:
+→
 
 ```turtle
 edo-ifc:ifc_equivalentClass edo-ifc:IfcX
 ```
 
-All targets are exact-name controlled resources after Commit 1.
-
-### Sentinel removal
-
-Remove the single placeholder assertion:
-
-```turtle
-edo:IfcInstanciableElement edo:ifc_equivalentClass "-" .
-```
-
-Do not replace it with another mapping and do not create an IFC resource named `-`.
-
-### Remove obsolete declarations
-
-After all body uses have migrated, remove the three legacy EDO-namespace AnnotationProperty declarations:
+After migration, the three obsolete EDO-namespace IFC AnnotationProperty declarations were removed:
 
 - `edo:ifc_equivalentClass`
 - `edo:ifc_objectType`
 - `edo:ifc_predefinedType`
 
-## Commit 6 — Mechanical cleanup only if required
+Implemented commit: `e21e637552a41b2f5e5ce15ec76ecfc176bffee3`.
 
-Perform only formatting/section cleanup needed to leave syntactically coherent Turtle.
+## Validation methodology correction
 
-No semantic changes are allowed in this commit.
+The pre-implementation inventories sometimes reported **serialized Turtle predicate occurrences**. For predicates whose statements contain comma-separated object lists, that number differs from the number of RDF triples.
 
-## Post-implementation validation
+Phase-8 acceptance therefore uses parsed graph counts against the frozen baseline.
 
-### EDO annotation invariants
+Authoritative preservation results:
+
+| Predicate | Serialized occurrences in earlier inventory | Baseline RDF triples | Final RDF triples |
+|---|---:|---:|---:|
+| `entityStatus` | 727 | 727 | 727 |
+| `hasExternalRef` | 1003 | 1014 | 1014 |
+| `hasEnd` | 7 | 11 | 11 |
+| `hasAttribute` | 203 | 878 | 879 |
+| `hasAtrribute` | 1 | 1 | 0 |
+
+The earlier occurrence counts remain valid serialization-level inventory values; the RDF counts are authoritative for semantic preservation.
+
+## Post-implementation invariants — validated
+
+### EDO annotation layer
 
 1. all 79 pinned normative EDO AnnotationProperty IRIs present;
-2. complete normative declarations preserved;
-3. `DomainMetamodelAnnotation` and `DomainRelation` remain independent roots;
-4. `LegacyAnnotation` remains a third independent compatibility root;
-5. exactly the approved legacy compatibility set survives.
+2. complete RDF declaration triples match pinned normative EDO;
+3. `DomainMetamodelAnnotation`, `DomainRelation`, and `LegacyAnnotation` remain independent roots;
+4. exactly the approved 10 legacy compatibility properties survive outside the normative set.
 
-### Legacy-use invariants
+### Legacy data
 
-1. 727 `entityStatus` uses preserved;
-2. 1003 `hasExternalRef` uses preserved;
-3. 7 `hasEnd` uses preserved;
-4. zero `hasAtrribute` occurrences.
+1. 727 `entityStatus` RDF triples preserved;
+2. 1014 `hasExternalRef` RDF triples preserved;
+3. 11 `hasEnd` RDF triples preserved;
+4. zero `hasAtrribute` occurrences;
+5. 879 final `hasAttribute` RDF triples = baseline 878 + one typo correction.
 
-### IFC invariants
+### IFC mapping
 
-1. zero legacy `edo:ifc_equivalentClass` occurrences;
-2. zero legacy `edo:ifc_objectType` occurrences;
-3. zero legacy `edo:ifc_predefinedType` occurrences;
-4. 273 `edo-ifc:ifc_equivalentClass` mappings resulting from legacy valid-name mappings;
-5. zero string literal values for `edo-ifc:ifc_equivalentClass` among migrated statements;
-6. each migrated equivalent-class value resolves to a controlled EDO-IFC resource;
-7. 270 migrated `edo-ifc:ifc_objectType` uses;
-8. 268 migrated `edo-ifc:ifc_predefinedType` uses;
+1. zero legacy `edo:ifc_equivalentClass` predicate/declaration;
+2. zero legacy `edo:ifc_objectType` predicate/declaration;
+3. zero legacy `edo:ifc_predefinedType` predicate/declaration;
+4. 273 resource-valued `edo-ifc:ifc_equivalentClass` mappings;
+5. zero literal equivalent-class values among migrated mappings;
+6. every equivalent-class target resolves to a controlled EDO-IFC resource;
+7. 270 `edo-ifc:ifc_objectType` triples;
+8. 268 `edo-ifc:ifc_predefinedType` triples;
 9. the `"-"` placeholder is absent as an equivalent-class mapping.
 
 ### Syntax and composition
 
-1. parse both changed TTL files successfully;
-2. load develop and EDO-IFC together explicitly;
-3. verify that EDO-IFC mapping terms resolve without redeclaration in develop;
-4. verify no unintended canonical-EDO import was introduced into develop;
-5. spot-check representative classes for each mapping category.
+1. both changed TTL files parse successfully as Turtle;
+2. EDO-IFC mapping terms resolve through the paired ontology file;
+3. no EDO-IFC AnnotationProperty is redeclared in develop;
+4. no unintended EDO-IFC import is introduced into develop.
 
-## Representative spot checks
+## Representative spot checks — passed
 
-At minimum inspect:
+- `MooringLine`: typo corrected and IFC mapping predicates migrated;
+- existing controlled target such as `IfcElementAssembly`: resolved;
+- newly added `IfcMaterial`: resolved as direct `IFCEntity`;
+- newly added `IfcActuator`: resolved as `IFCObjectEntity`;
+- `IfcInstanciableElement`: sentinel mapping absent;
+- `hasSpec`: body statements retained under normative relation declaration;
+- legacy `entityStatus`, `hasExternalRef`, `hasEnd`: data preserved;
+- `LegacyAnnotation`: approved hierarchy present and independent.
 
-- a class mapped to existing `edo-ifc:IfcPipeFitting`;
-- a class mapped to newly added `edo-ifc:IfcMaterial`;
-- a class mapped to newly added `edo-ifc:IfcActuator`;
-- `IfcInstanciableElement` sentinel removal;
-- `MooringLine` typo correction;
-- one `hasSpec` usage after taxonomy replacement;
-- one `entityStatus`, one `hasExternalRef`, and one `hasEnd` preserved legacy use.
+## Implementation gate outcome
 
-## Rollback discipline
+The approval gate is satisfied. Phase 7 implementation and Phase 8 validation are complete for this scope.
 
-Each commit is intentionally narrow and reversible. If any validation fails, revert only the failing commit rather than combining corrective semantic changes with unrelated steps.
-
-## Approval gate
-
-**This document is the implementation approval gate defined in the reconciliation plan.**
-
-No TTL changes should be made until this Phase-6 plan is accepted.
-
-Once accepted, implementation can proceed in the commit sequence above, followed immediately by Phase-8 validation and a validation report.
+Remaining work belongs to Phase 9: final branch review, normative-main drift check, integration-target decision, and PR/review when appropriate.
