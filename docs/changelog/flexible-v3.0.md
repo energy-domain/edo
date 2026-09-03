@@ -520,3 +520,44 @@ edo:WeightInWater rdf:type owl:Class ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledFlooded ;
 + edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledIntact ;
 ```
+
+## Updated (reparentalização de limites de testes hidrostáticos do fabricante)
+
+```diff
+- edo:OffLeakPLevMaxPress rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:OffLeakPLevMaxPress rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:OffLeakPLevMaxPressValRef rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:OffLeakPLevMaxPressValRef rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:OffLeakPLevMaxPressValRefMult rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:OffLeakPLevMaxPressValRefMult rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:OffLeakPLevNomPress rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:OffLeakPLevNomPress rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:OffLeakPLevNomPressValRef rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:OffLeakPLevNomPressValRef rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:OffLeakPLevNomPressValRefMult rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:OffLeakPLevNomPressValRefMult rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOffPLevMaxPress rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOffPLevMaxPress rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOffPLevMaxPressValRef rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOffPLevMaxPressValRef rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOffPLevMaxPressValRefMult rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOffPLevMaxPressValRefMult rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOffPLevNomPress rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOffPLevNomPress rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOffPLevNomPressValRef rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOffPLevNomPressValRef rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOffPLevNomPressValRefMult rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOffPLevNomPressValRefMult rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOnNoTensMaxPress rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOnNoTensMaxPress rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOnNoTensMaxPressValRef rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOnNoTensMaxPressValRef rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOnNoTensMaxPressValRefMult rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOnNoTensMaxPressValRefMult rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOnNoTensNomPress rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOnNoTensNomPress rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOnNoTensNomPressValRef rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOnNoTensNomPressValRef rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+- edo:StrIntOnNoTensNomPressValRefMult rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
++ edo:StrIntOnNoTensNomPressValRefMult rdfs:subClassOf edo:ManufacturerHydrostaticTestLimitsAttribute ;
+```
