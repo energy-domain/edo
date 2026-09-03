@@ -61,7 +61,17 @@ The following preserved legacy annotations have zero body predicate uses and the
 | `edo:ifc_predefinedType` | 268 | `edo-ifc:ifc_predefinedType` | retain literal value unchanged |
 | `edo:ifc_equivalentClass` | 274 | `edo-ifc:ifc_equivalentClass` | convert legacy IFC-class string to controlled `edo-ifc:IFCEntity` resource |
 
-The first two migrations are mechanical predicate substitutions. The third is a predicate + value-model migration and must be validated against the controlled IFC entity vocabulary before the TTL patch is generated.
+The first two migrations are mechanical predicate substitutions. The third has now been exhaustively inventoried in `ifc-equivalent-class-mapping.md`.
+
+#### `ifc_equivalentClass` lookup result
+
+The 274 uses comprise 30 distinct literal values:
+
+- **231 uses / 18 distinct values** already resolve by exact name to current controlled EDO-IFC resources and are ready for deterministic conversion;
+- **42 uses / 11 distinct IFC names** refer to IFC entities for which the current EDO-IFC vocabulary has no controlled resource yet;
+- **1 use** has the sentinel value `"-"`, which is not an IFC entity and must be treated as an explicit no-mapping/removal case.
+
+Therefore the develop migration itself is fully inventoried, but its final implementation depends on completing the EDO-IFC controlled vocabulary for the 11 missing names (or approving explicit alternatives). No invented resource IRI may be used as a shortcut.
 
 ## Declaration-only actions
 
@@ -98,6 +108,8 @@ LegacyAnnotation
 
 ## Phase-4 conclusion
 
-Usage migration is now deterministic except for one technical lookup task: resolving the 274 legacy `ifc_equivalentClass` literal values to controlled `edo-ifc:IFCEntity` resources. No semantic decision remains open.
+All legacy annotation usages are now accounted for. No semantic decision remains open in the develop ontology.
 
-The next non-destructive step is to build that IFC-equivalent-class value mapping and then produce the explicit TTL patch plan required by the implementation gate.
+The only external dependency before a complete executable develop patch is the EDO-IFC vocabulary gap identified by `ifc-equivalent-class-mapping.md`: 11 controlled IFC resources required by 42 legacy mappings are absent. The one `"-"` placeholder is separately classified as a no-mapping case.
+
+The next non-destructive step is therefore to define the EDO-IFC vocabulary-completion patch and then generate the explicit TTL patch plan for both files, preserving the implementation gate.
