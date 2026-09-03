@@ -3155,3 +3155,72 @@ classes.
 ```diff
 + edo:hasExternalRef "DF:2.1" ;
 ```
+
+## Updated (reclassificação como detalhe técnico)
+
+As seguintes classes foram reparentalizadas para `edo:_CAT-TechnicalDetail`:
+
+- `edo:AccidentalOverpressure`
+- `edo:AnnulusArea`
+- `edo:AxialStiffnessCompression`
+- `edo:AxialStiffnessTension`
+- `edo:BendingStiffnessEmptyBottom`
+- `edo:BendingStiffnessEquilibriumBottom`
+- `edo:BendingStiffnessOperation`
+- `edo:BendingStiffnessPressurizedBottom`
+- `edo:BendingStiffnessPressurizedStorage`
+- `edo:BendingStiffnessStorage`
+- `edo:BendingStiffnessStorageBottomTemp`
+- `edo:BurstPressure`
+- `edo:CollapsePressureFlooded`
+- `edo:CollapsePressureIntact`
+- `edo:CrushingLoad`
+- `edo:DamagingTension`
+- `edo:ErosionalSpeed`
+- `edo:FrictionCoeffPolymer`
+- `edo:FrictionCoeffSheathArmor`
+- `edo:FrictionCoeffSheathTensioner`
+- `edo:FrictionCoeffSteel`
+- `edo:FrictionCoeffSteelPolymer`
+- `edo:InnerArea`
+- `edo:LinearWeight`
+- `edo:LinearWeightFilled`
+- `edo:LinearWeightFilledSubmerged`
+- `edo:LinearWeightSubmerged`
+- `edo:MaxDesignTemperatureTime`
+- `edo:MaxDiffPressure`
+- `edo:MaxDragCoeff`
+- `edo:MaxRiserDepth`
+- `edo:MbrInstallationEmptyFlooded`
+- `edo:MbrInstallationEmptyIntact`
+- `edo:MbrInstallationFilledFlooded`
+- `edo:MbrInstallationFilledIntact`
+- `edo:MbrOperationEmptyFlooded`
+- `edo:MbrOperationEmptyIntact`
+- `edo:MbrOperationFilledFlooded`
+- `edo:MbrOperationFilledIntact`
+- `edo:MinBendingRadiusForStorage`
+- `edo:MinDepth`
+- `edo:MinDragCoeff`
+- `edo:MinPressure`
+- `edo:NbrOperation`
+- `edo:NbrRest`
+- `edo:OuterArea`
+- `edo:PermissibleCompressionEmptyBottom`
+- `edo:PermissibleTensionMbr`
+- `edo:PermissibleTensionStraight`
+- `edo:SpoolingTension`
+- `edo:TecFlooded`
+- `edo:TecIntact`
+- `edo:TecStorage`
+- `edo:TestPressure`
+- `edo:TorsionalStiffnessHigherBottom`
+- `edo:TorsionalStiffnessHigherStorage`
+- `edo:TorsionalStiffnessLowerBottom`
+- `edo:TorsionalStiffnessLowerStorage`
+- `edo:WorkingTension`
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:_CAT-TechnicalDetail ;
+```
