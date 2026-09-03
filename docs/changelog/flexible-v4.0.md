@@ -2872,3 +2872,355 @@ edo:WorkoverBOP rdf:type owl:Class ;
                 edo:entityStatus "NEW" ;
                 edo:hasExternalRef "MDA:WorkoverBOP" .
 ```
+
+## Interface standard attributes
+
+The `InterfaceStandardAttribute` attribute was added to the following classes.
+`Flowbase` already had this attribute and was left unchanged.
+
+### https://w3id.org/energy-domain/edo#ExternalTreeCap
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#InternalTreeCap
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#QuickDisconnectionTool
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#TreeRunningTool
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#TubingHanger
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#TubingHangerRunningTool
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#UTM
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#VCM
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#WearBushing
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#WearBushingRunningTool
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#WetChristmasTree
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+### https://w3id.org/energy-domain/edo#WorkoverBOP
+
+```diff
++ edo:hasAttribute edo:InterfaceStandardAttribute ;
+```
+
+## Parking-place attributes
+
+The `IsParkingPlace` attribute was added to the following fixed connector
+classes.
+
+### https://w3id.org/energy-domain/edo#FixedElectricalConnector
+
+```diff
++ edo:hasAttribute edo:IsParkingPlace ;
+```
+
+### https://w3id.org/energy-domain/edo#FixedElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:IsParkingPlace ;
+```
+
+### https://w3id.org/energy-domain/edo#FixedOpticalConnector
+
+```diff
++ edo:hasAttribute edo:IsParkingPlace ;
+```
+
+## Free electrical connector attributes
+
+### https://w3id.org/energy-domain/edo#FreeElectricalConnector
+
+```diff
++ edo:hasAttribute edo:CableExitAngle ,
++                  edo:ElectricalConnectorFunction ;
+```
+
+## Connector mechanical-gender attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:MechanicalGender ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:MechanicalGender ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:MechanicalGender ;
+```
+
+## Connector number-of-ways attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:NumWays ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:NumWays ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:NumWays ;
+```
+
+## Connector mating-environment attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:MatingEnvironment ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:MatingEnvironment ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:MatingEnvironment ;
+```
+
+### https://w3id.org/energy-domain/edo#MatingEnvironment
+
+```diff
++ edo:hasExternalRef "MDA:mating_environment" ;
+```
+
+## Connector mating-mode attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:MatingMode ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:MatingMode ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:MatingMode ;
+```
+
+## Connector mating-cycle attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:NumMatingCycles ;
+```
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:NumMatingCycles ;
+```
+
+### https://w3id.org/energy-domain/edo#OpticalConnector
+
+```diff
++ edo:hasAttribute edo:NumMatingCycles ;
+```
+
+## Electrical connector contact-resistance attribute
+
+### https://w3id.org/energy-domain/edo#ElectricalConnector
+
+```diff
++ edo:hasAttribute edo:MaxContactResistance ;
+```
+
+## Electrical power connector rating attributes
+
+### https://w3id.org/energy-domain/edo#ElectricalPowerConnector
+
+```diff
++ edo:hasAttribute edo:MaxCurrent ;
++ edo:hasAttribute edo:TemperatureClass ;
++ edo:hasAttribute edo:VoltageRatingAttribute ;
+```
+
+## Flexible-layer DF references
+
+### https://w3id.org/energy-domain/edo#InternalDiameter
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerAnnular
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerAnnularType
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerContinuity
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerGeometryAttribute
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerThickness
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerWatertight
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+### https://w3id.org/energy-domain/edo#LayerWatertightLowerLayerInternalFreeVolume
+
+```diff
++ edo:hasExternalRef "DF:2.1" ;
+```
+
+## Updated (reclassificação como detalhe técnico)
+
+As seguintes classes foram reparentalizadas para `edo:_CAT-TechnicalDetail`:
+
+- `edo:AccidentalOverpressure`
+- `edo:AnnulusArea`
+- `edo:AxialStiffnessCompression`
+- `edo:AxialStiffnessTension`
+- `edo:BendingStiffnessEmptyBottom`
+- `edo:BendingStiffnessEquilibriumBottom`
+- `edo:BendingStiffnessOperation`
+- `edo:BendingStiffnessPressurizedBottom`
+- `edo:BendingStiffnessPressurizedStorage`
+- `edo:BendingStiffnessStorage`
+- `edo:BendingStiffnessStorageBottomTemp`
+- `edo:BurstPressure`
+- `edo:CollapsePressureFlooded`
+- `edo:CollapsePressureIntact`
+- `edo:CrushingLoad`
+- `edo:DamagingTension`
+- `edo:ErosionalSpeed`
+- `edo:FrictionCoeffPolymer`
+- `edo:FrictionCoeffSheathArmor`
+- `edo:FrictionCoeffSheathTensioner`
+- `edo:FrictionCoeffSteel`
+- `edo:FrictionCoeffSteelPolymer`
+- `edo:InnerArea`
+- `edo:LinearWeight`
+- `edo:LinearWeightFilled`
+- `edo:LinearWeightFilledSubmerged`
+- `edo:LinearWeightSubmerged`
+- `edo:MaxDesignTemperatureTime`
+- `edo:MaxDiffPressure`
+- `edo:MaxDragCoeff`
+- `edo:MaxRiserDepth`
+- `edo:MbrInstallationEmptyFlooded`
+- `edo:MbrInstallationEmptyIntact`
+- `edo:MbrInstallationFilledFlooded`
+- `edo:MbrInstallationFilledIntact`
+- `edo:MbrOperationEmptyFlooded`
+- `edo:MbrOperationEmptyIntact`
+- `edo:MbrOperationFilledFlooded`
+- `edo:MbrOperationFilledIntact`
+- `edo:MinBendingRadiusForStorage`
+- `edo:MinDepth`
+- `edo:MinDragCoeff`
+- `edo:MinPressure`
+- `edo:NbrOperation`
+- `edo:NbrRest`
+- `edo:OuterArea`
+- `edo:PermissibleCompressionEmptyBottom`
+- `edo:PermissibleTensionMbr`
+- `edo:PermissibleTensionStraight`
+- `edo:SpoolingTension`
+- `edo:TecFlooded`
+- `edo:TecIntact`
+- `edo:TecStorage`
+- `edo:TestPressure`
+- `edo:TorsionalStiffnessHigherBottom`
+- `edo:TorsionalStiffnessHigherStorage`
+- `edo:TorsionalStiffnessLowerBottom`
+- `edo:TorsionalStiffnessLowerStorage`
+- `edo:WorkingTension`
+
+```diff
+- rdfs:subClassOf edo:DomainAttribute ;
++ rdfs:subClassOf edo:_CAT-TechnicalDetail ;
+```

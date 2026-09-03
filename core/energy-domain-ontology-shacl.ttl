@@ -191,19 +191,8 @@ ex:Rule_BendStiffener a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_BendStiffener_2 a sh:NodeShape ;
-    sh:targetClass edo:BendStiffener ;
-    sh:property [
-        sh:path edo:ReinforcementOuterDiameter ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] .
-
 ex:Rule_BuoyancyModule a sh:NodeShape ;
     sh:targetClass edo:BuoyancyModule ;
-    sh:property [
-        sh:path edo:OuterDiameter ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] ;
     sh:property [
         sh:path edo:InitialBuoyancy ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -253,13 +242,6 @@ ex:Rule_ElectricalJumperConnector_2 a sh:NodeShape ;
     sh:property [
         sh:path edo:MechanicalGender ;
         sh:in ( "PLUG" "RECEPTACLE" )
-    ] .
-
-ex:Rule_ElectricalJumperConnector_3 a sh:NodeShape ;
-    sh:targetClass edo:ElectricalJumperConnector ;
-    sh:property [
-        sh:path edo:NumMatingCycles ;
-        sh:in ( "Integer number (? 1)" )
     ] .
 
 ex:Rule_Equipment a sh:NodeShape ;
@@ -438,8 +420,8 @@ ex:Rule_Jumper_8 a sh:NodeShape ;
         sh:in ( "Integer number (≥ 0)" )
     ] .
 
-ex:Rule_Jumper_9 a sh:NodeShape ;
-    sh:targetClass edo:Jumper ;
+ex:NumWays a sh:NodeShape ;
+    sh:targetClass edo:Jumper, edo:ElectricalConnector, edo:OpticalConnector, edo:ElectricalPowerConnector ;
     sh:property [
         sh:path edo:NumWays ;
         sh:in ( "Integer number (≥ 1)" )
@@ -450,15 +432,6 @@ ex:Rule_IsDummy a sh:NodeShape ;
     sh:property [
         sh:path edo:IsDummy ;
         sh:in ( "Boolean (yes/no)" )
-    ] .
-
-
-
-ex:Rule_OuterDiameter_FractionalNumber a sh:NodeShape ;
-    sh:targetClass edo:LineTermination, edo:LineSegmentTermination, edo:UmbilicalBundle ;
-    sh:property [
-        sh:path edo:OuterDiameter ;
-        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
 ex:Rule_MetallicMaterial a sh:NodeShape ;
@@ -528,7 +501,7 @@ ex:Rule_OpticalFiberCable a sh:NodeShape ;
     ] .
 
 ex:Rule_IsParkingPlace a sh:NodeShape ;
-    sh:targetClass edo:PanelConnector, edo:HotStabReceptacle ;
+    sh:targetClass edo:PanelConnector, edo:HotStabReceptacle, edo:FixedElectricalConnector, edo:FixedElectricalPowerConnector, edo:FixedOpticalConnector ;
     sh:property [
         sh:path edo:IsParkingPlace ;
         sh:in ( "Boolean (yes/no)" )
@@ -559,7 +532,7 @@ ex:Rule_PolymericMaterial_4 a sh:NodeShape ;
     sh:targetClass edo:PolymericMaterial ;
     sh:property [
         sh:path edo:SolubilityTable_MoleculeIdentifier ;
-        sh:in ( "CO?" "H?S" "CH?" "H?O" )
+        sh:in ( "CO₂" "H₂S" "CH₄" "H₂O" )
     ] .
 
 ex:Rule_PolymericMaterial_5 a sh:NodeShape ;
@@ -654,10 +627,6 @@ ex:Rule_SubseaUmbilical_2 a sh:NodeShape ;
 ex:Rule_TransportLineSegment a sh:NodeShape ;
     sh:targetClass edo:TransportLineSegment ;
     sh:property [
-        sh:path edo:OuterDiameter ;
-        sh:in ( "Fractional number (≥ 0.0)" )
-    ] ;
-    sh:property [
         sh:path edo:Reused ;
         sh:in ( "Booleano (yes/no)" )
     ] .
@@ -711,13 +680,6 @@ ex:Rule_UmbilicalComponent_2 a sh:NodeShape ;
     sh:property [
         sh:path edo:LinearWeightSeawater ;
         sh:in ( "Fractional number (≥ 0.0)" )
-    ] .
-
-ex:Rule_UmbilicalComponent_3 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalComponent ;
-    sh:property [
-        sh:path edo:OuterDiameter ;
-        sh:in ( "Fractional number (? 0.0)" )
     ] .
 
 ex:Rule_UmbilicalSegment a sh:NodeShape ;
@@ -1218,10 +1180,6 @@ ex:Rule_RigidPipeCoating a sh:NodeShape ;
 ex:Rule_RigidRiserTopConnector a sh:NodeShape ;
     sh:targetClass edo:RigidRiserTopConnector ;
     sh:property [
-        sh:path edo:OuterDiameter ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] ;
-    sh:property [
         sh:path edo:Tension ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] ;
@@ -1601,11 +1559,6 @@ ex:Rule_BraceletAnode a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
         edo:hasUnit unit:MilliM ;
     ]  ;
-    sh:property [
-        sh:path edo:OuterDiameter ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-        edo:hasUnit unit:MilliM ;
-    ] ;
     sh:property [
         sh:path edo:TotalLength ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -3513,21 +3466,21 @@ ex:Rule_NumFunctions_IntegerNumber a sh:NodeShape ;
     ] .    
 
 ex:Rule_MaximumLineVoltage_FractionalNumber a sh:NodeShape ;
-    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
+    sh:targetClass edo:ElectricalPowerConnector, edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
     sh:property [
         sh:path edo:MaximumLineVoltage ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .    
 
 ex:Rule_MaximumPhaseVoltage_FractionalNumber a sh:NodeShape ;
-    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
+    sh:targetClass edo:ElectricalPowerConnector, edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
     sh:property [
         sh:path edo:MaximumPhaseVoltage ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .    
 
 ex:Rule_MaximumSystemVoltage_FractionalNumber a sh:NodeShape ;
-    sh:targetClass edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
+    sh:targetClass edo:ElectricalPowerConnector, edo:AbandonmentCap, edo:ElectricalCable, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
     sh:property [
         sh:path edo:MaximumSystemVoltage ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -3556,7 +3509,7 @@ ex:Rule_jumper_assembly_type a sh:NodeShape ;
     ] .    
 
 ex:Rule_iec61886_temperature_class a sh:NodeShape ;
-    sh:targetClass edo:ElectricalJumper, edo:ElectricalPowerJumper ;
+    sh:targetClass edo:ElectricalPowerConnector, edo:ElectricalJumper, edo:ElectricalPowerJumper ;
     sh:property [
         sh:path edo:TemperatureClass ;
         sh:in ( "I" "II" "III" "IV" "NONE" )
@@ -3565,7 +3518,7 @@ ex:Rule_iec61886_temperature_class a sh:NodeShape ;
 ex:Rule_MaxCurrent_FractionalNumber a sh:NodeShape ;
     sh:targetClass edo:ElectricalJumper ;
     sh:property [
-        sh:path edo:MaxCurrent ;
+        sh:path edo:MaxCurrent, edo:ElectricalPowerConnector ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] . 
 
@@ -3668,7 +3621,7 @@ ex:Rule_MinBendingRadius_FractionalNumber a sh:NodeShape ;
     ] .
 
 ex:Rule_pb_tree_interface_spec a sh:NodeShape ;
-    sh:targetClass edo:Flowbase ;
+    sh:targetClass edo:Flowbase, edo:WearBushing, edo:TubingHanger, edo:WorkoverBOP, edo:VCM, edo:UTM, edo:ExternalTreeCap, edo:WetChristmasTree, edo:InternalTreeCap, edo:QuickDisconnectionTool, edo:TreeRunningTool, edo:TubingHangerRunningTool, edo:WearBushingRunningTool ;
     sh:property [
         sh:path edo:InterfaceStandardSpec ;
         sh:in ( "ET-3000.00-1516-619-PPC-001" "ET-3000.00-1516-619-PPC-002" "ET-3000.00-1516-619-PPC-003" )
@@ -3868,4 +3821,74 @@ ex:Rule_MaxFrequency_FractionalNumber a sh:NodeShape ;
     sh:property [
         sh:path edo:MaxFrequency ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_BendStiffener_2 a sh:NodeShape ;
+    sh:targetClass edo:BendStiffener ;
+    sh:property [
+        sh:path edo:ReinforcementOuterDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+    
+ex:Rule_OuterDiameter_FractionalNumber a sh:NodeShape ;
+    sh:targetClass edo:FishingTool, edo:BraceletAnode, edo:RigidRiserTopConnector, edo:TransportLineSegment, edo:LineTermination, edo:LineSegmentTermination, edo:UmbilicalBundle, edo:UmbilicalComponent, edo:BuoyancyModule ;
+    sh:property [
+        sh:path edo:OuterDiameter ;
+        sh:in ( "Fractional number (≥ 0.0)" )
+    ] .
+
+ex:Rule_electrical_connector_function a sh:NodeShape ;
+    sh:targetClass edo:FreeElectricalConnector, edo:FreeElectricalPowerConnector ;
+    sh:property [
+        sh:path edo:ElectricalConnectorFunction ;
+        sh:in ( "TERMINATION" "DUMMY" "LOOP_DUMMY" "RESISTOR_DUMMY" )
+    ] . 
+
+ex:Rule_electrical_connector_function a sh:NodeShape ;
+    sh:targetClass edo:FreeElectricalConnector, edo:FreeOpticalConnector, edo:FreeElectricalPowerConnector ;
+    sh:property [
+        sh:path edo:CableExitAngle ;
+        sh:in ( "0" "45" "60" "90" "OTHER" )
+    ] . 
+
+ex:Rule_optical_connector_function a sh:NodeShape ;
+    sh:targetClass edo:FreeOpticalConnector ;
+    sh:property [
+        sh:path edo:OpticalConnectorFunction ;
+        sh:in ( "TERMINATION" "DUMMY" "LOOP_DUMMY" )
+    ] . 
+
+ex:Rule_connector_mechanical_gender a sh:NodeShape ;
+    sh:targetClass edo:ElectricalConnector, edo:OpticalConnector, edo:ElectricalPowerConnector ;
+    sh:property [
+        sh:path edo:MechanicalGender ;
+        sh:in ( "PLUG" "RECEPTACLE" )
+    ] .
+
+ex:Rule_connector_mating_environment a sh:NodeShape ;
+    sh:targetClass edo:ElectricalConnector, edo:OpticalConnector, edo:ElectricalPowerConnector ;
+    sh:property [
+        sh:path  edo:MatingEnvironment ;
+        sh:in ( "WET" "DRY" )
+    ] .
+
+ex:Rule_connector_mating_mode a sh:NodeShape ;
+    sh:targetClass edo:ElectricalConnector, edo:OpticalConnector, edo:ElectricalPowerConnector ;
+    sh:property [
+        sh:path  edo:MatingMode ;
+        sh:in ( "ROV" "MANUAL" )
+    ] .    
+
+ex:Rule_NumMatingCycles a sh:NodeShape ;
+    sh:targetClass edo:ElectricalJumperConnector, edo:ElectricalConnector, edo:OpticalConnector, edo:ElectricalPowerConnector ;
+    sh:property [
+        sh:path edo:NumMatingCycles ;
+        sh:in ( "Integer number (≥ 1)" )
+    ] .
+
+ex:Rule_MaxContactResistance_FractionalNumber a sh:NodeShape ;
+    sh:targetClass edo:ElectricalConnector ;
+    sh:property [
+        sh:path edo:MaxContactResistance ;
+        sh:in ( "Fractional number (≥ 0.0)" )
     ] .
