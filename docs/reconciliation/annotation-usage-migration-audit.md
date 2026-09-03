@@ -4,15 +4,22 @@
 
 This Phase-4 artifact translates the approved reconciliation matrix into predicate-usage actions for `core/energy-domain-ontology.ttl` at baseline commit `2042ffbc62c1b764d675a020478d76fa6b2def90`.
 
-No TTL is modified in this phase.
+The original inventory was produced before TTL implementation and counted serialized Turtle predicate occurrences. Phase-8 validation later parsed the frozen baseline as RDF and established semantic triple counts. Both measures are retained here because they answer different questions.
+
+## Counting convention
+
+- **Serialized occurrences**: number of places where the predicate token appears as a predicate in the Turtle body. One occurrence may introduce several RDF triples when its object is a comma-separated list.
+- **RDF triples**: number of parsed triples having that IRI as predicate. This is the authoritative measure used for semantic preservation validation.
+
+For example, legacy `hasAttribute` appeared as a predicate in 203 serialized statements but represented 878 RDF triples because many statements list multiple attributes.
 
 ## Usage classes
 
-### A — same IRI, keep all body uses unchanged
+### A — same IRI, keep body semantics unchanged
 
-The following current EDO AnnotationProperties survive under the same IRI. Their declarations/taxonomy change to the current normative EDO definition, but body predicate uses remain unchanged:
+The following current EDO AnnotationProperties survive under the same IRI. Their declarations/taxonomy change to the pinned normative EDO definition, but body data are not rewritten merely because their parent changes.
 
-| Predicate | Uses |
+| Predicate | Serialized predicate occurrences in baseline |
 |---|---:|
 | `edo:hasAttribute` | 203 |
 | `edo:hasAttributeScope` | 886 |
@@ -23,19 +30,21 @@ The following current EDO AnnotationProperties survive under the same IRI. Their
 | `edo:hasUnit` | 468 |
 | `edo:hasValueCardinality` | 798 |
 
-Other overlapping current annotations have zero body uses and therefore require declaration replacement only.
+The Phase-8 semantic validation specifically established `hasAttribute = 878` RDF triples in the frozen baseline. The final target has 879 because the single `hasAtrribute` typo triple was corrected into `hasAttribute`.
 
-### B — approved legacy compatibility predicates, keep all body uses unchanged
+Other overlapping current annotations have zero serialized body occurrences and therefore require declaration replacement only.
+
+### B — approved legacy compatibility predicates
 
 These predicates remain in the EDO namespace beneath the new independent root `edo:LegacyAnnotation`:
 
-| Predicate | Uses | Migration action |
-|---|---:|---|
-| `edo:entityStatus` | 727 | preserve predicate and values unchanged |
-| `edo:hasExternalRef` | 1003 | preserve predicate and values unchanged |
-| `edo:hasEnd` | 7 | preserve predicate and values unchanged |
+| Predicate | Serialized occurrences | Baseline RDF triples | Final RDF triples | Migration action |
+|---|---:|---:|---:|---|
+| `edo:entityStatus` | 727 | 727 | 727 | preserve predicate and values unchanged |
+| `edo:hasExternalRef` | 1003 | 1014 | 1014 | preserve predicate and values unchanged |
+| `edo:hasEnd` | 7 | 11 | 11 | preserve predicate and values unchanged |
 
-The following preserved legacy annotations have zero body predicate uses and therefore require declaration/hierarchy preservation only:
+The following preserved legacy annotations have zero body predicate occurrences and require declaration/hierarchy preservation only:
 
 - `edo:DomainAnnotation`
 - `edo:DomainRelationship`
@@ -46,38 +55,36 @@ The following preserved legacy annotations have zero body predicate uses and the
 
 ### C — typo correction
 
-`edo:hasAtrribute` has exactly one body predicate use. Approved action:
+`edo:hasAtrribute` had exactly one serialized occurrence and one RDF triple. Approved and implemented action:
 
 - change that predicate to `edo:hasAttribute`;
 - preserve the object (`edo:Identification`) unchanged;
 - remove the typo AnnotationProperty declaration;
-- validation target: zero occurrences of `edo:hasAtrribute` after implementation.
+- final validation target: zero occurrences of `edo:hasAtrribute`.
+
+Phase-8 validation confirmed the target has 879 `hasAttribute` RDF triples and zero `hasAtrribute` triples/IRI occurrences.
 
 ### D — IFC predicate namespace migration
 
-| Legacy predicate | Uses | New predicate | Value action |
+| Legacy predicate | Baseline RDF triples | New predicate | Value action |
 |---|---:|---|---|
 | `edo:ifc_objectType` | 270 | `edo-ifc:ifc_objectType` | retain literal value unchanged |
 | `edo:ifc_predefinedType` | 268 | `edo-ifc:ifc_predefinedType` | retain literal value unchanged |
-| `edo:ifc_equivalentClass` | 274 | `edo-ifc:ifc_equivalentClass` | convert legacy IFC-class string to controlled `edo-ifc:IFCEntity` resource |
+| `edo:ifc_equivalentClass` | 274 | `edo-ifc:ifc_equivalentClass` | convert legacy IFC-class string to controlled EDO-IFC resource |
 
-The first two migrations are mechanical predicate substitutions. The third has now been exhaustively inventoried in `ifc-equivalent-class-mapping.md`.
+The 274 `ifc_equivalentClass` triples comprised 30 distinct literal values:
 
-#### `ifc_equivalentClass` lookup result
+- 231 mappings / 18 distinct values already had exact controlled EDO-IFC resources;
+- 42 mappings / 11 distinct IFC names required new controlled EDO-IFC resources;
+- 1 mapping used the sentinel `"-"`, which is not an IFC entity and was classified as an explicit no-mapping/removal case.
 
-The 274 uses comprise 30 distinct literal values:
-
-- **231 uses / 18 distinct values** already resolve by exact name to current controlled EDO-IFC resources and are ready for deterministic conversion;
-- **42 uses / 11 distinct IFC names** refer to IFC entities for which the current EDO-IFC vocabulary has no controlled resource yet;
-- **1 use** has the sentinel value `"-"`, which is not an IFC entity and must be treated as an explicit no-mapping/removal case.
-
-Therefore the develop migration itself is fully inventoried, but its final implementation depends on completing the EDO-IFC controlled vocabulary for the 11 missing names (or approving explicit alternatives). No invented resource IRI may be used as a shortcut.
+The 11 controlled resources were subsequently added to the branch version of `mappings/ifc/edo-ifc.ttl`. Final Phase-8 validation confirmed 273 resource-valued `edo-ifc:ifc_equivalentClass` triples and removal of the one sentinel mapping.
 
 ## Declaration-only actions
 
-All current EDO AnnotationProperties whose IRI overlaps the develop ontology but whose current declaration differs must receive the complete pinned `edo.ttl` declaration. This operation must not rewrite their existing body uses merely because their parent changed.
+All current EDO AnnotationProperties whose IRI overlaps the develop ontology but whose current declaration differs receive the complete pinned `edo.ttl` declaration. This operation does not rewrite existing body uses merely because the property's parent changed.
 
-Examples include:
+Examples:
 
 - `hasAttribute`: `DomainAuxiliarAnnotation` → `DomainAttributeStructureAnnotation`;
 - `hasAttributeScope`: `DomainEngineeringAnnotation` → `DomainAttributeStructureAnnotation`;
@@ -89,7 +96,7 @@ Examples include:
 
 ## Legacy hierarchy action
 
-Approved temporary compatibility hierarchy:
+Approved and implemented compatibility hierarchy:
 
 ```text
 LegacyAnnotation
@@ -104,12 +111,10 @@ LegacyAnnotation
 └── hasEnd
 ```
 
-`LegacyAnnotation` must not be a subproperty of either `DomainMetamodelAnnotation` or `DomainRelation`, and neither current root may be placed beneath it.
+`LegacyAnnotation` is not a subproperty of either `DomainMetamodelAnnotation` or `DomainRelation`, and neither normative root is placed beneath it.
 
-## Phase-4 conclusion
+## Phase-4 / Phase-8 conclusion
 
-All legacy annotation usages are now accounted for. No semantic decision remains open in the develop ontology.
+All legacy annotation usages are accounted for. The pre-implementation serialized occurrence inventory remains useful for locating edit sites; the parsed RDF triple counts above are authoritative for semantic preservation.
 
-The only external dependency before a complete executable develop patch is the EDO-IFC vocabulary gap identified by `ifc-equivalent-class-mapping.md`: 11 controlled IFC resources required by 42 legacy mappings are absent. The one `"-"` placeholder is separately classified as a no-mapping case.
-
-The next non-destructive step is therefore to define the EDO-IFC vocabulary-completion patch and then generate the explicit TTL patch plan for both files, preserving the implementation gate.
+Implementation and validation results are recorded in `validation-report.md`.
