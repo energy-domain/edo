@@ -507,3 +507,16 @@ edo:WeightInWater rdf:type owl:Class ;
 + edo:PullingHead edo:hasAttribute edo:WeightInWater ;
 + edo:SplitCollar edo:hasAttribute edo:WeightInWater ;
 ```
+
+## Updated (adição de atributos)
+
+```diff
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationEmptyFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationEmptyIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationFilledFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrInstallationFilledIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationEmptyFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationEmptyIntact ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledFlooded ;
++ edo:FlexiblePipeStructure edo:hasAttribute edo:MbrOperationFilledIntact ;
+```
