@@ -829,7 +829,7 @@ edo:ChainSegment a owl:Class ;
 edo:CheckProcess a owl:Class ;
     dcterms:identifier "CheckProcess" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty edo:hasSubject ;
+            owl:onProperty edo:hasActivityTarget ;
             owl:someValuesFrom edo:DomainElement ],
         edo:Process ;
     skos:definition "A process composed of tasks performed to verify the condition, state, conformity or expected behaviour of a domain element or system."@en,
@@ -925,7 +925,7 @@ edo:ConnectorizedElectricalCableEnd a owl:Class ;
     dcterms:identifier "ConnectorizedElectricalCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalConnectorPort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:Connector ;
@@ -940,7 +940,7 @@ edo:ConnectorizedOpticalFiberCableEnd a owl:Class ;
     dcterms:identifier "ConnectorizedOpticalFiberCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom edo:OpticalConnectorPort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:Connector ;
@@ -2723,11 +2723,11 @@ edo:MaterialRelation a owl:ObjectProperty ;
     rdfs:label "Material Relation"@en,
         "Relação de Material"@pt-br ;
     dcterms:identifier "MaterialRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:altLabel "Material Association"@en,
         "Associação de Material"@pt-br ;
     skos:definition "Category of relationships used to relate a domain element to its material specification or material concept."@en,
-        "Categoria de relacionamentos usada para relacionar um elemento do domínio ao seu material ou conceito de material."@pt-br .
+        "Categoria de relacionamentos usada para relacionar um elemento do domínio ao seu material ou conceito de material."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean .
 
 edo:Mattress a owl:Class ;
     dcterms:identifier "Mattress" ;
@@ -4128,7 +4128,7 @@ edo:SplicedElectricalCableEnd a owl:Class ;
             owl:onProperty edo:isTerminatedBy ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalSplicePort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         edo:ElectricalCableEnd ;
     skos:definition "Electrical cable end whose termination strategy is an electrical splice rather than a detachable connector. It exposes electrical splice interfaces and is terminated by electrical splice-box hardware, without implying that every electrical cable end is spliced."@en,
         "Extremidade de cabo elétrico cuja estratégia de terminação é uma emenda elétrica em vez de um conector destacável. Expõe interfaces elétricas de emenda e é terminada por hardware de caixa de emenda elétrica, sem implicar que toda extremidade de cabo elétrico seja emendada."@pt-br ;
@@ -4143,7 +4143,7 @@ edo:SplicedOpticalFiberCableEnd a owl:Class ;
             owl:onProperty edo:isTerminatedBy ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:OpticalSplicePort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         edo:OpticalFiberCableEnd ;
     skos:definition "Optical-fibre cable end whose termination strategy is an optical splice rather than a detachable connector. It exposes optical splice interfaces and is terminated by optical splice-box hardware, without implying that every optical-fibre cable end is spliced."@en,
         "Extremidade de cabo de fibra óptica cuja estratégia de terminação é uma emenda óptica em vez de um conector destacável. Expõe interfaces ópticas de emenda e é terminada por hardware de caixa de emenda óptica, sem implicar que toda extremidade de cabo de fibra óptica seja emendada."@pt-br ;
@@ -4403,9 +4403,6 @@ edo:SubseaUmbilical a owl:Class ;
 edo:SubseaWell a owl:Class ;
     dcterms:identifier "SubseaWell" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty edo:hasInterconnection ;
-            owl:someValuesFrom edo:Interconnection ],
-        [ a owl:Restriction ;
             owl:onProperty edo:serves ;
             owl:someValuesFrom edo:FloatingProductionUnit ],
         [ a owl:Restriction ;
@@ -5022,9 +5019,9 @@ edo:isDefinedByCatalogItem a owl:ObjectProperty ;
     rdfs:label "Is Defined By Catalog Item"@en,
         "É Definido Por Item ed Catálogo"@pt-br ;
     dcterms:identifier "isDefinedByCatalogItem" ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
     skos:definition "Associates a domain occurrence with a reusable technical type that defines its attributes or representation."@en,
-        "Associa uma ocorrência de domínio a um tipo técnico reutilizável que define seus atributos ou representação."@pt-br .
+        "Associa uma ocorrência de domínio a um tipo técnico reutilizável que define seus atributos ou representação."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean .
 
 edo:isElementConnectedTo a owl:ObjectProperty,
         owl:SymmetricProperty ;
@@ -9814,9 +9811,10 @@ edo:hasInterconnection a owl:ObjectProperty ;
     rdfs:label "Has Interconnection"@en,
         "Tem Interligação"@pt-br ;
     dcterms:identifier "hasInterconnection" ;
-    rdfs:subPropertyOf edo:FunctionalRelation ;
     skos:definition "Associates a domain entity with a functional interconnection that originates from it, terminates at it or connects it to another entity, without implying that the interconnection is its physical part."@en,
-        "Associa uma entidade do domínio a uma interligação funcional que parte dela, chega a ela ou a conecta a outra entidade, sem implicar que a interligação seja sua parte física."@pt-br .
+        "Associa uma entidade do domínio a uma interligação funcional que parte dela, chega a ela ou a conecta a outra entidade, sem implicar que a interligação seja sua parte física."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean ;
+    dcterms:isReplacedBy edo:isInterconnectedBy .
 
 edo:hasIssue a owl:ObjectProperty ;
     rdfs:label "Has Issue"@en,
@@ -9864,9 +9862,9 @@ edo:hasSubject a owl:ObjectProperty ;
     rdfs:label "Has Subject"@en,
         "Tem Objeto"@pt-br ;
     dcterms:identifier "hasSubject" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:definition "Associates an activity or information artifact with the domain element that is its subject or object of attention."@en,
-        "Associa uma atividade ou artefato informacional ao elemento do domínio que constitui seu objeto de atenção."@pt-br .
+        "Associa uma atividade ou artefato informacional ao elemento do domínio que constitui seu objeto de atenção."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean .
 
 edo:isConnectionMechanismOf a owl:ObjectProperty ;
     rdfs:label "Is Connection Mechanism Of"@en,
@@ -9881,7 +9879,8 @@ edo:isDefinedByType a owl:ObjectProperty ;
     dcterms:identifier "isDefinedByType" ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:TechnicalArtifact ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation .
+    owl:deprecated "true"^^xsd:boolean ;
+    dcterms:isReplacedBy edo:hasTechnicalConfiguration .
 
 edo:isInterfaceCompatibleWith a owl:ObjectProperty,
         owl:SymmetricProperty ;
@@ -10267,7 +10266,7 @@ edo:ElectricalControlCableEnd a owl:Class ;
     dcterms:identifier "ElectricalControlCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalControlPort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalControlCable ;
             owl:onProperty edo:isEndOf ],
@@ -10289,7 +10288,7 @@ edo:ElectricalPowerCableEnd a owl:Class ;
     dcterms:identifier "ElectricalPowerCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalPowerPort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalPowerCable ;
             owl:onProperty edo:isEndOf ],
@@ -10445,7 +10444,7 @@ edo:FlexiblePipeBody a owl:Class ;
             owl:onProperty edo:hasEnd ],
         [ a owl:Restriction ;
             owl:onClass edo:FlexiblePipeStructure ;
-            owl:onProperty edo:isDefinedByType ;
+            owl:onProperty edo:hasTechnicalConfiguration ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:onClass edo:FlexiblePipeCrimpedConnection ;
@@ -10462,11 +10461,11 @@ edo:FlexiblePipeSegmentEnd a owl:Class ;
     dcterms:identifier "FlexiblePipeSegmentEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onClass edo:FlangeConnection ;
-            owl:onProperty edo:hasEndInterface ;
+            owl:onProperty edo:exposesInterface ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:FlangeConnection ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         edo:LinearEnd ;
     owl:disjointWith edo:FlexiblePipeBodyEnd ;
     skos:definition "External end of a finished flexible pipe segment, represented by the flange connection interface of the end fitting located at that end."@en,
@@ -10805,11 +10804,11 @@ edo:OrganizationalRelation a owl:ObjectProperty ;
     rdfs:label "Organisational Relation"@en,
         "Relação Organizacional"@pt-br ;
     dcterms:identifier "OrganizationalRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:altLabel "Grouping Relation"@en,
         "Relação de Agrupamento"@pt-br ;
     skos:definition "Category of relationships used to represent organisational or grouping semantics over domain entities."@en,
-        "Categoria de relacionamentos usada para representar semântica organizacional ou de agrupamento sobre entidades do domínio."@pt-br .
+        "Categoria de relacionamentos usada para representar semântica organizacional ou de agrupamento sobre entidades do domínio."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean .
 
 edo:Pile a owl:Class ;
     dcterms:identifier "Pile" ;
@@ -11077,7 +11076,7 @@ edo:TubingEnd a owl:Class ;
             owl:onProperty edo:isTerminatedBy ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:FluidPort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:Tubing ;
             owl:onProperty edo:isEndOf ],
@@ -11166,12 +11165,12 @@ edo:hasSpec a owl:ObjectProperty ;
     rdfs:label "Has Specification"@en,
         "Tem Especificação"@pt-br ;
     dcterms:identifier "hasSpec" ;
-    skos:definition "Associates a domain entity with a specification, requirement or technical artefact that defines, limits or governs its selection and compatibility."@en,
-        "Associa uma entidade do domínio a uma especificação, requisito ou artefato técnico que define, limita ou governa sua seleção e compatibilidade."@pt-br ;
     rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:Specification ;
-    owl:inverseOf edo:isSpecificationOf .
+    owl:inverseOf edo:isSpecificationOf ;
+    skos:definition "Relates a domain entity to a specification that defines, limits or governs its configuration, selection, use or compatibility."@en,
+        "Relaciona uma entidade do domínio a uma especificação que define, limita ou governa sua configuração, seleção, uso ou compatibilidade."@pt-br .
 
 edo:hasTask a owl:ObjectProperty ;
     rdfs:label "Has Task"@en,
@@ -11271,10 +11270,11 @@ edo:isEndInterfaceOf a owl:ObjectProperty ;
     dcterms:identifier "isEndInterfaceOf" ;
     rdfs:domain edo:ConnectionInterface ;
     rdfs:range edo:LinearEnd ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
     owl:inverseOf edo:hasEndInterface ;
     skos:definition "Associates a connection interface with the linear end at which it is exposed."@en,
-        "Associa uma interface de conexão à extremidade linear na qual ela está presente."@pt-br .
+        "Associa uma interface de conexão à extremidade linear na qual ela está presente."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean ;
+    dcterms:isReplacedBy edo:isInterfaceExposedAt .
 
 edo:isInterfaceSpecificationOf a owl:ObjectProperty ;
     rdfs:label "Is Interface Specification Of"@en,
@@ -11987,7 +11987,9 @@ edo:isConstituentEndOf a owl:ObjectProperty ;
     rdfs:subPropertyOf edo:isPartOf ;
     rdfs:domain edo:FunctionLineEnd ;
     rdfs:range edo:UmbilicalEnd ;
-    owl:inverseOf edo:hasConstituentEnd .
+    owl:inverseOf edo:hasConstituentEnd ;
+    skos:definition "Relates a function-line end to the umbilical end of which it is a constituent end."@en,
+        "Relaciona uma extremidade de linha funcional à extremidade de umbilical da qual ela é uma extremidade constituinte."@pt-br .
 
 edo:terminatesEnd a owl:ObjectProperty ;
     rdfs:label "Terminates End"@en,
@@ -12170,10 +12172,10 @@ edo:FlexiblePipeBodyEnd a owl:Class ;
     dcterms:identifier "FlexiblePipeBodyEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom edo:FlexiblePipeCrimpedConnection ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:onClass edo:FlexiblePipeCrimpedConnection ;
-            owl:onProperty edo:hasEndInterface ;
+            owl:onProperty edo:exposesInterface ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:LinearEnd ;
     skos:definition "End of the multilayer flexible pipe body exposing the crimped interface used to permanently attach an end fitting."@en,
@@ -12273,11 +12275,11 @@ edo:InformationRelation a owl:ObjectProperty ;
     rdfs:label "Information Relation"@en,
         "Relação Informacional"@pt-br ;
     dcterms:identifier "InformationRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:altLabel "Documentation Relation"@en,
         "Relação de Documentação"@pt-br ;
     skos:definition "Category of relationships used to associate domain entities with informational artefacts such as documents and external classification references."@en,
-        "Categoria de relacionamentos usada para associar entidades do domínio a artefatos informacionais como documentos e referências externas de classificação."@pt-br .
+        "Categoria de relacionamentos usada para associar entidades do domínio a artefatos informacionais como documentos e referências externas de classificação."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean .
 
 edo:LifecyclePhase a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -12825,10 +12827,10 @@ edo:OpticalFiberCableEnd a owl:Class ;
     dcterms:identifier "OpticalFiberCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom edo:OpticalPort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:DataPort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:OpticalFiberCable ;
             owl:onProperty edo:isEndOf ],
@@ -12938,7 +12940,7 @@ edo:ElectricalCableEnd a owl:Class ;
     dcterms:identifier "ElectricalCableEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricPort ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         [ a owl:Restriction ;
             owl:allValuesFrom edo:ElectricalCable ;
             owl:onProperty edo:isEndOf ],
@@ -13306,7 +13308,7 @@ edo:FunctionLineEnd a owl:Class ;
         [ a owl:Restriction ;
             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass edo:ConnectionInterface ;
-            owl:onProperty edo:hasEndInterface ],
+            owl:onProperty edo:exposesInterface ],
         edo:LinearEnd ;
     skos:definition "Terminal feature of a functional line within an umbilical, exposing one or more connection interfaces appropriate to the function carried by that line."@en,
         "Feature terminal de uma linha funcional dentro de um umbilical, apresentando uma ou mais interfaces de conexão apropriadas à função transportada por essa linha."@pt-br ;
@@ -13747,9 +13749,9 @@ edo:InterfaceRelation a owl:ObjectProperty ;
     rdfs:label "Interface Relation"@en,
         "Relação de Interface"@pt-br ;
     dcterms:identifier "InterfaceRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:definition "Category of relationships used to associate domain entities with interface points, ports or features."@en,
-        "Categoria de relacionamentos usada para associar entidades do domínio a pontos, portas ou features de interface."@pt-br .
+        "Categoria de relacionamentos usada para associar entidades do domínio a pontos, portas ou features de interface."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean .
 
 edo:TechnicalDiscipline a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -13861,8 +13863,6 @@ edo:hasPart a owl:ObjectProperty ;
     rdfs:label "Has Part"@en,
         "Tem Parte"@pt-br ;
     dcterms:identifier "hasPart" ;
-    skos:altLabel "Part Of"@en,
-        "É Parte De"@pt-br ;
     skos:definition "Indicates that one domain entity is a constituent part of another, expressing a generic part–whole relationship without qualification regarding order, essentiality or replaceability."@en,
         "Indica que uma entidade do domínio é parte constituinte de outra, expressando uma relação parte–todo genérica, sem qualificação quanto à ordem, essencialidade ou substituibilidade."@pt-br ;
     rdfs:subPropertyOf edo:PartWholeRelation ;
@@ -13883,10 +13883,11 @@ edo:hasEndInterface a owl:ObjectProperty ;
     dcterms:identifier "hasEndInterface" ;
     rdfs:domain edo:LinearEnd ;
     rdfs:range edo:ConnectionInterface ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
     owl:inverseOf edo:isEndInterfaceOf ;
     skos:definition "Associates a linear end with a connection interface exposed at that end. A linear end may expose one or several interfaces."@en,
-        "Associa uma extremidade linear a uma interface de conexão presente nessa extremidade. Uma extremidade linear pode apresentar uma ou várias interfaces."@pt-br .
+        "Associa uma extremidade linear a uma interface de conexão presente nessa extremidade. Uma extremidade linear pode apresentar uma ou várias interfaces."@pt-br ;
+    owl:deprecated "true"^^xsd:boolean ;
+    dcterms:isReplacedBy edo:exposesInterface .
 
 edo:CertificationDatumAttribute a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -14379,7 +14380,9 @@ edo:isPartOf a owl:ObjectProperty ;
     rdfs:subPropertyOf edo:PartWholeRelation ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:DomainElement ;
-    owl:inverseOf edo:hasPart .
+    owl:inverseOf edo:hasPart ;
+    skos:altLabel "Part Of"@en,
+        "É Parte De"@pt-br .
 
 edo:isSpecificationOf a owl:ObjectProperty ;
     dcterms:identifier "isSpecificationOf" ;
