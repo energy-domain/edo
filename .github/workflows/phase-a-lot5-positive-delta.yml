@@ -21,7 +21,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
+          import re, textwrap
           P=Path('core/edo-object-relations.ttl')
           text=P.read_text(encoding='utf-8')
 
@@ -29,7 +29,6 @@ jobs:
           def subject_name(block):
               m=re.match(r'edo:([^\s]+)\s+a\s+',block); return m.group(1) if m else None
           def block_map(parts): return {subject_name(parts[i]):i for i in range(0,len(parts),2) if subject_name(parts[i])}
-
           def prepend_restriction(parts,m,cls,body):
               i=m[cls]; block=parts[i]
               marker='    rdfs:subClassOf '
@@ -40,54 +39,46 @@ jobs:
               parts[i]=block[:start]+restriction+block[start:]
 
           parts=split_blocks(text); m=block_map(parts)
-
-          # P13 — universal ManufacturingDate at Asset level.
           prepend_restriction(parts,m,'Asset',
               '            owl:onClass edo:ManufacturingDate ;\n'
               '            owl:onProperty edo:hasAttribute ;\n'
               '            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger')
-
-          # P79 — a finished flexible-pipe segment end is terminated by exactly one EndFitting.
           prepend_restriction(parts,m,'FlexiblePipeSegmentEnd',
               '            owl:onClass edo:EndFitting ;\n'
               '            owl:onProperty edo:isTerminatedBy ;\n'
               '            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger')
-
-          # P81 — simple longitudinal positioning has exactly one direction reference.
           prepend_restriction(parts,m,'InstallationPoint',
               '            owl:onClass edo:Feature ;\n'
               '            owl:onProperty edo:hasLongitudinalDirectionReference ;\n'
               '            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger')
-
           text=''.join(parts)
 
-          # P73 — non-mereological installation relation for detachable LineAncillary.
           if 'edo:hasInstalledAncillary a owl:ObjectProperty' in text or 'edo:isInstalledAncillaryOf a owl:ObjectProperty' in text:
               raise SystemExit('P73 properties unexpectedly already exist')
-          text += '''
+          text += textwrap.dedent('''
 
-edo:hasInstalledAncillary a owl:ObjectProperty ;
-    rdfs:label "Has Installed Ancillary"@en,
-        "Tem Acessório Instalado"@pt-br ;
-    dcterms:identifier "hasInstalledAncillary" ;
-    skos:definition "Relates a hosting domain element to a line ancillary installed or supported on it without asserting that the ancillary is a constitutive part of the host."@en,
-        "Relaciona um elemento hospedeiro do domínio a um acessório de linha nele instalado ou suportado sem afirmar que o acessório é parte constitutiva do hospedeiro."@pt-br ;
-    rdfs:subPropertyOf edo:hosts ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:range edo:LineAncillary ;
-    owl:inverseOf edo:isInstalledAncillaryOf .
+          edo:hasInstalledAncillary a owl:ObjectProperty ;
+              rdfs:label "Has Installed Ancillary"@en,
+                  "Tem Acessório Instalado"@pt-br ;
+              dcterms:identifier "hasInstalledAncillary" ;
+              skos:definition "Relates a hosting domain element to a line ancillary installed or supported on it without asserting that the ancillary is a constitutive part of the host."@en,
+                  "Relaciona um elemento hospedeiro do domínio a um acessório de linha nele instalado ou suportado sem afirmar que o acessório é parte constitutiva do hospedeiro."@pt-br ;
+              rdfs:subPropertyOf edo:hosts ;
+              rdfs:domain edo:DomainElement ;
+              rdfs:range edo:LineAncillary ;
+              owl:inverseOf edo:isInstalledAncillaryOf .
 
-edo:isInstalledAncillaryOf a owl:ObjectProperty ;
-    rdfs:label "Is Installed Ancillary Of"@en,
-        "É Acessório Instalado De"@pt-br ;
-    dcterms:identifier "isInstalledAncillaryOf" ;
-    skos:definition "Relates a line ancillary to the domain element on which it is installed or supported without asserting constitutive parthood."@en,
-        "Relaciona um acessório de linha ao elemento do domínio no qual ele está instalado ou suportado sem afirmar composição constitutiva."@pt-br ;
-    rdfs:subPropertyOf edo:isHostedBy ;
-    rdfs:domain edo:LineAncillary ;
-    rdfs:range edo:DomainElement ;
-    owl:inverseOf edo:hasInstalledAncillary .
-'''
+          edo:isInstalledAncillaryOf a owl:ObjectProperty ;
+              rdfs:label "Is Installed Ancillary Of"@en,
+                  "É Acessório Instalado De"@pt-br ;
+              dcterms:identifier "isInstalledAncillaryOf" ;
+              skos:definition "Relates a line ancillary to the domain element on which it is installed or supported without asserting constitutive parthood."@en,
+                  "Relaciona um acessório de linha ao elemento do domínio no qual ele está instalado ou suportado sem afirmar composição constitutiva."@pt-br ;
+              rdfs:subPropertyOf edo:isHostedBy ;
+              rdfs:domain edo:LineAncillary ;
+              rdfs:range edo:DomainElement ;
+              owl:inverseOf edo:hasInstalledAncillary .
+          ''')
           P.write_text(text,encoding='utf-8')
           print('Applied P13 + P73 pair + P79 + P81')
           PY
@@ -112,7 +103,6 @@ edo:isInstalledAncillaryOf a owl:ObjectProperty ;
                       if set(vals)==want: return True
               return False
 
-          # Five actual delta items.
           assert exact('Asset','hasAttribute','ManufacturingDate',1)
           assert exact('FlexiblePipeSegmentEnd','isTerminatedBy','EndFitting',1)
           assert exact('InstallationPoint','hasLongitudinalDirectionReference','Feature',1)
@@ -128,16 +118,12 @@ edo:isInstalledAncillaryOf a owl:ObjectProperty ;
           assert (EDO.hasInstalledAncillary,RDFS.subPropertyOf,EDO.hasPart) not in g
           assert (EDO.isInstalledAncillaryOf,RDFS.subPropertyOf,EDO.isPartOf) not in g
 
-          # Corrected P75: current model uses connectsInterface for these participants.
           for c,f in [('GalvanicConnection','AnodeGalvanicConnectionPoint'),('GalvanicConnection','ProtectedStructureGalvanicConnectionPoint'),('ClampedJoint','CollarClampingSurface'),('ClampedJoint','PipeClampingSurface')]:
               assert exact(c,'connectsInterface',f,1),(c,f)
           assert union_only('GalvanicConnection','connectsInterface',['AnodeGalvanicConnectionPoint','ProtectedStructureGalvanicConnectionPoint'])
           assert union_only('ClampedJoint','connectsInterface',['CollarClampingSurface','PipeClampingSurface'])
 
-          # P83 explicitly remains future/deferred because the class is absent.
           assert not any(g.triples((EDO.OperationalReadinessState,None,None)))
-
-          # No global functionalization introduced.
           assert not any(str(p).startswith(str(EDO)) for p in g.subjects(RDF.type,OWL.FunctionalProperty))
           assert not any(str(p).startswith(str(EDO)) for p in g.subjects(RDF.type,OWL.InverseFunctionalProperty))
           print('triples',len(g))
