@@ -4831,12 +4831,13 @@ edo:belongsToGroup a owl:ObjectProperty ;
     rdfs:label "Belongs To Group"@en,
         "Pertence a Grupo"@pt-br ;
     dcterms:identifier "belongsToGroup" ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:subPropertyOf edo:OrganizationalRelation ;
     skos:altLabel "Is Member Of"@en,
         "É Membro De"@pt-br ;
     skos:definition "Indicates that a domain entity is a member of a group, where groups represent an organisational or logical grouping concept."@en,
-        "Indica que uma entidade do domínio é membro de um grupo, onde grupos representam um conceito de agrupamento organizacional ou lógico."@pt-br .
+        "Indica que uma entidade do domínio é membro de um grupo, onde grupos representam um conceito de agrupamento organizacional ou lógico."@pt-br ;
+    rdfs:subPropertyOf edo:MembershipRelation ;
+    rdfs:domain edo:DomainElement ;
+    owl:inverseOf edo:hasMember .
 
 edo:classInstantiationRole a owl:AnnotationProperty ;
     rdfs:label "Class instantiation role"@en,
@@ -4890,13 +4891,13 @@ edo:hasClassificationReference a owl:ObjectProperty ;
     rdfs:label "Has Classification Reference"@en,
         "Tem Referência de Classificação"@pt-br ;
     dcterms:identifier "hasClassificationReference" ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:range edo:ExternalReference ;
-    rdfs:subPropertyOf edo:InformationRelation ;
     skos:altLabel "Has Classification"@en,
         "Tem Classificação"@pt-br ;
     skos:definition "Associates a domain entity with an external classification reference, such as an identifier from a classification system."@en,
-        "Associa uma entidade do domínio a uma referência externa de classificação, como um identificador de um sistema de classificação."@pt-br .
+        "Associa uma entidade do domínio a uma referência externa de classificação, como um identificador de um sistema de classificação."@pt-br ;
+    rdfs:subPropertyOf edo:ClassificationRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:ExternalReference .
 
 edo:hasDiscipline a owl:AnnotationProperty ;
     rdfs:label "Has Discipline"@en,
@@ -4909,13 +4910,14 @@ edo:hasDocument a owl:ObjectProperty ;
     rdfs:label "Has Document"@en,
         "Tem Documento"@pt-br ;
     dcterms:identifier "hasDocument" ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:range edo:ReferenceDocument ;
-    rdfs:subPropertyOf edo:InformationRelation ;
     skos:altLabel "Document Reference"@en,
         "Referência de Documento"@pt-br ;
     skos:definition "Associates a domain entity with one or more documents describing, specifying or evidencing it."@en,
-        "Associa uma entidade do domínio a um ou mais documentos que a descrevem, especificam ou evidenciam."@pt-br .
+        "Associa uma entidade do domínio a um ou mais documentos que a descrevem, especificam ou evidenciam."@pt-br ;
+    rdfs:subPropertyOf edo:isSubjectOf ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:ReferenceDocument ;
+    owl:inverseOf edo:documents .
 
 edo:hasDomain a owl:AnnotationProperty ;
     rdfs:label "Has Domain"@en,
@@ -4928,11 +4930,11 @@ edo:hasInstallationPoint a owl:ObjectProperty ;
     rdfs:label "Has Installation Point"@en,
         "Tem Ponto de Instalação"@pt-br ;
     dcterms:identifier "hasInstallationPoint" ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:range edo:InstallationPoint ;
-    rdfs:subPropertyOf edo:hasAttachmentPoint ;
     skos:definition "Associates a host element with an installation point defining where another element is intended to be mounted or attached."@en,
-        "Associa um elemento hospedeiro a um ponto de instalação que define onde outro elemento deve ser montado ou fixado."@pt-br .
+        "Associa um elemento hospedeiro a um ponto de instalação que define onde outro elemento deve ser montado ou fixado."@pt-br ;
+    rdfs:subPropertyOf edo:hasAttachmentPoint ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:InstallationPoint .
 
 edo:hasLifecycleCreationPhase a owl:AnnotationProperty ;
     rdfs:label "has lifecycle creation phase"@en,
@@ -4967,13 +4969,13 @@ edo:hasSparePart a owl:ObjectProperty ;
     rdfs:label "Has Spare Part"@en,
         "Tem Sobressalente"@pt-br ;
     dcterms:identifier "hasSparePart" ;
-    rdfs:domain edo:Asset ;
-    rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:ProvisionRelation ;
     skos:altLabel "Spare For"@en,
         "Sobressalente Para"@pt-br ;
     skos:definition "Indicates that a domain asset may have spare parts intended to replace or support its operation, recorded in the domain schema."@en,
-        "Indica que um ativo do domínio pode ter sobressalentes destinados a substituição ou suporte à operação, registrados no schema do domínio."@pt-br .
+        "Indica que um ativo do domínio pode ter sobressalentes destinados a substituição ou suporte à operação, registrados no schema do domínio."@pt-br ;
+    rdfs:subPropertyOf edo:ProvisionRelation ;
+    rdfs:domain edo:Asset ;
+    owl:inverseOf edo:isSpareFor .
 
 edo:hasSubDomain a owl:AnnotationProperty ;
     rdfs:label "Has SubDomain"@en,
@@ -5010,11 +5012,11 @@ edo:isCoincidentWith a owl:IrreflexiveProperty,
     rdfs:label "Is Coincident With"@en,
         "É Coincidente Com"@pt-br ;
     dcterms:identifier "isCoincidentWith" ;
-    rdfs:domain edo:Feature ;
-    rdfs:range edo:Feature ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
     skos:definition "Relates two features intended to occupy the same geometric location without asserting that they are the same feature or that they form a flow connection."@en,
-        "Relaciona duas features destinadas a ocupar a mesma posição geométrica, sem afirmar que sejam a mesma feature nem que formem uma conexão de fluxo."@pt-br .
+        "Relaciona duas features destinadas a ocupar a mesma posição geométrica, sem afirmar que sejam a mesma feature nem que formem uma conexão de fluxo."@pt-br ;
+    rdfs:subPropertyOf edo:SpatialRelation ;
+    rdfs:domain edo:Feature ;
+    rdfs:range edo:Feature .
 
 edo:isDefinedByCatalogItem a owl:ObjectProperty ;
     rdfs:label "Is Defined By Catalog Item"@en,
@@ -5029,10 +5031,10 @@ edo:isElementConnectedTo a owl:ObjectProperty,
     rdfs:label "Is Element Connected To"@en,
         "Elemento Está Conectado A"@pt-br ;
     dcterms:identifier "isElementConnectedTo" ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:range edo:DomainElement ;
+    owl:propertyChainAxiom ( edo:hasConnectionInterface edo:isInterfaceConnectedTo edo:isConnectionInterfaceOf ) ;
     rdfs:subPropertyOf edo:ConnectionRelation ;
-    owl:propertyChainAxiom ( edo:hasConnectionInterface edo:isInterfaceConnectedTo edo:isConnectionInterfaceOf ) .
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainElement .
 
 edo:lifecycleRole a owl:AnnotationProperty ;
     rdfs:label "Lifecycle role"@en,
@@ -8190,11 +8192,11 @@ edo:ProvisionRelation a owl:ObjectProperty ;
     rdfs:label "Provision Relation"@en,
         "Relação de Provisão"@pt-br ;
     dcterms:identifier "ProvisionRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:altLabel "Spare Relation"@en,
         "Relação de Sobressalência"@pt-br ;
     skos:definition "Category of relationships used to represent provisioning semantics, such as spare parts associated with operational assets."@en,
-        "Categoria de relacionamentos usada para representar semântica de provisão, como sobressalentes associados a ativos operacionais."@pt-br .
+        "Categoria de relacionamentos usada para representar semântica de provisão, como sobressalentes associados a ativos operacionais."@pt-br ;
+    rdfs:subPropertyOf edo:DomainRelation .
 
 edo:PullingHeadType a owl:Class ;
     dcterms:accessRights "PUBLIC" ;
@@ -8934,9 +8936,9 @@ edo:SpatialRelation a owl:ObjectProperty ;
     rdfs:label "Spatial Relation"@en,
         "Relação Espacial"@pt-br ;
     dcterms:identifier "SpatialRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:definition "Category of relationships used to express containment, location or spatial organisation between domain entities."@en,
-        "Categoria de relacionamentos usada para expressar contenção, localização ou organização espacial entre entidades do domínio."@pt-br .
+        "Categoria de relacionamentos usada para expressar contenção, localização ou organização espacial entre entidades do domínio."@pt-br ;
+    rdfs:subPropertyOf edo:DomainRelation .
 
 edo:SpecialRequirements a owl:Class ;
     dcterms:accessRights "PUBLIC" ;
@@ -9766,44 +9768,47 @@ edo:connectionRealizedBy a owl:ObjectProperty ;
     rdfs:label "Connection Realised By"@en,
         "Conexão Realizada Por"@pt-br ;
     dcterms:identifier "connectionRealizedBy" ;
-    rdfs:domain edo:ConnectionPoint ;
-    rdfs:range edo:PhysicalConnection ;
-    rdfs:subPropertyOf edo:interfaceRealizedBy ;
-    owl:inverseOf edo:connectsPoint ;
     skos:altLabel "Realised By"@en,
         "Realizada Por"@pt-br ;
     skos:definition "Associates a connection point with the physical connection that joins it to another connection point."@en,
-        "Associa um ponto de conexão à conexão física que o une a outro ponto de conexão."@pt-br .
+        "Associa um ponto de conexão à conexão física que o une a outro ponto de conexão."@pt-br ;
+    rdfs:subPropertyOf edo:interfaceRealizedBy ;
+    rdfs:domain edo:ConnectionPoint ;
+    rdfs:range edo:PhysicalConnection ;
+    owl:inverseOf edo:connectsPoint .
 
 edo:hasElectricalContact a owl:ObjectProperty ;
     rdfs:label "Has Electrical Contact"@en,
         "Tem Contato Elétrico"@pt-br ;
     dcterms:identifier "hasElectricalContact" ;
+    skos:definition "Associates an aggregate electric port with a detailed electrical contact represented within that port. The relation may be omitted when exchange data does not provide contact-level detail."@en,
+        "Associa uma porta elétrica agregada a um contato elétrico detalhado representado nessa porta. A relação pode ser omitida quando os dados de troca não fornecem detalhamento em nível de contato."@pt-br ;
+    rdfs:subPropertyOf edo:hasFeature ;
     rdfs:domain edo:ElectricPort ;
     rdfs:range edo:ElectricalContact ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:isElectricalContactOf ;
-    skos:definition "Associates an aggregate electric port with a detailed electrical contact represented within that port. The relation may be omitted when exchange data does not provide contact-level detail."@en,
-        "Associa uma porta elétrica agregada a um contato elétrico detalhado representado nessa porta. A relação pode ser omitida quando os dados de troca não fornecem detalhamento em nível de contato."@pt-br .
+    owl:inverseOf edo:isElectricalContactOf .
 
 edo:hasElectricalContactSpecification a owl:ObjectProperty ;
     rdfs:label "Has Electrical Contact Specification"@en,
         "Tem Especificação de Contato Elétrico"@pt-br ;
     dcterms:identifier "hasElectricalContactSpecification" ;
+    skos:definition "Associates an electrical connector specification with an optional detailed specification of one of its contact positions. No minimum is imposed so aggregate-only connector specifications remain valid."@en,
+        "Associa uma especificação de conector elétrico a uma especificação detalhada opcional de uma de suas posições de contato. Nenhum mínimo é imposto, de modo que especificações apenas agregadas permaneçam válidas."@pt-br ;
+    rdfs:subPropertyOf edo:hasPart ;
     rdfs:domain edo:ElectricalConnectorSpecification ;
     rdfs:range edo:ElectricalContactSpecification ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
-    owl:inverseOf edo:isElectricalContactSpecificationOf ;
-    skos:definition "Associates an electrical connector specification with an optional detailed specification of one of its contact positions. No minimum is imposed so aggregate-only connector specifications remain valid."@en,
-        "Associa uma especificação de conector elétrico a uma especificação detalhada opcional de uma de suas posições de contato. Nenhum mínimo é imposto, de modo que especificações apenas agregadas permaneçam válidas."@pt-br .
+    owl:inverseOf edo:isElectricalContactSpecificationOf .
 
 edo:hasEvidence a owl:ObjectProperty ;
     rdfs:label "Has Evidence"@en,
         "Tem Evidência"@pt-br ;
     dcterms:identifier "hasEvidence" ;
-    rdfs:subPropertyOf edo:InformationRelation ;
     skos:definition "Associates an activity or task with an information artifact that provides evidence of its execution, condition or result."@en,
-        "Associa uma atividade ou tarefa a um artefato informacional que fornece evidência de sua execução, condição ou resultado."@pt-br .
+        "Associa uma atividade ou tarefa a um artefato informacional que fornece evidência de sua execução, condição ou resultado."@pt-br ;
+    rdfs:subPropertyOf edo:EvidenceRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:Evidence ;
+    owl:inverseOf edo:isEvidenceFor .
 
 edo:hasInterconnection a owl:ObjectProperty ;
     rdfs:label "Has Interconnection"@en,
@@ -9817,33 +9822,43 @@ edo:hasIssue a owl:ObjectProperty ;
     rdfs:label "Has Issue"@en,
         "Tem Pendência"@pt-br ;
     dcterms:identifier "hasIssue" ;
-    rdfs:subPropertyOf edo:InformationRelation ;
     skos:definition "Associates an activity or task with an issue recorded in its context."@en,
-        "Associa uma atividade ou tarefa a uma pendência registrada em seu contexto."@pt-br .
+        "Associa uma atividade ou tarefa a uma pendência registrada em seu contexto."@pt-br ;
+    rdfs:subPropertyOf edo:IssueTrackingRelation ;
+    rdfs:domain edo:Activity ;
+    rdfs:range edo:Issue ;
+    owl:inverseOf edo:isTrackedInActivity .
 
 edo:hasOperatingCondition a owl:ObjectProperty ;
     rdfs:label "Has Operating Condition"@en,
         "Tem Condição Operacional"@pt-br ;
     dcterms:identifier "hasOperatingCondition" ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
     skos:definition "Associates a specification with a required design operating condition that forms part of its technical definition."@en,
-        "Associa uma especificação a uma condição operacional de projeto requerida que integra sua definição técnica."@pt-br .
+        "Associa uma especificação a uma condição operacional de projeto requerida que integra sua definição técnica."@pt-br ;
+    rdfs:subPropertyOf edo:hasPart ;
+    rdfs:domain edo:Specification ;
+    rdfs:range edo:DesignOperatingCondition .
 
 edo:hasOperatingState a owl:ObjectProperty ;
     rdfs:label "Has Operating State"@en,
         "Tem Estado Operacional"@pt-br ;
     dcterms:identifier "hasOperatingState" ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
     skos:definition "Associates a design operating condition with a required state defined for a position or reference point along the engineered line."@en,
-        "Associa uma condição operacional de projeto a um estado requerido definido para uma posição ou ponto de referência ao longo da linha de engenharia."@pt-br .
+        "Associa uma condição operacional de projeto a um estado requerido definido para uma posição ou ponto de referência ao longo da linha de engenharia."@pt-br ;
+    rdfs:subPropertyOf edo:hasPart ;
+    rdfs:domain edo:DesignOperatingCondition ;
+    rdfs:range edo:DesignOperatingState .
 
 edo:hasResponsibleAgent a owl:ObjectProperty ;
     rdfs:label "Has Responsible Agent"@en,
         "Tem Agente Responsável"@pt-br ;
     dcterms:identifier "hasResponsibleAgent" ;
-    rdfs:subPropertyOf edo:OrganizationalRelation ;
     skos:definition "Associates a domain entity with the agent responsible for an activity, task, deliverable or decision."@en,
-        "Associa uma entidade do domínio ao agente responsável por uma atividade, tarefa, entrega ou decisão."@pt-br .
+        "Associa uma entidade do domínio ao agente responsável por uma atividade, tarefa, entrega ou decisão."@pt-br ;
+    rdfs:subPropertyOf edo:ResponsibilityRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:Agent ;
+    owl:inverseOf edo:isResponsibleFor .
 
 edo:hasSubject a owl:ObjectProperty ;
     rdfs:label "Has Subject"@en,
@@ -9873,83 +9888,89 @@ edo:isInterfaceCompatibleWith a owl:ObjectProperty,
     rdfs:label "Is Interface Compatible With"@en,
         "Interface É Compatível Com"@pt-br ;
     dcterms:identifier "isInterfaceCompatibleWith" ;
-    rdfs:domain edo:ConnectionInterface ;
-    rdfs:range edo:ConnectionInterface ;
-    rdfs:subPropertyOf edo:ConnectionRelation ;
     owl:propertyChainAxiom ( edo:hasInterfaceSpecification edo:isMatingCompatibleWith edo:isInterfaceSpecificationOf ) ;
     skos:definition "Indicates that two connection interfaces are compatible for direct mating according to an explicit mating-compatibility relation between their effective interface specifications. Compatibility expresses possibility, not an actual installed connection."@en,
-        "Indica que duas interfaces de conexão são compatíveis para acoplamento direto conforme uma relação explícita de compatibilidade de acoplamento entre suas especificações efetivas de interface. Compatibilidade expressa possibilidade, não uma conexão efetivamente instalada."@pt-br .
+        "Indica que duas interfaces de conexão são compatíveis para acoplamento direto conforme uma relação explícita de compatibilidade de acoplamento entre suas especificações efetivas de interface. Compatibilidade expressa possibilidade, não uma conexão efetivamente instalada."@pt-br ;
+    rdfs:subPropertyOf edo:CompatibilityRelation ;
+    rdfs:domain edo:ConnectionInterface ;
+    rdfs:range edo:ConnectionInterface .
 
 edo:isMaterialSpecificationOf a owl:ObjectProperty ;
     rdfs:label "Is Material Specification Of"@en,
         "É Especificação de Material de"@pt-br ;
     dcterms:identifier "isMaterialSpecificationOf" ;
+    skos:definition "Relates a reusable material specification to a domain element whose material is governed by that specification."@en,
+        "Relaciona uma especificação reutilizável de material a um elemento do domínio cujo material é governado por essa especificação."@pt-br ;
+    rdfs:subPropertyOf edo:isSpecificationOf ;
     rdfs:domain edo:MaterialSpecification ;
     rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
-    owl:inverseOf edo:hasMaterialSpecification ;
-    skos:definition "Relates a reusable material specification to a domain element whose material is governed by that specification."@en,
-        "Relaciona uma especificação reutilizável de material a um elemento do domínio cujo material é governado por essa especificação."@pt-br .
+    owl:inverseOf edo:hasMaterialSpecification .
 
 edo:isMatingCompatibleWith a owl:ObjectProperty,
         owl:SymmetricProperty ;
     rdfs:label "Is Mating Compatible With"@en,
         "É Compatível para Acoplamento Com"@pt-br ;
     dcterms:identifier "isMatingCompatibleWith" ;
-    rdfs:domain edo:ConnectionInterfaceSpecification ;
-    rdfs:range edo:ConnectionInterfaceSpecification ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
     skos:definition "Indicates that two connection-interface specifications permit direct mating without an intervening adapter. Compatibility is symmetric but is not assumed to be transitive or reflexive."@en,
-        "Indica que duas especificações de interface de conexão permitem acoplamento direto sem adaptador intermediário. A compatibilidade é simétrica, mas não é considerada transitiva nem reflexiva."@pt-br .
+        "Indica que duas especificações de interface de conexão permitem acoplamento direto sem adaptador intermediário. A compatibilidade é simétrica, mas não é considerada transitiva nem reflexiva."@pt-br ;
+    rdfs:subPropertyOf edo:CompatibilityRelation ;
+    rdfs:domain edo:ConnectionInterfaceSpecification ;
+    rdfs:range edo:ConnectionInterfaceSpecification .
 
 edo:isServiceInterfaceExposedAt a owl:ObjectProperty ;
     rdfs:label "Is Service Interface Exposed At"@en,
         "É Interface de Serviço Exposta em"@pt-br ;
     dcterms:identifier "isServiceInterfaceExposedAt" ;
+    skos:definition "Relates a connection interface owned by terminal hardware to the aggregate terminal end at which that interface is externally exposed."@en,
+        "Relaciona uma interface de conexão pertencente ao hardware terminal à extremidade terminal agregada na qual essa interface é externamente exposta."@pt-br ;
+    rdfs:subPropertyOf edo:isInterfaceExposedAt ;
     rdfs:domain edo:ConnectionInterface ;
     rdfs:range edo:LinearEnd ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:exposesServiceInterface ;
-    skos:definition "Relates a connection interface owned by terminal hardware to the aggregate terminal end at which that interface is externally exposed."@en,
-        "Relaciona uma interface de conexão pertencente ao hardware terminal à extremidade terminal agregada na qual essa interface é externamente exposta."@pt-br .
+    owl:inverseOf edo:exposesServiceInterface .
 
 edo:isTerminalHardwareOf a owl:ObjectProperty ;
     rdfs:label "Is Terminal Hardware Of"@en,
         "É Hardware Terminal de"@pt-br ;
     dcterms:identifier "isTerminalHardwareOf" ;
+    skos:definition "Relates a physical part to the assembly or equipment in which it serves as terminal hardware."@en,
+        "Relaciona uma parte física ao conjunto ou equipamento no qual ela desempenha o papel de hardware terminal."@pt-br ;
+    rdfs:subPropertyOf edo:isPartOf ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:PartWholeRelation ;
-    owl:inverseOf edo:hasTerminalHardware ;
-    skos:definition "Relates a physical part to the assembly or equipment in which it serves as terminal hardware."@en,
-        "Relaciona uma parte física ao conjunto ou equipamento no qual ela desempenha o papel de hardware terminal."@pt-br .
+    owl:inverseOf edo:hasTerminalHardware .
 
 edo:serves a owl:ObjectProperty ;
     rdfs:label "Serves"@en,
         "Atende"@pt-br ;
     dcterms:identifier "serves" ;
-    rdfs:subPropertyOf edo:FunctionalRelation ;
     skos:definition "Associates a functional element with the entity it serves in performing its function, without implying a part-whole relationship."@en,
-        "Associa um elemento funcional à entidade que ele atende no desempenho de sua função, sem implicar relação parte-todo."@pt-br .
+        "Associa um elemento funcional à entidade que ele atende no desempenho de sua função, sem implicar relação parte-todo."@pt-br ;
+    rdfs:subPropertyOf edo:FunctionalRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isServedBy .
 
 edo:spatiallyContains a owl:ObjectProperty ;
     rdfs:label "Spatially Contains"@en,
         "Contém Espacialmente"@pt-br ;
     dcterms:identifier "spatiallyContains" ;
-    rdfs:subPropertyOf edo:SpatialRelation ;
     skos:definition "Associates a spatial element or location with a domain element whose primary location is contained within that spatial context."@en,
-        "Associa um elemento espacial ou localização a um elemento do domínio cuja localização primária está contida naquele contexto espacial."@pt-br .
+        "Associa um elemento espacial ou localização a um elemento do domínio cuja localização primária está contida naquele contexto espacial."@pt-br ;
+    rdfs:subPropertyOf edo:SpatialRelation ;
+    rdfs:domain edo:Location ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isSpatiallyContainedIn .
 
 edo:specifiesElectricalContact a owl:ObjectProperty ;
     rdfs:label "Specifies Electrical Contact"@en,
         "Especifica Contato Elétrico"@pt-br ;
     dcterms:identifier "specifiesElectricalContact" ;
+    skos:definition "Relates a reusable electrical contact-position specification to a physical or project contact occurrence defined by it."@en,
+        "Relaciona uma especificação reutilizável de posição de contato elétrico a uma ocorrência física ou de projeto de contato definida por ela."@pt-br ;
+    rdfs:subPropertyOf edo:isSpecificationOf ;
     rdfs:domain edo:ElectricalContactSpecification ;
     rdfs:range edo:ElectricalContact ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
-    owl:inverseOf edo:isDefinedByElectricalContactSpecification ;
-    skos:definition "Relates a reusable electrical contact-position specification to a physical or project contact occurrence defined by it."@en,
-        "Relaciona uma especificação reutilizável de posição de contato elétrico a uma ocorrência física ou de projeto de contato definida por ela."@pt-br .
+    owl:inverseOf edo:isDefinedByElectricalContactSpecification .
 
 edo:Activity a owl:Class ;
     dcterms:identifier "Activity" ;
@@ -11113,130 +11134,136 @@ edo:exposesServiceInterface a owl:ObjectProperty ;
     rdfs:label "Exposes Service Interface"@en,
         "Expõe Interface de Serviço"@pt-br ;
     dcterms:identifier "exposesServiceInterface" ;
+    skos:definition "Associates an aggregate terminal end with a connection interface of its terminal hardware that is externally available for service connection, without implying ownership of that interface by the end."@en,
+        "Associa uma extremidade terminal agregada a uma interface de conexão de seu hardware terminal que fica externamente disponível para conexão de serviço, sem implicar que a extremidade seja proprietária dessa interface."@pt-br ;
+    rdfs:subPropertyOf edo:exposesInterface ;
     rdfs:domain edo:LinearEnd ;
     rdfs:range edo:ConnectionInterface ;
-    rdfs:subPropertyOf edo:hasEndInterface ;
-    owl:inverseOf edo:isServiceInterfaceExposedAt ;
-    skos:definition "Associates an aggregate terminal end with a connection interface of its terminal hardware that is externally available for service connection, without implying ownership of that interface by the end."@en,
-        "Associa uma extremidade terminal agregada a uma interface de conexão de seu hardware terminal que fica externamente disponível para conexão de serviço, sem implicar que a extremidade seja proprietária dessa interface."@pt-br .
+    owl:inverseOf edo:isServiceInterfaceExposedAt .
 
 edo:hasConstituentEnd a owl:ObjectProperty ;
     rdfs:label "Has Constituent End"@en,
         "Tem Extremidade Constituinte"@pt-br ;
     dcterms:identifier "hasConstituentEnd" ;
+    skos:definition "Associates an aggregate umbilical end with a terminal end of a constituent functional line located at that same side of the umbilical."@en,
+        "Associa uma extremidade agregada do umbilical à extremidade terminal de uma linha funcional constituinte localizada no mesmo lado do umbilical."@pt-br ;
+    rdfs:subPropertyOf edo:hasPart ;
     rdfs:domain edo:UmbilicalEnd ;
     rdfs:range edo:FunctionLineEnd ;
-    rdfs:subPropertyOf edo:hasPart ;
-    owl:inverseOf edo:isConstituentEndOf ;
-    skos:definition "Associates an aggregate umbilical end with a terminal end of a constituent functional line located at that same side of the umbilical."@en,
-        "Associa uma extremidade agregada do umbilical à extremidade terminal de uma linha funcional constituinte localizada no mesmo lado do umbilical."@pt-br .
+    owl:inverseOf edo:isConstituentEndOf .
 
 edo:hasOrderedPart a owl:ObjectProperty ;
     rdfs:label "Has Ordered Part"@en,
         "Tem Parte Ordenada"@pt-br ;
     dcterms:identifier "hasOrderedPart" ;
-    rdfs:subPropertyOf edo:hasPart ;
     skos:altLabel "Sequential Part"@en,
         "Parte Sequencial"@pt-br ;
     skos:definition "Indicates a part–whole relationship in which the parts participate in an explicit sequence, where the order of the parts is semantically relevant in the domain schema."@en,
-        "Indica uma relação parte–todo na qual as partes participam de uma sequência explícita, em que a ordem das partes é semanticamente relevante no schema do domínio."@pt-br .
+        "Indica uma relação parte–todo na qual as partes participam de uma sequência explícita, em que a ordem das partes é semanticamente relevante no schema do domínio."@pt-br ;
+    rdfs:subPropertyOf edo:hasPart .
 
 edo:hasSpec a owl:ObjectProperty ;
     rdfs:label "Has Specification"@en,
         "Tem Especificação"@pt-br ;
     dcterms:identifier "hasSpec" ;
+    skos:definition "Associates a domain entity with a specification, requirement or technical artefact that defines, limits or governs its selection and compatibility."@en,
+        "Associa uma entidade do domínio a uma especificação, requisito ou artefato técnico que define, limita ou governa sua seleção e compatibilidade."@pt-br ;
+    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:Specification ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
-    skos:definition "Associates a domain entity with a specification, requirement or technical artefact that defines, limits or governs its selection and compatibility."@en,
-        "Associa uma entidade do domínio a uma especificação, requisito ou artefato técnico que define, limita ou governa sua seleção e compatibilidade."@pt-br .
+    owl:inverseOf edo:isSpecificationOf .
 
 edo:hasTask a owl:ObjectProperty ;
     rdfs:label "Has Task"@en,
         "Tem Tarefa"@pt-br ;
     dcterms:identifier "hasTask" ;
-    rdfs:subPropertyOf edo:PartWholeRelation ;
     skos:definition "Associates a process with a task that composes or participates in that process."@en,
-        "Associa um processo a uma tarefa que o compõe ou dele participa."@pt-br .
+        "Associa um processo a uma tarefa que o compõe ou dele participa."@pt-br ;
+    rdfs:subPropertyOf edo:hasPart ;
+    rdfs:domain edo:Process ;
+    rdfs:range edo:Task .
 
 edo:hasTerminalHardware a owl:ObjectProperty ;
     rdfs:label "Has Terminal Hardware"@en,
         "Tem Hardware Terminal"@pt-br ;
     dcterms:identifier "hasTerminalHardware" ;
+    skos:definition "Relates an assembly or equipment to a physical part that serves as terminal hardware within that assembly, without reclassifying the part by that contextual role."@en,
+        "Relaciona um conjunto ou equipamento a uma parte física que desempenha o papel de hardware terminal nesse conjunto, sem reclassificar a parte por esse papel contextual."@pt-br ;
+    rdfs:subPropertyOf edo:hasPart ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:hasPart ;
-    owl:inverseOf edo:isTerminalHardwareOf ;
-    skos:definition "Relates an assembly or equipment to a physical part that serves as terminal hardware within that assembly, without reclassifying the part by that contextual role."@en,
-        "Relaciona um conjunto ou equipamento a uma parte física que desempenha o papel de hardware terminal nesse conjunto, sem reclassificar a parte por esse papel contextual."@pt-br .
+    owl:inverseOf edo:isTerminalHardwareOf .
 
 edo:hosts a owl:ObjectProperty ;
     rdfs:label "Hosts"@en,
         "Abriga"@pt-br ;
     dcterms:identifier "hosts" ;
-    rdfs:subPropertyOf edo:FunctionalRelation ;
     skos:definition "Associates a domain entity with an element functionally installed, supported or organised under it, without asserting physical composition between them."@en,
-        "Associa uma entidade do domínio a um elemento funcionalmente instalado, suportado ou organizado sob ela, sem afirmar composição física entre ambos."@pt-br .
+        "Associa uma entidade do domínio a um elemento funcionalmente instalado, suportado ou organizado sob ela, sem afirmar composição física entre ambos."@pt-br ;
+    rdfs:subPropertyOf edo:FunctionalRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isHostedBy .
 
 edo:interfaceRealizedBy a owl:ObjectProperty ;
     rdfs:label "Interface Realized By"@en,
         "Interface Realizada Por"@pt-br ;
     dcterms:identifier "interfaceRealizedBy" ;
+    rdfs:subPropertyOf edo:ConnectionRelation ;
     rdfs:domain edo:ConnectionInterface ;
     rdfs:range edo:PhysicalConnection ;
-    rdfs:subPropertyOf edo:ConnectionRelation ;
     owl:inverseOf edo:connectsInterface .
 
 edo:isAttachmentPointOf a owl:ObjectProperty ;
     rdfs:label "Is Attachment Point Of"@en,
         "É Ponto de Montagem de"@pt-br ;
     dcterms:identifier "isAttachmentPointOf" ;
+    rdfs:subPropertyOf edo:isFeatureOf ;
     rdfs:domain edo:AttachmentPoint ;
     rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
     owl:inverseOf edo:hasAttachmentPoint .
 
 edo:isConnectionPointOf a owl:ObjectProperty ;
     rdfs:label "Is Connection Point Of"@en,
         "É Ponto de Conexão de"@pt-br ;
     dcterms:identifier "isConnectionPointOf" ;
+    rdfs:subPropertyOf edo:isConnectionInterfaceOf ;
     rdfs:domain edo:ConnectionPoint ;
     rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:isConnectionInterfaceOf ;
     owl:inverseOf edo:hasConnectionPoint .
 
 edo:isDefinedByElectricalContactSpecification a owl:ObjectProperty ;
     rdfs:label "Is Defined By Electrical Contact Specification"@en,
         "É Definido por Especificação de Contato Elétrico"@pt-br ;
     dcterms:identifier "isDefinedByElectricalContactSpecification" ;
+    skos:definition "Optionally relates a represented electrical contact occurrence to the reusable contact-position specification that defines it. The relation is not required when contact detail or catalogue mapping is absent from an exchange dataset."@en,
+        "Relaciona opcionalmente uma ocorrência representada de contato elétrico à especificação reutilizável de posição de contato que a define. A relação não é exigida quando o detalhamento de contatos ou o mapeamento de catálogo estiver ausente de um conjunto de dados de troca."@pt-br ;
+    rdfs:subPropertyOf edo:hasSpec ;
     rdfs:domain edo:ElectricalContact ;
     rdfs:range edo:ElectricalContactSpecification ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
-    owl:inverseOf edo:specifiesElectricalContact ;
-    skos:definition "Optionally relates a represented electrical contact occurrence to the reusable contact-position specification that defines it. The relation is not required when contact detail or catalogue mapping is absent from an exchange dataset."@en,
-        "Relaciona opcionalmente uma ocorrência representada de contato elétrico à especificação reutilizável de posição de contato que a define. A relação não é exigida quando o detalhamento de contatos ou o mapeamento de catálogo estiver ausente de um conjunto de dados de troca."@pt-br .
+    owl:inverseOf edo:specifiesElectricalContact .
 
 edo:isElectricalContactOf a owl:ObjectProperty ;
     rdfs:label "Is Electrical Contact Of"@en,
         "É Contato Elétrico de"@pt-br ;
     dcterms:identifier "isElectricalContactOf" ;
+    skos:definition "Relates a detailed electrical contact to the single aggregate electric port in which that contact is represented."@en,
+        "Relaciona um contato elétrico detalhado à única porta elétrica agregada na qual esse contato é representado."@pt-br ;
+    rdfs:subPropertyOf edo:isFeatureOf ;
     rdfs:domain edo:ElectricalContact ;
     rdfs:range edo:ElectricPort ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:hasElectricalContact ;
-    skos:definition "Relates a detailed electrical contact to the single aggregate electric port in which that contact is represented."@en,
-        "Relaciona um contato elétrico detalhado à única porta elétrica agregada na qual esse contato é representado."@pt-br .
+    owl:inverseOf edo:hasElectricalContact .
 
 edo:isElectricalContactSpecificationOf a owl:ObjectProperty ;
     rdfs:label "Is Electrical Contact Specification Of"@en,
         "É Especificação de Contato Elétrico de"@pt-br ;
     dcterms:identifier "isElectricalContactSpecificationOf" ;
+    skos:definition "Relates a contact-position specification to the electrical connector specification whose contact arrangement it details."@en,
+        "Relaciona uma especificação de posição de contato à especificação de conector elétrico cujo arranjo de contatos ela detalha."@pt-br ;
+    rdfs:subPropertyOf edo:isPartOf ;
     rdfs:domain edo:ElectricalContactSpecification ;
     rdfs:range edo:ElectricalConnectorSpecification ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
-    owl:inverseOf edo:hasElectricalContactSpecification ;
-    skos:definition "Relates a contact-position specification to the electrical connector specification whose contact arrangement it details."@en,
-        "Relaciona uma especificação de posição de contato à especificação de conector elétrico cujo arranjo de contatos ela detalha."@pt-br .
+    owl:inverseOf edo:hasElectricalContactSpecification .
 
 edo:isEndInterfaceOf a owl:ObjectProperty ;
     rdfs:label "Is End Interface Of"@en,
@@ -11253,12 +11280,12 @@ edo:isInterfaceSpecificationOf a owl:ObjectProperty ;
     rdfs:label "Is Interface Specification Of"@en,
         "É Especificação de Interface de"@pt-br ;
     dcterms:identifier "isInterfaceSpecificationOf" ;
+    skos:definition "Relates a reusable connection-interface specification to an interface governed by that specification."@en,
+        "Relaciona uma especificação reutilizável de interface de conexão a uma interface governada por essa especificação."@pt-br ;
+    rdfs:subPropertyOf edo:isSpecificationOf ;
     rdfs:domain edo:ConnectionInterfaceSpecification ;
     rdfs:range edo:ConnectionInterface ;
-    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
-    owl:inverseOf edo:hasInterfaceSpecification ;
-    skos:definition "Relates a reusable connection-interface specification to an interface governed by that specification."@en,
-        "Relaciona uma especificação reutilizável de interface de conexão a uma interface governada por essa especificação."@pt-br .
+    owl:inverseOf edo:hasInterfaceSpecification .
 
 edo:Agent a owl:Class ;
     dcterms:identifier "Agent" ;
@@ -11935,43 +11962,43 @@ edo:hasAttachmentPoint a owl:ObjectProperty ;
     rdfs:label "Has Attachment Point"@en,
         "Tem Ponto de Montagem"@pt-br ;
     dcterms:identifier "hasAttachmentPoint" ;
+    skos:definition "Associates a domain element with an attachment point belonging to it."@en,
+        "Associa um elemento de domínio a um ponto de montagem que lhe pertence."@pt-br ;
+    rdfs:subPropertyOf edo:hasFeature ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:AttachmentPoint ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:isAttachmentPointOf ;
-    skos:definition "Associates a domain element with an attachment point belonging to it."@en,
-        "Associa um elemento de domínio a um ponto de montagem que lhe pertence."@pt-br .
+    owl:inverseOf edo:isAttachmentPointOf .
 
 edo:hasMaterialSpecification a owl:ObjectProperty ;
     rdfs:label "Has Material Specification"@en,
         "Tem Especificação de Material"@pt-br ;
     dcterms:identifier "hasMaterialSpecification" ;
+    skos:definition "Associates a domain element with the material specification that defines the material used in that element."@en,
+        "Associa um elemento do domínio à especificação de material que define o material utilizado nesse elemento."@pt-br ;
+    rdfs:subPropertyOf edo:hasSpec ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:MaterialSpecification ;
-    rdfs:subPropertyOf edo:hasSpec ;
-    owl:inverseOf edo:isMaterialSpecificationOf ;
-    skos:definition "Associates a domain element with the material specification that defines the material used in that element."@en,
-        "Associa um elemento do domínio à especificação de material que define o material utilizado nesse elemento."@pt-br .
+    owl:inverseOf edo:isMaterialSpecificationOf .
 
 edo:isConstituentEndOf a owl:ObjectProperty ;
     rdfs:label "Is Constituent End Of"@en,
         "É Extremidade Constituinte de"@pt-br ;
     dcterms:identifier "isConstituentEndOf" ;
+    rdfs:subPropertyOf edo:isPartOf ;
     rdfs:domain edo:FunctionLineEnd ;
     rdfs:range edo:UmbilicalEnd ;
-    rdfs:subPropertyOf edo:PartWholeRelation ;
     owl:inverseOf edo:hasConstituentEnd .
 
 edo:terminatesEnd a owl:ObjectProperty ;
     rdfs:label "Terminates End"@en,
         "Termina Extremidade"@pt-br ;
     dcterms:identifier "terminatesEnd" ;
+    skos:definition "Relates a domain element to a terminal end whose termination it performs or realizes in a particular assembly or installation context."@en,
+        "Relaciona um elemento de domínio a uma extremidade terminal cuja terminação ele desempenha ou realiza em um determinado contexto de montagem ou instalação."@pt-br ;
+    rdfs:subPropertyOf edo:FunctionalRelation ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:LinearEnd ;
-    rdfs:subPropertyOf edo:FunctionalRelation ;
-    owl:inverseOf edo:isTerminatedBy ;
-    skos:definition "Relates a domain element to a terminal end whose termination it performs or realizes in a particular assembly or installation context."@en,
-        "Relaciona um elemento de domínio a uma extremidade terminal cuja terminação ele desempenha ou realiza em um determinado contexto de montagem ou instalação."@pt-br .
+    owl:inverseOf edo:isTerminatedBy .
 
 edo:AttachmentPoint a owl:Class ;
     dcterms:identifier "AttachmentPoint" ;
@@ -12284,11 +12311,11 @@ edo:PartWholeRelation a owl:ObjectProperty ;
     rdfs:label "Part–Whole Relation"@en,
         "Relação Parte–Todo"@pt-br ;
     dcterms:identifier "PartWholeRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:altLabel "Composition Relation"@en,
         "Relação de Composição"@pt-br ;
     skos:definition "Category of relationships used to represent part–whole structures between domain entities."@en,
-        "Categoria de relacionamentos usada para representar estruturas parte–todo entre entidades do domínio."@pt-br .
+        "Categoria de relacionamentos usada para representar estruturas parte–todo entre entidades do domínio."@pt-br ;
+    rdfs:subPropertyOf edo:DomainRelation .
 
 edo:PermeabilityTableColumn a owl:Class ;
     rdfs:subClassOf edo:PermeabilityCurveAttribute ;
@@ -12410,11 +12437,11 @@ edo:hasMountingPoint a owl:ObjectProperty ;
     rdfs:label "Has Mounting Point"@en,
         "Tem Ponto de Montagem do Elemento"@pt-br ;
     dcterms:identifier "hasMountingPoint" ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:range edo:MountingPoint ;
-    rdfs:subPropertyOf edo:hasAttachmentPoint ;
     skos:definition "Associates an element being mounted with the mounting point used to position it relative to its host."@en,
-        "Associa um elemento a ser montado ao ponto de montagem usado para posicioná-lo em relação ao elemento hospedeiro."@pt-br .
+        "Associa um elemento a ser montado ao ponto de montagem usado para posicioná-lo em relação ao elemento hospedeiro."@pt-br ;
+    rdfs:subPropertyOf edo:hasAttachmentPoint ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:MountingPoint .
 
 edo:Accessory a owl:Class ;
     dcterms:identifier "Accessory" ;
@@ -12519,9 +12546,9 @@ edo:FunctionalRelation a owl:ObjectProperty ;
     rdfs:label "Functional Relation"@en,
         "Relação Funcional"@pt-br ;
     dcterms:identifier "FunctionalRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:definition "Category of relationships used to express functional links between domain entities without implying physical composition or spatial containment."@en,
-        "Categoria de relacionamentos usada para expressar vínculos funcionais entre entidades do domínio sem implicar composição física ou contenção espacial."@pt-br .
+        "Categoria de relacionamentos usada para expressar vínculos funcionais entre entidades do domínio sem implicar composição física ou contenção espacial."@pt-br ;
+    rdfs:subPropertyOf edo:DomainRelation .
 
 edo:HubMatingConnection a owl:Class ;
     dcterms:identifier "HubMatingConnection" ;
@@ -12637,30 +12664,31 @@ edo:hasConnectionInterface a owl:ObjectProperty ;
     rdfs:label "Has Connection Interface"@en,
         "Tem Interface de Conexão"@pt-br ;
     dcterms:identifier "hasConnectionInterface" ;
+    skos:definition "Associates a domain element with a connection interface that belongs to it."@en,
+        "Associa um elemento de domínio a uma interface de conexão que lhe pertence."@pt-br ;
+    rdfs:subPropertyOf edo:hasFeature ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:ConnectionInterface ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:isConnectionInterfaceOf ;
-    skos:definition "Associates a domain element with a connection interface that belongs to it."@en,
-        "Associa um elemento de domínio a uma interface de conexão que lhe pertence."@pt-br .
+    owl:inverseOf edo:isConnectionInterfaceOf .
 
 edo:hasReferenceDatum a owl:ObjectProperty ;
     rdfs:label "Has Reference Datum"@en,
         "Tem Datum de Referência"@pt-br ;
     dcterms:identifier "hasReferenceDatum" ;
+    skos:definition "Associates an installation point with the feature selected as the datum from which its required longitudinal position is interpreted."@en,
+        "Associa um ponto de instalação à feature escolhida como datum a partir da qual sua posição longitudinal requerida é interpretada."@pt-br ;
+    rdfs:subPropertyOf edo:SpatialRelation ;
     rdfs:domain edo:InstallationPoint ;
     rdfs:range edo:Feature ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    skos:definition "Associates an installation point with the feature selected as the datum from which its required longitudinal position is interpreted."@en,
-        "Associa um ponto de instalação à feature escolhida como datum a partir da qual sua posição longitudinal requerida é interpretada."@pt-br .
+    owl:inverseOf edo:isReferenceDatumFor .
 
 edo:isConnectionInterfaceOf a owl:ObjectProperty ;
     rdfs:label "Is Connection Interface Of"@en,
         "É Interface de Conexão de"@pt-br ;
     dcterms:identifier "isConnectionInterfaceOf" ;
+    rdfs:subPropertyOf edo:isFeatureOf ;
     rdfs:domain edo:ConnectionInterface ;
     rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
     owl:inverseOf edo:hasConnectionInterface .
 
 edo:isInterfaceConnectedTo a owl:IrreflexiveProperty,
@@ -12669,12 +12697,12 @@ edo:isInterfaceConnectedTo a owl:IrreflexiveProperty,
     rdfs:label "Is Interface Connected To"@en,
         "Interface Está Conectada A"@pt-br ;
     dcterms:identifier "isInterfaceConnectedTo" ;
-    rdfs:domain edo:ConnectionInterface ;
-    rdfs:range edo:ConnectionInterface ;
+    skos:definition "Relates two connection interfaces that directly participate in the same physical or functional connection."@en,
+        "Relaciona duas interfaces de conexão que participam diretamente da mesma conexão física ou funcional."@pt-br ;
     rdfs:subPropertyOf edo:ConnectionRelation,
         edo:isInterfaceCompatibleWith ;
-    skos:definition "Relates two connection interfaces that directly participate in the same physical or functional connection."@en,
-        "Relaciona duas interfaces de conexão que participam diretamente da mesma conexão física ou funcional."@pt-br .
+    rdfs:domain edo:ConnectionInterface ;
+    rdfs:range edo:ConnectionInterface .
 
 edo:ComponentDevice a owl:Class ;
     dcterms:identifier "ComponentDevice" ;
@@ -12688,11 +12716,11 @@ edo:ConnectionRelation a owl:ObjectProperty ;
     rdfs:label "Connection Relation"@en,
         "Relação de Conexão"@pt-br ;
     dcterms:identifier "ConnectionRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:altLabel "Connectivity Relation"@en,
         "Relação de Conectividade"@pt-br ;
     skos:definition "Category of relationships used to express conceptual connectivity between domain entities."@en,
-        "Categoria de relacionamentos usada para expressar conectividade conceitual entre entidades do domínio."@pt-br .
+        "Categoria de relacionamentos usada para expressar conectividade conceitual entre entidades do domínio."@pt-br ;
+    rdfs:subPropertyOf edo:DomainRelation .
 
 edo:ConstructionPhase a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -13056,12 +13084,12 @@ edo:isTerminatedBy a owl:ObjectProperty ;
     rdfs:label "Is Terminated By"@en,
         "É Terminada Por"@pt-br ;
     dcterms:identifier "isTerminatedBy" ;
+    skos:definition "Relates a terminal end to a domain element that performs or realizes the termination of that end in a particular assembly or installation context."@en,
+        "Relaciona uma extremidade terminal a um elemento de domínio que desempenha ou realiza a terminação dessa extremidade em um determinado contexto de montagem ou instalação."@pt-br ;
+    rdfs:subPropertyOf edo:FunctionalRelation ;
     rdfs:domain edo:LinearEnd ;
     rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:FunctionalRelation ;
-    owl:inverseOf edo:terminatesEnd ;
-    skos:definition "Relates a terminal end to a domain element that performs or realizes the termination of that end in a particular assembly or installation context."@en,
-        "Relaciona uma extremidade terminal a um elemento de domínio que desempenha ou realiza a terminação dessa extremidade em um determinado contexto de montagem ou instalação."@pt-br .
+    owl:inverseOf edo:terminatesEnd .
 
 edo:AsBuiltRole a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -13231,9 +13259,9 @@ edo:connectsPoint a owl:ObjectProperty ;
     rdfs:label "Connects Point"@en,
         "Conecta Ponto"@pt-br ;
     dcterms:identifier "connectsPoint" ;
+    rdfs:subPropertyOf edo:connectsInterface ;
     rdfs:domain edo:PhysicalConnection ;
     rdfs:range edo:ConnectionPoint ;
-    rdfs:subPropertyOf edo:connectsInterface ;
     owl:inverseOf edo:connectionRealizedBy .
 
 edo:ConnectionInterfaceSpecification a owl:Class ;
@@ -13314,23 +13342,23 @@ edo:connectsInterface a owl:ObjectProperty ;
     rdfs:label "Connects Interface"@en,
         "Conecta Interface"@pt-br ;
     dcterms:identifier "connectsInterface" ;
+    skos:definition "Associates a physical connection with each connection interface that it physically joins."@en,
+        "Associa uma conexão física a cada interface de conexão que ela une fisicamente."@pt-br ;
+    rdfs:subPropertyOf edo:ConnectionRelation ;
     rdfs:domain edo:PhysicalConnection ;
     rdfs:range edo:ConnectionInterface ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:interfaceRealizedBy ;
-    skos:definition "Associates a physical connection with each connection interface that it physically joins."@en,
-        "Associa uma conexão física a cada interface de conexão que ela une fisicamente."@pt-br .
+    owl:inverseOf edo:interfaceRealizedBy .
 
 edo:isEndOf a owl:ObjectProperty ;
     rdfs:label "Is End Of"@en,
         "É Extremidade de"@pt-br ;
     dcterms:identifier "isEndOf" ;
+    skos:definition "Associates a linear end with the domain element to which that end belongs."@en,
+        "Associa uma extremidade linear ao elemento de domínio ao qual ela pertence."@pt-br ;
+    rdfs:subPropertyOf edo:isFeatureOf ;
     rdfs:domain edo:LinearEnd ;
     rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:hasEnd ;
-    skos:definition "Associates a linear end with the domain element to which that end belongs."@en,
-        "Associa uma extremidade linear ao elemento de domínio ao qual ela pertence."@pt-br .
+    owl:inverseOf edo:hasEnd .
 
 edo:BurstPressure a owl:Class ;
     dcterms:identifier "BurstPressure" ;
@@ -13515,12 +13543,12 @@ edo:hasInterfaceSpecification a owl:ObjectProperty ;
     rdfs:label "Has Interface Specification"@en,
         "Tem Especificação de Interface"@pt-br ;
     dcterms:identifier "hasInterfaceSpecification" ;
+    skos:definition "Associates a connection interface with its consolidated mating specification. The specification is reusable and is not a physical part of the interface."@en,
+        "Associa uma interface de conexão à sua especificação consolidada de acoplamento. A especificação é reutilizável e não constitui uma parte física da interface."@pt-br ;
+    rdfs:subPropertyOf edo:hasSpec ;
     rdfs:domain edo:ConnectionInterface ;
     rdfs:range edo:ConnectionInterfaceSpecification ;
-    rdfs:subPropertyOf edo:hasSpec ;
-    owl:inverseOf edo:isInterfaceSpecificationOf ;
-    skos:definition "Associates a connection interface with its consolidated mating specification. The specification is reusable and is not a physical part of the interface."@en,
-        "Associa uma interface de conexão à sua especificação consolidada de acoplamento. A especificação é reutilizável e não constitui uma parte física da interface."@pt-br .
+    owl:inverseOf edo:isInterfaceSpecificationOf .
 
 edo:CommissioningEngineering a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -13606,9 +13634,9 @@ edo:TechnicalDefinitionRelation a owl:ObjectProperty ;
     rdfs:label "Technical Definition Relation"@en,
         "Relação de Definição Técnica"@pt-br ;
     dcterms:identifier "TechnicalDefinitionRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
     skos:definition "Category of relationships used to associate domain entities with specifications, types or technical artefacts that define their configuration or compatibility."@en,
-        "Categoria de relacionamentos usada para associar entidades do domínio a especificações, tipos ou artefatos técnicos que definem sua configuração ou compatibilidade."@pt-br .
+        "Categoria de relacionamentos usada para associar entidades do domínio a especificações, tipos ou artefatos técnicos que definem sua configuração ou compatibilidade."@pt-br ;
+    rdfs:subPropertyOf edo:DomainRelation .
 
 edo:Temperature a owl:Class ;
     dcterms:accessRights "PUBLIC" ;
@@ -13741,13 +13769,13 @@ edo:isConnectedTo a owl:IrreflexiveProperty,
     rdfs:label "Is Connected To"@en,
         "Está Conectado A"@pt-br ;
     dcterms:identifier "isConnectedTo" ;
-    rdfs:domain edo:ConnectionPoint ;
-    rdfs:range edo:ConnectionPoint ;
-    rdfs:subPropertyOf edo:isInterfaceConnectedTo ;
     skos:altLabel "Connects To"@en,
         "Conecta-se A"@pt-br ;
     skos:definition "Indicates that two classes of domain elements are conceptually connectable to each other, without specifying how the connection is realised."@en,
-        "Indica que duas classes de elementos do domínio são conceitualmente conectáveis entre si, sem especificar como a conexão é realizada."@pt-br .
+        "Indica que duas classes de elementos do domínio são conceitualmente conectáveis entre si, sem especificar como a conexão é realizada."@pt-br ;
+    rdfs:subPropertyOf edo:isInterfaceConnectedTo ;
+    rdfs:domain edo:ConnectionPoint ;
+    rdfs:range edo:ConnectionPoint .
 
 edo:DisplacedVolume a owl:Class ;
     dcterms:accessRights "PUBLIC" ;
@@ -13833,13 +13861,14 @@ edo:hasPart a owl:ObjectProperty ;
     rdfs:label "Has Part"@en,
         "Tem Parte"@pt-br ;
     dcterms:identifier "hasPart" ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:range edo:DomainElement ;
-    rdfs:subPropertyOf edo:PartWholeRelation ;
     skos:altLabel "Part Of"@en,
         "É Parte De"@pt-br ;
     skos:definition "Indicates that one domain entity is a constituent part of another, expressing a generic part–whole relationship without qualification regarding order, essentiality or replaceability."@en,
-        "Indica que uma entidade do domínio é parte constituinte de outra, expressando uma relação parte–todo genérica, sem qualificação quanto à ordem, essencialidade ou substituibilidade."@pt-br .
+        "Indica que uma entidade do domínio é parte constituinte de outra, expressando uma relação parte–todo genérica, sem qualificação quanto à ordem, essencialidade ou substituibilidade."@pt-br ;
+    rdfs:subPropertyOf edo:PartWholeRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isPartOf .
 
 edo:AttributeOntologicalNatures a owl:NamedIndividual,
         skos:Concept,
@@ -13945,12 +13974,12 @@ edo:hasEnd a owl:ObjectProperty ;
     rdfs:label "Has End"@en,
         "Tem Extremidade"@pt-br ;
     dcterms:identifier "hasEnd" ;
+    skos:definition "Associates a domain element with a terminal linear end belonging to it."@en,
+        "Associa um elemento de domínio a uma extremidade linear terminal que lhe pertence."@pt-br ;
+    rdfs:subPropertyOf edo:hasFeature ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:LinearEnd ;
-    rdfs:subPropertyOf edo:InterfaceRelation ;
-    owl:inverseOf edo:isEndOf ;
-    skos:definition "Associates a domain element with a terminal linear end belonging to it."@en,
-        "Associa um elemento de domínio a uma extremidade linear terminal que lhe pertence."@pt-br .
+    owl:inverseOf edo:isEndOf .
 
 edo:CapabilityAttribute a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -14053,12 +14082,12 @@ edo:hasConnectionPoint a owl:ObjectProperty ;
     rdfs:label "Has Connection Point"@en,
         "Tem Ponto de Conexão"@pt-br ;
     dcterms:identifier "hasConnectionPoint" ;
+    skos:definition "Associates a domain entity with a point, port or feature that enables connection or interface with other entities."@en,
+        "Associa uma entidade do domínio a um ponto, porta ou feature que permite conexão ou interface com outras entidades."@pt-br ;
+    rdfs:subPropertyOf edo:hasConnectionInterface ;
     rdfs:domain edo:DomainElement ;
     rdfs:range edo:ConnectionPoint ;
-    rdfs:subPropertyOf edo:hasConnectionInterface ;
-    owl:inverseOf edo:isConnectionPointOf ;
-    skos:definition "Associates a domain entity with a point, port or feature that enables connection or interface with other entities."@en,
-        "Associa uma entidade do domínio a um ponto, porta ou feature que permite conexão ou interface com outras entidades."@pt-br .
+    owl:inverseOf edo:isConnectionPointOf .
 
 edo:MechanicalAttribute a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -14241,21 +14270,15 @@ edo:AttributeRelation a owl:ObjectProperty ;
     rdfs:label "Attribute Relation"@en,
         "Relação de Atributo"@pt-br ;
     dcterms:identifier "AttributeRelation" ;
-    rdfs:subPropertyOf edo:DomainRelation ;
-    skos:definition
-        "Category of relationships used to associate domain elements with attributes that characterize them."@en,
-        "Categoria de relacionamentos usada para associar elementos do domínio aos atributos que os caracterizam."@pt-br .
+    rdfs:subPropertyOf edo:DomainRelation .
 
 edo:hasAttribute a owl:ObjectProperty ;
     rdfs:label "Has Attribute"@en,
         "Possui Atributo"@pt-br ;
     dcterms:identifier "hasAttribute" ;
-    rdfs:domain edo:DomainElement ;
-    rdfs:range edo:DomainAttribute ;
     rdfs:subPropertyOf edo:AttributeRelation ;
-    skos:definition
-        "Associates a domain element with an attribute that characterizes it."@en,
-        "Associa um elemento do domínio a um atributo que o caracteriza."@pt-br .
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainAttribute .
 
 edo:SingleValue a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -14269,3 +14292,422 @@ edo:SingleValue a owl:NamedIndividual,
 
 [] a owl:AllDisjointClasses ;
     owl:members ( edo:DomainElement edo:DomainAttribute edo:DomainVocabularyConcept ) .
+
+
+edo:ClassificationRelation a owl:ObjectProperty ;
+    dcterms:identifier "ClassificationRelation" ;
+    rdfs:label "Classification Relation"@en ;
+    skos:definition "Relates a domain element to an external reference or controlled concept used to classify it."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:CompatibilityRelation a owl:ObjectProperty ;
+    dcterms:identifier "CompatibilityRelation" ;
+    rdfs:label "Compatibility Relation"@en ;
+    skos:definition "Expresses compatibility or relational aptitude without asserting that a connection is realized."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:ParticipationRelation a owl:ObjectProperty ;
+    dcterms:identifier "ParticipationRelation" ;
+    rdfs:label "Participation Relation"@en ;
+    skos:definition "Expresses semantically qualified participation of a domain element in an activity."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:OutcomeRelation a owl:ObjectProperty ;
+    dcterms:identifier "OutcomeRelation" ;
+    rdfs:label "Outcome Relation"@en ;
+    skos:definition "Relates an activity to an identifiable outcome and its inverse."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:TargetRelation a owl:ObjectProperty ;
+    dcterms:identifier "TargetRelation" ;
+    rdfs:label "Target Relation"@en ;
+    skos:definition "Relates an activity or activity outcome to the domain element that is its target."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:StateRelation a owl:ObjectProperty ;
+    dcterms:identifier "StateRelation" ;
+    rdfs:label "State Relation"@en ;
+    skos:definition "Relates a state occurrence to the domain element that bears that state."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:AboutnessRelation a owl:ObjectProperty ;
+    dcterms:identifier "AboutnessRelation" ;
+    rdfs:label "Aboutness Relation"@en ;
+    skos:definition "Relates an information artifact or issue to the domain element it is about."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:EvidenceRelation a owl:ObjectProperty ;
+    dcterms:identifier "EvidenceRelation" ;
+    rdfs:label "Evidence Relation"@en ;
+    skos:definition "Relates a domain element to identifiable evidence supporting or demonstrating information about it."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:IssueTrackingRelation a owl:ObjectProperty ;
+    dcterms:identifier "IssueTrackingRelation" ;
+    rdfs:label "Issue Tracking Relation"@en ;
+    skos:definition "Relates an activity to an issue tracked in that activity."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:FeatureDependenceRelation a owl:ObjectProperty ;
+    dcterms:identifier "FeatureDependenceRelation" ;
+    rdfs:label "Feature Dependence Relation"@en ;
+    skos:definition "Relates a dependent feature to the domain element that carries it."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:MembershipRelation a owl:ObjectProperty ;
+    dcterms:identifier "MembershipRelation" ;
+    rdfs:label "Membership Relation"@en ;
+    skos:definition "Expresses membership in an identifiable grouping without implying part-whole structure."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:ResponsibilityRelation a owl:ObjectProperty ;
+    dcterms:identifier "ResponsibilityRelation" ;
+    rdfs:label "Responsibility Relation"@en ;
+    skos:definition "Relates a domain element to an agent assigned responsibility for it."@en ;
+    rdfs:subPropertyOf edo:DomainRelation .
+
+edo:InterfaceExposureRelation a owl:ObjectProperty ;
+    dcterms:identifier "InterfaceExposureRelation" ;
+    rdfs:label "Interface Exposure Relation"@en ;
+    skos:definition "Relates a linear end to a connection interface exposed at that end without asserting feature ownership."@en ;
+    rdfs:subPropertyOf edo:SpatialRelation .
+
+edo:isPartOf a owl:ObjectProperty ;
+    dcterms:identifier "isPartOf" ;
+    rdfs:label "Is Part Of"@en ;
+    skos:definition "Relates a part to the domain element of which it is a part."@en ;
+    rdfs:subPropertyOf edo:PartWholeRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasPart .
+
+edo:isSpecificationOf a owl:ObjectProperty ;
+    dcterms:identifier "isSpecificationOf" ;
+    rdfs:label "Is Specification Of"@en ;
+    skos:definition "Relates a specification to the domain element that it specifies."@en ;
+    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
+    rdfs:domain edo:Specification ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasSpec .
+
+edo:hasTechnicalConfiguration a owl:ObjectProperty ;
+    dcterms:identifier "hasTechnicalConfiguration" ;
+    rdfs:label "Has Technical Configuration"@en ;
+    skos:definition "Relates a domain element to the configured system that defines its technical configuration."@en ;
+    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:ConfiguredSystem ;
+    owl:inverseOf edo:isTechnicalConfigurationOf .
+
+edo:isTechnicalConfigurationOf a owl:ObjectProperty ;
+    dcterms:identifier "isTechnicalConfigurationOf" ;
+    rdfs:label "Is Technical Configuration Of"@en ;
+    skos:definition "Relates a configured system to the domain element whose technical configuration it defines."@en ;
+    rdfs:subPropertyOf edo:TechnicalDefinitionRelation ;
+    rdfs:domain edo:ConfiguredSystem ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasTechnicalConfiguration .
+
+edo:isClassifiedBy a owl:ObjectProperty ;
+    dcterms:identifier "isClassifiedBy" ;
+    rdfs:label "Is Classified By"@en ;
+    skos:definition "Relates a domain element to a controlled vocabulary concept used to classify it."@en ;
+    rdfs:subPropertyOf edo:ClassificationRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    owl:inverseOf edo:classifies .
+
+edo:classifies a owl:ObjectProperty ;
+    dcterms:identifier "classifies" ;
+    rdfs:label "classifies"@en ;
+    skos:definition "Relates a controlled vocabulary concept to a domain element classified by that concept."@en ;
+    rdfs:subPropertyOf edo:ClassificationRelation ;
+    rdfs:domain edo:DomainVocabularyConcept ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isClassifiedBy .
+
+edo:hasReadinessStatus a owl:ObjectProperty ;
+    dcterms:identifier "hasReadinessStatus" ;
+    rdfs:label "Has Readiness Status"@en ;
+    skos:definition "Classifies an operational readiness state by its controlled readiness status."@en ;
+    rdfs:subPropertyOf edo:isClassifiedBy ;
+    rdfs:domain edo:OperationalReadinessState ;
+    rdfs:range edo:OperationalReadinessStatus .
+
+edo:hasReadinessConclusion a owl:ObjectProperty ;
+    dcterms:identifier "hasReadinessConclusion" ;
+    rdfs:label "Has Readiness Conclusion"@en ;
+    skos:definition "Classifies an assessment outcome by its controlled readiness conclusion."@en ;
+    rdfs:subPropertyOf edo:isClassifiedBy ;
+    rdfs:domain edo:AssessmentOutcome ;
+    rdfs:range edo:OperationalReadinessStatus .
+
+edo:hasActivityTarget a owl:ObjectProperty ;
+    dcterms:identifier "hasActivityTarget" ;
+    rdfs:label "Has Activity Target"@en ;
+    skos:definition "Relates an activity to the domain element that participates as its semantic target."@en ;
+    rdfs:subPropertyOf edo:ParticipationRelation,
+        edo:TargetRelation ;
+    rdfs:domain edo:Activity ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isTargetOfActivity .
+
+edo:isTargetOfActivity a owl:ObjectProperty ;
+    dcterms:identifier "isTargetOfActivity" ;
+    rdfs:label "Is Target Of Activity"@en ;
+    skos:definition "Relates a domain element to an activity for which it is the semantic target."@en ;
+    rdfs:subPropertyOf edo:ParticipationRelation,
+        edo:TargetRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:Activity ;
+    owl:inverseOf edo:hasActivityTarget .
+
+edo:hasActivityOutcome a owl:ObjectProperty ;
+    dcterms:identifier "hasActivityOutcome" ;
+    rdfs:label "Has Activity Outcome"@en ;
+    skos:definition "Relates an activity to an identifiable outcome of that activity."@en ;
+    rdfs:subPropertyOf edo:OutcomeRelation ;
+    rdfs:domain edo:Activity ;
+    rdfs:range edo:ActivityOutcome ;
+    owl:inverseOf edo:isOutcomeOfActivity .
+
+edo:isOutcomeOfActivity a owl:ObjectProperty ;
+    dcterms:identifier "isOutcomeOfActivity" ;
+    rdfs:label "Is Outcome Of Activity"@en ;
+    skos:definition "Relates an activity outcome to the activity that produced or established it."@en ;
+    rdfs:subPropertyOf edo:OutcomeRelation ;
+    rdfs:domain edo:ActivityOutcome ;
+    rdfs:range edo:Activity ;
+    owl:inverseOf edo:hasActivityOutcome .
+
+edo:hasOutcomeTarget a owl:ObjectProperty ;
+    dcterms:identifier "hasOutcomeTarget" ;
+    rdfs:label "Has Outcome Target"@en ;
+    skos:definition "Relates an activity outcome to the domain element that is its target."@en ;
+    rdfs:subPropertyOf edo:TargetRelation ;
+    rdfs:domain edo:ActivityOutcome ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isTargetOfOutcome .
+
+edo:isTargetOfOutcome a owl:ObjectProperty ;
+    dcterms:identifier "isTargetOfOutcome" ;
+    rdfs:label "Is Target Of Outcome"@en ;
+    skos:definition "Relates a domain element to an activity outcome that targets it."@en ;
+    rdfs:subPropertyOf edo:TargetRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:ActivityOutcome ;
+    owl:inverseOf edo:hasOutcomeTarget .
+
+edo:hasStateOccurrence a owl:ObjectProperty ;
+    dcterms:identifier "hasStateOccurrence" ;
+    rdfs:label "Has State Occurrence"@en ;
+    skos:definition "Relates a domain element to an identifiable occurrence of a state borne by it."@en ;
+    rdfs:subPropertyOf edo:StateRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:StateOccurrence ;
+    owl:inverseOf edo:isStateOf .
+
+edo:isStateOf a owl:ObjectProperty ;
+    dcterms:identifier "isStateOf" ;
+    rdfs:label "Is State Of"@en ;
+    skos:definition "Relates a state occurrence to the domain element that bears the state."@en ;
+    rdfs:subPropertyOf edo:StateRelation ;
+    rdfs:domain edo:StateOccurrence ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasStateOccurrence .
+
+edo:isAbout a owl:ObjectProperty ;
+    dcterms:identifier "isAbout" ;
+    rdfs:label "Is About"@en ;
+    skos:definition "Relates an information artifact to the domain element that is its subject."@en ;
+    rdfs:subPropertyOf edo:AboutnessRelation ;
+    rdfs:domain edo:InformationArtifact ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isSubjectOf .
+
+edo:isSubjectOf a owl:ObjectProperty ;
+    dcterms:identifier "isSubjectOf" ;
+    rdfs:label "Is Subject Of"@en ;
+    skos:definition "Relates a domain element to an information artifact that is about it."@en ;
+    rdfs:subPropertyOf edo:AboutnessRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:InformationArtifact ;
+    owl:inverseOf edo:isAbout .
+
+edo:documents a owl:ObjectProperty ;
+    dcterms:identifier "documents" ;
+    rdfs:label "documents"@en ;
+    skos:definition "Relates a reference document to the domain element it documents."@en ;
+    rdfs:subPropertyOf edo:isAbout ;
+    rdfs:domain edo:ReferenceDocument ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasDocument .
+
+edo:concerns a owl:ObjectProperty ;
+    dcterms:identifier "concerns" ;
+    rdfs:label "concerns"@en ;
+    skos:definition "Relates an issue to the domain element that it concerns."@en ;
+    rdfs:subPropertyOf edo:isAbout ;
+    rdfs:domain edo:Issue ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isConcernedByIssue .
+
+edo:isConcernedByIssue a owl:ObjectProperty ;
+    dcterms:identifier "isConcernedByIssue" ;
+    rdfs:label "Is Concerned By Issue"@en ;
+    skos:definition "Relates a domain element to an issue that concerns it."@en ;
+    rdfs:subPropertyOf edo:isSubjectOf ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:Issue ;
+    owl:inverseOf edo:concerns .
+
+edo:isEvidenceFor a owl:ObjectProperty ;
+    dcterms:identifier "isEvidenceFor" ;
+    rdfs:label "Is Evidence For"@en ;
+    skos:definition "Relates an evidence artifact to the domain element for which it serves as evidence."@en ;
+    rdfs:subPropertyOf edo:EvidenceRelation ;
+    rdfs:domain edo:Evidence ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasEvidence .
+
+edo:isTrackedInActivity a owl:ObjectProperty ;
+    dcterms:identifier "isTrackedInActivity" ;
+    rdfs:label "Is Tracked In Activity"@en ;
+    skos:definition "Relates an issue to the activity in which it is tracked."@en ;
+    rdfs:subPropertyOf edo:IssueTrackingRelation ;
+    rdfs:domain edo:Issue ;
+    rdfs:range edo:Activity ;
+    owl:inverseOf edo:hasIssue .
+
+edo:isSpareFor a owl:ObjectProperty ;
+    dcterms:identifier "isSpareFor" ;
+    rdfs:label "Is Spare For"@en ;
+    skos:definition "Relates an item provisioned as a spare to the asset for which it is a spare."@en ;
+    rdfs:subPropertyOf edo:ProvisionRelation ;
+    rdfs:range edo:Asset ;
+    owl:inverseOf edo:hasSparePart .
+
+edo:isSpatiallyContainedIn a owl:ObjectProperty ;
+    dcterms:identifier "isSpatiallyContainedIn" ;
+    rdfs:label "Is Spatially Contained In"@en ;
+    skos:definition "Relates a domain element to the location that spatially contains it."@en ;
+    rdfs:subPropertyOf edo:SpatialRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:Location ;
+    owl:inverseOf edo:spatiallyContains .
+
+edo:isReferenceDatumFor a owl:ObjectProperty ;
+    dcterms:identifier "isReferenceDatumFor" ;
+    rdfs:label "Is Reference Datum For"@en ;
+    skos:definition "Relates a feature used as a reference datum to the installation point for which it is the datum."@en ;
+    rdfs:subPropertyOf edo:SpatialRelation ;
+    rdfs:domain edo:Feature ;
+    rdfs:range edo:InstallationPoint ;
+    owl:inverseOf edo:hasReferenceDatum .
+
+edo:hasLongitudinalDirectionReference a owl:ObjectProperty ;
+    dcterms:identifier "hasLongitudinalDirectionReference" ;
+    rdfs:label "Has Longitudinal Direction Reference"@en ;
+    skos:definition "Relates an installation point to the feature used as its longitudinal direction reference."@en ;
+    rdfs:subPropertyOf edo:SpatialRelation ;
+    rdfs:domain edo:InstallationPoint ;
+    rdfs:range edo:Feature ;
+    owl:inverseOf edo:isLongitudinalDirectionReferenceFor .
+
+edo:isLongitudinalDirectionReferenceFor a owl:ObjectProperty ;
+    dcterms:identifier "isLongitudinalDirectionReferenceFor" ;
+    rdfs:label "Is Longitudinal Direction Reference For"@en ;
+    skos:definition "Relates a feature to the installation point for which it provides the longitudinal direction reference."@en ;
+    rdfs:subPropertyOf edo:SpatialRelation ;
+    rdfs:domain edo:Feature ;
+    rdfs:range edo:InstallationPoint ;
+    owl:inverseOf edo:hasLongitudinalDirectionReference .
+
+edo:isInterconnectedBy a owl:ObjectProperty ;
+    dcterms:identifier "isInterconnectedBy" ;
+    rdfs:label "Is Interconnected By"@en ;
+    skos:definition "Relates a domain element to an interconnection that interconnects it."@en ;
+    rdfs:subPropertyOf edo:ConnectionRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:Interconnection ;
+    owl:inverseOf edo:interconnects .
+
+edo:interconnects a owl:ObjectProperty ;
+    dcterms:identifier "interconnects" ;
+    rdfs:label "interconnects"@en ;
+    skos:definition "Relates an interconnection to a domain element that it interconnects."@en ;
+    rdfs:subPropertyOf edo:ConnectionRelation ;
+    rdfs:domain edo:Interconnection ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:isInterconnectedBy .
+
+edo:hasFeature a owl:ObjectProperty ;
+    dcterms:identifier "hasFeature" ;
+    rdfs:label "Has Feature"@en ;
+    skos:definition "Relates a domain element to a dependent feature that it carries."@en ;
+    rdfs:subPropertyOf edo:FeatureDependenceRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:Feature ;
+    owl:inverseOf edo:isFeatureOf .
+
+edo:isFeatureOf a owl:ObjectProperty ;
+    dcterms:identifier "isFeatureOf" ;
+    rdfs:label "Is Feature Of"@en ;
+    skos:definition "Relates a dependent feature to the domain element that carries it."@en ;
+    rdfs:subPropertyOf edo:FeatureDependenceRelation ;
+    rdfs:domain edo:Feature ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasFeature .
+
+edo:exposesInterface a owl:ObjectProperty ;
+    dcterms:identifier "exposesInterface" ;
+    rdfs:label "exposes Interface"@en ;
+    skos:definition "Relates a linear end to a connection interface exposed at that end without asserting feature ownership."@en ;
+    rdfs:subPropertyOf edo:InterfaceExposureRelation ;
+    rdfs:domain edo:LinearEnd ;
+    rdfs:range edo:ConnectionInterface ;
+    owl:inverseOf edo:isInterfaceExposedAt .
+
+edo:isInterfaceExposedAt a owl:ObjectProperty ;
+    dcterms:identifier "isInterfaceExposedAt" ;
+    rdfs:label "Is Interface Exposed At"@en ;
+    skos:definition "Relates a connection interface to a linear end at which that interface is exposed."@en ;
+    rdfs:subPropertyOf edo:InterfaceExposureRelation ;
+    rdfs:domain edo:ConnectionInterface ;
+    rdfs:range edo:LinearEnd ;
+    owl:inverseOf edo:exposesInterface .
+
+edo:isServedBy a owl:ObjectProperty ;
+    dcterms:identifier "isServedBy" ;
+    rdfs:label "Is Served By"@en ;
+    skos:definition "Relates a domain element to another domain element that serves it."@en ;
+    rdfs:subPropertyOf edo:FunctionalRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:serves .
+
+edo:isHostedBy a owl:ObjectProperty ;
+    dcterms:identifier "isHostedBy" ;
+    rdfs:label "Is Hosted By"@en ;
+    skos:definition "Relates a domain element to the domain element that hosts it."@en ;
+    rdfs:subPropertyOf edo:FunctionalRelation ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hosts .
+
+edo:hasMember a owl:ObjectProperty ;
+    dcterms:identifier "hasMember" ;
+    rdfs:label "Has Member"@en ;
+    skos:definition "Relates an identifiable grouping to a domain element that is its member; the grouping domain remains intentionally unspecified pending PT-08/PT-11."@en ;
+    rdfs:subPropertyOf edo:MembershipRelation ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:belongsToGroup .
+
+edo:isResponsibleFor a owl:ObjectProperty ;
+    dcterms:identifier "isResponsibleFor" ;
+    rdfs:label "Is Responsible For"@en ;
+    skos:definition "Relates an agent to a domain element for which the agent is assigned responsibility."@en ;
+    rdfs:subPropertyOf edo:ResponsibilityRelation ;
+    rdfs:domain edo:Agent ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasResponsibleAgent .
