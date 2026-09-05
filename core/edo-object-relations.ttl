@@ -10105,6 +10105,10 @@ edo:FlexiblePipeBody a owl:Class ;
 edo:FlexiblePipeSegmentEnd a owl:Class ;
     dcterms:identifier "FlexiblePipeSegmentEnd" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass edo:EndFitting ;
+            owl:onProperty edo:isTerminatedBy ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:FlangeConnection ;
             owl:onProperty edo:exposesInterface ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -10231,6 +10235,10 @@ edo:IdInSingleLineDiagram a owl:Class ;
 edo:InstallationPoint a owl:Class ;
     dcterms:identifier "InstallationPoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass edo:Feature ;
+            owl:onProperty edo:hasLongitudinalDirectionReference ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
             owl:onClass edo:RequiredLongitudinalPosition ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -10932,7 +10940,11 @@ edo:AnodeGalvanicConnectionPoint a owl:Class ;
 
 edo:Asset a owl:Class ;
     dcterms:identifier "Asset" ;
-    rdfs:subClassOf edo:DomainElement ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass edo:ManufacturingDate ;
+            owl:onProperty edo:hasAttribute ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        edo:DomainElement ;
     skos:definition "An asset is a physical project element that is individually traceable and replaceable, typically through a serial number or equivalent identification. Assets include equipment, pipeline segments, accessories, and other production or transportation items whose lifecycle must be managed individually for operation, maintenance, safety, performance, and replacement purposes."@en,
         "Um ativo é um elemento físico de projeto individualmente rastreável e substituível, normalmente por meio de número de série ou identificação equivalente. Ativos incluem equipamentos, tramos de dutos, acessórios e outros itens de produção ou transporte cujo ciclo de vida precisa ser gerenciado individualmente para fins de operação, manutenção, segurança, desempenho e substituição."@pt-br ;
     skos:prefLabel "Asset"@en,
@@ -14276,3 +14288,25 @@ edo:isResponsibleFor a owl:ObjectProperty ;
     rdfs:domain edo:Agent ;
     rdfs:range edo:DomainElement ;
     owl:inverseOf edo:hasResponsibleAgent .
+
+edo:hasInstalledAncillary a owl:ObjectProperty ;
+    rdfs:label "Has Installed Ancillary"@en,
+        "Tem Acessório Instalado"@pt-br ;
+    dcterms:identifier "hasInstalledAncillary" ;
+    skos:definition "Relates a hosting domain element to a line ancillary installed or supported on it without asserting that the ancillary is a constitutive part of the host."@en,
+        "Relaciona um elemento hospedeiro do domínio a um acessório de linha nele instalado ou suportado sem afirmar que o acessório é parte constitutiva do hospedeiro."@pt-br ;
+    rdfs:subPropertyOf edo:hosts ;
+    rdfs:domain edo:DomainElement ;
+    rdfs:range edo:LineAncillary ;
+    owl:inverseOf edo:isInstalledAncillaryOf .
+
+edo:isInstalledAncillaryOf a owl:ObjectProperty ;
+    rdfs:label "Is Installed Ancillary Of"@en,
+        "É Acessório Instalado De"@pt-br ;
+    dcterms:identifier "isInstalledAncillaryOf" ;
+    skos:definition "Relates a line ancillary to the domain element on which it is installed or supported without asserting constitutive parthood."@en,
+        "Relaciona um acessório de linha ao elemento do domínio no qual ele está instalado ou suportado sem afirmar composição constitutiva."@pt-br ;
+    rdfs:subPropertyOf edo:isHostedBy ;
+    rdfs:domain edo:LineAncillary ;
+    rdfs:range edo:DomainElement ;
+    owl:inverseOf edo:hasInstalledAncillary .
