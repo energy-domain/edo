@@ -1,0 +1,124 @@
+name: Phase A Lot 1 PT-01 foundations
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    if: github.head_ref == 'audit-evolution-phase-a-implementation'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout implementation branch
+        uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+
+      - name: Install RDF parser
+        run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+
+      - name: Apply PT-01 foundation changes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('core/edo-object-relations.ttl')
+          text = path.read_text(encoding='utf-8')
+          original = text
+
+          parts = re.split(r'(\n{2,})', text)
+          changed = []
+          for i in range(0, len(parts), 2):
+              block = parts[i]
+              if not block.startswith('edo:'):
+                  continue
+              m = re.match(r'(?s)(edo:[^\s]+\s+a\s+)(.*?)(\s*;)', block)
+              if not m:
+                  continue
+              types = m.group(2)
+              if not re.search(r'\bskos:Concept\b', types):
+                  continue
+              if 'edo:DomainVocabularyConcept' in types:
+                  continue
+              if '\n' in types:
+                  new_types = re.sub(r'\bskos:Concept\b', 'edo:DomainVocabularyConcept,\n        skos:Concept', types, count=1)
+              else:
+                  new_types = re.sub(r'\bskos:Concept\b', 'edo:DomainVocabularyConcept, skos:Concept', types, count=1)
+              parts[i] = block[:m.start(2)] + new_types + block[m.end(2):]
+              changed.append(block.split()[0])
+
+          text = ''.join(parts)
+          marker = 'owl:members ( edo:DomainElement edo:DomainAttribute edo:DomainVocabularyConcept )'
+          if marker not in text:
+              anchor = '''edo:DomainVocabularyConcept a owl:Class ;'''
+              pos = text.find(anchor)
+              if pos < 0:
+                  raise SystemExit('DomainVocabularyConcept declaration not found')
+              # Keep the axiom independent and minimally invasive; append at EOF.
+              text = text.rstrip() + '''\n\n[] a owl:AllDisjointClasses ;\n    owl:members ( edo:DomainElement edo:DomainAttribute edo:DomainVocabularyConcept ) .\n'''
+
+          if not changed:
+              raise SystemExit('Unexpected no-op: no EDO SKOS concepts needed explicit typing.')
+          path.write_text(text, encoding='utf-8')
+          print(f'Explicit typings added: {len(changed)}')
+          print('First resources:', ', '.join(changed[:12]))
+          print('Changed:', text != original)
+          PY
+
+      - name: Verify PT-01 invariants
+        shell: bash
+        run: |
+          python - <<'PY'
+          from rdflib import Graph, Namespace, RDF, OWL
+          from rdflib.namespace import SKOS
+          from rdflib.collection import Collection
+
+          EDO = Namespace('https://w3id.org/energy-domain/edo#')
+          g = Graph().parse('core/edo-object-relations.ttl', format='turtle')
+
+          edo_concepts = {s for s in g.subjects(RDF.type, SKOS.Concept) if str(s).startswith(str(EDO))}
+          missing = sorted(str(s) for s in edo_concepts if (s, RDF.type, EDO.DomainVocabularyConcept) not in g)
+          assert not missing, f'Missing DomainVocabularyConcept typings: {missing[:20]}'
+
+          wrong_schemes = sorted(str(s) for s in g.subjects(RDF.type, SKOS.ConceptScheme)
+                                 if (s, RDF.type, EDO.DomainVocabularyConcept) in g)
+          assert not wrong_schemes, f'ConceptSchemes wrongly typed: {wrong_schemes}'
+
+          roots = {EDO.DomainElement, EDO.DomainAttribute, EDO.DomainVocabularyConcept}
+          ok = False
+          for ax in g.subjects(RDF.type, OWL.AllDisjointClasses):
+              head = g.value(ax, OWL.members)
+              if head is not None and set(Collection(g, head)) == roots:
+                  ok = True
+                  break
+          assert ok, 'Required AllDisjointClasses axiom not found'
+
+          for obsolete in (EDO.DomainConcept, EDO.DomainMetamodelElement):
+              assert not any(g.triples((obsolete, None, None))), f'Obsolete subject still present: {obsolete}'
+              assert not any(g.triples((None, None, obsolete))), f'Obsolete object still present: {obsolete}'
+
+          print('triples', len(g))
+          print('edo_skos_concepts', len(edo_concepts))
+          print('lot1_invariants OK')
+          PY
+          git diff --check
+          git diff --stat
+          git diff -- core/edo-object-relations.ttl | sed -n '1,260p'
+
+      - name: Commit verified Lot 1 and remove runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot1-pt01.yml
+          git add core/edo-object-relations.ttl
+          git diff --cached --check
+          git commit -m "Implement PT-01 ontology foundations"
+          git push origin HEAD:audit-evolution-phase-a-implementation
