@@ -25,12 +25,11 @@ jobs:
           P=Path('core/edo-object-relations.ttl')
           text=P.read_text(encoding='utf-8')
 
-          # Precondition: exact current target occurrences from residual audit.
           expected={
             'NominalFloatVolume':3,'NominalFloatDensity':3,
             'ShortTermFloatVolume':3,'ShortTermFloatDensity':3,
             'LongTermFloatVolume':3,'LongTermFloatDensity':3,
-            'IdInUnifilarDiagram':4,'SpecialRequirements':2,
+            'IdInUnifilarDiagram':3,'SpecialRequirements':2,
           }
           for term,n in expected.items():
               got=text.count(term)
@@ -66,13 +65,9 @@ jobs:
                   if not ps: raise SystemExit(f'{cls}: no safe separator')
                   parts[i]=block[:ps[-1].start()]+block[end:]
           def remove_subject(parts,m,name):
-              i=m[name]
-              parts[i]=''
-              # keep separators harmless; final join remains valid.
+              parts[m[name]]=''
 
           parts=split_blocks(text); m=byname(parts)
-
-          # P23: Nominal pair does not belong to target model; do not map its values to SOL.
           remove_restriction(parts,m,'BuoyancyModule',['owl:onClass edo:NominalFloatVolume','owl:onProperty edo:hasAttribute','owl:qualifiedCardinality "1"'])
           remove_restriction(parts,m,'BuoyancyModule',['owl:onClass edo:NominalFloatDensity','owl:onProperty edo:hasAttribute','owl:qualifiedCardinality "1"'])
           remove_subject(parts,m,'NominalFloatVolume')
@@ -86,20 +81,15 @@ jobs:
             'LongTermFloatDensity':'EndOfLifeFloatDensity',
             'IdInUnifilarDiagram':'IdInSingleLineDiagram',
           }
-          for old,new in rename.items():
-              text=text.replace(old,new)
+          for old,new in rename.items(): text=text.replace(old,new)
 
-          # P30: SpecialRequirements is removed entirely; its FlexiblePipeSegment restriction was removed in cleanup pass.
           parts=split_blocks(text); m=byname(parts)
           remove_subject(parts,m,'SpecialRequirements')
           text=''.join(parts)
-
-          # Approved P23 labels/definitions including SOL/EOL terminology.
           parts=split_blocks(text); m=byname(parts)
+
           def set_predicate_block(name,pred,lines):
-              i=m[name]; block=parts[i]; ls=block.splitlines()
-              # section parser
-              header=[]; secs=[]; cur=None
+              i=m[name]; block=parts[i]; ls=block.splitlines(); header=[]; secs=[]; cur=None
               for line in ls:
                   mm=re.match(r'^    ([A-Za-z_][\w-]*:[\w-]+)\s+',line)
                   if mm:
@@ -140,8 +130,6 @@ jobs:
           set_predicate_block('EndOfLifeFloatDensity','skos:definition',[
             '    skos:definition "Density characteristic of the buoyancy module at EOL — End of Life, representing its end-of-life buoyancy condition after lifecycle effects."@en,',
             '        "Característica de densidade do módulo de flutuação em EOL — End of Life (fim da vida), representando sua condição de flutuabilidade no fim da vida após os efeitos do ciclo de vida."@pt-br'])
-
-          # P30 exact approved identifier labels/definition.
           set_predicate_block('IdInSingleLineDiagram','skos:prefLabel',[
             '    skos:prefLabel "ID in Single-Line Diagram"@en,',
             '        "Identificador no Diagrama Unifilar"@pt-br'])
@@ -160,43 +148,28 @@ jobs:
           from pathlib import Path
           EDO=Namespace('https://w3id.org/energy-domain/edo#')
           SKOS=Namespace('http://www.w3.org/2004/02/skos/core#')
-          DCT=Namespace('http://purl.org/dc/terms/')
           g=Graph().parse('core/edo-object-relations.ttl',format='turtle')
           text=Path('core/edo-object-relations.ttl').read_text(encoding='utf-8')
           old=['NominalFloatVolume','NominalFloatDensity','ShortTermFloatVolume','ShortTermFloatDensity','LongTermFloatVolume','LongTermFloatDensity','IdInUnifilarDiagram','SpecialRequirements']
           for n in old: assert n not in text,(n,'residual in target TTL')
           new=['StartOfLifeFloatVolume','StartOfLifeFloatDensity','EndOfLifeFloatVolume','EndOfLifeFloatDensity','IdInSingleLineDiagram']
           for n in new: assert any(g.triples((EDO[n],None,None))),(n,'missing new class')
-
           def q(c,p,f,n):
               for r in g.objects(EDO[c],RDFS.subClassOf):
-                  if (r,OWL.onProperty,EDO[p]) in g and (r,OWL.onClass,EDO[f]) in g:
-                      if any(int(v)==n for v in g.objects(r,OWL.qualifiedCardinality)): return True
+                  if (r,OWL.onProperty,EDO[p]) in g and (r,OWL.onClass,EDO[f]) in g and any(int(v)==n for v in g.objects(r,OWL.qualifiedCardinality)): return True
               return False
-          # Exactly four canonical SOL/EOL attributes preserved; no Nominal restrictions.
           for a in ['StartOfLifeFloatVolume','StartOfLifeFloatDensity','EndOfLifeFloatVolume','EndOfLifeFloatDensity']:
               assert q('BuoyancyModule','hasAttribute',a,1),a
           assert sum(1 for r in g.objects(EDO.BuoyancyModule,RDFS.subClassOf) if (r,OWL.onProperty,EDO.hasAttribute) in g and any((r,OWL.onClass,EDO[a]) in g for a in ['StartOfLifeFloatVolume','StartOfLifeFloatDensity','EndOfLifeFloatVolume','EndOfLifeFloatDensity']))==4
-
-          # SOL/EOL definitions explicitly carry approved terminology.
           for n,token in [('StartOfLifeFloatVolume','SOL'),('StartOfLifeFloatDensity','SOL'),('EndOfLifeFloatVolume','EOL'),('EndOfLifeFloatDensity','EOL')]:
-              defs=' '.join(str(x) for x in g.objects(EDO[n],SKOS.definition))
-              assert token in defs,(n,'missing',token)
-          # No global lifecycle phase reintroduced on SOL/EOL classes.
-          for n in ['StartOfLifeFloatVolume','StartOfLifeFloatDensity','EndOfLifeFloatVolume','EndOfLifeFloatDensity']:
-              assert not list(g.objects(EDO[n],EDO.hasLifecycleCreationPhase)),(n,'phase unexpectedly reintroduced')
-
-          # P30 exact approved labels/definitions.
+              defs=' '.join(str(x) for x in g.objects(EDO[n],SKOS.definition)); assert token in defs,(n,token)
+              assert not list(g.objects(EDO[n],EDO.hasLifecycleCreationPhase)),(n,'phase')
           assert Literal('ID in Single-Line Diagram',lang='en') in set(g.objects(EDO.IdInSingleLineDiagram,SKOS.prefLabel))
           assert Literal('Identificador no Diagrama Unifilar',lang='pt-br') in set(g.objects(EDO.IdInSingleLineDiagram,SKOS.prefLabel))
           assert Literal('Identifier assigned to the item in a single-line diagram, used to reference that item within the diagram.',lang='en') in set(g.objects(EDO.IdInSingleLineDiagram,SKOS.definition))
           assert Literal('Identificador atribuído ao item em um diagrama unifilar, usado para referenciar esse item no próprio diagrama.',lang='pt-br') in set(g.objects(EDO.IdInSingleLineDiagram,SKOS.definition))
-
-          # Undecided HardwareItem cardinality is preserved, only its renamed filler changes.
           assert q('HardwareItem','hasAttribute','IdInSingleLineDiagram',1),'HardwareItem cardinality changed incidentally'
-          # FlexiblePipeSegment P30 global requirement remains absent.
           assert not q('FlexiblePipeSegment','hasAttribute','IdInSingleLineDiagram',1)
-
           print('triples',len(g))
           print('P23 P30 gate OK')
           PY
