@@ -1,0 +1,65 @@
+name: Phase A Lot 3 legacy relation audit
+
+on:
+  pull_request:
+    branches: [main]
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    if: github.head_ref == 'audit-evolution-phase-a-implementation'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Audit legacy terms and retired families
+        shell: bash
+        run: |
+          python - <<'PY'
+          from rdflib import Graph, Namespace, RDF, RDFS, OWL
+          from rdflib.namespace import XSD
+          EDO=Namespace('https://w3id.org/energy-domain/edo#')
+          g=Graph().parse('core/edo-object-relations.ttl',format='turtle')
+          legacy=['isDefinedByType','isDefinedByCatalogItem','hasSubject','hasInterconnection','hasEndInterface','isEndInterfaceOf']
+          families=['MaterialRelation','InformationRelation','InterfaceRelation','OrganizationalRelation']
+          print('TRIPLES',len(g))
+          for f in families:
+              children=sorted(str(s).split('#')[-1] for s in g.subjects(RDFS.subPropertyOf,EDO[f]))
+              print('FAMILY_CHILDREN',f,children)
+          for n in legacy:
+              p=EDO[n]
+              print('\nLEGACY',n)
+              print('  direct_parent', [str(o).split('#')[-1] for o in g.objects(p,RDFS.subPropertyOf)])
+              print('  domain', [str(o).split('#')[-1] for o in g.objects(p,RDFS.domain)])
+              print('  range', [str(o).split('#')[-1] for o in g.objects(p,RDFS.range)])
+              print('  inverse', [str(o).split('#')[-1] for o in g.objects(p,OWL.inverseOf)])
+              print('  subproperties', sorted(str(s).split('#')[-1] for s in g.subjects(RDFS.subPropertyOf,p)))
+              restrictions=[]
+              for r in g.subjects(OWL.onProperty,p):
+                  owners=[]
+                  for owner in g.subjects(RDFS.subClassOf,r):
+                      owners.append(str(owner).split('#')[-1])
+                  details=[]
+                  for pred,label in [(OWL.someValuesFrom,'some'),(OWL.allValuesFrom,'only'),(OWL.onClass,'onClass'),(OWL.qualifiedCardinality,'exact'),(OWL.minQualifiedCardinality,'min'),(OWL.maxQualifiedCardinality,'max')]:
+                      vals=list(g.objects(r,pred))
+                      if vals: details.append((label,[str(v).split('#')[-1] for v in vals]))
+                  restrictions.append((owners,details))
+              print('  restrictions',restrictions)
+              predicate_uses=sum(1 for _ in g.triples((None,p,None)))
+              object_uses=sum(1 for _ in g.triples((None,None,p)))
+              print('  predicate_uses',predicate_uses,'object_uses',object_uses)
+          PY
+      - name: Remove audit runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot3-audit.yml
+          git commit -m "Record Lot 3 legacy relation audit checkpoint"
+          git push origin HEAD:audit-evolution-phase-a-implementation
