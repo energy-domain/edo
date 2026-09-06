@@ -14310,3 +14310,178 @@ edo:isInstalledAncillaryOf a owl:ObjectProperty ;
     rdfs:domain edo:LineAncillary ;
     rdfs:range edo:DomainElement ;
     owl:inverseOf edo:hasInstalledAncillary .
+
+edo:DomainMetamodelEntity a owl:Class ;
+    rdfs:label "Domain Metamodel Entity"@en,
+        "Entidade de Metamodelo de Domínio"@pt-br ;
+    dcterms:identifier "DomainMetamodelEntity" ;
+    skos:definition "Root class for executable metamodel entities that govern EDO modelling and information requirements without representing domain occurrences."@en,
+        "Classe raiz para entidades executáveis do metamodelo que governam a modelagem da EDO e requisitos de informação sem representar ocorrências do domínio."@pt-br ;
+    owl:disjointWith edo:DomainElement .
+
+edo:AttributeApplicabilityRule a owl:Class ;
+    rdfs:label "Attribute Applicability Rule"@en,
+        "Regra de Aplicabilidade de Atributo"@pt-br ;
+    dcterms:identifier "AttributeApplicabilityRule" ;
+    skos:definition "Executable metamodel rule stating whether a domain attribute class is semantically applicable to a domain element class, independently of delivery presence requirements."@en,
+        "Regra executável do metamodelo que declara se uma classe de atributo de domínio é semanticamente aplicável a uma classe de elemento de domínio, independentemente de requisitos de presença na entrega."@pt-br ;
+    rdfs:subClassOf edo:DomainMetamodelEntity,
+        [ a owl:Restriction ;
+            owl:onProperty edo:applicableElementClass ;
+            owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onProperty edo:applicableAttributeClass ;
+            owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onProperty edo:applicabilityDisposition ;
+            owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+
+edo:AttributeRequirement a owl:Class ;
+    rdfs:label "Attribute Requirement"@en,
+        "Requisito de Atributo"@pt-br ;
+    dcterms:identifier "AttributeRequirement" ;
+    skos:definition "Executable information-contract rule governing explicit occurrences of an applicable attribute in a product of information under closed-world validation."@en,
+        "Regra executável de contrato de informação que governa ocorrências explícitas de um atributo aplicável em um produto de informação sob validação de mundo fechado."@pt-br ;
+    rdfs:subClassOf edo:DomainMetamodelEntity,
+        [ a owl:Restriction ;
+            owl:onProperty edo:forApplicability ;
+            owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onProperty edo:minOccurs ;
+            owl:maxCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onProperty edo:maxOccurs ;
+            owl:maxCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onProperty edo:appliesToAllInformationStates ;
+            owl:cardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onProperty edo:appliesToAllLifecyclePhases ;
+            owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+
+edo:DomainMetamodelRelation a owl:ObjectProperty ;
+    rdfs:label "Domain Metamodel Relation"@en,
+        "Relação de Metamodelo de Domínio"@pt-br ;
+    dcterms:identifier "DomainMetamodelRelation" ;
+    skos:definition "Root object-property family for executable relations between EDO metamodel entities and the resources they govern."@en,
+        "Família raiz de propriedades de objeto para relações executáveis entre entidades do metamodelo da EDO e os recursos que elas governam."@pt-br .
+
+edo:applicableElementClass a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeApplicabilityRule ;
+    rdfs:range owl:Class ;
+    dcterms:identifier "applicableElementClass" ;
+    skos:definition "References, by OWL 2 punning, the EDO domain-element class governed by an attribute applicability rule."@en,
+        "Referencia, por punning OWL 2, a classe de elemento de domínio da EDO governada por uma regra de aplicabilidade de atributo."@pt-br .
+
+edo:applicableAttributeClass a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeApplicabilityRule ;
+    rdfs:range owl:Class ;
+    dcterms:identifier "applicableAttributeClass" ;
+    skos:definition "References, by OWL 2 punning, the EDO domain-attribute class governed by an attribute applicability rule."@en,
+        "Referencia, por punning OWL 2, a classe de atributo de domínio da EDO governada por uma regra de aplicabilidade de atributo."@pt-br .
+
+edo:applicabilityDisposition a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeApplicabilityRule ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    dcterms:identifier "applicabilityDisposition" ;
+    skos:definition "Selects the applicability disposition of a rule; the normative values are Applicable and NotApplicable."@en,
+        "Seleciona a disposição de aplicabilidade de uma regra; os valores normativos são Applicable e NotApplicable."@pt-br .
+
+edo:specializesApplicability a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeApplicabilityRule ;
+    rdfs:range edo:AttributeApplicabilityRule ;
+    dcterms:identifier "specializesApplicability" ;
+    skos:definition "Explicitly orders an attribute applicability rule as a specialization of another applicability rule."@en,
+        "Ordena explicitamente uma regra de aplicabilidade de atributo como especialização de outra regra de aplicabilidade."@pt-br .
+
+edo:creationPhase a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeApplicabilityRule ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    dcterms:identifier "creationPhase" ;
+    skos:definition "Selects a lifecycle phase in which the attribute value is created or established when that phase depends on the element-class and attribute-class applicability context."@en,
+        "Seleciona uma fase do ciclo de vida em que o valor do atributo é criado ou estabelecido quando essa fase depende do contexto de aplicabilidade entre classe de elemento e classe de atributo."@pt-br .
+
+edo:forApplicability a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeRequirement ;
+    rdfs:range edo:AttributeApplicabilityRule ;
+    dcterms:identifier "forApplicability" ;
+    skos:definition "Links an attribute requirement to the applicability rule it governs."@en,
+        "Liga um requisito de atributo à regra de aplicabilidade que ele governa."@pt-br .
+
+edo:specializesRequirement a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeRequirement ;
+    rdfs:range edo:AttributeRequirement ;
+    dcterms:identifier "specializesRequirement" ;
+    skos:definition "Explicitly orders an attribute requirement as a specialization of another requirement."@en,
+        "Ordena explicitamente um requisito de atributo como especialização de outro requisito."@pt-br .
+
+edo:informationState a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeRequirement ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    dcterms:identifier "informationState" ;
+    skos:definition "Selects an information-state concept in which an attribute requirement applies; the controlled state vocabulary is materialized separately."@en,
+        "Seleciona um conceito de estado da informação no qual um requisito de atributo se aplica; o vocabulário controlado de estados é materializado separadamente."@pt-br .
+
+edo:requirementLifecyclePhase a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:AttributeRequirement ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    dcterms:identifier "requirementLifecyclePhase" ;
+    skos:definition "Selects a lifecycle phase in which explicit delivery of the attribute is governed by the requirement, independently of value-creation phase."@en,
+        "Seleciona uma fase do ciclo de vida em que a entrega explícita do atributo é governada pelo requisito, independentemente da fase de criação do valor."@pt-br .
+
+edo:minOccurs a owl:DatatypeProperty ;
+    rdfs:domain edo:AttributeRequirement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    dcterms:identifier "minOccurs" ;
+    skos:definition "Minimum number of explicit occurrences required in the information product; absence of this property means unspecified, not zero."@en,
+        "Número mínimo de ocorrências explícitas exigidas no produto de informação; ausência desta propriedade significa não especificado, e não zero."@pt-br .
+
+edo:maxOccurs a owl:DatatypeProperty ;
+    rdfs:domain edo:AttributeRequirement ;
+    rdfs:range xsd:nonNegativeInteger ;
+    dcterms:identifier "maxOccurs" ;
+    skos:definition "Maximum number of explicit occurrences allowed in the information product; absence means that no upper bound is declared."@en,
+        "Número máximo de ocorrências explícitas permitido no produto de informação; ausência significa que nenhum limite superior foi declarado."@pt-br .
+
+edo:appliesToAllInformationStates a owl:DatatypeProperty ;
+    rdfs:domain edo:AttributeRequirement ;
+    rdfs:range xsd:boolean ;
+    dcterms:identifier "appliesToAllInformationStates" ;
+    skos:definition "Explicit boolean marker indicating whether the requirement is universal across information states."@en,
+        "Marcador booleano explícito que indica se o requisito é universal em relação aos estados da informação."@pt-br .
+
+edo:appliesToAllLifecyclePhases a owl:DatatypeProperty ;
+    rdfs:domain edo:AttributeRequirement ;
+    rdfs:range xsd:boolean ;
+    dcterms:identifier "appliesToAllLifecyclePhases" ;
+    skos:definition "Explicit boolean marker indicating whether the requirement is universal across lifecycle phases."@en,
+        "Marcador booleano explícito que indica se o requisito é universal em relação às fases do ciclo de vida."@pt-br .
+
+edo:Applicable a owl:NamedIndividual,
+        edo:DomainVocabularyConcept,
+        skos:Concept ;
+    dcterms:identifier "Applicable" ;
+    skos:broader edo:MetamodelConcepts ;
+    skos:definition "Disposition stating that an attribute is semantically applicable in the scope of an AttributeApplicabilityRule."@en,
+        "Disposição que declara que um atributo é semanticamente aplicável no escopo de uma AttributeApplicabilityRule."@pt-br ;
+    skos:prefLabel "Applicable"@en,
+        "Aplicável"@pt-br .
+
+edo:NotApplicable a owl:NamedIndividual,
+        edo:DomainVocabularyConcept,
+        skos:Concept ;
+    dcterms:identifier "NotApplicable" ;
+    skos:broader edo:MetamodelConcepts ;
+    skos:definition "Disposition stating that an attribute is semantically not applicable in the scope of an AttributeApplicabilityRule."@en,
+        "Disposição que declara que um atributo não é semanticamente aplicável no escopo de uma AttributeApplicabilityRule."@pt-br ;
+    skos:prefLabel "Not Applicable"@en,
+        "Não Aplicável"@pt-br .
