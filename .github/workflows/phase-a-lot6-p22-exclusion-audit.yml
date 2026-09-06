@@ -1,0 +1,84 @@
+name: Phase A Lot 6 P22 exclusion audit
+
+on:
+  pull_request:
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Calculate exact P22 deferred class-attribute pairs
+        shell: bash
+        run: |
+          python - <<'PY'
+          from rdflib import Graph, Namespace, RDFS, OWL
+          EDO=Namespace('https://w3id.org/energy-domain/edo#')
+          g=Graph().parse('core/edo-object-relations.ttl',format='turtle')
+          def local(u): return str(u).split('#')[-1]
+          pairs=set()
+          for c,r in g.subject_objects(RDFS.subClassOf):
+              if not str(c).startswith(str(EDO)) or (r,OWL.onProperty,EDO.hasAttribute) not in g: continue
+              fs=set(g.objects(r,OWL.onClass))|set(g.objects(r,OWL.someValuesFrom))|set(g.objects(r,OWL.allValuesFrom))
+              for f in fs:
+                  if str(f).startswith(str(EDO)): pairs.add((local(c),local(f)))
+
+          prefixes={
+            'BendRestrictor':['BendMomentVsShearForceTable_'],
+            'FlexiblePipeSegment':['EarlyLeakMaxPressTable_','EarlyLeakNomPressTable_'],
+            'FlexiblePipeStructure':['BendingMomentTable_','FrictionCoefficientTighteningTable_','LayingMinimumRadiusTable_','MaximumAllowableTensionTable_','MaximumAllowableTighteningTable_'],
+            'PolymericMaterialSpecification':['DiffusionTable_','EModVsTempTable_','PermeabilityTable_','SolubilityTable_'],
+            'SubseaPipeline':['InternalIncidentalPressureTable_','MaxDesignAbsIntPresTable_'],
+            'MetallicStrandSet':['StrandsTable_'],
+          }
+          params={
+            'FlexiblePipeStructure':{
+              'AbsoluteInsidePressure','AbsoluteOutsidePressure','CriticalCurvatureOfSlipping','InsideTemperature','OutsideTemperature',
+              'IntermediateValuesStrategy','PreSlippingBendingStiffness','PostSlippingBendingStiffness','TensileArmourAnnulusCondition','TestConditions',
+              'MaximumAmbientTemperature','TensionerPadsMaterial','TensionerPadsOpeningAngle','TensionerPadsShape','TensionerTracksQuantity','UtilizationFactor','DimensioningCriteria'
+            },
+            'FlexiblePipeSegment':{'IntermediateValuesStrategy'},
+          }
+          deferred=set()
+          reasons={}
+          for c,a in pairs:
+              if any(a.startswith(p) for p in prefixes.get(c,())):
+                  deferred.add((c,a)); reasons[(c,a)]='P22 prefixed column/table member'
+              if a in params.get(c,set()):
+                  deferred.add((c,a)); reasons[(c,a)]='P22 dataset parameter'
+
+          print('CURRENT_PAIRS',len(pairs))
+          print('P22_DEFERRED',len(deferred))
+          for x in sorted(deferred): print('P22',x[0],x[1],reasons[x])
+          print('\nELIGIBLE_AFTER_P22',len(pairs-deferred))
+
+          # Explicitly show DimensionsTable remains outside P22.
+          dims=sorted(x for x in pairs if 'DrawingDimensionsTable_' in x[1] or 'DimensionsTable_' in x[1])
+          print('\nDIMENSIONS_OUTSIDE_P22',len(dims))
+          for x in dims: print('DIMENSIONS',x[0],x[1], 'DEFERRED' if x in deferred else 'ELIGIBLE')
+
+          # Sanity: all prefixed current members for the 15 groupings must be captured.
+          all_prefixes=[p for ps in prefixes.values() for p in ps]
+          stray=[]
+          for c,a in pairs:
+              if any(a.startswith(p) for p in all_prefixes) and (c,a) not in deferred: stray.append((c,a))
+          print('\nSTRAY_PREFIXED',len(stray))
+          for x in sorted(stray): print('STRAY',*x)
+          assert not stray
+          PY
+      - name: Remove audit runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot6-p22-exclusion-audit.yml
+          git commit -m "Record Lot 6 P22 exclusion audit"
+          git push origin HEAD:audit-evolution-phase-a-implementation
