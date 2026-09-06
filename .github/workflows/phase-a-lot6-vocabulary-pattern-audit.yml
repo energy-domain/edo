@@ -1,0 +1,42 @@
+name: Phase A Lot 6 vocabulary pattern audit
+
+on:
+  pull_request:
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Inspect lifecycle and metamodel controlled-vocabulary patterns
+        shell: bash
+        run: |
+          python - <<'PY'
+          from rdflib import Graph, Namespace, RDF, RDFS, OWL, SKOS
+          EDO=Namespace('https://w3id.org/energy-domain/edo#')
+          g=Graph().parse('core/edo-object-relations.ttl',format='turtle')
+          for n in ['LifecyclePhase','LifecyclePhaseScheme','LifecyclePhases','MetamodelConcepts','DomainVocabularyConcept','DomainElement','DomainAttribute']:
+            u=EDO[n]
+            print('\nTERM',n)
+            for t in g.triples((u,None,None)): print(' OUT',*[str(x) for x in t])
+            for t in g.triples((None,None,u)): print(' IN ',*[str(x) for x in t])
+          print('\nLIFECYCLE_MEMBERS')
+          for s in sorted(set(g.subjects(SKOS.inScheme,EDO.LifecyclePhaseScheme)),key=str): print(' ',str(s)[len(str(EDO)):])
+          print('\nMETAMODEL_CONCEPT_MEMBERS')
+          for s in sorted(set(g.subjects(SKOS.inScheme,EDO.MetamodelConcepts)),key=str): print(' ',str(s)[len(str(EDO)):])
+          PY
+      - name: Remove audit runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot6-vocabulary-pattern-audit.yml
+          git commit -m "Record Lot 6 vocabulary pattern audit"
+          git push origin HEAD:audit-evolution-phase-a-implementation
