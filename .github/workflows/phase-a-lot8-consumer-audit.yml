@@ -1,0 +1,151 @@
+name: Phase A Lot 8 consumer residual audit
+
+on:
+  pull_request:
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Audit residual references and consumer roles
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess,re,json
+          from collections import defaultdict
+          from rdflib import Graph, URIRef, RDF, OWL
+
+          TARGET='core/edo-object-relations.ttl'
+          legacy=[
+            'MaterialRelation','InformationRelation','InterfaceRelation','OrganizationalRelation',
+            'hasEndInterface','isEndInterfaceOf','isDefinedByType','isDefinedByCatalogItem','hasSubject','hasInterconnection',
+            'NominalFloatVolume','NominalFloatDensity','ShortTermFloatVolume','ShortTermFloatDensity','LongTermFloatVolume','LongTermFloatDensity',
+            'IdInUnifilarDiagram','SpecialRequirements'
+          ]
+          replacement=[
+            'hasTechnicalConfiguration','hasActivityTarget','exposesInterface','isInterfaceExposedAt',
+            'StartOfLifeFloatVolume','StartOfLifeFloatDensity','EndOfLifeFloatVolume','EndOfLifeFloatDensity',
+            'IdInSingleLineDiagram','hasInstalledAncillary','isInstalledAncillaryOf',
+            'DomainMetamodelEntity','AttributeApplicabilityRule','AttributeRequirement','InformationStateScheme','Shared','Published'
+          ]
+          tracked=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          tracked=[p for p in tracked if p and p!=TARGET and not p.startswith('.github/workflows/phase-a-lot8-')]
+          print('HEAD',subprocess.check_output(['git','rev-parse','HEAD']).decode().strip())
+          print('BASE_MAIN',subprocess.check_output(['git','rev-parse','origin/main']).decode().strip())
+          print('\nDIFF_MAIN_TO_BRANCH')
+          print(subprocess.check_output(['git','diff','--name-status','origin/main...HEAD']).decode())
+
+          def scan_terms(terms,title):
+              hits=defaultdict(lambda:defaultdict(list))
+              for p in tracked:
+                  path=Path(p)
+                  try: text=path.read_text(encoding='utf-8')
+                  except Exception: continue
+                  lines=text.splitlines()
+                  for n,line in enumerate(lines,1):
+                      for t in terms:
+                          if t in line:
+                              hits[p][t].append((n,line.strip()[:240]))
+              print('\n'+title,'FILES',len(hits))
+              for p in sorted(hits):
+                  print('FILE',p)
+                  for t in terms:
+                      arr=hits[p].get(t)
+                      if arr:
+                          print(' TERM',t,'COUNT',len(arr))
+                          for n,line in arr[:5]: print('  LINE',n,line)
+                          if len(arr)>5: print('  ...')
+              return hits
+
+          oldhits=scan_terms(legacy,'LEGACY_REFERENCES_OUTSIDE_TARGET')
+          newhits=scan_terms(replacement,'NEW_REFERENCES_OUTSIDE_TARGET')
+
+          print('\nLEGACY_FILE_SUMMARY')
+          for p in sorted(oldhits):
+              terms=sorted(oldhits[p])
+              print('SUMMARY',p,'TERMS',len(terms),'MATCHES',sum(len(v) for v in oldhits[p].values()),'LIST',','.join(terms))
+
+          # Specific consumer zones.
+          zones={
+            'CORE':['core/'],
+            'IFC_MAPPING':['mappings/ifc/'],
+            'MODULES':['modules/'],
+            'DOCS':['docs/'],
+            'TOOLS':['tools/'],
+            'RELEASE':['release/']
+          }
+          print('\nZONE_SUMMARY')
+          for z,prefixes in zones.items():
+              files=[p for p in oldhits if any(p.startswith(pr) for pr in prefixes)]
+              print(z,'FILES',len(files),'MATCHES',sum(sum(len(v) for v in oldhits[p].values()) for p in files))
+              for p in sorted(files): print(' ',p)
+
+          # TTL syntax and ontology/import metadata.
+          print('\nTTL_PARSE')
+          ttl_files=[p for p in tracked+[TARGET] if p.endswith('.ttl')]
+          for p in sorted(ttl_files):
+              g=Graph()
+              try:
+                  g.parse(p,format='turtle')
+                  onts=list(g.subjects(RDF.type,OWL.Ontology))
+                  imports=[]
+                  for o in onts: imports.extend(str(x) for x in g.objects(o,OWL.imports))
+                  print('TTL_OK',p,'TRIPLES',len(g),'ONTOLOGIES',len(onts),'IMPORTS',len(imports),(';'.join(imports[:5]) if imports else '-'))
+              except Exception as e:
+                  print('TTL_FAIL',p,repr(e))
+
+          # Core relationship among the three core TTLs.
+          print('\nCORE_METADATA')
+          for p in ['core/edo-object-relations.ttl','core/edo.ttl','core/energy-domain-ontology.ttl']:
+              path=Path(p)
+              print('CORE_FILE',p,'EXISTS',path.exists(),'BYTES',path.stat().st_size if path.exists() else 0)
+              if path.exists():
+                  txt=path.read_text(encoding='utf-8')
+                  print(' TARGET_NAME_REF',TARGET in txt or 'edo-object-relations.ttl' in txt)
+                  print(' OWL_IMPORTS_COUNT',txt.count('owl:imports'))
+                  print(' VERSIONINFO_LINES',[x.strip() for x in txt.splitlines() if 'owl:versionInfo' in x][:3])
+
+          # Mapping-specific exact result for high-risk migration terms.
+          print('\nIFC_MAPPING_HIGH_RISK')
+          m='mappings/ifc/edo-ifc.ttl'
+          mt=Path(m).read_text(encoding='utf-8') if Path(m).exists() else ''
+          for t in legacy+replacement:
+              c=mt.count(t)
+              if c: print('MAPPING_TERM',t,'COUNT',c)
+
+          # Historical refactoring scripts.
+          print('\nSCRIPT_HIGH_RISK')
+          for p in sorted(x for x in tracked if x.endswith('.py')):
+              txt=Path(p).read_text(encoding='utf-8',errors='ignore')
+              found=[t for t in legacy+replacement if t in txt]
+              if found: print('SCRIPT',p,'TERMS',','.join(found))
+
+          # Sanity: current target parses and key legacy normative use situation.
+          gt=Graph().parse(TARGET,format='turtle')
+          E='https://w3id.org/energy-domain/edo#'
+          print('\nTARGET_LEGACY_RESOURCES')
+          for t in legacy:
+              u=URIRef(E+t)
+              out=sum(1 for _ in gt.triples((u,None,None)))
+              inc=sum(1 for _ in gt.triples((None,None,u)))
+              if out or inc: print('TARGET_TERM',t,'OUT',out,'IN',inc)
+          print('TARGET_TRIPLES',len(gt))
+          PY
+      - name: Remove audit runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot8-consumer-audit.yml
+          git commit -m "Record Lot 8 consumer residual audit"
+          git push origin HEAD:audit-evolution-phase-a-implementation
