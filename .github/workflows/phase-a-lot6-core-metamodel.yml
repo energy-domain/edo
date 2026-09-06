@@ -1,0 +1,351 @@
+name: Phase A Lot 6 core metamodel implementation
+
+on:
+  pull_request:
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  implement-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Materialize P4-P10 and P108-P110 core metamodel
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import textwrap
+          P=Path('core/edo-object-relations.ttl')
+          text=P.read_text(encoding='utf-8')
+          new_terms=[
+            'DomainMetamodelEntity','DomainMetamodelRelation','AttributeApplicabilityRule','AttributeRequirement',
+            'applicableElementClass','applicableAttributeClass','applicabilityDisposition','specializesApplicability',
+            'creationPhase','forApplicability','specializesRequirement','informationState','requirementLifecyclePhase',
+            'minOccurs','maxOccurs','appliesToAllInformationStates','appliesToAllLifecyclePhases','Applicable','NotApplicable'
+          ]
+          collisions=[n for n in new_terms if f'edo:{n} ' in text]
+          if collisions:
+            raise SystemExit('Unexpected existing Lot 6 terms: '+', '.join(collisions))
+          block=textwrap.dedent('''
+
+          edo:DomainMetamodelEntity a owl:Class ;
+              rdfs:label "Domain Metamodel Entity"@en,
+                  "Entidade de Metamodelo de Domínio"@pt-br ;
+              dcterms:identifier "DomainMetamodelEntity" ;
+              skos:definition "Root class for executable metamodel entities that govern EDO modelling and information requirements without representing domain occurrences."@en,
+                  "Classe raiz para entidades executáveis do metamodelo que governam a modelagem da EDO e requisitos de informação sem representar ocorrências do domínio."@pt-br ;
+              owl:disjointWith edo:DomainElement .
+
+          edo:AttributeApplicabilityRule a owl:Class ;
+              rdfs:label "Attribute Applicability Rule"@en,
+                  "Regra de Aplicabilidade de Atributo"@pt-br ;
+              dcterms:identifier "AttributeApplicabilityRule" ;
+              skos:definition "Executable metamodel rule stating whether a domain attribute class is semantically applicable to a domain element class, independently of delivery presence requirements."@en,
+                  "Regra executável do metamodelo que declara se uma classe de atributo de domínio é semanticamente aplicável a uma classe de elemento de domínio, independentemente de requisitos de presença na entrega."@pt-br ;
+              rdfs:subClassOf edo:DomainMetamodelEntity,
+                  [ a owl:Restriction ;
+                      owl:onProperty edo:applicableElementClass ;
+                      owl:cardinality "1"^^xsd:nonNegativeInteger ],
+                  [ a owl:Restriction ;
+                      owl:onProperty edo:applicableAttributeClass ;
+                      owl:cardinality "1"^^xsd:nonNegativeInteger ],
+                  [ a owl:Restriction ;
+                      owl:onProperty edo:applicabilityDisposition ;
+                      owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+
+          edo:AttributeRequirement a owl:Class ;
+              rdfs:label "Attribute Requirement"@en,
+                  "Requisito de Atributo"@pt-br ;
+              dcterms:identifier "AttributeRequirement" ;
+              skos:definition "Executable information-contract rule governing explicit occurrences of an applicable attribute in a product of information under closed-world validation."@en,
+                  "Regra executável de contrato de informação que governa ocorrências explícitas de um atributo aplicável em um produto de informação sob validação de mundo fechado."@pt-br ;
+              rdfs:subClassOf edo:DomainMetamodelEntity,
+                  [ a owl:Restriction ;
+                      owl:onProperty edo:forApplicability ;
+                      owl:cardinality "1"^^xsd:nonNegativeInteger ],
+                  [ a owl:Restriction ;
+                      owl:onProperty edo:minOccurs ;
+                      owl:maxCardinality "1"^^xsd:nonNegativeInteger ],
+                  [ a owl:Restriction ;
+                      owl:onProperty edo:maxOccurs ;
+                      owl:maxCardinality "1"^^xsd:nonNegativeInteger ],
+                  [ a owl:Restriction ;
+                      owl:onProperty edo:appliesToAllInformationStates ;
+                      owl:cardinality "1"^^xsd:nonNegativeInteger ],
+                  [ a owl:Restriction ;
+                      owl:onProperty edo:appliesToAllLifecyclePhases ;
+                      owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+
+          edo:DomainMetamodelRelation a owl:ObjectProperty ;
+              rdfs:label "Domain Metamodel Relation"@en,
+                  "Relação de Metamodelo de Domínio"@pt-br ;
+              dcterms:identifier "DomainMetamodelRelation" ;
+              skos:definition "Root object-property family for executable relations between EDO metamodel entities and the resources they govern."@en,
+                  "Família raiz de propriedades de objeto para relações executáveis entre entidades do metamodelo da EDO e os recursos que elas governam."@pt-br .
+
+          edo:applicableElementClass a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeApplicabilityRule ;
+              rdfs:range owl:Class ;
+              dcterms:identifier "applicableElementClass" ;
+              skos:definition "References, by OWL 2 punning, the EDO domain-element class governed by an attribute applicability rule."@en,
+                  "Referencia, por punning OWL 2, a classe de elemento de domínio da EDO governada por uma regra de aplicabilidade de atributo."@pt-br .
+
+          edo:applicableAttributeClass a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeApplicabilityRule ;
+              rdfs:range owl:Class ;
+              dcterms:identifier "applicableAttributeClass" ;
+              skos:definition "References, by OWL 2 punning, the EDO domain-attribute class governed by an attribute applicability rule."@en,
+                  "Referencia, por punning OWL 2, a classe de atributo de domínio da EDO governada por uma regra de aplicabilidade de atributo."@pt-br .
+
+          edo:applicabilityDisposition a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeApplicabilityRule ;
+              rdfs:range edo:DomainVocabularyConcept ;
+              dcterms:identifier "applicabilityDisposition" ;
+              skos:definition "Selects the applicability disposition of a rule; the normative values are Applicable and NotApplicable."@en,
+                  "Seleciona a disposição de aplicabilidade de uma regra; os valores normativos são Applicable e NotApplicable."@pt-br .
+
+          edo:specializesApplicability a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeApplicabilityRule ;
+              rdfs:range edo:AttributeApplicabilityRule ;
+              dcterms:identifier "specializesApplicability" ;
+              skos:definition "Explicitly orders an attribute applicability rule as a specialization of another applicability rule."@en,
+                  "Ordena explicitamente uma regra de aplicabilidade de atributo como especialização de outra regra de aplicabilidade."@pt-br .
+
+          edo:creationPhase a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeApplicabilityRule ;
+              rdfs:range edo:DomainVocabularyConcept ;
+              dcterms:identifier "creationPhase" ;
+              skos:definition "Selects a lifecycle phase in which the attribute value is created or established when that phase depends on the element-class and attribute-class applicability context."@en,
+                  "Seleciona uma fase do ciclo de vida em que o valor do atributo é criado ou estabelecido quando essa fase depende do contexto de aplicabilidade entre classe de elemento e classe de atributo."@pt-br .
+
+          edo:forApplicability a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeRequirement ;
+              rdfs:range edo:AttributeApplicabilityRule ;
+              dcterms:identifier "forApplicability" ;
+              skos:definition "Links an attribute requirement to the applicability rule it governs."@en,
+                  "Liga um requisito de atributo à regra de aplicabilidade que ele governa."@pt-br .
+
+          edo:specializesRequirement a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeRequirement ;
+              rdfs:range edo:AttributeRequirement ;
+              dcterms:identifier "specializesRequirement" ;
+              skos:definition "Explicitly orders an attribute requirement as a specialization of another requirement."@en,
+                  "Ordena explicitamente um requisito de atributo como especialização de outro requisito."@pt-br .
+
+          edo:informationState a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeRequirement ;
+              rdfs:range edo:DomainVocabularyConcept ;
+              dcterms:identifier "informationState" ;
+              skos:definition "Selects an information-state concept in which an attribute requirement applies; the controlled state vocabulary is materialized separately."@en,
+                  "Seleciona um conceito de estado da informação no qual um requisito de atributo se aplica; o vocabulário controlado de estados é materializado separadamente."@pt-br .
+
+          edo:requirementLifecyclePhase a owl:ObjectProperty ;
+              rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+              rdfs:domain edo:AttributeRequirement ;
+              rdfs:range edo:DomainVocabularyConcept ;
+              dcterms:identifier "requirementLifecyclePhase" ;
+              skos:definition "Selects a lifecycle phase in which explicit delivery of the attribute is governed by the requirement, independently of value-creation phase."@en,
+                  "Seleciona uma fase do ciclo de vida em que a entrega explícita do atributo é governada pelo requisito, independentemente da fase de criação do valor."@pt-br .
+
+          edo:minOccurs a owl:DatatypeProperty ;
+              rdfs:domain edo:AttributeRequirement ;
+              rdfs:range xsd:nonNegativeInteger ;
+              dcterms:identifier "minOccurs" ;
+              skos:definition "Minimum number of explicit occurrences required in the information product; absence of this property means unspecified, not zero."@en,
+                  "Número mínimo de ocorrências explícitas exigidas no produto de informação; ausência desta propriedade significa não especificado, e não zero."@pt-br .
+
+          edo:maxOccurs a owl:DatatypeProperty ;
+              rdfs:domain edo:AttributeRequirement ;
+              rdfs:range xsd:nonNegativeInteger ;
+              dcterms:identifier "maxOccurs" ;
+              skos:definition "Maximum number of explicit occurrences allowed in the information product; absence means that no upper bound is declared."@en,
+                  "Número máximo de ocorrências explícitas permitido no produto de informação; ausência significa que nenhum limite superior foi declarado."@pt-br .
+
+          edo:appliesToAllInformationStates a owl:DatatypeProperty ;
+              rdfs:domain edo:AttributeRequirement ;
+              rdfs:range xsd:boolean ;
+              dcterms:identifier "appliesToAllInformationStates" ;
+              skos:definition "Explicit boolean marker indicating whether the requirement is universal across information states."@en,
+                  "Marcador booleano explícito que indica se o requisito é universal em relação aos estados da informação."@pt-br .
+
+          edo:appliesToAllLifecyclePhases a owl:DatatypeProperty ;
+              rdfs:domain edo:AttributeRequirement ;
+              rdfs:range xsd:boolean ;
+              dcterms:identifier "appliesToAllLifecyclePhases" ;
+              skos:definition "Explicit boolean marker indicating whether the requirement is universal across lifecycle phases."@en,
+                  "Marcador booleano explícito que indica se o requisito é universal em relação às fases do ciclo de vida."@pt-br .
+
+          edo:Applicable a owl:NamedIndividual,
+                  edo:DomainVocabularyConcept,
+                  skos:Concept ;
+              dcterms:identifier "Applicable" ;
+              skos:broader edo:MetamodelConcepts ;
+              skos:definition "Disposition stating that an attribute is semantically applicable in the scope of an AttributeApplicabilityRule."@en,
+                  "Disposição que declara que um atributo é semanticamente aplicável no escopo de uma AttributeApplicabilityRule."@pt-br ;
+              skos:prefLabel "Applicable"@en,
+                  "Aplicável"@pt-br .
+
+          edo:NotApplicable a owl:NamedIndividual,
+                  edo:DomainVocabularyConcept,
+                  skos:Concept ;
+              dcterms:identifier "NotApplicable" ;
+              skos:broader edo:MetamodelConcepts ;
+              skos:definition "Disposition stating that an attribute is semantically not applicable in the scope of an AttributeApplicabilityRule."@en,
+                  "Disposição que declara que um atributo não é semanticamente aplicável no escopo de uma AttributeApplicabilityRule."@pt-br ;
+              skos:prefLabel "Not Applicable"@en,
+                  "Não Aplicável"@pt-br .
+          ''')
+          P.write_text(text.rstrip()+block+'\n',encoding='utf-8')
+          PY
+      - name: Verify structure and closed-world rules T03-026 through T03-032
+        shell: bash
+        run: |
+          python - <<'PY'
+          from rdflib import Graph, Namespace, RDF, RDFS, OWL, SKOS, XSD, Literal
+          EDO=Namespace('https://w3id.org/energy-domain/edo#')
+          g=Graph().parse('core/edo-object-relations.ttl',format='turtle')
+
+          # Structural declarations.
+          assert (EDO.DomainMetamodelEntity,RDF.type,OWL.Class) in g
+          assert (EDO.DomainMetamodelEntity,OWL.disjointWith,EDO.DomainElement) in g
+          assert (EDO.AttributeApplicabilityRule,RDFS.subClassOf,EDO.DomainMetamodelEntity) in g
+          assert (EDO.AttributeRequirement,RDFS.subClassOf,EDO.DomainMetamodelEntity) in g
+          assert (EDO.DomainMetamodelRelation,RDF.type,OWL.ObjectProperty) in g
+          for p in ['applicableElementClass','applicableAttributeClass','applicabilityDisposition','specializesApplicability','creationPhase','forApplicability','specializesRequirement','informationState','requirementLifecyclePhase']:
+              assert (EDO[p],RDF.type,OWL.ObjectProperty) in g,p
+              assert (EDO[p],RDFS.subPropertyOf,EDO.DomainMetamodelRelation) in g,p
+          for p,dt in [('minOccurs',XSD.nonNegativeInteger),('maxOccurs',XSD.nonNegativeInteger),('appliesToAllInformationStates',XSD.boolean),('appliesToAllLifecyclePhases',XSD.boolean)]:
+              assert (EDO[p],RDF.type,OWL.DatatypeProperty) in g,p
+              assert (EDO[p],RDFS.range,dt) in g,p
+          for v in [EDO.Applicable,EDO.NotApplicable]:
+              assert (v,RDF.type,EDO.DomainVocabularyConcept) in g
+              assert (v,RDF.type,SKOS.Concept) in g
+              assert (v,SKOS.broader,EDO.MetamodelConcepts) in g
+          assert (EDO.hasLifecycleCreationPhase,RDF.type,OWL.AnnotationProperty) in g
+          assert (EDO.creationPhase,RDF.type,OWL.ObjectProperty) in g
+
+          # Restriction-cardinality helpers.
+          def restrictions(c,p):
+              return [r for r in g.objects(c,RDFS.subClassOf) if (r,OWL.onProperty,p) in g]
+          def card(c,p,pred,n):
+              return any(any(int(v)==n for v in g.objects(r,pred)) for r in restrictions(c,p))
+          assert card(EDO.AttributeApplicabilityRule,EDO.applicableElementClass,OWL.cardinality,1)
+          assert card(EDO.AttributeApplicabilityRule,EDO.applicableAttributeClass,OWL.cardinality,1)
+          assert card(EDO.AttributeApplicabilityRule,EDO.applicabilityDisposition,OWL.cardinality,1)
+          assert card(EDO.AttributeRequirement,EDO.forApplicability,OWL.cardinality,1)
+          assert card(EDO.AttributeRequirement,EDO.minOccurs,OWL.maxCardinality,1)
+          assert card(EDO.AttributeRequirement,EDO.maxOccurs,OWL.maxCardinality,1)
+          assert card(EDO.AttributeRequirement,EDO.appliesToAllInformationStates,OWL.cardinality,1)
+          assert card(EDO.AttributeRequirement,EDO.appliesToAllLifecyclePhases,OWL.cardinality,1)
+
+          # Closed-world validator for AAR/AR instances; used here on synthetic fixtures.
+          def one(graph,s,p):
+              vals=list(graph.objects(s,p))
+              if len(vals)!=1: raise ValueError(f'{s} requires exactly one {p}; got {len(vals)}')
+              return vals[0]
+          def detect_cycle(graph,p,nodes):
+              for start in nodes:
+                  stack=[(start,[start])]
+                  while stack:
+                      cur,path=stack.pop()
+                      for nxt in graph.objects(cur,p):
+                          if nxt==start: raise ValueError(f'cycle in {p}')
+                          if nxt not in path: stack.append((nxt,path+[nxt]))
+          def validate(graph):
+              aars=set(graph.subjects(RDF.type,EDO.AttributeApplicabilityRule))
+              ars=set(graph.subjects(RDF.type,EDO.AttributeRequirement))
+              for a in aars:
+                  ec=one(graph,a,EDO.applicableElementClass)
+                  ac=one(graph,a,EDO.applicableAttributeClass)
+                  disp=one(graph,a,EDO.applicabilityDisposition)
+                  if disp not in {EDO.Applicable,EDO.NotApplicable}: raise ValueError('invalid disposition')
+                  if (ec,RDF.type,OWL.Class) not in graph: raise ValueError('element target not owl:Class')
+                  if (ac,RDF.type,OWL.Class) not in graph: raise ValueError('attribute target not owl:Class')
+                  for ph in graph.objects(a,EDO.creationPhase):
+                      if (ph,SKOS.inScheme,EDO.LifecyclePhaseScheme) not in graph: raise ValueError('creationPhase outside lifecycle scheme')
+              detect_cycle(graph,EDO.specializesApplicability,aars)
+              detect_cycle(graph,EDO.specializesRequirement,ars)
+              for r in ars:
+                  a=one(graph,r,EDO.forApplicability)
+                  if a not in aars: raise ValueError('forApplicability target not AAR')
+                  mins=list(graph.objects(r,EDO.minOccurs)); maxs=list(graph.objects(r,EDO.maxOccurs))
+                  if len(mins)>1 or len(maxs)>1: raise ValueError('multiple min/max')
+                  def nn(v):
+                      try: x=int(v)
+                      except: raise ValueError('non-integer occurs')
+                      if x<0: raise ValueError('negative occurs')
+                      return x
+                  mi=nn(mins[0]) if mins else None; ma=nn(maxs[0]) if maxs else None
+                  if mi is not None and ma is not None and mi>ma: raise ValueError('minOccurs > maxOccurs')
+                  all_states=one(graph,r,EDO.appliesToAllInformationStates)
+                  all_phases=one(graph,r,EDO.appliesToAllLifecyclePhases)
+                  if all_states.datatype!=XSD.boolean or all_phases.datatype!=XSD.boolean: raise ValueError('universal markers must be booleans')
+                  states=list(graph.objects(r,EDO.informationState)); phases=list(graph.objects(r,EDO.requirementLifecyclePhase))
+                  if bool(all_states.toPython()) and states: raise ValueError('universal states plus selector')
+                  if not bool(all_states.toPython()) and not states: raise ValueError('non-universal states without selector')
+                  if bool(all_phases.toPython()) and phases: raise ValueError('universal phases plus selector')
+                  if not bool(all_phases.toPython()) and not phases: raise ValueError('non-universal phases without selector')
+                  if (a,EDO.applicabilityDisposition,EDO.NotApplicable) in graph: raise ValueError('requirement on NotApplicable')
+              return True
+
+          def fixture(disposition=EDO.Applicable, all_states=True, all_phases=True, minv=None, maxv=None, state=None, phase=None):
+              h=Graph()
+              # carry required ontology facts used by validator
+              for cls in [EDO.Asset,EDO.IsSpare]: h.add((cls,RDF.type,OWL.Class))
+              h.add((EDO.Procurement,SKOS.inScheme,EDO.LifecyclePhaseScheme))
+              a=EDO.TestAAR; r=EDO.TestAR
+              h.add((a,RDF.type,EDO.AttributeApplicabilityRule)); h.add((a,EDO.applicableElementClass,EDO.Asset)); h.add((a,EDO.applicableAttributeClass,EDO.IsSpare)); h.add((a,EDO.applicabilityDisposition,disposition))
+              h.add((r,RDF.type,EDO.AttributeRequirement)); h.add((r,EDO.forApplicability,a)); h.add((r,EDO.appliesToAllInformationStates,Literal(all_states))); h.add((r,EDO.appliesToAllLifecyclePhases,Literal(all_phases)))
+              if minv is not None: h.add((r,EDO.minOccurs,Literal(minv,datatype=XSD.nonNegativeInteger)))
+              if maxv is not None: h.add((r,EDO.maxOccurs,Literal(maxv,datatype=XSD.nonNegativeInteger)))
+              if state is not None: h.add((r,EDO.informationState,state))
+              if phase is not None: h.add((r,EDO.requirementLifecyclePhase,phase))
+              return h
+          def must_fail(h,label):
+              try: validate(h)
+              except ValueError: return
+              raise AssertionError(label+' should fail')
+
+          assert validate(fixture(minv=0,maxv=1))
+          must_fail(fixture(disposition=EDO.NotApplicable,minv=1),'T03-027 NotApplicable requirement')
+          must_fail(fixture(all_states=True,state=EDO.SomeState),'T03-029 universal state plus selector')
+          must_fail(fixture(all_states=False),'T03-030 non-universal state without selector')
+          must_fail(fixture(all_phases=True,phase=EDO.Procurement),'T03-029 universal phase plus selector')
+          must_fail(fixture(all_phases=False),'T03-030 non-universal phase without selector')
+          must_fail(fixture(minv=2,maxv=1),'T03-031 min>max')
+          cyc=fixture(); cyc.add((EDO.TestAAR,EDO.specializesApplicability,EDO.TestAAR)); must_fail(cyc,'T03-032 AAR cycle')
+          cyc=fixture(); cyc.add((EDO.TestAR,EDO.specializesRequirement,EDO.TestAR)); must_fail(cyc,'T03-032 AR cycle')
+
+          # No global functionalization and no accidental conversion of legacy annotation.
+          assert not any(str(p).startswith(str(EDO)) for p in g.subjects(RDF.type,OWL.FunctionalProperty))
+          assert not any(str(p).startswith(str(EDO)) for p in g.subjects(RDF.type,OWL.InverseFunctionalProperty))
+          print('T03-026..T03-032 structural/closed-world core PASS')
+          print('TRIPLES',len(g))
+          PY
+          git diff --check
+          git diff --stat
+      - name: Commit verified Lot 6 core and remove runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot6-core-metamodel.yml
+          git add core/edo-object-relations.ttl
+          git diff --cached --check
+          git commit -m "Implement PT-03 AAR and AttributeRequirement metamodel core"
+          git push origin HEAD:audit-evolution-phase-a-implementation
