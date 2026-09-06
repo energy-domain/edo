@@ -1,0 +1,225 @@
+name: Phase A Lot 6 AAR population
+
+on:
+  pull_request:
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  implement-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Materialize approved AAR population
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from rdflib import Graph, Namespace, RDF, RDFS, OWL
+          EDO=Namespace('https://w3id.org/energy-domain/edo#')
+          P=Path('core/edo-object-relations.ttl')
+          text=P.read_text(encoding='utf-8')
+          g=Graph().parse(data=text,format='turtle')
+          assert sum(1 for _ in g.subjects(RDF.type,EDO.AttributeApplicabilityRule))==0, 'AAR population already exists'
+          def local(u): return str(u).split('#')[-1]
+          def descendants_of(node,root):
+              if node==root:return True
+              seen=set(); stack=[node]
+              while stack:
+                  cur=stack.pop()
+                  for p in g.objects(cur,RDFS.subClassOf):
+                      if not str(p).startswith(str(EDO)): continue
+                      if p==root:return True
+                      if p not in seen: seen.add(p); stack.append(p)
+              return False
+          def named_ancestors(c):
+              out=set(); stack=[c]
+              while stack:
+                  cur=stack.pop()
+                  for p in g.objects(cur,RDFS.subClassOf):
+                      if not str(p).startswith(str(EDO)): continue
+                      if p not in out: out.add(p); stack.append(p)
+              return out
+
+          current=set()
+          for c,r in g.subject_objects(RDFS.subClassOf):
+              if not str(c).startswith(str(EDO)) or (r,OWL.onProperty,EDO.hasAttribute) not in g: continue
+              fs=set(g.objects(r,OWL.onClass))|set(g.objects(r,OWL.someValuesFrom))|set(g.objects(r,OWL.allValuesFrom))
+              for f in fs:
+                  if str(f).startswith(str(EDO)): current.add((local(c),local(f)))
+          prefixes={
+            'BendRestrictor':['BendMomentVsShearForceTable_'],
+            'FlexiblePipeSegment':['EarlyLeakMaxPressTable_','EarlyLeakNomPressTable_'],
+            'FlexiblePipeStructure':['BendingMomentTable_','FrictionCoefficientTighteningTable_','LayingMinimumRadiusTable_','MaximumAllowableTensionTable_','MaximumAllowableTighteningTable_'],
+            'PolymericMaterialSpecification':['DiffusionTable_','EModVsTempTable_','PermeabilityTable_','SolubilityTable_'],
+            'SubseaPipeline':['InternalIncidentalPressureTable_','MaxDesignAbsIntPresTable_'],
+            'MetallicStrandSet':['StrandsTable_'],
+          }
+          params={
+            'FlexiblePipeStructure':{'AbsoluteInsidePressure','AbsoluteOutsidePressure','CriticalCurvatureOfSlipping','InsideTemperature','OutsideTemperature','IntermediateValuesStrategy','PreSlippingBendingStiffness','PostSlippingBendingStiffness','TensileArmourAnnulusCondition','TestConditions','MaximumAmbientTemperature','TensionerPadsMaterial','TensionerPadsOpeningAngle','TensionerPadsShape','TensionerTracksQuantity','UtilizationFactor','DimensioningCriteria'},
+            'FlexiblePipeSegment':{'IntermediateValuesStrategy'},
+          }
+          p22={(c,a) for c,a in current if any(a.startswith(p) for p in prefixes.get(c,())) or a in params.get(c,set())}
+          explicit_added={
+            ('Asset','IsSpare'),('Asset','SerialNumber'),('AnodeCollarSet','MetallicStrandSpareQuantity'),
+            ('FlexiblePipeSegment','AssemblyShouldObeyModelPolarity'),('FlexiblePipeSegment','IdInSingleLineDiagram'),
+            ('FlexiblePipeSegment','ManufacturingNonConformities'),('FlexiblePipeSegment','PipeSectionApplication'),
+          }
+          deferred_special={('FlexiblePipeEnvelope','RequiredRiserConfiguration'),('FlexiblePipeSegment','MaxLengthTolerance'),('HardwareItem','IdInSingleLineDiagram')}
+          candidates=(current-p22-deferred_special)|explicit_added
+          assert len(current)==306, len(current)
+          assert len(p22)==70, len(p22)
+          assert len(candidates)==242, len(candidates)
+
+          candidate_uris={(EDO[c],EDO[a]) for c,a in candidates}
+          roots=set()
+          for c,a in candidates:
+              cu,au=EDO[c],EDO[a]
+              assert (cu,RDF.type,OWL.Class) in g and descendants_of(cu,EDO.DomainElement),(c,a,'element')
+              assert (au,RDF.type,OWL.Class) in g and descendants_of(au,EDO.DomainAttribute),(c,a,'attribute')
+              covering=[x for x in named_ancestors(cu) if (x,au) in candidate_uris]
+              if not covering: roots.add((c,a))
+          assert len(roots)==242, len(roots)
+
+          blocks=[]
+          def aar_block(c,a, *, parent=None, phase=None):
+              iri=f'AAR_{c}_{a}'
+              lines=[
+                f'edo:{iri} a owl:NamedIndividual,',
+                '        edo:AttributeApplicabilityRule ;',
+                f'    dcterms:identifier "{iri}" ;',
+                f'    edo:applicableElementClass edo:{c} ;',
+                f'    edo:applicableAttributeClass edo:{a} ;',
+                '    edo:applicabilityDisposition edo:Applicable'+(' ;' if parent or phase else ' .')
+              ]
+              if parent:
+                  lines.append(f'    edo:specializesApplicability edo:{parent}'+(' ;' if phase else ' .'))
+              if phase:
+                  lines.append(f'    edo:creationPhase edo:{phase} .')
+              return '\n'.join(lines)
+          for c,a in sorted(roots): blocks.append(aar_block(c,a))
+          blocks.append(aar_block('EndFitting','IsSpare',parent='AAR_Asset_IsSpare',phase='Procurement'))
+          blocks.append(aar_block('Equipment','IsSpare',parent='AAR_Asset_IsSpare',phase='Installation'))
+          text=text.rstrip()+'\n\n'+'\n\n'.join(blocks)+'\n'
+          P.write_text(text,encoding='utf-8')
+          print('ROOT_AARS',len(roots),'SPECIAL_AARS',2,'TOTAL',len(blocks))
+          PY
+      - name: Verify AAR population and T03-033 ambiguity handling
+        shell: bash
+        run: |
+          python - <<'PY'
+          from rdflib import Graph, Namespace, RDF, RDFS, OWL, SKOS
+          EDO=Namespace('https://w3id.org/energy-domain/edo#')
+          g=Graph().parse('core/edo-object-relations.ttl',format='turtle')
+          aars=set(g.subjects(RDF.type,EDO.AttributeApplicabilityRule))
+          ars=set(g.subjects(RDF.type,EDO.AttributeRequirement))
+          assert len(aars)==244, len(aars)
+          assert len(ars)==0, 'AttributeRequirement instances belong to Lot 7 state/context population'
+
+          def one(s,p):
+              vals=list(g.objects(s,p)); assert len(vals)==1,(s,p,len(vals)); return vals[0]
+          def descendants_of(node,root):
+              if node==root:return True
+              seen=set(); stack=[node]
+              while stack:
+                  cur=stack.pop()
+                  for p in g.objects(cur,RDFS.subClassOf):
+                      if not str(p).startswith(str(EDO)): continue
+                      if p==root:return True
+                      if p not in seen: seen.add(p); stack.append(p)
+              return False
+          pairs={}
+          for a in aars:
+              e=one(a,EDO.applicableElementClass); at=one(a,EDO.applicableAttributeClass); d=one(a,EDO.applicabilityDisposition)
+              assert d==EDO.Applicable,(a,d)
+              assert (e,RDF.type,OWL.Class) in g and descendants_of(e,EDO.DomainElement),a
+              assert (at,RDF.type,OWL.Class) in g and descendants_of(at,EDO.DomainAttribute),a
+              pairs.setdefault((e,at),[]).append(a)
+              for ph in g.objects(a,EDO.creationPhase): assert (ph,SKOS.inScheme,EDO.LifecyclePhaseScheme) in g,(a,ph)
+          duplicates={k:v for k,v in pairs.items() if len(v)>1}
+          assert not duplicates,duplicates
+
+          # P11 exact specializations.
+          base=EDO.AAR_Asset_IsSpare; ef=EDO.AAR_EndFitting_IsSpare; eq=EDO.AAR_Equipment_IsSpare
+          assert (ef,EDO.specializesApplicability,base) in g and (ef,EDO.creationPhase,EDO.Procurement) in g
+          assert (eq,EDO.specializesApplicability,base) in g and (eq,EDO.creationPhase,EDO.Installation) in g
+          assert set(g.subjects(EDO.specializesApplicability,None))=={ef,eq}
+          assert set(g.subjects(EDO.creationPhase,None))=={ef,eq}
+
+          # Mandatory exclusions/deferments.
+          forbidden_pairs={
+            (EDO.FlexiblePipeEnvelope,EDO.RequiredRiserConfiguration),
+            (EDO.FlexiblePipeSegment,EDO.MaxLengthTolerance),
+            (EDO.HardwareItem,EDO.IdInSingleLineDiagram),
+          }
+          for p in forbidden_pairs: assert p not in pairs,p
+          prefixes=['BendMomentVsShearForceTable_','EarlyLeakMaxPressTable_','EarlyLeakNomPressTable_','BendingMomentTable_','FrictionCoefficientTighteningTable_','LayingMinimumRadiusTable_','MaximumAllowableTensionTable_','MaximumAllowableTighteningTable_','DiffusionTable_','EModVsTempTable_','PermeabilityTable_','SolubilityTable_','InternalIncidentalPressureTable_','MaxDesignAbsIntPresTable_','StrandsTable_']
+          for e,at in pairs:
+              local=str(at).split('#')[-1]
+              assert not any(local.startswith(p) for p in prefixes),(e,at,'P22 prefixed AAR forbidden')
+          p22_params={EDO.AbsoluteInsidePressure,EDO.AbsoluteOutsidePressure,EDO.CriticalCurvatureOfSlipping,EDO.InsideTemperature,EDO.OutsideTemperature,EDO.IntermediateValuesStrategy,EDO.PreSlippingBendingStiffness,EDO.PostSlippingBendingStiffness,EDO.TensileArmourAnnulusCondition,EDO.TestConditions,EDO.MaximumAmbientTemperature,EDO.TensionerPadsMaterial,EDO.TensionerPadsOpeningAngle,EDO.TensionerPadsShape,EDO.TensionerTracksQuantity,EDO.UtilizationFactor,EDO.DimensioningCriteria}
+          for at in p22_params: assert (EDO.FlexiblePipeStructure,at) not in pairs,(at,'P22 parameter AAR forbidden')
+
+          # Explicit removed-but-applicable pairs exist.
+          required=[
+            (EDO.Asset,EDO.IsSpare),(EDO.Asset,EDO.SerialNumber),(EDO.AnodeCollarSet,EDO.MetallicStrandSpareQuantity),
+            (EDO.FlexiblePipeSegment,EDO.AssemblyShouldObeyModelPolarity),(EDO.FlexiblePipeSegment,EDO.IdInSingleLineDiagram),
+            (EDO.FlexiblePipeSegment,EDO.ManufacturingNonConformities),(EDO.FlexiblePipeSegment,EDO.PipeSectionApplication),
+          ]
+          for p in required: assert p in pairs,p
+
+          # No specialization cycles.
+          def cycle(start):
+              stack=[(start,{start})]
+              while stack:
+                  cur,path=stack.pop()
+                  for nxt in g.objects(cur,EDO.specializesApplicability):
+                      if nxt==start:return True
+                      if nxt not in path: stack.append((nxt,path|{nxt}))
+              return False
+          assert not any(cycle(a) for a in aars)
+
+          # T03-033 synthetic resolver: two unordered incompatible specializations must fail as ambiguous.
+          class Rule:
+              def __init__(self,name,parent,disp): self.name=name; self.parent=parent; self.disp=disp
+          baseR=Rule('base',None,'Applicable'); left=Rule('left',baseR,'Applicable'); right=Rule('right',baseR,'NotApplicable')
+          active=[left,right]
+          def is_ancestor(a,b):
+              cur=b.parent
+              while cur:
+                  if cur is a:return True
+                  cur=cur.parent
+              return False
+          maxima=[r for r in active if not any(r is not o and is_ancestor(r,o) for o in active)]
+          assert len(maxima)==2 and {r.disp for r in maxima}=={'Applicable','NotApplicable'}
+          try:
+              if len(maxima)>1 and len({r.disp for r in maxima})>1: raise ValueError('unordered incompatible applicability overrides')
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('T03-033 ambiguity should fail')
+
+          assert not any(str(p).startswith(str(EDO)) for p in g.subjects(RDF.type,OWL.FunctionalProperty))
+          assert not any(str(p).startswith(str(EDO)) for p in g.subjects(RDF.type,OWL.InverseFunctionalProperty))
+          print('AAR_TOTAL',len(aars),'AR_TOTAL',len(ars))
+          print('T03-033 PASS')
+          print('TRIPLES',len(g))
+          PY
+          git diff --check
+          git diff --stat
+      - name: Commit verified AAR population and remove runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot6-aar-population.yml
+          git add core/edo-object-relations.ttl
+          git diff --cached --check
+          git commit -m "Materialize PT-03 attribute applicability rules"
+          git push origin HEAD:audit-evolution-phase-a-implementation
