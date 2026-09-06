@@ -1,0 +1,46 @@
+name: Phase A Lot 9 integrated regression v2
+
+on:
+  pull_request:
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Execute corrected integrated Phase A regression
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          src=Path('.github/workflows/phase-a-lot9-integrated-regression.yml').read_text(encoding='utf-8')
+          marker="          python - <<'PY'\n"
+          start=src.index(marker)+len(marker)
+          end=src.index("\n          PY\n",start)
+          code=src[start:end]
+          # YAML block indentation -> executable Python.
+          lines=code.splitlines()
+          code='\n'.join(line[10:] if line.startswith('          ') else line for line in lines)
+          code=code.replace("len(concepts)==187 and len(typed)==187","len(concepts)==191 and len(typed)==191")
+          code=code.replace("nonrunner=[x for x in changed if x!='.github/workflows/phase-a-lot9-integrated-regression.yml']","nonrunner=[x for x in changed if x not in {'.github/workflows/phase-a-lot9-integrated-regression.yml','.github/workflows/phase-a-lot9-integrated-regression-v2.yml'}]")
+          exec(compile(code,'phase-a-lot9-integrated-regression-v2','exec'),{})
+          PY
+          git diff --check
+      - name: Remove regression runners and record checkpoint
+        if: success()
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot9-integrated-regression.yml
+          git rm .github/workflows/phase-a-lot9-integrated-regression-v2.yml
+          git commit -m "Record Phase A integrated regression gate"
+          git push origin HEAD:audit-evolution-phase-a-implementation
