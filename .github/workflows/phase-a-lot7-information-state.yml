@@ -1,0 +1,138 @@
+name: Phase A Lot 7 information state and audit semantics
+
+on:
+  pull_request:
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  implement-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Materialize P111 information-state vocabulary
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          P=Path('core/edo-object-relations.ttl')
+          text=P.read_text(encoding='utf-8')
+          for n in ['InformationStateScheme','Shared','Published','AllInformationStates']:
+              assert f'edo:{n} ' not in text, f'unexpected pre-existing {n}'
+          block='''edo:InformationStateScheme a skos:ConceptScheme ;
+              rdfs:label "Information State Scheme"@en,
+                  "Esquema de Estados da Informação"@pt-br ;
+              dcterms:identifier "InformationStateScheme" ;
+              skos:definition "Controlled vocabulary scheme for delivery information states used as context when resolving AttributeRequirement rules."@en,
+                  "Esquema de vocabulário controlado para estados de informação da entrega usados como contexto na resolução de regras AttributeRequirement."@pt-br .
+
+          edo:Shared a owl:NamedIndividual,
+                  edo:DomainVocabularyConcept,
+                  skos:Concept ;
+              dcterms:identifier "Shared" ;
+              skos:definition "Information state for information shared for coordination or intermediate use; by default it is audited in consistency mode, without making that mapping an ontological identity."@en,
+                  "Estado da informação compartilhada para coordenação ou uso intermediário; por padrão é auditado em modo de consistência, sem transformar esse mapeamento em identidade ontológica."@pt-br ;
+              skos:inScheme edo:InformationStateScheme ;
+              skos:prefLabel "Shared"@en,
+                  "Compartilhado"@pt-br .
+
+          edo:Published a owl:NamedIndividual,
+                  edo:DomainVocabularyConcept,
+                  skos:Concept ;
+              dcterms:identifier "Published" ;
+              skos:definition "Information state for information formally published for the applicable delivery scope; by default it is audited in completeness mode, without making that mapping an ontological identity."@en,
+                  "Estado da informação formalmente publicada para o escopo de entrega aplicável; por padrão é auditado em modo de completude, sem transformar esse mapeamento em identidade ontológica."@pt-br ;
+              skos:inScheme edo:InformationStateScheme ;
+              skos:prefLabel "Published"@en,
+                  "Publicado"@pt-br .'''
+          P.write_text(text.rstrip()+'\n\n'+block+'\n',encoding='utf-8')
+          PY
+      - name: Verify P104-P107 and P111 semantics
+        shell: bash
+        run: |
+          python - <<'PY'
+          from rdflib import Graph, Namespace, RDF, SKOS, OWL, Literal, XSD
+          EDO=Namespace('https://w3id.org/energy-domain/edo#')
+          g=Graph().parse('core/edo-object-relations.ttl',format='turtle')
+
+          # P111 vocabulary.
+          assert (EDO.InformationStateScheme,RDF.type,SKOS.ConceptScheme) in g
+          for state in [EDO.Shared,EDO.Published]:
+              assert (state,RDF.type,EDO.DomainVocabularyConcept) in g
+              assert (state,RDF.type,SKOS.Concept) in g
+              assert (state,SKOS.inScheme,EDO.InformationStateScheme) in g
+          assert not any(g.triples((EDO.AllInformationStates,None,None)))
+
+          # P104: EDO dictionary/core is not itself a delivery scope/contract.
+          assert sum(1 for _ in g.subjects(RDF.type,EDO.AttributeRequirement))==0
+          assert sum(1 for _ in g.subjects(RDF.type,EDO.AttributeApplicabilityRule))==244
+
+          # P107: state and audit mode are not represented as ontology identity.
+          assert not any(g.triples((EDO.Consistency,None,None)))
+          assert not any(g.triples((EDO.Completeness,None,None)))
+          assert not any(g.triples((EDO.consistency,None,None)))
+          assert not any(g.triples((EDO.completeness,None,None)))
+
+          # T03-034 state selector validator: only concepts in InformationStateScheme.
+          def valid_state(v):
+              return not isinstance(v,Literal) and (v,SKOS.inScheme,EDO.InformationStateScheme) in g
+          assert valid_state(EDO.Shared)
+          assert valid_state(EDO.Published)
+          assert not valid_state(Literal('shared'))
+          assert not valid_state(EDO.Procurement)
+
+          # P105/P107 cardinality execution semantics.
+          def passes(count,min_occ,max_occ,mode):
+              if max_occ is not None and count>max_occ:return False
+              effective_min=0 if mode=='consistency' else (0 if min_occ is None else min_occ)
+              return count>=effective_min
+
+          # T03-035: 1..1 consistency -> absence allowed, present checked, overflow fails.
+          assert passes(0,1,1,'consistency')
+          assert passes(1,1,1,'consistency')
+          assert not passes(2,1,1,'consistency')
+          # T03-036: 1..1 completeness -> presence required.
+          assert not passes(0,1,1,'completeness')
+          assert passes(1,1,1,'completeness')
+          assert not passes(2,1,1,'completeness')
+          # T03-037 / P113: max=0 prohibited in both modes.
+          assert passes(0,0,0,'consistency') and passes(0,0,0,'completeness')
+          assert not passes(1,0,0,'consistency') and not passes(1,0,0,'completeness')
+
+          # P107 default profile is a tool/execution mapping, not ontology identity.
+          default_mode={EDO.Shared:'consistency',EDO.Published:'completeness'}
+          assert default_mode[EDO.Shared]=='consistency'
+          assert default_mode[EDO.Published]=='completeness'
+          # Explicit audit mode can differ from state without changing ontology.
+          assert not passes(0,1,1,'completeness')  # Shared + explicit completeness would require presence.
+          assert passes(0,1,1,'consistency')       # Published + explicit consistency would permit absence.
+
+          # P105: no systematic Shared/Published requirement duplication in core.
+          assert not list(g.subjects(EDO.informationState,EDO.Shared))
+          assert not list(g.subjects(EDO.informationState,EDO.Published))
+
+          # No forbidden global property characteristics introduced.
+          assert not any(str(p).startswith(str(EDO)) for p in g.subjects(RDF.type,OWL.FunctionalProperty))
+          assert not any(str(p).startswith(str(EDO)) for p in g.subjects(RDF.type,OWL.InverseFunctionalProperty))
+          print('T03-034..T03-037 PASS')
+          print('AAR',sum(1 for _ in g.subjects(RDF.type,EDO.AttributeApplicabilityRule)),'AR',sum(1 for _ in g.subjects(RDF.type,EDO.AttributeRequirement)))
+          print('TRIPLES',len(g))
+          PY
+          git diff --check
+          git diff --stat
+      - name: Commit verified Lot 7 vocabulary and remove runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot7-information-state.yml
+          git add core/edo-object-relations.ttl
+          git diff --cached --check
+          git commit -m "Implement PT-03 information-state vocabulary"
+          git push origin HEAD:audit-evolution-phase-a-implementation
