@@ -1,0 +1,71 @@
+name: Phase A Lot 6 metamodel audit
+
+on:
+  pull_request:
+    types: [reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit-evolution-phase-a-implementation
+          fetch-depth: 0
+      - run: python -m pip install --disable-pip-version-check rdflib==7.1.4
+      - name: Audit current metamodel vocabulary
+        shell: bash
+        run: |
+          python - <<'PY'
+          from rdflib import Graph, Namespace, RDF, RDFS, OWL
+          EDO=Namespace('https://w3id.org/energy-domain/edo#')
+          g=Graph().parse('core/edo-object-relations.ttl',format='turtle')
+          names=[
+            'DomainMetamodelEntity','DomainMetamodelRelation','DomainMetamodelAnnotation',
+            'AttributeApplicabilityRule','AttributeRequirement',
+            'applicableElementClass','applicableAttributeClass','applicabilityDisposition',
+            'specializesApplicability','forApplicability','specializesRequirement',
+            'creationPhase','requirementLifecyclePhase','informationState',
+            'minOccurs','maxOccurs','appliesToAllInformationStates','appliesToAllLifecyclePhases',
+            'Applicable','NotApplicable','hasLifecycleCreationPhase'
+          ]
+          print('TRIPLES',len(g))
+          for n in names:
+            u=EDO[n]
+            triples=list(g.triples((u,None,None)))
+            incoming=list(g.triples((None,None,u)))
+            print('\nTERM',n,'OUT',len(triples),'IN',len(incoming))
+            for t in triples[:30]: print(' OUT',*[str(x) for x in t])
+            for t in incoming[:30]: print(' IN ',*[str(x) for x in t])
+          # List EDO resources containing likely metamodel/applicability/requirement names.
+          seen=set()
+          for s in set(g.subjects()):
+            if not str(s).startswith(str(EDO)): continue
+            local=str(s)[len(str(EDO)):]
+            low=local.lower()
+            if any(k in low for k in ['metamodel','applicab','requirement','lifecycle','creationphase','informationstate']):
+              seen.add(local)
+          print('\nMATCHING_RESOURCES',len(seen))
+          for x in sorted(seen): print(' RESOURCE',x)
+          # Characteristics of current hasLifecycleCreationPhase.
+          hp=EDO.hasLifecycleCreationPhase
+          print('\nHAS_LIFECYCLE_CREATION_PHASE_TYPES',*[str(x) for x in g.objects(hp,RDF.type)])
+          print('HAS_LIFECYCLE_CREATION_PHASE_DOMAIN',*[str(x) for x in g.objects(hp,RDFS.domain)])
+          print('HAS_LIFECYCLE_CREATION_PHASE_RANGE',*[str(x) for x in g.objects(hp,RDFS.range)])
+          # EDO datatype properties for style/typing patterns.
+          dps=[s for s in g.subjects(RDF.type,OWL.DatatypeProperty) if str(s).startswith(str(EDO))]
+          print('\nEDO_DATATYPE_PROPERTIES',len(dps))
+          for s in sorted(dps,key=str):
+            print(' DP',str(s)[len(str(EDO)):], 'domain=',','.join(str(x).split('#')[-1] for x in g.objects(s,RDFS.domain)), 'range=',','.join(str(x).split('#')[-1] for x in g.objects(s,RDFS.range)))
+          PY
+      - name: Remove audit runner
+        shell: bash
+        run: |
+          git config user.name "EDO Phase A Implementation"
+          git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/phase-a-lot6-metamodel-audit.yml
+          git commit -m "Record Lot 6 metamodel audit"
+          git push origin HEAD:audit-evolution-phase-a-implementation
