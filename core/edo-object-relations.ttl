@@ -2651,29 +2651,6 @@ edo:MeasuredValue a owl:NamedIndividual,
     skos:prefLabel "Measured value"@en,
         "Valor medido"@pt-br .
 
-edo:MetallicMaterialSpecification a owl:Class ;
-    dcterms:identifier "MetallicMaterialSpecification" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:UltimateTensileStress ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:MetallicLayerMaterialType ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:FractureToughness ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        edo:MaterialSpecification ;
-    skos:definition "A material specification for a material whose principal constituent or structural phase is metallic."@en,
-        "Especificação de material cujo constituinte principal ou fase estrutural é metálica."@pt-br ;
-    skos:prefLabel "Metallic Material Specification"@en,
-        "Especificação de Material Metálico"@pt-br ;
-    edo:classInstantiationRole edo:ProjectInstantiableClass ;
-    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering,
-        edo:SubseaUmbilicalsEngineering .
-
 edo:MetallicTubing a owl:Class ;
     dcterms:identifier "MetallicTubing" ;
     rdfs:subClassOf edo:Tubing ;
@@ -7360,18 +7337,6 @@ edo:MechanicalConnectionSurface a owl:Class ;
         "Superfície de conexão destinada a transferir interação mecânica por contato, aperto, apoio ou mecanismos correlatos."@pt-br ;
     skos:prefLabel "Mechanical Connection Surface"@en,
         "Superfície de Conexão Mecânica"@pt-br .
-
-edo:MetallicLayerMaterialType a owl:Class ;
-    dcterms:accessRights "PUBLIC" ;
-    dcterms:identifier "MetallicLayerMaterialType" ;
-    rdfs:subClassOf edo:DomainAttribute ;
-    skos:definition "Type of material from which an object is made, allowing for precise documentation and categorisation."@en ;
-    skos:prefLabel "Metallic Layer Material Type"@en,
-        "Tipo de Material da Camada Metálica"@pt-br ;
-    edo:attributeOntologicalNature edo:MaterialCompositionAttribute ;
-    edo:hasAttributeScope edo:TypeLevelAttribute ;
-    edo:hasTypedValue edo:StringValue ;
-    edo:hasValueCardinality edo:SingleValue .
 
 edo:MetallicLayerPitch a owl:Class ;
     dcterms:accessRights "PUBLIC" ;
@@ -15699,27 +15664,6 @@ edo:AAR_MaterialSpecification_ThermalConductivityCoefficient a owl:NamedIndividu
     edo:applicableAttributeClass edo:ThermalConductivityCoefficient ;
     edo:applicabilityDisposition edo:Applicable .
 
-edo:AAR_MetallicMaterialSpecification_FractureToughness a owl:NamedIndividual,
-        edo:AttributeApplicabilityRule ;
-    dcterms:identifier "AAR_MetallicMaterialSpecification_FractureToughness" ;
-    edo:applicableElementClass edo:MetallicMaterialSpecification ;
-    edo:applicableAttributeClass edo:FractureToughness ;
-    edo:applicabilityDisposition edo:Applicable .
-
-edo:AAR_MetallicMaterialSpecification_MetallicLayerMaterialType a owl:NamedIndividual,
-        edo:AttributeApplicabilityRule ;
-    dcterms:identifier "AAR_MetallicMaterialSpecification_MetallicLayerMaterialType" ;
-    edo:applicableElementClass edo:MetallicMaterialSpecification ;
-    edo:applicableAttributeClass edo:MetallicLayerMaterialType ;
-    edo:applicabilityDisposition edo:Applicable .
-
-edo:AAR_MetallicMaterialSpecification_UltimateTensileStress a owl:NamedIndividual,
-        edo:AttributeApplicabilityRule ;
-    dcterms:identifier "AAR_MetallicMaterialSpecification_UltimateTensileStress" ;
-    edo:applicableElementClass edo:MetallicMaterialSpecification ;
-    edo:applicableAttributeClass edo:UltimateTensileStress ;
-    edo:applicabilityDisposition edo:Applicable .
-
 edo:AAR_MetallicStrandSet_MetallicStrandLength a owl:NamedIndividual,
         edo:AttributeApplicabilityRule ;
     dcterms:identifier "AAR_MetallicStrandSet_MetallicStrandLength" ;
@@ -17415,4 +17359,36 @@ edo:Condition_AAR_MaterialSpecification_PoissonRatioAt23Degrees_MaterialType a o
     edo:characteristicClass edo:MaterialType ;
     edo:allowedConceptValue edo:MetallicMaterial,
         edo:PolymericMaterial ;
+    edo:conceptMatchMode edo:ConceptOrNarrowerMatch .
+
+edo:AAR_MaterialSpecification_UltimateTensileStress a owl:NamedIndividual,
+        edo:AttributeApplicabilityRule ;
+    dcterms:identifier "AAR_MaterialSpecification_UltimateTensileStress" ;
+    edo:applicableElementClass edo:MaterialSpecification ;
+    edo:applicableAttributeClass edo:UltimateTensileStress ;
+    edo:applicabilityDisposition edo:Applicable ;
+    edo:hasCondition edo:Condition_AAR_MaterialSpecification_UltimateTensileStress_MaterialType .
+
+edo:AAR_MaterialSpecification_FractureToughness a owl:NamedIndividual,
+        edo:AttributeApplicabilityRule ;
+    dcterms:identifier "AAR_MaterialSpecification_FractureToughness" ;
+    edo:applicableElementClass edo:MaterialSpecification ;
+    edo:applicableAttributeClass edo:FractureToughness ;
+    edo:applicabilityDisposition edo:Applicable ;
+    edo:hasCondition edo:Condition_AAR_MaterialSpecification_FractureToughness_MaterialType .
+
+edo:Condition_AAR_MaterialSpecification_UltimateTensileStress_MaterialType a owl:NamedIndividual,
+        edo:CharacteristicValueCondition ;
+    dcterms:identifier "Condition_AAR_MaterialSpecification_UltimateTensileStress_MaterialType" ;
+    edo:isConditionOf edo:AAR_MaterialSpecification_UltimateTensileStress ;
+    edo:characteristicClass edo:MaterialType ;
+    edo:allowedConceptValue edo:MetallicMaterial ;
+    edo:conceptMatchMode edo:ConceptOrNarrowerMatch .
+
+edo:Condition_AAR_MaterialSpecification_FractureToughness_MaterialType a owl:NamedIndividual,
+        edo:CharacteristicValueCondition ;
+    dcterms:identifier "Condition_AAR_MaterialSpecification_FractureToughness_MaterialType" ;
+    edo:isConditionOf edo:AAR_MaterialSpecification_FractureToughness ;
+    edo:characteristicClass edo:MaterialType ;
+    edo:allowedConceptValue edo:MetallicMaterial ;
     edo:conceptMatchMode edo:ConceptOrNarrowerMatch .
