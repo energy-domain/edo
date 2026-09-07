@@ -16224,3 +16224,237 @@ edo:Published a owl:NamedIndividual,
     skos:inScheme edo:InformationStateScheme ;
     skos:prefLabel "Published"@en,
         "Publicado"@pt-br .
+######################################################################
+# PT-04 T04-A — Transversal specification and constraint infrastructure
+######################################################################
+
+edo:TechnicalStandard a owl:Class ;
+    dcterms:identifier "TechnicalStandard" ;
+    rdfs:subClassOf edo:Specification,
+        edo:ReferenceDocument ;
+    skos:definition "Identifiable technical standard that is both a technical specification and an external reference document."@en,
+        "Norma técnica identificável que é simultaneamente uma especificação técnica e um documento de referência externa."@pt-br ;
+    skos:prefLabel "Technical Standard"@en,
+        "Norma Técnica"@pt-br .
+
+edo:TechnicalStandardEdition a owl:Class ;
+    dcterms:identifier "TechnicalStandardEdition" ;
+    rdfs:subClassOf edo:TechnicalStandard ;
+    skos:definition "Specific published edition or revision of a persistent technical standard."@en,
+        "Edição ou revisão publicada específica de uma norma técnica persistente."@pt-br ;
+    skos:prefLabel "Technical Standard Edition"@en,
+        "Edição de Norma Técnica"@pt-br .
+
+edo:editionOf a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:TechnicalStandardEdition ;
+    rdfs:range edo:TechnicalStandard ;
+    dcterms:identifier "editionOf" ;
+    skos:definition "Relates a specific technical-standard edition to the persistent technical standard of which it is an edition."@en,
+        "Relaciona uma edição específica de norma técnica à norma técnica persistente da qual ela é uma edição."@pt-br ;
+    skos:prefLabel "Edition Of"@en,
+        "É Edição de"@pt-br .
+
+edo:MaterialGradeDefinition a owl:Class ;
+    dcterms:identifier "MaterialGradeDefinition" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+  owl:onClass edo:DomainVocabularyConcept ;
+  owl:onProperty edo:definedMaterialGrade ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+  owl:onClass edo:TechnicalStandardEdition ;
+  owl:onProperty edo:definitionStandardEdition ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        edo:Specification ;
+    skos:definition "Specification representing the normative definition of one persistent material grade in one specific technical-standard edition."@en,
+        "Especificação que representa a definição normativa de um grau de material persistente em uma edição específica de norma técnica."@pt-br ;
+    skos:prefLabel "Material Grade Definition"@en,
+        "Definição de Grau de Material"@pt-br .
+
+edo:definedMaterialGrade a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:MaterialGradeDefinition ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    dcterms:identifier "definedMaterialGrade" ;
+    skos:definition "References the persistent controlled material-grade concept defined by a material-grade definition."@en,
+        "Referencia o conceito controlado persistente de grau de material definido por uma definição de grau."@pt-br ;
+    skos:prefLabel "Defined Material Grade"@en,
+        "Grau de Material Definido"@pt-br .
+
+edo:definitionStandardEdition a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:MaterialGradeDefinition ;
+    rdfs:range edo:TechnicalStandardEdition ;
+    dcterms:identifier "definitionStandardEdition" ;
+    skos:definition "References the specific technical-standard edition containing a material-grade definition."@en,
+        "Referencia a edição específica de norma técnica que contém uma definição de grau de material."@pt-br ;
+    skos:prefLabel "Definition Standard Edition"@en,
+        "Edição Normativa da Definição"@pt-br .
+
+edo:CharacteristicValueConstraint a owl:Class ;
+    dcterms:identifier "CharacteristicValueConstraint" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+  owl:onClass edo:Specification ;
+  owl:onProperty edo:isValueConstraintOf ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+  owl:onClass owl:Class ;
+  owl:onProperty edo:characteristicClass ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        edo:DomainMetamodelEntity ;
+    skos:definition "Executable metamodel constraint restricting admissible values of exactly one governed characteristic in the context of exactly one specification."@en,
+        "Restrição executável do metamodelo que restringe valores admissíveis de exatamente uma característica governada no contexto de exatamente uma especificação."@pt-br ;
+    skos:prefLabel "Characteristic Value Constraint"@en,
+        "Restrição de Valor de Característica"@pt-br .
+
+edo:CharacteristicValueCondition a owl:Class ;
+    dcterms:identifier "CharacteristicValueCondition" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+  owl:onClass owl:Class ;
+  owl:onProperty edo:characteristicClass ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+  owl:onClass edo:DomainMetamodelEntity ;
+  owl:onProperty edo:isConditionOf ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        edo:DomainMetamodelEntity ;
+    skos:definition "Executable local condition over the value of exactly one characteristic, reusable by applicability rules and characteristic-value constraints."@en,
+        "Condição executável local sobre o valor de exatamente uma característica, reutilizável por regras de aplicabilidade e restrições de valor de característica."@pt-br ;
+    skos:prefLabel "Characteristic Value Condition"@en,
+        "Condição de Valor de Característica"@pt-br .
+
+edo:hasValueConstraint a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:Specification ;
+    rdfs:range edo:CharacteristicValueConstraint ;
+    dcterms:identifier "hasValueConstraint" ;
+    owl:inverseOf edo:isValueConstraintOf ;
+    skos:definition "Associates a specification with a contextual characteristic-value constraint that belongs to it."@en,
+        "Associa uma especificação a uma restrição contextual de valor de característica que lhe pertence."@pt-br ;
+    skos:prefLabel "Has Value Constraint"@en,
+        "Tem Restrição de Valor"@pt-br .
+
+edo:isValueConstraintOf a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:CharacteristicValueConstraint ;
+    rdfs:range edo:Specification ;
+    dcterms:identifier "isValueConstraintOf" ;
+    owl:inverseOf edo:hasValueConstraint ;
+    skos:definition "Relates a characteristic-value constraint to the single specification that provides its semantic context."@en,
+        "Relaciona uma restrição de valor de característica à única especificação que fornece seu contexto semântico."@pt-br ;
+    skos:prefLabel "Is Value Constraint Of"@en,
+        "É Restrição de Valor de"@pt-br .
+
+edo:characteristicClass a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    rdfs:range owl:Class ;
+    dcterms:identifier "characteristicClass" ;
+    skos:definition "References, by OWL 2 punning, the EDO characteristic class governed by a condition or value constraint."@en,
+        "Referencia, por punning OWL 2, a classe de característica da EDO governada por uma condição ou restrição de valor."@pt-br ;
+    skos:prefLabel "Characteristic Class"@en,
+        "Classe de Característica"@pt-br .
+
+edo:hasCondition a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    rdfs:range edo:CharacteristicValueCondition ;
+    dcterms:identifier "hasCondition" ;
+    skos:definition "Associates an applicability rule or characteristic-value constraint with a local characteristic-value condition."@en,
+        "Associa uma regra de aplicabilidade ou restrição de valor de característica a uma condição local de valor de característica."@pt-br ;
+    skos:prefLabel "Has Condition"@en,
+        "Tem Condição"@pt-br .
+
+edo:isConditionOf a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:CharacteristicValueCondition ;
+    rdfs:range edo:DomainMetamodelEntity ;
+    dcterms:identifier "isConditionOf" ;
+    skos:definition "Relates a characteristic-value condition to the single contextual metamodel entity that owns it."@en,
+        "Relaciona uma condição de valor de característica à única entidade contextual do metamodelo que a possui."@pt-br ;
+    skos:prefLabel "Is Condition Of"@en,
+        "É Condição de"@pt-br .
+
+edo:equalsLiteral a owl:DatatypeProperty ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    dcterms:identifier "equalsLiteral" ;
+    skos:definition "States an exact literal operand for a characteristic-value constraint or condition."@en,
+        "Declara um operando literal exato para uma restrição ou condição de valor de característica."@pt-br .
+
+edo:minInclusive a owl:DatatypeProperty ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    dcterms:identifier "minInclusive" ;
+    skos:definition "States an inclusive lower-bound literal operand."@en,
+        "Declara um operando literal de limite inferior inclusivo."@pt-br .
+
+edo:minExclusive a owl:DatatypeProperty ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    dcterms:identifier "minExclusive" ;
+    skos:definition "States an exclusive lower-bound literal operand."@en,
+        "Declara um operando literal de limite inferior exclusivo."@pt-br .
+
+edo:maxInclusive a owl:DatatypeProperty ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    dcterms:identifier "maxInclusive" ;
+    skos:definition "States an inclusive upper-bound literal operand."@en,
+        "Declara um operando literal de limite superior inclusivo."@pt-br .
+
+edo:maxExclusive a owl:DatatypeProperty ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    dcterms:identifier "maxExclusive" ;
+    skos:definition "States an exclusive upper-bound literal operand."@en,
+        "Declara um operando literal de limite superior exclusivo."@pt-br .
+
+edo:allowedLiteralValue a owl:DatatypeProperty ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    dcterms:identifier "allowedLiteralValue" ;
+    skos:definition "States one allowed literal operand for a characteristic-value constraint or condition."@en,
+        "Declara um operando literal admissível para uma restrição ou condição de valor de característica."@pt-br .
+
+edo:equalsConcept a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    dcterms:identifier "equalsConcept" ;
+    skos:definition "States an exact controlled-concept operand for a characteristic-value constraint or condition."@en,
+        "Declara um operando de conceito controlado exato para uma restrição ou condição de valor de característica."@pt-br .
+
+edo:allowedConceptValue a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:DomainMetamodelEntity ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    dcterms:identifier "allowedConceptValue" ;
+    skos:definition "States one allowed controlled-concept operand for a characteristic-value constraint or condition."@en,
+        "Declara um operando de conceito controlado admissível para uma restrição ou condição de valor de característica."@pt-br .
+
+edo:conceptMatchMode a owl:ObjectProperty ;
+    rdfs:subPropertyOf edo:DomainMetamodelRelation ;
+    rdfs:domain edo:CharacteristicValueCondition ;
+    rdfs:range edo:DomainVocabularyConcept ;
+    dcterms:identifier "conceptMatchMode" ;
+    skos:definition "Selects whether a controlled-concept condition uses exact matching or accepts the target concept and its explicit narrower descendants."@en,
+        "Seleciona se uma condição sobre conceito controlado usa correspondência exata ou aceita o conceito-alvo e seus descendentes mais estreitos explícitos."@pt-br ;
+    skos:prefLabel "Concept Match Mode"@en,
+        "Modo de Correspondência de Conceito"@pt-br .
+
+edo:ExactConceptMatch a owl:NamedIndividual,
+        edo:DomainVocabularyConcept,
+        skos:Concept ;
+    dcterms:identifier "ExactConceptMatch" ;
+    skos:broader edo:DomainValueConcepts ;
+    skos:definition "Concept matching mode satisfied only by identity with the target controlled concept."@en,
+        "Modo de correspondência conceitual satisfeito somente pela identidade com o conceito controlado alvo."@pt-br ;
+    skos:inScheme edo:DomainValueConcept ;
+    skos:prefLabel "Exact Concept Match"@en,
+        "Correspondência Exata de Conceito"@pt-br .
+
+edo:ConceptOrNarrowerMatch a owl:NamedIndividual,
+        edo:DomainVocabularyConcept,
+        skos:Concept ;
+    dcterms:identifier "ConceptOrNarrowerMatch" ;
+    skos:broader edo:DomainValueConcepts ;
+    skos:definition "Concept matching mode satisfied by the target concept itself or by a concept that reaches it through zero or more explicit skos:broader steps."@en,
+        "Modo de correspondência conceitual satisfeito pelo próprio conceito-alvo ou por conceito que o alcance por zero ou mais passos explícitos de skos:broader."@pt-br ;
+    skos:inScheme edo:DomainValueConcept ;
+    skos:prefLabel "Concept Or Narrower Match"@en,
+        "Correspondência com Conceito ou Mais Específico"@pt-br .
