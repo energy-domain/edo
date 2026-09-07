@@ -3095,10 +3095,6 @@ edo:PlasticHose a owl:Class ;
 edo:PolymericMaterialSpecification a owl:Class ;
     dcterms:identifier "PolymericMaterialSpecification" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:MaxPermissibleDeformationStatic ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:SolubilityTable_PolymerState ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -3147,15 +3143,7 @@ edo:PolymericMaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MaxPermissibleDeformationDynamic ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:PermeabilityTable_MoleculeIdentifier ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:PolymericLayerMaterialType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -3163,6 +3151,9 @@ edo:PolymericMaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:MaterialSpecification ;
+    rdfs:comment "Deprecated compatibility shell retained temporarily only to preserve the 14 tabular material-property restrictions deferred by DEC-EDO-003/P22; it is not part of the target material-specification model."@en,
+        "Shell de compatibilidade obsoleto mantido temporariamente apenas para preservar as 14 restrições tabulares de propriedades de material deferidas por DEC-EDO-003/P22; não pertence ao modelo-alvo de especificação de materiais."@pt-br ;
+    owl:deprecated true ;
     skos:definition "A material specification for a material whose principal constituent is a polymer."@en,
         "Especificação de material cujo constituinte principal é um polímero."@pt-br ;
     skos:prefLabel "Polymeric Material Specification"@en,
@@ -7754,18 +7745,6 @@ edo:PoissonRatioAt23Degrees a owl:Class ;
     edo:attributeOntologicalNature edo:QualityDatumAttribute ;
     edo:hasAttributeScope edo:TypeLevelAttribute ;
     edo:hasTypedValue edo:FloatValue ;
-    edo:hasValueCardinality edo:SingleValue .
-
-edo:PolymericLayerMaterialType a owl:Class ;
-    dcterms:accessRights "PUBLIC" ;
-    dcterms:identifier "PolymericLayerMaterialType" ;
-    rdfs:subClassOf edo:DomainAttribute ;
-    skos:definition "Type of material from which an object is made, allowing for precise documentation and categorisation."@en ;
-    skos:prefLabel "Polymeric Layer Material Type"@en,
-        "Tipo de Material da Camada Polimérica"@pt-br ;
-    edo:attributeOntologicalNature edo:MaterialCompositionAttribute ;
-    edo:hasAttributeScope edo:TypeLevelAttribute ;
-    edo:hasTypedValue edo:StringValue ;
     edo:hasValueCardinality edo:SingleValue .
 
 edo:PostSlippingBendingStiffness a owl:Class ;
@@ -15771,32 +15750,11 @@ edo:AAR_PipePullingHead_SafeWorkingLoad a owl:NamedIndividual,
     edo:applicableAttributeClass edo:SafeWorkingLoad ;
     edo:applicabilityDisposition edo:Applicable .
 
-edo:AAR_PolymericMaterialSpecification_MaxPermissibleDeformationDynamic a owl:NamedIndividual,
-        edo:AttributeApplicabilityRule ;
-    dcterms:identifier "AAR_PolymericMaterialSpecification_MaxPermissibleDeformationDynamic" ;
-    edo:applicableElementClass edo:PolymericMaterialSpecification ;
-    edo:applicableAttributeClass edo:MaxPermissibleDeformationDynamic ;
-    edo:applicabilityDisposition edo:Applicable .
-
-edo:AAR_PolymericMaterialSpecification_MaxPermissibleDeformationStatic a owl:NamedIndividual,
-        edo:AttributeApplicabilityRule ;
-    dcterms:identifier "AAR_PolymericMaterialSpecification_MaxPermissibleDeformationStatic" ;
-    edo:applicableElementClass edo:PolymericMaterialSpecification ;
-    edo:applicableAttributeClass edo:MaxPermissibleDeformationStatic ;
-    edo:applicabilityDisposition edo:Applicable .
-
 edo:AAR_MaterialSpecification_MinimumTemperature a owl:NamedIndividual,
         edo:AttributeApplicabilityRule ;
     dcterms:identifier "AAR_MaterialSpecification_MinimumTemperature" ;
     edo:applicableElementClass edo:MaterialSpecification ;
     edo:applicableAttributeClass edo:MinimumTemperature ;
-    edo:applicabilityDisposition edo:Applicable .
-
-edo:AAR_PolymericMaterialSpecification_PolymericLayerMaterialType a owl:NamedIndividual,
-        edo:AttributeApplicabilityRule ;
-    dcterms:identifier "AAR_PolymericMaterialSpecification_PolymericLayerMaterialType" ;
-    edo:applicableElementClass edo:PolymericMaterialSpecification ;
-    edo:applicableAttributeClass edo:PolymericLayerMaterialType ;
     edo:applicabilityDisposition edo:Applicable .
 
 edo:AAR_Process_Planned_Start_Timestamp a owl:NamedIndividual,
@@ -17414,4 +17372,38 @@ edo:Condition_AAR_MaterialSpecification_FractureToughness_MaterialType a owl:Nam
     edo:isConditionOf edo:AAR_MaterialSpecification_FractureToughness ;
     edo:characteristicClass edo:MaterialType ;
     edo:allowedConceptValue edo:MetallicMaterial ;
+    edo:conceptMatchMode edo:ConceptOrNarrowerMatch .
+
+# PT-04 T04-C5 — polymeric deformation applicability migrated to MaterialSpecification
+
+edo:AAR_MaterialSpecification_MaxPermissibleDeformationStatic a owl:NamedIndividual,
+        edo:AttributeApplicabilityRule ;
+    dcterms:identifier "AAR_MaterialSpecification_MaxPermissibleDeformationStatic" ;
+    edo:applicableElementClass edo:MaterialSpecification ;
+    edo:applicableAttributeClass edo:MaxPermissibleDeformationStatic ;
+    edo:applicabilityDisposition edo:Applicable ;
+    edo:hasCondition edo:Condition_AAR_MaterialSpecification_MaxPermissibleDeformationStatic_MaterialType .
+
+edo:Condition_AAR_MaterialSpecification_MaxPermissibleDeformationStatic_MaterialType a owl:NamedIndividual,
+        edo:CharacteristicValueCondition ;
+    dcterms:identifier "Condition_AAR_MaterialSpecification_MaxPermissibleDeformationStatic_MaterialType" ;
+    edo:isConditionOf edo:AAR_MaterialSpecification_MaxPermissibleDeformationStatic ;
+    edo:characteristicClass edo:MaterialType ;
+    edo:allowedConceptValue edo:PolymericMaterial ;
+    edo:conceptMatchMode edo:ConceptOrNarrowerMatch .
+
+edo:AAR_MaterialSpecification_MaxPermissibleDeformationDynamic a owl:NamedIndividual,
+        edo:AttributeApplicabilityRule ;
+    dcterms:identifier "AAR_MaterialSpecification_MaxPermissibleDeformationDynamic" ;
+    edo:applicableElementClass edo:MaterialSpecification ;
+    edo:applicableAttributeClass edo:MaxPermissibleDeformationDynamic ;
+    edo:applicabilityDisposition edo:Applicable ;
+    edo:hasCondition edo:Condition_AAR_MaterialSpecification_MaxPermissibleDeformationDynamic_MaterialType .
+
+edo:Condition_AAR_MaterialSpecification_MaxPermissibleDeformationDynamic_MaterialType a owl:NamedIndividual,
+        edo:CharacteristicValueCondition ;
+    dcterms:identifier "Condition_AAR_MaterialSpecification_MaxPermissibleDeformationDynamic_MaterialType" ;
+    edo:isConditionOf edo:AAR_MaterialSpecification_MaxPermissibleDeformationDynamic ;
+    edo:characteristicClass edo:MaterialType ;
+    edo:allowedConceptValue edo:PolymericMaterial ;
     edo:conceptMatchMode edo:ConceptOrNarrowerMatch .
