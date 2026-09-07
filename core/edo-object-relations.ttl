@@ -3155,10 +3155,6 @@ edo:PolymericMaterialSpecification a owl:Class ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:onClass edo:MinimumTemperature ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:DiffusionTable_DiffusionCoefficient ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -12557,30 +12553,6 @@ edo:FlexiblePipeCrimpedConnection a owl:Class ;
 edo:MaterialSpecification a owl:Class ;
     dcterms:identifier "MaterialSpecification" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:ElasticityModulusAt23Degrees ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:ThermalConductivityCoefficient ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:SpecificWeight ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:SpecificHeatCapacity ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:TechnicalNotes ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:PoissonRatioAt23Degrees ;
-            owl:onProperty edo:hasAttribute ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
             owl:onClass edo:MaterialType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
@@ -15681,7 +15653,8 @@ edo:AAR_MaterialSpecification_ElasticityModulusAt23Degrees a owl:NamedIndividual
     dcterms:identifier "AAR_MaterialSpecification_ElasticityModulusAt23Degrees" ;
     edo:applicableElementClass edo:MaterialSpecification ;
     edo:applicableAttributeClass edo:ElasticityModulusAt23Degrees ;
-    edo:applicabilityDisposition edo:Applicable .
+    edo:applicabilityDisposition edo:Applicable ;
+    edo:hasCondition edo:Condition_AAR_MaterialSpecification_ElasticityModulusAt23Degrees_MaterialType .
 
 edo:AAR_MaterialSpecification_MaterialType a owl:NamedIndividual,
         edo:AttributeApplicabilityRule ;
@@ -15695,7 +15668,8 @@ edo:AAR_MaterialSpecification_PoissonRatioAt23Degrees a owl:NamedIndividual,
     dcterms:identifier "AAR_MaterialSpecification_PoissonRatioAt23Degrees" ;
     edo:applicableElementClass edo:MaterialSpecification ;
     edo:applicableAttributeClass edo:PoissonRatioAt23Degrees ;
-    edo:applicabilityDisposition edo:Applicable .
+    edo:applicabilityDisposition edo:Applicable ;
+    edo:hasCondition edo:Condition_AAR_MaterialSpecification_PoissonRatioAt23Degrees_MaterialType .
 
 edo:AAR_MaterialSpecification_SpecificHeatCapacity a owl:NamedIndividual,
         edo:AttributeApplicabilityRule ;
@@ -15844,10 +15818,10 @@ edo:AAR_PolymericMaterialSpecification_MaxPermissibleDeformationStatic a owl:Nam
     edo:applicableAttributeClass edo:MaxPermissibleDeformationStatic ;
     edo:applicabilityDisposition edo:Applicable .
 
-edo:AAR_PolymericMaterialSpecification_MinimumTemperature a owl:NamedIndividual,
+edo:AAR_MaterialSpecification_MinimumTemperature a owl:NamedIndividual,
         edo:AttributeApplicabilityRule ;
-    dcterms:identifier "AAR_PolymericMaterialSpecification_MinimumTemperature" ;
-    edo:applicableElementClass edo:PolymericMaterialSpecification ;
+    dcterms:identifier "AAR_MaterialSpecification_MinimumTemperature" ;
+    edo:applicableElementClass edo:MaterialSpecification ;
     edo:applicableAttributeClass edo:MinimumTemperature ;
     edo:applicabilityDisposition edo:Applicable .
 
@@ -17424,3 +17398,21 @@ edo:GrippingForce a owl:Class ;
     dcterms:identifier "GrippingForce" ;
     skos:prefLabel "Gripping force"@en ;
     skos:definition "Mechanical interaction-performance characteristic of lined pipe or liner-to-backing-steel interaction; not an intrinsic MaterialSpecification characteristic."@en .
+
+edo:Condition_AAR_MaterialSpecification_ElasticityModulusAt23Degrees_MaterialType a owl:NamedIndividual,
+        edo:CharacteristicValueCondition ;
+    dcterms:identifier "Condition_AAR_MaterialSpecification_ElasticityModulusAt23Degrees_MaterialType" ;
+    edo:isConditionOf edo:AAR_MaterialSpecification_ElasticityModulusAt23Degrees ;
+    edo:characteristicClass edo:MaterialType ;
+    edo:allowedConceptValue edo:MetallicMaterial,
+        edo:PolymericMaterial ;
+    edo:conceptMatchMode edo:ConceptOrNarrowerMatch .
+
+edo:Condition_AAR_MaterialSpecification_PoissonRatioAt23Degrees_MaterialType a owl:NamedIndividual,
+        edo:CharacteristicValueCondition ;
+    dcterms:identifier "Condition_AAR_MaterialSpecification_PoissonRatioAt23Degrees_MaterialType" ;
+    edo:isConditionOf edo:AAR_MaterialSpecification_PoissonRatioAt23Degrees ;
+    edo:characteristicClass edo:MaterialType ;
+    edo:allowedConceptValue edo:MetallicMaterial,
+        edo:PolymericMaterial ;
+    edo:conceptMatchMode edo:ConceptOrNarrowerMatch .
