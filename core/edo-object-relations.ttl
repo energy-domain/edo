@@ -432,7 +432,7 @@ edo:BlockValve a owl:Class ;
     skos:prefLabel "Block valve"@en,
         "Válvula de bloqueio"@pt-br .
 
-edo:BoltSet rdfs:subClassOf edo:ConsumableElement .
+edo:BoltSet rdfs:subClassOf edo:ThreadedFastenerSet .
 
 edo:BuoyancyModule a owl:Class ;
     dcterms:identifier "BuoyancyModule" ;
@@ -9434,7 +9434,7 @@ edo:isConnectionMechanismOf a owl:ObjectProperty ;
     dcterms:identifier "isConnectionMechanismOf" ;
     rdfs:domain edo:ConnectionMechanism ;
     rdfs:range edo:PhysicalConnection ;
-    rdfs:subPropertyOf edo:ConnectionRelation ;
+    rdfs:subPropertyOf edo:FunctionalRelation ;
     owl:inverseOf edo:hasConnectionMechanism .
 
 edo:isDefinedByType a owl:ObjectProperty ;
@@ -9639,12 +9639,9 @@ edo:BendingStiffnessTableColumn a owl:Class ;
 edo:BoltedClamping a owl:Class ;
     dcterms:identifier "BoltedClamping" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom edo:StudSet ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:ThreadedFastenerSet ;
             owl:onProperty edo:hasPart ],
-        [ a owl:Restriction ;
-            owl:onClass edo:StudSet ;
-            owl:onProperty edo:hasPart ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         edo:ConnectionMechanism ;
     owl:disjointWith edo:GasketSealing ;
     skos:prefLabel "Aperto Aparafusado"@en,
@@ -9965,18 +9962,10 @@ edo:FlangeAttribute a owl:Class ;
 edo:FlangedJoint a owl:Class ;
     dcterms:identifier "FlangedJoint" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( edo:BoltedClamping edo:GasketSealing ) ] ;
-            owl:onProperty edo:hasConnectionMechanism ],
-        [ a owl:Restriction ;
             owl:allValuesFrom edo:FlangeConnection ;
             owl:onProperty edo:connectsPoint ],
         [ a owl:Restriction ;
             owl:onClass edo:BoltedClamping ;
-            owl:onProperty edo:hasConnectionMechanism ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:onClass edo:GasketSealing ;
             owl:onProperty edo:hasConnectionMechanism ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
@@ -10452,7 +10441,8 @@ edo:RingGasket a owl:Class ;
             owl:onClass edo:RingGasketType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        edo:ConsumableElement ;
+        edo:ConsumableElement,
+        edo:Gasket ;
     skos:altLabel " Seal Ring"@en,
         "Gasket"@en,
         "O-Ring"@en,
@@ -10506,7 +10496,7 @@ edo:StressAtDesignPressure a owl:Class ;
     edo:hasTypedValue edo:FloatValue ;
     edo:hasValueCardinality edo:SingleValue .
 
-edo:StudSet rdfs:subClassOf edo:ConsumableElement .
+edo:StudSet rdfs:subClassOf edo:ThreadedFastenerSet .
 
 edo:SubseaManifoldsEngineering a owl:NamedIndividual,
         edo:DomainVocabularyConcept,
@@ -10600,9 +10590,9 @@ edo:ThreadedFastenerSet a owl:Class ;
             owl:onClass edo:ThreadedFastenerType ;
             owl:onProperty edo:hasAttribute ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        edo:PhysicalConnection ;
-    skos:definition "A physical connection set based on threaded fastening elements, encompassing both headed bolts and headless studs together with associated fastening hardware."@en,
-        "Conjunto de conexão física baseado em elementos de fixação roscados, abrangendo parafusos com cabeça e estojos sem cabeça, juntamente com os elementos de fixação associados."@pt-br ;
+        edo:ComponentElement ;
+    skos:definition "A physical set of threaded fastening hardware, encompassing headed bolts or headless studs together with associated fastening hardware."@en,
+        "Um conjunto físico de hardware de fixação roscada, abrangendo parafusos com cabeça ou estojos sem cabeça juntamente com os elementos de fixação associados."@pt-br ;
     skos:prefLabel "Threaded Fastener Set"@en,
         "Conjunto de Fixadores Roscados"@pt-br ;
     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering,
@@ -11048,14 +11038,19 @@ edo:FunctionalAsset a owl:Class ;
     skos:prefLabel "Functional Asset"@en,
         "Ativo Funcional"@pt-br .
 
+edo:Gasket a owl:Class ;
+    dcterms:identifier "Gasket" ;
+    rdfs:subClassOf edo:DiscretePart ;
+    skos:definition "A discrete physical sealing element placed between mating surfaces to establish or maintain a seal under compression or other seating action."@en,
+        "Um elemento físico discreto de vedação colocado entre superfícies acopladas para estabelecer ou manter uma vedação sob compressão ou outra ação de assentamento."@pt-br ;
+    skos:prefLabel "Gasket"@en,
+        "Junta de Vedação"@pt-br .
+
 edo:GasketSealing a owl:Class ;
     dcterms:identifier "GasketSealing" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass edo:RingGasket ;
-            owl:onProperty edo:hasPart ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom edo:RingGasket ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass edo:Gasket ;
             owl:onProperty edo:hasPart ],
         edo:ConnectionMechanism ;
     skos:prefLabel "Gasket Sealing"@en,
@@ -11958,7 +11953,7 @@ edo:hasConnectionMechanism a owl:ObjectProperty ;
     dcterms:identifier "hasConnectionMechanism" ;
     rdfs:domain edo:PhysicalConnection ;
     rdfs:range edo:ConnectionMechanism ;
-    rdfs:subPropertyOf edo:ConnectionRelation ;
+    rdfs:subPropertyOf edo:FunctionalRelation ;
     owl:inverseOf edo:isConnectionMechanismOf .
 
 edo:hasMountingPoint a owl:ObjectProperty ;
