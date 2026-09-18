@@ -631,3 +631,28 @@ MfrStrIntOnNoTensNomPressLimit
 - edo:hasUnit unit:PA ;
 + edo:hasUnit unit:MPa ;
 ```
+
+## Updated (`edo:hasUnit`) — force units
+
+Unidade alterada para quilonewton nas seguintes classes:
+
+```text
+EarlyLeakMaxPressTable_TensLimit
+EarlyLeakNomPressTable_TensLimit
+FrictionCoefficientTighteningCurve_TighteningPerTrack
+MaximumAllowableTensionTable_MaximumAllowableTensile
+MaximumAllowableTighteningCurve_AxialLoad
+MinimumRadiusCurve_Compression
+```
+
+```diff
+- edo:hasUnit unit:N ;
++ edo:hasUnit unit:KiloN ;
+```
+
+Para `FrictionCoefficientTighteningCurve_TighteningPerTrack`, a unidade anterior era `unit:N-PER-M`:
+
+```diff
+- edo:hasUnit unit:N-PER-M ;
++ edo:hasUnit unit:KiloN ;
+```
