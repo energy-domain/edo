@@ -6175,40 +6175,6 @@ edo:PiggableInspection rdf:type owl:Class ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#PipeHandlingTestHead
-edo:PipeHandlingTestHead rdf:type owl:Class ;
-                         rdfs:subClassOf edo:IfcInstanciableElement ,
-                                         edo:PullingHead ;
-                         dcterms:identifier "PipeHandlingTestHead" ;
-                         skos:altLabel "Cabeça de Manuseio/Teste"@pt-br ,
-                                       "Handling/Test Head"@en ;
-                         skos:definition "Cabeça temporária de extremidade de duto projetada para suportar atividades de içamento e manuseio do tramo e também permitir sua utilização em ensaios pressurizados."@pt-br ,
-                                         "Temporary pipe-end head designed to support lifting and handling of the pipe section and also enable its use in pressurised testing."@en ;
-                         skos:prefLabel "Cabeça de Manuseio e Teste do Duto"@pt-br ,
-                                        "Pipe Handling Test Head"@en ;
-                         edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
-                         edo:ifc_equivalentClass "IfcPipeFitting" ;
-                         edo:ifc_objectType "PipeHandlingTestHead" ;
-                         edo:ifc_predefinedType "USERDEFINED" .
-
-
-###  https://w3id.org/energy-domain/edo#PipeInstallationTestHead
-edo:PipeInstallationTestHead rdf:type owl:Class ;
-                             rdfs:subClassOf edo:IfcInstanciableElement ,
-                                             edo:PullingHead ;
-                             dcterms:identifier "PipeInstallationTestHead" ;
-                             skos:altLabel "Cabeça de Instalação/Teste"@pt-br ,
-                                           "Installation/Test Head"@en ;
-                             skos:definition "Cabeça temporária de extremidade de duto projetada para suportar atividades de instalação do tramo e também permitir sua utilização em ensaios pressurizados."@pt-br ,
-                                             "Temporary pipe-end head designed to support pipe-section installation activities and also enable its use in pressurised testing."@en ;
-                             skos:prefLabel "Cabeça de Instalação e Teste do Duto"@pt-br ,
-                                            "Pipe Installation Test Head"@en ;
-                             edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
-                             edo:ifc_equivalentClass "IfcPipeFitting" ;
-                             edo:ifc_objectType "PipeInstallationTestHead" ;
-                             edo:ifc_predefinedType "USERDEFINED" .
-
-
 ###  https://w3id.org/energy-domain/edo#PipeMountPosition
 edo:PipeMountPosition rdf:type owl:Class ;
                       rdfs:subClassOf edo:DomainAttribute ;
@@ -6236,7 +6202,6 @@ edo:PipePullingHead rdf:type owl:Class ;
                                     "Temporary head fitted to the end of a flexible pipe section to provide a structural interface capable of transferring the loads required for pulling, lifting, loading, laying, retrieval or other pipe installation operations."@en ;
                     skos:prefLabel "Cabeça de Tração do Duto"@pt-br ,
                                    "Pipe Pulling Head"@en ;
-                    edo:hasAttribute edo:PullingHeadType ;
                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
                     edo:ifc_equivalentClass "IfcPipeFitting" ;
                     edo:ifc_objectType "PipePullingHead" ;
@@ -9480,8 +9445,8 @@ edo:FlangeFaceType edo:hasExternalRef "DF:2.1" .
 ###  https://w3id.org/energy-domain/edo#FlangeBoltingSpec
 edo:FlangeBoltingSpec rdf:type owl:Class ;
                 rdfs:subClassOf edo:Spec ;
-                skos:prefLabel "Bolting Specification"@en ,
-                               "Especificação de Parafusamento"@pt-br ;
+                skos:prefLabel "Flange Bolting Specification "@en ,
+                               "Especificação de Parafusamento do Flange"@pt-br ;
                 edo:hasAttribute edo:AssemblyTension ,
                                  edo:BoltType ,
                                  edo:Lubricant ,
@@ -9969,12 +9934,11 @@ edo:LineAncillary edo:hasAttribute edo:OverallDimensionsAttribute.
 edo:PipePullingHead edo:hasSpec edo:FlangeSpec .
 edo:PipePullingHead edo:hasSpec edo:FlangeBoltingSpec .
 edo:PipePullingHead edo:hasAttribute edo:N2TestPortType .
-edo:PipePullingHead edo:hasAttribute edo:PullingHeadType .
 edo:PullingHeadType edo:hasExternalRef "DF_2.1" .
 
 #####################################################################################################################
 ###  Consolicação AnchoringCollar
-edo:SplitCollar edo:hasSpec edo:FlangeBoltingSpec .
+# EXCLUIR: edo:SplitCollar edo:hasSpec edo:FlangeBoltingSpec .
 edo:PipeMountPosition edo:hasExternalRef "DF_2.1" .
 
 #####################################################################################################################
@@ -9991,3 +9955,41 @@ unit:KiloN-M rdf:type owl:NamedIndividual ,
              rdfs:comment "Unit of moment or torque equal to one kilonewton multiplied by one meter."@en ;
              rdfs:isDefinedBy unit:KiloN-M ;
              rdfs:label "Kilonewton Meter"@en .
+
+#####################################################################################################################
+###  Consolicação PipePullingHead - Fix
+# EXCLUIR: edo:PipePullingHead edo:hasAttribute edo:PullingHeadType .
+# EXCLUIR: edo:PipeHandlingTestHead
+# EXCLUIR: edo:PipeInstallationTestHead
+
+###  https://w3id.org/energy-domain/edo#Type
+edo:Type rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "Type" ;
+                    skos:definition "Specifies the type or functional variant of the object."@en ,
+                                    "Especifica o tipo ou variante funcional do objeto"@pt-br ;
+                    skos:prefLabel "Specifies the type or functional variant of the object"@en ,
+                                   "Especifica o tipo ou variante funcional do objeto"@pt-br ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:StringValue ;
+                    edo:hasValueCardinality edo:SingleValue ;
+                    edo:hasExternalRef "DF_2.1" .
+
+edo:PipePullingHead edo:hasAttribute edo:Type .
+
+###  Consolicação AnchoringCollar - Fix
+
+###  https://w3id.org/energy-domain/edo#BoltingSpec
+edo:BoltingSpec rdf:type owl:Class ;
+                rdfs:subClassOf edo:Spec ;
+                skos:prefLabel "Bolting Specification"@en ,
+                               "Especificação de Parafusamento"@pt-br ;
+                edo:hasAttribute edo:AssemblyTension ,
+                                 edo:BoltType ,
+                                 edo:Lubricant ,
+                                 edo:LubricantFrictionFactor ,
+                                 edo:TighteningTorque .
+
+edo:SplitCollar edo:hasSpec edo:BoltingSpec .
