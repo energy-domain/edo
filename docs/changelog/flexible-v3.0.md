@@ -656,3 +656,17 @@ Para `FrictionCoefficientTighteningCurve_TighteningPerTrack`, a unidade anterior
 - edo:hasUnit unit:N-PER-M ;
 + edo:hasUnit unit:KiloN ;
 ```
+
+## Updated (`edo:hasUnit`) — temperature units
+
+Unidade de temperatura alterada de kelvin para grau Celsius nas seguintes classes:
+
+```text
+InsideTemperature
+OutsideTemperature
+```
+
+```diff
+- edo:hasUnit unit:K ;
++ edo:hasUnit unit:DEG_C ;
+```
