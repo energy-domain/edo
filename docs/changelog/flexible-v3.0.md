@@ -603,3 +603,70 @@ StrIntOnNoTensNomPress
 StrIntOnNoTensNomPressValRef
 StrIntOnNoTensNomPressValRefMult
 ```
+
+## Updated (`edo:hasUnit`)
+
+Unidade de pressão alterada de pascal para megapascal nas seguintes classes:
+
+```text
+AbsoluteExternalPressure
+AbsoluteInsidePressure
+AbsoluteInternalPressure
+AbsoluteOutsidePressure
+EarlyLeakMaxPressTable_Press
+EarlyLeakNomPressTable_Press
+FatMaxPress
+FatNomPress
+MfrEarlyLeakMaxPressLimit
+MfrEarlyLeakNomPressLimit
+MfrOffLeakPLevMaxPressLimit
+MfrOffLeakPLevNomPressLimit
+MfrStrIntOffPLevMaxPressLimit
+MfrStrIntOffPLevNomPressLimit
+MfrStrIntOnNoTensMaxPressLimit
+MfrStrIntOnNoTensNomPressLimit
+```
+
+```diff
+- edo:hasUnit unit:PA ;
++ edo:hasUnit unit:MPa ;
+```
+
+## Updated (`edo:hasUnit`) — force units
+
+Unidade alterada para quilonewton nas seguintes classes:
+
+```text
+EarlyLeakMaxPressTable_TensLimit
+EarlyLeakNomPressTable_TensLimit
+FrictionCoefficientTighteningCurve_TighteningPerTrack
+MaximumAllowableTensionTable_MaximumAllowableTensile
+MaximumAllowableTighteningCurve_AxialLoad
+MinimumRadiusCurve_Compression
+```
+
+```diff
+- edo:hasUnit unit:N ;
++ edo:hasUnit unit:KiloN ;
+```
+
+Para `FrictionCoefficientTighteningCurve_TighteningPerTrack`, a unidade anterior era `unit:N-PER-M`:
+
+```diff
+- edo:hasUnit unit:N-PER-M ;
++ edo:hasUnit unit:KiloN ;
+```
+
+## Updated (`edo:hasUnit`) — temperature units
+
+Unidade de temperatura alterada de kelvin para grau Celsius nas seguintes classes:
+
+```text
+InsideTemperature
+OutsideTemperature
+```
+
+```diff
+- edo:hasUnit unit:K ;
++ edo:hasUnit unit:DEG_C ;
+```
