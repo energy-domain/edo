@@ -603,3 +603,31 @@ StrIntOnNoTensNomPress
 StrIntOnNoTensNomPressValRef
 StrIntOnNoTensNomPressValRefMult
 ```
+
+## Updated (`edo:hasUnit`)
+
+Unidade de pressão alterada de pascal para megapascal nas seguintes classes:
+
+```text
+AbsoluteExternalPressure
+AbsoluteInsidePressure
+AbsoluteInternalPressure
+AbsoluteOutsidePressure
+EarlyLeakMaxPressTable_Press
+EarlyLeakNomPressTable_Press
+FatMaxPress
+FatNomPress
+MfrEarlyLeakMaxPressLimit
+MfrEarlyLeakNomPressLimit
+MfrOffLeakPLevMaxPressLimit
+MfrOffLeakPLevNomPressLimit
+MfrStrIntOffPLevMaxPressLimit
+MfrStrIntOffPLevNomPressLimit
+MfrStrIntOnNoTensMaxPressLimit
+MfrStrIntOnNoTensNomPressLimit
+```
+
+```diff
+- edo:hasUnit unit:PA ;
++ edo:hasUnit unit:MPa ;
+```
