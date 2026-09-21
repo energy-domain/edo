@@ -1,0 +1,2624 @@
+@prefix edo: <https://w3id.org/energy-domain/edo#> .
+@prefix edo-ifc: <https://w3id.org/energy-domain/edo/mappings/ifc#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+######################################################################
+# EDO-IFC — Mapping ontology
+#
+# Scope:
+# - Imports/uses EDO core.
+# - Defines IFC-specific mapping annotations.
+# - Defines controlled IFC entities and IFC attribute roles used by mappings.
+# - Declares IFC materialisation rules for EDO relationships.
+#
+# Important:
+# - This ontology is the source of truth for EDO → IFC mapping.
+# - EDO core remains independent of IFC.
+# - IFC classes and roles are represented as controlled resources, not strings.
+######################################################################
+
+######################################################################
+# 1) Ontology declaration
+######################################################################
+
+<https://w3id.org/energy-domain/edo/mappings/ifc>
+    rdf:type owl:Ontology ;
+    owl:imports <https://w3id.org/energy-domain/edo> ;
+
+    rdfs:label "EDO IFC Mapping Ontology"@en ;
+    rdfs:label "Ontologia de Mapeamento IFC da EDO"@pt-br ;
+
+    dcterms:description "Ontology containing IFC-specific mapping annotations, controlled IFC references and materialisation rules for the Energy Domain Ontology."@en ;
+    dcterms:description "Ontologia contendo anotações de mapeamento IFC, referências IFC controladas e regras de materialização IFC para a Energy Domain Ontology."@pt-br .
+
+######################################################################
+# 2) Root annotation for IFC mapping
+######################################################################
+
+edo-ifc:IFCMappingAnnotation
+    rdf:type owl:AnnotationProperty ;
+
+    rdfs:label "IFC Mapping Annotation"@en ;
+    rdfs:label "Anotação de Mapeamento IFC"@pt-br ;
+
+    skos:definition "Root annotation property for IFC-specific mapping metadata used to translate EDO concepts and relationships into IFC."@en ;
+    skos:definition "Propriedade de anotação raiz para metadados específicos de mapeamento IFC usados para traduzir conceitos e relacionamentos da EDO para IFC."@pt-br ;
+
+    dcterms:identifier "IFCMappingAnnotation" .
+
+######################################################################
+# 3) Generic IFC mapping annotations
+######################################################################
+
+edo-ifc:ifc_equivalentClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
+
+    rdfs:label "IFC Equivalent Class"@en ;
+    rdfs:label "Classe IFC Equivalente"@pt-br ;
+
+    skos:definition "Indicates the controlled IFC entity used to materialise an EDO class or relationship."@en ;
+    skos:definition "Indica a entidade IFC controlada usada para materializar uma classe ou relacionamento da EDO."@pt-br ;
+
+    skos:altLabel "IFC Mapping Class"@en ;
+    skos:altLabel "Classe de Mapeamento IFC"@pt-br ;
+
+    dcterms:identifier "ifc_equivalentClass" .
+
+
+edo-ifc:ifc_invertedDirection
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range xsd:boolean ;
+
+    rdfs:label "IFC Inverted Direction"@en ;
+    rdfs:label "Direção Invertida no IFC"@pt-br ;
+
+    skos:definition "Indicates that the direction of an EDO relationship should be inverted when materialised as an IFC relationship."@en ;
+    skos:definition "Indica que a direção de um relacionamento da EDO deve ser invertida quando materializada como relacionamento IFC."@pt-br ;
+
+    skos:altLabel "Invert Mapping Direction"@en ;
+    skos:altLabel "Inverter Direção do Mapeamento"@pt-br ;
+
+    dcterms:identifier "ifc_invertedDirection" .
+
+
+edo-ifc:ifc_subjectRole
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "IFC Subject Role"@en ;
+    rdfs:label "Papel do Sujeito no IFC"@pt-br ;
+
+    skos:definition "Indicates the controlled IFC attribute role fulfilled by the subject of an EDO relationship when materialised in IFC."@en ;
+    skos:definition "Indica o papel controlado de atributo IFC exercido pelo sujeito de um relacionamento da EDO quando materializado em IFC."@pt-br ;
+
+    dcterms:identifier "ifc_subjectRole" .
+
+
+edo-ifc:ifc_objectRole
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "IFC Object Role"@en ;
+    rdfs:label "Papel do Objeto no IFC"@pt-br ;
+
+    skos:definition "Indicates the controlled IFC attribute role fulfilled by the object of an EDO relationship when materialised in IFC."@en ;
+    skos:definition "Indica o papel controlado de atributo IFC exercido pelo objeto de um relacionamento da EDO quando materializado em IFC."@pt-br ;
+
+    dcterms:identifier "ifc_objectRole" .
+
+edo-ifc:ifc_objectType
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "IFC Object Type"@en ;
+    rdfs:label "Tipo de Objeto IFC"@pt-br ;
+    skos:definition "Stores the ObjectType value used when an EDO class is materialised through a generic or USERDEFINED IFC entity."@en ;
+    skos:definition "Armazena o valor de ObjectType usado quando uma classe EDO é materializada por uma entidade IFC genérica ou USERDEFINED."@pt-br ;
+    dcterms:identifier "ifc_objectType" .
+
+
+edo-ifc:ifc_predefinedType
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "IFC Predefined Type"@en ;
+    rdfs:label "Tipo Predefinido IFC"@pt-br ;
+    skos:definition "Stores the PredefinedType value used to materialise an EDO class in IFC."@en ;
+    skos:definition "Armazena o valor de PredefinedType usado para materializar uma classe EDO em IFC."@pt-br ;
+    dcterms:identifier "ifc_predefinedType" .
+
+
+edo-ifc:ifc_relationshipName
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "IFC Relationship Name"@en ;
+    rdfs:label "Nome do Relacionamento IFC"@pt-br ;
+    skos:definition "Stores the value to be written to IfcRelationship.Name when materialising an EDO relationship, preserving the EDO relationship semantics in provisional IFC mappings."@en ;
+    skos:definition "Armazena o valor a ser escrito em IfcRelationship.Name ao materializar um relacionamento EDO, preservando a semântica da relação EDO em mapeamentos IFC provisórios."@pt-br ;
+    dcterms:identifier "ifc_relationshipName" .
+
+edo-ifc:ifc_attachToProject
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "Attach to IFC Project"@en ;
+    rdfs:label "Anexar ao Projeto IFC"@pt-br ;
+    skos:definition "Indicates that the materialised IFC object shall be aggregated directly below the mandatory IfcProject generated by the IFC writer."@en ;
+    skos:definition "Indica que o objeto IFC materializado deve ser agregado diretamente abaixo do IfcProject obrigatório gerado pelo escritor IFC."@pt-br ;
+    dcterms:identifier "ifc_attachToProject" .
+
+edo-ifc:ifc_materializationMode
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCMaterializationMode ;
+    rdfs:label "IFC Materialization Mode"@en ;
+    rdfs:label "Modo de Materialização IFC"@pt-br ;
+    skos:definition "Controls whether an EDO entity is materialised as its own IFC object or represented only through projection of its data onto another IFC carrier."@en ;
+    skos:definition "Controla se uma entidade EDO é materializada como objeto IFC próprio ou representada apenas pela projeção de seus dados sobre outro portador IFC."@pt-br ;
+    dcterms:identifier "ifc_materializationMode" .
+
+edo-ifc:ifc_attributeProjectionRule
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "IFC Attribute Projection Rule"@en ;
+    rdfs:label "Regra de Projeção de Atributos IFC"@pt-br ;
+    skos:definition "Defines how attributes of an EDO entity that is not independently materialised are projected onto the IFC carrier of a related EDO entity."@en ;
+    skos:definition "Define como os atributos de uma entidade EDO que não é materializada independentemente são projetados sobre o portador IFC de uma entidade EDO relacionada."@pt-br ;
+    dcterms:identifier "ifc_attributeProjectionRule" .
+
+edo-ifc:sourceEDOClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "Source EDO Class"@en ;
+    rdfs:label "Classe EDO de Origem"@pt-br ;
+    dcterms:identifier "sourceEDOClass" .
+
+edo-ifc:targetEDOClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "Target EDO Class"@en ;
+    rdfs:label "Classe EDO de Destino"@pt-br ;
+    dcterms:identifier "targetEDOClass" .
+
+edo-ifc:attributeProjectionDirection
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCAttributeProjectionDirection ;
+    rdfs:label "Attribute Projection Direction"@en ;
+    rdfs:label "Direção da Projeção de Atributos"@pt-br ;
+    dcterms:identifier "attributeProjectionDirection" .
+
+edo-ifc:projectInheritedAttributes
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "Project Inherited Attributes"@en ;
+    rdfs:label "Projetar Atributos Herdados"@pt-br ;
+    dcterms:identifier "projectInheritedAttributes" .
+
+edo-ifc:ifc_psetNameTemplate
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:label "IFC Property Set Name Template"@en ;
+    rdfs:label "Modelo de Nome de Property Set IFC"@pt-br ;
+    skos:definition "Template used by an IFC translator to name a property set generated while flattening a non-materialised structured EDO entity."@en ;
+    skos:definition "Modelo usado por um tradutor IFC para nomear um property set gerado ao achatar uma entidade EDO estruturada não materializada."@pt-br ;
+    dcterms:identifier "ifc_psetNameTemplate" .
+
+edo-ifc:projectNestedStructures
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "Project Nested Structures"@en ;
+    rdfs:label "Projetar Estruturas Aninhadas"@pt-br ;
+    skos:definition "Indicates that nested structured entities reachable from a projected specification are recursively flattened onto the same IFC carrier."@en ;
+    skos:definition "Indica que entidades estruturadas aninhadas alcançáveis a partir de uma especificação projetada são achatadas recursivamente sobre o mesmo portador IFC."@pt-br ;
+    dcterms:identifier "projectNestedStructures" .
+
+######################################################################
+# 4) IFC mapping rule annotations
+######################################################################
+
+edo-ifc:ifc_mappingRule
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+
+    rdfs:label "IFC Mapping Rule"@en ;
+    rdfs:label "Regra de Mapeamento IFC"@pt-br ;
+
+    skos:definition "Defines a conditional IFC materialisation rule for an EDO relationship."@en ;
+    skos:definition "Define uma regra condicional de materialização IFC para um relacionamento da EDO."@pt-br ;
+
+    dcterms:identifier "ifc_mappingRule" .
+
+
+edo-ifc:sourceIfcEquivalentClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
+
+    rdfs:label "Source IFC Equivalent Class"@en ;
+    rdfs:label "Classe IFC Equivalente da Origem"@pt-br ;
+
+    skos:definition "Specifies the controlled IFC entity expected for the source type of a relationship mapping rule."@en ;
+    skos:definition "Especifica a entidade IFC controlada esperada para o tipo de origem de uma regra de mapeamento de relacionamento."@pt-br ;
+
+    dcterms:identifier "sourceIfcEquivalentClass" .
+
+
+edo-ifc:targetIfcEquivalentClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
+
+    rdfs:label "Target IFC Equivalent Class"@en ;
+    rdfs:label "Classe IFC Equivalente do Destino"@pt-br ;
+
+    skos:definition "Specifies the controlled IFC entity expected for the target type of a relationship mapping rule."@en ;
+    skos:definition "Especifica a entidade IFC controlada esperada para o tipo de destino de uma regra de mapeamento de relacionamento."@pt-br ;
+
+    dcterms:identifier "targetIfcEquivalentClass" .
+
+
+edo-ifc:sourceNotIfcEquivalentClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
+
+    rdfs:label "Source Not IFC Equivalent Class"@en ;
+    rdfs:label "Origem Não Equivalente à Classe IFC"@pt-br ;
+
+    skos:definition "Specifies a controlled IFC entity that the source type must not have for a mapping rule to apply."@en ;
+    skos:definition "Especifica uma entidade IFC controlada que o tipo de origem não deve ter para que uma regra de mapeamento se aplique."@pt-br ;
+
+    dcterms:identifier "sourceNotIfcEquivalentClass" .
+
+
+edo-ifc:targetNotIfcEquivalentClass
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCEntity ;
+
+    rdfs:label "Target Not IFC Equivalent Class"@en ;
+    rdfs:label "Destino Não Equivalente à Classe IFC"@pt-br ;
+
+    skos:definition "Specifies a controlled IFC entity that the target type must not have for a mapping rule to apply."@en ;
+    skos:definition "Especifica uma entidade IFC controlada que o tipo de destino não deve ter para que uma regra de mapeamento se aplique."@pt-br ;
+
+    dcterms:identifier "targetNotIfcEquivalentClass" .
+
+
+edo-ifc:realizingElementRequirement
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:RealizingElementRequirement ;
+
+    rdfs:label "Realizing Element Requirement"@en ;
+    rdfs:label "Requisito de Elemento Realizador"@pt-br ;
+
+    skos:definition "Indicates whether a mapping rule applies when realizing elements are present, absent, or irrelevant."@en ;
+    skos:definition "Indica se uma regra de mapeamento se aplica quando elementos realizadores estão presentes, ausentes ou são irrelevantes."@pt-br ;
+
+    dcterms:identifier "realizingElementRequirement" .
+
+
+edo-ifc:realizingElementRole
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "Realizing Element Role"@en ;
+    rdfs:label "Papel do Elemento Realizador"@pt-br ;
+
+    skos:definition "Specifies the controlled IFC attribute role used to store realizing elements in the materialised IFC relationship."@en ;
+    skos:definition "Especifica o papel controlado de atributo IFC usado para armazenar elementos realizadores no relacionamento IFC materializado."@pt-br ;
+
+    dcterms:identifier "realizingElementRole" .
+
+######################################################################
+# 5) IFC controlled reference annotations
+######################################################################
+
+edo-ifc:ifcEntityName
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+
+    rdfs:label "IFC Entity Name"@en ;
+    rdfs:label "Nome da Entidade IFC"@pt-br ;
+
+    skos:definition "Stores the official IFC entity name used by translators when generating IFC data."@en ;
+    skos:definition "Armazena o nome oficial da entidade IFC usado por tradutores ao gerar dados IFC."@pt-br ;
+
+    dcterms:identifier "ifcEntityName" .
+
+
+edo-ifc:ifcAttributeName
+    rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+
+    rdfs:label "IFC Attribute Name"@en ;
+    rdfs:label "Nome do Atributo IFC"@pt-br ;
+
+    skos:definition "Stores the official IFC attribute name used by translators when filling IFC relationship roles."@en ;
+    skos:definition "Armazena o nome oficial do atributo IFC usado por tradutores ao preencher papéis em relacionamentos IFC."@pt-br ;
+
+    dcterms:identifier "ifcAttributeName" .
+
+######################################################################
+# 6) Controlled concepts for IFC entities and roles
+######################################################################
+
+edo-ifc:IFCEntity
+    rdf:type owl:Class ;
+
+    rdfs:label "IFC Entity"@en ;
+    rdfs:label "Entidade IFC"@pt-br ;
+
+    skos:definition "Controlled concept representing an IFC entity used by the EDO-IFC mapping ontology."@en ;
+    skos:definition "Conceito controlado que representa uma entidade IFC usada pela ontologia de mapeamento EDO-IFC."@pt-br ;
+
+    dcterms:identifier "IFCEntity" .
+
+
+edo-ifc:IFCObjectEntity
+    rdf:type owl:Class ;
+    rdfs:subClassOf edo-ifc:IFCEntity ;
+
+    rdfs:label "IFC Object Entity"@en ;
+    rdfs:label "Entidade de Objeto IFC"@pt-br ;
+
+    skos:definition "Controlled concept representing an IFC object entity used by the EDO-IFC mapping ontology."@en ;
+    skos:definition "Conceito controlado que representa uma entidade de objeto IFC usada pela ontologia de mapeamento EDO-IFC."@pt-br ;
+
+    dcterms:identifier "IFCObjectEntity" .
+
+
+edo-ifc:IFCRelationshipEntity
+    rdf:type owl:Class ;
+    rdfs:subClassOf edo-ifc:IFCEntity ;
+
+    rdfs:label "IFC Relationship Entity"@en ;
+    rdfs:label "Entidade de Relacionamento IFC"@pt-br ;
+
+    skos:definition "Controlled concept representing an IFC relationship entity used by the EDO-IFC mapping ontology."@en ;
+    skos:definition "Conceito controlado que representa uma entidade de relacionamento IFC usada pela ontologia de mapeamento EDO-IFC."@pt-br ;
+
+    dcterms:identifier "IFCRelationshipEntity" .
+
+
+edo-ifc:IFCAttributeRole
+    rdf:type owl:Class ;
+
+    rdfs:label "IFC Attribute Role"@en ;
+    rdfs:label "Papel de Atributo IFC"@pt-br ;
+
+    skos:definition "Controlled concept representing an IFC attribute used as a role when materialising EDO relationships in IFC."@en ;
+    skos:definition "Conceito controlado que representa um atributo IFC usado como papel ao materializar relacionamentos da EDO em IFC."@pt-br ;
+
+    dcterms:identifier "IFCAttributeRole" .
+
+
+edo-ifc:RealizingElementRequirement
+    rdf:type owl:Class ;
+
+    rdfs:label "Realizing Element Requirement"@en ;
+    rdfs:label "Requisito de Elemento Realizador"@pt-br ;
+
+    skos:definition "Controlled concept used to indicate whether realizing elements are required, absent, or irrelevant for an IFC mapping rule."@en ;
+    skos:definition "Conceito controlado usado para indicar se elementos realizadores são requeridos, ausentes ou irrelevantes para uma regra de mapeamento IFC."@pt-br ;
+
+    dcterms:identifier "RealizingElementRequirement" .
+
+######################################################################
+# 7) Controlled IFC relationship entities
+######################################################################
+
+edo-ifc:IfcRelAggregates
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAggregates"@en ;
+    edo-ifc:ifcEntityName "IfcRelAggregates" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAggregates.htm> ;
+
+    dcterms:identifier "IfcRelAggregates" .
+
+
+edo-ifc:IfcRelNests
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelNests"@en ;
+    edo-ifc:ifcEntityName "IfcRelNests" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelNests.htm> ;
+
+    dcterms:identifier "IfcRelNests" .
+
+
+edo-ifc:IfcRelAssociatesDocument
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssociatesDocument"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssociatesDocument" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssociatesDocument.htm> ;
+
+    dcterms:identifier "IfcRelAssociatesDocument" .
+
+
+edo-ifc:IfcRelAssociatesClassification
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssociatesClassification"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssociatesClassification" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssociatesClassification.htm> ;
+
+    dcterms:identifier "IfcRelAssociatesClassification" .
+
+
+edo-ifc:IfcRelAssociatesMaterial
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssociatesMaterial"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssociatesMaterial" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssociatesMaterial.htm> ;
+
+    dcterms:identifier "IfcRelAssociatesMaterial" .
+
+
+edo-ifc:IfcRelAssignsToGroup
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssignsToGroup"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssignsToGroup" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssignsToGroup.htm> ;
+
+    dcterms:identifier "IfcRelAssignsToGroup" .
+
+
+edo-ifc:IfcRelAssignsToProduct
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelAssignsToProduct"@en ;
+    edo-ifc:ifcEntityName "IfcRelAssignsToProduct" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelAssignsToProduct.htm> ;
+
+    dcterms:identifier "IfcRelAssignsToProduct" .
+
+
+edo-ifc:IfcRelConnectsPorts
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelConnectsPorts"@en ;
+    edo-ifc:ifcEntityName "IfcRelConnectsPorts" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelConnectsPorts.htm> ;
+
+    dcterms:identifier "IfcRelConnectsPorts" .
+
+
+edo-ifc:IfcRelConnectsElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelConnectsElements"@en ;
+    edo-ifc:ifcEntityName "IfcRelConnectsElements" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelConnectsElements.htm> ;
+
+    dcterms:identifier "IfcRelConnectsElements" .
+
+
+edo-ifc:IfcRelConnectsWithRealizingElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+
+    rdfs:label "IfcRelConnectsWithRealizingElements"@en ;
+    edo-ifc:ifcEntityName "IfcRelConnectsWithRealizingElements" ;
+
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelConnectsWithRealizingElements.htm> ;
+
+    dcterms:identifier "IfcRelConnectsWithRealizingElements" .
+
+######################################################################
+# 8) Controlled IFC object entities
+######################################################################
+
+edo-ifc:IfcDistributionPort
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+
+    rdfs:label "IfcDistributionPort"@en ;
+    edo-ifc:ifcEntityName "IfcDistributionPort" ;
+
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcDistributionPort> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcDistributionPort.htm> ;
+
+    dcterms:identifier "IfcDistributionPort" .
+
+
+edo-ifc:IfcPipeSegment
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+
+    rdfs:label "IfcPipeSegment"@en ;
+    edo-ifc:ifcEntityName "IfcPipeSegment" ;
+
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcPipeSegment> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcPipeSegment.htm> ;
+
+    dcterms:identifier "IfcPipeSegment" .
+
+edo-ifc:IfcBuilding
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcBuilding"@en ;
+    edo-ifc:ifcEntityName "IfcBuilding" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcBuilding.htm> ;
+    dcterms:identifier "IfcBuilding" .
+
+edo-ifc:IfcBuildingElementProxy
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcBuildingElementProxy"@en ;
+    edo-ifc:ifcEntityName "IfcBuildingElementProxy" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcBuildingElementProxy.htm> ;
+    dcterms:identifier "IfcBuildingElementProxy" .
+
+edo-ifc:IfcCableFitting
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcCableFitting"@en ;
+    edo-ifc:ifcEntityName "IfcCableFitting" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcCableFitting.htm> ;
+    dcterms:identifier "IfcCableFitting" .
+
+edo-ifc:IfcCableSegment
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcCableSegment"@en ;
+    edo-ifc:ifcEntityName "IfcCableSegment" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcCableSegment.htm> ;
+    dcterms:identifier "IfcCableSegment" .
+
+edo-ifc:IfcDiscreteAccessory
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcDiscreteAccessory"@en ;
+    edo-ifc:ifcEntityName "IfcDiscreteAccessory" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcDiscreteAccessory.htm> ;
+    dcterms:identifier "IfcDiscreteAccessory" .
+
+edo-ifc:IfcDocumentInformation
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcDocumentInformation"@en ;
+    edo-ifc:ifcEntityName "IfcDocumentInformation" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcDocumentInformation.htm> ;
+    dcterms:identifier "IfcDocumentInformation" .
+
+edo-ifc:IfcElementAssembly
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcElementAssembly"@en ;
+    edo-ifc:ifcEntityName "IfcElementAssembly" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcElementAssembly.htm> ;
+    dcterms:identifier "IfcElementAssembly" .
+
+edo-ifc:IfcGroup
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcGroup"@en ;
+    edo-ifc:ifcEntityName "IfcGroup" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcGroup.htm> ;
+    dcterms:identifier "IfcGroup" .
+
+edo-ifc:IfcMechanicalFastener
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcMechanicalFastener"@en ;
+    edo-ifc:ifcEntityName "IfcMechanicalFastener" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcMechanicalFastener.htm> ;
+    dcterms:identifier "IfcMechanicalFastener" .
+
+edo-ifc:IfcMember
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcMember"@en ;
+    edo-ifc:ifcEntityName "IfcMember" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcMember.htm> ;
+    dcterms:identifier "IfcMember" .
+
+edo-ifc:IfcPile
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcPile"@en ;
+    edo-ifc:ifcEntityName "IfcPile" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcPile.htm> ;
+    dcterms:identifier "IfcPile" .
+
+edo-ifc:IfcPipeFitting
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcPipeFitting"@en ;
+    edo-ifc:ifcEntityName "IfcPipeFitting" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcPipeFitting.htm> ;
+    dcterms:identifier "IfcPipeFitting" .
+
+edo-ifc:IfcPipeSegmentType
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcPipeSegmentType"@en ;
+    edo-ifc:ifcEntityName "IfcPipeSegmentType" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcPipeSegmentType.htm> ;
+    dcterms:identifier "IfcPipeSegmentType" .
+
+edo-ifc:IfcRelDefinesByType
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+    rdfs:label "IfcRelDefinesByType"@en ;
+    edo-ifc:ifcEntityName "IfcRelDefinesByType" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelDefinesByType.htm> ;
+    dcterms:identifier "IfcRelDefinesByType" .
+
+edo-ifc:IfcSite
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcSite"@en ;
+    edo-ifc:ifcEntityName "IfcSite" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcSite.htm> ;
+    dcterms:identifier "IfcSite" .
+
+edo-ifc:IfcValve
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcValve"@en ;
+    edo-ifc:ifcEntityName "IfcValve" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcValve.htm> ;
+    dcterms:identifier "IfcValve" .
+
+edo-ifc:UmbilicalSegment
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "UmbilicalSegment"@en ;
+    edo-ifc:ifcEntityName "UmbilicalSegment" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/UmbilicalSegment.htm> ;
+    dcterms:identifier "UmbilicalSegment" .
+
+
+edo-ifc:IfcRelContainedInSpatialStructure
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCRelationshipEntity ;
+    rdfs:label "IfcRelContainedInSpatialStructure"@en ;
+    edo-ifc:ifcEntityName "IfcRelContainedInSpatialStructure" ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRelContainedInSpatialStructure.htm> ;
+    dcterms:identifier "IfcRelContainedInSpatialStructure" .
+
+######################################################################
+# 8A) Additional controlled IFC object entities required by develop
+######################################################################
+
+edo-ifc:IfcCovering
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcCovering"@en ;
+    edo-ifc:ifcEntityName "IfcCovering" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcCovering> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcCovering.htm> ;
+    dcterms:identifier "IfcCovering" .
+
+edo-ifc:IfcActuator
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcActuator"@en ;
+    edo-ifc:ifcEntityName "IfcActuator" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcActuator> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcActuator.htm> ;
+    dcterms:identifier "IfcActuator" .
+
+edo-ifc:IfcTask
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcTask"@en ;
+    edo-ifc:ifcEntityName "IfcTask" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcTask> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcTask.htm> ;
+    dcterms:identifier "IfcTask" .
+
+edo-ifc:IfcActor
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcActor"@en ;
+    edo-ifc:ifcEntityName "IfcActor" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcActor> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcActor.htm> ;
+    dcterms:identifier "IfcActor" .
+
+edo-ifc:IfcJunctionBox
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcJunctionBox"@en ;
+    edo-ifc:ifcEntityName "IfcJunctionBox" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcJunctionBox> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcJunctionBox.htm> ;
+    dcterms:identifier "IfcJunctionBox" .
+
+edo-ifc:IfcFastener
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCObjectEntity ;
+    rdfs:label "IfcFastener"@en ;
+    edo-ifc:ifcEntityName "IfcFastener" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcFastener> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcFastener.htm> ;
+    dcterms:identifier "IfcFastener" .
+
+######################################################################
+# 8B) Additional controlled IFC non-object entities required by develop
+######################################################################
+
+edo-ifc:IfcMaterial
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCEntity ;
+    rdfs:label "IfcMaterial"@en ;
+    edo-ifc:ifcEntityName "IfcMaterial" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcMaterial> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcMaterial.htm> ;
+    dcterms:identifier "IfcMaterial" .
+
+edo-ifc:IfcClassificationReference
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCEntity ;
+    rdfs:label "IfcClassificationReference"@en ;
+    edo-ifc:ifcEntityName "IfcClassificationReference" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcClassificationReference> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcClassificationReference.htm> ;
+    dcterms:identifier "IfcClassificationReference" .
+
+edo-ifc:IfcClassification
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCEntity ;
+    rdfs:label "IfcClassification"@en ;
+    edo-ifc:ifcEntityName "IfcClassification" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcClassification> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcClassification.htm> ;
+    dcterms:identifier "IfcClassification" .
+
+edo-ifc:IfcProject
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCEntity ;
+    rdfs:label "IfcProject"@en ;
+    edo-ifc:ifcEntityName "IfcProject" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcProject> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcProject.htm> ;
+    dcterms:identifier "IfcProject" .
+
+edo-ifc:IfcPerson
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCEntity ;
+    rdfs:label "IfcPerson"@en ;
+    edo-ifc:ifcEntityName "IfcPerson" ;
+    skos:exactMatch <https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcPerson> ;
+    rdfs:seeAlso <https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcPerson.htm> ;
+    dcterms:identifier "IfcPerson" .
+
+######################################################################
+# 9) Controlled IFC attribute roles
+######################################################################
+
+edo-ifc:RelatingObject
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingObject"@en ;
+    edo-ifc:ifcAttributeName "RelatingObject" ;
+
+    dcterms:identifier "RelatingObject" .
+
+
+edo-ifc:RelatedObjects
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatedObjects"@en ;
+    edo-ifc:ifcAttributeName "RelatedObjects" ;
+
+    dcterms:identifier "RelatedObjects" .
+
+
+edo-ifc:RelatingDocument
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingDocument"@en ;
+    edo-ifc:ifcAttributeName "RelatingDocument" ;
+
+    dcterms:identifier "RelatingDocument" .
+
+
+edo-ifc:RelatingClassification
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingClassification"@en ;
+    edo-ifc:ifcAttributeName "RelatingClassification" ;
+
+    dcterms:identifier "RelatingClassification" .
+
+
+edo-ifc:RelatingMaterial
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingMaterial"@en ;
+    edo-ifc:ifcAttributeName "RelatingMaterial" ;
+
+    dcterms:identifier "RelatingMaterial" .
+
+
+edo-ifc:RelatingGroup
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingGroup"@en ;
+    edo-ifc:ifcAttributeName "RelatingGroup" ;
+
+    dcterms:identifier "RelatingGroup" .
+
+
+edo-ifc:RelatingProduct
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingProduct"@en ;
+    edo-ifc:ifcAttributeName "RelatingProduct" ;
+
+    dcterms:identifier "RelatingProduct" .
+
+
+edo-ifc:RelatingPort
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingPort"@en ;
+    edo-ifc:ifcAttributeName "RelatingPort" ;
+
+    dcterms:identifier "RelatingPort" .
+
+
+edo-ifc:RelatedPort
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatedPort"@en ;
+    edo-ifc:ifcAttributeName "RelatedPort" ;
+
+    dcterms:identifier "RelatedPort" .
+
+
+edo-ifc:RelatingElement
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatingElement"@en ;
+    edo-ifc:ifcAttributeName "RelatingElement" ;
+
+    dcterms:identifier "RelatingElement" .
+
+
+edo-ifc:RelatedElement
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RelatedElement"@en ;
+    edo-ifc:ifcAttributeName "RelatedElement" ;
+
+    dcterms:identifier "RelatedElement" .
+
+
+edo-ifc:RealizingElement
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RealizingElement"@en ;
+    edo-ifc:ifcAttributeName "RealizingElement" ;
+
+    dcterms:identifier "RealizingElement" .
+
+
+edo-ifc:RealizingElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+
+    rdfs:label "RealizingElements"@en ;
+    edo-ifc:ifcAttributeName "RealizingElements" ;
+
+    dcterms:identifier "RealizingElements" .
+
+edo-ifc:RelatingType
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+    rdfs:label "RelatingType"@en ;
+    edo-ifc:ifcAttributeName "RelatingType" ;
+    dcterms:identifier "RelatingType" .
+
+edo-ifc:RelatingStructure
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+    rdfs:label "RelatingStructure"@en ;
+    edo-ifc:ifcAttributeName "RelatingStructure" ;
+    dcterms:identifier "RelatingStructure" .
+
+edo-ifc:RelatedElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:IFCAttributeRole ;
+    rdfs:label "RelatedElements"@en ;
+    edo-ifc:ifcAttributeName "RelatedElements" ;
+    dcterms:identifier "RelatedElements" .
+
+######################################################################
+# 10) Controlled concepts for realizing element requirement
+######################################################################
+
+edo-ifc:RequiresRealizingElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:RealizingElementRequirement ;
+
+    rdfs:label "Requires Realizing Elements"@en ;
+    rdfs:label "Requer Elementos Realizadores"@pt-br ;
+
+    skos:definition "Indicates that the IFC mapping rule applies when the EDO connection context includes one or more realizing elements."@en ;
+    skos:definition "Indica que a regra de mapeamento IFC se aplica quando o contexto de conexão da EDO inclui um ou mais elementos realizadores."@pt-br ;
+
+    dcterms:identifier "RequiresRealizingElements" .
+
+
+edo-ifc:DoesNotRequireRealizingElements
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:RealizingElementRequirement ;
+
+    rdfs:label "Does Not Require Realizing Elements"@en ;
+    rdfs:label "Não Requer Elementos Realizadores"@pt-br ;
+
+    skos:definition "Indicates that the IFC mapping rule applies when the EDO connection context does not include realizing elements."@en ;
+    skos:definition "Indica que a regra de mapeamento IFC se aplica quando o contexto de conexão da EDO não inclui elementos realizadores."@pt-br ;
+
+    dcterms:identifier "DoesNotRequireRealizingElements" .
+
+
+edo-ifc:AnyRealizingElementRequirement
+    rdf:type owl:NamedIndividual ;
+    rdf:type edo-ifc:RealizingElementRequirement ;
+
+    rdfs:label "Any Realizing Element Requirement"@en ;
+    rdfs:label "Qualquer Requisito de Elemento Realizador"@pt-br ;
+
+    skos:definition "Indicates that the IFC mapping rule applies regardless of whether realizing elements are present or absent."@en ;
+    skos:definition "Indica que a regra de mapeamento IFC se aplica independentemente de elementos realizadores estarem presentes ou ausentes."@pt-br ;
+
+    dcterms:identifier "AnyRealizingElementRequirement" .
+
+######################################################################
+# 11) Direct IFC mappings for EDO relationships
+######################################################################
+
+edo:hasPart
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAggregates ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_relationshipName "hasPart" .
+
+edo:hasOrderedPart
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelNests ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_relationshipName "hasOrderedPart" .
+
+edo:hasDocument
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssociatesDocument ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingDocument .
+
+edo:hasClassificationReference
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssociatesClassification ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingClassification .
+
+edo:hasMaterial
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssociatesMaterial ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingMaterial .
+
+edo:belongsToGroup
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssignsToGroup ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingGroup .
+
+edo:hasSparePart
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAssignsToProduct ;
+    edo-ifc:ifc_invertedDirection "true"^^xsd:boolean ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingProduct ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedObjects .
+
+######################################################################
+# 11A) Synchronized IFC class mappings
+#
+# Legacy class mappings migrated from 418986468282 only when the
+# EDO class still exists in the current core. Explicit current decisions
+# for flexible pipes override legacy values.
+######################################################################
+
+edo:AbandonmentCap
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcCableFitting ;
+    edo-ifc:ifc_objectType "AbandonmentCap" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:AbrasionProtector
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory ;
+    edo-ifc:ifc_objectType "AbrasionProtector" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:AnchoringCollar
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory ;
+    edo-ifc:ifc_objectType "AnchoringCollar" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:AnodeCollarSet
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "AnodeCollarSet" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:AnodeSled
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcBuildingElementProxy ;
+    edo-ifc:ifc_objectType "AnodeSled" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:AntiCollapseSheath
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "AntiCollapseSheath" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:AntiWearSheath
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "AntiWearSheath" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ArmorPot
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "ArmorPot" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:BendRestrictor
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "BendRestrictor" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:BuoyancyModule
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory ;
+    edo-ifc:ifc_objectType "BuoyancyModule" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:BuoyancyTank
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "BuoyancyTank" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:CasingHanger
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "CasingHanger" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ChainSegment
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcMember ;
+    edo-ifc:ifc_objectType "ChainSegment" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ChemicalInjectionUnit
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "ChemicalInjectionUnit" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ChokeModule
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "ChokeModule" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:CrossoverModule
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "CrossoverModule" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:DeadweightCollar
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "DeadweightCollar" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:DimensionsDrawing
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDocumentInformation ;
+    edo-ifc:ifc_objectType "DimensionsDrawing" .
+
+edo:DistributionModule
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "DistributionModule" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:DragAnchor
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcBuildingElementProxy ;
+    edo-ifc:ifc_objectType "DragAnchor" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ElectricalCable
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcCableSegment ;
+    edo-ifc:ifc_objectType "ElectricalCable" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ElectricalJumper
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "ElectricalJumper" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ElectricalJumperConnector
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcCableFitting ;
+    edo-ifc:ifc_objectType "ElectricalJumperConnector" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ElectricalPowerJumper
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "ElectricalPowerJumper" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ElectricalPowerJumperConnector
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcCableFitting ;
+    edo-ifc:ifc_objectType "ElectricalPowerJumperConnector" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:EndFitting
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "EndFitting" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:EquipmentLocation
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly ;
+    edo-ifc:ifc_objectType "EquipmentLocation" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FSHRLowerAssembly
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "FSHRLowerAssembly" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FSHRUpperAssembly
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "FSHRUpperAssembly" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FabricTape
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "FabricTape" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FiberRopeSegment
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcMember ;
+    edo-ifc:ifc_objectType "FiberRopeSegment" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Filler
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "Filler" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FlangeAdapter
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "FlangeAdapter" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FlangeConnection
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDistributionPort ;
+    edo-ifc:ifc_objectType "FlangeConnection" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+
+edo:DesignOperatingCondition
+    edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly ;
+    edo-ifc:ifc_psetNameTemplate "Pset_FlexiblePipeEnvelope_OperatingCondition_{index}" .
+
+edo:DesignOperatingState
+    edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly ;
+    edo-ifc:ifc_psetNameTemplate "Pset_FlexiblePipeEnvelope_OperatingCondition_{conditionIndex}_{position}" .
+
+edo:FlexiblePipeEnvelope
+    edo-ifc:ifc_materializationMode edo-ifc:AttributeProjectionOnly .
+
+edo:FlexiblePipeSegment
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "FlexiblePipeSegment" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FlexiblePipeStructure
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegmentType ;
+    edo-ifc:ifc_objectType "FlexiblePipeStructure" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FloatingProductionUnit
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcBuilding ;
+    edo-ifc:ifc_objectType "FloatingProductionUnit" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FlowConnector
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "FlowConnector" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FlowLineMandrel
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "FlowLineMandrel" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:FlowbaseRunningTool
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "FlowbaseRunningTool" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:GroovePoint
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDistributionPort ;
+    edo-ifc:ifc_objectType "GroovePoint" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:GroutBag
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcBuildingElementProxy ;
+    edo-ifc:ifc_objectType "GroutBag" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:GuideBase
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "GuideBase" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HCM
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HCM" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HCRHose
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "HCRHose" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HPHousing
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HPHousing" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HandlingCollar
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HandlingCollar" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HangOffCollar
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HangOffCollar" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HighStrengthTape
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "HighStrengthTape" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HoldingBandage
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "HoldingBandage" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Hook
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener ;
+    edo-ifc:ifc_objectType "Hook" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HotStab
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HotStab" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HotStabReceptacle
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HotStabReceptacle" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Hub
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "Hub" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HubBlockCap
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HubBlockCap" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HubProtectionCap
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HubProtectionCap" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HydraulicJumper
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HydraulicJumper" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:HydraulicPowerUnit
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "HydraulicPowerUnit" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:IMUX
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "IMUX" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ITube
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "ITube" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:InlineT
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "InlineT" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:InlineValve
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcValve ;
+    edo-ifc:ifc_objectType "InlineValve" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:InlineY
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "InlineY" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:InnerTube
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "InnerTube" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:InsulationTape
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "InsulationTape" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:IntegratedPipe
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "IntegratedPipe" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:InterlockedCarcass
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "InterlockedCarcass" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:IntermediateBendStiffener
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "IntermediateBendStiffener" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:IntermediateSheath
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "IntermediateSheath" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:InternalPressureSheath
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "InternalPressureSheath" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:LPHousing
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "LPHousing" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:LogicCap
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "LogicCap" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:LowResistanceTape
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "LowResistanceTape" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:MasterControlStation
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "MasterControlStation" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Mattress
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcBuildingElementProxy ;
+    edo-ifc:ifc_objectType "Mattress" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:MetallicStrandSet
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcCableSegment ;
+    edo-ifc:ifc_objectType "MetallicStrandSet" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:MetallicTubing
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "MetallicTubing" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:OpenReceptacle
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "OpenReceptacle" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:OpticalFiberCable
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcCableSegment ;
+    edo-ifc:ifc_objectType "OpticalFiberCable" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PLEM
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "PLEM" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PLET
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "PLET" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PipePullingHead
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory ;
+    edo-ifc:ifc_objectType "PipePullingHead" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PipingSpool
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "PipingSpool" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PlasticHose
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "PlasticHose" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PressureArmour
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "PressureArmour" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PressureSensor
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "PressureSensor" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ProtectiveSheath
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "ProtectiveSheath" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PullInCollar
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "PullInCollar" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Pump
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "Pump" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:PumpingModule
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "PumpingModule" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:QuickConnectCoupling
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "QuickConnectCoupling" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:QuickDisconnectionTool
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "QuickDisconnectionTool" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:RearPoint
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDistributionPort ;
+    edo-ifc:ifc_objectType "RearPoint" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:RigidJoint
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "RigidJoint" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:RigidJumper
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly ;
+    edo-ifc:ifc_objectType "RigidJumper" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:RingGasket
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener ;
+    edo-ifc:ifc_objectType "RingGasket" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:RiserBalcony
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "RiserBalcony" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:RiserSupportBuoy
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "RiserSupportBuoy" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:RoboticActuator
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "RoboticActuator" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SCM
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SCM" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SCMMB
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SCMMB" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SCMRunningTool
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SCMRunningTool" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SDU
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SDU" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SEM
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SEM" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SacrificialSheath
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "SacrificialSheath" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SandDetector
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SandDetector" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SeparatorVessel
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SeparatorVessel" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Shackle
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener ;
+    edo-ifc:ifc_objectType "Shackle" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ShearableRiserJoint
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "ShearableRiserJoint" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Socket
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener ;
+    edo-ifc:ifc_objectType "Socket" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SpliceBox
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SpliceBox" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:StopperCollar
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "StopperCollar" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:StorageBox
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "StorageBox" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:StorageSkid
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "StorageSkid" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:StorageSpool
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "StorageSpool" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SubseaConnectionPoint
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "SubseaConnectionPoint" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SubseaLayout
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly ;
+    edo-ifc:ifc_objectType "SubseaLayout" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SubseaOilField
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcSite ;
+    edo-ifc:ifc_objectType "SubseaOilField" ;
+    edo-ifc:ifc_attachToProject true .
+
+edo:SubseaPipeline
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly ;
+    edo-ifc:ifc_objectType "SubseaPipeline" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SubseaUmbilical
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcBuilding ;
+    edo-ifc:ifc_objectType "SubseaUmbilical" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SubseaWell
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcBuilding ;
+    edo-ifc:ifc_objectType "SubseaWell" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:SuctionPile
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPile ;
+    edo-ifc:ifc_objectType "SuctionPile" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TPT
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TPT" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TemperatureSensor
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TemperatureSensor" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TensileArmour
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment ;
+    edo-ifc:ifc_objectType "TensileArmour" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TestBase
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TestBase" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ThreadedFitting
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "ThreadedFitting" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TieIn
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TieIn" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TopBendStiffener
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TopBendStiffener" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TopsideConnectionPoint
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TopsideConnectionPoint" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TorpedoPile
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPile ;
+    edo-ifc:ifc_objectType "TorpedoPile" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TreeRunningTool
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TreeRunningTool" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TrianglePlate
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory ;
+    edo-ifc:ifc_objectType "TrianglePlate" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TubingHanger
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TubingHanger" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:TubingHangerRunningTool
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "TubingHangerRunningTool" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:UTA
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "UTA" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:UTM
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "UTM" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:UmbilicalBundle
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegmentType ;
+    edo-ifc:ifc_objectType "UmbilicalBundle" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:UmbilicalPullingHead
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "UmbilicalPullingHead" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:UmbilicalSegment
+    edo-ifc:ifc_equivalentClass edo-ifc:UmbilicalSegment ;
+    edo-ifc:ifc_objectType "IfcPipeSegment" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:UmbilicalStructure
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegmentType ;
+    edo-ifc:ifc_objectType "UmbilicalStructure" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:VCM
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "VCM" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Vessel
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "Vessel" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:WaterIntake
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "WaterIntake" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:WearBushing
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "WearBushing" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:WearBushingRunningTool
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "WearBushingRunningTool" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:WeldedConnection
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDistributionPort ;
+    edo-ifc:ifc_objectType "WeldedConnection" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:Wellhead
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "Wellhead" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:WetChristmasTree
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting ;
+    edo-ifc:ifc_objectType "WetChristmasTree" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:WireRopeSegment
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcMember ;
+    edo-ifc:ifc_objectType "WireRopeSegment" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+
+
+# Occurrence -> reusable technical type.
+edo:isDefinedByCatalogItem
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelDefinesByType ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingType ;
+    edo-ifc:ifc_relationshipName "isDefinedByCatalogItem" .
+
+
+edo:ConnectionModule
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly ;
+    edo-ifc:ifc_objectType "ConnectionModule" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:RiserSupport
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly ;
+    edo-ifc:ifc_objectType "RiserSupport" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+edo:ConnectionPoint
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcDistributionPort ;
+    edo-ifc:ifc_objectType "ConnectionPoint" ;
+    edo-ifc:ifc_predefinedType "USERDEFINED" .
+
+# H03: field spatially contains the platform. With SubseaOilField→IfcSite and
+# FloatingProductionUnit→IfcElementAssembly this is valid IfcRelContainedInSpatialStructure.
+edo:spatiallyContains
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelContainedInSpatialStructure ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingStructure ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedElements ;
+    edo-ifc:ifc_relationshipName "spatiallyContains" .
+
+# H02: the well serves the production unit, while the IFC tree is intentionally
+# inverted so the production unit is the aggregate parent of the well.
+edo:serves
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAggregates ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatingObject ;
+    edo-ifc:ifc_relationshipName "serves" .
+
+# H04: functional interconnections are organised below the well in the IFC tree.
+edo:hasInterconnection
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAggregates ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_relationshipName "hasInterconnection" .
+
+# H05: with SubseaWell and WetChristmasTree both materialised as IfcElementAssembly,
+# hierarchy is carried by IfcRelAggregates; physical WCT↔Wellhead connectivity remains separate.
+edo:hosts
+    edo-ifc:ifc_equivalentClass edo-ifc:IfcRelAggregates ;
+    edo-ifc:ifc_subjectRole edo-ifc:RelatingObject ;
+    edo-ifc:ifc_objectRole edo-ifc:RelatedObjects ;
+    edo-ifc:ifc_relationshipName "hosts" .
+
+# Specification attribute projection. FlexiblePipeEnvelope remains a first-class
+# EDO specification but is deliberately not materialised as an IFC object in the
+# current Petrobras delivery. Its requirement attributes are projected onto the
+# IfcPipeSegmentType carrier of FlexiblePipeStructure. They can then be exposed to
+# FlexiblePipeSegment occurrences through native IfcRelDefinesByType semantics.
+edo:hasSpec
+    edo-ifc:ifc_attributeProjectionRule [
+        edo-ifc:sourceEDOClass edo:FlexiblePipeStructure ;
+        edo-ifc:targetEDOClass edo:FlexiblePipeEnvelope ;
+        edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+        edo-ifc:projectInheritedAttributes true ;
+        edo-ifc:projectNestedStructures true
+    ] .
+
+edo:hasOperatingCondition
+    edo-ifc:ifc_attributeProjectionRule [
+        edo-ifc:sourceEDOClass edo:FlexiblePipeEnvelope ;
+        edo-ifc:targetEDOClass edo:DesignOperatingCondition ;
+        edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+        edo-ifc:projectInheritedAttributes true ;
+        edo-ifc:projectNestedStructures true
+    ] .
+
+edo:hasOperatingState
+    edo-ifc:ifc_attributeProjectionRule [
+        edo-ifc:sourceEDOClass edo:DesignOperatingCondition ;
+        edo-ifc:targetEDOClass edo:DesignOperatingState ;
+        edo-ifc:attributeProjectionDirection edo-ifc:ObjectToSubject ;
+        edo-ifc:projectInheritedAttributes true
+    ] .
+
+######################################################################
+# 12) Conditional IFC materialisation rules for edo:isConnectedTo
+#
+# Logic:
+#
+# 1. Port + Port:
+#    - Always materialise as IfcRelConnectsPorts.
+#    - If realizing elements exist, they fill IfcRelConnectsPorts.RealizingElement.
+#
+# 2. Non-port + Non-port:
+#    - Without realizing elements: IfcRelConnectsElements.
+#    - With realizing elements: IfcRelConnectsWithRealizingElements.
+#
+# The negative condition is IFC-specific and therefore lives here,
+# not in the EDO core.
+######################################################################
+
+edo:isConnectedTo
+    edo-ifc:ifc_mappingRule [
+        edo-ifc:sourceIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:targetIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:realizingElementRequirement edo-ifc:AnyRealizingElementRequirement ;
+        edo-ifc:ifc_equivalentClass edo-ifc:IfcRelConnectsPorts ;
+        edo-ifc:ifc_subjectRole edo-ifc:RelatingPort ;
+        edo-ifc:ifc_objectRole edo-ifc:RelatedPort ;
+        edo-ifc:realizingElementRole edo-ifc:RealizingElement
+    ] ;
+
+    edo-ifc:ifc_mappingRule [
+        edo-ifc:sourceNotIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:targetNotIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:realizingElementRequirement edo-ifc:DoesNotRequireRealizingElements ;
+        edo-ifc:ifc_equivalentClass edo-ifc:IfcRelConnectsElements ;
+        edo-ifc:ifc_subjectRole edo-ifc:RelatingElement ;
+        edo-ifc:ifc_objectRole edo-ifc:RelatedElement
+    ] ;
+
+    edo-ifc:ifc_mappingRule [
+        edo-ifc:sourceNotIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:targetNotIfcEquivalentClass edo-ifc:IfcDistributionPort ;
+        edo-ifc:realizingElementRequirement edo-ifc:RequiresRealizingElements ;
+        edo-ifc:ifc_equivalentClass edo-ifc:IfcRelConnectsWithRealizingElements ;
+        edo-ifc:ifc_subjectRole edo-ifc:RelatingElement ;
+        edo-ifc:ifc_objectRole edo-ifc:RelatedElement ;
+        edo-ifc:realizingElementRole edo-ifc:RealizingElements
+    ] .
+
+######################################################################
+# Reconciled develop: IFC-only declarations and mapping assertions
+# Assertions about edo:* subjects are deliberately stored in EDO-IFC.
+######################################################################
+
+edo-ifc:IfcInstanciableElement rdf:type owl:Class ;
+    rdfs:subClassOf edo:InstanciableElement ;
+    rdfs:label "IFC Instantiable Element"@en, "Elemento instanciável IFC"@pt-br ;
+    skos:definition "IFC-specific classification of domain elements that can be materialised as IFC objects."@en .
+
+edo-ifc:IFCDataType rdf:type owl:Class ;
+    rdfs:label "IFC Data Type"@en .
+
+edo-ifc:IfcInteger rdf:type owl:NamedIndividual, edo-ifc:IFCDataType ;
+    rdfs:label "IfcInteger"@en ;
+    dcterms:identifier "IfcInteger" .
+
+edo-ifc:IfcBoolean rdf:type owl:NamedIndividual, edo-ifc:IFCDataType ;
+    rdfs:label "IfcBoolean"@en ;
+    dcterms:identifier "IfcBoolean" .
+
+edo-ifc:ifc_valueType rdf:type owl:AnnotationProperty ;
+    rdfs:subPropertyOf edo-ifc:IFCMappingAnnotation ;
+    rdfs:range edo-ifc:IFCDataType ;
+    rdfs:label "IFC Value Type"@en ;
+    skos:definition "Maps the underlying engineering value type to an IFC primitive data type for materialisation."@en .
+
+# Original IFC-specific subclass relations are retained in the IFC extension.
+edo:AbandonmentCap <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AbrasionProtector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AnchorCollarForging <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AnchorLocation <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AnchoringCollar <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AnodeCollarSet <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AnodeSled <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AntiCollapseSheath <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AntiWearSheath <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ArmorPot <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:AxialChokeValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:BendRestrictor <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:BraceletAnode <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:BuoyancyModule <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:BuoyancyTank <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:CasingHanger <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ChainSegment <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ChemicalInjectionUnit <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ChokeModule <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:CompositeMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ConsumableRingGasket <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ControlValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:CorrosionSensor <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:CrossoverModule <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:CurvedPipeSection <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:DeadweightCollar <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:DimensionsDrawing <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:DistributionConnectionPoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:DistributionModule <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:DoubleActingHydraulicActuator <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:DragAnchor <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:DynamicUmbilicalSection <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ElectricMotorActuator <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ElectricalCable <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ElectricalJumper <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ElectricalPowerJumper <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ElevationCollar <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:EndFitting <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:EquipmentLocation <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ErosionSensor <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ExternalConcreteCoating <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ExternalConcreteCoatingMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ExternalPolymericCoating <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ExternalPolymericCoatingMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ExternalTreeCap <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FSHRLowerAssembly <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FSHRUpperAssembly <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FabricTape <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FiberRopeSegment <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FieldJointPolymericCoating <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FieldJointPolymericCoatingMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Filler <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FishingTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FixedElectricalConnector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FixedElectricalPowerConnector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FixedOpticalConnector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Flange <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlangeAdapter <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlexibleJoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlexiblePipeSegment <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlexiblePipeStructure <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FloatingProductionUnit <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlowCoating <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlowCoatingMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlowConnector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlowLineMandrel <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Flowbase <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlowbaseRunningTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FlowlineSection <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FreeElectricalConnector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FreeElectricalPowerConnector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:FreeOpticalConnector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Funnel <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:GroovePoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:GroutBag <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:GuideBase <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HCM <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HCRHose <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HPHousing <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HandlingCollar <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HangOffAdaptor <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HangOffCollar <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HighStrengthTape <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HoldingBandage <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Hook <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HotStab <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HotStabReceptacle <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Hub <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HubBlockCap <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HubProtectionCap <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HubTestCap <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HydraulicJumper <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:HydraulicPowerUnit <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:IMUX <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ITube <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InlineEquipmentLocation <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InlineT <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InlineValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InlineY <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InnerTube <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InstrumentationBlockValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InstrumentationCheckValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InstrumentationDirectionalValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InsulationTape <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:IntegratedPipe <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InterconnectionAccessories <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InterconnectionAnchoring <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InterconnectionComponents <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InterlockedCarcass <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:IntermediateBendStiffener <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:IntermediateSheath <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InternalCladding <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InternalCladdingMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InternalMetallicLiner <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InternalMetallicLinerMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InternalPolymericLiner <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InternalPolymericLinerMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InternalPressureSheath <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:InternalTreeCap <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:KenterLink <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LPHousing <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LineEndpoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LineMechanicalSupport <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LinePipe <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LinePipePreAssembly <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LinearLockoutTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LinearOverrideTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LogicCap <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:LowResistanceTape <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ManualActuator <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MasterControlStation <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MasterLink <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Mattress <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MetallicMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MetallicStrandSet <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MetallicTubing <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MeteringValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MetricBoltSet <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MetricStudSet <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MooringLayout <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MooringLine <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:MultiPhaseFlowMeter <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:OpenReceptacle <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:OpticalFiberCable <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:OpticalJumper <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:OutboardMQC <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:OverboardingCollar <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PLEM <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PLET <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PearLink <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PinPile <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PipeHandlingTestHead <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PipeInstallationTestHead <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PipePullingHead <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PipeReducer <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PipingSpool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PlasticHose <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PlugCageValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PolymericMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PressureArmour <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PressureSensor <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ProcessAxialCheckValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ProcessBallValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ProcessGateValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ProcessRotaryDiskValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ProcessSwingCheckValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Project <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ProtectiveSheath <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PullInCollar <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PullInTube <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Pump <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:PumpingModule <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:QuickConnectCoupling <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:QuickDisconnectionTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ROVActuator <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ROVLinearInterface <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ROVRotaryInterface <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RearPoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RigidJoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RigidJumper <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RigidPipeGirthWeld <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RigidPipeMaterial <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RigidPipeSegment <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RigidPipeSegmentExternalCoatings <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RigidPipeSegmentFieldJointCoatings <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RigidPipeSegmentInternalCoatings <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RingGasket <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RiserBalcony <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RiserSection <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RiserSupportBuoy <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:RoboticActuator <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SCM <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SCMMB <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SCMRunningTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SDU <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SEM <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SacrificialAnode <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SacrificialSheath <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SandDetector <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SeparatorVessel <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Shackle <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ShackleThimble <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ShearableRiserJoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SingleActingHydraulicActuator <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SinglePhaseFlowMeter <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Sleeper <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SleeveCageValve <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Socket <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SpliceBox <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:StabPlate <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:StaticUmbilicalSection <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SteppingHydraulicActuator <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:StopperCollar <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:StorageBox <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:StorageSkid <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:StorageSpool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:StraightPipeSection <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:StressJoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SubseaConnectionPoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SubseaLayout <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SubseaOilField <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SubseaPipeline <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SubseaUmbilical <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SubseaWell <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:SuctionPile <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TPT <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TaperedRigidPipeSegment <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TemperatureSensor <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TensileArmour <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TestBase <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TestHandlingCap <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:ThreadedFitting <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TieIn <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TopBendStiffener <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TopsideConnectionPoint <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TorpedoPile <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TreeRunningTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TrianglePlate <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TubingHanger <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:TubingHangerRunningTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:UNSBoltSet <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:UNSStudSet <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:UTA <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:UTM <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:UmbilicalBundle <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:UmbilicalPullingHead <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:UmbilicalSegment <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:UmbilicalStructure <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:VCM <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:VIVStrake <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Vessel <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:WaterIntake <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:WearBushing <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:WearBushingRunningTool <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:Wellhead <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:WetChristmasTree <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:WetGasFlowMeter <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:WireRopeSegment <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+edo:WorkoverBOP <http://www.w3.org/2000/01/rdf-schema#subClassOf> edo-ifc:IfcInstanciableElement .
+
+# The five legacy IFC-typed values retain engineering XSD types in core.
+edo:HasPxoValve edo-ifc:ifc_valueType edo-ifc:IfcBoolean .
+edo:NumAiValves edo-ifc:ifc_valueType edo-ifc:IfcInteger .
+edo:NumLineConnections edo-ifc:ifc_valueType edo-ifc:IfcInteger .
+edo:NumLines edo-ifc:ifc_valueType edo-ifc:IfcInteger .
+edo:Sand edo-ifc:ifc_valueType edo-ifc:IfcBoolean .
+
+# Concrete IFC mappings formerly stored inside the develop EDO.
+edo:AnchorCollarForging edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment .
+edo:AnchorCollarForging edo-ifc:ifc_objectType "AnchorCollarForging" .
+edo:AnchorCollarForging edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:AnchorLocation edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:AnchorLocation edo-ifc:ifc_objectType "AnchorLocation" .
+edo:AnchorLocation edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:AxialChokeValve edo-ifc:ifc_objectType "AxialChokeValve" .
+edo:AxialChokeValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:BraceletAnode edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory .
+edo:BraceletAnode edo-ifc:ifc_objectType "BraceletAnode" .
+edo:BraceletAnode edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningActivity edo-ifc:ifc_equivalentClass edo-ifc:IfcTask .
+edo:CommissioningActivity edo-ifc:ifc_objectType "Activity" .
+edo:CommissioningActivity edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningContract edo-ifc:ifc_equivalentClass edo-ifc:IfcGroup .
+edo:CommissioningContract edo-ifc:ifc_objectType "Contract" .
+edo:CommissioningContract edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningDigitalProcessStep edo-ifc:ifc_equivalentClass edo-ifc:IfcTask .
+edo:CommissioningDigitalProcessStep edo-ifc:ifc_objectType "CommissioningDigitalProcessStep" .
+edo:CommissioningDigitalProcessStep edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningEvidence edo-ifc:ifc_equivalentClass edo-ifc:IfcDocumentInformation .
+edo:CommissioningEvidence edo-ifc:ifc_objectType "CommissioningEvidence" .
+edo:CommissioningEvidence edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningIssue edo-ifc:ifc_equivalentClass edo-ifc:IfcClassification .
+edo:CommissioningIssue edo-ifc:ifc_objectType "Pendency_Classification" .
+edo:CommissioningIssue edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningItemCheck edo-ifc:ifc_equivalentClass edo-ifc:IfcClassificationReference .
+edo:CommissioningItemCheck edo-ifc:ifc_objectType "FVI" .
+edo:CommissioningItemCheck edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningLoopCheck edo-ifc:ifc_equivalentClass edo-ifc:IfcClassificationReference .
+edo:CommissioningLoopCheck edo-ifc:ifc_objectType "FVM" .
+edo:CommissioningLoopCheck edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningPerson edo-ifc:ifc_equivalentClass edo-ifc:IfcPerson .
+edo:CommissioningPerson edo-ifc:ifc_objectType "CommissioningPerson" .
+edo:CommissioningPerson edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningPreservationOrder edo-ifc:ifc_equivalentClass edo-ifc:IfcClassificationReference .
+edo:CommissioningPreservationOrder edo-ifc:ifc_objectType "OP" .
+edo:CommissioningPreservationOrder edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningProgram edo-ifc:ifc_equivalentClass edo-ifc:IfcGroup .
+edo:CommissioningProgram edo-ifc:ifc_objectType "Program" .
+edo:CommissioningProgram edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningProject edo-ifc:ifc_equivalentClass edo-ifc:IfcProject .
+edo:CommissioningProject edo-ifc:ifc_objectType "Project" .
+edo:CommissioningProject edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningResponsibleActor edo-ifc:ifc_equivalentClass edo-ifc:IfcActor .
+edo:CommissioningResponsibleActor edo-ifc:ifc_objectType "CommissioningResponsibleActor" .
+edo:CommissioningResponsibleActor edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningResponsibleGroup edo-ifc:ifc_equivalentClass edo-ifc:IfcGroup .
+edo:CommissioningResponsibleGroup edo-ifc:ifc_objectType "CommissioningResponsibleGroup" .
+edo:CommissioningResponsibleGroup edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CommissioningTask edo-ifc:ifc_equivalentClass edo-ifc:IfcTask .
+edo:CommissioningTask edo-ifc:ifc_objectType "Task" .
+edo:CommissioningTask edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CompositeMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:ConsumableRingGasket edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener .
+edo:ConsumableRingGasket edo-ifc:ifc_objectType "ConsumableRingGasket" .
+edo:ConsumableRingGasket edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ControlValve edo-ifc:ifc_objectType "ControlValve" .
+edo:ControlValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CorrosionSensor edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:CorrosionSensor edo-ifc:ifc_objectType "CorrosionSensor" .
+edo:CorrosionSensor edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:CurvedPipeSection edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:CurvedPipeSection edo-ifc:ifc_objectType "CurvedPipeSection" .
+edo:CurvedPipeSection edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:DistributionConnectionPoint edo-ifc:ifc_equivalentClass edo-ifc:IfcDistributionPort .
+edo:DistributionConnectionPoint edo-ifc:ifc_objectType "DistributionConnectionPoint" .
+edo:DistributionConnectionPoint edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:DoubleActingHydraulicActuator edo-ifc:ifc_equivalentClass edo-ifc:IfcActuator .
+edo:DoubleActingHydraulicActuator edo-ifc:ifc_objectType "DoubleActingHydraulicActuator" .
+edo:DoubleActingHydraulicActuator edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ElectricMotorActuator edo-ifc:ifc_equivalentClass edo-ifc:IfcActuator .
+edo:ElectricMotorActuator edo-ifc:ifc_objectType "ElectricMotorActuator" .
+edo:ElectricMotorActuator edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ElevationCollar edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:ElevationCollar edo-ifc:ifc_objectType "ElevationCollar" .
+edo:ElevationCollar edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ErosionSensor edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:ErosionSensor edo-ifc:ifc_objectType "ErosionSensor" .
+edo:ErosionSensor edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ExternalConcreteCoating edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:ExternalConcreteCoating edo-ifc:ifc_objectType "ExternalConcreteCoating" .
+edo:ExternalConcreteCoating edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ExternalConcreteCoatingMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:ExternalPolymericCoating edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:ExternalPolymericCoating edo-ifc:ifc_objectType "ExternalPolymericCoating" .
+edo:ExternalPolymericCoating edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ExternalPolymericCoatingMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:ExternalTreeCap edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:ExternalTreeCap edo-ifc:ifc_objectType "ExternalTreeCap" .
+edo:ExternalTreeCap edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FieldJointPolymericCoating edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:FieldJointPolymericCoating edo-ifc:ifc_objectType "FieldJointPolymericCoating" .
+edo:FieldJointPolymericCoating edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FieldJointPolymericCoatingMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:FishingTool edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:FishingTool edo-ifc:ifc_objectType "FishingTool" .
+edo:FishingTool edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FixedElectricalConnector edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:FixedElectricalConnector edo-ifc:ifc_objectType "FixedElectricalConnector" .
+edo:FixedElectricalConnector edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FixedElectricalPowerConnector edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:FixedElectricalPowerConnector edo-ifc:ifc_objectType "FixedElectricalPowerConnector" .
+edo:FixedElectricalPowerConnector edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FixedOpticalConnector edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:FixedOpticalConnector edo-ifc:ifc_objectType "FixedOpticalConnector" .
+edo:FixedOpticalConnector edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:Flange edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:Flange edo-ifc:ifc_objectType "Flange" .
+edo:Flange edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FlexibleJoint edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:FlexibleJoint edo-ifc:ifc_objectType "FlexibleJoint" .
+edo:FlexibleJoint edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FloatingProductionUnit edo-ifc:ifc_equivalentClass edo-ifc:IfcBuilding .
+edo:FlowCoating edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:FlowCoating edo-ifc:ifc_objectType "FlowCoating" .
+edo:FlowCoating edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FlowCoatingMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:Flowbase edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:Flowbase edo-ifc:ifc_objectType "Flowbase" .
+edo:Flowbase edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FlowlineSection edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:FlowlineSection edo-ifc:ifc_objectType "FlowlineSection" .
+edo:FlowlineSection edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FreeElectricalConnector edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:FreeElectricalConnector edo-ifc:ifc_objectType "FreeElectricalConnector" .
+edo:FreeElectricalConnector edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FreeElectricalPowerConnector edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:FreeElectricalPowerConnector edo-ifc:ifc_objectType "FreeElectricalPowerConnector" .
+edo:FreeElectricalPowerConnector edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:FreeOpticalConnector edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:FreeOpticalConnector edo-ifc:ifc_objectType "FreeOpticalConnector" .
+edo:FreeOpticalConnector edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:Funnel edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:Funnel edo-ifc:ifc_objectType "Funnel" .
+edo:Funnel edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:HangOffAdaptor edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:HangOffAdaptor edo-ifc:ifc_objectType "HangOffAdaptor" .
+edo:HangOffAdaptor edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:HubTestCap edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:HubTestCap edo-ifc:ifc_objectType "HubTestCap" .
+edo:HubTestCap edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InlineEquipmentLocation edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:InlineEquipmentLocation edo-ifc:ifc_objectType "InlineEquipmentLocation" .
+edo:InlineEquipmentLocation edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InstrumentationBlockValve edo-ifc:ifc_objectType "InstrumentationBlockValve" .
+edo:InstrumentationBlockValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InstrumentationCheckValve edo-ifc:ifc_objectType "InstrumentationCheckValve" .
+edo:InstrumentationCheckValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InstrumentationDirectionalValve edo-ifc:ifc_objectType "InstrumentationDirectionalValve" .
+edo:InstrumentationDirectionalValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InterconnectionAccessories edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:InterconnectionAccessories edo-ifc:ifc_objectType "InterconnectionAccessories" .
+edo:InterconnectionAccessories edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InterconnectionAnchoring edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:InterconnectionAnchoring edo-ifc:ifc_objectType "InterconnectionAnchoring" .
+edo:InterconnectionAnchoring edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InterconnectionComponents edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:InterconnectionComponents edo-ifc:ifc_objectType "InterconnectionComponents" .
+edo:InterconnectionComponents edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InternalCladding edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:InternalCladding edo-ifc:ifc_objectType "InternalCladding" .
+edo:InternalCladding edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InternalCladdingMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:InternalMetallicLiner edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:InternalMetallicLiner edo-ifc:ifc_objectType "InternalMetallicLiner" .
+edo:InternalMetallicLiner edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InternalMetallicLinerMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:InternalPolymericLiner edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:InternalPolymericLiner edo-ifc:ifc_objectType "InternalPolymericLiner" .
+edo:InternalPolymericLiner edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:InternalPolymericLinerMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:InternalTreeCap edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:InternalTreeCap edo-ifc:ifc_objectType "InternalTreeCap" .
+edo:InternalTreeCap edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:JunctionBox edo-ifc:ifc_equivalentClass edo-ifc:IfcJunctionBox .
+edo:JunctionBox edo-ifc:ifc_objectType "JunctionBox" .
+edo:JunctionBox edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:KenterLink edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener .
+edo:KenterLink edo-ifc:ifc_objectType "KenterLink" .
+edo:KenterLink edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:LineEndpoint edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:LineEndpoint edo-ifc:ifc_objectType "LineEndpoint" .
+edo:LineEndpoint edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:LineMechanicalSupport edo-ifc:ifc_equivalentClass edo-ifc:IfcBuildingElementProxy .
+edo:LineMechanicalSupport edo-ifc:ifc_objectType "LineMechanicalSupport" .
+edo:LineMechanicalSupport edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:LinePipe edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment .
+edo:LinePipe edo-ifc:ifc_objectType "LinePipe" .
+edo:LinePipe edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:LinePipePreAssembly edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment .
+edo:LinePipePreAssembly edo-ifc:ifc_objectType "LinePipePreAssembly" .
+edo:LinePipePreAssembly edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:LinearLockoutTool edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:LinearLockoutTool edo-ifc:ifc_objectType "LinearLockoutTool" .
+edo:LinearLockoutTool edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:LinearOverrideTool edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:LinearOverrideTool edo-ifc:ifc_objectType "LinearOverrideTool" .
+edo:LinearOverrideTool edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ManualActuator edo-ifc:ifc_equivalentClass edo-ifc:IfcActuator .
+edo:ManualActuator edo-ifc:ifc_objectType "ManualActuator" .
+edo:ManualActuator edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:MasterLink edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener .
+edo:MasterLink edo-ifc:ifc_objectType "MasterLink" .
+edo:MasterLink edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:MetallicMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:MeteringValve edo-ifc:ifc_objectType "MeteringValve" .
+edo:MeteringValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:MetricBoltSet edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener .
+edo:MetricBoltSet edo-ifc:ifc_objectType "MetricBoltSet" .
+edo:MetricBoltSet edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:MetricStudSet edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener .
+edo:MetricStudSet edo-ifc:ifc_objectType "MetricStudSet" .
+edo:MetricStudSet edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:MooringLayout edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:MooringLayout edo-ifc:ifc_objectType "MooringLayout" .
+edo:MooringLayout edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:MooringLine edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:MooringLine edo-ifc:ifc_objectType "MooringLine" .
+edo:MooringLine edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:MultiPhaseFlowMeter edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:MultiPhaseFlowMeter edo-ifc:ifc_objectType "MultiPhaseFlowMeter" .
+edo:MultiPhaseFlowMeter edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:OpticalJumper edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:OpticalJumper edo-ifc:ifc_objectType "OpticalJumper" .
+edo:OpticalJumper edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:OutboardMQC edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:OutboardMQC edo-ifc:ifc_objectType "OutboardMQC" .
+edo:OutboardMQC edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:OverboardingCollar edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:OverboardingCollar edo-ifc:ifc_objectType "OverboardingCollar" .
+edo:OverboardingCollar edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:PearLink edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener .
+edo:PearLink edo-ifc:ifc_objectType "PearLink" .
+edo:PearLink edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:PinPile edo-ifc:ifc_equivalentClass edo-ifc:IfcPile .
+edo:PinPile edo-ifc:ifc_objectType "PinPile" .
+edo:PinPile edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:PipeHandlingTestHead edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:PipeHandlingTestHead edo-ifc:ifc_objectType "PipeHandlingTestHead" .
+edo:PipeHandlingTestHead edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:PipeInstallationTestHead edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:PipeInstallationTestHead edo-ifc:ifc_objectType "PipeInstallationTestHead" .
+edo:PipeInstallationTestHead edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:PipeReducer edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:PipeReducer edo-ifc:ifc_objectType "PipeReducer" .
+edo:PipeReducer edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:Pipeline edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:Pipeline edo-ifc:ifc_objectType "Pipeline" .
+edo:Pipeline edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:PlugCageValve edo-ifc:ifc_objectType "PlugCageValve" .
+edo:PlugCageValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:PolymericMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:ProcessAxialCheckValve edo-ifc:ifc_equivalentClass edo-ifc:IfcValve .
+edo:ProcessAxialCheckValve edo-ifc:ifc_objectType "ProcessAxialCheckValve" .
+edo:ProcessAxialCheckValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ProcessBallValve edo-ifc:ifc_equivalentClass edo-ifc:IfcValve .
+edo:ProcessBallValve edo-ifc:ifc_objectType "ProcessBallValve" .
+edo:ProcessBallValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ProcessGateValve edo-ifc:ifc_equivalentClass edo-ifc:IfcValve .
+edo:ProcessGateValve edo-ifc:ifc_objectType "ProcessGateValve" .
+edo:ProcessGateValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ProcessRotaryDiskValve edo-ifc:ifc_equivalentClass edo-ifc:IfcValve .
+edo:ProcessRotaryDiskValve edo-ifc:ifc_objectType "ProcessRotaryDiskValve" .
+edo:ProcessRotaryDiskValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ProcessSwingCheckValve edo-ifc:ifc_equivalentClass edo-ifc:IfcValve .
+edo:ProcessSwingCheckValve edo-ifc:ifc_objectType "ProcessSwingCheckValve" .
+edo:ProcessSwingCheckValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:Project edo-ifc:ifc_equivalentClass edo-ifc:IfcProject .
+edo:PullInTube edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory .
+edo:PullInTube edo-ifc:ifc_objectType "PullInTube" .
+edo:PullInTube edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ROVActuator edo-ifc:ifc_equivalentClass edo-ifc:IfcActuator .
+edo:ROVActuator edo-ifc:ifc_objectType "ROVActuator" .
+edo:ROVActuator edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ROVLinearInterface edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory .
+edo:ROVLinearInterface edo-ifc:ifc_objectType "ROVLinearInterface" .
+edo:ROVLinearInterface edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ROVRotaryInterface edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory .
+edo:ROVRotaryInterface edo-ifc:ifc_objectType "ROVRotaryInterface" .
+edo:ROVRotaryInterface edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:RigidPipeGirthWeld edo-ifc:ifc_equivalentClass edo-ifc:IfcFastener .
+edo:RigidPipeGirthWeld edo-ifc:ifc_objectType "RigidPipeGirthWeld" .
+edo:RigidPipeGirthWeld edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:RigidPipeMaterial edo-ifc:ifc_equivalentClass edo-ifc:IfcMaterial .
+edo:RigidPipeSegment edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment .
+edo:RigidPipeSegment edo-ifc:ifc_objectType "RigidPipeSegment" .
+edo:RigidPipeSegment edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:RigidPipeSegmentExternalCoatings edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:RigidPipeSegmentExternalCoatings edo-ifc:ifc_objectType "RigidPipeSegmentExternalCoatings" .
+edo:RigidPipeSegmentExternalCoatings edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:RigidPipeSegmentFieldJointCoatings edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:RigidPipeSegmentFieldJointCoatings edo-ifc:ifc_objectType "RigidPipeSegmentFieldJointCoatings" .
+edo:RigidPipeSegmentFieldJointCoatings edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:RigidPipeSegmentInternalCoatings edo-ifc:ifc_equivalentClass edo-ifc:IfcCovering .
+edo:RigidPipeSegmentInternalCoatings edo-ifc:ifc_objectType "RigidPipeSegmentInternalCoatings" .
+edo:RigidPipeSegmentInternalCoatings edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:RiserSection edo-ifc:ifc_equivalentClass edo-ifc:IfcElementAssembly .
+edo:RiserSection edo-ifc:ifc_objectType "RiserSection" .
+edo:RiserSection edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:SacrificialAnode edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory .
+edo:SacrificialAnode edo-ifc:ifc_objectType "SacrificialAnode" .
+edo:SacrificialAnode edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:ShackleThimble edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory .
+edo:ShackleThimble edo-ifc:ifc_objectType "ShackleThimble" .
+edo:ShackleThimble edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:SingleActingHydraulicActuator edo-ifc:ifc_equivalentClass edo-ifc:IfcActuator .
+edo:SingleActingHydraulicActuator edo-ifc:ifc_objectType "SingleActingHydraulicActuator" .
+edo:SingleActingHydraulicActuator edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:SinglePhaseFlowMeter edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:SinglePhaseFlowMeter edo-ifc:ifc_objectType "SinglePhaseFlowMeter" .
+edo:SinglePhaseFlowMeter edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:Sleeper edo-ifc:ifc_equivalentClass edo-ifc:IfcBuildingElementProxy .
+edo:Sleeper edo-ifc:ifc_objectType "Sleeper" .
+edo:Sleeper edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:SleeveCageValve edo-ifc:ifc_objectType "SleeveCageValve" .
+edo:SleeveCageValve edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:StabPlate edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:StabPlate edo-ifc:ifc_objectType "StabPlate" .
+edo:StabPlate edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:SteppingHydraulicActuator edo-ifc:ifc_equivalentClass edo-ifc:IfcActuator .
+edo:SteppingHydraulicActuator edo-ifc:ifc_objectType "SteppingHydraulicActuator" .
+edo:SteppingHydraulicActuator edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:StraightPipeSection edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:StraightPipeSection edo-ifc:ifc_objectType "StraightPipeSection" .
+edo:StraightPipeSection edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:StressJoint edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:StressJoint edo-ifc:ifc_objectType "StressJoint" .
+edo:StressJoint edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:SubseaFlexiblePipesBsddDictionary edo-ifc:ifc_equivalentClass edo-ifc:IfcClassification .
+edo:SubseaFlexiblePipesBsddDictionary edo-ifc:ifc_objectType "SubseaFlexiblePipesBsddDictionary" .
+edo:SubseaFlexiblePipesBsddDictionary edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:SubseaUmbilicalBsddDictionary edo-ifc:ifc_equivalentClass edo-ifc:IfcClassification .
+edo:SubseaUmbilicalBsddDictionary edo-ifc:ifc_objectType "SubseaUmbilicalBsddDictionary" .
+edo:SubseaUmbilicalBsddDictionary edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:SubseaWell edo-ifc:ifc_equivalentClass edo-ifc:IfcBuilding .
+edo:TaperedLinePipe edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:TaperedLinePipe edo-ifc:ifc_objectType "TaperedLinePipe" .
+edo:TaperedLinePipe edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:TaperedRigidPipeSegment edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeSegment .
+edo:TaperedRigidPipeSegment edo-ifc:ifc_objectType "TaperedRigidPipeSegment" .
+edo:TaperedRigidPipeSegment edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:TestHandlingCap edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:TestHandlingCap edo-ifc:ifc_objectType "TestHandlingCap" .
+edo:TestHandlingCap edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:TransitionSpool edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:TransitionSpool edo-ifc:ifc_objectType "TransitionSpool" .
+edo:TransitionSpool edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:UNSBoltSet edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener .
+edo:UNSBoltSet edo-ifc:ifc_objectType "UNSBoltSet" .
+edo:UNSBoltSet edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:UNSStudSet edo-ifc:ifc_equivalentClass edo-ifc:IfcMechanicalFastener .
+edo:UNSStudSet edo-ifc:ifc_objectType "UNSStudSet" .
+edo:UNSStudSet edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:VIVStrake edo-ifc:ifc_equivalentClass edo-ifc:IfcDiscreteAccessory .
+edo:VIVStrake edo-ifc:ifc_objectType "VIVStrake" .
+edo:VIVStrake edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:WetChristmasTree edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:WetGasFlowMeter edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:WetGasFlowMeter edo-ifc:ifc_objectType "WetGasFlowMeter" .
+edo:WetGasFlowMeter edo-ifc:ifc_predefinedType "USERDEFINED" .
+edo:WorkoverBOP edo-ifc:ifc_equivalentClass edo-ifc:IfcPipeFitting .
+edo:WorkoverBOP edo-ifc:ifc_objectType "WorkoverBOP" .
+edo:WorkoverBOP edo-ifc:ifc_predefinedType "USERDEFINED" .
