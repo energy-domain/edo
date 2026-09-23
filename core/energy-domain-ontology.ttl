@@ -1027,13 +1027,7 @@ edo:BuoyancyModule rdf:type owl:Class ;
                                    "Dispositivo utilizado em sistemas submarinos para fornecer flutuabilidade controlada a dutos flexíveis, risers ou umbilicais, reduzindo a carga na estrutura e gerenciando a configuração da linha na coluna d'água. O Módulo de Flutuação é tipicamente composto por espuma sintática ou outros materiais de baixa densidade, projetados para suportar altas pressões externas enquanto mantêm suas propriedades de flutuabilidade ao longo do tempo. Ele desempenha um papel fundamental na otimização do desempenho e do posicionamento das linhas subsea, garantindo que mantenham a forma e a profundidade necessárias em condições oceânicas dinâmicas."@pt-br ;
                    skos:prefLabel "Buoyancy Module"@en ,
                                   "Módulo de Flutuação"@pt-br ;
-                   edo:hasAttribute edo:LongTermFloatDensity ,
-                                    edo:LongTermFloatVolume ,
-                                    edo:NominalFloatDensity ,
-                                    edo:NominalFloatVolume ,
-                                    edo:PipeMountPosition ,
-                                    edo:ShortTermFloatDensity ,
-                                    edo:ShortTermFloatVolume ;
+                   edo:hasAttribute edo:PipeMountPosition ;
                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                      edo:SubseaUmbilicalsEngineering ;
                    edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -10128,14 +10122,14 @@ edo:BendMomentVsShearForceTable_ShearForce edo:hasExternalRef "DF:2.1" .
 
 edo:BuoyancyModule edo:hasSpec edo:BoltingSpec .
 edo:BuoyancyModule edo:hasAttribute edo:OuterDiameter .
-edo:BuoyancyModule edo:hasAttribute edo:FinalBuoyancy-EOF .
-edo:BuoyancyModule edo:hasAttribute edo:InitialBuoyancy-SOL .
+edo:BuoyancyModule edo:hasAttribute edo:FinalBuoyancyEOL .
+edo:BuoyancyModule edo:hasAttribute edo:InitialBuoyancySOL .
 
-###  https://w3id.org/energy-domain/edo#FinalBuoyancy-EOF
-edo:FinalBuoyancy-EOF rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#FinalBuoyancyEOL
+edo:FinalBuoyancyEOL rdf:type owl:Class ;
                       rdfs:subClassOf edo:_CAT-Specification ;
                       dcterms:accessRights "PUBLIC" ;
-                      dcterms:identifier "FinalBuoyancy-EOF" ;
+                      dcterms:identifier "FinalBuoyancyEOL" ;
                       rdfs:comment "Empuxo nominal fornecido pelo flutuador no final da vida útil"@pt-br ;
                       skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no final de sua vida útil (EOF)."@pt-br ,
                                       "Nominal upthrust supplied by buoyancy module late in its lifespan (EOF)."@en ;
@@ -10149,11 +10143,11 @@ edo:FinalBuoyancy-EOF rdf:type owl:Class ;
                       edo:hasUnit unit:KiloGM_F ;
                       edo:hasValueCardinality edo:SingleValue .
 
-###  https://w3id.org/energy-domain/edo#InitialBuoyancy-SOL
-edo:InitialBuoyancy-SOL rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#InitialBuoyancySOL
+edo:InitialBuoyancySOL rdf:type owl:Class ;
                         rdfs:subClassOf edo:_CAT-Specification ;
                         dcterms:accessRights "PUBLIC" ;
-                        dcterms:identifier "InitialBuoyancy-SOL" ;
+                        dcterms:identifier "InitialBuoyancySOL" ;
                         rdfs:comment "Empuxo nominal fornecido pelo flutuador no começo da vida útil"@pt-br ;
                         skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no início de sua vida útil (SOL)."@pt-br ,
                                         "Nominal upthrust supplied by buoyancy module early in its lifespan (SOL)."@en ;
@@ -10621,3 +10615,80 @@ edo:hasTypedValue edo:StringValue ;
 edo:hasValueCardinality edo:SingleValue ;
 edo:entityStatus "NEW" ;
 edo:hasExternalRef "MDA:support_flange_type" .
+
+#####################################################################################################################
+###  Fix BuoyancyModule
+
+# EXCLUIR: edo:BuoyancyModule edo:hasAttribute edo:LongTermFloatDensity ,
+# EXCLUIR: edo:BuoyancyModule edo:hasAttribute edo:LongTermFloatVolume ,
+# EXCLUIR: edo:BuoyancyModule edo:hasAttribute edo:NominalFloatDensity ,
+# EXCLUIR: edo:BuoyancyModule edo:hasAttribute edo:NominalFloatVolume ,
+# EXCLUIR: edo:BuoyancyModule edo:hasAttribute edo:ShortTermFloatDensity ,
+# EXCLUIR: edo:BuoyancyModule edo:hasAttribute edo:ShortTermFloatVolume ;
+# RENOMEAR edo:FinalBuoyancy-EOF para edo:FinalBuoyancyEOL .
+# RENOMEAR edo:InitialBuoyancy-SOL para edo:InitialBuoyancy-SOL .
+
+edo:BuoyancyModule edo:hasAttribute edo:FloatDensityEOL .
+edo:BuoyancyModule edo:hasAttribute edo:FloatVolumeEOL .
+edo:BuoyancyModule edo:hasAttribute edo:FloatDensitySOL .
+edo:BuoyancyModule edo:hasAttribute edo:FloatVolumeSOL .
+
+###  https://w3id.org/energy-domain/edo#FloatDensityEOL
+edo:FloatDensityEOL rdf:type owl:Class ;
+                         rdfs:subClassOf edo:DomainAttribute ;
+                         dcterms:accessRights "PUBLIC" ;
+                         dcterms:identifier "FloatDensityEOL" ;
+                         skos:definition "A densidade do flutuador no fim da vida útil, considerando o acúmulo de água no material ou mudanças na estrutura interna devido à degradação. Isso aumenta a densidade e, portanto, reduz a flutuabilidade"@pt-br ,
+                                         "The density of the float material end of life, considering factors like water absorption and material degradation, which increase the density and reduce the buoyancy."@en ;
+                         skos:prefLabel "Densidade do Flutuador no Fim da Vida Útil"@pt-br ,
+                                        "Float Density End Of Life"@en ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                         edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:KiloGM-PER-M3 ;
+                         edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#FloatVolumeEOL
+edo:FloatVolumeEOL rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "FloatVolumeEOL" ;
+                        skos:definition "O volume esperado no fim da vida útil, após fatores como absorção de água e possíveis deformações. Este volume representa as condições do flutuador em sua fase de vida útil, quando a flutuabilidade tende a ser menor."@pt-br ,
+                                        "The expected submerged volume of the float end of life, taking into account factors like water absorption and structural deformations that may occur throughout its lifecycle."@en ;
+                        skos:prefLabel "Float Volume End Of Life"@en ,
+                                       "Volume do Flutuador no Fim da Vida Útil"@pt-br ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:M3 ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#FloatDensitySOL
+edo:FloatDensitySOL rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "FloatDensitySOL" ;
+                        skos:definition "A densidade do flutuador no início da vida útil. Usada para calcular a flutuabilidade inicial máxima, idealmente no ponto de fabricação."@pt-br ,
+                                        "The ideal density of the float material start of life. This is used to calculate the float's maximum buoyancy at the beginning of its use."@en ;
+                        skos:prefLabel "Densidade do Flutuador no Início da Vida Útil"@pt-br ,
+                                       "Float Density Start Of Life"@en ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:KiloGM-PER-M3 ;
+                        edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#FloatVolumeSOL
+edo:FloatVolumeSOL rdf:type owl:Class ;
+                       rdfs:subClassOf edo:DomainAttribute ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "FloatVolumeSOL" ;
+                       skos:definition "O volume do flutuador no início da vida útil. É usado para calcular a flutuabilidade máxima possível, antes de qualquer degradação."@pt-br ,
+                                       "The ideal volume of the float start of life. This value is used to calculate the maximum buoyancy under perfect conditions."@en ;
+                       skos:prefLabel "Float Volume Start Of Life"@en ,
+                                      "Volume do Flutuador no Início da Vida Útil"@pt-br ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:M3 ;
+                       edo:hasValueCardinality edo:SingleValue .                        
