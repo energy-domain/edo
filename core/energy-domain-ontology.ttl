@@ -1027,7 +1027,7 @@ edo:BuoyancyModule rdf:type owl:Class ;
                                    "Dispositivo utilizado em sistemas submarinos para fornecer flutuabilidade controlada a dutos flexíveis, risers ou umbilicais, reduzindo a carga na estrutura e gerenciando a configuração da linha na coluna d'água. O Módulo de Flutuação é tipicamente composto por espuma sintática ou outros materiais de baixa densidade, projetados para suportar altas pressões externas enquanto mantêm suas propriedades de flutuabilidade ao longo do tempo. Ele desempenha um papel fundamental na otimização do desempenho e do posicionamento das linhas subsea, garantindo que mantenham a forma e a profundidade necessárias em condições oceânicas dinâmicas."@pt-br ;
                    skos:prefLabel "Buoyancy Module"@en ,
                                   "Módulo de Flutuação"@pt-br ;
-                   edo:hasAttribute edo:PipeMountPosition ;
+                   edo:hasAttribute edo:MountPosition ;
                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                      edo:SubseaUmbilicalsEngineering ;
                    edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -6154,15 +6154,11 @@ edo:PiggableInspection rdf:type owl:Class ;
                        edo:hasValueCardinality edo:SingleValue .
 
 
-###  https://w3id.org/energy-domain/edo#PipeMountPosition
-edo:PipeMountPosition rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#MountPosition
+edo:MountPosition rdf:type owl:Class ;
                       rdfs:subClassOf edo:DomainAttribute ;
                       dcterms:accessRights "PUBLIC" ;
-                      dcterms:identifier "PipeMountPosition" ;
-                      skos:definition "Cota em metros da posição em que o item é montado no tramo no sentido do fluxo do fluido."@pt-br ,
-                                      "Indicates the distance from the end fitting to the position of the accessory along the direction of fluid flow within the pipe body. This property specifies the precise location of the accessory relative to the end fitting, which is essential for accurate installation and alignment within the tubular body."@en ;
-                      skos:prefLabel "Pipe Mount Position"@en ,
-                                     "Posição de Montagem no Duto"@pt-br ;
+                      dcterms:identifier "MountPosition" ;
                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
@@ -7422,7 +7418,7 @@ edo:SplitCollar rdf:type owl:Class ;
                 skos:definition "A component used to encircle and secure parts of subsea systems, such as flexible pipes, risers, or accessories. The Split Collar is designed with a split or gap, allowing it to be clamped around the pipe or component and then fastened together. This design facilitates easy installation and removal, making it useful for applications where adjustments or maintenance are required. The Split Collar provides structural support, alignment, and stability, ensuring that the connected components remain securely in place."@en ;
                 skos:prefLabel "Colar Bipartido"@pt-br ,
                                "Split Collar"@en ;
-                edo:hasAttribute edo:PipeMountPosition ,
+                edo:hasAttribute edo:MountPosition ,
                                  edo:WeightInWater .
 
 
@@ -9900,7 +9896,7 @@ edo:PullingHeadType edo:hasExternalRef "DF:2.1" .
 #####################################################################################################################
 ###  Consolicação AnchoringCollar
 # EXCLUIR: edo:SplitCollar edo:hasSpec edo:FlangeBoltingSpec .
-edo:PipeMountPosition edo:hasExternalRef "DF:2.1" .
+# edo:PipeMountPosition edo:hasExternalRef "DF:2.1" .
 
 #####################################################################################################################
 ###  http://qudt.org/vocab/unit/KiloN-M
@@ -10692,3 +10688,16 @@ edo:FloatVolumeSOL rdf:type owl:Class ;
                        edo:hasTypedValue edo:FloatValue ;
                        edo:hasUnit unit:M3 ;
                        edo:hasValueCardinality edo:SingleValue .                        
+
+#####################################################################################################################
+###  Fix PipeMountPosition
+# RENOMEADO edo:PipeMountPosition  PARA edo:MountPosition
+# EXCLUIR: edo:PipeMountPosition skos:definition "Cota em metros da posição em que o item é montado no tramo no sentido do fluxo do fluido."@pt-br .
+# EXCLUIR: edo:PipeMountPosition skos:definition "Indicates the distance from the end fitting to the position of the accessory along the direction of fluid flow within the pipe body. This property specifies the precise location of the accessory relative to the end fitting, which is essential for accurate installation and alignment within the tubular body."@en .
+# EXCLUIR: edo:PipeMountPosition skos:prefLabel "Pipe Mount Position"@en .
+# EXCLUIR: edo:PipeMountPosition skos:prefLabel "Posição de Montagem no Duto"@pt-br .
+edo:MountPosition edo:hasExternalRef "DF:2.1" .
+edo:MountPosition skos:definition "Posição longitudinal de um componente ao longo do elemento no qual está instalado (por exemplo, uma seção de duto), medida a partir da face de referência de sua terminação inicial. Para dutos flexíveis, a terminação inicial é determinada pelo sentido do fluxo. Para umbilicais, corresponde à terminação localizada na extremidade da unidade de controle."@pt-br .
+edo:MountPosition skos:definition "Longitudinal position of a component along the element on which it is mounted (e.g., a pipe section), measured from the reference face of its starting termination. For flexible pipes, the starting termination is determined by the flow direction. For umbilicals, it is the termination at the control unit end."@en .
+edo:MountPosition skos:prefLabel "Mount Position"@en .
+edo:MountPosition skos:prefLabel "Posição de Montagem"@pt-br .
