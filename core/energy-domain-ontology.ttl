@@ -957,13 +957,7 @@ edo:BoltSet rdf:type owl:Class ;
             skos:definition "A collection of bolts and nuts, and washers designed for fastening components in subsea systems. Bolt sets are critical for ensuring structural integrity and are selected based on size, material, and application requirements."@en ;
             skos:prefLabel "Bolt Set"@en ,
                            "Conjunto de Parafusos"@pt-br ;
-            edo:hasAttribute edo:AssemblyTorque ,
-                             edo:FullyThreaded ,
-                             edo:Lubricant ,
-                             edo:LubricantFrictionFactor ,
-                             edo:NominalLength ,
-                             edo:Quantity ,
-                             edo:SpareQuantity .
+            edo:hasAttribute edo:SpareQuantity .
 
 
 ###  https://w3id.org/energy-domain/edo#BooleanValue
@@ -4970,15 +4964,12 @@ edo:MetricBoltSet rdf:type owl:Class ;
                   skos:prefLabel "Conjunto de Parafusos Métrico"@pt-br ,
                                  "Metric Bolt Set"@en ;
                   edo:hasAttribute edo:PitchToleranceClass ,
-                                   edo:ThreadPitch ,
-                                   edo:ThreadSize ,
                                    edo:ThreadStandard ;
                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                     edo:SubseaUmbilicalsEngineering ;
                   edo:ifc_equivalentClass "IfcMechanicalFastener" ;
                   edo:ifc_objectType "MetricBoltSet" ;
                   edo:ifc_predefinedType "USERDEFINED" .
-
 
 ###  https://w3id.org/energy-domain/edo#MetricStudSet
 edo:MetricStudSet rdf:type owl:Class ;
@@ -4991,8 +4982,6 @@ edo:MetricStudSet rdf:type owl:Class ;
                   skos:prefLabel "Conjunto de Estojos Métrico"@pt-br ,
                                  "Metric Stud Set"@en ;
                   edo:hasAttribute edo:PitchToleranceClass ,
-                                   edo:ThreadPitch ,
-                                   edo:ThreadSize ,
                                    edo:ThreadStandard ;
                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                     edo:SubseaUmbilicalsEngineering ;
@@ -7681,13 +7670,7 @@ edo:StudSet rdf:type owl:Class ;
             skos:definition "Stud sets are essential fastening components used in subsea oil and gas interconnection end fittings to securely assemble and connect various parts of the equipment. Each set typically includes bolts, nuts, and washers, all made from high-strength, corrosion-resistant materials to endure the harsh subsea environment. These components are designed to provide reliable mechanical fastening, ensuring the structural integrity and leak-proof performance of the end fittings. The stud sets are carefully engineered to withstand high pressure and extreme temperatures, making them critical for maintaining the operational safety and longevity of subsea interconnections."@en ;
             skos:prefLabel "Estojos"@pt-br ,
                            "Stud Set"@en ;
-            edo:hasAttribute edo:AssemblyTorque ,
-                             edo:FullyThreaded ,
-                             edo:Lubricant ,
-                             edo:LubricantFrictionFactor ,
-                             edo:NominalLength ,
-                             edo:Quantity ,
-                             edo:SpareQuantity .
+            edo:hasAttribute edo:SpareQuantity .
 
 
 ###  https://w3id.org/energy-domain/edo#SubProjectId
@@ -8200,7 +8183,6 @@ edo:ThreadPitch rdf:type owl:Class ;
                 rdfs:subClassOf edo:DomainAttribute ;
                 dcterms:accessRights "PUBLIC" ;
                 dcterms:identifier "ThreadPitch" ;
-                skos:definition "The distance between adjacent thread crests, measured along the thread's axis, determining the threading's fineness or coarseness."@en ;
                 skos:prefLabel "Passo da Rosca"@pt-br ,
                                "Thread Pitch"@en ;
                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
@@ -8208,7 +8190,6 @@ edo:ThreadPitch rdf:type owl:Class ;
                 edo:hasTypedValue edo:FloatValue ;
                 edo:hasUnit unit:MilliM ;
                 edo:hasValueCardinality edo:SingleValue .
-
 
 ###  https://w3id.org/energy-domain/edo#ThreadSize
 edo:ThreadSize rdf:type owl:Class ;
@@ -8247,13 +8228,15 @@ edo:ThreadsPerInch rdf:type owl:Class ;
                    rdfs:subClassOf edo:DomainAttribute ;
                    dcterms:accessRights "PUBLIC" ;
                    dcterms:identifier "ThreadsPerInch" ;
-                   skos:definition "Threads per Inch. Indicates the number of threads present in one inch of the bolt"@en ;
                    skos:prefLabel "Fios por Polegada"@pt-br ,
                                   "Threads per Inch"@en ;
                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
                    edo:hasValueCardinality edo:SingleValue .
+
+
+                   
 
 
 ###  https://w3id.org/energy-domain/edo#Tidal
@@ -8392,9 +8375,7 @@ edo:UNSBoltSet rdf:type owl:Class ;
                skos:prefLabel "Conjunto de Parafusos UNS"@pt-br ,
                               "UNS Bolt Set"@en ;
                edo:hasAttribute edo:PitchToleranceClass ,
-                                edo:ThreadSize ,
-                                edo:ThreadStandard ,
-                                edo:ThreadsPerInch ;
+                                edo:ThreadStandard ;
                edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                  edo:SubseaUmbilicalsEngineering ;
                edo:ifc_equivalentClass "IfcMechanicalFastener" ;
@@ -8411,9 +8392,8 @@ edo:UNSStudSet rdf:type owl:Class ;
                skos:prefLabel "Conjunto de Estojos UNS"@pt-br ,
                               "UNS Stud Set"@en ;
                edo:hasAttribute edo:PitchToleranceClass ,
-                                edo:ThreadSize ,
-                                edo:ThreadStandard ,
-                                edo:ThreadsPerInch ;
+                                edo:ThreadStandard ;
+                                
                edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                  edo:SubseaUmbilicalsEngineering ;
                edo:ifc_equivalentClass "IfcMechanicalFastener" ;
@@ -10396,3 +10376,225 @@ edo:TechnicalNotes rdfs:subClassOf edo:CollarSupportAttribute .
 edo:TechnicalNotes rdfs:subClassOf edo:GrooveSupportAttribute .
 edo:TechnicalNotes rdfs:subClassOf edo:RearSupportAttribute .
 edo:TechnicalNotes edo:hasExternalRef "MDA:remarks" .
+
+#####################################################################################################################
+###  Consolicação Bolts 
+
+# EXCLUIR: edo:BoltSet edo:hasAttribute edo:AssemblyTorque .
+# EXCLUIR: edo:BoltSet edo:hasAttribute edo:Lubricant .
+# EXCLUIR: edo:BoltSet edo:hasAttribute edo:LubricantFrictionFactor .
+# EXCLUIR: edo:BoltSet edo:hasAttribute edo:Quantity .
+# EXCLUIR: edo:BoltSet edo:hasAttribute edo:FullyThreaded .
+# EXCLUIR: edo:BoltSet edo:hasAttribute edo:NominalLength .
+# EXCLUIR: edo:MetricBoltSet edo:hasAttribute edo:ThreadPitch .
+# EXCLUIR: edo:MetricBoltSet edo:hasAttribute edo:ThreadSize .
+# SUBSTITUIR: MetricThreadPitch POR ThreadPitch
+# EXCLUIR: edo:ThreadPitch skos:definition "The distance between adjacent thread crests, measured along the thread's axis, determining the threading's fineness or coarseness."@en .
+# EXCLUIR: edo:StudSet skos:definition "Stud sets are essential fastening components used in subsea oil and gas interconnection end fittings to securely assemble and connect various parts of the equipment. Each set typically includes bolts, nuts, and washers, all made from high-strength, corrosion-resistant materials to endure the harsh subsea environment. These components are designed to provide reliable mechanical fastening, ensuring the structural integrity and leak-proof performance of the end fittings. The stud sets are carefully engineered to withstand high pressure and extreme temperatures, making them critical for maintaining the operational safety and longevity of subsea interconnections."@en .
+# EXCLUIR: edo:hasAttribute edo:AssemblyTorque .
+# EXCLUIR: edo:hasAttribute edo:FullyThreaded .
+# EXCLUIR: edo:hasAttribute edo:Lubricant .
+# EXCLUIR: edo:hasAttribute edo:LubricantFrictionFactor .
+# EXCLUIR: edo:hasAttribute edo:NominalLength .
+# EXCLUIR: edo:hasAttribute edo:Quantity .
+# EXCLUIR: edo:MetricStudSet edo:hasAttribute edo:ThreadPitch .
+# EXCLUIR: edo:MetricStudSet edo:hasAttribute edo:ThreadSize .
+# EXCLUIR: edo:UNSStudSet edo:hasAttribute edo:ThreadSize .
+# EXCLUIR: edo:UNSStudSet edo:hasAttribute edo:ThreadsPerInch .
+
+edo:BoltSet skos:definition "Uma coleção de parafusos, porcas e arruelas projetada para a fixação de componentes em sistemas submarinos. Conjuntos de parafusos são críticos para garantir a integridade estrutural e são selecionados com base no tamanho, material e requisitos da aplicação."@pt-br .
+edo:BoltSet edo:hasAttribute edo:NumFastenerSets .
+edo:BoltSet edo:hasExternalRef "MDA:BoltSet" .
+
+###  https://w3id.org/energy-domain/edo#Kit
+edo:Kit rdf:type owl:Class ;
+        rdfs:subClassOf edo:Asset ;
+        dcterms:identifier "Kit" ;
+        skos:definition "An assortment of objects (tools, consumables, accessories, etc.) supplied together as a set for some specific purpose."@en ,
+                        "Um sortimento de objetos (ferramentas, consumíveis, acessórios, etc.) fornecidos conjuntamente para alguma finalidade específica."@pt-br ;
+        skos:prefLabel "Kit"@en ,
+                       "Kit"@pt-br ;
+        edo:entityStatus "NEW" ;
+        edo:hasExternalRef "MDA:Kit" .
+
+###  https://w3id.org/energy-domain/edo#FastenerSet
+edo:FastenerSet rdf:type owl:Class ;
+                rdfs:subClassOf edo:Kit ;
+                dcterms:identifier "FastenerSet" ;
+                skos:prefLabel "Conjunto de Fixadores"@pt-br ,
+                               "Fastener Set"@en ;
+                edo:entityStatus "NEW" ;
+                edo:hasAttribute edo:NumFastenerSets ;
+                edo:hasExternalRef "MDA:FastenerSet" .
+
+###  https://w3id.org/energy-domain/edo#NumFastenerSets
+edo:NumFastenerSets rdf:type owl:Class ;
+                    rdfs:subClassOf edo:_CAT-Composition ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "NumFastenerSets" ;
+                    rdfs:comment "Descriptions Generated by IA." ;
+                    skos:definition "Indica a quantidade total de conjuntos de fixação completos (tipicamente parafusos, porcas e arruelas) necessários para uma conexão mecânica específica."@pt-br ,
+                                    "Indicates the total quantity of complete fastening assemblies (typically bolts, nuts, and washers) required for a specific mechanical connection."@en ;
+                    skos:prefLabel "Number of Fastener Sets"@en ,
+                                   "Número de Conjuntos de Fixadores"@pt-br ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                    edo:hasExternalRef "MDA:num_fastener_sets" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:IntValue ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+edo:MetricBoltSet edo:hasAttribute edo:ThreadedLength .
+edo:MetricBoltSet edo:hasAttribute edo:TotalStemLength .
+edo:MetricBoltSet edo:hasSpec edo:MetricThreadSpec .
+edo:MetricBoltSet edo:hasExternalRef "MDA:MetricBoltSet" .
+edo:MetricBoltSet skos:definition "Um conjunto de parafusos e ferragens acompanhantes dimensionados pelo sistema métrico de medição, comumente utilizados em aplicações submarinas para compatibilidade internacional e padronização."@pt-br .
+edo:MetricBoltSet edo:hasDiscipline edo:SubseaRigidPipesEngineering .
+
+###  https://w3id.org/energy-domain/edo#ThreadedLength
+edo:ThreadedLength rdf:type owl:Class ;
+                   rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "ThreadedLength" ;
+                   rdfs:comment "Descriptions Generated by IA." ;
+                   skos:definition "Especifica o comprimento linear da porção de uma haste ou fixador que é provida de roscas."@pt-br ,
+                                   "Specifies the linear length of the portion of a stem or fastener that is provided with threads."@en ;
+                   skos:prefLabel "Comprimento Rosqueado"@pt-br ,
+                                  "Threaded Length"@en ;
+                   edo:entityStatus "NEW" ;
+                   edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                   edo:hasExternalRef "MDA:threaded_length" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:MilliM ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#TotalStemLength
+edo:TotalStemLength rdf:type owl:Class ;
+                    rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "TotalStemLength" ;
+                    rdfs:comment "Descriptions Generated by IA." ;
+                    skos:definition "Define o comprimento total do corpo da haste ou parafuso de extremidade a extremidade."@pt-br ,
+                                    "Defines the overall length of the stem or bolt body from end to end."@en ;
+                    skos:prefLabel "Comprimento Total da Haste"@pt-br ,
+                                   "Total Stem Length"@en ;
+                    edo:entityStatus "NEW" ;
+                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                    edo:hasExternalRef "MDA:total_stem_length" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:MilliM ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+edo:ThreadPitch rdfs:comment "Descriptions Generated by IA." .
+edo:ThreadPitch skos:definition "Especifica a distância entre cristas de rosca adjacentes em um sistema de rosca métrica."@pt-br .
+edo:ThreadPitch skos:definition "Specifies the distance between adjacent thread crests in a metric screw thread system."@en .
+edo:ThreadPitch edo:hasExternalRef "MDA:thread_spec.pitch" .
+
+###  https://w3id.org/energy-domain/edo#MetricThreadSpec
+edo:MetricThreadSpec rdf:type owl:Class ;
+                     rdfs:subClassOf edo:Spec ;
+                     skos:prefLabel "Especificação de Rosca Métrica (ISO 261)"@pt-br ,
+                                    "Metric Thread Specification (ISO 261)"@en ;
+                     edo:hasAttribute edo:ThreadPitch ,
+                                      edo:ThreadSize ;
+                     edo:hasExternalRef "MDA:thread_spec" .
+
+edo:SpareQuantity edo:hasExternalRef "DF:2.1" .
+edo:PitchToleranceClass edo:hasExternalRef "DF:2.1" .
+edo:ThreadStandard edo:hasExternalRef "DF:2.1" .
+
+
+# EXCLUIR: edo:UNSBoltSet edo:hasAttribute edo:PitchToleranceClass .
+# EXCLUIR: edo:UNSBoltSet edo:hasAttribute edo:ThreadStandard .
+edo:UNSBoltSet skos:definition "Um conjunto de parafusos em conformidade com o padrão Unified Numbering System (UNS), garantindo consistência de material e confiabilidade em aplicações submarinas."@pt-br .
+edo:UNSBoltSet edo:hasAttribute edo:ThreadedLength .
+edo:UNSBoltSet edo:hasAttribute edo:TotalStemLength .
+edo:UNSBoltSet edo:hasDiscipline edo:SubseaRigidPipesEngineering .
+edo:UNSBoltSet edo:hasExternalRef "MDA:UNSBoltSet" .
+edo:UNSBoltSet edo:hasSpec edo:UNSThreadSpec .
+
+###  https://w3id.org/energy-domain/edo#UNSThreadSpec
+edo:UNSThreadSpec rdf:type owl:Class ;
+                  rdfs:subClassOf edo:Spec ;
+                  skos:prefLabel "Especificação de Rosca UNS (ASME_B1.1)"@pt-br ,
+                                 "UNS Thread Specification (ASME_B1.1)"@en ;
+                  edo:hasAttribute edo:ThreadSize ,
+                                   edo:ThreadsPerInch ;
+                  edo:hasExternalRef "MDA:thread_spec" .
+
+edo:ThreadsPerInch skos:definition "Indica o número de fios (filetes) presentes em uma polegada de comprimento de um fixador ou elemento rosqueado."@pt-br .
+edo:ThreadsPerInch skos:definition "Indicates the number of threads present in one inch of the bolt."@en .
+edo:ThreadsPerInch edo:hasExternalRef "MDA:thread_spec.threads_per_inch" .
+edo:ThreadsPerInch edo:hasUnit edo:THREADS-PER-INCH .
+
+###  https://w3id.org/energy-domain/edo#THREADS-PER-INCH
+edo:THREADS-PER-INCH rdf:type owl:NamedIndividual ,
+                              qudt:Unit ,
+                              edo:DomainUnit ;
+                     dcterms:source "Energy Domain Ontology"@en ;
+                     qudt:conversionMultiplier 39.37007874 ;
+                     qudt:definedUnitOfSystem sou:Imperial ;
+                     qudt:exactMatch unit:PER-IN ;
+                     qudt:hasQuantityKind qudt:InverseLength ;
+                     qudt:symbol "TPI" ;
+                     qudt:ucumCode "IN-1" ;
+                     rdfs:comment "Fios por polegada (FPP). Representação específica do domínio, equivalente à polegada recíproca (1/in)."@pt-br ,
+                                  "Threads per inch (TPI). Domain-specific representation equivalent to reciprocal inch (1/in)."@en ;
+                     rdfs:isDefinedBy <https://w3id.org/energy-domain/edo> ;
+                     rdfs:label "Threads per inch"@en ;
+                     skos:altLabel "Fios por Polegada"@pt-br .
+
+edo:StudSet skos:definition "Conjuntos de estojos são componentes de fixação essenciais utilizados em acessórios de extremidade de interconexão de óleo e gás submarinos para montar e conectar de forma segura várias partes do equipamento. Cada conjunto inclui tipicamente estojos, porcas e arruelas, todos feitos de materiais de alta resistência e resistentes à corrosão. Projetados para fornecer fixação mecânica confiável, garantindo integridade estrutural e desempenho estanque."@pt-br .
+edo:StudSet skos:definition "Stud sets are essential fastening components used in subsea oil and gas interconnection end fittings to securely assemble and connect various parts of the equipment. Each set typically includes bolts, nuts, and washers, all made from high-strength, corrosion-resistant materials to endure the harsh subsea environment. These components are designed to provide reliable mechanical fastening, ensuring the structural integrity and leak-proof performance of the end fittings. The stud sets are carefully engineered to withstand high pressure and extreme temperatures, making them critical for maintaining the operational safety and longevity of subsea interconnections."@en .
+edo:StudSet edo:hasAttribute edo:NumFastenerSets .
+edo:StudSet edo:hasExternalRef "MDA:StudSet" .
+
+edo:MetricStudSet skos:definition "Estojos métricos são componentes de fixação cruciais para componentes submarinos de óleo e gás, projetados especificamente para fixar partes de equipamentos. Cada conjunto inclui estojos, porcas e arruelas em dimensões métricas, fabricados com materiais de alta resistência e resistentes à corrosão para suportar o exigente ambiente submarino. Estes componentes oferecem fixação confiável, garantindo integridade estrutural e prevenção de vazamentos em acessórios de extremidade (end fittings). Os conjuntos de estojos métricos são projetados para suportar alta pressão e temperaturas extremas, tornando-os essenciais para a segurança e durabilidade das interconexões submarinas."@pt-br .
+edo:MetricStudSet edo:hasAttribute edo:InstalledLength .
+edo:MetricStudSet edo:hasAttribute edo:ThreadedEndLength .
+edo:MetricStudSet edo:hasDiscipline edo:SubseaRigidPipesEngineering .
+edo:MetricStudSet edo:hasExternalRef "MDA:MetricStudSet" .
+edo:MetricStudSet edo:hasSpec edo:MetricThreadSpec .
+
+###  https://w3id.org/energy-domain/edo#InstalledLength
+edo:InstalledLength rdf:type owl:Class ;
+                    rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "InstalledLength" ;
+                    rdfs:comment "Descriptions Generated by IA." ;
+                    skos:definition "Indica a dimensão final de extremidade a extremidade de um componente ou conjunto após seu posicionamento e fixação no campo."@pt-br ,
+                                    "Indicates the final end-to-end dimension of a component or assembly after its placement and securing at the field location."@en ;
+                    skos:prefLabel "Comprimento Instalado"@pt-br ,
+                                   "Installed Length"@en ;
+                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                    edo:hasExternalRef "MDA:length" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:M ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+###  https://w3id.org/energy-domain/edo#ThreadedEndLength
+edo:ThreadedEndLength rdf:type owl:Class ;
+                      rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "ThreadedEndLength" ;
+                      rdfs:comment "Descriptions Generated by IA." ;
+                      skos:definition "Especifica o comprimento da porção roscada nas extremidades de um prisioneiro ou barra."@pt-br ,
+                                      "Specifies the length of the threaded portion at the extremities of a stud or rod."@en ;
+                      skos:prefLabel "Comprimento Rosqueado nas Extremidades"@pt-br ,
+                                     "Threaded End Length"@en ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                      edo:hasExternalRef "MDA:threaded_end_length" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:FloatValue ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+edo:UNSStudSet skos:definition "Os conjuntos de estojos UNS são componentes de fixação essenciais para equipamentos submarinos de óleo e gás, customizados para unir partes de equipamentos de forma segura. Cada conjunto compreende estojos, porcas e arruelas, todos em dimensões UNS e fabricados com materiais de alta resistência e resistentes à corrosão para suportar o desafiador ambiente submarino. Estes componentes fornecem fixação robusta, garantindo a integridade estrutural e a prevenção de vazamentos em acessórios de extremidade (end fittings). Os conjuntos de estojos UNS são projetados para suportar alta pressão e temperaturas extremas, desempenhando um papel vital na segurança e longevidade das interconexões submarinas."@pt-br .
+edo:UNSStudSet edo:hasAttribute edo:InstalledLength .
+edo:UNSStudSet edo:hasAttribute edo:ThreadedEndLength .
+edo:UNSStudSet edo:hasDiscipline edo:SubseaRigidPipesEngineering .
+edo:UNSStudSet edo:hasExternalRef "MDA:UNSStudSet" .
+edo:UNSStudSet edo:hasSpec edo:UNSThreadSpec .
