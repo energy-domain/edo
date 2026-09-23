@@ -2977,9 +2977,7 @@ edo:HangOffCollar rdf:type owl:Class ;
                                   "Flange bipartido para suporte de um riser"@pt-br ;
                   skos:prefLabel "Hang Off Collar"@en ,
                                  "Sistema de Suspensão"@pt-br ;
-                  edo:hasAttribute edo:CollarInternalDiameter ,
-                                   edo:FlangeType ,
-                                   edo:MaxDynamicLoad ,
+                  edo:hasAttribute edo:MaxDynamicLoad ,
                                    edo:SafeWorkingLoad ,
                                    edo:UpperItubeDiameter ;
                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
@@ -2987,7 +2985,6 @@ edo:HangOffCollar rdf:type owl:Class ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
                   edo:ifc_objectType "HangOffCollar" ;
                   edo:ifc_predefinedType "USERDEFINED" .
-
 
 ###  https://w3id.org/energy-domain/edo#HardwareItem
 edo:HardwareItem rdf:type owl:Class ;
@@ -10598,3 +10595,29 @@ edo:UNSStudSet edo:hasAttribute edo:ThreadedEndLength .
 edo:UNSStudSet edo:hasDiscipline edo:SubseaRigidPipesEngineering .
 edo:UNSStudSet edo:hasExternalRef "MDA:UNSStudSet" .
 edo:UNSStudSet edo:hasSpec edo:UNSThreadSpec .
+
+#####################################################################################################################
+###  Consolicação HangOffCollar 
+# EXCLUIR: edo:HangOffCollar edo:hasAttribute edo:CollarInternalDiameter .
+# EXCLUIR: edo:HangOffCollar edo:hasAttribute edo:FlangeType .
+
+edo:CollarInternalDiameter edo:hasExternalRef "DF:2.1" .
+edo:MaxDynamicLoad edo:hasExternalRef "DF:2.1" .
+edo:UpperItubeDiameter edo:hasExternalRef "DF:2.1" .
+
+edo:HangOffCollar edo:hasAttribute edo:InnerDiameter .
+edo:HangOffCollar edo:hasAttribute edo:SupportFlangeType .
+
+###  https://w3id.org/energy-domain/edo#SupportFlangeType 
+edo:SupportFlangeType rdf:type owl:Class ;
+rdfs:subClassOf edo:DomainAttribute ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "SupportFlangeType" ;
+skos:prefLabel "Support flange type"@en ;
+skos:prefLabel "Tipo do flange do suporte"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:StringValue ;
+edo:hasValueCardinality edo:SingleValue ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:support_flange_type" .
