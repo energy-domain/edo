@@ -6281,10 +6281,7 @@ edo:FlexiblePipeStructure rdf:type owl:Class ;
                                            edo:FrictionCoeffSteelPolymer ,
                                            edo:HydrostaticCollapseAbsPressDry ,
                                            edo:LimpTorsionalStiffnessAtStorage ,
-                                           edo:LinearWeight ,
-                                           edo:LinearWeightFilled ,
                                            edo:LinearWeightFilledSubmerged ,
-                                           edo:LinearWeightSubmerged ,
                                            edo:MaxDesignPressure ,
                                            edo:MaxDesignTemperatureTime ,
                                            edo:MaxDiffPressure ,
@@ -10688,24 +10685,6 @@ edo:LinearOverrideTool rdf:type owl:Class ;
                        edo:ifc_objectType "LinearOverrideTool" ;
                        edo:ifc_predefinedType "USERDEFINED" .
 
-
-###  https://w3id.org/energy-domain/edo#LinearWeight
-edo:LinearWeight rdf:type owl:Class ;
-                 rdfs:subClassOf edo:_CAT-TechnicalDetail ;
-                 dcterms:accessRights "PUBLIC" ;
-                 dcterms:identifier "LinearWeight" ;
-                 skos:definition "Basic linear weight of the structure, without liquid filling and not submerged."@en ,
-                                 "Peso linear básico da estrutura, sem preenchimento com líquidos e não submersa."@pt-br ;
-                 skos:prefLabel "Linear Weight, Empty, in Air"@en ,
-                                "Peso Linear, Vazio, no Ar"@pt-br ;
-                 edo:hasAttributeScope edo:TypeLevelAttribute ;
-                 edo:hasExternalRef "MDA:structural_params.linear_weight" ;
-                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                 edo:hasTypedValue edo:FloatValue ;
-                 edo:hasUnit unit:KiloGM_F-PER-M ;
-                 edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#LinearWeightEmptySubmerged
 edo:LinearWeightEmptySubmerged rdf:type owl:Class ;
                                rdfs:subClassOf edo:DomainAttribute ;
@@ -10721,24 +10700,6 @@ edo:LinearWeightEmptySubmerged rdf:type owl:Class ;
                                edo:hasTypedValue edo:FloatValue ;
                                edo:hasUnit unit:KiloGM_F-PER-M ;
                                edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#LinearWeightFilled
-edo:LinearWeightFilled rdf:type owl:Class ;
-                       rdfs:subClassOf edo:_CAT-TechnicalDetail ;
-                       dcterms:accessRights "PUBLIC" ;
-                       dcterms:identifier "LinearWeightFilled" ;
-                       rdfs:comment "Peso linear da estrutura, não submersa, mangueiras preenchidas com fluido hidráulico"@pt-br ;
-                       skos:definition "Peso linear, não submersa, com mangueiras preenchidas com fluido hidráulico."@pt-br ,
-                                       "Structure linear weight, unsubmerged, hoses filled with hydraulic fluid."@en ;
-                       skos:prefLabel "Linear Weight, Filled, in Air"@en ,
-                                      "Peso Linear, Preenchido, no Ar"@pt-br ;
-                       edo:hasAttributeScope edo:TypeLevelAttribute ;
-                       edo:hasExternalRef "MDA:structural_params.linear_weight_filled" ;
-                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                       edo:hasTypedValue edo:FloatValue ;
-                       edo:hasUnit unit:KiloGM_F-PER-M ;
-                       edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#LinearWeightFilledAir
@@ -10812,25 +10773,6 @@ edo:LinearWeightInWater rdf:type owl:Class ;
                         edo:hasTypedValue edo:FloatValue ;
                         edo:hasUnit unit:KiloGM_F-PER-M ;
                         edo:hasValueCardinality edo:SingleValue .
-
-
-###  https://w3id.org/energy-domain/edo#LinearWeightSubmerged
-edo:LinearWeightSubmerged rdf:type owl:Class ;
-                          rdfs:subClassOf edo:_CAT-TechnicalDetail ;
-                          dcterms:accessRights "PUBLIC" ;
-                          dcterms:identifier "LinearWeightSubmerged" ;
-                          rdfs:comment "Peso linear efetivo da estrutura (descontando empuxo), sem preenchimento com líquidos e submersa na água do mar"@pt-br ;
-                          skos:definition "Effective structure linear weight (subtracting upthrust), empty of liquid and submerged into seawater."@en ,
-                                          "Peso linear da estrutura efetiva (subtraindo o empuxo), sem líquido e submersa em água do mar."@pt-br ;
-                          skos:prefLabel "Linear Weight, Empty, Submerged"@en ,
-                                         "Peso Linear, Vazio, Submerso"@pt-br ;
-                          edo:hasAttributeScope edo:TypeLevelAttribute ;
-                          edo:hasExternalRef "MDA:structural_params.linear_weight_submerged" ;
-                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                          edo:hasTypedValue edo:FloatValue ;
-                          edo:hasUnit unit:KiloGM_F-PER-M ;
-                          edo:hasValueCardinality edo:SingleValue .
-
 
 ###  https://w3id.org/energy-domain/edo#Link
 edo:Link rdf:type owl:Class ;
@@ -12011,7 +11953,7 @@ edo:MaxDesignPressure rdf:type owl:Class ;
                       edo:hasExternalRef "MDA:max_pressure" ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
-                      edo:hasUnit unit:PA ;
+                      edo:hasUnit unit:MPa ;
                       edo:hasValueCardinality edo:SingleValue .
 
 
@@ -22338,7 +22280,7 @@ edo:UmbilicalComponent rdf:type owl:Class ;
                        skos:prefLabel "Componente Umbilical"@pt-br ,
                                       "Componente de Umbilical"@pt-br ,
                                       "Umbilical Component"@en ;
-                       edo:hasAttribute edo:LinearWeight ,
+                       edo:hasAttribute edo:LinearWeightEmptyInAir ,
                                         edo:OuterDiameter .
 
 
@@ -22425,10 +22367,10 @@ edo:UmbilicalStructure rdf:type owl:Class ;
                                         edo:DamagingTension ,
                                         edo:FrictionCoeffSheathArmor ,
                                         edo:LinearWeight ,
-                                        edo:LinearWeightFilled ,
+                                        edo:LinearWeightFilledInAir ,
                                         edo:LinearWeightFilledSubmerged ,
                                         edo:LinearWeightFilledSubmergedFlooded ,
-                                        edo:LinearWeightSubmerged ,
+                                        edo:LinearWeightEmptySubmerged ,
                                         edo:MaxDragCoeff ,
                                         edo:MbrDynamicOperation ,
                                         edo:MbrStaticOperation ,
