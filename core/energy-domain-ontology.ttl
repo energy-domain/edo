@@ -1479,6 +1479,8 @@ edo:Asset rdf:type owl:Class ;
                            edo:PartNumber ,
                            edo:ProjectDrawingCode ,
                            edo:ProjectDrawingRevision ,
+                           edo:PurchaseOrderId ,
+                           edo:PurchaseOrderItemId ,
                            edo:SerialNumber ,
                            edo:SupplierProvidedMaterialName ;
           edo:hasExternalRef "MDA:Asset" .
@@ -1798,7 +1800,9 @@ edo:BendMomentVsShearForceTableColumn rdf:type owl:Class ;
                                       skos:definition "Provides data on the relationship between bending moment and shear force, used to evaluate how the structure behaves under combined loading conditions. This information is critical for determining the structural integrity and performance under different operational stresses."@en ;
                                       skos:prefLabel "Bending Moment vs Shear Force Table"@en ,
                                                      "Tabela de Momento de Curvatura em Função da Força Cisalhante"@pt-br ;
-                                      edo:hasAttributeScope edo:TypeLevelAttribute .
+                                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                      edo:hasExternalRef "DF:2.1" ;
+                                      edo:hasLifecycleCreationPhase edo:DetailedDesign .
 
 
 ###  https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_BendingMoment
@@ -1810,9 +1814,10 @@ edo:BendMomentVsShearForceTable_BendingMoment rdf:type owl:Class ;
                                               skos:prefLabel "Bending Moment"@en ,
                                                              "Momento de Flexão"@pt-br ;
                                               edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                              edo:hasExternalRef "DF:2.1" ;
                                               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                               edo:hasTypedValue edo:FloatValue ;
-                                              edo:hasUnit unit:N-M ;
+                                              edo:hasUnit unit:KiloN-M ;
                                               edo:hasValueCardinality edo:MultiValue .
 
 
@@ -1825,9 +1830,10 @@ edo:BendMomentVsShearForceTable_Condition rdf:type owl:Class ;
                                           skos:prefLabel "Condition"@en ,
                                                          "Condição do Flexível para os Dados da Curva"@pt-br ;
                                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                          edo:hasExternalRef "DF:2.1" ;
                                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                           edo:hasTypedValue edo:StringValue ;
-                                          edo:hasValueCardinality edo:SingleValue .
+                                          edo:hasValueCardinality edo:MultiValue .
 
 
 ###  https://w3id.org/energy-domain/edo#BendMomentVsShearForceTable_ShearForce
@@ -1840,9 +1846,10 @@ edo:BendMomentVsShearForceTable_ShearForce rdf:type owl:Class ;
                                            skos:prefLabel "Força de Cisalhamento"@pt-br ,
                                                           "Shear Force"@en ;
                                            edo:hasAttributeScope edo:TypeLevelAttribute ;
+                                           edo:hasExternalRef "DF:2.1" ;
                                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                            edo:hasTypedValue edo:FloatValue ;
-                                           edo:hasUnit unit:N ;
+                                           edo:hasUnit unit:KiloN ;
                                            edo:hasValueCardinality edo:MultiValue .
 
 
@@ -1860,6 +1867,7 @@ edo:BendRestrictor rdf:type owl:Class ;
                                   "Restritor de Curvatura"@pt-br ;
                    edo:hasAttribute edo:ArcAngle ,
                                     edo:BendMomentVsShearForceCurveAttribute ,
+                                    edo:BendMomentVsShearForceTableColumn ,
                                     edo:LockedLength ,
                                     edo:MaximumBendingMoment ,
                                     edo:MaximumBendingMomentLongTerm ,
@@ -2203,7 +2211,8 @@ edo:BoltSet rdf:type owl:Class ;
             skos:prefLabel "Bolt Set"@en ,
                            "Conjunto de Parafusos"@pt-br ;
             edo:entityStatus "NEW" ;
-            edo:hasAttribute edo:NumFastenerSets ;
+            edo:hasAttribute edo:NumFastenerSets ,
+                             edo:SpareQuantity ;
             edo:hasExternalRef "MDA:BoltSet" .
 
 
@@ -2404,7 +2413,12 @@ edo:BuoyancyModule rdf:type owl:Class ;
                    skos:prefLabel "Buoyancy Module"@en ,
                                   "Módulo de Flutuação"@pt-br ;
                    edo:hasAttribute edo:FinalBuoyancyEOL ,
+                                    edo:FloatDensityEOL ,
+                                    edo:FloatDensitySOL ,
+                                    edo:FloatVolumeEOL ,
+                                    edo:FloatVolumeSOL ,
                                     edo:InitialBuoyancySOL ,
+                                    edo:MountPosition ,
                                     edo:OuterDiameter ;
                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                      edo:SubseaRigidPipesEngineering ,
@@ -2804,6 +2818,7 @@ edo:CollarInternalDiameter rdf:type owl:Class ;
                            skos:prefLabel "Collar Internal Diameter"@en ,
                                           "Diâmetro Interno do Colar"@pt-br ;
                            edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "DF:2.1" ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
                            edo:hasUnit unit:MilliM ;
@@ -5167,6 +5182,7 @@ edo:EndFitting rdf:type owl:Class ;
                                 edo:FrontConeDiameter ,
                                 edo:FrontConeLength ,
                                 edo:GrooveSupportAttribute ,
+                                edo:HasFaceORing ,
                                 edo:InternalCoating ,
                                 edo:MaxTerminationDiameter ,
                                 edo:MountingTemplateRadius ,
@@ -5179,7 +5195,8 @@ edo:EndFitting rdf:type owl:Class ;
                                 edo:RearConeLength ,
                                 edo:RearSupportAttribute ;
                edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ;
-               edo:hasSpec edo:FlangeSpec ,
+               edo:hasSpec edo:FlangeBoltingSpec ,
+                           edo:FlangeSpec ,
                            edo:GasketSpec ;
                edo:ifc_equivalentClass "IfcPipeFitting" ;
                edo:ifc_objectType "EndFitting" ;
@@ -5982,21 +5999,21 @@ edo:Filler rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#FinalBuoyancyEOL
 edo:FinalBuoyancyEOL rdf:type owl:Class ;
-                      rdfs:subClassOf edo:_CAT-Specification ;
-                      dcterms:accessRights "PUBLIC" ;
-                      dcterms:identifier "FinalBuoyancyEOL" ;
-                      rdfs:comment "Empuxo nominal fornecido pelo flutuador no final da vida útil"@pt-br ;
-                      skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no final de sua vida útil (EOF)."@pt-br ,
-                                      "Nominal upthrust supplied by buoyancy module late in its lifespan (EOF)."@en ;
-                      skos:prefLabel "Final Buoyancy"@en ,
-                                     "Flutuabilidade Final"@pt-br ;
-                      edo:hasAttribute "MDA:final_buoyancy" ;
-                      edo:hasAttributeScope edo:TypeLevelAttribute ;
-                      edo:hasExternalRef "MDA:final_buoyancy" ;
-                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                      edo:hasTypedValue edo:FloatValue ;
-                      edo:hasUnit unit:KiloGM_F ;
-                      edo:hasValueCardinality edo:SingleValue .
+                     rdfs:subClassOf edo:_CAT-Specification ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "FinalBuoyancyEOL" ;
+                     rdfs:comment "Empuxo nominal fornecido pelo flutuador no final da vida útil"@pt-br ;
+                     skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no final de sua vida útil (EOF)."@pt-br ,
+                                     "Nominal upthrust supplied by buoyancy module late in its lifespan (EOF)."@en ;
+                     skos:prefLabel "Final Buoyancy"@en ,
+                                    "Flutuabilidade Final"@pt-br ;
+                     edo:hasAttribute "MDA:final_buoyancy" ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:final_buoyancy" ;
+                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                     edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:KiloGM_F ;
+                     edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#FinancialAttribute
@@ -6169,6 +6186,18 @@ edo:FlangeAttribute rdf:type owl:Class ;
                     rdfs:label "Flange Attribute"@en .
 
 
+###  https://w3id.org/energy-domain/edo#FlangeBoltingSpec
+edo:FlangeBoltingSpec rdf:type owl:Class ;
+                      rdfs:subClassOf edo:Spec ;
+                      skos:prefLabel "Especificação de Parafusamento do Flange"@pt-br ,
+                                     "Flange Bolting Specification "@en ;
+                      edo:hasAttribute edo:AssemblyTension ,
+                                       edo:BoltType ,
+                                       edo:Lubricant ,
+                                       edo:LubricantFrictionFactor ,
+                                       edo:TighteningTorque .
+
+
 ###  https://w3id.org/energy-domain/edo#FlangeCogHorizontalDistance
 edo:FlangeCogHorizontalDistance rdf:type owl:Class ;
                                 rdfs:subClassOf edo:DomainAttribute ;
@@ -6297,6 +6326,7 @@ edo:FlangeSpec rdf:type owl:Class ;
                               "Flage Specification"@en ;
                edo:hasAttribute edo:AttachmentType ,
                                 edo:BoreDiameter ,
+                                edo:FlangeFaceType ,
                                 edo:FlangeType .
 
 
@@ -6440,7 +6470,6 @@ edo:FlexiblePipeStructure rdf:type owl:Class ;
                                            edo:LinearWeightFilledInAir ,
                                            edo:LinearWeightFilledSubmerged ,
                                            edo:MaxAllowableAxialCompEmptyAtMaxWaterDepth ,
-                                           edo:MaxDesignPressure ,
                                            edo:MaxDesignTemperatureTime ,
                                            edo:MaxDiffPressure ,
                                            edo:MaxWaterDepth ,
@@ -6547,6 +6576,40 @@ edo:FlexibleStructureServicesList rdf:type owl:Class ;
                                   edo:hasValueCardinality edo:MultiValue .
 
 
+###  https://w3id.org/energy-domain/edo#FloatDensityEOL
+edo:FloatDensityEOL rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "FloatDensityEOL" ;
+                    skos:definition "A densidade do flutuador no fim da vida útil, considerando o acúmulo de água no material ou mudanças na estrutura interna devido à degradação. Isso aumenta a densidade e, portanto, reduz a flutuabilidade"@pt-br ,
+                                    "The density of the float material end of life, considering factors like water absorption and material degradation, which increase the density and reduce the buoyancy."@en ;
+                    skos:prefLabel "Densidade do Flutuador no Fim da Vida Útil"@pt-br ,
+                                   "Float Density End Of Life"@en ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "DF:2.1" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:KiloGM-PER-M3 ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#FloatDensitySOL
+edo:FloatDensitySOL rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "FloatDensitySOL" ;
+                    skos:definition "A densidade do flutuador no início da vida útil. Usada para calcular a flutuabilidade inicial máxima, idealmente no ponto de fabricação."@pt-br ,
+                                    "The ideal density of the float material start of life. This is used to calculate the float's maximum buoyancy at the beginning of its use."@en ;
+                    skos:prefLabel "Densidade do Flutuador no Início da Vida Útil"@pt-br ,
+                                   "Float Density Start Of Life"@en ;
+                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                    edo:hasExternalRef "DF:2.1" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:FloatValue ;
+                    edo:hasUnit unit:KiloGM-PER-M3 ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#FloatValue
 edo:FloatValue rdf:type owl:Class ;
                owl:equivalentClass [ rdf:type owl:Restriction ;
@@ -6556,6 +6619,40 @@ edo:FloatValue rdf:type owl:Class ;
                rdfs:subClassOf edo:DataType ;
                rdfs:comment "Constraint for xsd:float (32-bit floating point)"@en ;
                rdfs:label "Float Value"@en .
+
+
+###  https://w3id.org/energy-domain/edo#FloatVolumeEOL
+edo:FloatVolumeEOL rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "FloatVolumeEOL" ;
+                   skos:definition "O volume esperado no fim da vida útil, após fatores como absorção de água e possíveis deformações. Este volume representa as condições do flutuador em sua fase de vida útil, quando a flutuabilidade tende a ser menor."@pt-br ,
+                                   "The expected submerged volume of the float end of life, taking into account factors like water absorption and structural deformations that may occur throughout its lifecycle."@en ;
+                   skos:prefLabel "Float Volume End Of Life"@en ,
+                                  "Volume do Flutuador no Fim da Vida Útil"@pt-br ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "DF:2.1" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:M3 ;
+                   edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#FloatVolumeSOL
+edo:FloatVolumeSOL rdf:type owl:Class ;
+                   rdfs:subClassOf edo:DomainAttribute ;
+                   dcterms:accessRights "PUBLIC" ;
+                   dcterms:identifier "FloatVolumeSOL" ;
+                   skos:definition "O volume do flutuador no início da vida útil. É usado para calcular a flutuabilidade máxima possível, antes de qualquer degradação."@pt-br ,
+                                   "The ideal volume of the float start of life. This value is used to calculate the maximum buoyancy under perfect conditions."@en ;
+                   skos:prefLabel "Float Volume Start Of Life"@en ,
+                                  "Volume do Flutuador no Início da Vida Útil"@pt-br ;
+                   edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "DF:2.1" ;
+                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                   edo:hasTypedValue edo:FloatValue ;
+                   edo:hasUnit unit:M3 ;
+                   edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#FloaterDiameter
@@ -7172,8 +7269,7 @@ edo:FreeAnnulusVolume rdf:type owl:Class ;
                       skos:prefLabel "Annulus free volume"@en ,
                                      "Volume livre do espaço anular"@pt-br ;
                       edo:hasAttributeScope edo:TypeLevelAttribute ;
-                      edo:hasExternalRef "DF:2.1" ,
-                                         "MDA:structural_params.annulus_area" ;
+                      edo:hasExternalRef "MDA:structural_params.annulus_area" ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
                       edo:hasUnit unit:L-PER-M ;
@@ -7908,6 +8004,7 @@ edo:HangOffCollar rdf:type owl:Class ;
                   edo:hasAttribute edo:InnerDiameter ,
                                    edo:MaxDynamicLoad ,
                                    edo:SafeWorkingLoad ,
+                                   edo:SupportFlangeType ,
                                    edo:UpperItubeDiameter ;
                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                     edo:SubseaUmbilicalsEngineering ;
@@ -8794,21 +8891,21 @@ edo:IndividualAnodeMass rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#InitialBuoyancySOL
 edo:InitialBuoyancySOL rdf:type owl:Class ;
-                        rdfs:subClassOf edo:_CAT-Specification ;
-                        dcterms:accessRights "PUBLIC" ;
-                        dcterms:identifier "InitialBuoyancySOL" ;
-                        rdfs:comment "Empuxo nominal fornecido pelo flutuador no começo da vida útil"@pt-br ;
-                        skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no início de sua vida útil (SOL)."@pt-br ,
-                                        "Nominal upthrust supplied by buoyancy module early in its lifespan (SOL)."@en ;
-                        skos:prefLabel "Flutuabilidade Inicial"@pt-br ,
-                                       "Initial Buoyancy"@en ;
-                        edo:hasAttribute "MDA:initial_buoyancy" ;
-                        edo:hasAttributeScope edo:TypeLevelAttribute ;
-                        edo:hasExternalRef "MDA:initial_buoyancy" ;
-                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                        edo:hasTypedValue edo:FloatValue ;
-                        edo:hasUnit unit:KiloGM_F ;
-                        edo:hasValueCardinality edo:SingleValue .
+                       rdfs:subClassOf edo:_CAT-Specification ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "InitialBuoyancySOL" ;
+                       rdfs:comment "Empuxo nominal fornecido pelo flutuador no começo da vida útil"@pt-br ;
+                       skos:definition "Empuxo nominal fornecido pelo módulo de flutuabilidade no início de sua vida útil (SOL)."@pt-br ,
+                                       "Nominal upthrust supplied by buoyancy module early in its lifespan (SOL)."@en ;
+                       skos:prefLabel "Flutuabilidade Inicial"@pt-br ,
+                                      "Initial Buoyancy"@en ;
+                       edo:hasAttribute "MDA:initial_buoyancy" ;
+                       edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "MDA:initial_buoyancy" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:KiloGM_F ;
+                       edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#InitialSampleThickness
@@ -10773,6 +10870,7 @@ edo:LinearObject rdf:type owl:Class ;
                                  "Base para qualquer tipo de elemento de interconexão com geometria linear."@pt-br ;
                  skos:prefLabel "Linear Object"@en ,
                                 "Objeto Linear"@pt-br ;
+                 edo:hasAttribute edo:ManufacturedLength ;
                  edo:hasExternalRef "MDA:LinearObject" .
 
 
@@ -11318,6 +11416,24 @@ edo:ManualActuator rdf:type owl:Class ;
                    edo:ifc_equivalentClass "IfcActuator" ;
                    edo:ifc_objectType "ManualActuator" ;
                    edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#ManufacturedLength
+edo:ManufacturedLength rdf:type owl:Class ;
+                       rdfs:subClassOf edo:DomainAttribute ;
+                       dcterms:accessRights "PUBLIC" ;
+                       dcterms:identifier "ManufacturedLength" ;
+                       rdfs:comment "Descriptions Generated by IA." ;
+                       skos:definition "Indica a dimensão final de extremidade a extremidade de um componente ou conjunto após seu posicionamento e fixação no campo."@pt-br ,
+                                       "Indicates the final end-to-end dimension of a component or assembly after its placement and securing at the field location."@en ;
+                       skos:prefLabel "Comprimento Fabricado"@pt-br ,
+                                      "Manufactured Length"@en ;
+                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                       edo:hasExternalRef "MDA:length" ;
+                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                       edo:hasTypedValue edo:FloatValue ;
+                       edo:hasUnit unit:M ;
+                       edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#Manufacturer
@@ -12186,6 +12302,7 @@ edo:MaxDynamicLoad rdf:type owl:Class ;
                    skos:prefLabel "Carga Dinâmica Máxima (MDL)"@pt-br ,
                                   "Maximum Dynamic Load (MDL)"@en ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
+                   edo:hasExternalRef "DF:2.1" ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
                    edo:hasUnit unit:N ;
@@ -12283,6 +12400,25 @@ edo:MaxHeatInput rdf:type owl:Class ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:KiloJoule-PER-MilliMeter ;
                  edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#MaxInsertInnerDiameter
+edo:MaxInsertInnerDiameter rdf:type owl:Class ;
+                           rdfs:subClassOf edo:CollarSupportAttribute ,
+                                           edo:DomainAttribute ,
+                                           edo:GrooveSupportAttribute ,
+                                           edo:RearSupportAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "MaxInsertInnerDiameter " ;
+                           skos:definition "Diâmetro interno máximo da região de apoio do end fitting até o qual o equipamento de suporte do navio deve ser inserido para garantir o engate e a transferência de cargas adequados. Este diâmetro define a profundidade mínima de inserção necessária para assegurar o apoio adequado do end fitting durante as operações de manuseio e instalação, evitando danos ou falhas na região de apoio."@pt-br ,
+                                           "Maximum inner diameter of the end fitting support region at which the vessel's support equipment must be inserted to ensure adequate engagement and load transfer. This diameter defines the minimum required insertion depth to ensure that the end fitting is properly supported during handling and installation operations, preventing damage or failure of the support region."@en ;
+                           skos:prefLabel "Diâmetro Interno Máximo para Inserção"@pt-br ,
+                                          "Maximum Inner Diameter for Insertion"@en ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "DF:2.1" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#MaxInstallationPressure
@@ -13639,7 +13775,9 @@ edo:MetricBoltSet rdf:type owl:Class ;
                   skos:prefLabel "Conjunto de Parafusos Métrico"@pt-br ,
                                  "Metric Bolt Set"@en ;
                   edo:entityStatus "NEW" ;
-                  edo:hasAttribute edo:ThreadedLength ,
+                  edo:hasAttribute edo:PitchToleranceClass ,
+                                   edo:ThreadStandard ,
+                                   edo:ThreadedLength ,
                                    edo:TotalStemLength ;
                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                     edo:SubseaRigidPipesEngineering ,
@@ -13664,6 +13802,8 @@ edo:MetricStudSet rdf:type owl:Class ;
                                  "Metric Stud Set"@en ;
                   edo:entityStatus "NEW" ;
                   edo:hasAttribute edo:InstalledLength ,
+                                   edo:PitchToleranceClass ,
+                                   edo:ThreadStandard ,
                                    edo:ThreadedEndLength ;
                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                     edo:SubseaRigidPipesEngineering ,
@@ -13673,6 +13813,7 @@ edo:MetricStudSet rdf:type owl:Class ;
                   edo:ifc_equivalentClass "IfcMechanicalFastener" ;
                   edo:ifc_objectType "MetricStudSet" ;
                   edo:ifc_predefinedType "USERDEFINED" .
+
 
 ###  https://w3id.org/energy-domain/edo#MetricThreadSpec
 edo:MetricThreadSpec rdf:type owl:Class ;
@@ -14290,6 +14431,25 @@ edo:MinHeatInput rdf:type owl:Class ;
                  edo:hasValueCardinality edo:SingleValue .
 
 
+###  https://w3id.org/energy-domain/edo#MinInsertInnerDiameter
+edo:MinInsertInnerDiameter rdf:type owl:Class ;
+                           rdfs:subClassOf edo:CollarSupportAttribute ,
+                                           edo:DomainAttribute ,
+                                           edo:GrooveSupportAttribute ,
+                                           edo:RearSupportAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "MinInsertInnerDiameter" ;
+                           skos:definition "Diâmetro interno mínimo da região de apoio do end fitting que define a profundidade máxima admissível de inserção do equipamento de suporte do navio. Este diâmetro estabelece o limite geométrico além do qual o equipamento de suporte não deve avançar, garantindo a compatibilidade com a geometria do end fitting e evitando interferências ou danos durante as operações de manuseio e instalação."@pt-br ,
+                                           "Minimum inner diameter of the end fitting support region that defines the maximum permissible insertion depth of the vessel's support equipment. This diameter establishes the geometric limit beyond which the support equipment must not advance, ensuring compatibility with the end fitting geometry and preventing interference or damage during handling and installation operations."@en ;
+                           skos:prefLabel "Diâmetro Interno Mínimo para Inserção"@pt-br ,
+                                          "Minimum Inner Diameter for Insertion"@en ;
+                           edo:hasAttributeScope edo:TypeLevelAttribute ;
+                           edo:hasExternalRef "DF:2.1" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:FloatValue ;
+                           edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#MinInstallationPressure
 edo:MinInstallationPressure rdf:type owl:Class ;
                             rdfs:subClassOf edo:InstallationPressureAttribute ;
@@ -14828,7 +14988,21 @@ edo:MooringLineSegment rdf:type owl:Class ;
                        edo:hasExternalRef "MDA:MooringLineSegment" .
 
 
-
+###  https://w3id.org/energy-domain/edo#MountPosition
+edo:MountPosition rdf:type owl:Class ;
+                  rdfs:subClassOf edo:_CAT-Specification ;
+                  dcterms:accessRights "PUBLIC" ;
+                  dcterms:identifier "MountPosition" ;
+                  skos:definition "Longitudinal position of a component along the element on which it is mounted (e.g., a pipe section), measured from the reference face of its starting termination. For flexible pipes, the starting termination is determined by the flow direction. For umbilicals, it is the termination at the control unit end."@en ,
+                                  "Posição longitudinal de um componente ao longo do elemento no qual está instalado (por exemplo, uma seção de duto), medida a partir da face de referência de sua terminação inicial. Para dutos flexíveis, a terminação inicial é determinada pelo sentido do fluxo. Para umbilicais, corresponde à terminação localizada na extremidade da unidade de controle."@pt-br ;
+                  skos:prefLabel "Mount Position"@en ,
+                                 "Posição de Montagem"@pt-br ;
+                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                  edo:hasExternalRef "DF:2.1" ;
+                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                  edo:hasTypedValue edo:FloatValue ;
+                  edo:hasUnit unit:M ;
+                  edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#MountingTemplateRadius
@@ -16531,11 +16705,12 @@ edo:PipePullingHead rdf:type owl:Class ;
                                   "Pull Head"@en ,
                                   "Pulling Grip"@en ,
                                   "Pulling Tool"@en ;
-                    skos:definition "Temporary head fitted to the end of a flexible pipe section to provide a structural interface capable of transferring the loads required for pulling, lifting, loading, laying, retrieval or other pipe installation operations."@en ,
-                                    "Cabeça temporária instalada na extremidade de um tramo de duto flexível para fornecer uma interface estrutural capaz de transmitir as cargas necessárias ao puxamento, içamento, carregamento, lançamento, recuperação ou outras operações de instalação do tramo."@pt-br ;
+                    skos:definition "Cabeça temporária instalada na extremidade de um tramo de duto flexível para fornecer uma interface estrutural capaz de transmitir as cargas necessárias ao puxamento, içamento, carregamento, lançamento, recuperação ou outras operações de instalação do tramo."@pt-br ,
+                                    "Temporary head fitted to the end of a flexible pipe section to provide a structural interface capable of transferring the loads required for pulling, lifting, loading, laying, retrieval or other pipe installation operations."@en ;
                     skos:prefLabel "Cabeça de Tração do Duto"@pt-br ,
                                    "Pipe Pulling Head"@en ;
-                    edo:hasAttribute edo:N2TestPortType ;
+                    edo:hasAttribute edo:N2TestPortType ,
+                                     edo:Type ;
                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                       edo:SubseaRigidPipesEngineering ;
                     edo:hasExternalRef "MDA:PipePullingHead" ;
@@ -16596,6 +16771,7 @@ edo:PipeSegment rdf:type owl:Class ;
                                  edo:AllowableH2sContent ,
                                  edo:CorrosivenessTolerance ,
                                  edo:DesignFluid ,
+                                 edo:MaxDesignPressure ,
                                  edo:MaxPressure ,
                                  edo:SandTolerance ;
                 edo:hasExternalRef "MDA:PipeSegment" .
@@ -16761,6 +16937,7 @@ edo:PitchToleranceClass rdf:type owl:Class ;
                         skos:prefLabel "Classe de Tolerância de Passo"@pt-br ,
                                        "Pitch Tolerance Class"@en ;
                         edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                        edo:hasExternalRef "DF:2.1" ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:StringValue ;
                         edo:hasValueCardinality edo:SingleValue .
@@ -17719,6 +17896,38 @@ edo:PumpingModule rdf:type owl:Class ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
                   edo:ifc_objectType "PumpingModule" ;
                   edo:ifc_predefinedType "USERDEFINED" .
+
+
+###  https://w3id.org/energy-domain/edo#PurchaseOrderId
+edo:PurchaseOrderId rdf:type owl:Class ;
+                    rdfs:subClassOf edo:DomainAttribute ;
+                    dcterms:accessRights "PUBLIC" ;
+                    dcterms:identifier "PurchaseOrderId" ;
+                    skos:definition "Identificador da ordem de compra associada ao elemento. Identifica a ordem de compra sob a qual o elemento é adquirido."@pt-br ,
+                                    "Identifier of the purchase order associated with the element. It identifies the purchase order under which the element is procured."@en ;
+                    skos:prefLabel "Identificador da ordem de compra associada ao elemento"@pt-br ,
+                                   "Identifier of the purchase order associated with the element"@en ;
+                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                    edo:hasExternalRef "DF:2.2" ;
+                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                    edo:hasTypedValue edo:StringValue ;
+                    edo:hasValueCardinality edo:SingleValue .
+
+
+###  https://w3id.org/energy-domain/edo#PurchaseOrderItemId
+edo:PurchaseOrderItemId rdf:type owl:Class ;
+                        rdfs:subClassOf edo:DomainAttribute ;
+                        dcterms:accessRights "PUBLIC" ;
+                        dcterms:identifier "PurchaseOrderItemId" ;
+                        skos:definition "Identificador do item da ordem de compra correspondente ao elemento. Identifica de forma única o elemento no âmbito da ordem de compra associada."@pt-br ,
+                                        "Identifier of the purchase order item corresponding to the element. It uniquely identifies the element within the associated purchase order."@en ;
+                        skos:prefLabel "Identificador do elemento como item da ordem de compra associada"@pt-br ,
+                                       "Identifier of the element as an item of the associated purchase order"@en ;
+                        edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                        edo:hasExternalRef "DF:2.2" ;
+                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                        edo:hasTypedValue edo:StringValue ;
+                        edo:hasValueCardinality edo:SingleValue .
 
 
 ###  https://w3id.org/energy-domain/edo#QualificationType
@@ -19411,8 +19620,11 @@ edo:ShackleInnerDiameter rdf:type owl:Class ;
                          skos:definition "Indicates the inner diameter of the shackle. This property measures the width of the space inside the shackle, which is important for ensuring compatibility with other components and for determining the appropriate fit and load distribution."@en ;
                          skos:prefLabel "Diâmetro Interno da Furação do Olhal"@pt-br ,
                                         "Shackle Inner Diameter"@en ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasExternalRef "DF:2.1" ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:MilliM ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -19424,8 +19636,11 @@ edo:ShackleOpeningWidth rdf:type owl:Class ;
                         skos:definition "Measures the width of the opening in the shackle where components, such as pins or cables, are inserted. This property is crucial for ensuring that the shackle can properly accommodate and secure the intended connecting elements."@en ;
                         skos:prefLabel "Largura da Abertura"@pt-br ,
                                        "Shackle Opening Width"@en ;
+                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                        edo:hasExternalRef "DF:2.1" ;
                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                         edo:hasTypedValue edo:FloatValue ;
+                        edo:hasUnit unit:MilliM ;
                         edo:hasValueCardinality edo:SingleValue .
 
 
@@ -19437,8 +19652,11 @@ edo:ShackleOuterDiameter rdf:type owl:Class ;
                          skos:definition "Indicates the outer diameter of the shackle. This property provides the measurement of the overall width of the shackle, which is crucial for ensuring it fits properly with other components and meets the design specifications for load-bearing and connection requirements."@en ;
                          skos:prefLabel "Diâmetro Externo do Olhal"@pt-br ,
                                         "Shackle Outer Diameter"@en ;
+                         edo:hasAttributeScope edo:TypeLevelAttribute ;
+                         edo:hasExternalRef "DF:2.1" ;
                          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                          edo:hasTypedValue edo:FloatValue ;
+                         edo:hasUnit unit:MilliM ;
                          edo:hasValueCardinality edo:SingleValue .
 
 
@@ -19450,8 +19668,11 @@ edo:ShackleThickness rdf:type owl:Class ;
                      skos:definition "Specifies the thickness of the shackle material. This property measures the distance between the inner and outer surfaces of the shackle, which is essential for understanding its strength, durability, and ability to handle load stresses."@en ;
                      skos:prefLabel "Espessura do Olhal"@pt-br ,
                                     "Shackle Thickness"@en ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "DF:2.1" ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:MilliM ;
                      edo:hasValueCardinality edo:SingleValue .
 
 
@@ -19975,6 +20196,7 @@ edo:SpareQuantity rdf:type owl:Class ;
                   skos:prefLabel "Quantidade de Sobressalentes"@pt-br ,
                                  "Spare Quantity"@en ;
                   edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                  edo:hasExternalRef "DF:2.1" ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:IntValue ;
                   edo:hasValueCardinality edo:SingleValue .
@@ -20110,7 +20332,8 @@ edo:SplitCollar rdf:type owl:Class ;
                                 "Um componente utilizado para envolver e fixar partes de sistemas submarinos, como tubos flexíveis, risers ou acessórios. O Split Collar (Colar Bipartido) é projetado com uma fenda ou abertura, permitindo que seja fixado em torno do tubo ou componente e então parafusado. Este design facilita a instalação e remoção, tornando-o útil para aplicações onde ajustes ou manutenção são necessários. Fornece suporte estrutural, alinhamento e estabilidade, garantindo que os componentes conectados permaneçam seguros no lugar."@pt-br ;
                 skos:prefLabel "Colar Bipartido"@pt-br ,
                                "Split Collar"@en ;
-                edo:hasAttribute edo:WeightInWater ;
+                edo:hasAttribute edo:MountPosition ,
+                                 edo:WeightInWater ;
                 edo:hasExternalRef "MDA:SplitCollar" ;
                 edo:hasSpec edo:BoltingSpec .
 
@@ -20877,7 +21100,8 @@ edo:StudSet rdf:type owl:Class ;
             skos:prefLabel "Estojos"@pt-br ,
                            "Stud Set"@en ;
             edo:entityStatus "NEW" ;
-            edo:hasAttribute edo:NumFastenerSets ;
+            edo:hasAttribute edo:NumFastenerSets ,
+                             edo:SpareQuantity ;
             edo:hasExternalRef "MDA:StudSet" .
 
 
@@ -21160,6 +21384,21 @@ edo:SupportAttribute rdf:type owl:Class ;
                                     "Support Point"@en .
 
 
+###  https://w3id.org/energy-domain/edo#SupportFlangeType
+edo:SupportFlangeType rdf:type owl:Class ;
+                      rdfs:subClassOf edo:DomainAttribute ;
+                      dcterms:accessRights "PUBLIC" ;
+                      dcterms:identifier "SupportFlangeType" ;
+                      skos:prefLabel "Support flange type"@en ,
+                                     "Tipo do flange do suporte"@pt-br ;
+                      edo:entityStatus "NEW" ;
+                      edo:hasAttributeScope edo:TypeLevelAttribute ;
+                      edo:hasExternalRef "MDA:support_flange_type" ;
+                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                      edo:hasTypedValue edo:StringValue ;
+                      edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#SupportPoint
 edo:SupportPoint rdf:type owl:Class ;
                  rdfs:subClassOf edo:LogicalElement ;
@@ -21172,8 +21411,9 @@ edo:SupportPoint rdf:type owl:Class ;
 
 ###  https://w3id.org/energy-domain/edo#SupportRegion
 edo:SupportRegion rdf:type owl:Class ;
-                  rdfs:subClassOf edo:SupportPoint ;
+                  rdfs:subClassOf edo:HoldElement ;
                   dcterms:identifier "SupportRegion" ;
+                  rdfs:comment "mve: move de edo:SupportPoint para edo:HoldElement"@pt-br ;
                   skos:definition "A specific region used to define the support location of the components within a 3D model."@en ,
                                   "Uma região específica usada para definir a localização de suporte dos componentes dentro de um modelo 3D."@pt-br ;
                   skos:prefLabel "Região de Suporte no Modelo"@pt-br ,
@@ -22017,7 +22257,7 @@ edo:ThreadPitch rdf:type owl:Class ;
                 dcterms:identifier "ThreadPitch" ;
                 rdfs:comment "Descriptions Generated by IA." ;
                 skos:definition "Especifica a distância entre cristas de rosca adjacentes em um sistema de rosca métrica."@pt-br ,
-                                      "Specifies the distance between adjacent thread crests in a metric screw thread system."@en ;
+                                "Specifies the distance between adjacent thread crests in a metric screw thread system."@en ;
                 skos:prefLabel "Passo da Rosca"@pt-br ,
                                "Thread Pitch"@en ;
                 edo:entityStatus "NEW" ;
@@ -22027,6 +22267,7 @@ edo:ThreadPitch rdf:type owl:Class ;
                 edo:hasTypedValue edo:FloatValue ;
                 edo:hasUnit unit:MilliM ;
                 edo:hasValueCardinality edo:SingleValue .
+
 
 ###  https://w3id.org/energy-domain/edo#ThreadSize
 edo:ThreadSize rdf:type owl:Class ;
@@ -22055,6 +22296,7 @@ edo:ThreadStandard rdf:type owl:Class ;
                    skos:prefLabel "Padrão de Rosca"@pt-br ,
                                   "Thread Standard"@en ;
                    edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                   edo:hasExternalRef "DF:2.1" ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:StringValue ;
                    edo:hasValueCardinality edo:SingleValue .
@@ -22677,6 +22919,22 @@ edo:TubingHangerRunningTool rdf:type owl:Class ;
                             edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#Type
+edo:Type rdf:type owl:Class ;
+         rdfs:subClassOf edo:DomainAttribute ;
+         dcterms:accessRights "PUBLIC" ;
+         dcterms:identifier "Type" ;
+         skos:definition "Especifica o tipo ou variante funcional do objeto"@pt-br ,
+                         "Specifies the type or functional variant of the object."@en ;
+         skos:prefLabel "Especifica o tipo ou variante funcional do objeto"@pt-br ,
+                        "Specifies the type or functional variant of the object"@en ;
+         edo:hasAttributeScope edo:TypeLevelAttribute ;
+         edo:hasExternalRef "DF:2.1" ;
+         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+         edo:hasTypedValue edo:StringValue ;
+         edo:hasValueCardinality edo:SingleValue .
+
+
 ###  https://w3id.org/energy-domain/edo#TypeLevelAttribute
 edo:TypeLevelAttribute rdf:type owl:Class ;
                        rdfs:subClassOf edo:AttributeScope ;
@@ -22697,7 +22955,9 @@ edo:UNSBoltSet rdf:type owl:Class ;
                skos:prefLabel "Conjunto de Parafusos UNS"@pt-br ,
                               "UNS Bolt Set"@en ;
                edo:entityStatus "NEW" ;
-               edo:hasAttribute edo:ThreadedLength ,
+               edo:hasAttribute edo:PitchToleranceClass ,
+                                edo:ThreadStandard ,
+                                edo:ThreadedLength ,
                                 edo:TotalStemLength ;
                edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                  edo:SubseaRigidPipesEngineering ,
@@ -22720,6 +22980,8 @@ edo:UNSStudSet rdf:type owl:Class ;
                               "UNS Stud Set"@en ;
                edo:entityStatus "NEW" ;
                edo:hasAttribute edo:InstalledLength ,
+                                edo:PitchToleranceClass ,
+                                edo:ThreadStandard ,
                                 edo:ThreadedEndLength ;
                edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                  edo:SubseaRigidPipesEngineering ,
@@ -23064,6 +23326,7 @@ edo:UpperItubeDiameter rdf:type owl:Class ;
                        skos:prefLabel "Diâmetro do I-TUBE Superior"@pt-br ,
                                       "Upper I-TUBE Diameter"@en ;
                        edo:hasAttributeScope edo:TypeLevelAttribute ;
+                       edo:hasExternalRef "DF:2.1" ;
                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                        edo:hasTypedValue edo:FloatValue ;
                        edo:hasUnit unit:M ;
@@ -25294,275 +25557,3 @@ edo:WeightWithoutEndTerminationIn_Air edo:hasUnit unit:KiloGM .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
-
-###  https://w3id.org/energy-domain/edo#PurchaseOrderId
-edo:PurchaseOrderId rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainAttribute ;
-                 dcterms:accessRights "PUBLIC" ;
-                 dcterms:identifier "PurchaseOrderId" ;
-                 skos:definition "Identifier of the purchase order associated with the element. It identifies the purchase order under which the element is procured."@en ,
-                                 "Identificador da ordem de compra associada ao elemento. Identifica a ordem de compra sob a qual o elemento é adquirido."@pt-br ;
-                 skos:prefLabel "Identificador da ordem de compra associada ao elemento"@pt-br ,
-                                "Identifier of the purchase order associated with the element"@en ;
-                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                 edo:hasExternalRef "DF:2.2" ;
-                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                 edo:hasTypedValue edo:StringValue ;
-                 edo:hasValueCardinality edo:SingleValue .
-
-###  https://w3id.org/energy-domain/edo#PurchaseOrderItemId
-edo:PurchaseOrderItemId rdf:type owl:Class ;
-                 rdfs:subClassOf edo:DomainAttribute ;
-                 dcterms:accessRights "PUBLIC" ;
-                 dcterms:identifier "PurchaseOrderItemId" ;
-                 skos:definition "Identifier of the purchase order item corresponding to the element. It uniquely identifies the element within the associated purchase order."@en ,
-                                 "Identificador do item da ordem de compra correspondente ao elemento. Identifica de forma única o elemento no âmbito da ordem de compra associada."@pt-br ;
-                 skos:prefLabel "Identificador do elemento como item da ordem de compra associada"@pt-br ,
-                                "Identifier of the element as an item of the associated purchase order"@en ;
-                 edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                 edo:hasExternalRef "DF:2.2" ;
-                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                 edo:hasTypedValue edo:StringValue ;
-                 edo:hasValueCardinality edo:SingleValue .
-
-edo:Asset edo:hasAttribute edo:PurchaseOrderId .
-edo:Asset edo:hasAttribute edo:PurchaseOrderItemId .
-
-edo:FlangeSpec edo:hasAttribute edo:FlangeFaceType .
-edo:EndFitting  edo:hasAttribute edo:HasFaceORing .
-
-###  https://w3id.org/energy-domain/edo#MaxInsertInnerDiameter
-edo:MaxInsertInnerDiameter  rdf:type owl:Class ;
-rdfs:subClassOf edo:DomainAttribute ;
-dcterms:accessRights "PUBLIC" ;
-dcterms:identifier "MaxInsertInnerDiameter " ;
-skos:definition "Maximum inner diameter of the end fitting support region at which the vessel's support equipment must be inserted to ensure adequate engagement and load transfer. This diameter defines the minimum required insertion depth to ensure that the end fitting is properly supported during handling and installation operations, preventing damage or failure of the support region."@en ,
-              "Diâmetro interno máximo da região de apoio do end fitting até o qual o equipamento de suporte do navio deve ser inserido para garantir o engate e a transferência de cargas adequados. Este diâmetro define a profundidade mínima de inserção necessária para assegurar o apoio adequado do end fitting durante as operações de manuseio e instalação, evitando danos ou falhas na região de apoio."@pt-br ;
-skos:prefLabel "Maximum Inner Diameter for Insertion"@en ,
-              "Diâmetro Interno Máximo para Inserção"@pt-br ;
-edo:hasAttributeScope edo:TypeLevelAttribute ;
-edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-edo:hasTypedValue edo:FloatValue ;
-edo:hasExternalRef "DF:2.1" ;
-edo:hasValueCardinality edo:SingleValue .
-
-###  https://w3id.org/energy-domain/edo#MinInsertInnerDiameter
-edo:MinInsertInnerDiameter  rdf:type owl:Class ;
-rdfs:subClassOf edo:DomainAttribute ;
-dcterms:accessRights "PUBLIC" ;
-dcterms:identifier "MinInsertInnerDiameter" ;
-skos:definition "Minimum inner diameter of the end fitting support region that defines the maximum permissible insertion depth of the vessel's support equipment. This diameter establishes the geometric limit beyond which the support equipment must not advance, ensuring compatibility with the end fitting geometry and preventing interference or damage during handling and installation operations."@en ,
-                "Diâmetro interno mínimo da região de apoio do end fitting que define a profundidade máxima admissível de inserção do equipamento de suporte do navio. Este diâmetro estabelece o limite geométrico além do qual o equipamento de suporte não deve avançar, garantindo a compatibilidade com a geometria do end fitting e evitando interferências ou danos durante as operações de manuseio e instalação."@pt-br ;
-skos:prefLabel "Minimum Inner Diameter for Insertion"@en ,
-                "Diâmetro Interno Mínimo para Inserção"@pt-br ;
-edo:hasAttributeScope edo:TypeLevelAttribute ;
-edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-edo:hasExternalRef "DF:2.1" ;
-edo:hasTypedValue edo:FloatValue ;
-edo:hasValueCardinality edo:SingleValue .
-
-edo:MaxInsertInnerDiameter rdfs:subClassOf edo:CollarSupportAttribute .
-edo:MaxInsertInnerDiameter rdfs:subClassOf edo:GrooveSupportAttribute .
-edo:MaxInsertInnerDiameter rdfs:subClassOf edo:RearSupportAttribute .
-edo:MinInsertInnerDiameter rdfs:subClassOf edo:CollarSupportAttribute .
-edo:MinInsertInnerDiameter rdfs:subClassOf edo:GrooveSupportAttribute .
-edo:MinInsertInnerDiameter rdfs:subClassOf edo:RearSupportAttribute .
-
-###  https://w3id.org/energy-domain/edo#FlangeBoltingSpec
-edo:FlangeBoltingSpec rdf:type owl:Class ;
-                rdfs:subClassOf edo:Spec ;
-                skos:prefLabel "Flange Bolting Specification "@en ,
-                               "Especificação de Parafusamento do Flange"@pt-br ;
-                edo:hasAttribute edo:AssemblyTension ,
-                                 edo:BoltType ,
-                                 edo:Lubricant ,
-                                 edo:LubricantFrictionFactor ,
-                                 edo:TighteningTorque .
-
-edo:EndFitting edo:hasSpec edo:FlangeBoltingSpec .
-
-###  https://w3id.org/energy-domain/edo#Type
-edo:Type rdf:type owl:Class ;
-                    rdfs:subClassOf edo:DomainAttribute ;
-                    dcterms:accessRights "PUBLIC" ;
-                    dcterms:identifier "Type" ;
-                    skos:definition "Specifies the type or functional variant of the object."@en ,
-                                    "Especifica o tipo ou variante funcional do objeto"@pt-br ;
-                    skos:prefLabel "Specifies the type or functional variant of the object"@en ,
-                                   "Especifica o tipo ou variante funcional do objeto"@pt-br ;
-                    edo:hasAttributeScope edo:TypeLevelAttribute ;
-                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                    edo:hasTypedValue edo:StringValue ;
-                    edo:hasValueCardinality edo:SingleValue ;
-                    edo:hasExternalRef "DF:2.1" .
-
-edo:PipePullingHead edo:hasAttribute edo:Type .
-
-edo:MountPosition skos:definition "Posição longitudinal de um componente ao longo do elemento no qual está instalado (por exemplo, uma seção de duto), medida a partir da face de referência de sua terminação inicial. Para dutos flexíveis, a terminação inicial é determinada pelo sentido do fluxo. Para umbilicais, corresponde à terminação localizada na extremidade da unidade de controle."@pt-br .
-edo:MountPosition skos:definition "Longitudinal position of a component along the element on which it is mounted (e.g., a pipe section), measured from the reference face of its starting termination. For flexible pipes, the starting termination is determined by the flow direction. For umbilicals, it is the termination at the control unit end."@en .
-edo:MountPosition skos:prefLabel "Mount Position"@en .
-edo:MountPosition skos:prefLabel "Posição de Montagem"@pt-br .
-edo:BuoyancyModule edo:hasAttribute edo:MountPosition .
-edo:SplitCollar edo:hasAttribute edo:MountPosition .
-
-###  https://w3id.org/energy-domain/edo#MountPosition
-edo:MountPosition rdf:type owl:Class ;
-                  rdfs:subClassOf edo:_CAT-Specification ;
-                  dcterms:accessRights "PUBLIC" ;
-                  dcterms:identifier "MountPosition" ;
-                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                  edo:hasExternalRef "DF:2.1" ;
-                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                  edo:hasTypedValue edo:FloatValue ;
-                  edo:hasUnit unit:M ;
-                  edo:hasValueCardinality edo:SingleValue .
-
-edo:BendRestrictor edo:hasAttribute edo:BendMomentVsShearForceTableColumn .
-edo:BendMomentVsShearForceTable_BendingMoment edo:hasExternalRef "DF:2.1" .
-edo:BendMomentVsShearForceTable_Condition edo:hasExternalRef "DF:2.1" .
-edo:BendMomentVsShearForceTable_ShearForce edo:hasExternalRef "DF:2.1" .
-
-edo:BuoyancyModule edo:hasAttribute edo:FloatDensityEOL .
-edo:BuoyancyModule edo:hasAttribute edo:FloatVolumeEOL .
-edo:BuoyancyModule edo:hasAttribute edo:FloatDensitySOL .
-edo:BuoyancyModule edo:hasAttribute edo:FloatVolumeSOL .
-
-###  https://w3id.org/energy-domain/edo#FloatDensityEOL
-edo:FloatDensityEOL rdf:type owl:Class ;
-                         rdfs:subClassOf edo:DomainAttribute ;
-                         dcterms:accessRights "PUBLIC" ;
-                         dcterms:identifier "FloatDensityEOL" ;
-                         skos:definition "A densidade do flutuador no fim da vida útil, considerando o acúmulo de água no material ou mudanças na estrutura interna devido à degradação. Isso aumenta a densidade e, portanto, reduz a flutuabilidade"@pt-br ,
-                                         "The density of the float material end of life, considering factors like water absorption and material degradation, which increase the density and reduce the buoyancy."@en ;
-                         skos:prefLabel "Densidade do Flutuador no Fim da Vida Útil"@pt-br ,
-                                        "Float Density End Of Life"@en ;
-                         edo:hasAttributeScope edo:TypeLevelAttribute ;
-                         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                         edo:hasTypedValue edo:FloatValue ;
-                         edo:hasExternalRef "DF:2.1" ;
-                         edo:hasUnit unit:KiloGM-PER-M3 ;
-                         edo:hasValueCardinality edo:SingleValue .
-
-###  https://w3id.org/energy-domain/edo#FloatVolumeEOL
-edo:FloatVolumeEOL rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ;
-                        dcterms:accessRights "PUBLIC" ;
-                        dcterms:identifier "FloatVolumeEOL" ;
-                        skos:definition "O volume esperado no fim da vida útil, após fatores como absorção de água e possíveis deformações. Este volume representa as condições do flutuador em sua fase de vida útil, quando a flutuabilidade tende a ser menor."@pt-br ,
-                                        "The expected submerged volume of the float end of life, taking into account factors like water absorption and structural deformations that may occur throughout its lifecycle."@en ;
-                        skos:prefLabel "Float Volume End Of Life"@en ,
-                                       "Volume do Flutuador no Fim da Vida Útil"@pt-br ;
-                        edo:hasAttributeScope edo:TypeLevelAttribute ;
-                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                        edo:hasTypedValue edo:FloatValue ;
-                        edo:hasExternalRef "DF:2.1" ;
-                        edo:hasUnit unit:M3 ;
-                        edo:hasValueCardinality edo:SingleValue .
-
-###  https://w3id.org/energy-domain/edo#FloatDensitySOL
-edo:FloatDensitySOL rdf:type owl:Class ;
-                        rdfs:subClassOf edo:DomainAttribute ;
-                        dcterms:accessRights "PUBLIC" ;
-                        dcterms:identifier "FloatDensitySOL" ;
-                        skos:definition "A densidade do flutuador no início da vida útil. Usada para calcular a flutuabilidade inicial máxima, idealmente no ponto de fabricação."@pt-br ,
-                                        "The ideal density of the float material start of life. This is used to calculate the float's maximum buoyancy at the beginning of its use."@en ;
-                        skos:prefLabel "Densidade do Flutuador no Início da Vida Útil"@pt-br ,
-                                       "Float Density Start Of Life"@en ;
-                        edo:hasAttributeScope edo:TypeLevelAttribute ;
-                        edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                        edo:hasTypedValue edo:FloatValue ;
-                        edo:hasExternalRef "DF:2.1" ;
-                        edo:hasUnit unit:KiloGM-PER-M3 ;
-                        edo:hasValueCardinality edo:SingleValue .
-
-###  https://w3id.org/energy-domain/edo#FloatVolumeSOL
-edo:FloatVolumeSOL rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ;
-                       dcterms:accessRights "PUBLIC" ;
-                       dcterms:identifier "FloatVolumeSOL" ;
-                       skos:definition "O volume do flutuador no início da vida útil. É usado para calcular a flutuabilidade máxima possível, antes de qualquer degradação."@pt-br ,
-                                       "The ideal volume of the float start of life. This value is used to calculate the maximum buoyancy under perfect conditions."@en ;
-                       skos:prefLabel "Float Volume Start Of Life"@en ,
-                                      "Volume do Flutuador no Início da Vida Útil"@pt-br ;
-                       edo:hasAttributeScope edo:TypeLevelAttribute ;
-                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                       edo:hasTypedValue edo:FloatValue ;
-                       edo:hasExternalRef "DF:2.1" ;
-                       edo:hasUnit unit:M3 ;
-                       edo:hasValueCardinality edo:SingleValue .
-
-edo:ShackleInnerDiameter edo:hasUnit unit:MilliM .
-edo:ShackleOpeningWidth edo:hasUnit unit:MilliM .
-edo:ShackleOuterDiameter edo:hasUnit unit:MilliM .
-edo:ShackleThickness edo:hasUnit unit:MilliM .
-
-edo:ShackleInnerDiameter edo:hasAttributeScope edo:TypeLevelAttribute .
-edo:ShackleOpeningWidth edo:hasAttributeScope edo:TypeLevelAttribute .
-edo:ShackleOuterDiameter edo:hasAttributeScope edo:TypeLevelAttribute .
-edo:ShackleThickness edo:hasAttributeScope edo:TypeLevelAttribute .
-
-edo:ShackleInnerDiameter edo:hasExternalRef "DF:2.1" .
-edo:ShackleOpeningWidth edo:hasExternalRef "DF:2.1" .
-edo:ShackleOuterDiameter edo:hasExternalRef "DF:2.1" .
-edo:ShackleThickness edo:hasExternalRef "DF:2.1" .                       
-
-edo:WireRopeSlingDiameter edo:hasUnit unit:IN .
-
-edo:CollarInternalDiameter edo:hasExternalRef "DF:2.1" .
-edo:MaxDynamicLoad edo:hasExternalRef "DF:2.1" .
-edo:UpperItubeDiameter edo:hasExternalRef "DF:2.1" .
-
-edo:HangOffCollar edo:hasAttribute edo:SupportFlangeType .
-
-###  https://w3id.org/energy-domain/edo#SupportFlangeType 
-edo:SupportFlangeType rdf:type owl:Class ;
-rdfs:subClassOf edo:DomainAttribute ;
-dcterms:accessRights "PUBLIC" ;
-dcterms:identifier "SupportFlangeType" ;
-skos:prefLabel "Support flange type"@en ;
-skos:prefLabel "Tipo do flange do suporte"@pt-br ;
-edo:hasAttributeScope edo:TypeLevelAttribute ;
-edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-edo:hasTypedValue edo:StringValue ;
-edo:hasValueCardinality edo:SingleValue ;
-edo:entityStatus "NEW" ;
-edo:hasExternalRef "MDA:support_flange_type" .
-
-
-
-
-edo:LinearObject edo:hasAttribute edo:ManufacturedLength .
-
-###  https://w3id.org/energy-domain/edo#ManufacturedLength
-edo:ManufacturedLength rdf:type owl:Class ;
-                       rdfs:subClassOf edo:DomainAttribute ;
-                       dcterms:accessRights "PUBLIC" ;
-                       dcterms:identifier "ManufacturedLength" ;
-                       rdfs:comment "Descriptions Generated by IA." ;
-                       skos:definition "Indica a dimensão final de extremidade a extremidade de um componente ou conjunto após seu posicionamento e fixação no campo."@pt-br ,
-                                       "Indicates the final end-to-end dimension of a component or assembly after its placement and securing at the field location."@en ;
-                       skos:prefLabel "Comprimento Fabricado"@pt-br ,
-                                      "Manufactured Length"@en ;
-                       edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                       edo:hasExternalRef "MDA:length" ;
-                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-                       edo:hasTypedValue edo:FloatValue ;
-                       edo:hasUnit unit:M ;
-                       edo:hasValueCardinality edo:SingleValue .
-
-
-edo:MetricBoltSet edo:hasAttribute edo:PitchToleranceClass , edo:ThreadStandard .
-edo:MetricStudSet edo:hasAttribute edo:PitchToleranceClass , edo:ThreadStandard .
-edo:UNSBoltSet edo:hasAttribute edo:PitchToleranceClass , edo:ThreadStandard .
-edo:UNSStudSet edo:hasAttribute edo:PitchToleranceClass , edo:ThreadStandard .
-edo:PitchToleranceClass edo:hasExternalRef "DF:2.1" .
-edo:ThreadStandard edo:hasExternalRef "DF:2.1" .
-
-edo:BendMomentVsShearForceTableColumn edo:hasExternalRef "DF:2.1" .
-edo:BendMomentVsShearForceTableColumn edo:hasLifecycleCreationPhase edo:DetailedDesign .
-
-edo:SpareQuantity edo:hasExternalRef "DF:2.1" .
-edo:BoltSet edo:hasAttribute edo:SpareQuantity .
-edo:StudSet edo:hasAttribute edo:SpareQuantity .
-
-edo:PipeSegment edo:hasAttribute edo:MaxDesignPressure .
