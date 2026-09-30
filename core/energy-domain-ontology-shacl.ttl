@@ -690,7 +690,7 @@ ex:Rule_UmbilicalSegment a sh:NodeShape ;
     ] .
 
 ex:Rule_UmbilicalStructure a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeSegment, edo:SubseaPipeline ;
     sh:property [
         sh:path edo:FlexibleStructureServicesList ;
         sh:in ( "WATER_INJECTION" "GAS_INJECTION" "OIL_PRODUCTION_LINE" "GAS_PRODUCER" "SERVICE" "GAS_PIPELINE" )
@@ -717,21 +717,12 @@ ex:Rule_MinBendingRadiusForStorage a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .    
 
-ex:Rule_UmbilicalStructure_4 a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
+ex:Rule_IntermediateValuesStrategy a sh:NodeShape ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeSegment ;
     sh:property [
         sh:path edo:IntermediateValuesStrategy ;
         sh:in ( "LINEAR_INTERPOLATION" "MOST_RESTRICTIVE_VALUE_BETWEEN_THE_NEIGHBOURING_VALUES" )
     ] .
-
-ex:Rule_UmbilicalStructure_5 a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
-    sh:property [
-        sh:path edo:LayingMinimumRadiusTable_TensileArmourAnnulusCondition ;
-        sh:in ( "DRY" "FLOODED" )
-    ] .
-
-
 
 ex:Rule_LinearWeightFilled a sh:NodeShape ;
     sh:targetClass edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
@@ -813,23 +804,23 @@ ex:Rule_SpoolingTension a sh:NodeShape ;
     ] .
 
 ex:Rule_UmbilicalStructure_22 a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalSegment ;
+    sh:targetClass edo:StructureApplicationsList ;
     sh:property [
         sh:path edo:StructureApplication ;
         sh:in ( "STATIC" "DYNAMIC" "ANY" )
     ] .
 
-ex:Rule_UmbilicalStructure_23 a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
-    sh:property [
-        sh:path edo:StructureApplicationsList ;
-        sh:in ( "RISER" "RISER_TOP_SECTION" "RISER_INTERMEDIATE_SECTION" "RISER_BOTTOM_SECTION" "FLOWLINE" )
-    ] .
-
 ex:Rule_UmbilicalStructure_26 a sh:NodeShape ;
-    sh:targetClass edo:FlexibleStructure ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeSegment ;
     sh:property [
         sh:path edo:TensileArmourAnnulusCondition ;
+        sh:in ( "DRY" "FLOODED" )
+    ] .
+
+ex:Rule_UmbilicalStructure_5 a sh:NodeShape ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:LayingMinimumRadiusTable_TensileArmourAnnulusCondition ;
         sh:in ( "DRY" "FLOODED" )
     ] .
 
@@ -865,11 +856,11 @@ ex:Rule_UNSBoltSet a sh:NodeShape ;
     sh:targetClass edo:UNSBoltSet ;
     sh:property [
         sh:path edo:PitchToleranceClass ;
-        sh:in ( "6G" "6H" "4G6G" "5G6G" "7G" "8G" )
+        sh:in ( "1A" "2A" "3A" )
     ] ;
     sh:property [
         sh:path edo:ThreadStandard ;
-        sh:in ( "ISO_METRIC" "ISO_FINE" "ISO_COARSE" "ISO_228" "ISO_7-1" )
+        sh:in ( "UNC" "UNF" "UNEF" "UNS" )
     ] ;
     sh:property [
         sh:path edo:TotalStemLength ;
@@ -890,11 +881,11 @@ ex:Rule_UNSStudSet a sh:NodeShape ;
     sh:targetClass edo:UNSStudSet ;
     sh:property [
         sh:path edo:PitchToleranceClass ;
-        sh:in ( "6G" "6H" "4G6G" "5G6G" "7G" "8G" )
+        sh:in ( "1A" "2A" "3A" )
     ] ;
     sh:property [
         sh:path edo:ThreadStandard ;
-        sh:in ( "ISO_METRIC" "ISO_FINE" "ISO_COARSE" "ISO_228" "ISO_7-1" )
+        sh:in ( "UNC" "UNF" "UNEF" "UNS" )
     ] ;
     sh:property [
         sh:path edo:TotalLength ;
@@ -1607,7 +1598,7 @@ ex:Rule_UniformPipeSegment a sh:NodeShape ;
 ex:Rule_flange_type a sh:NodeShape ;
     sh:targetClass edo:FlangeMountedSensor, edo:LineTerminationModule, edo:PipePullingHead, edo:HangOffAdaptor, edo:ProcessValve, edo:StressJoint, edo:Flange, edo:FlangeAdapter, edo:HangOffCollar, edo:UmbilicalPullingHead, edo:PipePullingHead, edo:RigidRiserTopConnector, edo:FlowConnector, edo:PullInTube, edo:EndFitting ;
     sh:property [
-        sh:path edo:FlangeType ;
+        sh:path edo:FlangeType, edo:SupportFlangeType ;
         sh:in ( "NONE" "API_6B_2_1/16_2000_PSI" "API_6B_2_9/16_2000_PSI" "API_6B_3_1/8_2000_PSI" "API_6B_4_1/16_2000_PSI" "API_6B_5_1/8_2000_PSI" "API_6B_7_1/16_2000_PSI" "API_6B_9_2000_PSI" "API_6B_11_2000_PSI" "API_6B_13_5/8_2000_PSI" 
                 "API_6B_16_3/4_2000_PSI" "API_6B_21_1/4_2000_PSI" "API_6B_2_1/16_3000_PSI" "API_6B_2_9/16_3000_PSI" "API_6B_3_1/8_3000_PSI" "API_6B_4_1/16_3000_PSI" "API_6B_5_1/8_3000_PSI" "API_6B_7_1/16_3000_PSI" "API_6B_9_3000_PSI" "API_6B_11_3000_PSI" "API_6B_13_5/8_3000_PSI" 
                 "API_6B_16_3/4_3000_PSI" "API_6B_20_3/4_3000_PSI" "API_6B_2_1/16_5000_PSI" "API_6B_2_9/16_5000_PSI" "API_6B_3_1/8_5000_PSI" "API_6B_4_1/16_5000_PSI" "API_6B_5_1/8_5000_PSI" "API_6B_7_1/16_5000_PSI" "API_6B_9_5000_PSI" "API_6B_11_5000_PSI" 
@@ -3295,12 +3286,13 @@ ex:Rule_flexible_segment_status a sh:NodeShape ;
         sh:in ( "ONSHORE_STORAGE" "VESSEL_STORAGE" "SUBSEA_STORAGE" "LAID" "IN_OPERATION" "OUT_OF_OPERATION" "UNINSTALLED" )
     ] .
 
+
 ex:Rule_flexible_pipe_application a sh:NodeShape ;
-    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeSegment ;
     sh:property [
-        sh:path edo:StructureApplication ;
+        sh:path edo:StructureApplicationsList ;
         sh:in ( "FLOWLINE" "RISER" "BOTTOM_RISER" "INTERMEDIATE_RISER" "TOP_RISER" "ANY" )
-    ] .
+    ] .    
 
 ex:Rule_pb_std_flexible_pipe_envelope a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment ;
@@ -3310,13 +3302,6 @@ ex:Rule_pb_std_flexible_pipe_envelope a sh:NodeShape ;
                 "E-1.11" "E-1.12" "E-2.01" "E-2.01.1" "E-2.02" "E-2.03" "E-2.04" "E-2.04.1" "E-2.04.2" "E-2.05" "E-2.06" 
                 "E-2.06.1" "E-2.07" "E-2.08" "E-2.08.1" "E-2.09" "E-2.10" "E-3.01" "E-3.01.1" "E-3.02" "E-3.03" "E-3.04" 
                 "E-3.04.1" "E-3.05" "E-3.06" "E-3.07" "E-3.08" "E-3.09" "E-3.10"  )
-    ] .    
-
-ex:Rule_flexible_pipe_bore_type a sh:NodeShape ;
-    sh:targetClass edo:FlexiblePipeStructure ;
-    sh:property [
-        sh:path edo:BoreType ;
-        sh:in ( "SMOOTH" "ROUGH"  )
     ] .    
 
 ex:Rule_AnnulusArea a sh:NodeShape ;
@@ -3892,3 +3877,86 @@ ex:Rule_MaxContactResistance_FractionalNumber a sh:NodeShape ;
         sh:path edo:MaxContactResistance ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
+
+ex:Rule_Condition a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:Condition ;
+        sh:in ( "INSTALLATION" "OPERATION" )
+    ] .
+
+ex:Rule_EarlyLeakMaxPressTable_PressIntValStrat a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:EarlyLeakMaxPressTable_PressIntValStrat ;
+        sh:in ( "LINEAR_INTERPOLATION" "MOST_RESTRICTIVE_VALUE_BETWEEN_THE_NEIGHBOURING_VALUES" )
+    ] .
+
+
+ex:Rule_EarlyLeakNomPressTable_PressIntValStrat a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:EarlyLeakNomPressTable_PressIntValStrat ;
+        sh:in ( "LINEAR_INTERPOLATION" "MOST_RESTRICTIVE_VALUE_BETWEEN_THE_NEIGHBOURING_VALUES" )
+    ] .
+
+ex:Rule_PressureValueReference a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path 
+            edo:EarlyLeakMaxPressTable_PressValRef, 
+            edo:EarlyLeakNomPressTable_PressValRef, 
+            edo:FatMaxPressValRef, 
+            edo:FatNomPressValRef, 
+            edo:MfrOffLeakPLevMaxPressLimitValRef, 
+            edo:MfrOffLeakPLevNomPressLimitValRef, 
+            edo:MfrStrIntOffPLevMaxPressLimitValRef, 
+            edo:MfrStrIntOffPLevNomPressLimitValRef, 
+            edo:MfrStrIntOnNoTensMaxPressLimitValRef, 
+            edo:MfrStrIntOnNoTensNomPressLimitValRef, 
+            edo:MfrEarlyLeakMaxPressLimitValRef,
+            edo:MfrEarlyLeakNomPressLimitValRef ;
+        sh:in ( "ALLOWABLE_NOMINAL_TEST_PRESSURE" "MAXIMUM_TEST_PRESSURE" "DESIGN_PRESSURE" "PEAK_RATIO" )
+    ].
+
+ex:Rule_EarlyLeakMaxPressTable_TensLimitValRef a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:EarlyLeakMaxPressTable_TensLimitValRef ;
+        sh:in ( "ASSOCIATED_LAYING_TENSION" )
+    ] .    
+
+ex:Rule_EarlyLeakNomPressTable_TensLimitValRef a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:EarlyLeakNomPressTable_TensLimitValRef ;
+        sh:in ( "ASSOCIATED_LAYING_TENSION" )
+    ] .
+
+ex:Rule_PipeSectionApplication a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:PipeSectionApplication ;
+        sh:in ( "FLOWLINE" "RISER" "BOTTOM_RISER" "INTERMEDIATE_RISER" "TOP_RISER" "ANY" )
+    ].
+
+ex:Rule_flexible_pipe_bore_type a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment, edo:FlexiblePipeStructure ;
+    sh:property [
+        sh:path edo:BoreType ;
+        sh:in ( "SMOOTH" "ROUGH"  )
+    ] .
+
+ex:Rule_Type a sh:NodeShape ;
+    sh:targetClass edo:PipePullingHead ;
+    sh:property [
+        sh:path edo:Type ;
+        sh:in ( "PULL-IN" "HANDLING_AND_TESTING" "INSTALLATION_AND_TESTING" )
+    ] .
+
+ex:Rule_FlangeFaceType a sh:NodeShape ;
+    sh:targetClass edo:EndFitting, edo:PipePullingHead ;
+    sh:property [
+        sh:path edo:FlangeFaceType ;
+        sh:in ( "RAISED_FACE" "RECESSED_FACE" "FLAT_FACE" "RING_TYPE_JOINT" )
+    ] .    
