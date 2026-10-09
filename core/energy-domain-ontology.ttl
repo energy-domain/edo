@@ -1934,9 +1934,7 @@ edo:BendStiffener rdf:type owl:Class ;
                   skos:definition "Device used in subsea flexible pipes to provide gradual stiffness transition between the flexible pipe and a fixed structure, preventing excessive bending at critical areas such as terminations or connectors. The Bend Stiffener is designed to manage stress concentration by stiffening the pipe over a defined length, reducing the risk of damage due to repeated bending, fatigue, or over-flexing. Typically made from high-strength materials, it ensures the long-term structural integrity of the pipe in dynamic subsea environments."@en ;
                   skos:prefLabel "Bend Stiffener"@en ,
                                  "Enrijecedor de Curvatura"@pt-br ;
-                  edo:hasAttribute edo:ReinforcementLength ,
-                                   edo:ReinforcementOuterDiameter ,
-                                   edo:WeightInWater ;
+                  edo:hasAttribute edo:WeightInWater ;
                   edo:hasSpec edo:BoltingSpec .
 
 
@@ -26481,3 +26479,67 @@ edo:entityStatus "NEW" ;
 edo:hasExternalRef "MDA:max_bending_radius" .
 
 edo:CompatiblePipeStructures rdfs:subClassOf edo:_CAT-Specification .
+
+edo:BendStiffener edo:hasAttribute edo:SectionGeometriesAttribute, edo:CompatiblePipeStructures, edo:InnerDiameter .
+edo:BendStiffener edo:hasSpec edo:StiffenerMaterialSpec .
+
+###  https://w3id.org/energy-domain/edo#StiffenerMaterialSpec 
+edo:StiffenerMaterialSpec rdf:type owl:Class ;
+rdfs:subClassOf edo:Spec ;
+skos:prefLabel "Stiffener material specification"@en ;
+skos:prefLabel "Especificação do material do enrijecedor"@pt-br .
+
+edo:StiffenerMaterialSpec edo:hasAttribute edo:Material .
+edo:StiffenerMaterialSpec edo:hasAttribute edo:YoungModulus .
+
+###  https://w3id.org/energy-domain/edo#SectionGeometriesAttribute
+edo:SectionGeometriesAttribute rdf:type owl:Class ;
+rdfs:subClassOf edo:DomainAttribute ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "SectionGeometriesAttribute" ;
+skos:definition "Geometry of successive stiffener sections, in top → bottom order, referenced longitudinally starting from work point"@en ;
+skos:definition "Geometrias das seções sucessivas de enrijecedor, na ordem topo → fundo, referenciadas longitudinalmente a partir do ponto de trabalho (work point)"@pt-br ;
+skos:prefLabel "Section geometries"@en ;
+skos:prefLabel "Geometrias das seções"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:section_geometries" .
+
+###  https://w3id.org/energy-domain/edo#MajorOuterDiameter
+edo:MajorOuterDiameter rdf:type owl:Class ;
+rdfs:subClassOf edo:SectionGeometriesAttribute ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "MajorOuterDiameter" ;
+skos:definition "Major (initial) outer diameter of the section"@en ;
+skos:definition "Diâmetro externo maior (inicial) da seção"@pt-br ;
+skos:prefLabel "Major outer diameter"@en ;
+skos:prefLabel "Diâmetro externo maior"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:FloatValue ;
+edo:hasValueCardinality edo:MultiValue ;
+edo:hasUnit unit:MilliM ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:section_geometries[].major_outer_diameter" .
+
+
+edo:Length rdfs:subClassOf edo:SectionGeometriesAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#MinorOuterDiameter
+edo:MinorOuterDiameter rdf:type owl:Class ;
+rdfs:subClassOf edo:SectionGeometriesAttribute ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "MinorOuterDiameter" ;
+skos:definition "Minor (final) outer diameter of the section"@en ;
+skos:definition "Diâmetro externo menor (final) da seção"@pt-br ;
+skos:prefLabel "Minor outer diameter"@en ;
+skos:prefLabel "Diâmetro externo menor"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:FloatValue ;
+edo:hasValueCardinality edo:MultiValue ;
+edo:hasUnit unit:MilliM ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:section_geometries[].minor_outer_diameter" .
