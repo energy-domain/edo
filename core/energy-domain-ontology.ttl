@@ -977,7 +977,6 @@ edo:AnchoringCollar rdf:type owl:Class ;
                                     "Um dispositivo mecânico usado para estabilizar e fixar dutos flexíveis ou risers a estruturas fixas em aplicações submarinas, além de dar suporte aos sistemas umbilicais. Ao se prender às camadas externas do tubo, evita movimentos indesejados durante a instalação e operação, ajudando a manter o alinhamento e a integridade sob tensão ou compressão."@pt-br ;
                     skos:prefLabel "Anchoring Collar"@en ,
                                    "Colar de Ancoragem"@pt-br ;
-                    edo:hasAttribute edo:SafeWorkingLoad ;
                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                       edo:SubseaRigidPipesEngineering ,
                                       edo:SubseaUmbilicalsEngineering ;
@@ -26188,7 +26187,6 @@ edo:hasExternalRef "MDA:spool_tiein_height" .
 
 ###  https://w3id.org/energy-domain/edo#CompatibleEndFittings 
 edo:CompatibleEndFittings rdf:type owl:Class ;
-rdfs:subClassOf edo:DomainAttribute ;
 dcterms:accessRights "PUBLIC" ;
 dcterms:identifier "CompatibleEndFittings" ;
 skos:prefLabel "Compatible end fittings"@en ;
@@ -26344,4 +26342,59 @@ edo:RiserSupport edo:hasAttribute edo:FpuSlot, edo:RiserFunction, edo:PositionX,
 
 edo:FixedSupport edo:hasAttribute edo:FlangeType .
 
-edo:AnchorLocation edo:hasAttribute edo:FlangeType edo:Azimuth .
+edo:AnchorLocation edo:hasAttribute edo:Azimuth .
+
+edo:AnchoringCollar edo:hasAttribute edo:RecurrentWorkingLoad, edo:AbnormalWorkingLoad .
+
+###  https://w3id.org/energy-domain/edo#RecurrentWorkingLoad 
+edo:RecurrentWorkingLoad rdf:type owl:Class ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "RecurrentWorkingLoad" ;
+skos:prefLabel "Recurrent working load"@en ;
+skos:prefLabel "Carga de trabalho recorrente"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:FloatValue ;
+edo:hasValueCardinality edo:SingleValue ;
+edo:hasUnit unit:TONNE_F ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:recurrent_working_load" .
+
+###  https://w3id.org/energy-domain/edo#AbnormalWorkingLoad 
+edo:AbnormalWorkingLoad rdf:type owl:Class ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "AbnormalWorkingLoad" ;
+skos:prefLabel "Abnormal working load"@en ;
+skos:prefLabel "Carga de trabalho anormal"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:FloatValue ;
+edo:hasValueCardinality edo:SingleValue ;
+edo:hasUnit unit:TONNE_F ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:abnormal_working_load" .
+
+
+###  https://w3id.org/energy-domain/edo#PadeyeParamsAttribute
+edo:PadeyeParamsAttribute rdf:type owl:Class ;
+rdfs:subClassOf edo:DomainAttribute ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "PadeyeParamsAttribute" ;
+skos:prefLabel "Padeye parameters"@en ;
+skos:prefLabel "Parâmetros dos olhais"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:StringValue ;
+edo:hasValueCardinality edo:SingleValue ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:padeye_params" .
+
+edo:Thickness rdfs:subClassOf edo:PadeyeParamsAttribute .
+edo:HoleDiameter rdfs:subClassOf edo:PadeyeParamsAttribute .
+edo:AnchoringCollar edo:hasAttribute edo:PadeyeParamsAttribute, edo:CompatibleEndFittings .
+
+
+edo:AbnormalWorkingLoad rdfs:subClassOf edo:_CAT-Specification .
+edo:CompatibleEndFittings rdfs:subClassOf edo:_CAT-Specification .
+edo:RecurrentWorkingLoad rdfs:subClassOf edo:_CAT-Specification .
+
