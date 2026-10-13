@@ -988,7 +988,7 @@ ex:Rule_InstalledLength a sh:NodeShape ;
     ] .        
 
 ex:Rule_Length_MilliM a sh:NodeShape ;
-    sh:targetClass edo:FlangeAdapter, edo:TubingCoupling, edo:BendStiffener ;
+    sh:targetClass edo:FlangeAdapter, edo:TubingCoupling, edo:BendStiffener, edo:StopperCollar ;
     sh:property [
         sh:path edo:Length ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -1172,11 +1172,8 @@ ex:Rule_RigidRiserTopConnector a sh:NodeShape ;
     sh:property [
         sh:path edo:Tension ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] ;
-    sh:property [
-        sh:path edo:Angle ;
-        sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] .   
+    ] .
+    
 
 ex:Rule_Interconnection a sh:NodeShape ;
     sh:targetClass edo:Interconnection ;
@@ -1403,7 +1400,7 @@ ex:Rule_EquipmentLocation a sh:NodeShape ;
     ] .
 
 ex:Rule_Diameter a sh:NodeShape ;
-    sh:targetClass edo:RopeSegment ;
+    sh:targetClass edo:RopeSegment, edo:TopBendStiffener ;
     sh:property [
         sh:path edo:Diameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -2230,10 +2227,9 @@ ex:Rule_InnerDiameter a sh:NodeShape ;
     ] .    
 
 ex:Rule_OuterDiameter a sh:NodeShape ;
-    sh:targetClass edo:LinePipe, edo:RigidPipeSegment ;
-    sh:property [ sh:path edo:OuterDiameterNominal, 
-        edo:OuterDiameterBodyTolerancePositive, 
-        edo:OuterDiameterEndTolerancePositive ;
+    sh:targetClass edo:LinePipe, edo:RigidPipeSegment, edo:StopperCollar ;
+    sh:property [ 
+        sh:path edo:OuterDiameterNominal, edo:OuterDiameterBodyTolerancePositive, edo:OuterDiameterEndTolerancePositive, edo:OuterDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .    
 
@@ -4058,5 +4054,62 @@ ex:Rule_StaticSwl a sh:NodeShape ;
     sh:targetClass edo:PullingHead ;
     sh:property [
         sh:path edo:StaticSwl ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_bend_stiffener_support_type a sh:NodeShape ;
+    sh:targetClass edo:TopBendStiffener ;
+    sh:property [
+        sh:path edo:RiserSupportType ;
+        sh:in ("FIXED" "OPEN_RECEPTACLE" "BELLMOUTH" "CONICAL")
+    ] .
+
+ex:Rule_pb_bend_stiff_bellmouth_model a sh:NodeShape ;
+    sh:targetClass edo:TopBendStiffener ;
+    sh:property [
+        sh:path edo:CompatibleBellmouthModels ;
+        sh:in ("BSDL" "BSDL-SI" "BSMF" "BSN300" "BSN900C" "BSN900E" "OTHER")
+    ] .
+
+ex:Rule_CapHeight a sh:NodeShape ;
+    sh:targetClass edo:TopBendStiffener ;
+    sh:property [
+        sh:path edo:CapHeight ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .
+
+ex:Rule_ExtenderLength a sh:NodeShape ;
+    sh:targetClass edo:TopBendStiffener ;
+    sh:property [
+        sh:path edo:ExtenderLength ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_MaxBendingMoment a sh:NodeShape ;
+    sh:targetClass edo:TopBendStiffener ;
+    sh:property [
+        sh:path edo:MaxBendingMoment ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_MaxShearForce a sh:NodeShape ;
+    sh:targetClass edo:TopBendStiffener ;
+    sh:property [
+        sh:path edo:MaxShearForce ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .    
+
+ex:Rule_Angle a sh:NodeShape ;
+    sh:targetClass edo:RigidRiserTopConnector, edo:TopBendStiffener ;
+    sh:property [
+        sh:path edo:Angle ;
+        sh:in ( "Fractional number (≥ 0.0)" ) ;
+    ] .   
+
+
+ex:Rule_FilletRadius a sh:NodeShape ;
+    sh:targetClass edo:TopBendStiffener ;
+    sh:property [
+        sh:path edo:FilletRadius ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
