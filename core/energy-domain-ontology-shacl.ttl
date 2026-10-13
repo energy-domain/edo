@@ -5,6 +5,7 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
 # Esse import só funciona para o Protege, que carrega os arquivos locais.
 ex:EnergyDomainSHACL a owl:Ontology ;
@@ -3892,3 +3893,131 @@ ex:Rule_MaxContactResistance_FractionalNumber a sh:NodeShape ;
         sh:path edo:MaxContactResistance ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
+
+#################################################################
+# Catálogo de RealizingElements - complemento das permissões EDO
+#################################################################
+# A EDO declara as conexões permitidas. As entradas rdf:Statement
+# abaixo apenas referenciam essas triplas, sem afirmar novas permissões.
+# Contrato de leitura do parser:
+# - Todos os grupos ligados por dcterms:hasPart devem estar representados
+#   na conexão efetiva (AND entre grupos).
+# - As classes de cada sh:in são alternativas (OR dentro do grupo).
+# - Os tipos utilizados devem pertencer aos grupos da entrada consultada.
+# - Não se deduzem quantidades das listas ou dos vínculos de grupos.
+# O AND entre grupos é uma convenção do catálogo, não uma constraint
+# nativa de dcterms:hasPart. sh:in filtra identificadores de classes.
+# As shapes não possuem targets nem iniciam validações de instâncias.
+
+#################################################################
+# Grupos reutilizáveis: alternativas permitidas
+#################################################################
+
+ex:RealizerGroup_StudSets
+    a sh:NodeShape ;
+    sh:in (
+        edo:MetricStudSet
+        edo:UNSStudSet
+    ) .
+
+ex:RealizerGroup_RingGasket
+    a sh:NodeShape ;
+    sh:in (
+        edo:RingGasket
+    ) .
+
+ex:RealizerGroup_MetallicStrandSet
+    a sh:NodeShape ;
+    sh:in (
+        edo:MetallicStrandSet
+    ) .
+
+ex:RealizerGroup_BoltSets
+    a sh:NodeShape ;
+    sh:in (
+        edo:MetricBoltSet
+        edo:UNSBoltSet
+    ) .
+
+#################################################################
+# Referências às permissões existentes na EDO
+# Todos os grupos associados devem estar representados.
+#################################################################
+
+# PipePullingHead -> EndFitting
+# MetricStudSet OR UNSStudSet
+
+ex:Realizers_PipePullingHead_EndFitting
+    a rdf:Statement ;
+    rdf:subject edo:PipePullingHead ;
+    rdf:predicate edo:isConnectedTo ;
+    rdf:object edo:EndFitting ;
+    dcterms:hasPart ex:RealizerGroup_StudSets .
+
+# EndFitting -> EndFitting
+# (MetricStudSet OR UNSStudSet) AND RingGasket
+
+ex:Realizers_EndFitting_EndFitting
+    a rdf:Statement ;
+    rdf:subject edo:EndFitting ;
+    rdf:predicate edo:isConnectedTo ;
+    rdf:object edo:EndFitting ;
+    dcterms:hasPart
+        ex:RealizerGroup_StudSets ,
+        ex:RealizerGroup_RingGasket .
+
+# AnodeCollarSet -> EndFitting
+# MetallicStrandSet AND (MetricBoltSet OR UNSBoltSet)
+
+ex:Realizers_AnodeCollarSet_EndFitting
+    a rdf:Statement ;
+    rdf:subject edo:AnodeCollarSet ;
+    rdf:predicate edo:isConnectedTo ;
+    rdf:object edo:EndFitting ;
+    dcterms:hasPart
+        ex:RealizerGroup_MetallicStrandSet ,
+        ex:RealizerGroup_BoltSets .
+
+#################################################################
+# Consultas SPARQL - executar sobre EDO + catálogo
+#################################################################
+
+# Recuperar grupos e alternativas, preservando a separação dos grupos:
+# PREFIX edo: <https://w3id.org/energy-domain/edo#>
+# PREFIX sh: <http://www.w3.org/ns/shacl#>
+# PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+# PREFIX dcterms: <http://purl.org/dc/terms/>
+#
+# SELECT DISTINCT ?origem ?destino ?regra ?grupo ?classePermitida
+# WHERE {
+#     VALUES (?origem ?destino) {
+#         (edo:PipePullingHead edo:EndFitting)
+#         (edo:EndFitting edo:EndFitting)
+#         (edo:AnodeCollarSet edo:EndFitting)
+#     }
+#     ?origem edo:isConnectedTo ?destino .
+#     ?regra a rdf:Statement ;
+#         rdf:subject ?origem ;
+#         rdf:predicate edo:isConnectedTo ;
+#         rdf:object ?destino ;
+#         dcterms:hasPart ?grupo .
+#     ?grupo a sh:NodeShape ;
+#         sh:in/rdf:rest*/rdf:first ?classePermitida .
+# }
+# ORDER BY ?origem ?destino ?grupo ?classePermitida
+
+# Identificar referências sem permissão correspondente (esperado: vazio):
+# PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+# PREFIX dcterms: <http://purl.org/dc/terms/>
+#
+# SELECT DISTINCT ?regra ?origem ?relacao ?destino
+# WHERE {
+#     ?regra a rdf:Statement ;
+#         rdf:subject ?origem ;
+#         rdf:predicate ?relacao ;
+#         rdf:object ?destino ;
+#         dcterms:hasPart ?grupo .
+#     FILTER NOT EXISTS {
+#         ?origem ?relacao ?destino .
+#     }
+# }
