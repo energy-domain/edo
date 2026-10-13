@@ -3905,6 +3905,8 @@ ex:Rule_MaxContactResistance_FractionalNumber a sh:NodeShape ;
 # - As classes de cada sh:in são alternativas (OR dentro do grupo).
 # - Os tipos utilizados devem pertencer aos grupos da entrada consultada.
 # - Não se deduzem quantidades das listas ou dos vínculos de grupos.
+# A presença dos grupos só é verificada para conexões efetivas existentes.
+# O parser deve preservar os grupos e verificar a referência na EDO.
 # O AND entre grupos é uma convenção do catálogo, não uma constraint
 # nativa de dcterms:hasPart. sh:in filtra identificadores de classes.
 # As shapes não possuem targets nem iniciam validações de instâncias.
@@ -3944,12 +3946,32 @@ ex:RealizerGroup_BoltSets
 # Todos os grupos associados devem estar representados.
 #################################################################
 
+# BendRestrictor -> EndFitting
+# MetricStudSet OR UNSStudSet
+
+ex:Realizers_BendRestrictor_EndFitting
+    a rdf:Statement ;
+    rdf:subject edo:BendRestrictor ;
+    rdf:predicate edo:isConnectedTo ;
+    rdf:object edo:EndFitting ;
+    dcterms:hasPart ex:RealizerGroup_StudSets .
+
 # PipePullingHead -> EndFitting
 # MetricStudSet OR UNSStudSet
 
 ex:Realizers_PipePullingHead_EndFitting
     a rdf:Statement ;
     rdf:subject edo:PipePullingHead ;
+    rdf:predicate edo:isConnectedTo ;
+    rdf:object edo:EndFitting ;
+    dcterms:hasPart ex:RealizerGroup_StudSets .
+
+# IntermediateBendStiffener -> EndFitting
+# MetricStudSet OR UNSStudSet
+
+ex:Realizers_IntermediateBendStiffener_EndFitting
+    a rdf:Statement ;
+    rdf:subject edo:IntermediateBendStiffener ;
     rdf:predicate edo:isConnectedTo ;
     rdf:object edo:EndFitting ;
     dcterms:hasPart ex:RealizerGroup_StudSets .
@@ -3962,6 +3984,30 @@ ex:Realizers_EndFitting_EndFitting
     rdf:subject edo:EndFitting ;
     rdf:predicate edo:isConnectedTo ;
     rdf:object edo:EndFitting ;
+    dcterms:hasPart
+        ex:RealizerGroup_StudSets ,
+        ex:RealizerGroup_RingGasket .
+
+# EndFitting -> TopsideConnectionPoint
+# (MetricStudSet OR UNSStudSet) AND RingGasket
+
+ex:Realizers_EndFitting_TopsideConnectionPoint
+    a rdf:Statement ;
+    rdf:subject edo:EndFitting ;
+    rdf:predicate edo:isConnectedTo ;
+    rdf:object edo:TopsideConnectionPoint ;
+    dcterms:hasPart
+        ex:RealizerGroup_StudSets ,
+        ex:RealizerGroup_RingGasket .
+
+# EndFitting -> SubseaConnectionPoint
+# (MetricStudSet OR UNSStudSet) AND RingGasket
+
+ex:Realizers_EndFitting_SubseaConnectionPoint
+    a rdf:Statement ;
+    rdf:subject edo:EndFitting ;
+    rdf:predicate edo:isConnectedTo ;
+    rdf:object edo:SubseaConnectionPoint ;
     dcterms:hasPart
         ex:RealizerGroup_StudSets ,
         ex:RealizerGroup_RingGasket .
@@ -3991,8 +4037,12 @@ ex:Realizers_AnodeCollarSet_EndFitting
 # SELECT DISTINCT ?origem ?destino ?regra ?grupo ?classePermitida
 # WHERE {
 #     VALUES (?origem ?destino) {
+#         (edo:BendRestrictor edo:EndFitting)
 #         (edo:PipePullingHead edo:EndFitting)
+#         (edo:IntermediateBendStiffener edo:EndFitting)
 #         (edo:EndFitting edo:EndFitting)
+#         (edo:EndFitting edo:TopsideConnectionPoint)
+#         (edo:EndFitting edo:SubseaConnectionPoint)
 #         (edo:AnodeCollarSet edo:EndFitting)
 #     }
 #     ?origem edo:isConnectedTo ?destino .
