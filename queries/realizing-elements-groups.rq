@@ -1,0 +1,28 @@
+# Executar sobre EDO + catálogo.
+# Recuperar grupos e alternativas, preservando a separação dos grupos:
+PREFIX edo: <https://w3id.org/energy-domain/edo#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT DISTINCT ?origem ?destino ?regra ?grupo ?classePermitida
+WHERE {
+    VALUES (?origem ?destino) {
+        (edo:BendRestrictor edo:EndFitting)
+        (edo:PipePullingHead edo:EndFitting)
+        (edo:IntermediateBendStiffener edo:EndFitting)
+        (edo:EndFitting edo:EndFitting)
+        (edo:EndFitting edo:TopsideConnectionPoint)
+        (edo:EndFitting edo:SubseaConnectionPoint)
+        (edo:AnodeCollarSet edo:EndFitting)
+    }
+    ?origem edo:isConnectedTo ?destino .
+    ?regra a rdf:Statement ;
+        rdf:subject ?origem ;
+        rdf:predicate edo:isConnectedTo ;
+        rdf:object ?destino ;
+        dcterms:hasPart ?grupo .
+    ?grupo a sh:NodeShape ;
+        sh:in/rdf:rest*/rdf:first ?classePermitida .
+}
+ORDER BY ?origem ?destino ?grupo ?classePermitida

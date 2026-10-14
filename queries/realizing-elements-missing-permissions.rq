@@ -1,0 +1,16 @@
+# Executar sobre EDO + catálogo.
+# Identificar referências sem permissão correspondente (esperado: vazio):
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT DISTINCT ?regra ?origem ?relacao ?destino
+WHERE {
+    ?regra a rdf:Statement ;
+        rdf:subject ?origem ;
+        rdf:predicate ?relacao ;
+        rdf:object ?destino ;
+        dcterms:hasPart ?grupo .
+    FILTER NOT EXISTS {
+        ?origem ?relacao ?destino .
+    }
+}
