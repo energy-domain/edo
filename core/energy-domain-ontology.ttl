@@ -1505,8 +1505,6 @@ edo:Asset rdf:type owl:Class ;
                            edo:Manufacturer ,
                            edo:ManufacturerSerialNumber ,
                            edo:PartNumber ,
-                           edo:ProjectDrawingCode ,
-                           edo:ProjectDrawingRevision ,
                            edo:PurchaseOrderId ,
                            edo:PurchaseOrderItemId ,
                            edo:SerialNumber ;
@@ -18014,11 +18012,11 @@ edo:ProjectCode rdf:type owl:Class ;
                 edo:ifc_valueType "IfcText" .
 
 
-###  https://w3id.org/energy-domain/edo#ProjectDrawingCode
-edo:ProjectDrawingCode rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#DesignDrawingCode
+edo:DesignDrawingCode rdf:type owl:Class ;
                        rdfs:subClassOf edo:_CAT-Identification ;
                        dcterms:accessRights "PUBLIC" ;
-                       dcterms:identifier "ProjectDrawingCode" ;
+                       dcterms:identifier "DesignDrawingCode" ;
                        skos:definition "Indicates the unique alphanumeric code assigned to the project drawing. This property is used to reference and locate the specific drawing associated with the item, providing a clear and organized method for tracking and accessing drawing documents."@en ,
                                        "Número do desenho do projeto do acessório."@pt-br ;
                        skos:prefLabel "Número do Desenho do Projeto"@pt-br ,
@@ -18031,11 +18029,11 @@ edo:ProjectDrawingCode rdf:type owl:Class ;
                        edo:ifc_valueType "IfcText" .
 
 
-###  https://w3id.org/energy-domain/edo#ProjectDrawingRevision
-edo:ProjectDrawingRevision rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#DesignDrawingRevision
+edo:DesignDrawingRevision rdf:type owl:Class ;
                            rdfs:subClassOf edo:_CAT-Identification ;
                            dcterms:accessRights "PUBLIC" ;
-                           dcterms:identifier "ProjectDrawingRevision" ;
+                           dcterms:identifier "DesignDrawingRevision" ;
                            skos:definition "Indica o número ou identificador da revisão do desenho do projeto. Esta propriedade rastreia a versão do desenho, fornecendo informações essenciais para identificar atualizações, alterações e a versão mais recente do desenho relacionado ao item."@pt-br ,
                                            "Indicates the revision number or identifier of the project drawing. This property tracks the version of the drawing, providing essential information for identifying updates, changes, and the most current version of the drawing related to the item."@en ;
                            skos:prefLabel "Project Drawing Revision"@en ,
@@ -26539,7 +26537,6 @@ edo:PositiveTolerance rdfs:subClassOf edo:ClampInnerDiameterAttribute .
 edo:BuoyancyModule edo:hasAttribute edo:ClampInnerDiameterAttribute .
 edo:BuoyancyModule edo:hasAttribute edo:CompatiblePipeStructures .
 edo:BuoyancyModule edo:hasAttribute edo:MaxDepth .
-edo:BuoyancyModule edo:hasAttribute edo:MinBendingRadius .
 
 edo:DeadweightCollar edo:hasAttribute edo:PadeyeParamsAttribute .
 edo:DeadweightCollar edo:hasAttribute edo:CompatibleEndFittings .
@@ -26900,3 +26897,34 @@ edo:entityStatus "NEW" ;
 edo:hasExternalRef "MDA:lay_angle" .
 
 edo:WoundLayer edo:hasAttribute edo:NumElements, edo:WindingPitch, edo:LayAngle .
+
+edo:LayAngle edo:ifc_valueType "IfcPlaneAngleMeasure" .
+
+edo:NumElements edo:ifc_valueType "IfcInteger" .
+
+edo:WindingPitch edo:ifc_valueType "IfcLengthMeasure" .
+
+edo:CompactObject edo:hasAttribute edo:DesignDrawingCode .
+edo:CompactObject edo:hasAttribute edo:DesignDrawingRevision .
+
+
+###  https://w3id.org/energy-domain/edo#BuoyancyModuleMinBendingRadius
+edo:BuoyancyModuleMinBendingRadius rdf:type owl:Class ;
+rdfs:subClassOf edo:DomainAttribute ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "BuoyancyModuleMinBendingRadius" ;
+skos:definition "Minimum bending radius of embraced line for which buoyancy module was designed"@en ;
+skos:definition "Raio de curvatura mínimo da linha abraçada para o qual o flutuador foi projetado"@pt-br ;
+skos:prefLabel "Minimum bending radius"@en ;
+skos:prefLabel "Raio de curvatura mínimo"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:FloatValue ;
+edo:hasValueCardinality edo:SingleValue ;
+edo:hasUnit unit:M ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:mbr" .
+
+edo:BuoyancyModule edo:hasAttribute edo:BuoyancyModuleMinBendingRadius .
+
+edo:BuoyancyModuleMinBendingRadius edo:ifc_valueType "IfcLengthMeasure" .
