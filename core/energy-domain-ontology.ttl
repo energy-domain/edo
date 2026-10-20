@@ -7652,23 +7652,6 @@ edo:FullyThreaded rdf:type owl:Class ;
                   edo:hasValueCardinality edo:SingleValue ;
                   edo:ifc_valueType "IfcBoolean" .
 
-
-###  https://w3id.org/energy-domain/edo#Function
-edo:Function rdf:type owl:Class ;
-             rdfs:subClassOf edo:DomainAttribute ;
-             dcterms:accessRights "PUBLIC" ;
-             dcterms:identifier "Function" ;
-             skos:definition "Escolha um da lista: IA (Injeção de água); IG (Injeção de Gás); LPO (Linha de Produção de Óleo); PG (Produtor de Gás); SE (Serviço); GAS (Gasoduto); UEH (Umbilical Eletro Hidráulico); CEP (Cabo Elétrico de Potência)."@pt-br ,
-                             "Indicates the type of function the pipeline is designated for, specifying its operational purpose within the project. This classification is used to ensure proper management, installation, and use of the pipeline according to its intended function."@en ;
-             skos:prefLabel "Function"@en ,
-                            "Função"@pt-br ;
-             edo:hasAttributeScope edo:InstanceLevelAttribute ;
-             edo:hasExternalRef "MDA:XXXXX" ;
-             edo:hasLifecycleCreationPhase edo:BasicDesign ;
-             edo:hasTypedValue edo:StringValue ;
-             edo:hasValueCardinality edo:SingleValue .
-
-
 ###  https://w3id.org/energy-domain/edo#FunctionLine
 edo:FunctionLine rdf:type owl:Class ;
                  rdfs:subClassOf edo:UmbilicalComponent ;
@@ -17022,7 +17005,7 @@ edo:PipePullingHead rdf:type owl:Class ;
                     skos:prefLabel "Cabeça de Tração do Duto"@pt-br ,
                                    "Pipe Pulling Head"@en ;
                     edo:hasAttribute edo:N2TestPortType ,
-                                     edo:Type ;
+                                     edo:Function ;
                     edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                       edo:SubseaRigidPipesEngineering ;
                     edo:hasExternalRef "MDA:PipePullingHead" ;
@@ -23346,23 +23329,6 @@ edo:TubingHangerRunningTool rdf:type owl:Class ;
                             edo:ifc_predefinedType "USERDEFINED" .
 
 
-###  https://w3id.org/energy-domain/edo#Type
-edo:Type rdf:type owl:Class ;
-         rdfs:subClassOf edo:DomainAttribute ;
-         dcterms:accessRights "PUBLIC" ;
-         dcterms:identifier "Type" ;
-         skos:definition "Especifica o tipo ou variante funcional do objeto"@pt-br ,
-                         "Specifies the type or functional variant of the object."@en ;
-         skos:prefLabel "Especifica o tipo ou variante funcional do objeto"@pt-br ,
-                        "Specifies the type or functional variant of the object"@en ;
-         edo:hasAttributeScope edo:TypeLevelAttribute ;
-         edo:hasExternalRef "DF:2.1" ;
-         edo:hasLifecycleCreationPhase edo:DetailedDesign ;
-         edo:hasTypedValue edo:StringValue ;
-         edo:hasValueCardinality edo:SingleValue ;
-         edo:ifc_valueType "IfcText" .
-
-
 ###  https://w3id.org/energy-domain/edo#TypeLevelAttribute
 edo:TypeLevelAttribute rdf:type owl:Class ;
                        rdfs:subClassOf edo:AttributeScope ;
@@ -26477,11 +26443,11 @@ edo:hasLifecycleCreationPhase edo:DetailedDesign ;
 edo:entityStatus "NEW" ;
 edo:hasExternalRef "MDA:section_geometries" .
 
-###  https://w3id.org/energy-domain/edo#MajorOuterDiameter
-edo:MajorOuterDiameter rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#BendStiffenerSectionMajorOuterDiameter
+edo:BendStiffenerSectionMajorOuterDiameter rdf:type owl:Class ;
 rdfs:subClassOf edo:SectionGeometriesAttribute ;
 dcterms:accessRights "PUBLIC" ;
-dcterms:identifier "MajorOuterDiameter" ;
+dcterms:identifier "BendStiffenerSectionMajorOuterDiameter" ;
 skos:definition "Major (initial) outer diameter of the section"@en ;
 skos:definition "Diâmetro externo maior (inicial) da seção"@pt-br ;
 skos:prefLabel "Major outer diameter"@en ;
@@ -26494,15 +26460,11 @@ edo:hasUnit unit:MilliM ;
 edo:entityStatus "NEW" ;
 edo:hasExternalRef "MDA:section_geometries[].major_outer_diameter" .
 
-
-edo:Length rdfs:subClassOf edo:SectionGeometriesAttribute .
-
-
-###  https://w3id.org/energy-domain/edo#MinorOuterDiameter
-edo:MinorOuterDiameter rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#BendStiffenerSectionMinorOuterDiameter
+edo:BendStiffenerSectionMinorOuterDiameter rdf:type owl:Class ;
 rdfs:subClassOf edo:SectionGeometriesAttribute ;
 dcterms:accessRights "PUBLIC" ;
-dcterms:identifier "MinorOuterDiameter" ;
+dcterms:identifier "BendStiffenerSectionMinorOuterDiameter" ;
 skos:definition "Minor (final) outer diameter of the section"@en ;
 skos:definition "Diâmetro externo menor (final) da seção"@pt-br ;
 skos:prefLabel "Minor outer diameter"@en ;
@@ -26835,8 +26797,8 @@ edo:RiserSupportType edo:ifc_valueType "IfcText" .
 
 
 edo:MaxBendingRadius edo:ifc_valueType "IfcLengthMeasure" .
-edo:MajorOuterDiameter edo:ifc_valueType "IfcLengthMeasure" .
-edo:MinorOuterDiameter edo:ifc_valueType "IfcLengthMeasure" .
+edo:BendStiffenerSectionMajorOuterDiameter edo:ifc_valueType "IfcLengthMeasure" .
+edo:BendStiffenerSectionMinorOuterDiameter edo:ifc_valueType "IfcLengthMeasure" .
 
 edo:AnodeCollarSet edo:hasAttribute edo:InnerDiameter .
 edo:AnodeCollarSet edo:hasAttribute edo:OuterDiameter .
@@ -26966,3 +26928,37 @@ edo:hasExternalRef "MDA:azimuth" .
 
 edo:Azimuth edo:ifc_valueType "IfcPlaneAngleMeasure" .
 edo:RiserSupportAzimuth edo:ifc_valueType "IfcPlaneAngleMeasure" .
+
+###  https://w3id.org/energy-domain/edo#Function
+edo:Function rdf:type owl:Class ;
+             rdfs:subClassOf edo:DomainAttribute ;
+             dcterms:accessRights "PUBLIC" ;
+             dcterms:identifier "Function" ;
+             skos:definition "Especifica o tipo ou variante funcional do objeto"@pt-br ,
+                         "Specifies the type or functional variant of the object."@en ;
+              skos:prefLabel "Especifica o tipo ou variante funcional do objeto"@pt-br ,
+                        "Specifies the type or functional variant of the object"@en ;
+             edo:hasAttributeScope edo:TypeLevelAttribute ;
+             edo:hasExternalRef "DF:2.1" ;
+             edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+             edo:hasTypedValue edo:StringValue ;
+             edo:hasValueCardinality edo:SingleValue ;
+             edo:ifc_valueType "IfcText" .
+
+
+###  https://w3id.org/energy-domain/edo#BendStiffenerSectionLength
+edo:BendStiffenerSectionLength rdf:type owl:Class ;
+rdfs:subClassOf edo:SectionGeometriesAttribute ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "BendStiffenerSectionLength" ;
+skos:prefLabel "Length"@en ;
+skos:prefLabel "Comprimento"@pt-br ;
+edo:hasAttributeScope edo:TypeLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:FloatValue ;
+edo:hasValueCardinality edo:MultiValue ;
+edo:hasUnit unit:MilliM ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:section_geometries[].length" .
+
+edo:BendStiffenerSectionLength edo:ifc_valueType "IfcLengthMeasure" .
