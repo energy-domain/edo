@@ -1687,11 +1687,11 @@ edo:AxialStiffnessUnderTensionAtSeaLevel rdf:type owl:Class ;
                                          edo:ifc_valueType "IfcForceMeasure" .
 
 
-###  https://w3id.org/energy-domain/edo#Azimuth
-edo:Azimuth rdf:type owl:Class ;
+###  https://w3id.org/energy-domain/edo#InstallationAzimuth
+edo:InstallationAzimuth rdf:type owl:Class ;
             rdfs:subClassOf edo:_CAT-Location ;
             dcterms:accessRights "PUBLIC" ;
-            dcterms:identifier "Azimuth" ;
+            dcterms:identifier "InstallationAzimuth" ;
             skos:definition "Azimute de instalação do equipamento em relação ao Norte verdadeiro, considerando um eixo de referência em seu sistema de coordenadas."@pt-br ,
                             "Equipment installation azimuth with respect to true North, considering some reference axis in its coordinate system."@en ;
             skos:prefLabel "Azimute de Instalação"@pt-br ,
@@ -5388,7 +5388,7 @@ edo:EquipmentLocation rdf:type owl:Class ;
                       skos:prefLabel "Equipment Location"@en ,
                                      "Localização de Equipamento"@pt-br ;
                       edo:entityStatus "NEW" ;
-                      edo:hasAttribute edo:Azimuth ,
+                      edo:hasAttribute edo:InstallationAzimuth ,
                                        edo:HasSafetyFunction ,
                                        edo:InstallationDate ,
                                        edo:NumUnits ,
@@ -26313,12 +26313,8 @@ edo:entityStatus "NEW" ;
 edo:hasExternalRef "MDA:position.z" .
 
 
-edo:RiserSupport edo:hasAttribute edo:FpuSlot, edo:RiserFunction, edo:PositionX, edo:PositionY, edo:PositionZ, edo:TopAngle, edo:Azimuth .
-
+edo:RiserSupport edo:hasAttribute edo:FpuSlot, edo:RiserFunction, edo:PositionX, edo:PositionY, edo:PositionZ, edo:TopAngle .
 edo:FixedSupport edo:hasAttribute edo:FlangeType .
-
-edo:AnchorLocation edo:hasAttribute edo:Azimuth .
-
 edo:AnchoringCollar edo:hasAttribute edo:RecurrentWorkingLoad, edo:AbnormalWorkingLoad .
 
 ###  https://w3id.org/energy-domain/edo#RecurrentWorkingLoad 
@@ -26790,7 +26786,7 @@ edo:FilletRadius rdfs:subClassOf edo:LockingInterfaceParamsAttribute .
 
 edo:CurvedPipeSection edo:hasAttribute edo:InnerDiameter .
 
-edo:MooringLine	edo:hasAttribute edo:Azimuth .
+
 
 
 ###  https://w3id.org/energy-domain/edo#UpstreamInnerDiameter 
@@ -26928,3 +26924,45 @@ edo:hasExternalRef "MDA:mbr" .
 edo:BuoyancyModule edo:hasAttribute edo:BuoyancyModuleMinBendingRadius .
 
 edo:BuoyancyModuleMinBendingRadius edo:ifc_valueType "IfcLengthMeasure" .
+
+
+
+edo:RiserSupport edo:hasAttribute edo:RiserSupportAzimuth .
+edo:AnchorLocation edo:hasAttribute edo:Azimuth .
+edo:MooringLine	edo:hasAttribute edo:Azimuth .
+edo:DynamicUmbilicalSection edo:hasAttribute edo:RiserAzimuth .
+
+###  https://w3id.org/energy-domain/edo#RiserSupportAzimuth
+edo:RiserSupportAzimuth rdf:type owl:Class ;
+rdfs:subClassOf edo:_CAT-Specification ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "RiserSupportAzimuth" ;
+skos:definition "Support azimuth angle, with respect to FPU longitudinal (stern-to-bow) axis; positive (+) clockwise, looking down"@en ;
+skos:definition "Ângulo de azimute do suporte, em relação ao eixo longitudinal (popa-proa) da UEP; positivo (+) no sentido horário, olhando-se de cima para baixo"@pt-br ;
+skos:prefLabel "Azimuth"@en ;
+skos:prefLabel "Azimute"@pt-br ;
+edo:hasAttributeScope edo:InstanceLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:FloatValue ;
+edo:hasValueCardinality edo:SingleValue ;
+edo:hasUnit unit:DEG ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:azimuth" .
+
+###  https://w3id.org/energy-domain/edo#Azimuth 
+edo:Azimuth rdf:type owl:Class ;
+rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+dcterms:accessRights "PUBLIC" ;
+dcterms:identifier "Azimuth" ;
+skos:prefLabel "Azimuth"@en ;
+skos:prefLabel "Azimute"@pt-br ;
+edo:hasAttributeScope edo:InstanceLevelAttribute ;
+edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+edo:hasTypedValue edo:FloatValue ;
+edo:hasValueCardinality edo:SingleValue ;
+edo:hasUnit unit:DEG ;
+edo:entityStatus "NEW" ;
+edo:hasExternalRef "MDA:azimuth" .
+
+edo:Azimuth edo:ifc_valueType "IfcPlaneAngleMeasure" .
+edo:RiserSupportAzimuth edo:ifc_valueType "IfcPlaneAngleMeasure" .
