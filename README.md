@@ -231,9 +231,6 @@ Transitional semantic artifacts must remain subject to their defined restriction
 
 - [EDO Repository](https://github.com/energy-domain/edo)
 - [EDO Documentation](docs/index.md)
-- [Governance Methodology Repository](https://github.com/cross-domain-semantics/governance)
-- [Ontology Release Process](https://github.com/cross-domain-semantics/governance/blob/main/methodology/edo/edo-release-process.md)
-- [Open BIM IFC Data Contract Publication Methodology](https://github.com/cross-domain-semantics/governance/tree/main/methodology/data-contract-publication)
 - [buildingSMART International](https://www.buildingsmart.org/)
 - [W3C Semantic Web Standards](https://www.w3.org/standards/semanticweb/)
 
