@@ -549,3 +549,40 @@ edo:FabricationComponent rdf:type owl:Class ;
 -                            "Service"@en ;
 +                            "Indicates the Type of Service"@en ;
 ```
+
+## Updated (correção de tipos de valor — 2026-11-12)
+
+Substituído `edo:IntValue` por `edo:FloatValue` nos três atributos abaixo para
+permitir valores fracionários, seguindo o padrão da ontologia para medidas de
+ângulo e comprimento. Os tipos IFC, unidades, cardinalidades e hierarquia foram
+preservados.
+
+### edo:TensionerPadsOpeningAngle
+
+```diff
+- edo:hasTypedValue edo:IntValue ;
++ edo:hasTypedValue edo:FloatValue ;
+  edo:hasUnit unit:DEG ;
+  edo:hasValueCardinality edo:SingleValue ;
+  edo:ifc_valueType "IfcPlaneAngleMeasure" .
+```
+
+### edo:InternalIncidentalPressureTable_VPosWRTWaterline
+
+```diff
+- edo:hasTypedValue edo:IntValue ;
++ edo:hasTypedValue edo:FloatValue ;
+  edo:hasUnit unit:M ;
+  edo:hasValueCardinality edo:MultiValue ;
+  edo:ifc_valueType "IfcLengthMeasure" .
+```
+
+### edo:MaxDesignAbsIntPresTable_VPosWRTWaterline
+
+```diff
+- edo:hasTypedValue edo:IntValue ;
++ edo:hasTypedValue edo:FloatValue ;
+  edo:hasUnit unit:M ;
+  edo:hasValueCardinality edo:MultiValue ;
+  edo:ifc_valueType "IfcLengthMeasure" .
+```
