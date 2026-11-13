@@ -865,10 +865,10 @@ ex:Rule_UmbilicalStructure a sh:NodeShape ;
         sh:in ( "WATER_INJECTION" "GAS_INJECTION" "OIL_PRODUCTION_LINE" "GAS_PRODUCER" "SERVICE" "GAS_PIPELINE" )
     ] .
 
-ex:Rule_FrictionCoeffSheathArmor a sh:NodeShape ;
+ex:Rule_FrictionCoeffSheathUnderlyingLayer a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment, edo:UmbilicalStructure, edo:FlexiblePipeStructure ;
     sh:property [
-        sh:path edo:FrictionCoeffSheathArmor ;
+        sh:path edo:FrictionCoeffSheathUnderlyingLayer ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
@@ -1162,7 +1162,7 @@ ex:Rule_SubseaUmbilical_3 a sh:NodeShape ;
     ] .			      
 
 
-ex:Rule_PipeSegment a sh:NodeShape ;
+ex:Rule_fluid a sh:NodeShape ;
     sh:targetClass edo:PipeSegment ;
     sh:property [
         sh:path edo:DesignFluid ;
@@ -2649,7 +2649,7 @@ ex:Rule_ThermalExpansionCoeff a sh:NodeShape ;
     ] .
 
 ex:Rule_PoissonRatio a sh:NodeShape ;
-    sh:targetClass edo:ExternalConcreteCoating , edo:ExternalPolymericCoating , edo:InternalPolymericLiner , edo:InternalMetallicLiner , edo:InternalCladding , edo:FieldJointCoating , edo:ExternalPolymericCoatingMaterial , edo:FieldJointCoatingMaterial , edo:InternalCladdingMaterial , edo:InternalMetallicLinerMaterial , edo:InternalPolymericLinerMaterial ;
+    sh:targetClass edo:PolymericMaterial, edo:MetallicMaterial, edo:ExternalConcreteCoating , edo:ExternalPolymericCoating , edo:InternalPolymericLiner , edo:InternalMetallicLiner , edo:InternalCladding , edo:FieldJointCoating , edo:ExternalPolymericCoatingMaterial , edo:FieldJointCoatingMaterial , edo:InternalCladdingMaterial , edo:InternalMetallicLinerMaterial , edo:InternalPolymericLinerMaterial ;
     sh:property [
         sh:path edo:PoissonRatio ;
         sh:in ( "Fractional number" ) ;
@@ -3535,7 +3535,7 @@ ex:Rule_flexible_pipe_design_norm a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] ;
     sh:property [
-        sh:path edo:FatMaxPress ;
+        sh:path edo:MaxFatPressure ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] ;
     sh:property [
@@ -3543,7 +3543,7 @@ ex:Rule_flexible_pipe_design_norm a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] ;
     sh:property [
-        sh:path edo:FatNomPress ;
+        sh:path edo:ActualFatPressure ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] ;
     sh:property [
@@ -3642,7 +3642,7 @@ ex:Rule_flexible_segment_status a sh:NodeShape ;
 ex:Rule_flexible_pipe_application a sh:NodeShape ;
     sh:targetClass edo:FlexibleStructure, edo:FlexiblePipeSegment ;
     sh:property [
-        sh:path edo:StructureApplicationsList ;
+        sh:path edo:StructureApplicationsList, edo:PipeSegmentApplication ;
         sh:in ( "FLOWLINE" "RISER" "BOTTOM_RISER" "INTERMEDIATE_RISER" "TOP_RISER" "ANY" )
     ] .    
 
@@ -4718,16 +4718,16 @@ ex:Rule_ConeAngle a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
-ex:Rule_AxialStiffnessUnderCompressionAtSeaLevel a sh:NodeShape ;
+ex:Rule_AxialStiffnessCompression a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment ;
     sh:property [
-        sh:path edo:AxialStiffnessUnderCompressionAtSeaLevel ;
+        sh:path edo:AxialStiffnessCompression ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
-ex:Rule_AxialStiffnessUnderTensionAtSeaLevel a sh:NodeShape ;
+ex:Rule_AxialStiffnessTension a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment ;
     sh:property [
-        sh:path edo:AxialStiffnessUnderTensionAtSeaLevel ;
+        sh:path edo:AxialStiffnessTension ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
@@ -4773,24 +4773,24 @@ ex:Rule_FreeAnnulusVolume a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
-ex:Rule_FrictionCoefBetweenPipeAndTensioner a sh:NodeShape ;
+ex:Rule_FrictionCoeffSheathTensioner a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment ;
     sh:property [
-        sh:path edo:FrictionCoefBetweenPipeAndTensioner ;
+        sh:path edo:FrictionCoeffSheathTensioner ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
-ex:Rule_HydrostaticCollapseAbsPressDry a sh:NodeShape ;
+ex:Rule_CollapsePressureIntact a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment ;
     sh:property [
-        sh:path edo:HydrostaticCollapseAbsPressDry ;
+        sh:path edo:CollapsePressureIntact ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
-ex:Rule_HydrostaticCollapseAbsPressWet a sh:NodeShape ;
+ex:Rule_CollapsePressureFlooded a sh:NodeShape ;
     sh:targetClass edo:FlexiblePipeSegment ;
     sh:property [
-        sh:path edo:HydrostaticCollapseAbsPressWet ;
+        sh:path edo:CollapsePressureFlooded ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .
 
@@ -5150,18 +5150,11 @@ ex:Rule_TapeTensileStrength a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .    
 
-ex:Rule_ElasticityModulusAt23Degrees a sh:NodeShape ;
-    sh:targetClass edo:PolymericMaterial, edo:MetallicMaterial;
+ex:Rule_ElasticityModulus a sh:NodeShape ;
+    sh:targetClass edo:FlexibleStructureLayerMaterial ;
     sh:property [
-        sh:path edo:ElasticityModulusAt23Degrees ;
+        sh:path edo:ElasticityModulus ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
-    ] .
-
-ex:Rule_PoissonRatioAt23Degrees a sh:NodeShape ;
-    sh:targetClass edo:PolymericMaterial, edo:MetallicMaterial;
-    sh:property [
-        sh:path edo:PoissonRatioAt23Degrees ;
-        sh:in ( "Fractional number" ) ;
     ] .
 
 
@@ -5206,3 +5199,11 @@ ex:Rule_RambergOsgoodYieldStrength a sh:NodeShape ;
         sh:path edo:RambergOsgoodYieldStrength ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
     ] .                
+
+ex:Rule_structure_function a sh:NodeShape ;
+    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:property [
+        sh:path edo:StructureFunctionList ;
+        sh:in ( "OIL_PRODUCTION" "GAS_PRODUCTION" "GAS_INJECTION" "WATER_INJECTION" "GAS_EXPORT" "OIL_EXPORT" "SERVICE" "GAS_LIFT" "CHEMICAL_INJECTION" ) ;
+    ] .
+
