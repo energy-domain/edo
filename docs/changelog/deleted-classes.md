@@ -171,3 +171,11 @@ edo:FlexibleStructureServicesList rdf:type owl:Class ;
                                   edo:hasTypedValue edo:StringValue ;
                                   edo:hasValueCardinality edo:MultiValue ;
                                   edo:ifc_valueType "IfcText" .
+
+
+###  https://w3id.org/energy-domain/edo#FactoryAcceptanceHydrostaticTestAttribute
+edo:FactoryAcceptanceHydrostaticTestAttribute rdf:type owl:Class ;
+                                              rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
+                                              edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                                              edo:hasExternalRef "DF:2.1" ;
+                                              edo:hasLifecycleCreationPhase edo:DetailedDesign .
