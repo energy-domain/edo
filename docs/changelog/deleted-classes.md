@@ -136,3 +136,20 @@ edo:ConsumableRingGasket rdf:type owl:Class ;
                          edo:ifc_equivalentClass "IfcMechanicalFastener" ;
                          edo:ifc_objectType "ConsumableRingGasket" ;
                          edo:ifc_predefinedType "USERDEFINED" .
+
+### Excluído com base em reunião com Murilo de revisão do modelo de flexíveis 3.0 no dia 16/11/2026
+###  https://w3id.org/energy-domain/edo#PipeSegmentApplication
+edo:PipeSegmentApplication rdf:type owl:Class ;
+                           rdfs:subClassOf edo:DomainAttribute ;
+                           dcterms:accessRights "PUBLIC" ;
+                           dcterms:identifier "PipeSegmentApplication" ;
+                           skos:definition "Indica a aplicação específica do tramo de tubulação flexível no sistema de interligação, categorizando-o conforme sua função ou posição no riser ou na flowline."@pt-br ,
+                                           "Indicates the specific application of the flexible pipe segment in the interconnection system, categorizing it based on its role or position within the riser or flowline."@en ;
+                           skos:prefLabel "Aplicação do Tramo"@pt-br ,
+                                          "Pipe Segment Application"@en ;
+                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
+                           edo:hasExternalRef "DF:2.1" ;
+                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
+                           edo:hasTypedValue edo:StringValue ;
+                           edo:hasValueCardinality edo:SingleValue ;
+                           edo:ifc_valueType "IfcText" .
