@@ -172,13 +172,6 @@ edo:FlexibleStructureServicesList rdf:type owl:Class ;
                                   edo:ifc_valueType "IfcText" .
 
 
-###  https://w3id.org/energy-domain/edo#FactoryAcceptanceHydrostaticTestAttribute
-edo:FactoryAcceptanceHydrostaticTestAttribute rdf:type owl:Class ;
-                                              rdfs:subClassOf edo:HydrostaticPressureTestsAttribute ;
-                                              edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                                              edo:hasExternalRef "DF:2.1" ;
-                                              edo:hasLifecycleCreationPhase edo:DetailedDesign .
-
 ## Decidido em reunião interna de revisão do modelo de 3.0 junto com Flávio, Marcus, Nicolas e Fernando, no dia 17/11/2026
 ###  https://w3id.org/energy-domain/edo#ThreadStandard
 edo:ThreadStandard rdf:type owl:Class ;
