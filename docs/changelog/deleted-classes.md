@@ -189,3 +189,22 @@ edo:ThreadStandard rdf:type owl:Class ;
                    edo:hasTypedValue edo:StringValue ;
                    edo:hasValueCardinality edo:SingleValue ;
                    edo:ifc_valueType "IfcText" .
+
+
+###  https://w3id.org/energy-domain/edo#InternalDiameter
+edo:InternalDiameter rdf:type owl:Class ;
+                     rdfs:subClassOf edo:_CAT-Specification ;
+                     dcterms:accessRights "PUBLIC" ;
+                     dcterms:identifier "InternalDiameter" ;
+                     skos:definition "Distance measured across the innermost points, passing through the center."@en ,
+                                     "Distância medida entre os pontos mais internos, passando pelo centro."@pt-br ;
+                     skos:prefLabel "Diâmetro Interno"@pt-br ,
+                                    "Internal Diameter"@en ;
+                     edo:hasAttributeScope edo:TypeLevelAttribute ;
+                     edo:hasExternalRef "MDA:inner_diameter" ;
+                     edo:hasLifecycleCreationPhase edo:BasicDesign ,
+                                                   edo:DetailedDesign ;
+                     edo:hasTypedValue edo:FloatValue ;
+                     edo:hasUnit unit:M ;
+                     edo:hasValueCardinality edo:SingleValue ;
+                     edo:ifc_valueType "IfcLengthMeasure" .
