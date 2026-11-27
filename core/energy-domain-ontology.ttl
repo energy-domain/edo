@@ -927,7 +927,7 @@ edo:Altitude rdf:type owl:Class ;
                             "Altitude"@pt-br ;
              edo:entityStatus "NEW" ;
              edo:hasAttributeScope edo:InstanceLevelAttribute ;
-             edo:hasExternalRef "MDA:altitude" ;
+             edo:hasExternalRef "MDA:position.altitude" ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
              edo:hasUnit unit:M ;
@@ -1230,7 +1230,7 @@ edo:AnpActNumber rdf:type owl:Class ;
                  edo:entityStatus "NEW" ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
                  edo:hasExternalRef "MDA:anp_act_number" ;
-                 edo:hasLifecycleCreationPhase edo:edo:Operation ;
+                 edo:hasLifecycleCreationPhase edo:Operation ;
                  edo:hasTypedValue edo:IntValue ;
                  edo:hasValueCardinality edo:SingleValue .
 
@@ -1247,7 +1247,7 @@ edo:AnpActType rdf:type owl:Class ;
                edo:entityStatus "NEW" ;
                edo:hasAttributeScope edo:TypeLevelAttribute ;
                edo:hasExternalRef "MDA:anp_act_type" ;
-               edo:hasLifecycleCreationPhase edo:edo:Operation ;
+               edo:hasLifecycleCreationPhase edo:Operation ;
                edo:hasTypedValue edo:StringValue ;
                edo:hasValueCardinality edo:SingleValue .
 
@@ -1404,6 +1404,7 @@ edo:ArmorPot rdf:type owl:Class ;
              edo:hasAttribute edo:GrooveSupportAttribute ,
                               edo:RearSupportAttribute ;
              edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+             edo:hasExternalRef "MDA:ArmorPot" ;
              edo:hasSpec edo:FlangeBoltingSpec ;
              edo:ifc_equivalentClass "IfcPipeFitting" ;
              edo:ifc_objectType "ArmorPot" ;
@@ -1664,7 +1665,8 @@ edo:AxialStiffness rdf:type owl:Class ;
                    skos:prefLabel "Axial Stiffness"@en ,
                                   "Rigidez Axial"@pt-br ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
-                   edo:hasExternalRef "MDA:axial_stiffness" ;
+                   edo:hasExternalRef "MDA:axial_stiffness" ,
+                                      "MDA:structural_params.axial_stiffness" ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
                    edo:hasUnit unit:KiloN ;
@@ -1946,6 +1948,7 @@ edo:BendRestrictor rdf:type owl:Class ;
                                     edo:WeightInWater ;
                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                      edo:SubseaUmbilicalsEngineering ;
+                   edo:hasExternalRef "MDA:BendRestrictor" ;
                    edo:hasSpec edo:BoltingSpec ,
                                edo:RingMaterialSpec ;
                    edo:ifc_equivalentClass "IfcPipeFitting" ;
@@ -2005,6 +2008,7 @@ edo:BendStiffener rdf:type owl:Class ;
                                    edo:InnerDiameter ,
                                    edo:SectionGeometriesAttribute ,
                                    edo:WeightInWater ;
+                  edo:hasExternalRef "MDA:BendStiffener" ;
                   edo:hasSpec edo:BoltingSpec ,
                               edo:StiffenerMaterialSpec .
 
@@ -2416,7 +2420,8 @@ edo:BoltingSpec rdf:type owl:Class ;
                                  edo:BoltType ,
                                  edo:Lubricant ,
                                  edo:LubricantFrictionFactor ,
-                                 edo:TighteningTorque .
+                                 edo:TighteningTorque ;
+                edo:hasExternalRef "MDA:bolting" .
 
 
 ###  https://w3id.org/energy-domain/edo#BonnetMaterial
@@ -2684,7 +2689,8 @@ edo:BurstPressure rdf:type owl:Class ;
                   skos:prefLabel "Burst Pressure"@en ,
                                  "Pressão de Estouro"@pt-br ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
-                  edo:hasExternalRef "MDA:structural_params.burst_pressure" ;
+                  edo:hasExternalRef "MDA:burst_pressure" ,
+                                     "MDA:structural_params.burst_pressure" ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
                   edo:hasUnit unit:MPa ;
@@ -4110,7 +4116,8 @@ edo:Coupling rdf:type owl:Class ;
                              "Classe-base para componentes de terminação de cabos, mangueiras, etc., permitindo conexão a outros componentes ou sistemas."@pt-br ;
              skos:prefLabel "Acoplamento"@pt-br ,
                             "Coupling"@en ;
-             edo:hasAttribute edo:TemperatureRangeAttribute .
+             edo:hasAttribute edo:TemperatureRangeAttribute ;
+             edo:hasExternalRef "MDA:Coupling" .
 
 
 ###  https://w3id.org/energy-domain/edo#Creator
@@ -4208,6 +4215,23 @@ edo:CrushingFrictionCoefficientTighteningAttribute rdf:type owl:Class ;
 ###  https://w3id.org/energy-domain/edo#CrushingFrictionCoefficientTighteningTableColumn
 edo:CrushingFrictionCoefficientTighteningTableColumn rdf:type owl:Class ;
                                                      rdfs:subClassOf edo:CrushingFrictionCoefficientTighteningAttribute .
+
+
+###  https://w3id.org/energy-domain/edo#CrushingLoad
+edo:CrushingLoad rdf:type owl:Class ;
+                 rdfs:subClassOf edo:_CAT-TechnicalDetail ;
+                 dcterms:accessRights "PUBLIC" ;
+                 dcterms:identifier "CrushingLoad" ;
+                 skos:definition "Carga máxima de compressão por unidade de comprimento, para cada sapata do tensionador."@pt-br ,
+                                 "Maximum compressive load per unit length for each tensioner pad."@en ;
+                 skos:prefLabel "Carga de esmagamento"@pt-br ,
+                                "Crushing load"@en ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:structural_params.crushing_load" ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:KiloN-PER-M ;
+                 edo:hasValueCardinality edo:SingleValue ;
+                 edo:ifc_valueType "IfcLinearForceMeasure" .
 
 
 ###  https://w3id.org/energy-domain/edo#CrushingMaxAllowableTensionAttribute
@@ -4443,6 +4467,7 @@ edo:DeadweightCollar rdf:type owl:Class ;
                                       edo:SafeWorkingLoad ;
                      edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                        edo:SubseaUmbilicalsEngineering ;
+                     edo:hasExternalRef "MDA:DeadweightCollar" ;
                      edo:ifc_equivalentClass "IfcPipeFitting" ;
                      edo:ifc_objectType "DeadweightCollar" ;
                      edo:ifc_predefinedType "USERDEFINED" .
@@ -4676,7 +4701,8 @@ edo:Diameter rdf:type owl:Class ;
                             "Diâmetro"@pt-br ;
              edo:entityStatus "NEW" ;
              edo:hasAttributeScope edo:TypeLevelAttribute ;
-             edo:hasExternalRef "MDA:diameter" ;
+             edo:hasExternalRef "MDA:diameter" ,
+                                "MDA:locking_interface_params.diameter" ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
              edo:hasUnit unit:MilliM ;
@@ -5165,8 +5191,13 @@ edo:DynamicUmbilicalSection rdf:type owl:Class ;
                                             "Trecho de umbilical suspenso, sujeito continuamente a esforços dinâmicos."@pt-br ;
                             skos:prefLabel "Dynamic Umbilical Span"@en ,
                                            "Trecho Dinâmico de Umbilical"@pt-br ;
-                            edo:hasAttribute edo:RiserAzimuth ;
-                            edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
+                            edo:hasAttribute edo:MaxDensityGeometryAttribute ,
+                                             edo:MinDensityGeometryAttribute ,
+                                             edo:NominalGeometryAttribute ,
+                                             edo:RiserAzimuth ,
+                                             edo:RiserConfiguration ;
+                            edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                            edo:hasExternalRef "MDA:DynamicUmbilicalSection" .
 
 
 ###  https://w3id.org/energy-domain/edo#EModVsTempTableAttribute
@@ -5528,6 +5559,7 @@ edo:ElectricalCable rdf:type owl:Class ;
                                      edo:OverallShieldingType ,
                                      edo:VoltageRatingAttribute ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                    edo:hasExternalRef "MDA:ElectricalCable" ;
                     edo:ifc_equivalentClass "IfcCableSegment" ;
                     edo:ifc_objectType "ElectricalCable" ;
                     edo:ifc_predefinedType "USERDEFINED" .
@@ -5831,7 +5863,9 @@ edo:EnvelopedBodyDiameter rdf:type owl:Class ;
                                          "Enveloped body diameter"@en ;
                           edo:entityStatus "NEW" ;
                           edo:hasAttributeScope edo:TypeLevelAttribute ;
-                          edo:hasExternalRef "MDA:collar_support.body_diameter" ;
+                          edo:hasExternalRef "MDA:collar_support.body_diameter" ,
+                                             "MDA:groove_support.body_diameter" ,
+                                             "MDA:rear_support.body_diameter" ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
                           edo:hasUnit unit:MilliM ;
@@ -6666,6 +6700,7 @@ edo:Filler rdf:type owl:Class ;
                           "Filler"@en ,
                           "Preenchimento"@pt-br ;
            edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+           edo:hasExternalRef "MDA:Filler" ;
            edo:ifc_equivalentClass "IfcPipeSegment" ;
            edo:ifc_objectType "Filler" ;
            edo:ifc_predefinedType "USERDEFINED" .
@@ -7044,7 +7079,8 @@ edo:FlangeType rdf:type owl:Class ;
                skos:prefLabel "Flange Type"@en ,
                               "Tipo de Flange"@pt-br ;
                edo:hasAttributeScope edo:TypeLevelAttribute ;
-               edo:hasExternalRef "MDA:flange_spec.type" ;
+               edo:hasExternalRef "MDA:flange_spec.type" ,
+                                  "MDA:flange_type" ;
                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                edo:hasTypedValue edo:StringValue ;
                edo:hasValueCardinality edo:SingleValue ;
@@ -7218,8 +7254,7 @@ edo:FlexiblePipeStructure rdf:type owl:Class ;
                                            edo:ThermalExchangeCoefficientFlooded ,
                                            edo:ThermalExchangeCoefficientIntact ,
                                            edo:UnspoolingTension ,
-                                           edo:WorkingTension ;
-                          edo:hasExternalRef "MDA:structural_params" .
+                                           edo:WorkingTension .
 
 
 ###  https://w3id.org/energy-domain/edo#FlexibleSegmentStatus
@@ -7805,7 +7840,10 @@ edo:FluidDensity rdf:type owl:Class ;
                                 "Fluid Density"@en ;
                  edo:entityStatus "NEW" ;
                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                 edo:hasExternalRef "MDA:fluid_density" ;
+                 edo:hasExternalRef "MDA:fluid_density" ,
+                                    "MDA:riser_params.max_density_geometry_params.fluid_density" ,
+                                    "MDA:riser_params.min_density_geometry_params.fluid_density" ,
+                                    "MDA:riser_params.nominal_geometry_params.fluid_density" ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:KiloGM-PER-M3 ;
@@ -8309,7 +8347,8 @@ edo:FunctionLine rdf:type owl:Class ;
                                 "Linha de Função"@pt-br ;
                  edo:hasAttribute edo:DestinationPigtailLength ,
                                   edo:MinBendingRadius ,
-                                  edo:SourcePigtailLength .
+                                  edo:SourcePigtailLength ;
+                 edo:hasExternalRef "MDA:FunctionLine" .
 
 
 ###  https://w3id.org/energy-domain/edo#FunctionalAttribute
@@ -8350,7 +8389,8 @@ edo:GalvanicMaterial rdf:type owl:Class ;
                      skos:prefLabel "Galvanic Material"@en ,
                                     "Material Galvânico"@pt-br ;
                      edo:hasAttributeScope edo:TypeLevelAttribute ;
-                     edo:hasExternalRef "DF:2.1" ;
+                     edo:hasExternalRef "DF:2.1" ,
+                                        "MDA:anode_material" ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:StringValue ;
                      edo:hasValueCardinality edo:SingleValue ;
@@ -8393,7 +8433,8 @@ edo:Gender rdf:type owl:Class ;
                           "Gênero"@pt-br ;
            edo:entityStatus "NEW" ;
            edo:hasAttributeScope edo:TypeLevelAttribute ;
-           edo:hasExternalRef "MDA:hose_fitting_spec.gender" ;
+           edo:hasExternalRef "MDA:fitting_spec.gender" ,
+                              "MDA:hose_fitting_spec.gender" ;
            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
            edo:hasTypedValue edo:StringValue ;
            edo:hasValueCardinality edo:SingleValue .
@@ -8412,7 +8453,7 @@ edo:GeodeticDatum rdf:type owl:Class ;
                                  "Geodetic Datum"@en ;
                   edo:entityStatus "NEW" ;
                   edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                  edo:hasExternalRef "MDA:datum" ;
+                  edo:hasExternalRef "MDA:position.coordinate_system.datum" ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:StringValue ;
                   edo:hasValueCardinality edo:SingleValue ;
@@ -8690,6 +8731,7 @@ edo:HCRHose rdf:type owl:Class ;
             skos:prefLabel "HCR Hose"@en ,
                            "Mangueira HCR"@pt-br ;
             edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+            edo:hasExternalRef "MDA:HCRHose" ;
             edo:ifc_equivalentClass "IfcPipeSegment" ;
             edo:ifc_objectType "HCRHose" ;
             edo:ifc_predefinedType "USERDEFINED" .
@@ -8738,6 +8780,7 @@ edo:HandlingCollar rdf:type owl:Class ;
                                     edo:SafeWorkingLoad ;
                    edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                      edo:SubseaUmbilicalsEngineering ;
+                   edo:hasExternalRef "MDA:HandlingCollar" ;
                    edo:ifc_equivalentClass "IfcPipeFitting" ;
                    edo:ifc_objectType "HandlingCollar" ;
                    edo:ifc_predefinedType "USERDEFINED" .
@@ -8784,7 +8827,8 @@ edo:HangOffCollar rdf:type owl:Class ;
                                    edo:InnerDiameter ,
                                    edo:MaxDynamicLoad ,
                                    edo:SpoolTieinHeight ,
-                                   edo:UpperITubeDiameter .
+                                   edo:UpperITubeDiameter ;
+                  edo:hasExternalRef "MDA:HangOffCollar" .
 
 
 ###  https://w3id.org/energy-domain/edo#HardwareItem
@@ -9028,7 +9072,7 @@ edo:HighVoltageTestDC rdf:type owl:Class ;
                       skos:prefLabel "High Voltage DC Test Value"@en ,
                                      "Valor do Teste de Alta Tensão DC"@pt-br ;
                       edo:hasAttributeScope edo:TypeLevelAttribute ;
-                      edo:hasExternalRef "MDA:XXX" ;
+                      edo:hasExternalRef "LOIN" ;
                       edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                       edo:hasTypedValue edo:FloatValue ;
                       edo:hasUnit unit:KiloV ;
@@ -9059,7 +9103,10 @@ edo:HogElevation rdf:type owl:Class ;
                                 "Hog Elevation"@en ;
                  edo:entityStatus "NEW" ;
                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                 edo:hasExternalRef "MDA:hog_elevation" ;
+                 edo:hasExternalRef "MDA:hog_elevation" ,
+                                    "MDA:riser_params.max_density_geometry_params.hog_elevation" ,
+                                    "MDA:riser_params.min_density_geometry_params.hog_elevation" ,
+                                    "MDA:riser_params.nominal_geometry_params.hog_elevation" ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:M ;
@@ -9101,7 +9148,8 @@ edo:HoleDiameter rdf:type owl:Class ;
                                 "Hole Diameter"@en ;
                  edo:entityStatus "NEW" ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
-                 edo:hasExternalRef "MDA:hole_diameter" ;
+                 edo:hasExternalRef "MDA:hole_diameter" ,
+                                    "MDA:padeye_params.hole_diameter" ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:MilliM ;
@@ -10164,6 +10212,7 @@ edo:IntegratedPipe rdf:type owl:Class ;
                                   "Integrated Pipe"@en ,
                                   "Tubo Integrado"@pt-br ;
                    edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                   edo:hasExternalRef "MDA:IntegratedPipe" ;
                    edo:ifc_equivalentClass "IfcPipeSegment" ;
                    edo:ifc_objectType "IntegratedPipe" ;
                    edo:ifc_predefinedType "USERDEFINED" .
@@ -10369,6 +10418,7 @@ edo:IntermediateBendStiffener rdf:type owl:Class ;
                               edo:hasAttribute edo:CompatibleEndFittings ;
                               edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                                 edo:SubseaUmbilicalsEngineering ;
+                              edo:hasExternalRef "MDA:IntermediateBendStiffener" ;
                               edo:ifc_equivalentClass "IfcPipeFitting" ;
                               edo:ifc_objectType "IntermediateBendStiffener" ;
                               edo:ifc_predefinedType "USERDEFINED" .
@@ -10879,7 +10929,8 @@ edo:Jumper rdf:type owl:Class ;
                           "Signal/Control Jumper"@en ;
            edo:hasAttribute edo:Mass ,
                             edo:MaxDepth ,
-                            edo:NumWays .
+                            edo:NumWays ;
+           edo:hasExternalRef "MDA:Jumper" .
 
 
 ###  https://w3id.org/energy-domain/edo#JumperConnector
@@ -10972,7 +11023,7 @@ edo:Latitude rdf:type owl:Class ;
                             "Latitude"@pt-br ;
              edo:entityStatus "NEW" ;
              edo:hasAttributeScope edo:InstanceLevelAttribute ;
-             edo:hasExternalRef "MDA:latitude" ;
+             edo:hasExternalRef "MDA:position.latitude" ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
              edo:hasUnit unit:DEG ;
@@ -11573,7 +11624,8 @@ edo:LineSegmentTermination rdf:type owl:Class ;
                            skos:prefLabel "Line Segment Termination"@en ,
                                           "Terminação de Tramo"@pt-br ;
                            edo:hasAttribute edo:OuterDiameter ,
-                                            edo:WeightInWater .
+                                            edo:WeightInWater ;
+                           edo:hasExternalRef "MDA:LineSegmentTermination" .
 
 
 ###  https://w3id.org/energy-domain/edo#LineSupport
@@ -11681,6 +11733,20 @@ edo:LinearOverrideTool rdf:type owl:Class ;
                        edo:ifc_predefinedType "USERDEFINED" .
 
 
+###  https://w3id.org/energy-domain/edo#LinearWeight
+edo:LinearWeight rdf:type owl:Class ;
+                 rdfs:subClassOf edo:_CAT-PhysicalCharacteristic ;
+                 dcterms:identifier "LinearWeight" ;
+                 skos:prefLabel "Basic linear weight"@en ,
+                                "Peso linear básico"@pt-br ;
+                 edo:hasAttributeScope edo:TypeLevelAttribute ;
+                 edo:hasExternalRef "MDA:linear_weight" ;
+                 edo:hasTypedValue edo:FloatValue ;
+                 edo:hasUnit unit:KiloGM_F-PER-M ;
+                 edo:hasValueCardinality edo:SingleValue ;
+                 edo:ifc_valueType "IfcLinearForceMeasure" .
+
+
 ###  https://w3id.org/energy-domain/edo#LinearWeightEmptyInAir
 edo:LinearWeightEmptyInAir rdf:type owl:Class ;
                            rdfs:subClassOf edo:DomainAttribute ;
@@ -11711,7 +11777,8 @@ edo:LinearWeightEmptySubmerged rdf:type owl:Class ;
                                               "Peso Linear, Vazia, Submersa"@pt-br ;
                                edo:entityStatus "NEW" ;
                                edo:hasAttributeScope edo:TypeLevelAttribute ;
-                               edo:hasExternalRef "MDA:linear_weight_empty_submerged" ;
+                               edo:hasExternalRef "MDA:linear_weight_empty_submerged" ,
+                                                  "MDA:structural_params.linear_weight_submerged" ;
                                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                edo:hasTypedValue edo:FloatValue ;
                                edo:hasUnit unit:KiloGM_F-PER-M ;
@@ -11766,7 +11833,8 @@ edo:LinearWeightFilledSubmerged rdf:type owl:Class ;
                                 skos:prefLabel "Linear Weight, Filled, Submerged"@en ,
                                                "Peso Linear, Preenchido, Submerso"@pt-br ;
                                 edo:hasAttributeScope edo:TypeLevelAttribute ;
-                                edo:hasExternalRef "MDA:linear_weight_filled_submerged" ;
+                                edo:hasExternalRef "MDA:linear_weight_filled_submerged" ,
+                                                   "MDA:structural_params.linear_weight_filled_submerged" ;
                                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                 edo:hasTypedValue edo:FloatValue ;
                                 edo:hasUnit unit:KiloGM_F-PER-M ;
@@ -12041,7 +12109,7 @@ edo:Longitude rdf:type owl:Class ;
                              "Longitude"@pt-br ;
               edo:entityStatus "NEW" ;
               edo:hasAttributeScope edo:InstanceLevelAttribute ;
-              edo:hasExternalRef "MDA:longitude" ;
+              edo:hasExternalRef "MDA:position.longitude" ;
               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
               edo:hasTypedValue edo:FloatValue ;
               edo:hasUnit unit:DEG ;
@@ -12403,8 +12471,7 @@ edo:Mass rdf:type owl:Class ;
          edo:hasExternalRef "MDA:mass" ;
          edo:hasLifecycleCreationPhase edo:DetailedDesign ;
          edo:hasTypedValue edo:FloatValue ;
-         edo:hasUnit unit:KiloGM ,
-                     edo:KiloGM ;
+         edo:hasUnit unit:KiloGM ;
          edo:hasValueCardinality edo:SingleValue ;
          edo:ifc_valueType "IfcMassMeasure" .
 
@@ -12481,7 +12548,9 @@ edo:Material rdf:type owl:Class ;
                             "Material"@pt-br ;
              edo:entityStatus "NEW" ;
              edo:hasAttributeScope edo:TypeLevelAttribute ;
-             edo:hasExternalRef "MDA:material" ;
+             edo:hasExternalRef "MDA:material" ,
+                                "MDA:ring_material_spec.material" ,
+                                "MDA:stiffener_material_spec.material" ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:StringValue ;
              edo:hasValueCardinality edo:SingleValue ;
@@ -13177,7 +13246,8 @@ edo:MaxAxialForce rdf:type owl:Class ;
                                  "Maximum axial force"@en ;
                   edo:entityStatus "NEW" ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
-                  edo:hasExternalRef "MDA:normal_load.max_axial_force" ;
+                  edo:hasExternalRef "MDA:extreme_load.max_axial_force" ,
+                                     "MDA:normal_load.max_axial_force" ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
                   edo:hasUnit unit:KiloN ;
@@ -13199,7 +13269,9 @@ edo:MaxBendingMoment rdf:type owl:Class ;
                                     "Momento fletor máximo"@pt-br ;
                      edo:entityStatus "NEW" ;
                      edo:hasAttributeScope edo:TypeLevelAttribute ;
-                     edo:hasExternalRef "MDA:normal_load.max_bending_moment" ;
+                     edo:hasExternalRef "MDA:design_loads.max_bending_moment" ,
+                                        "MDA:extreme_load.max_bending_moment" ,
+                                        "MDA:normal_load.max_bending_moment" ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:FloatValue ;
                      edo:hasUnit unit:KiloN-M ;
@@ -13691,7 +13763,8 @@ edo:MaxInsertInnerDiameter rdf:type owl:Class ;
                            skos:prefLabel "Diâmetro Interno Máximo do Inserto"@pt-br ,
                                           "Maximum Insert Inner Diameter"@en ;
                            edo:hasAttributeScope edo:TypeLevelAttribute ;
-                           edo:hasExternalRef "max_insert_inner_diameter" ;
+                           edo:hasExternalRef "MDA:groove_support.max_insert_inner_diameter" ,
+                                              "MDA:rear_support.max_insert_inner_diameter" ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
                            edo:hasUnit unit:MilliM ;
@@ -14221,7 +14294,9 @@ edo:MaxShearForce rdf:type owl:Class ;
                                  "Maximum shear force"@en ;
                   edo:entityStatus "NEW" ;
                   edo:hasAttributeScope edo:TypeLevelAttribute ;
-                  edo:hasExternalRef "MDA:normal_load.max_shear_force" ;
+                  edo:hasExternalRef "MDA:design_loads.max_shear_force" ,
+                                     "MDA:extreme_load.max_shear_force" ,
+                                     "MDA:normal_load.max_shear_force" ;
                   edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
                   edo:hasUnit unit:KiloN ;
@@ -14337,7 +14412,8 @@ edo:MaxTemperature rdf:type owl:Class ;
                    skos:prefLabel "Maximum Operating Temperature"@en ,
                                   "Temperatura Máxima de Operação"@pt-br ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
-                   edo:hasExternalRef "MDA:max_temperature" ;
+                   edo:hasExternalRef "MDA:max_temperature" ,
+                                      "MDA:temperature_range.max_temperature" ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
                    edo:hasUnit unit:DEG_C ;
@@ -14900,6 +14976,7 @@ edo:MetallicTubing rdf:type owl:Class ;
                    skos:prefLabel "Metallic Tubing"@en ,
                                   "Tubulação Metálica"@pt-br ;
                    edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                   edo:hasExternalRef "MDA:MetallicTubing" ;
                    edo:ifc_equivalentClass "IfcPipeSegment" ;
                    edo:ifc_objectType "MetallicTubing" ;
                    edo:ifc_predefinedType "USERDEFINED" .
@@ -15473,7 +15550,9 @@ edo:MinBendingRadius rdf:type owl:Class ;
                      skos:prefLabel "Minimum Bending Radius"@en ,
                                     "Raio de Curvatura Mínimo"@pt-br ;
                      edo:hasAttributeScope edo:TypeLevelAttribute ;
-                     edo:hasExternalRef "MDA:mbr" ;
+                     edo:hasExternalRef "MDA:mbr" ,
+                                        "MDA:min_bending_radius" ,
+                                        "MDA:structural_params.mbr" ;
                      edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                      edo:hasTypedValue edo:FloatValue ;
                      edo:hasUnit unit:M ;
@@ -15704,7 +15783,8 @@ edo:MinInsertInnerDiameter rdf:type owl:Class ;
                            skos:prefLabel "Diâmetro Interno Mínimo do Inserto"@pt-br ,
                                           "Minimum Insert Inner Diameter"@en ;
                            edo:hasAttributeScope edo:TypeLevelAttribute ;
-                           edo:hasExternalRef "MDA:min_insert_inner_diameter" ;
+                           edo:hasExternalRef "MDA:groove_support.min_insert_inner_diameter" ,
+                                              "MDA:rear_support.min_insert_inner_diameter" ;
                            edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                            edo:hasTypedValue edo:FloatValue ;
                            edo:hasUnit unit:MilliM ;
@@ -15929,7 +16009,8 @@ edo:MinTemperature rdf:type owl:Class ;
                    skos:prefLabel "Minimum Operation Temperature"@en ,
                                   "Temperatura Mínima de Operação"@pt-br ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
-                   edo:hasExternalRef "MDA:min_temperature" ;
+                   edo:hasExternalRef "MDA:min_temperature" ,
+                                      "MDA:temperature_range.min_temperature" ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:FloatValue ;
                    edo:hasUnit unit:DEG_C ;
@@ -16410,7 +16491,8 @@ edo:NominalLength rdf:type owl:Class ;
                   skos:prefLabel "Comprimento Nominal"@pt-br ,
                                  "Nominal Length"@en ;
                   edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                  edo:hasExternalRef "DF:2.1" ;
+                  edo:hasExternalRef "DF:2.1" ,
+                                     "MDA:length" ;
                   edo:hasLifecycleCreationPhase edo:BasicDesign ,
                                                 edo:DetailedDesign ;
                   edo:hasTypedValue edo:FloatValue ;
@@ -16429,7 +16511,7 @@ edo:NominalOperatingFrequencyPower rdf:type owl:Class ;
                                    skos:prefLabel "Frequência Nominal De Operação Para Transmissão De Energia"@en ,
                                                   "Nominal Operating Frequency For Power Transmission"@pt-br ;
                                    edo:hasAttributeScope edo:TypeLevelAttribute ;
-                                   edo:hasExternalRef "MDA:XXX" ;
+                                   edo:hasExternalRef "LOIN" ;
                                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                    edo:hasTypedValue edo:FloatValue ;
                                    edo:hasValueCardinality edo:SingleValue .
@@ -16445,7 +16527,7 @@ edo:NominalOperatingFrequencySignal rdf:type owl:Class ;
                                     skos:prefLabel "Frequência Nominal De Operação Para Transmissão De Sinal"@en ,
                                                    "Nominal Operating Frequency For Signal Transmission"@pt-br ;
                                     edo:hasAttributeScope edo:TypeLevelAttribute ;
-                                    edo:hasExternalRef "MDA:XXX" ;
+                                    edo:hasExternalRef "LOIN" ;
                                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                                     edo:hasTypedValue edo:FloatValue ;
                                     edo:hasUnit unit:KiloV ;
@@ -17283,6 +17365,7 @@ edo:OpticalFiberCable rdf:type owl:Class ;
                                        edo:FiberType ,
                                        edo:NumFibers ;
                       edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                      edo:hasExternalRef "MDA:OpticalFiberCable" ;
                       edo:ifc_equivalentClass "IfcCableSegment" ;
                       edo:ifc_objectType "OpticalFiberCable" ;
                       edo:ifc_predefinedType "USERDEFINED" .
@@ -17296,6 +17379,7 @@ edo:OpticalJumper rdf:type owl:Class ;
                   skos:prefLabel "Jumper ótico"@pt-br ,
                                  "Optical jumper"@en ;
                   edo:entityStatus "NEW" ;
+                  edo:hasAttribute edo:AssemblyType ;
                   edo:hasDiscipline edo:SubseaUmbilicalsEngineering ,
                                     edo:WetChristmasTreesEngineering ;
                   edo:hasExternalRef "MDA:OpticalJumper" ;
@@ -18395,6 +18479,7 @@ edo:PlasticHose rdf:type owl:Class ;
                 skos:prefLabel "Mangueira Plástica"@pt-br ,
                                "Plastic Hose"@en ;
                 edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                edo:hasExternalRef "MDA:PlasticHose" ;
                 edo:ifc_equivalentClass "IfcPipeSegment" ;
                 edo:ifc_objectType "PlasticHose" ;
                 edo:ifc_predefinedType "USERDEFINED" .
@@ -18725,6 +18810,7 @@ edo:PowerRating rdf:type owl:Class ;
                 edo:hasExternalRef "MDA:power_rating" ;
                 edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                 edo:hasTypedValue edo:FloatValue ;
+                edo:hasUnit unit:KiloVA ;
                 edo:hasValueCardinality edo:SingleValue .
 
 
@@ -19242,6 +19328,7 @@ edo:PullInCollar rdf:type owl:Class ;
                                   edo:WireRopeSlingLength ;
                  edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                    edo:SubseaUmbilicalsEngineering ;
+                 edo:hasExternalRef "MDA:PullInCollar" ;
                  edo:ifc_equivalentClass "IfcPipeFitting" ;
                  edo:ifc_objectType "PullInCollar" ;
                  edo:ifc_predefinedType "USERDEFINED" .
@@ -20523,7 +20610,8 @@ edo:RingMaterialSpec rdf:type owl:Class ;
                      skos:prefLabel "Especificação do material das vértebras"@pt-br ,
                                     "Ring material specification"@en ;
                      edo:hasAttribute edo:Material ,
-                                      edo:YoungModulus .
+                                      edo:YoungModulus ;
+                     edo:hasExternalRef "MDA:ring_material_spec" .
 
 
 ###  https://w3id.org/energy-domain/edo#RiserAzimuth
@@ -21047,7 +21135,9 @@ edo:SafeWorkingLoad rdf:type owl:Class ;
                     skos:prefLabel "Carga Máxima Segura de Trabalho"@pt-br ,
                                    "Safe Working Load"@en ;
                     edo:hasAttributeScope edo:TypeLevelAttribute ;
-                    edo:hasExternalRef "MDA:swl" ;
+                    edo:hasExternalRef "MDA:groove_support.swl" ,
+                                       "MDA:rear_support.swl" ,
+                                       "MDA:swl" ;
                     edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                     edo:hasTypedValue edo:FloatValue ;
                     edo:hasUnit unit:TONNE_F ;
@@ -21078,7 +21168,10 @@ edo:SagElevation rdf:type owl:Class ;
                                 "Sag Elevation"@en ;
                  edo:entityStatus "NEW" ;
                  edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                 edo:hasExternalRef "MDA:sag_elevation" ;
+                 edo:hasExternalRef "MDA:riser_params.max_density_geometry_params.sag_elevation" ,
+                                    "MDA:riser_params.min_density_geometry_params.sag_elevation" ,
+                                    "MDA:riser_params.nominal_geometry_params.sag_elevation" ,
+                                    "MDA:sag_elevation" ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:M ;
@@ -22055,7 +22148,8 @@ edo:SpecificMass rdf:type owl:Class ;
                  skos:prefLabel "Equivalent Specific Mass"@en ,
                                 "Massa Específica Equivalente"@pt-br ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
-                 edo:hasExternalRef "MDA:material_spec.specific_mass" ;
+                 edo:hasExternalRef "MDA:material_spec.specific_mass" ,
+                                    "MDA:structural_params.specific_mass" ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:KiloGM-PER-M3 ;
@@ -22375,7 +22469,8 @@ edo:StaticUmbilicalSection rdf:type owl:Class ;
                                            "Unsuspended umbilical span, laid over or under ground."@en ;
                            skos:prefLabel "Static Umbilical Span"@en ,
                                           "Trecho Estático de Umbilical"@pt-br ;
-                           edo:hasDiscipline edo:SubseaUmbilicalsEngineering .
+                           edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                           edo:hasExternalRef "MDA:StaticUmbilicalSection" .
 
 
 ###  https://w3id.org/energy-domain/edo#Status
@@ -22520,7 +22615,8 @@ edo:StiffenerMaterialSpec rdf:type owl:Class ;
                           skos:prefLabel "Especificação do material do enrijecedor"@pt-br ,
                                          "Stiffener material specification"@en ;
                           edo:hasAttribute edo:Material ,
-                                           edo:YoungModulus .
+                                           edo:YoungModulus ;
+                          edo:hasExternalRef "MDA:stiffener_material_spec" .
 
 
 ###  https://w3id.org/energy-domain/edo#StiffnessCurveAttribute
@@ -22619,6 +22715,7 @@ edo:StopperCollar rdf:type owl:Class ;
                                    edo:OuterDiameter ;
                   edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                     edo:SubseaUmbilicalsEngineering ;
+                  edo:hasExternalRef "MDA:StoppingCollar" ;
                   edo:ifc_equivalentClass "IfcPipeFitting" ;
                   edo:ifc_objectType "StopperCollar" ;
                   edo:ifc_predefinedType "USERDEFINED" .
@@ -23185,6 +23282,7 @@ edo:SubseaUmbilical rdf:type owl:Class ;
                                    "Umbilical Submarino"@pt-br ;
                     edo:hasAttribute edo:UmbilicalFunctions ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                    edo:hasExternalRef "MDA:Umbilical" ;
                     edo:ifc_equivalentClass "IfcBuilding" ;
                     edo:ifc_objectType "SubseaUmbilical" ;
                     edo:ifc_predefinedType "USERDEFINED" .
@@ -23691,7 +23789,10 @@ edo:TdpDepth rdf:type owl:Class ;
                             "TDP Depth"@en ;
              edo:entityStatus "NEW" ;
              edo:hasAttributeScope edo:InstanceLevelAttribute ;
-             edo:hasExternalRef "MDA:riser_params.tdp_depth" ;
+             edo:hasExternalRef "MDA:riser_params.max_density_geometry_params.tdp_depth" ,
+                                "MDA:riser_params.min_density_geometry_params.tdp_depth" ,
+                                "MDA:riser_params.nominal_geometry_params.tdp_depth" ,
+                                "MDA:riser_params.tdp_depth" ;
              edo:hasLifecycleCreationPhase edo:DetailedDesign ;
              edo:hasTypedValue edo:FloatValue ;
              edo:hasUnit unit:M ;
@@ -23713,7 +23814,10 @@ edo:TdpHorizontalDistance rdf:type owl:Class ;
                                          "TDP Horizontal Distance"@en ;
                           edo:entityStatus "NEW" ;
                           edo:hasAttributeScope edo:InstanceLevelAttribute ;
-                          edo:hasExternalRef "MDA:riser_params.tdp_horizontal_distance" ;
+                          edo:hasExternalRef "MDA:riser_params.max_density_geometry_params.tdp_horizontal_distance" ,
+                                             "MDA:riser_params.min_density_geometry_params.tdp_horizontal_distance" ,
+                                             "MDA:riser_params.nominal_geometry_params.tdp_horizontal_distance" ,
+                                             "MDA:riser_params.tdp_horizontal_distance" ;
                           edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                           edo:hasTypedValue edo:FloatValue ;
                           edo:hasUnit unit:M ;
@@ -23745,7 +23849,8 @@ edo:TechnicalNotes rdf:type owl:Class ;
                    skos:prefLabel "Notas Técnicas"@pt-br ,
                                   "Technical Notes"@en ;
                    edo:hasAttributeScope edo:TypeLevelAttribute ;
-                   edo:hasExternalRef "MDA:remarks" ;
+                   edo:hasExternalRef "MDA:groove_support.remarks" ,
+                                      "MDA:rear_support.remarks" ;
                    edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                    edo:hasTypedValue edo:StringValue ;
                    edo:hasValueCardinality edo:SingleValue ;
@@ -24007,7 +24112,8 @@ edo:TestPressure rdf:type owl:Class ;
                  skos:prefLabel "Pressão de Teste"@pt-br ,
                                 "Test Pressure"@en ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
-                 edo:hasExternalRef "MDA:structural_params.test_pressure" ;
+                 edo:hasExternalRef "MDA:structural_params.test_pressure" ,
+                                    "MDA:test_pressure" ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:MPa ;
@@ -24176,7 +24282,8 @@ edo:Thickness rdf:type owl:Class ;
                              "Thickness"@en ;
               edo:entityStatus "NEW" ;
               edo:hasAttributeScope edo:TypeLevelAttribute ;
-              edo:hasExternalRef "MDA:thickness" ;
+              edo:hasExternalRef "MDA:padeye_params.thickness" ,
+                                 "MDA:thickness" ;
               edo:hasLifecycleCreationPhase edo:DetailedDesign ;
               edo:hasTypedValue edo:FloatValue ;
               edo:hasUnit unit:MilliM ;
@@ -24259,7 +24366,8 @@ edo:ThreadType rdf:type owl:Class ;
                               "Tipo de Rosca"@pt-br ;
                edo:entityStatus "NEW" ;
                edo:hasAttributeScope edo:TypeLevelAttribute ;
-               edo:hasExternalRef "MDA:hose_fitting_spec.thread_type" ;
+               edo:hasExternalRef "MDA:fitting_spec.thread_type" ,
+                                  "MDA:hose_fitting_spec.thread_type" ;
                edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                edo:hasTypedValue edo:StringValue ;
                edo:hasValueCardinality edo:SingleValue .
@@ -24480,6 +24588,7 @@ edo:TopBendStiffener rdf:type owl:Class ;
                                       edo:RiserSupportType ;
                      edo:hasDiscipline edo:SubseaFlexiblePipesEngineering ,
                                        edo:SubseaUmbilicalsEngineering ;
+                     edo:hasExternalRef "MDA:TopBendStiffener" ;
                      edo:ifc_equivalentClass "IfcPipeFitting" ;
                      edo:ifc_objectType "TopBendStiffener" ;
                      edo:ifc_predefinedType "USERDEFINED" .
@@ -24818,7 +24927,8 @@ edo:Tubing rdf:type owl:Class ;
                             edo:LinearWeightFilledAir ,
                             edo:LinearWeightFilledSubmerged ,
                             edo:MaxContinuousOperatingPressure ,
-                            edo:TestPressure .
+                            edo:TestPressure ;
+           edo:hasExternalRef "MDA:Tubing" .
 
 
 ###  https://w3id.org/energy-domain/edo#TubingCoupling
@@ -24830,7 +24940,8 @@ edo:TubingCoupling rdf:type owl:Class ;
                    skos:prefLabel "Acoplamento de Tubulação"@pt-br ,
                                   "Tubing Coupling"@en ;
                    edo:hasAttribute edo:Length ,
-                                    edo:MaxDesignPressure .
+                                    edo:MaxDesignPressure ;
+                   edo:hasExternalRef "MDA:TubingCoupling" .
 
 
 ###  https://w3id.org/energy-domain/edo#TubingHanger
@@ -25052,6 +25163,7 @@ edo:UmbilicalBundle rdf:type owl:Class ;
                                      edo:LayDirection ,
                                      edo:UmbilicalBundleOuterDiameter ;
                     edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                    edo:hasExternalRef "MDA:UmbilicalBundle" ;
                     edo:ifc_equivalentClass "IfcPipeSegmentType" ;
                     edo:ifc_objectType "UmbilicalBundle" ;
                     edo:ifc_predefinedType "USERDEFINED" .
@@ -25082,8 +25194,9 @@ edo:UmbilicalComponent rdf:type owl:Class ;
                        skos:prefLabel "Componente Umbilical"@pt-br ,
                                       "Componente de Umbilical"@pt-br ,
                                       "Umbilical Component"@en ;
-                       edo:hasAttribute edo:LinearWeightEmptyInAir ,
-                                        edo:OuterDiameter .
+                       edo:hasAttribute edo:LinearWeight ,
+                                        edo:OuterDiameter ;
+                       edo:hasExternalRef "MDA:UmbilicalComponent" .
 
 
 ###  https://w3id.org/energy-domain/edo#UmbilicalFunctions
@@ -25129,7 +25242,8 @@ edo:UmbilicalSection rdf:type owl:Class ;
                      rdfs:subClassOf edo:LineSection ;
                      dcterms:identifier "UmbilicalSection" ;
                      skos:prefLabel "Trecho de Umbilical"@pt-br ,
-                                    "Umbilical Span"@en .
+                                    "Umbilical Span"@en ;
+                     edo:hasExternalRef "MDA:UmbilicalSection" .
 
 
 ###  https://w3id.org/energy-domain/edo#UmbilicalSegment
@@ -25140,15 +25254,16 @@ edo:UmbilicalSegment rdf:type owl:Class ;
                      skos:prefLabel "Tramo de Umbilical"@pt-br ,
                                     "Umbilical Segment"@en ;
                      edo:hasAttribute edo:AssemblyShouldObeyModelPolarity ,
+                                      edo:DeliveryDate ,
                                       edo:FlexibleSegmentStatus ,
                                       edo:MainDesignNorm ,
-                                      edo:ManufacturingDate ,
                                       edo:ManufacturingNonConformities ,
                                       edo:MaxLengthTolerance ,
-                                      edo:SpecialRequirements ,
                                       edo:StdUmbilicalType ,
                                       edo:StructureApplication ;
                      edo:hasDiscipline edo:SubseaUmbilicalsEngineering ;
+                     edo:hasExternalRef "MDA:UmbilicalSegment" ;
+                     edo:hasSpec edo:UmbilicalStructure ;
                      edo:ifc_equivalentClass "UmbilicalSegment" ;
                      edo:ifc_objectType "IfcPipeSegment" ;
                      edo:ifc_predefinedType "USERDEFINED" .
@@ -25166,13 +25281,14 @@ edo:UmbilicalStructure rdf:type owl:Class ;
                        edo:hasAttribute edo:AxialStiffness ,
                                         edo:BendingStiffnessStorage ,
                                         edo:BreakingTension ,
+                                        edo:CrushingLoad ,
                                         edo:DamagingPullInStraightLine ,
                                         edo:DamagingTension ,
                                         edo:ExternalLinearVolume ,
                                         edo:FrictionCoeffSheathTensioner ,
                                         edo:FrictionCoeffSheathUnderlyingLayer ,
                                         edo:LimpTorsionalStiffnessAtStorage ,
-                                        edo:LinearWeight ,
+                                        edo:LinearWeightEmptyInAir ,
                                         edo:LinearWeightEmptySubmerged ,
                                         edo:LinearWeightFilledInAir ,
                                         edo:LinearWeightFilledSubmerged ,
@@ -26190,7 +26306,9 @@ edo:YoungModulus rdf:type owl:Class ;
                                 "Young Modulus"@en ;
                  edo:entityStatus "NEW" ;
                  edo:hasAttributeScope edo:TypeLevelAttribute ;
-                 edo:hasExternalRef "MDA:young_modulus" ;
+                 edo:hasExternalRef "MDA:ring_material_spec.young_modulus" ,
+                                    "MDA:stiffener_material_spec.young_modulus" ,
+                                    "MDA:young_modulus" ;
                  edo:hasLifecycleCreationPhase edo:DetailedDesign ;
                  edo:hasTypedValue edo:FloatValue ;
                  edo:hasUnit unit:GPa ;
@@ -26568,17 +26686,17 @@ unit:KiloN-M-PER-DEG rdf:type owl:NamedIndividual ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:M
                                         ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
-                                        [ qudt:exponent 1 ;
-                                          qudt:hasUnit unit:M
-                                        ] ,
                                         [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:DEG
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
+                                        ] ,
+                                        [ qudt:exponent 1 ;
+                                          qudt:hasUnit unit:M
                                         ] ;
                      qudt:hasQuantityKind edo:MomentPerPlaneAngle ;
                      qudt:symbol "kN·m/°" ;
@@ -27281,10 +27399,10 @@ edo:M3-PER-M rdf:type owl:NamedIndividual ,
                       edo:DomainUnit ;
              qudt:conversionMultiplier 1.0 ;
              qudt:definedUnitOfSystem sou:SI ;
-             qudt:hasFactorUnit [ qudt:exponent 3 ;
+             qudt:hasFactorUnit [ qudt:exponent -1 ;
                                   qudt:hasUnit unit:M
                                 ] ,
-                                [ qudt:exponent -1 ;
+                                [ qudt:exponent 3 ;
                                   qudt:hasUnit unit:M
                                 ] ;
              qudt:hasQuantityKind qudt:VolumePerLength ;
@@ -27301,6 +27419,15 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                      qudt:conversionMultiplier 1.0 ;
                      qudt:definedUnitOfSystem sou:SI ;
                      qudt:hasFactorUnit [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:SEC
+                                        ] ,
+                                        [ qudt:exponent -1 ;
+                                          qudt:hasUnit unit:PA
+                                        ] ,
+                                        [ qudt:exponent -1 ;
                                           qudt:hasUnit unit:SEC
                                         ] ,
                                         [ qudt:exponent -1 ;
@@ -27308,15 +27435,6 @@ edo:MOL-PER-M-SEC-PA rdf:type owl:NamedIndividual ,
                                         ] ,
                                         [ qudt:exponent 1 ;
                                           qudt:hasUnit unit:MOL
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:SEC
-                                        ] ,
-                                        [ qudt:exponent -1 ;
-                                          qudt:hasUnit unit:PA
                                         ] ;
                      qudt:hasQuantityKind qudt:MolarFluxPerPressure ;
                      qudt:symbol "mol/(m·s·Pa)" ;
