@@ -196,7 +196,7 @@ ex:Rule_ElectricalCable_ExternalShieldingType a sh:NodeShape ;
         sh:in ( "NONE" "BRAIDED" "FOIL" "BOTH" )
     ] .
 
-ex:Rule_OpticalFiberCable_FiberType a sh:NodeShape ;
+ex:Rule_optical_fiber_type a sh:NodeShape ;
     sh:targetClass edo:OpticalFiberCable ;
     sh:property [
         sh:path edo:FiberType ;
@@ -240,10 +240,6 @@ ex:Rule_ThreadedFitting_FittingSpec_ThreadType a sh:NodeShape ;
 
 ex:Rule_AnodeCollarSet a sh:NodeShape ;
     sh:targetClass edo:AnodeCollarSet ;
-    sh:property [
-        sh:path edo:GalvanicMaterial ;
-        sh:in ( "ALUMINIUM" "ZINC" "MAGNESIUM" )
-    ] ;
     sh:property [
         sh:path edo:AnodeCollarsAxialSpacing ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -310,7 +306,7 @@ ex:Rule_Mass_FractionalNumber a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_ElectricalCable a sh:NodeShape ;
+ex:Rule_em_shield_type a sh:NodeShape ;
     sh:targetClass edo:ElectricalCable ;
     sh:property [
         sh:path edo:GroupShieldingType, edo:OverallShieldingType ;
@@ -834,7 +830,7 @@ ex:Rule_umbilical_bundle_lay_direction a sh:NodeShape ;
     sh:targetClass edo:UmbilicalBundle ;
     sh:property [
         sh:path edo:LayDirection ;
-        sh:in ( "CLOCKWISE" "COUNTER_CLOCKWISE" "CENTRAL" )
+        sh:in ( "CW" "CCW" "NONE" )
     ] .
 
 ex:Rule_LinearWeight a sh:NodeShape ;
@@ -849,13 +845,6 @@ ex:Rule_UmbilicalComponent_2 a sh:NodeShape ;
     sh:property [
         sh:path edo:LinearWeightSeawater ;
         sh:in ( "Fractional number (≥ 0.0)" )
-    ] .
-
-ex:Rule_UmbilicalSegment a sh:NodeShape ;
-    sh:targetClass edo:UmbilicalSegment ;
-    sh:property [
-        sh:path edo:FlexibleSegmentStatus ;
-        sh:in ( "ONSHORE_STORAGE" "VESSEL_STORAGE" "SUBSEA_STORAGE" "LAID" "IN_OPERATION" "OUT_OF_OPERATION" "UNINSTALLED" )
     ] .
 
 ex:Rule_UmbilicalStructure a sh:NodeShape ;
@@ -970,8 +959,8 @@ ex:Rule_UnspoolingTension a sh:NodeShape ;
         sh:in ( "Fractional number (≥ 0.0)" )
     ] .
 
-ex:Rule_UmbilicalStructure_22 a sh:NodeShape ;
-    sh:targetClass edo:StructureApplication ;
+ex:Rule_umbilical_application a sh:NodeShape ;
+    sh:targetClass edo:UmbilicalSegment ;
     sh:property [
         sh:path edo:StructureApplication ;
         sh:in ( "STATIC" "DYNAMIC" "ANY" )
@@ -1192,20 +1181,8 @@ ex:Rule_rigid_pipe_weld_sn_curve a sh:NodeShape ;
         sh:in ( "B1" "B2" "C" "C1" "C2" "D" "E" "F" "F1" "F3" "G" "W1" "W2" "W3" )
     ] .                              
 
-
-ex:Rule_SacrificialAnode a sh:NodeShape ;
-    sh:targetClass edo:SacrificialAnode  ;
-    sh:property [
-        sh:path edo:AnodeMaterial ;
-        sh:in ( "ALUMINUM" "ZINC" "OTHER" )
-    ] .     
-
 ex:Rule_AnodeSled a sh:NodeShape ;
     sh:targetClass edo:AnodeSled ;
-    sh:property [
-        sh:path edo:AnodeMaterial ;
-        sh:in ( "ALUMINUM" "ZINC" "OTHER" )
-    ] ;
     sh:property [
         sh:path edo:TotalAnodeMass ;
         sh:in ( "Fractional number (≥ 0.0)" )
@@ -1320,12 +1297,15 @@ ex:Rule_RigidRiserTopConnector a sh:NodeShape ;
     ] .
     
 
-ex:Rule_Interconnection a sh:NodeShape ;
+ex:Rule_interconnection_status a sh:NodeShape ;
     sh:targetClass edo:Interconnection ;
     sh:property [
         sh:path edo:InterconnectionStatus ;
         sh:in ( "DESIGN" "CONSTRUCTION" "OPERATION" "LIFE_EXTENSION" "END_OF_LIFE" "OUT_OF_OPERATION" "DEACTIVATED_TEMP" "DEACTIVATED_PERM" "REMOVED"  ) ;
-    ] ;
+    ] .
+
+ex:Rule_Interconnection a sh:NodeShape ;
+    sh:targetClass edo:Interconnection ;
 	sh:property [
         sh:path edo:AnpActType ;
         sh:in ( "AUTORIZACAO_CONSTRUCAO" "AUTORIZACAO_OPERACAO" "SUMARIO_PROJETO" "PLANO_DESENVOLVIMENTO" "AUT_INICIO_ATIV_ANTECIPADA" "PERMISSAO_CONSTRUCAO" "PERMISSAO_OPERACAO"  ) ;
@@ -1496,17 +1476,18 @@ ex:Rule_OnSensitiveArea a sh:NodeShape ;
         sh:in ( "TRUE" "FALSE" )
     ] .        
 
-
+ex:Rule_geodetic_crs a sh:NodeShape ;
+    sh:targetClass edo:PointLocation ;
+    sh:property [
+        sh:path edo:GeodeticDatum ;
+        sh:in ( "WGS_84" "SIRGAS_2000" ) 
+    ] .
 
 ex:Rule_PointLocation a sh:NodeShape ;
     sh:targetClass edo:PointLocation ;
     sh:property [
         sh:path edo:Altitude ;
         sh:in ( "Fractional number" ) 
-    ] ;
-    sh:property [
-        sh:path edo:GeodeticDatum ;
-        sh:in ( "WGS_84" "SIRGAS_2000" ) 
     ] ;
     sh:property [
         sh:path edo:Latitude ;
@@ -1687,11 +1668,6 @@ ex:Rule_MinBreakingLoad a sh:NodeShape ;
     ] .
 
 ex:Rule_BraceletAnode a sh:NodeShape ;
-    sh:targetClass edo:BraceletAnode  ;
-    sh:property [
-        sh:path edo:AnodeMaterial ;
-        sh:in ( "ALUMINUM" "ZINC" "OTHER" )
-    ] ;
     sh:property [
         sh:path edo:InnerDiameter ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
@@ -1743,7 +1719,9 @@ ex:Rule_UniformPipeSegment a sh:NodeShape ;
     ] .   
 
 ex:Rule_flange_type a sh:NodeShape ;
-    sh:targetClass edo:FlangeMountedSensor, edo:LineTerminationModule, edo:PipePullingHead, edo:HangOffAdaptor, edo:ProcessValve, edo:StressJoint, edo:Flange, edo:FlangeAdapter, edo:HangOffCollar, edo:UmbilicalPullingHead, edo:PipePullingHead, edo:RigidRiserTopConnector, edo:FlowConnector, edo:PullInTube, edo:EndFitting, edo:ITubeHangOffCollar, edo:FixedSupport ;
+    sh:targetClass edo:EndFitting, edo:FixedSupport, edo:Flange, edo:FlangeAdapter, edo:FlangeMountedSensor, 
+        edo:FlowConnector, edo:HangOffAdaptor, edo:ITubeHangOffCollar, edo:LineTerminationModule, edo:PipePullingHead, 
+        edo:ProcessValve, edo:PullInTube, edo:RigidRiserTopConnector, edo:StressJoint, edo:UmbilicalPullingHead ;
     sh:property [
         sh:path edo:FlangeType, edo:SupportFlangeType ;
         sh:in ( "NONE" "API_6B_2_1/16_2000_PSI" "API_6B_2_9/16_2000_PSI" "API_6B_3_1/8_2000_PSI" "API_6B_4_1/16_2000_PSI" "API_6B_5_1/8_2000_PSI" "API_6B_7_1/16_2000_PSI" "API_6B_9_2000_PSI" "API_6B_11_2000_PSI" "API_6B_13_5/8_2000_PSI" 
@@ -3632,7 +3610,7 @@ ex:Rule_flexible_pipe_design_norm a sh:NodeShape ;
     ] .
 
 ex:Rule_flexible_segment_status a sh:NodeShape ;
-    sh:targetClass edo:FlexiblePipeSegment ;
+    sh:targetClass edo:FlexiblePipeSegment, edo:UmbilicalSegment ;
     sh:property [
         sh:path edo:FlexibleSegmentStatus ;
         sh:in ( "ONSHORE_STORAGE" "VESSEL_STORAGE" "SUBSEA_STORAGE" "LAID" "IN_OPERATION" "OUT_OF_OPERATION" "UNINSTALLED" )
@@ -3839,7 +3817,7 @@ ex:Rule_MinBendingRadius_mm a sh:NodeShape ;
     ] .    
 
 ex:Rule_jumper_assembly_type a sh:NodeShape ;
-    sh:targetClass edo:ElectricalJumper, edo:ElectricalPowerJumper ;
+    sh:targetClass edo:ElectricalJumper, edo:ElectricalPowerJumper, edo:OpticalJumper ;
     sh:property [
         sh:path edo:AssemblyType ;
         sh:in ( "SIMPLE_CABLE" "FLUID_FILLED" "OTHER" )
@@ -5229,4 +5207,11 @@ ex:Rule_MaxContinuousOperatingPressure_MPa a sh:NodeShape ;
         sh:path edo:MaxContinuousOperatingPressure ;
         sh:in ( "Fractional number (≥ 0.0)" ) ;
         edo:hasUnit unit:MPa ;
+    ] .
+
+ex:Rule_anode_material a sh:NodeShape ;
+    sh:targetClass edo:AnodeSled, edo:SacrificialAnode, edo:BraceletAnode, edo:AnodeCollarSet ;
+    sh:property [
+        sh:path edo:AnodeMaterial, edo:GalvanicMaterial ;
+        sh:in ( "ALUMINUM" "ZINC" "MAGNESIUM" "OTHER" )
     ] .
